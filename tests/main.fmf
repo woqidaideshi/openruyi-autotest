@@ -1,0 +1,17 @@
+# 所有测试用例的共享配置
+# 子测试目录会自动继承这些配置
+
+# 默认测试框架
+framework: shell
+
+# 默认测试超时时间
+duration: 5m
+
+# 默认联系人
+contact: QA Team <qa@example.com>
+
+# 默认启用
+enabled: true
+
+# 默认测试执行路径
+path: /

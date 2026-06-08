@@ -1,0 +1,18 @@
+# 冒烟测试计划
+# 用于快速验证系统基本功能是否正常
+
+summary: 冒烟测试 - 验证系统基本功能
+
+discover:
+  how: fmf
+  # 只发现标记为 smoke 的测试用例
+  filter: "tag:smoke"
+
+provision:
+  how: local
+
+execute:
+  how: tmt
+
+report:
+  how: display
