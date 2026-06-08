@@ -11,13 +11,20 @@ openruyi-autotest/
 ├── plans/                       # 测试计划
 │   ├── smoke.fmf                 # 冒烟测试计划
 │   ├── functional.fmf            # 功能测试计划
+│   ├── security.fmf              # 安全测试计划
+│   ├── compatibility.fmf         # 兼容性测试计划
+│   ├── performance.fmf           # 性能测试计划
+│   ├── reliability.fmf           # 可靠性测试计划
 │   ├── integration.fmf           # 集成测试计划
 │   └── all.fmf                   # 全量测试计划
 ├── tests/                       # 测试用例
 │   ├── main.fmf                  # 共享配置（子目录自动继承）
 │   ├── smoke/                    # 冒烟测试
 │   ├── functional/               # 功能测试
-│   └── example/                  # 参考模板
+│   ├── security/                 # 安全测试
+│   ├── compatibility/            # 兼容性测试
+│   ├── performance/              # 性能测试
+│   └── reliability/              # 可靠性测试
 ├── stories/                     # 用户故事
 │   └── init.fmf
 └── README.md
@@ -237,13 +244,23 @@ tier: 0
 
 ## 测试标签体系
 
-| 标签 | 说明 | 计划 |
-|------|------|------|
-| `smoke` | 冒烟测试 - 核心功能快速验证 | `/plans/smoke` |
-| `functional` | 功能测试 - 完整功能验证 | `/plans/functional` |
-| `integration` | 集成测试 - 跨组件验证 | `/plans/integration` |
-| `example` | 示例/模板 | - |
-| `demo` | 演示用 | - |
+| 标签 | 说明 | tier | 计划 |
+|------|------|------|------|
+| `smoke` | 冒烟测试 - 核心功能快速验证 | 0 | `/plans/smoke` |
+| `functional` | 功能测试 - 完整功能验证 | 1 | `/plans/functional` |
+| `security` | 安全测试 - 系统安全特性验证 | 1 | `/plans/security` |
+| `compatibility` | 兼容性测试 - 多环境兼容性验证 | 2 | `/plans/compatibility` |
+| `performance` | 性能测试 - 系统性能指标验证 | 2 | `/plans/performance` |
+| `reliability` | 可靠性测试 - 系统稳定性验证 | 2 | `/plans/reliability` |
+| `integration` | 集成测试 - 跨组件验证 | 2 | `/plans/integration` |
+
+### tier 分级策略
+
+| tier | 触发时机 | 包含测试 |
+|------|---------|---------|
+| **0** | 每次提交 / PR | 冒烟测试 |
+| **1** | 每日构建 | 功能测试 + 安全测试 |
+| **2** | 发布前验证 | 兼容性 + 性能 + 可靠性 + 集成测试 |
 
 ## 远程服务器操作
 

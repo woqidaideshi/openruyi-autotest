@@ -1,0 +1,17 @@
+# 性能测试计划
+# 验证系统性能指标
+
+summary: 性能测试 - 验证系统性能指标
+
+discover:
+  how: fmf
+  filter: "tag:performance"
+
+provision:
+  how: local
+
+execute:
+  how: tmt
+
+report:
+  how: display

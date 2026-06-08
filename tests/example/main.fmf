@@ -1,7 +1,0 @@
-summary: 示例测试 - 参考模板
-test: ./test.sh
-tag:
-  - example
-  - demo
-duration: 1m
-tier: 0

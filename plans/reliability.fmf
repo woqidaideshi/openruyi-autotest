@@ -1,0 +1,17 @@
+# 可靠性测试计划
+# 验证系统稳定性和可靠性
+
+summary: 可靠性测试 - 验证系统稳定性和可靠性
+
+discover:
+  how: fmf
+  filter: "tag:reliability"
+
+provision:
+  how: local
+
+execute:
+  how: tmt
+
+report:
+  how: display

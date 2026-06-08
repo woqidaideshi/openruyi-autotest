@@ -1,0 +1,17 @@
+# 兼容性测试计划
+# 验证系统在不同环境下的兼容性
+
+summary: 兼容性测试 - 验证系统兼容性
+
+discover:
+  how: fmf
+  filter: "tag:compatibility"
+
+provision:
+  how: local
+
+execute:
+  how: tmt
+
+report:
+  how: display

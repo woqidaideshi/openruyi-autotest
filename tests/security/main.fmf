@@ -1,0 +1,9 @@
+summary: 安全测试 - 验证系统安全特性
+test: ./test.sh
+tag:
+  - security
+duration: 5m
+tier: 1
+require:
+  - coreutils
+  - openssl
