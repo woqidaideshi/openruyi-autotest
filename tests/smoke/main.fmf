@@ -1,0 +1,5 @@
+summary: 冒烟测试 - 验证 tmt 工具帮助信息
+test: ./test.sh
+tag: smoke
+duration: 1m
+tier: 0

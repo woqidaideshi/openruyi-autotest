@@ -1,0 +1,25 @@
+summary: 自动化测试框架初始化
+story:
+  作为测试工程师，我希望项目拥有一个标准化的基于 tmt 的自动化测试框架，
+  以便能够高效地编写、管理和执行测试用例。
+
+description: |
+  本项目采用 tmt (Test Management Tool) 作为测试管理框架。
+  tmt 基于 Flexible Metadata Format (FMF) 存储测试元数据，
+  支持测试发现、环境准备、执行和报告等完整测试生命周期。
+
+  目录结构:
+  - .fmf/         FMF 元数据根目录
+  - plans/        测试计划 (定义如何发现和执行测试)
+  - tests/        测试用例 (测试脚本和元数据)
+  - stories/      用户故事 (需求和覆盖跟踪)
+
+example:
+  - tmt test ls          # 列出所有测试用例
+  - tmt plan ls          # 列出所有测试计划
+  - tmt run plan --name /plans/smoke   # 执行冒烟测试
+  - tmt run --all provision --how local   # 在本地执行所有测试
+
+link:
+  - documented-by: https://docs.fedoraproject.org/en-US/ci/tmt/
+  - implemented-by: .fmf/version

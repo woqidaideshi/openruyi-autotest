@@ -1,0 +1,16 @@
+# 全量测试计划
+# 执行所有测试用例
+
+summary: 全量测试 - 执行所有测试用例
+
+discover:
+  how: fmf
+
+provision:
+  how: local
+
+execute:
+  how: tmt
+
+report:
+  how: display

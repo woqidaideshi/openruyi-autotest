@@ -1,0 +1,25 @@
+# 集成测试计划
+# 执行集成测试，可选在容器中运行
+
+summary: 集成测试 - 验证系统集成功能
+
+discover:
+  how: fmf
+  filter: "tag:integration"
+
+provision:
+  # 可选: 使用容器运行测试，也可改为 local
+  how: container
+  image: fedora:latest
+
+execute:
+  how: tmt
+
+prepare:
+  how: shell
+  script:
+    - echo "准备集成测试环境..."
+    - dnf install -y curl wget git 2>/dev/null || true
+
+report:
+  how: display
