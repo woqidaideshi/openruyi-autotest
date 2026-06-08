@@ -1,0 +1,17 @@
+# 安全测试计划
+# 验证系统安全特性
+
+summary: 安全测试 - 验证系统安全特性
+
+discover:
+  how: fmf
+  filter: "tag:security"
+
+provision:
+  how: local
+
+execute:
+  how: tmt
+
+report:
+  how: display

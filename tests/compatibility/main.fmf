@@ -1,0 +1,8 @@
+summary: 兼容性测试 - 验证系统兼容性
+test: ./test.sh
+tag:
+  - compatibility
+duration: 5m
+tier: 2
+require:
+  - coreutils
