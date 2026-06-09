@@ -1,8 +1,6 @@
-summary: 功能测试 - 验证系统命令可用性
-test: ./test.sh
-tag: functional
-duration: 2m
+# 功能测试 - 共享配置
+# 所有子目录的软件包测试都会继承这些配置
+framework: shell
+duration: 5m
 tier: 1
-require:
-  - coreutils
-  - grep
+contact: QA Team

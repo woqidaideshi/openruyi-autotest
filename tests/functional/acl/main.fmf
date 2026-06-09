@@ -1,0 +1,11 @@
+summary: 功能测试 - acl 软件包功能验证
+test: ./test.sh
+tag:
+  - functional
+  - acl
+duration: 5m
+tier: 1
+path: /tests/functional/acl
+require:
+  - acl
+  - coreutils
