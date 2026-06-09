@@ -1,0 +1,14 @@
+﻿summary: Functional test - cmake package verification
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+duration: 10m
+tier: 1
+path: /tests/functional/cmake
+require:
+  - cmake
+  - gcc
+  - gcc-c++
+  - make
+  - coreutils
