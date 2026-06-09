@@ -1,10 +1,6 @@
-summary: 功能测试 - acl 软件包功能验证
-test: ./test.sh
-tag:
-  - functional
-  - acl
+# 功能测试 - 共享配置
+# 所有子目录的软件包测试都会继承这些配置
+framework: shell
 duration: 5m
 tier: 1
-require:
-  - acl
-  - coreutils
+contact: QA Team
