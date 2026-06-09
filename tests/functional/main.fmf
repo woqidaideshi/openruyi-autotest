@@ -1,8 +1,10 @@
-summary: 功能测试 - 验证系统命令可用性
+summary: 功能测试 - acl 软件包功能验证
 test: ./test.sh
-tag: functional
-duration: 2m
+tag:
+  - functional
+  - acl
+duration: 5m
 tier: 1
 require:
+  - acl
   - coreutils
-  - grep
