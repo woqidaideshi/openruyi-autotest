@@ -41,7 +41,9 @@ def ssh_exec(
     password: str,
     command: str,
     port: int = 22,
-    timeout: int = 30
+    timeout: int = 30,
+    sudo: bool = False,
+    sudo_password: str = None
 ) -> tuple[int, str, str]:
     """
     通过 SSH 在远程服务器上执行命令。
@@ -53,6 +55,8 @@ def ssh_exec(
         command: 要执行的命令
         port: SSH 端口，默认 22
         timeout: 超时时间（秒），默认 30
+        sudo: 是否使用 sudo 提权，默认 False
+        sudo_password: sudo 密码，如果不提供则使用 password
 
     Returns:
         (return_code, stdout, stderr) 元组
@@ -61,6 +65,12 @@ def ssh_exec(
 
     # 创建密码提供脚本
     askpass_script = create_askpass_script(password)
+    
+    # 如果启用 sudo，创建 sudo 密码脚本
+    sudo_askpass_script = None
+    if sudo:
+        sudo_pwd = sudo_password if sudo_password else password
+        sudo_askpass_script = create_askpass_script(sudo_pwd)
 
     try:
         # 设置环境变量
@@ -68,6 +78,15 @@ def ssh_exec(
         env['SSH_ASKPASS'] = askpass_script
         env['SSH_ASKPASS_REQUIRE'] = 'force'
         env['DISPLAY'] = 'dummy'
+        
+        # 如果启用 sudo，设置 SUDO_ASKPASS
+        if sudo:
+            env['SUDO_ASKPASS'] = sudo_askpass_script
+            # 使用 echo 管道方式传递 sudo 密码
+            sudo_pwd = sudo_password if sudo_password else password
+            actual_command = f'echo "{sudo_pwd}" | sudo -S bash -c "{command}" 2>&1'
+        else:
+            actual_command = command
 
         # 构建 SSH 命令
         ssh_cmd = [
@@ -80,7 +99,7 @@ def ssh_exec(
             '-o', f'ConnectTimeout={timeout}',
             '-p', str(port),
             f'{user}@{host}',
-            command
+            actual_command
         ]
 
         proc = subprocess.Popen(
@@ -123,6 +142,12 @@ def ssh_exec(
             os.remove(askpass_script)
         except OSError:
             pass
+        # 清理 sudo 密码脚本
+        if sudo_askpass_script:
+            try:
+                os.remove(sudo_askpass_script)
+            except OSError:
+                pass
 
 
 def main():
@@ -141,6 +166,8 @@ def main():
     parser.add_argument('command', help='要执行的命令')
     parser.add_argument('--port', type=int, default=22, help='SSH 端口 (默认: 22)')
     parser.add_argument('--timeout', type=int, default=30, help='超时时间/秒 (默认: 30)')
+    parser.add_argument('--sudo', action='store_true', help='使用 sudo 提权')
+    parser.add_argument('--sudo-password', type=str, default=None, help='sudo 密码 (默认与 SSH 密码相同)')
 
     args = parser.parse_args()
 
@@ -150,7 +177,9 @@ def main():
         password=args.password,
         command=args.command,
         port=args.port,
-        timeout=args.timeout
+        timeout=args.timeout,
+        sudo=args.sudo,
+        sudo_password=args.sudo_password
     )
 
     if stdout:
