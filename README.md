@@ -39,6 +39,8 @@ openruyi-autotest/
 
 ### 安装 tmt
 
+#### 常规安装（x86_64/aarch64）
+
 ```bash
 # 基础安装（仅支持本地执行）
 sudo dnf install -y tmt
@@ -55,6 +57,48 @@ sudo dnf install -y tmt+provision-virtual     # 虚拟机执行
 
 ```bash
 pip3 install tmt
+```
+
+#### riscv64 架构安装
+
+在 riscv64 架构（如 openRuyi）上安装 tmt 需要额外的准备步骤，因为某些 Python 包需要从源码编译。
+
+**步骤 1：安装编译工具和依赖**
+
+```bash
+# 安装 NFS 相关工具
+sudo dnf install -y nfs-kernel-server nfs-client openssh-clients
+
+# 安装编译工具和运行时
+sudo dnf install -y python3 python3-pip rust gcc gcc-c++ git beakerlib
+```
+
+> **注意**：
+> - `gcc` 和 `gcc-c++` 用于编译 Python C 扩展（如 ruamel-yaml-clib）
+> - `python3-devel` 通常已包含在 python3 包中，如缺失需单独安装
+> - `rust` 是某些 Rust 编写的 Python 包的编译依赖
+
+**步骤 2：通过 pip 安装 tmt**
+
+```bash
+# 使用 --break-system-packages 标志（系统 Python 环境）
+sudo pip3 install --break-system-packages tmt
+```
+
+**安装说明：**
+- riscv64 架构首次安装可能需要 **10-20 分钟**，因为需要编译多个 Python 包
+- 关键编译包：`ruamel-yaml-clib`、`pydantic-core`、`rpds-py` 等
+- 建议使用 `nohup` 或 `screen` 在后台运行，避免 SSH 断开导致中断
+- 编译过程 CPU 占用率会较高（90%+），这是正常现象
+
+**验证安装：**
+
+```bash
+# 检查 tmt 版本（首次运行可能需要 2-3 分钟加载）
+tmt --version
+
+# 预期输出
+tmt version: 1.75.0
 ```
 
 ### 初始化
@@ -265,6 +309,36 @@ tier: 0
 ## 远程服务器操作
 
 项目提供了 SSH 远程命令执行工具，详见 `.trellis/scripts/ssh_exec.py`。
+
+### 测试服务器环境
+
+**服务器配置：**
+- 服务器地址：`10.20.237.192`
+- SSH 端口：`12055`
+- 普通用户：`openruyi`
+- 提权方式：`sudo -i` 或 `sudo <command>`（密码同普通用户）
+- 系统架构：riscv64 (openRuyi Creek)
+
+**SSH 连接示例：**
+
+```bash
+# 基本连接
+ssh -p 12055 openruyi@10.20.237.192
+
+# 使用项目工具执行远程命令
+python .trellis/scripts/ssh_exec.py 10.20.237.192 openruyi openruyi "命令" --port 12055
+
+# 执行需要 root 权限的命令
+python .trellis/scripts/ssh_exec.py 10.20.237.192 openruyi openruyi "命令" --port 12055 --sudo
+```
+
+**已预装的软件：**
+- tmt 1.75.0
+- python3 3.13.8
+- gcc 16, g++, rust 1.94.1
+- git 2.54.0
+- beakerlib 1.33.3
+- nfs-kernel-server, nfs-client, openssh-clients
 
 ## 参考资源
 
