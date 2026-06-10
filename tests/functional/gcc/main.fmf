@@ -1,0 +1,12 @@
+summary: 功能测试 - gcc 软件包功能验证
+test: ./test.sh
+tag:
+  - functional
+  - gcc
+duration: 10m
+tier: 1
+path: /tests/functional/gcc
+require:
+  - gcc
+  - gcc-c++
+  - glibc-devel
