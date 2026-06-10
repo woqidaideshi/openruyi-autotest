@@ -1,11 +1,8 @@
 #!/bin/sh -eux
 # Functional test: wget package
 # Tests wget download utility
-# Version: wget
+# Version: wget (provided by wget2)
 
-rpm -q wget
-
-rpm -q wget
 which wget
 wget --version
 
