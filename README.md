@@ -313,12 +313,12 @@ tier: 0
 | 测试类型 | 测试套数 | 用例数 |
 |---------|:------:|:----:|
 | Smoke | 1 | 1 |
-| Functional | 12 | 137 |
+| Functional | 13 | 150 |
 | Compatibility | 1 | 5 |
 | Security | 1 | 4 |
 | Performance | 1 | 5 |
 | Reliability | 1 | 5 |
-| **合计** | **17** | **157** |
+| **合计** | **18** | **170** |
 
 ## 参考资源
 
