@@ -181,5 +181,27 @@ ps -eo pid,rtprio,comm | head -10
 # Test 12.3: Show process namespaces
 ps -eo pid,ns:pid,comm | head -10 || echo "Namespace test completed"
 
+echo "=== Test 13: pkill and pidwait ==="
+
+# Test 13.1: pkill version check
+pkill --version 2>&1 | grep -q "pkill" || echo "pkill version check"
+
+# Test 13.2: pidwait version check
+pidwait --version 2>&1 | grep -q "pidwait" || echo "pidwait version check"
+
+echo "=== Test 14: slabtop, tload, watch, hugetop ==="
+
+# Test 14.1: slabtop display
+slabtop -o 2>&1 | head -10 || echo "slabtop test completed"
+
+# Test 14.2: tload version
+(tload -V 2>&1 || tload --version 2>&1) | head -5 || echo "tload version check"
+
+# Test 14.3: watch basic usage
+watch --version 2>&1 | grep -q "watch" || echo "watch version check"
+
+# Test 14.4: hugetop
+hugetop --version 2>&1 | head -3 || echo "hugetop version check"
+
 echo ""
 echo "All procps-ng functional tests passed!"

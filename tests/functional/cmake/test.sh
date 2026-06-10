@@ -92,6 +92,10 @@ cmake --version | grep "cmake version"
 cmake --help | head -20
 cmake --help-command add_executable | head -10
 cmake --help-module FindThreads | head -10
+cpack --version
+echo "$(cpack --version 2>&1)" | grep -q "cpack version"
+ctest --version
+echo "$(ctest --version 2>&1)" | grep -q "ctest version"
 
 cd /
 rm -rf $TmpDir

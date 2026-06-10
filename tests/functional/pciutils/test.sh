@@ -57,7 +57,11 @@ echo "=== Test 11: setpci ==="
 
 setpci --dumpregs | head -10
 
-echo "=== Test 12: Error handling ==="
+echo "=== Test 12: pcilmr ==="
+
+pcilmr --version 2>&1 || echo "pcilmr version check completed"
+
+echo "=== Test 13: Error handling ==="
 
 lspci -s invalid:00:00.0 2>&1 || echo "Expected: invalid slot format"
 lspci --invalid-option 2>&1 || echo "Expected: invalid option"
