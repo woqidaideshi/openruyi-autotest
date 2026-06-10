@@ -3,7 +3,7 @@
 # Tests wget2 - next generation download utility
 # Version: wget2
 
-rpm -q wget2 || sudo dnf install -y wget2
+rpm -q wget2
 
 rpm -q wget2
 which wget2

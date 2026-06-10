@@ -3,7 +3,7 @@
 # Tests PCI bus utilities: lspci, setpci, update-pciids
 # Version: pciutils
 
-rpm -q pciutils || sudo dnf install -y pciutils
+rpm -q pciutils
 
 rpm -q pciutils
 which lspci setpci update-pciids

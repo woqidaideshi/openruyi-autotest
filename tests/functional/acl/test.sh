@@ -1,7 +1,10 @@
 #!/bin/sh -eux
-# 功能测试: acl (Access Control List) 软件包
-# 测试 acl 提供的 getfacl, setfacl, chacl 命令功能
-# 版本: acl 2.3.2
+# Functional test: acl (Access Control List) package
+# Tests getfacl, setfacl, chacl commands
+# Version: acl 2.3.2
+
+# rlRun wrapper for standalone execution
+rlRun() { eval "$1" 2>&1; return $?; }
 
 rlRun 'rpm -q acl' 0 "检查 acl 软件包是否已安装"
 rlRun 'which getfacl' 0 "检查 getfacl 命令是否可用"
@@ -217,4 +220,4 @@ rlRun 'cd /' 0 "离开测试目录"
 rlRun 'rm -rf $TmpDir' 0 "清理临时测试目录"
 
 echo ""
-echo "所有 acl 功能测试通过!"
+echo "All acl functional tests passed!"
