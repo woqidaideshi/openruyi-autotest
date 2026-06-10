@@ -4,7 +4,7 @@
 # Version: rpm-build
 
 # Install if not present
-rpm -q rpm-build || sudo dnf install -y rpm-build rpmdevtools
+rpm -q rpm-build rpmdevtools
 
 # Check package installation
 rpm -q rpm-build
@@ -93,10 +93,10 @@ rpm -qp --provides rpmbuild/RPMS/noarch/test-package-1.0-1*.rpm
 echo "=== Test 6: Install and test RPM ==="
 
 # Test 6.1: Install the RPM (test mode)
-sudo rpm -ivh --test rpmbuild/RPMS/noarch/test-package-1.0-1*.rpm || echo "RPM test installation completed"
+rpm -ivh --test rpmbuild/RPMS/noarch/test-package-1.0-1*.rpm || echo "RPM test installation completed"
 
 # Test 6.2: Actually install
-sudo rpm -ivh rpmbuild/RPMS/noarch/test-package-1.0-1*.rpm || echo "RPM installation test completed"
+rpm -ivh rpmbuild/RPMS/noarch/test-package-1.0-1*.rpm || echo "RPM installation test completed"
 
 # Test 6.3: Verify installation
 rpm -q test-package || echo "Package installation verified"

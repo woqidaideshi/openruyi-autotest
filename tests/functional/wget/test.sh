@@ -3,7 +3,7 @@
 # Tests wget download utility
 # Version: wget
 
-rpm -q wget || sudo dnf install -y wget
+rpm -q wget
 
 rpm -q wget
 which wget

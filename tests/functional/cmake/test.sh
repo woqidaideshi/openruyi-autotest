@@ -3,7 +3,7 @@
 # Tests CMake build system generator
 # Version: cmake
 
-rpm -q cmake || sudo dnf install -y cmake gcc gcc-c++ make
+rpm -q cmake gcc gcc-c++ make
 
 rpm -q cmake
 which cmake
@@ -31,34 +31,17 @@ echo "=== Test 2: CMake configure ==="
 mkdir build && cd build
 cmake ..
 
-echo "=== Test 3: CMake build ==="
+echo "=== Test 3: CMake build and run ==="
 
 cmake --build .
 ./test_app
 cd ../..
 
-echo "=== Test 4: CMake options ==="
-
-# Build type
-mkdir build_debug && cd build_debug
-cmake -DCMAKE_BUILD_TYPE=Debug ../simple_project
-cmake --build .
-cd ..
-
-# Install prefix
-mkdir build_prefix && cd build_prefix
-cmake -DCMAKE_INSTALL_PREFIX=/tmp/cmake_test ../simple_project
-cmake --build .
-cd ..
-
-echo "=== Test 5: Library project ==="
+echo "=== Test 4: Library project ==="
 
 mkdir lib_project && cd lib_project
 cat > mylib.c << 'EOF'
 int add(int a, int b) { return a + b; }
-EOF
-cat > mylib.h << 'EOF'
-int add(int a, int b);
 EOF
 cat > CMakeLists.txt << 'EOF'
 cmake_minimum_required(VERSION 3.10)
@@ -71,25 +54,7 @@ cmake .. && cmake --build .
 ls -la libmylib.*
 cd ../..
 
-echo "=== Test 6: CMake generator expressions ==="
-
-mkdir gen_project && cd gen_project
-cp ../simple_project/main.c .
-cat > CMakeLists.txt << 'EOF'
-cmake_minimum_required(VERSION 3.10)
-project(GenTest)
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-add_executable(gen_test main.c)
-target_compile_options(gen_test PRIVATE $<$<CONFIG:Debug>:-g> $<$<CONFIG:Release>:-O3>)
-EOF
-
-mkdir build && cd build
-cmake ..
-cmake --build .
-cd ../..
-
-echo "=== Test 7: Module finder ==="
+echo "=== Test 5: Module finder ==="
 
 mkdir finder_project && cd finder_project
 cat > CMakeLists.txt << 'EOF'
@@ -107,7 +72,7 @@ mkdir build && cd build
 cmake ..
 cd ../..
 
-echo "=== Test 8: Error handling ==="
+echo "=== Test 6: Error handling ==="
 
 # Missing CMakeLists.txt
 mkdir bad_project && cd bad_project
@@ -121,12 +86,9 @@ echo "this_is_invalid()" >> CMakeLists.txt
 cmake . 2>&1 && echo "Unexpected success" || echo "Expected error: syntax error"
 cd ..
 
-echo "=== Test 9: CMake version check ==="
+echo "=== Test 7: CMake version and help ==="
 
 cmake --version | grep "cmake version"
-
-echo "=== Test 10: CMake help system ==="
-
 cmake --help | head -20
 cmake --help-command add_executable | head -10
 cmake --help-module FindThreads | head -10

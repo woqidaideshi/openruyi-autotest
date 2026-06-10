@@ -3,7 +3,7 @@
 # Tests process management utilities: fuser, pstree, killall, peekfd, prtstat, pslog
 # Version: psmisc
 
-rpm -q psmisc || sudo dnf install -y psmisc
+rpm -q psmisc
 
 rpm -q psmisc
 which fuser pstree killall peekfd prtstat pslog
