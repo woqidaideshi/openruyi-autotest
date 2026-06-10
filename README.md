@@ -310,36 +310,6 @@ tier: 0
 
 > 每次新增测试脚本后需同步更新此表格。
 
-### 按测试类型分类
-
-| 测试类型 | 软件包 | 用例数 |
-|---------|--------|--------|
-| **Smoke** (冒烟测试) | tmt | 1 |
-| | **小计** | **1** |
-| **Functional** (功能测试) | acl | 11 |
-| | cmake | 7 |
-| | iputils | 10 |
-| | pciutils | 12 |
-| | podmansh | 12 |
-| | procps-ng | 12 |
-| | psmisc | 13 |
-| | rpmbuild | 9 |
-| | tar | 10 |
-| | wget | 15 |
-| | wget2 | 15 |
-| | **小计 (11 套)** | **126** |
-| **Compatibility** (兼容性测试) | system | 5 |
-| | **小计** | **5** |
-| **Security** (安全测试) | system | 4 |
-| | **小计** | **4** |
-| **Performance** (性能测试) | system | 5 |
-| | **小计** | **5** |
-| **Reliability** (可靠性测试) | system | 5 |
-| | **小计** | **5** |
-| **合计** | **6 类 / 12 套** | **146** |
-
-### 汇总
-
 | 测试类型 | 测试套数 | 用例数 |
 |---------|:------:|:----:|
 | Smoke | 1 | 1 |
@@ -349,40 +319,6 @@ tier: 0
 | Performance | 1 | 5 |
 | Reliability | 1 | 5 |
 | **合计** | **16** | **146** |
-
-## 远程服务器操作
-
-项目提供了 SSH 远程命令执行工具，详见 `.trellis/scripts/ssh_exec.py`。
-
-### 测试服务器环境
-
-**服务器配置：**
-- 服务器地址：`10.20.237.192`
-- SSH 端口：`12055`
-- 普通用户：`openruyi`
-- 提权方式：`sudo -i` 或 `sudo <command>`（密码同普通用户）
-- 系统架构：riscv64 (openRuyi Creek)
-
-**SSH 连接示例：**
-
-```bash
-# 基本连接
-ssh -p 12055 openruyi@10.20.237.192
-
-# 使用项目工具执行远程命令
-python .trellis/scripts/ssh_exec.py 10.20.237.192 openruyi openruyi "命令" --port 12055
-
-# 执行需要 root 权限的命令
-python .trellis/scripts/ssh_exec.py 10.20.237.192 openruyi openruyi "命令" --port 12055 --sudo
-```
-
-**已预装的软件：**
-- tmt 1.75.0
-- python3 3.13.8
-- gcc 16, g++, rust 1.94.1
-- git 2.54.0
-- beakerlib 1.33.3
-- nfs-kernel-server, nfs-client, openssh-clients
 
 ## 参考资源
 
