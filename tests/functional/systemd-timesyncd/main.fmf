@@ -1,0 +1,10 @@
+summary: 功能测试 - systemd-timesyncd NTP时间同步功能验证
+test: ./test.sh
+tag:
+  - functional
+  - systemd-timesyncd
+duration: 5m
+tier: 1
+path: /tests/functional/systemd-timesyncd
+require:
+  - systemd-timesyncd

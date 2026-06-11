@@ -1,0 +1,10 @@
+summary: 功能测试 - dnf5-plugins DNF5插件功能验证
+test: ./test.sh
+tag:
+  - functional
+  - dnf5-plugins
+duration: 5m
+tier: 1
+path: /tests/functional/dnf5-plugins
+require:
+  - dnf5-plugins

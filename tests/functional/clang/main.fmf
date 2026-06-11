@@ -1,0 +1,10 @@
+summary: 功能测试 - clang LLVM编译器功能验证
+test: ./test.sh
+tag:
+  - functional
+  - clang
+duration: 5m
+tier: 1
+path: /tests/functional/clang
+require:
+  - clang
