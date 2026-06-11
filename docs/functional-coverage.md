@@ -61,8 +61,8 @@
 - 创建测试目录
 - 查看文件默认 ACL
 - 查看目录默认 ACL
-- 使用 -a 参数查看 access ACL
-- 使用 -d 参数查看 default ACL
+- 使用 -a 参数查看 访问控制 ACL权限
+- 使用 -d 参数查看 默认 ACL权限
 - 使用 -c 参数不显示注释头
 - 使用 -n 参数显示数字 ID
 - 使用 -t 参数表格输出
@@ -72,18 +72,18 @@
 - 验证 ACL 设置
 - 设置 other 的只读权限
 - 验证 ACL 设置
-- 设置 mask 为 rwx
+- 设置 掩码 为 rwx
 - 验证 mask 设置
 - 使用 -n 参数不重新计算 mask
 - 验证 ACL 设置
-- 为目录设置 default user ACL
-- 验证 default ACL 设置
-- 为目录设置 default group ACL
-- 验证 default group ACL
-- 为目录设置 default mask
-- 验证 default mask
-- 为目录设置 default other
-- 验证 default other
+- 为目录设置 默认 用户 ACL权限
+- 验证 默认 ACL权限 设置
+- 为目录设置 默认 组 ACL权限
+- 验证 默认 组 ACL权限
+- 为目录设置 默认 掩码
+- 验证 默认 掩码
+- 为目录设置 默认 其他用户
+- 验证 默认 其他用户
 - 使用 --set 替换整个 ACL
 - 验证 ACL 替换
 - 创建 ACL 规则文件
@@ -95,8 +95,8 @@
 - 验证 ACL 删除
 - 删除所有扩展 ACL
 - 验证所有扩展 ACL 已删除
-- 删除目录的 default ACL
-- 验证 default ACL 已删除
+- 删除目录的 默认 ACL权限
+- 验证 默认 ACL权限 已删除
 - 创建删除规则文件
 - 先添加用户 ACL
 - 从文件读取并删除 ACL
@@ -114,16 +114,16 @@
 - 验证符号链接目标文件的 ACL
 - 使用 -P 不跟随符号链接
 - 先清理 ACL
-- 使用 chacl 查看 ACL
+- 使用 chacl命令 查看 ACL权限
 - 使用 chacl 设置基本 ACL
 - 验证 chacl 设置的 ACL
-- 使用 chacl 设置 default ACL
-- 验证 chacl 设置的 default ACL
+- 使用 chacl命令 设置 默认 ACL权限
+- 验证 chacl命令 设置的 默认 ACL权限
 - 使用 chacl 递归设置 ACL
 - 验证 chacl 递归设置
 - 使用 chacl -b 同时设置
-- 验证 chacl -b 设置
-- 设置目录 default ACL
+- 验证 chacl命令 -b 设置
+- 设置目录 默认 ACL权限
 - 在目录中创建新文件
 - 验证新文件继承了 default ACL
 - 在目录中创建子目录
@@ -159,133 +159,133 @@
 - **被测命令**: `clang`, `clang++`, `clang-cl`, `clang-cpp`, `clang-scan-deps`
 
 <details>
-<summary><b>Basic C compilation ===</b></summary>
+<summary><b>基本 C 编译</b></summary>
 
-- Check clang installed
-- Check clang available
-- Check clang++ available
-- Check clang-cl available
-- Check clang-cpp available
-- Check clang-scan-deps available
-- clang version
-- Compile hello.c
-- Run compiled binary
-- Output is ELF binary
+- 检查 clang 已安装
+- 检查 clang 可用
+- 检查 clang++ 可用
+- 检查 clang-cl 可用
+- 检查 clang-cpp 可用
+- 检查 clang-scan-deps 可用
+- clang 版本
+- 编译 hello.c
+- 运行 已编译 binary
+- 输出 ELF binary
 
 </details>
 
 <details>
-<summary><b>Basic C++ compilation ===</b></summary>
+<summary><b>基本 C++ 编译</b></summary>
 
-- Compile C++ from hello.c
-- Run C++ binary
-- clang -c: compile only
-- Object file exists
-- Optimization -$lvl
-- Debug symbols
-- -Wall warnings
-- -Wextra warnings
+- 编译 C++ from hello.c
+- 运行 C++ binary
+- clang -c: 编译 仅
+- Object 文件 存在
+- 优化 -$lvl
+- 调试 symbols
+- -Wall 警告
+- -Wextra 警告
 - -Werror
-- C standard: $std
+- C 标准: $std
 
 </details>
 
 <details>
-<summary><b>Compile-only ===</b></summary>
+<summary><b>编译-仅</b></summary>
 
-- C++ standard: $std
+- C++ 标准: $std
 - clang -E: preprocess
 - clang -dM: dump macros
-- clang --analyze: static analysis
-- clang-cl help
-- clang-cpp: preprocessor
-- clang-scan-deps help
-- Compile with -fPIC
+- clang --analyze: 静态 分析
+- clang-cl 帮助
+- clang-cpp: 预处理器
+- clang-scan-deps 帮助
+- 编译 使用 -fPIC
 - clang -shared: shared library
-- clang -v: verbose
+- clang -v: 详细
 
 </details>
 
 <details>
-<summary><b>Optimization levels ===</b></summary>
+<summary><b>优化 级别</b></summary>
 
-- Compilation error
-- Invalid option
+- Compilation 错误
+- Invalid 选项
 
 </details>
 
 <details>
-<summary><b>Debug and warnings ===</b></summary>
+<summary><b>调试 和 警告</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>C standards ===</b></summary>
+<summary><b>C 标准</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>C++ standards ===</b></summary>
+<summary><b>C++ 标准</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Preprocessor ===</b></summary>
+<summary><b>预处理器</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Static analysis ===</b></summary>
+<summary><b>静态 分析</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>clang-cl (MSVC compat) ===</b></summary>
+<summary><b>clang-cl (MSVC 兼容)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>clang-cpp ===</b></summary>
+<summary><b>clang-cpp</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>clang-scan-deps ===</b></summary>
+<summary><b>clang-scan-deps</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Linking options ===</b></summary>
+<summary><b>链接 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Verbose mode ===</b></summary>
+<summary><b>详细 模式</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -301,52 +301,52 @@
 - **被测命令**: `growpart`
 
 <details>
-<summary><b>Help and version ===</b></summary>
+<summary><b>帮助 和 版本</b></summary>
 
-- Check cloud-utils-growpart installed
-- Check growpart command available
-- growpart help
-- growpart -h: short help
-- lsblk: list block devices
+- 检查 cloud-utils-growpart 已安装
+- 检查 growpart 命令 可用
+- growpart 帮助
+- growpart -h: short 帮助
+- lsblk: 列出 block devices
 - df: disk free space
-- growpart -N: dry run
-- growpart: has free-percent option
-- growpart: has fudge option
-- growpart: no args (expected fail)
+- growpart -N: dry 运行
+- growpart: has free-百分比 选项
+- growpart: has fudge 选项
+- growpart: 无 args (expected fail)
 
 </details>
 
 <details>
-<summary><b>Disk/partition info ===</b></summary>
+<summary><b>磁盘/分区 信息</b></summary>
 
 - growpart: nonexistent disk
-- growpart: invalid option
+- growpart: invalid 选项
 
 </details>
 
 <details>
-<summary><b>Dry-run (no actual resize) ===</b></summary>
+<summary><b>模拟-运行 (无 实际 调整大小)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Free percent option ===</b></summary>
+<summary><b>空闲 百分比 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Fudge factor option ===</b></summary>
+<summary><b>Fudge factor 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -362,55 +362,55 @@
 - **被测命令**: `cmake`
 
 <details>
-<summary><b>Basic CMake project ===</b></summary>
+<summary><b>基本 CMake project</b></summary>
 
-- Test section: Basic CMake project ===
-- Test section: CMake configure ===
-- Test section: CMake build and run ===
-- Test section: Library project ===
-- Test section: Module finder ===
-- Test section: Error handling ===
-- Test section: CMake version and help ===
+- 测试 section: 基本 CMake project ===
+- 测试 section: CMake 配置 ===
+- 测试 section: CMake 构建 和 运行 ===
+- 测试 section: Library project ===
+- 测试 section: Module finder ===
+- 测试 section: 错误 处理 ===
+- 测试 section: CMake 版本 和 帮助 ===
 
 </details>
 
 <details>
-<summary><b>CMake configure ===</b></summary>
+<summary><b>CMake 配置</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>CMake build and run ===</b></summary>
+<summary><b>CMake 构建 和 运行</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Library project ===</b></summary>
+<summary><b>Library project</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Module finder ===</b></summary>
+<summary><b>Module finder</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>CMake version and help ===</b></summary>
+<summary><b>CMake 版本 和 帮助</b></summary>
 
 - 执行相关功能验证
 
@@ -425,108 +425,108 @@
 - **测试点**: 238
 
 <details>
-<summary><b>File creation and listing (echo, cat, ls, dir, vdir) ===</b></summary>
+<summary><b>文件 creation 和 listing (echo, cat, ls, dir, vdir)</b></summary>
 
-- Check coreutils package is installed
-- echo create file
+- 检查 coreutils 软件包 已安装
+- echo 创建 文件
 - echo append
 - echo -n suppress newline
-- echo -n: verify no trailing newline
-- cat display file
-- cat: verify 2 lines
+- echo -n: 验证 无 trailing newline
+- cat display 文件
+- cat: 验证 2 lines
 - cat -n number all lines
 - cat -b number non-blank lines
-- ls -la list all files
+- ls -la 列出 all files
 
 </details>
 
 <details>
-<summary><b>Copy, move, remove (cp, mv, rm, rmdir) ===</b></summary>
+<summary><b>复制, 移动, 删除 (cp, mv, rm, rmdir)</b></summary>
 
-- ls specific file
-- ls -l: regular file check
-- ls -ld: directory check
+- ls specific 文件
+- ls -l: regular 文件 检查
+- ls -ld: 目录 检查
 - ls -1 single column
-- dir list directory
-- vdir long format list
-- cp copy file
-- cp: verify copy exists
+- dir 列出 目录
+- vdir long format 列出
+- cp 复制 文件
+- cp: 验证 复制 存在
 - cp: files identical
-- cp -r recursive copy
+- cp -r 递归 复制
 
 </details>
 
 <details>
-<summary><b>Directory, file creation, temp files (mkdir, touch, mktemp) ===</b></summary>
+<summary><b>目录, 文件 creation, temp files (mkdir, touch, mktemp)</b></summary>
 
-- cp -r: verify directory copy
-- mv rename file
+- cp -r: 验证 目录 复制
+- mv 重命名 文件
 - mv: old name gone
-- mv: new name exists
-- mv to subdirectory
-- Create temp file
-- rm remove file
-- rm: file removed
-- Create dir to remove
-- rm -rf recursive force
+- mv: new name 存在
+- mv subdirectory
+- 创建 temp 文件
+- rm 删除 文件
+- rm: 文件 removed
+- 创建 dir 删除
+- rm -rf 递归 force
 
 </details>
 
 <details>
-<summary><b>Links and path resolution (ln, link, unlink, readlink, realpath) ===</b></summary>
+<summary><b>Links 和 路径 resolution (ln, 链接, unlink, readlink, realpath)</b></summary>
 
-- rm -rf: directory removed
-- Create empty directory
-- rmdir remove empty directory
-- rmdir: directory removed
+- rm -rf: 目录 removed
+- 创建 empty 目录
+- rmdir 删除 empty 目录
+- rmdir: 目录 removed
 - mkdir -p nested directories
-- mkdir -p: verify nested dir
-- mkdir -m set mode
-- touch create file
-- touch: file exists
-- touch -t set timestamp
+- mkdir -p: 验证 nested dir
+- mkdir -m 设置 模式
+- touch 创建 文件
+- touch: 文件 存在
+- touch -t 设置 timestamp
 
 </details>
 
 <details>
-<summary><b>File viewing (head, tail, tac, nl) ===</b></summary>
+<summary><b>文件 viewing (head, tail, tac, nl)</b></summary>
 
-- touch -a access time only
-- mktemp create temp file
-- mktemp: temp file exists
-- mktemp -d create temp directory
-- Create link source
-- ln create hard link
-- ln: hard link same inode
-- ln -s symbolic link
-- ln -s: symlink exists
+- touch -a 访问控制 time 仅
+- mktemp 创建 temp 文件
+- mktemp: temp 文件 存在
+- mktemp -d 创建 temp 目录
+- 创建 链接 source
+- ln 创建 hard 链接
+- ln: hard 链接 same inode
+- ln -s 符号链接
+- ln -s: symlink 存在
 - ln -s: read through symlink
 
 </details>
 
 <details>
-<summary><b>Counting and statistics (wc, du, df, stat) ===</b></summary>
+<summary><b>Counting 和 statistics (wc, du, df, stat)</b></summary>
 
 - ln -sf force recreate symlink
-- link create hard link
-- link: same inode
-- unlink remove hard link
-- unlink: file removed
-- readlink show symlink target
+- 链接 创建 hard 链接
+- 链接: same inode
+- unlink 删除 hard 链接
+- unlink: 文件 removed
+- readlink 显示 symlink target
 - readlink: correct target
 - readlink -f canonicalize
-- realpath canonical path
+- realpath canonical 路径
 - head -n 5: first 5 lines
 
 </details>
 
 <details>
-<summary><b>Text processing I (sort, uniq, cut, tr) ===</b></summary>
+<summary><b>Text processing I (sort, uniq, cut, tr)</b></summary>
 
-- head -n 3: verify count
+- head -n 3: 验证 count
 - head -c 10: first 10 bytes
 - tail -n 5: last 5 lines
-- tail -n 3: verify count
+- tail -n 3: 验证 count
 - tail -n +18: from line 18
 - tail -c 10: last 10 bytes
 - tac reverse lines
@@ -537,47 +537,47 @@
 </details>
 
 <details>
-<summary><b>Text processing II (paste, comm, join, fmt, fold, pr, expand, unexpand) ===</b></summary>
+<summary><b>Text processing II (paste, comm, 合并, fmt, fold, pr, expand, unexpand)</b></summary>
 
 - wc -l: 20 lines
 - wc -c byte count
 - wc -w word count
 - wc -m character count
 - du -sh summary human
-- du -h directory usage
+- du -h 目录 usage
 - df -h human readable
 - df: root filesystem
-- stat file status
-- stat -c format output
+- stat 文件 状态
+- stat -c format 输出
 
 </details>
 
 <details>
-<summary><b>Octal dump (od) ===</b></summary>
+<summary><b>Octal dump (od)</b></summary>
 
-- stat -f filesystem status
+- stat -f filesystem 状态
 - sort alphabetically
-- sort: first is apple
+- sort: first apple
 - sort -r reverse
 - sort -u unique
 - sort -n numeric
 - uniq unique lines
 - uniq: 4 unique
 - uniq -c count occurrences
-- uniq -d only duplicates
+- uniq -d 仅 duplicates
 
 </details>
 
 <details>
-<summary><b>Path operations (basename, dirname, pwd) ===</b></summary>
+<summary><b>路径 operations (basename, dirname, pwd)</b></summary>
 
-- uniq -u only uniques
+- uniq -u 仅 uniques
 - cut -d: -f1 first field
 - cut -d: -f2 second field
 - cut multiple fields
 - cut -c character range
-- tr translate uppercase to lowercase
-- tr -d delete characters
+- tr translate uppercase lowercase
+- tr -d 删除 characters
 - tr -s squeeze repeats
 - paste merge files side by side
 - paste -d: custom delimiter
@@ -585,75 +585,75 @@
 </details>
 
 <details>
-<summary><b>Permissions and ownership (chmod, chown, chgrp) ===</b></summary>
+<summary><b>Permissions 和 ownership (chmod, chown, chgrp)</b></summary>
 
 - paste -s serial
 - comm compare sorted files
-- join files on common field
+- 合并 files on common field
 - fmt reformat text
-- fmt -w set width
+- fmt -w 设置 width
 - fold -w wrap at width
-- pr paginate file
+- pr paginate 文件
 - pr -n number lines
-- expand tabs to spaces
-- unexpand -a spaces to tabs
+- expand tabs spaces
+- unexpand -a spaces tabs
 
 </details>
 
 <details>
-<summary><b>Redirection (tee) ===</b></summary>
+<summary><b>Redirection (tee)</b></summary>
 
 - od octal dump
 - od -c character dump
 - od -x hex dump
 - od -A x hex address
-- basename extract filename
+- basename 提取 filename
 - basename strip suffix
-- dirname extract directory
-- dirname path extraction
-- pwd print working directory
-- Create permission test file
+- dirname 提取 目录
+- dirname 路径 extraction
+- pwd print working 目录
+- 创建 权限 测试 文件
 
 </details>
 
 <details>
-<summary><b>Checksums (cksum, md5sum, sha1sum, sha224sum, sha384sum, sha512sum, sha256sum, b2sum, sum) ===</b></summary>
+<summary><b>Checksums (cksum, md5sum, sha1sum, sha224sum, sha384sum, sha512sum, sha256sum, b2sum, sum)</b></summary>
 
 - chmod u+x add exec
-- chmod: verify exec set
+- chmod: 验证 exec 设置
 - chmod 644 numeric
-- chmod: verify 644 perms
-- Setup recursive chmod
-- chmod -R recursive
-- chown version check
-- chown to self
-- chgrp version check
-- tee write to file
+- chmod: 验证 644 perms
+- Setup 递归 chmod
+- chmod -R 递归
+- chown 版本 检查
+- chown self
+- chgrp 版本 检查
+- tee write 文件
 
 </details>
 
 <details>
-<summary><b>Encoding (base32, base64, basenc) ===</b></summary>
+<summary><b>编码 (base32, base64, basenc)</b></summary>
 
-- tee: verify output
-- tee -a append mode
+- tee: 验证 输出
+- tee -a append 模式
 - cksum CRC checksum
 - md5sum compute
 - md5sum save
-- md5sum -c verify
+- md5sum -c 验证
 - sha1sum compute
 - sha1sum save
-- sha1sum -c verify
+- sha1sum -c 验证
 - sha224sum compute
 
 </details>
 
 <details>
-<summary><b>System information (uname, who, whoami, id, groups, users, hostid, nproc, tty, logname, pinky) ===</b></summary>
+<summary><b>System information (uname, who, whoami, id, groups, users, hostid, nproc, tty, logname, pinky)</b></summary>
 
 - sha256sum compute
 - sha256sum save
-- sha256sum -c verify
+- sha256sum -c 验证
 - sha384sum compute
 - sha512sum compute
 - b2sum BLAKE2 checksum
@@ -665,144 +665,144 @@
 </details>
 
 <details>
-<summary><b>Boolean and condition (true, false, test, [) ===</b></summary>
+<summary><b>Boolean 和 condition (true, false, 测试, [)</b></summary>
 
 - base64 -d decode
 - basenc --base64 encode
 - uname system name
-- uname -a all info
+- uname -a all 信息
 - uname -r kernel release
 - uname -m machine hardware
-- who show logged in users
-- whoami current user
-- id user identity
-- id -u user ID
+- who 显示 logged in users
+- whoami current 用户
+- id 用户 identity
+- id -u 用户 ID
 
 </details>
 
 <details>
-<summary><b>Environment and time (env, printenv, date, printf) ===</b></summary>
+<summary><b>环境变量 和 time (env, printenv, date, printf)</b></summary>
 
-- id -g group ID
-- groups show group membership
-- groups for specific user
-- users list logged in users
+- id -g 组 ID
+- groups 显示 组 membership
+- groups specific 用户
+- users 列出 logged in users
 - hostid numeric host identifier
-- nproc number of CPUs
+- nproc number CPUs
 - nproc --all all processors
 - tty terminal name
 - logname login name
-- pinky user info
+- pinky 用户 信息
 
 </details>
 
 <details>
-<summary><b>Flow control (sleep, timeout, yes) ===</b></summary>
+<summary><b>Flow control (sleep, timeout, yes)</b></summary>
 
 - true returns success
 - false returns failure
-- test -f: file exists
-- test -d: directory exists
-- test string equality
-- test numeric comparison
-- [ -f: file exists
+- 测试 -f: 文件 存在
+- 测试 -d: 目录 存在
+- 测试 string equality
+- 测试 numeric comparison
+- [ -f: 文件 存在
 - [ string equality
-- env show environment
-- env set variable for command
+- env 显示 环境变量
+- env 设置 variable 命令
 
 </details>
 
 <details>
-<summary><b>Process control (nice, nohup, stdbuf) ===</b></summary>
+<summary><b>Process control (nice, nohup, stdbuf)</b></summary>
 
-- printenv show PATH
+- printenv 显示 路径
 - date current date/time
 - date custom format
 - date -u UTC time
-- printf formatted output
-- printf string output
+- printf formatted 输出
+- printf string 输出
 - sleep delay
-- timeout: command finishes in time
+- timeout: 命令 finishes in time
 - timeout: successful completion
-- timeout: kills slow command
+- timeout: kills slow 命令
 
 </details>
 
 <details>
-<summary><b>File operations (dd, truncate, shred, sync, install, chroot) ===</b></summary>
+<summary><b>文件 operations (dd, truncate, shred, sync, 安装, chroot)</b></summary>
 
-- yes repeated output
+- yes repeated 输出
 - yes custom string
 - nice adjust priority
-- nohup run command
-- stdbuf line buffered output
-- dd copy file
-- truncate set size
-- truncate: verify size
-- Create file to shred
-- shred remove file securely
+- nohup 运行 命令
+- stdbuf line buffered 输出
+- dd 复制 文件
+- truncate 设置 size
+- truncate: 验证 size
+- 创建 文件 shred
+- shred 删除 文件 securely
 
 </details>
 
 <details>
-<summary><b>Numbers and expressions (seq, factor, shuf, numfmt, expr) ===</b></summary>
+<summary><b>Numbers 和 expressions (seq, factor, shuf, numfmt, expr)</b></summary>
 
-- shred: file removed
+- shred: 文件 removed
 - sync flush filesystem buffers
-- install copy with mode
-- install: destination exists
-- install -d create directory
-- install -d: directory exists
-- chroot version check
-- mkfifo create named pipe
-- mkfifo: verify pipe created
-- mknod version check
+- 安装 复制 使用 模式
+- 安装: destination 存在
+- 安装 -d 创建 目录
+- 安装 -d: 目录 存在
+- chroot 版本 检查
+- mkfifo 创建 named 管道
+- mkfifo: 验证 管道 created
+- mknod 版本 检查
 
 </details>
 
 <details>
-<summary><b>Split files (split, csplit) ===</b></summary>
+<summary><b>分割 files (分割, csplit)</b></summary>
 
-- seq generate sequence
+- seq 生成 sequence
 - seq: 5 numbers
 - seq -s custom separator
 - factor prime factorization
 - factor prime number
 - shuf randomize lines
 - shuf: same line count
-- numfmt to SI units
+- numfmt SI units
 - numfmt from SI units
-- numfmt to IEC units
+- numfmt IEC units
 
 </details>
 
 <details>
-<summary><b>Special utilities (stty, pathchk, tsort, ptx, dircolors) ===</b></summary>
+<summary><b>Special utilities (stty, pathchk, tsort, ptx, dircolors)</b></summary>
 
-- expr basic arithmetic
+- expr 基本 arithmetic
 - expr multiplication
 - expr string length
-- split by lines
-- split: multiple output files
-- csplit split by pattern
-- stty -a show all terminal settings
-- pathchk validate path
-- pathchk -p POSIX check
+- 分割 by lines
+- 分割: multiple 输出 files
+- csplit 分割 by pattern
+- stty -a 显示 all terminal settings
+- pathchk validate 路径
+- pathchk -p POSIX 检查
 - tsort topological sort
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - ptx permuted index
 - dircolors -p print database
-- dircolors output LS_COLORS
-- cp: error on nonexistent source
-- ls: error on nonexistent file
-- mkdir: error on existing dir
-- rm: error on dir without -r
-- rmdir: error on non-empty dir
+- dircolors 输出 LS_COLORS
+- cp: 错误 on nonexistent source
+- ls: 错误 on nonexistent 文件
+- mkdir: 错误 on existing dir
+- rm: 错误 on dir without -r
+- rmdir: 错误 on non-empty dir
 
 </details>
 
@@ -816,81 +816,81 @@
 - **被测命令**: `dnf5`
 
 <details>
-<summary><b>dnf5 version ===</b></summary>
+<summary><b>dnf5 版本</b></summary>
 
-- Check dnf5-plugins installed
-- Check dnf5 available
-- dnf5 version
-- dnf5 help
+- 检查 dnf5-plugins 已安装
+- 检查 dnf5 可用
+- dnf5 版本
+- dnf5 帮助
 - Plugin files
-- Plugin directory
-- Check plugin: $plugin
-- Plugin commands in help
-- dnf5 repoquery help
+- Plugin 目录
+- 检查 plugin: $plugin
+- Plugin commands in 帮助
+- dnf5 repoquery 帮助
 - dnf5 repolist
 
 </details>
 
 <details>
-<summary><b>dnf5 help ===</b></summary>
+<summary><b>dnf5 帮助</b></summary>
 
-- dnf5 list installed
-- dnf5 info
-- dnf5: invalid option
+- dnf5 列出 已安装
+- dnf5 信息
+- dnf5: invalid 选项
 
 </details>
 
 <details>
-<summary><b>List installed plugins ===</b></summary>
+<summary><b>列出 已安装 plugins</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Available plugins ===</b></summary>
+<summary><b>可用 plugins</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Commands with plugins ===</b></summary>
+<summary><b>Commands 使用 plugins</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>dnf5 repoquery ===</b></summary>
+<summary><b>dnf5 repoquery</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>dnf5 repolist ===</b></summary>
+<summary><b>dnf5 repolist</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>dnf5 list ===</b></summary>
+<summary><b>dnf5 列出</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>dnf5 info ===</b></summary>
+<summary><b>dnf5 信息</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -906,139 +906,139 @@
 - **被测命令**: `gcc`, `g++`, `cpp`
 
 <details>
-<summary><b>Basic C compilation ===</b></summary>
+<summary><b>基本 C 编译</b></summary>
 
-- Check gcc package is installed
-- Check gcc-c++ package is installed
-- Check gcc command is available
-- Check g++ command is available
-- Check cpp command is available
-- Get gcc version info
-- Get g++ version info
-- Compile hello.c to hello
-- Run compiled hello
-- Verify output is ELF binary
-
-</details>
-
-<details>
-<summary><b>C++ compilation ===</b></summary>
-
-- Compile with -o flag
-- Run myhello
-- Compile hello.cpp
-- Compile with C++11 standard
-- Compile with -O0
-- Compile with -O2
-- Compile with debug symbols -g
-- Verify debug symbols present
-- Preprocess with -E
-- Verify macro expanded in preprocessed output
+- 检查 gcc 软件包 已安装
+- 检查 gcc-c++ 软件包 已安装
+- 检查 gcc 命令 可用
+- 检查 g++ 命令 可用
+- 检查 cpp 命令 可用
+- 获取 gcc 版本 信息
+- 获取 g++ 版本 信息
+- 编译 hello.c hello
+- 运行 已编译 hello
+- 验证 输出 ELF binary
 
 </details>
 
 <details>
-<summary><b>Compiler optimization flags ===</b></summary>
+<summary><b>C++ 编译</b></summary>
 
-- Compile preprocessed .i file
-- Run from preprocessed source
-- Compile with -D flag
-- Run with -D defined macro
-- Generate assembly with -S
-- Check main label in assembly
-- Assemble to object file
-- Link with -lm
-- Run math linked program
-- Compile static binary
-
-</details>
-
-<details>
-<summary><b>Preprocessor ===</b></summary>
-
-- Compile with -Wall warnings enabled
-- Compile with -Werror
-- Compile with -pedantic
-- Compile add.c to object
-- Compile main.c to object
-- Link multiple objects
-- Run multi-file program
-- Compile multiple files in one command
-- Run single-command multi-file program
-- Compile with coverage flags
+- 编译 使用 -o 参数
+- 运行 myhello
+- 编译 hello.cpp
+- 编译 使用 C++11 标准
+- 编译 使用 -O0
+- 编译 使用 -O2
+- 编译 使用 调试 symbols -g
+- 验证 调试 symbols present
+- Preprocess 使用 -E
+- 验证 macro expanded in preprocessed 输出
 
 </details>
 
 <details>
-<summary><b>Assembly output ===</b></summary>
+<summary><b>Compiler 优化 flags</b></summary>
 
-- Run coverage test program
-- Run gcov
-- Check gcov output file exists
-- Test syntax error detection
-- Test missing file error
-- Test undefined function error
-- Test type mismatch warning
-- Compile with C99 standard
-- Compile with __attribute__
-- Run attribute test
+- 编译 preprocessed .i 文件
+- 运行 from preprocessed source
+- 编译 使用 -D 参数
+- 运行 使用 -D defined macro
+- 生成 assembly 使用 -S
+- 检查 main label in assembly
+- Assemble object 文件
+- 链接 使用 -lm
+- 运行 math linked program
+- 编译 静态 binary
 
 </details>
 
 <details>
-<summary><b>Linking and libraries ===</b></summary>
+<summary><b>预处理器</b></summary>
 
-- Compile with -I include path
-- Run include path test
-- gcc-ar version check
-- gcc-nm version check
-- gcc-ranlib version check
-- gcov-dump version check
-- gcov-tool version check
-- lto-dump version check
-- cc version check
+- 编译 使用 -Wall 警告 enabled
+- 编译 使用 -Werror
+- 编译 使用 -pedantic
+- 编译 add.c object
+- 编译 main.c object
+- 链接 multiple objects
+- 运行 multi-文件 program
+- 编译 multiple files in one 命令
+- 运行 single-命令 multi-文件 program
+- 编译 使用 coverage flags
+
+</details>
+
+<details>
+<summary><b>Assembly 输出</b></summary>
+
+- 运行 coverage 测试 program
+- 运行 gcov
+- 检查 gcov 输出 文件 存在
+- 测试 syntax 错误 detection
+- 测试 missing 文件 错误
+- 测试 undefined function 错误
+- 测试 type mismatch 警告
+- 编译 使用 C99 标准
+- 编译 使用 __attribute__
+- 运行 attribute 测试
+
+</details>
+
+<details>
+<summary><b>链接 和 libraries</b></summary>
+
+- 编译 使用 -I 包含 路径
+- 运行 包含 路径 测试
+- gcc-ar 版本 检查
+- gcc-nm 版本 检查
+- gcc-ranlib 版本 检查
+- gcov-dump 版本 检查
+- gcov-tool 版本 检查
+- lto-dump 版本 检查
+- cc 版本 检查
 - cc equals gcc
 
 </details>
 
 <details>
-<summary><b>Warning flags ===</b></summary>
+<summary><b>警告 flags</b></summary>
 
-- c++ version check
+- c++ 版本 检查
 - c++ equals g++
 
 </details>
 
 <details>
-<summary><b>Multi-file compilation ===</b></summary>
+<summary><b>Multi-文件 编译</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Code coverage (gcov) ===</b></summary>
+<summary><b>Code coverage (gcov)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Special features ===</b></summary>
+<summary><b>Special features</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>GCC toolchain utilities ===</b></summary>
+<summary><b>GCC toolchain utilities</b></summary>
 
 - 执行相关功能验证
 
@@ -1054,150 +1054,150 @@
 - **被测命令**: `git`, `git-shell`, `scalar`
 
 <details>
-<summary><b>Repository initialization ===</b></summary>
+<summary><b>仓库 initialization</b></summary>
 
-- Check git-core installed
-- Check git available
-- git version
-- git init: create repo
-- git status: check status
-- git init: .git directory exists
-- git config: set user name
-- git config: set email
-- git config: get user name
-- git config --list
-
-</details>
-
-<details>
-<summary><b>User configuration ===</b></summary>
-
-- git add: stage file
-- git status --short
-- git commit: first commit
-- git log: show commits
-- git branch: create branch
-- git branch: list branches
-- git branch -a: all branches
-- git switch: switch branch
-- git switch -: previous branch
-- git branch -d: delete branch
+- 检查 git-core 已安装
+- 检查 git 可用
+- git 版本
+- git 初始化: 创建 repo
+- git 状态: 检查 状态
+- git 初始化: .git 目录 存在
+- git config: 设置 用户 name
+- git config: 设置 email
+- git config: 获取 用户 name
+- git config --列出
 
 </details>
 
 <details>
-<summary><b>File operations ===</b></summary>
+<summary><b>用户 configuration</b></summary>
 
-- git add: second file
-- git commit: second commit
-- git diff: show changes
-- git diff --cached: staged changes
-- git commit: modify
-- git log: last 3 commits
-- git log --graph
-- git show: latest commit
-- git show: previous commit
-- git tag: create tag
+- git add: stage 文件
+- git 状态 --short
+- git 提交: first 提交
+- git 日志: 显示 commits
+- git 分支: 创建 分支
+- git 分支: 列出 branches
+- git 分支 -a: all branches
+- git switch: switch 分支
+- git switch -: previous 分支
+- git 分支 -d: 删除 分支
 
 </details>
 
 <details>
-<summary><b>Branch operations ===</b></summary>
+<summary><b>文件 operations</b></summary>
 
-- git tag: list tags
-- git tag -d: delete tag
-- git add: temp file
-- git reset: unstage
-- git restore --staged
+- git add: second 文件
+- git 提交: second 提交
+- git 差异: 显示 changes
+- git 差异 --cached: staged changes
+- git 提交: modify
+- git 日志: last 3 commits
+- git 日志 --graph
+- git 显示: latest 提交
+- git 显示: previous 提交
+- git 标签: 创建 标签
+
+</details>
+
+<details>
+<summary><b>分支 operations</b></summary>
+
+- git 标签: 列出 tags
+- git 标签 -d: 删除 标签
+- git add: temp 文件
+- git 重置: unstage
+- git 恢复 --staged
 - Cleanup temp
-- git remote: list remotes
-- git remote add
-- git stash: push
-- git stash list
+- git 远程: 列出 remotes
+- git 远程 add
+- git 暂存: 推送
+- git 暂存 列出
 
 </details>
 
 <details>
-<summary><b>File modifications ===</b></summary>
+<summary><b>文件 modifications</b></summary>
 
-- git stash pop
-- git grep: search
-- git blame: annotate
-- git clean -n: dry run
+- git 暂存 pop
+- git 搜索: search
+- git 追溯: annotate
+- git 清理 -n: dry 运行
 - git gc: garbage collect
-- git-shell available
-- scalar available
-- scalar help
-- git: invalid command
-- git: invalid option
+- git-shell 可用
+- scalar 可用
+- scalar 帮助
+- git: invalid 命令
+- git: invalid 选项
 
 </details>
 
 <details>
-<summary><b>Log and show ===</b></summary>
+<summary><b>日志 和 显示</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Tag operations ===</b></summary>
+<summary><b>标签 operations</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Reset and restore ===</b></summary>
+<summary><b>重置 和 恢复</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Remote operations ===</b></summary>
+<summary><b>远程 operations</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Stash ===</b></summary>
+<summary><b>暂存</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>grep and blame ===</b></summary>
+<summary><b>搜索 和 追溯</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Clean and gc ===</b></summary>
+<summary><b>清理 和 gc</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>git-shell ===</b></summary>
+<summary><b>git-shell</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>scalar ===</b></summary>
+<summary><b>scalar</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -1213,63 +1213,63 @@
 - **被测命令**: `grep`, `egrep`, `fgrep`
 
 <details>
-<summary><b>Basic pattern matching ===</b></summary>
+<summary><b>基本 pattern matching</b></summary>
 
-- Check grep package is installed
-- Check grep command is available
-- Check egrep command is available
-- Check fgrep command is available
-- Get grep version info
-- Basic grep for Hello
-- Verify multiple matches
-- Grep from pipe
-- Grep across multiple files
-- Case insensitive grep
+- 检查 搜索 软件包 已安装
+- 检查 搜索 命令 可用
+- 检查 egrep 命令 可用
+- 检查 fgrep 命令 可用
+- 获取 搜索 版本 信息
+- 基本 搜索 Hello
+- 验证 multiple matches
+- 搜索 from 管道
+- 搜索 across multiple files
+- Case insensitive 搜索
 
 </details>
 
 <details>
-<summary><b>Case insensitive (-i) ===</b></summary>
+<summary><b>Case insensitive (-i)</b></summary>
 
-- Verify case insensitive matches
-- Case sensitive: lowercase only matches lowercase
+- 验证 case insensitive matches
+- Case sensitive: lowercase 仅 matches lowercase
 - Invert match: exclude Hello
-- Verify inverted output contains other lines
-- Create word test file
-- Add line with separate words
-- Whole word match: hello matches only standalone
-- Create line test file
+- 验证 inverted 输出 contains 其他用户 lines
+- 创建 word 测试 文件
+- Add line 使用 separate words
+- Whole word match: hello matches 仅 standalone
+- 创建 line 测试 文件
 - Add different line
 - Whole line exact match
 
 </details>
 
 <details>
-<summary><b>Invert match (-v) ===</b></summary>
+<summary><b>Invert match (-v)</b></summary>
 
-- Count matches with -c
-- Verify count >= 2
-- Show line numbers with -n
-- Verify line number format
-- Recursive grep in subdirectory
-- Recursive list files with matches
-- Recursive with --include filter
-- Extended regex with alternation
+- Count matches 使用 -c
+- 验证 count >= 2
+- 显示 line numbers 使用 -n
+- 验证 line number format
+- 递归 搜索 in subdirectory
+- 递归 列出 files 使用 matches
+- 递归 使用 --包含 filter
+- Extended regex 使用 alternation
 - Extended regex: digit quantifier
-- Verify digit match count
+- 验证 digit match count
 
 </details>
 
 <details>
-<summary><b>Word and line matching (-w, -x) ===</b></summary>
+<summary><b>Word 和 line matching (-w, -x)</b></summary>
 
-- egrep equivalent to grep -E
-- Fixed string with special chars
-- Fixed string: no regex meta-char interpretation
-- fgrep equivalent to grep -F
-- Only matching: digits only
-- Quiet mode: pattern found
-- Quiet mode: pattern not found
+- egrep equivalent 搜索 -E
+- Fixed string 使用 special chars
+- Fixed string: 无 regex meta-char interpretation
+- fgrep equivalent 搜索 -F
+- Only matching: digits 仅
+- Quiet 模式: pattern found
+- Quiet 模式: pattern not found
 - Hello World
 - Hello Linux
 - Hello World
@@ -1277,71 +1277,71 @@
 </details>
 
 <details>
-<summary><b>Count and line numbers (-c, -n) ===</b></summary>
+<summary><b>Count 和 line numbers (-c, -n)</b></summary>
 
-- List files with matches
-- List files without matches
-- Multiple patterns with -e
-- Patterns from file with -f
-- Max count: stop after first match
-- Error on nonexistent file
-- Error on invalid regex
-- Error on directory without -r
+- 列出 files 使用 matches
+- 列出 files without matches
+- Multiple patterns 使用 -e
+- Patterns from 文件 使用 -f
+- Max count: 停止 after first match
+- 错误 on nonexistent 文件
+- 错误 on invalid regex
+- 错误 on 目录 without -r
 - No match returns exit code 1
 
 </details>
 
 <details>
-<summary><b>Recursive search (-r) ===</b></summary>
+<summary><b>递归 search (-r)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Extended regex (-E) ===</b></summary>
+<summary><b>Extended regex (-E)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Fixed strings (-F) ===</b></summary>
+<summary><b>Fixed strings (-F)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Only matching and quiet (-o, -q) ===</b></summary>
+<summary><b>Only matching 和 quiet (-o, -q)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Context lines (-A, -B, -C) ===</b></summary>
+<summary><b>Context lines (-A, -B, -C)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>File listing (-l, -L) ===</b></summary>
+<summary><b>文件 listing (-l, -L)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Multiple patterns (-e, -f) ===</b></summary>
+<summary><b>Multiple patterns (-e, -f)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -1357,81 +1357,81 @@
 - **被测命令**: `g++`, `c++`
 
 <details>
-<summary><b>Basic C++ compilation ===</b></summary>
+<summary><b>基本 C++ 编译</b></summary>
 
-- Check gcc-c++ is installed
-- Check g++ command available
-- Check c++ command available
-- g++ version info
-- Compile hello.cpp
-- Run compiled binary
-- Output is ELF binary
-- g++ -c: compile only
-- Object file exists
-- Optimization -$lvl
+- 检查 gcc-c++ 已安装
+- 检查 g++ 命令 可用
+- 检查 c++ 命令 可用
+- g++ 版本 信息
+- 编译 hello.cpp
+- 运行 已编译 binary
+- 输出 ELF binary
+- g++ -c: 编译 仅
+- Object 文件 存在
+- 优化 -$lvl
 
 </details>
 
 <details>
-<summary><b>Compile-only ===</b></summary>
+<summary><b>编译-仅</b></summary>
 
-- Debug symbols
-- -Wall warnings
-- -Wextra warnings
+- 调试 symbols
+- -Wall 警告
+- -Wextra 警告
 - g++ -E: preprocess
-- Link from object
+- 链接 from object
 - g++ -shared: shared library
-- g++ -I: include path
-- c++ alias works
-- Compilation error
-- Invalid option
+- g++ -I: 包含 路径
+- c++ 别名 works
+- Compilation 错误
+- Invalid 选项
 
 </details>
 
 <details>
-<summary><b>Optimization ===</b></summary>
+<summary><b>优化</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Debug and warnings ===</b></summary>
+<summary><b>调试 和 警告</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Preprocessor ===</b></summary>
+<summary><b>预处理器</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Linking ===</b></summary>
+<summary><b>链接</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Include paths ===</b></summary>
+<summary><b>包含 paths</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>c++ alias ===</b></summary>
+<summary><b>c++ 别名</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -1447,79 +1447,79 @@
 - **被测命令**: `ping`
 
 <details>
-<summary><b>ping basic functionality ===</b></summary>
+<summary><b>ping 基本 functionality</b></summary>
 
-- Test section: ping basic functionality ===
-- Test section: ping advanced options ===
-- Test section: ping6 (IPv6) ===
-- Test section: traceroute6 ===
-- Test section: tracepath ===
-- Test section: arping ===
-- Test section: clockdiff ===
-- Test section: ping error handling ===
-- Test section: ping special scenarios ===
-- Test section: Network interface testing ===
+- 测试 section: ping 基本 functionality ===
+- 测试 section: ping 高级 选项 ===
+- 测试 section: ping6 (IPv6) ===
+- 测试 section: traceroute6 ===
+- 测试 section: tracepath ===
+- 测试 section: arping ===
+- 测试 section: clockdiff ===
+- 测试 section: ping 错误 处理 ===
+- 测试 section: ping special scenarios ===
+- 测试 section: 网络 interface testing ===
 
 </details>
 
 <details>
-<summary><b>ping advanced options ===</b></summary>
+<summary><b>ping 高级 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>ping6 (IPv6) ===</b></summary>
+<summary><b>ping6 (IPv6)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>traceroute6 ===</b></summary>
+<summary><b>traceroute6</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>tracepath ===</b></summary>
+<summary><b>tracepath</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>arping ===</b></summary>
+<summary><b>arping</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>clockdiff ===</b></summary>
+<summary><b>clockdiff</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>ping error handling ===</b></summary>
+<summary><b>ping 错误 处理</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>ping special scenarios ===</b></summary>
+<summary><b>ping special scenarios</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Network interface testing ===</b></summary>
+<summary><b>网络 interface testing</b></summary>
 
 - 执行相关功能验证
 
@@ -1535,75 +1535,75 @@
 - **被测命令**: `labwc`, `labnag`, `lab-sensible-terminal`, `labwc)`
 
 <details>
-<summary><b>Help ===</b></summary>
+<summary><b>帮助</b></summary>
 
-- Check labwc installed
-- Check labwc available
-- Check labnag available
-- Check lab-sensible-terminal available
-- labwc help
-- labwc: config options
-- labwc: debug option
-- labwc: startup/session options
+- 检查 labwc 已安装
+- 检查 labwc 可用
+- 检查 labnag 可用
+- 检查 lab-sensible-terminal 可用
+- labwc 帮助
+- labwc: config 选项
+- labwc: 调试 选项
+- labwc: startup/会话 选项
 - labwc: linked libraries
-- labnag help
+- labnag 帮助
 
 </details>
 
 <details>
-<summary><b>Configuration ===</b></summary>
+<summary><b>Configuration</b></summary>
 
-- lab-sensible-terminal help
+- lab-sensible-terminal 帮助
 - System config dir
 - Data dir
-- labwc: invalid option
+- labwc: invalid 选项
 
 </details>
 
 <details>
-<summary><b>Debug mode ===</b></summary>
+<summary><b>调试 模式</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Check for display (no DISPLAY) ===</b></summary>
+<summary><b>检查 display (无 DISPLAY)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Library check ===</b></summary>
+<summary><b>Library 检查</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>labnag ===</b></summary>
+<summary><b>labnag</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>lab-sensible-terminal ===</b></summary>
+<summary><b>lab-sensible-terminal</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Config dirs ===</b></summary>
+<summary><b>Config dirs</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -1619,86 +1619,86 @@
 - **被测命令**: `make`, `gmake`
 
 <details>
-<summary><b>Basic Makefile execution ===</b></summary>
+<summary><b>基本 Makefile execution</b></summary>
 
-- Check make is installed
-- Check make command available
-- Check gmake command available
-- make version
-- gmake version
-- Run default target
-- Run specific target
-- Run clean target
-- make -s: silent mode
+- 检查 make 已安装
+- 检查 make 命令 可用
+- 检查 gmake 命令 可用
+- make 版本
+- gmake 版本
+- 运行 默认 target
+- 运行 specific target
+- 运行 清理 target
+- make -s: silent 模式
 - Variable expansion
 
 </details>
 
 <details>
-<summary><b>Variables ===</b></summary>
+<summary><b>Variables</b></summary>
 
 - Override variable
-- make -n: dry run
+- make -n: dry 运行
 - make -B: always make
 - make --just-print
-- make -d: debug output
-- make --debug=b: basic debug
-- make -q: question mode
+- make -d: 调试 输出
+- make --调试=b: 基本 调试
+- make -q: question 模式
 - make -s: silent
 - make -j2: parallel 2 jobs
-- make -e: environment overrides
+- make -e: 环境变量 overrides
 
 </details>
 
 <details>
-<summary><b>Options ===</b></summary>
+<summary><b>选项</b></summary>
 
-- Environment variable in make
-- make -C: change directory
-- Include file
-- gmake is GNU Make
-- make -k: continue on error
+- 环境变量 variable in make
+- make -C: change 目录
+- 包含 文件
+- gmake GNU Make
+- make -k: continue on 错误
 - make -i: ignore errors
 
 </details>
 
 <details>
-<summary><b>Parallel execution ===</b></summary>
+<summary><b>Parallel execution</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Environment ===</b></summary>
+<summary><b>环境变量</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Directory change ===</b></summary>
+<summary><b>目录 change</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Include ===</b></summary>
+<summary><b>包含</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>gmake alias ===</b></summary>
+<summary><b>gmake 别名</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -1714,108 +1714,108 @@
 - **被测命令**: `ssh-keygen`
 
 <details>
-<summary><b>RSA key generation ===</b></summary>
+<summary><b>RSA 密钥生成</b></summary>
 
-- Check openssh is installed
-- Check ssh-keygen available
-- ssh-keygen help
-- Generate RSA 2048 key
-- Private key exists
-- Public key exists
-- Show RSA key fingerprint
-- Generate ECDSA 256 key
-- Show ECDSA fingerprint
-- Generate Ed25519 key
+- 检查 openssh 已安装
+- 检查 ssh-keygen 可用
+- ssh-keygen 帮助
+- 生成 RSA 2048 key
+- 私钥 存在
+- 公钥 存在
+- 显示 RSA key 指纹
+- 生成 ECDSA 256 key
+- 显示 ECDSA 指纹
+- 生成 Ed25519 key
 
 </details>
 
 <details>
-<summary><b>ECDSA key generation ===</b></summary>
+<summary><b>ECDSA 密钥生成</b></summary>
 
-- Show Ed25519 fingerprint
-- Verbose fingerprint
-- Generate key with passphrase
-- Remove passphrase
-- Generate key with comment
-- Verify comment in pubkey
+- 显示 Ed25519 指纹
+- 详细 指纹
+- 生成 key 使用 密码
+- 删除 密码
+- 生成 key 使用 注释
+- 验证 注释 in pubkey
 - Export RFC4716 format
 - Import RFC4716 format
-- Extract public key from private
-- Change key comment
+- 提取 公钥 from private
+- Change key 注释
 
 </details>
 
 <details>
-<summary><b>Ed25519 key generation ===</b></summary>
+<summary><b>Ed25519 密钥生成</b></summary>
 
 - Hash known hosts
-- SHA256 fingerprint
-- MD5 fingerprint
-- Generate RSA 2048 key
-- Verify RSA 2048 key
+- SHA256 指纹
+- MD5 指纹
+- 生成 RSA 2048 key
+- 验证 RSA 2048 key
 - Invalid key type
-- Invalid path
+- Invalid 路径
 
 </details>
 
 <details>
-<summary><b>Key with passphrase ===</b></summary>
+<summary><b>Key 使用 密码</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Key with comment ===</b></summary>
+<summary><b>Key 使用 注释</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Key conversion ===</b></summary>
+<summary><b>Key conversion</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Public key extraction ===</b></summary>
+<summary><b>公钥 extraction</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Change comment ===</b></summary>
+<summary><b>Change 注释</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Hash known hosts ===</b></summary>
+<summary><b>Hash known hosts</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Fingerprint hashes ===</b></summary>
+<summary><b>指纹 hashes</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>RSA key options ===</b></summary>
+<summary><b>RSA key 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -1831,87 +1831,87 @@
 - **被测命令**: `ssh`, `scp`, `sftp`, `ssh-add`, `ssh-agent`, `ssh-copy-id`, `ssh-keyscan`
 
 <details>
-<summary><b>ssh version and help ===</b></summary>
+<summary><b>ssh 版本 和 帮助</b></summary>
 
-- Check openssh-clients installed
-- Check ssh available
-- Check scp available
-- Check sftp available
-- Check ssh-add available
-- Check ssh-agent available
-- Check ssh-copy-id available
-- Check ssh-keyscan available
-- ssh version
+- 检查 openssh-clients 已安装
+- 检查 ssh 可用
+- 检查 scp 可用
+- 检查 sftp 可用
+- 检查 ssh-add 可用
+- 检查 ssh-agent 可用
+- 检查 ssh-复制-id 可用
+- 检查 ssh-keyscan 可用
+- ssh 版本
 - ssh -Q key: supported keys
 
 </details>
 
 <details>
-<summary><b>ssh connection (dry-run) ===</b></summary>
+<summary><b>ssh connection (dry-运行)</b></summary>
 
 - ssh -Q cipher: ciphers
 - ssh -Q mac: MACs
 - ssh -Q kex: key exchange
 - ssh -G: print config
-- ssh -T: disable PTY
-- ssh -v: verbose
-- Generate test key
-- ssh-add: list keys
+- ssh -T: 禁用 PTY
+- ssh -v: 详细
+- 生成 测试 key
+- ssh-add: 列出 keys
 - ssh-add: add key
-- ssh-add: verify key added
+- ssh-add: 验证 key added
 
 </details>
 
 <details>
-<summary><b>ssh-keygen via openssh ===</b></summary>
+<summary><b>ssh-keygen via openssh</b></summary>
 
-- ssh-add -L: list public keys
-- ssh-add -d: remove key
+- ssh-add -L: 列出 public keys
+- ssh-add -d: 删除 key
 - ssh-keyscan: scan localhost
 - ssh-keyscan -t rsa
 - ssh-keyscan -t ecdsa
-- sftp: help command
-- scp version
+- sftp: 帮助 命令
+- scp 版本
 
 </details>
 
 <details>
-<summary><b>ssh-agent ===</b></summary>
+<summary><b>ssh-agent</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>ssh-keyscan ===</b></summary>
+<summary><b>ssh-keyscan</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>sftp ===</b></summary>
+<summary><b>sftp</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>scp ===</b></summary>
+<summary><b>scp</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>ssh-copy-id ===</b></summary>
+<summary><b>ssh-复制-id</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -1927,102 +1927,102 @@
 - **被测命令**: `lspci`
 
 <details>
-<summary><b>lspci basic ===</b></summary>
+<summary><b>lspci 基本</b></summary>
 
-- Test section: lspci basic ===
-- Test section: lspci verbose ===
-- Test section: lspci with filtering ===
-- Test section: lspci numeric ===
-- Test section: lspci tree view ===
-- Test section: lspci kernel drivers ===
-- Test section: lspci by device class ===
-- Test section: lspci with domain ===
-- Test section: update-pciids ===
-- Test section: lspci format options ===
-
-</details>
-
-<details>
-<summary><b>lspci verbose ===</b></summary>
-
-- Test section: setpci ===
-- Test section: pcilmr ===
-- Test section: Error handling ===
+- 测试 section: lspci 基本 ===
+- 测试 section: lspci 详细 ===
+- 测试 section: lspci 使用 filtering ===
+- 测试 section: lspci numeric ===
+- 测试 section: lspci tree view ===
+- 测试 section: lspci kernel drivers ===
+- 测试 section: lspci by device class ===
+- 测试 section: lspci 使用 domain ===
+- 测试 section: update-pciids ===
+- 测试 section: lspci format 选项 ===
 
 </details>
 
 <details>
-<summary><b>lspci with filtering ===</b></summary>
+<summary><b>lspci 详细</b></summary>
+
+- 测试 section: setpci ===
+- 测试 section: pcilmr ===
+- 测试 section: 错误 处理 ===
+
+</details>
+
+<details>
+<summary><b>lspci 使用 filtering</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>lspci numeric ===</b></summary>
+<summary><b>lspci numeric</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>lspci tree view ===</b></summary>
+<summary><b>lspci tree view</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>lspci kernel drivers ===</b></summary>
+<summary><b>lspci kernel drivers</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>lspci by device class ===</b></summary>
+<summary><b>lspci by device class</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>lspci with domain ===</b></summary>
+<summary><b>lspci 使用 domain</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>update-pciids ===</b></summary>
+<summary><b>update-pciids</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>lspci format options ===</b></summary>
+<summary><b>lspci format 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>setpci ===</b></summary>
+<summary><b>setpci</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>pcilmr ===</b></summary>
+<summary><b>pcilmr</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -2038,67 +2038,67 @@
 - **被测命令**: `podman`, `podman-remote`
 
 <details>
-<summary><b>Image operations ===</b></summary>
+<summary><b>镜像 operations</b></summary>
 
-- Check podman installed
-- Check podman available
-- Check podman-remote available
-- podman version
-- podman info
-- podman images: list images
-- podman image list
-- podman ps: list containers
+- 检查 podman 已安装
+- 检查 podman 可用
+- 检查 podman-远程 可用
+- podman 版本
+- podman 信息
+- podman images: 列出 images
+- podman 镜像 列出
+- podman ps: 列出 containers
 - podman ps -a: all containers
-- podman container list
+- podman 容器 列出
 
 </details>
 
 <details>
-<summary><b>Container operations ===</b></summary>
+<summary><b>容器 operations</b></summary>
 
-- podman network ls
-- podman network inspect
-- podman volume ls
-- podman system info
+- podman 网络 ls
+- podman 网络 inspect
+- podman 卷 ls
+- podman system 信息
 - podman system df: disk usage
-- podman manifest help
-- podman healthcheck help
-- podman events help
-- podman pod list
-- podman-remote help
+- podman 清单 帮助
+- podman healthcheck 帮助
+- podman events 帮助
+- podman Pod 列出
+- podman-远程 帮助
 
 </details>
 
 <details>
-<summary><b>Network operations ===</b></summary>
+<summary><b>网络 operations</b></summary>
 
-- podman: invalid command
+- podman: invalid 命令
 
 </details>
 
 <details>
-<summary><b>Volume operations ===</b></summary>
+<summary><b>卷 operations</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>System operations ===</b></summary>
+<summary><b>System operations</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Help commands ===</b></summary>
+<summary><b>帮助 commands</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -2114,86 +2114,86 @@
 - **被测命令**: `podmansh`
 
 <details>
-<summary><b>podmansh basic ===</b></summary>
+<summary><b>podmansh 基本</b></summary>
 
-- Test section: podmansh basic ===
-- Test section: podmansh help ===
-- Test section: podmansh config ===
-- Test section: podman basic ===
-- Test section: podman images ===
-- Test section: podman network ===
-- Test section: podman volume ===
-- Test section: podman stats ===
-- Test section: podman ps ===
-- Test section: Error handling ===
-
-</details>
-
-<details>
-<summary><b>podmansh help ===</b></summary>
-
-- Test section: Cleanup ===
+- 测试 section: podmansh 基本 ===
+- 测试 section: podmansh 帮助 ===
+- 测试 section: podmansh config ===
+- 测试 section: podman 基本 ===
+- 测试 section: podman images ===
+- 测试 section: podman 网络 ===
+- 测试 section: podman 卷 ===
+- 测试 section: podman stats ===
+- 测试 section: podman ps ===
+- 测试 section: 错误 处理 ===
 
 </details>
 
 <details>
-<summary><b>podmansh config ===</b></summary>
+<summary><b>podmansh 帮助</b></summary>
+
+- 测试 section: Cleanup ===
+
+</details>
+
+<details>
+<summary><b>podmansh config</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>podman basic ===</b></summary>
+<summary><b>podman 基本</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>podman images ===</b></summary>
+<summary><b>podman images</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>podman network ===</b></summary>
+<summary><b>podman 网络</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>podman volume ===</b></summary>
+<summary><b>podman 卷</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>podman stats ===</b></summary>
+<summary><b>podman stats</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>podman ps ===</b></summary>
+<summary><b>podman ps</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Cleanup ===</b></summary>
+<summary><b>Cleanup</b></summary>
 
 - 执行相关功能验证
 
@@ -2209,110 +2209,110 @@
 - **被测命令**: `ps`
 
 <details>
-<summary><b>ps command basic functionality ===</b></summary>
+<summary><b>ps 命令 基本 functionality</b></summary>
 
-- Test section: ps command basic functionality ===
-- Test section: ps command advanced features ===
-- Test section: free command ===
-- Test section: top command ===
-- Test section: vmstat command ===
-- Test section: uptime and w commands ===
-- Test section: kill command ===
-- Test section: pidof and pgrep ===
-- Test section: pwdx and pmap ===
-- Test section: sysctl (if available) ===
-
-</details>
-
-<details>
-<summary><b>ps command advanced features ===</b></summary>
-
-- Test section: Error handling ===
-- Test section: Special scenarios ===
-- Test section: pkill and pidwait ===
-- Test section: slabtop, tload, watch, hugetop ===
+- 测试 section: ps 命令 基本 functionality ===
+- 测试 section: ps 命令 高级 features ===
+- 测试 section: free 命令 ===
+- 测试 section: top 命令 ===
+- 测试 section: vmstat 命令 ===
+- 测试 section: uptime 和 w commands ===
+- 测试 section: 终止 命令 ===
+- 测试 section: pidof 和 pgrep ===
+- 测试 section: pwdx 和 pmap ===
+- 测试 section: sysctl (if 可用) ===
 
 </details>
 
 <details>
-<summary><b>free command ===</b></summary>
+<summary><b>ps 命令 高级 features</b></summary>
+
+- 测试 section: 错误 处理 ===
+- 测试 section: Special scenarios ===
+- 测试 section: pkill 和 pidwait ===
+- 测试 section: slabtop, tload, watch, hugetop ===
+
+</details>
+
+<details>
+<summary><b>free 命令</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>top command ===</b></summary>
+<summary><b>top 命令</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>vmstat command ===</b></summary>
+<summary><b>vmstat 命令</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>uptime and w commands ===</b></summary>
+<summary><b>uptime 和 w commands</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>kill command ===</b></summary>
+<summary><b>终止 命令</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>pidof and pgrep ===</b></summary>
+<summary><b>pidof 和 pgrep</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>pwdx and pmap ===</b></summary>
+<summary><b>pwdx 和 pmap</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>sysctl (if available) ===</b></summary>
+<summary><b>sysctl (if 可用)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Special scenarios ===</b></summary>
+<summary><b>Special scenarios</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>pkill and pidwait ===</b></summary>
+<summary><b>pkill 和 pidwait</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>slabtop, tload, watch, hugetop ===</b></summary>
+<summary><b>slabtop, tload, watch, hugetop</b></summary>
 
 - 执行相关功能验证
 
@@ -2328,102 +2328,102 @@
 - **被测命令**: `fuser`
 
 <details>
-<summary><b>fuser basic ===</b></summary>
+<summary><b>fuser 基本</b></summary>
 
-- Test section: fuser basic ===
-- Test section: fuser with processes ===
-- Test section: fuser mount points ===
-- Test section: fuser with options ===
-- Test section: pstree basic ===
-- Test section: pstree with options ===
-- Test section: killall basic ===
-- Test section: prtstat ===
-- Test section: peekfd ===
-- Test section: pslog ===
-
-</details>
-
-<details>
-<summary><b>fuser with processes ===</b></summary>
-
-- Test section: killall with signals ===
-- Test section: fuser special cases ===
-- Test section: Error handling ===
+- 测试 section: fuser 基本 ===
+- 测试 section: fuser 使用 processes ===
+- 测试 section: fuser 挂载 points ===
+- 测试 section: fuser 使用 选项 ===
+- 测试 section: pstree 基本 ===
+- 测试 section: pstree 使用 选项 ===
+- 测试 section: killall 基本 ===
+- 测试 section: prtstat ===
+- 测试 section: peekfd ===
+- 测试 section: pslog ===
 
 </details>
 
 <details>
-<summary><b>fuser mount points ===</b></summary>
+<summary><b>fuser 使用 processes</b></summary>
+
+- 测试 section: killall 使用 signals ===
+- 测试 section: fuser special cases ===
+- 测试 section: 错误 处理 ===
+
+</details>
+
+<details>
+<summary><b>fuser 挂载 points</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>fuser with options ===</b></summary>
+<summary><b>fuser 使用 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>pstree basic ===</b></summary>
+<summary><b>pstree 基本</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>pstree with options ===</b></summary>
+<summary><b>pstree 使用 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>killall basic ===</b></summary>
+<summary><b>killall 基本</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>prtstat ===</b></summary>
+<summary><b>prtstat</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>peekfd ===</b></summary>
+<summary><b>peekfd</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>pslog ===</b></summary>
+<summary><b>pslog</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>killall with signals ===</b></summary>
+<summary><b>killall 使用 signals</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>fuser special cases ===</b></summary>
+<summary><b>fuser special cases</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -2439,71 +2439,71 @@
 - **被测命令**: `rpmbuild`
 
 <details>
-<summary><b>rpmbuild basic functionality ===</b></summary>
+<summary><b>rpmbuild 基本 functionality</b></summary>
 
-- Test section: rpmbuild basic functionality ===
-- Test section: Create simple spec file ===
-- Test section: Create source tarball ===
-- Test section: Build RPM package ===
-- Test section: Verify built RPM ===
-- Test section: Install and test RPM ===
-- Test section: RPM build options ===
-- Test section: Error handling ===
-- Test section: RPM verification ===
+- 测试 section: rpmbuild 基本 functionality ===
+- 测试 section: 创建 simple spec 文件 ===
+- 测试 section: 创建 source tarball ===
+- 测试 section: 构建 RPM 软件包 ===
+- 测试 section: 验证 built RPM ===
+- 测试 section: 安装 和 测试 RPM ===
+- 测试 section: RPM 构建 选项 ===
+- 测试 section: 错误 处理 ===
+- 测试 section: RPM verification ===
 
 </details>
 
 <details>
-<summary><b>Create simple spec file ===</b></summary>
+<summary><b>创建 simple spec 文件</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Create source tarball ===</b></summary>
+<summary><b>创建 source tarball</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Build RPM package ===</b></summary>
+<summary><b>构建 RPM 软件包</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Verify built RPM ===</b></summary>
+<summary><b>验证 built RPM</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Install and test RPM ===</b></summary>
+<summary><b>安装 和 测试 RPM</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>RPM build options ===</b></summary>
+<summary><b>RPM 构建 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>RPM verification ===</b></summary>
+<summary><b>RPM verification</b></summary>
 
 - 执行相关功能验证
 
@@ -2519,60 +2519,60 @@
 - **被测命令**: `sddm`, `sddm-greeter-qt6`
 
 <details>
-<summary><b>Version and help ===</b></summary>
+<summary><b>版本 和 帮助</b></summary>
 
-- Check sddm installed
-- Check sddm available
-- Check sddm-greeter available
-- sddm help
-- sddm --test-mode help
+- 检查 sddm 已安装
+- 检查 sddm 可用
+- 检查 sddm-greeter 可用
+- sddm 帮助
+- sddm --测试-模式 帮助
 - sddm: example config
-- Config directory
-- Default config dir
-- sddm service unit
-- sddm service status
+- Config 目录
+- 默认 config dir
+- sddm 服务 unit
+- sddm 服务 状态
 
 </details>
 
 <details>
-<summary><b>Configuration ===</b></summary>
+<summary><b>Configuration</b></summary>
 
-- sddm enabled status
-- sddm themes installed
+- sddm enabled 状态
+- sddm themes 已安装
 - sddm: key config values
 
 </details>
 
 <details>
-<summary><b>Service check ===</b></summary>
+<summary><b>服务 检查</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Theme check ===</b></summary>
+<summary><b>Theme 检查</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Config values ===</b></summary>
+<summary><b>Config values</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>D-Bus ===</b></summary>
+<summary><b>D-Bus</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -2587,355 +2587,355 @@
 - **测试点**: 115
 
 <details>
-<summary><b>systemctl - Service and system management ===</b></summary>
+<summary><b>systemctl - 服务 和 system management</b></summary>
 
-- Check systemd package is installed
-- systemctl version
-- systemctl: list running services
-- systemctl: list targets
+- 检查 系统管理 软件包 已安装
+- systemctl 版本
+- systemctl: 列出 running services
+- systemctl: 列出 targets
 - systemctl --all: all services
-- systemctl: list unit files
-- systemctl is-active: check service status
-- systemctl is-enabled: check enabled
-- systemctl is-failed: list failed units
-- systemctl status: service status
+- systemctl: 列出 unit files
+- systemctl -active: 检查 服务 状态
+- systemctl -enabled: 检查 enabled
+- systemctl -failed: 列出 failed units
+- systemctl 状态: 服务 状态
 
 </details>
 
 <details>
-<summary><b>journalctl - Journal query ===</b></summary>
+<summary><b>journalctl - 日志 query</b></summary>
 
-- systemctl show: service properties
-- systemctl cat: show unit file
-- systemctl list-dependencies
-- systemctl list-sockets
-- systemctl list-timers
-- systemctl list-machines
-- journalctl version
+- systemctl 显示: 服务 properties
+- systemctl cat: 显示 unit 文件
+- systemctl 列出-dependencies
+- systemctl 列出-sockets
+- systemctl 列出-timers
+- systemctl 列出-machines
+- journalctl 版本
 - journalctl -n: last entries
 - journalctl -b: current boot
-- journalctl --list-boots
+- journalctl --列出-boots
 
 </details>
 
 <details>
-<summary><b>systemd-analyze - System profiling ===</b></summary>
+<summary><b>系统管理-analyze - System 性能分析</b></summary>
 
 - journalctl -k: kernel messages
 - journalctl -o short: short format
 - journalctl -o json: json format
-- journalctl -o verbose
+- journalctl -o 详细
 - journalctl --disk-usage
-- journalctl --output=cat
-- journalctl -p err: error messages
+- journalctl --输出=cat
+- journalctl -p err: 错误 messages
 - journalctl --since
 - journalctl -q: quiet
-- systemd-analyze version
+- 系统管理-analyze 版本
 
 </details>
 
 <details>
-<summary><b>hostnamectl - Hostname management ===</b></summary>
+<summary><b>hostnamectl - 主机名 management</b></summary>
 
-- systemd-analyze time: boot time
-- systemd-analyze security
-- hostnamectl version
-- hostnamectl status: system info
-- hostnamectl hostname: current name
-- hostnamectl --static
+- 系统管理-analyze time: boot time
+- 系统管理-analyze security
+- hostnamectl 版本
+- hostnamectl 状态: system 信息
+- hostnamectl 主机名: current name
+- hostnamectl --静态
 - hostnamectl --transient
 - hostnamectl --pretty
 - hostnamectl chassis
-- localectl version
+- localectl 版本
 
 </details>
 
 <details>
-<summary><b>localectl - Locale management ===</b></summary>
+<summary><b>localectl - 区域设置 management</b></summary>
 
-- localectl status: locale info
-- localectl list-locales
-- timedatectl version
-- timedatectl status: time info
-- timedatectl show: all properties
-- timedatectl list-timezones
-- timedatectl show-timesync
-- loginctl version
-- loginctl list-sessions
-- loginctl list-users
-
-</details>
-
-<details>
-<summary><b>timedatectl - Time/date management ===</b></summary>
-
-- loginctl show-session
-- loginctl show-user
-- loginctl user-status
-- systemd-detect-virt: detect VM
-- systemd-detect-virt -q: quiet mode
-- systemd-detect-virt -c: container only
-- systemd-detect-virt -v: VM only
-- systemd-detect-virt -r: chroot only
-- systemd-cgls: cgroup tree
-- systemd-cgls -k: kernel threads
+- localectl 状态: 区域设置 信息
+- localectl 列出-locales
+- timedatectl 版本
+- timedatectl 状态: time 信息
+- timedatectl 显示: all properties
+- timedatectl 列出-timezones
+- timedatectl 显示-timesync
+- loginctl 版本
+- loginctl 列出-sessions
+- loginctl 列出-users
 
 </details>
 
 <details>
-<summary><b>loginctl - Login management ===</b></summary>
+<summary><b>timedatectl - Time/date management</b></summary>
 
-- systemd-cgls --no-pager
-- systemd-cgtop -b: batch mode
-- systemd-tmpfiles version
-- systemd-tmpfiles --cat-config
-- busctl version
-- busctl list: list services
-- busctl status: bus status
+- loginctl 显示-会话
+- loginctl 显示-用户
+- loginctl 用户-状态
+- 系统管理-检测-virt: 检测 VM
+- 系统管理-检测-virt -q: quiet 模式
+- 系统管理-检测-virt -c: 容器 仅
+- 系统管理-检测-virt -v: VM 仅
+- 系统管理-检测-virt -r: chroot 仅
+- 系统管理-cgls: 控制组 tree
+- 系统管理-cgls -k: kernel threads
+
+</details>
+
+<details>
+<summary><b>loginctl - Login management</b></summary>
+
+- 系统管理-cgls --无-pager
+- 系统管理-cgtop -b: batch 模式
+- 系统管理-临时文件 版本
+- 系统管理-临时文件 --cat-config
+- busctl 版本
+- busctl 列出: 列出 services
+- busctl 状态: bus 状态
 - busctl tree: object tree
 - busctl introspect
-- systemd-run version
+- 系统管理-运行 版本
 
 </details>
 
 <details>
-<summary><b>systemd-detect-virt ===</b></summary>
+<summary><b>系统管理-检测-virt</b></summary>
 
-- systemd-run --user --scope
-- systemd-cat: pipe to journal
-- systemd-cat version
-- systemd-notify version
-- systemd-notify help
-- systemd-path: all paths
-- systemd-path: specific path
-- systemd-path --suffix
-- systemd-path help
-- systemd-escape: basic escape
-
-</details>
-
-<details>
-<summary><b>systemd-cgls - Cgroup listing ===</b></summary>
-
-- systemd-escape --path: path escape
-- systemd-escape -u: unescape
-- systemd-escape --suffix
-- systemd-escape --template
-- systemd-machine-id-setup help
-- systemd-machine-id-setup: check machine-id
-- coredumpctl version
-- coredumpctl list: list dumps
-- coredumpctl info
-- systemd-delta help
+- 系统管理-运行 --用户 --scope
+- 系统管理-cat: 管道 日志
+- 系统管理-cat 版本
+- 系统管理-通知 版本
+- 系统管理-通知 帮助
+- 系统管理-路径: all paths
+- 系统管理-路径: specific 路径
+- 系统管理-路径 --suffix
+- 系统管理-路径 帮助
+- 系统管理-转义: 基本 转义
 
 </details>
 
 <details>
-<summary><b>systemd-cgtop - Cgroup top ===</b></summary>
+<summary><b>系统管理-cgls - 控制组 listing</b></summary>
 
-- systemd-delta: show overrides
-- systemd-id128 show: show IDs
-- systemd-id128 new: generate ID
-- systemd-inhibit help
-- systemd-inhibit --list
-- systemd-ac-power: check power
-- systemd-ask-password help
-- systemd-creds help
-- systemd-socket-activate help
-- $cmd help
+- 系统管理-转义 --路径: 路径 转义
+- 系统管理-转义 -u: unescape
+- 系统管理-转义 --suffix
+- 系统管理-转义 --模板
+- 系统管理-machine-id-setup 帮助
+- 系统管理-machine-id-setup: 检查 machine-id
+- coredumpctl 版本
+- coredumpctl 列出: 列出 dumps
+- coredumpctl 信息
+- 系统管理-delta 帮助
 
 </details>
 
 <details>
-<summary><b>systemd-tmpfiles ===</b></summary>
+<summary><b>系统管理-cgtop - 控制组 top</b></summary>
 
-- systemd-firstboot help
-- systemd-stdio-bridge help
-- oomctl help
+- 系统管理-delta: 显示 overrides
+- 系统管理-id128 显示: 显示 IDs
+- 系统管理-id128 new: 生成 ID
+- 系统管理-inhibit 帮助
+- 系统管理-inhibit --列出
+- 系统管理-ac-电源: 检查 电源
+- 系统管理-ask-password 帮助
+- 系统管理-creds 帮助
+- 系统管理-socket-activate 帮助
+- $cmd 帮助
+
+</details>
+
+<details>
+<summary><b>系统管理-临时文件</b></summary>
+
+- 系统管理-firstboot 帮助
+- 系统管理-stdio-bridge 帮助
+- oomctl 帮助
 - oomctl dump
-- systemctl try-restart
-- systemctl reload-or-restart
-- systemctl reset-failed
+- systemctl try-重启
+- systemctl reload-or-重启
+- systemctl 重置-failed
 - systemctl daemon-reload
-- run0 help
-- systemd-mount help
+- run0 帮助
+- 系统管理-挂载 帮助
 
 </details>
 
 <details>
-<summary><b>busctl - D-Bus introspection ===</b></summary>
+<summary><b>busctl - D-Bus introspection</b></summary>
 
-- systemd-sysext help
-- systemd-confext help
-- systemctl: invalid command
-- journalctl: invalid option
-- hostnamectl: invalid option
+- 系统管理-sysext 帮助
+- 系统管理-confext 帮助
+- systemctl: invalid 命令
+- journalctl: invalid 选项
+- hostnamectl: invalid 选项
 
 </details>
 
 <details>
-<summary><b>systemd-run ===</b></summary>
+<summary><b>系统管理-运行</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-cat ===</b></summary>
+<summary><b>系统管理-cat</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-notify ===</b></summary>
+<summary><b>系统管理-通知</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-path ===</b></summary>
+<summary><b>系统管理-路径</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-escape ===</b></summary>
+<summary><b>系统管理-转义</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-machine-id-setup ===</b></summary>
+<summary><b>系统管理-machine-id-setup</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>coredumpctl ===</b></summary>
+<summary><b>coredumpctl</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-delta ===</b></summary>
+<summary><b>系统管理-delta</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-id128 ===</b></summary>
+<summary><b>系统管理-id128</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-inhibit ===</b></summary>
+<summary><b>系统管理-inhibit</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-ac-power ===</b></summary>
+<summary><b>系统管理-ac-电源</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-ask-password ===</b></summary>
+<summary><b>系统管理-ask-password</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-creds ===</b></summary>
+<summary><b>系统管理-creds</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-socket-activate ===</b></summary>
+<summary><b>系统管理-socket-activate</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Power management commands ===</b></summary>
+<summary><b>电源 management commands</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-firstboot ===</b></summary>
+<summary><b>系统管理-firstboot</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-stdio-bridge ===</b></summary>
+<summary><b>系统管理-stdio-bridge</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>oomctl ===</b></summary>
+<summary><b>oomctl</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemctl service operations ===</b></summary>
+<summary><b>systemctl 服务 operations</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>run0 - Privilege escalation ===</b></summary>
+<summary><b>run0 - Privilege escalation</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-mount ===</b></summary>
+<summary><b>系统管理-挂载</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-sysext ===</b></summary>
+<summary><b>系统管理-sysext</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-confext ===</b></summary>
+<summary><b>系统管理-confext</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -2950,47 +2950,47 @@
 - **测试点**: 14
 
 <details>
-<summary><b>Service status ===</b></summary>
+<summary><b>服务 状态</b></summary>
 
-- Check systemd-timesyncd is installed
-- Service status
-- Time sync status
+- 检查 系统管理-timesyncd 已安装
+- 服务 状态
+- Time sync 状态
 - Timesync detail
 - Is enabled
-- Fallback NTP servers
-- Current NTP server
+- Fallback NTP同步 servers
+- Current NTP同步 server
 - Server address
-- NTP servers list
-- Restart service
+- NTP同步 servers 列出
+- 重启 服务
 
 </details>
 
 <details>
-<summary><b>NTP management ===</b></summary>
+<summary><b>NTP同步 management</b></summary>
 
 - Is active
-- Config file
+- Config 文件
 - Cat config
-- Wait sync service
+- Wait sync 服务
 
 </details>
 
 <details>
-<summary><b>Service control ===</b></summary>
+<summary><b>服务 control</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Configuration ===</b></summary>
+<summary><b>Configuration</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>systemd-time-wait-sync ===</b></summary>
+<summary><b>系统管理-time-wait-sync</b></summary>
 
 - 执行相关功能验证
 
@@ -3006,79 +3006,79 @@
 - **被测命令**: `tar`
 
 <details>
-<summary><b>Basic archive creation ===</b></summary>
+<summary><b>基本 归档 creation</b></summary>
 
-- Test section: Basic archive creation ===
-- Test section: Archive extraction ===
-- Test section: Compression formats ===
-- Test section: Advanced tar options ===
-- Test section: Archive verification ===
-- Test section: Special attributes ===
-- Test section: Error handling ===
-- Test section: Wildcard and patterns ===
-- Test section: Incremental backup ===
-- Test section: Special file types ===
+- 测试 section: 基本 归档 creation ===
+- 测试 section: 归档 extraction ===
+- 测试 section: Compression formats ===
+- 测试 section: 高级 tar 选项 ===
+- 测试 section: 归档 verification ===
+- 测试 section: Special attributes ===
+- 测试 section: 错误 处理 ===
+- 测试 section: Wildcard 和 patterns ===
+- 测试 section: Incremental 备份 ===
+- 测试 section: Special 文件 types ===
 
 </details>
 
 <details>
-<summary><b>Archive extraction ===</b></summary>
+<summary><b>归档 extraction</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Compression formats ===</b></summary>
+<summary><b>Compression formats</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Advanced tar options ===</b></summary>
+<summary><b>高级 tar 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Archive verification ===</b></summary>
+<summary><b>归档 verification</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Special attributes ===</b></summary>
+<summary><b>Special attributes</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Wildcard and patterns ===</b></summary>
+<summary><b>Wildcard 和 patterns</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Incremental backup ===</b></summary>
+<summary><b>Incremental 备份</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Special file types ===</b></summary>
+<summary><b>Special 文件 types</b></summary>
 
 - 执行相关功能验证
 
@@ -3094,205 +3094,205 @@
 - **被测命令**: `tmux`
 
 <details>
-<summary><b>Server management ===</b></summary>
+<summary><b>Server management</b></summary>
 
-- Check tmux package is installed
-- Check tmux command available
-- tmux version
-- start-server: start tmux server
-- list-sessions: initial state
-- has-session: check nonexistent
-- list-clients: list connected clients
-- list-commands: list all commands
-- list-commands: filter specific command
-- list-commands: format output
-
-</details>
-
-<details>
-<summary><b>Session creation and management ===</b></summary>
-
-- server-access -l: list access
-- new-session -d: create detached session
-- has-session: verify session exists
-- new-session -d: with start directory
-- has-session: verify sess2 exists
-- new-session -e: set environment
-- new-session -F: format output
-- new-session: set dimensions
-- new-session -A: attach if exists
-- list-sessions: list all sessions
+- 检查 tmux 软件包 已安装
+- 检查 tmux 命令 可用
+- tmux 版本
+- 启动-server: 启动 tmux server
+- 列出-sessions: initial state
+- has-会话: 检查 nonexistent
+- 列出-clients: 列出 connected clients
+- 列出-commands: 列出 all commands
+- 列出-commands: filter specific 命令
+- 列出-commands: format 输出
 
 </details>
 
 <details>
-<summary><b>Window management ===</b></summary>
+<summary><b>会话 creation 和 management</b></summary>
 
-- list-sessions -F: formatted
-- rename-session: rename sess2
-- has-session: verify renamed session
-- lock-session: lock session
-- switch-client -t: switch to session
-- attach-session -d: attach and detach others
-- detach-client -P
-- detach-client -a: all in session
-- suspend-client: suspend client
-- lock-client: lock client
+- server-访问控制 -l: 列出 访问控制
+- new-会话 -d: 创建 detached 会话
+- has-会话: 验证 会话 存在
+- new-会话 -d: 使用 启动 目录
+- has-会话: 验证 sess2 存在
+- new-会话 -e: 设置 环境变量
+- new-会话 -F: format 输出
+- new-会话: 设置 dimensions
+- new-会话 -A: 附加 if 存在
+- 列出-sessions: 列出 all sessions
 
 </details>
 
 <details>
-<summary><b>Pane management ===</b></summary>
+<summary><b>窗口 management</b></summary>
 
-- refresh-client -S: status line only
+- 列出-sessions -F: formatted
+- 重命名-会话: 重命名 sess2
+- has-会话: 验证 renamed 会话
+- 锁定-会话: 锁定 会话
+- switch-client -t: switch 会话
+- 附加-会话 -d: 附加 和 分离 others
+- 分离-client -P
+- 分离-client -a: all in 会话
+- 挂起-client: 挂起 client
+- 锁定-client: 锁定 client
+
+</details>
+
+<details>
+<summary><b>窗格 management</b></summary>
+
+- refresh-client -S: 状态 line 仅
 - refresh-client -L: lease
-- new-window: create window
-- new-window -d: detached
-- new-window -c: with directory
-- new-window -e: with env
-- list-windows: list all windows
-- list-windows -a: all sessions
-- list-windows -F: formatted
-- select-window: by name
+- new-窗口: 创建 窗口
+- new-窗口 -d: detached
+- new-窗口 -c: 使用 目录
+- new-窗口 -e: 使用 env
+- 列出-windows: 列出 all windows
+- 列出-windows -a: all sessions
+- 列出-windows -F: formatted
+- 选择-窗口: by name
 
 </details>
 
 <details>
-<summary><b>Layout management ===</b></summary>
+<summary><b>布局 management</b></summary>
 
-- select-window: by index
-- select-window -l: last window
-- select-window -n: next
-- select-window -p: previous
-- rename-window: rename window
-- next-window: next
-- previous-window: prev
-- last-window: last
-- move-window -a: after
-- move-window -b: before
-
-</details>
-
-<details>
-<summary><b>Buffer management ===</b></summary>
-
-- swap-window
-- link-window: link window
-- unlink-window: unlink
-- kill-window: create temp window
-- kill-window: kill window
-- rotate-window: rotate
-- rotate-window -D: downward
-- respawn-window -k: respawn
-- resize-window: set size
-- resize-window -U: up
+- 选择-窗口: by index
+- 选择-窗口 -l: last 窗口
+- 选择-窗口 -n: next
+- 选择-窗口 -p: previous
+- 重命名-窗口: 重命名 窗口
+- next-窗口: next
+- previous-窗口: prev
+- last-窗口: last
+- 移动-窗口 -a: after
+- 移动-窗口 -b: before
 
 </details>
 
 <details>
-<summary><b>Key bindings and input ===</b></summary>
+<summary><b>缓冲区 management</b></summary>
 
-- resize-window -D: down
-- split-window: horizontal split
-- split-window -h: vertical split
-- split-window -v: vertical explicit
-- split-window -l: with size
-- split-window -d: don't focus
-- split-window -f: full size
-- split-window -b: before
-- split-window -I: create empty pane
-- list-panes: list panes
-
-</details>
-
-<details>
-<summary><b>Options and settings ===</b></summary>
-
-- list-panes -as: all panes
-- list-panes -F: formatted
-- display-panes: show pane IDs
-- select-pane: by ID
-- select-pane -l: last pane
-- select-pane -U: up
-- select-pane -D: down
-- select-pane -L: left
-- select-pane -R: right
-- resize-pane -y: height
+- 交换-窗口
+- 链接-窗口: 链接 窗口
+- unlink-窗口: unlink
+- 终止-窗口: 创建 temp 窗口
+- 终止-窗口: 终止 窗口
+- 旋转-窗口: 旋转
+- 旋转-窗口 -D: downward
+- 重生-窗口 -k: 重生
+- 调整大小-窗口: 设置 size
+- 调整大小-窗口 -U: up
 
 </details>
 
 <details>
-<summary><b>Environment variables ===</b></summary>
+<summary><b>Key bindings 和 输入</b></summary>
 
-- resize-pane -x: width
-- resize-pane -U: up
-- resize-pane -D: down
-- resize-pane -L: left
-- resize-pane -R: right
-- resize-pane -Z: zoom
-- break-pane -d: break pane to new window
-- join-pane: join pane back
-- move-pane: move pane
-- swap-pane: swap panes
-
-</details>
-
-<details>
-<summary><b>Hooks ===</b></summary>
-
-- last-pane: switch to last pane
-- kill-pane: create temp pane
-- kill-pane: kill pane
-- kill-pane -a: kill all but current
-- capture-pane -p: print to stdout
-- capture-pane: range capture
-- capture-pane -J: join lines
-- pipe-pane -o: pipe output
-- respawn-pane -k: respawn
-- select-layout: even-horizontal
+- 调整大小-窗口 -D: down
+- 分割-窗口: horizontal 分割
+- 分割-窗口 -h: vertical 分割
+- 分割-窗口 -v: vertical explicit
+- 分割-窗口 -l: 使用 size
+- 分割-窗口 -d: don't focus
+- 分割-窗口 -f: full size
+- 分割-窗口 -b: before
+- 分割-窗口 -I: 创建 empty 窗格
+- 列出-panes: 列出 panes
 
 </details>
 
 <details>
-<summary><b>Messages and display ===</b></summary>
+<summary><b>选项 和 settings</b></summary>
 
-- select-layout: even-vertical
-- select-layout: main-horizontal
-- select-layout: main-vertical
-- select-layout: tiled
-- next-layout: cycle layouts
-- previous-layout: prev layout
-- set-buffer -b: named buffer
+- 列出-panes -as: all panes
+- 列出-panes -F: formatted
+- display-panes: 显示 窗格 IDs
+- 选择-窗格: by ID
+- 选择-窗格 -l: last 窗格
+- 选择-窗格 -U: up
+- 选择-窗格 -D: down
+- 选择-窗格 -L: left
+- 选择-窗格 -R: right
+- 调整大小-窗格 -y: height
+
+</details>
+
+<details>
+<summary><b>环境变量 variables</b></summary>
+
+- 调整大小-窗格 -x: width
+- 调整大小-窗格 -U: up
+- 调整大小-窗格 -D: down
+- 调整大小-窗格 -L: left
+- 调整大小-窗格 -R: right
+- 调整大小-窗格 -Z: zoom
+- 分离-窗格 -d: 分离 窗格 new 窗口
+- 合并-窗格: 合并 窗格 back
+- 移动-窗格: 移动 窗格
+- 交换-窗格: 交换 panes
+
+</details>
+
+<details>
+<summary><b>Hooks</b></summary>
+
+- last-窗格: switch last 窗格
+- 终止-窗格: 创建 temp 窗格
+- 终止-窗格: 终止 窗格
+- 终止-窗格 -a: 终止 all but current
+- 捕获-窗格 -p: print stdout
+- 捕获-窗格: range 捕获
+- 捕获-窗格 -J: 合并 lines
+- 管道-窗格 -o: 管道 输出
+- 重生-窗格 -k: 重生
+- 选择-布局: even-horizontal
+
+</details>
+
+<details>
+<summary><b>Messages 和 display</b></summary>
+
+- 选择-布局: even-vertical
+- 选择-布局: main-horizontal
+- 选择-布局: main-vertical
+- 选择-布局: tiled
+- next-布局: cycle layouts
+- previous-布局: prev 布局
+- 设置-缓冲区 -b: named 缓冲区
 - hello world
-- set-buffer -a: append
-- list-buffers: list all buffers
+- 设置-缓冲区 -a: append
+- 列出-buffers: 列出 all buffers
 
 </details>
 
 <details>
-<summary><b>Conditional and shell execution ===</b></summary>
+<summary><b>Conditional 和 shell execution</b></summary>
 
-- list-buffers -F: formatted
-- show-buffer: show buffer contents
-- paste-buffer: paste buffer
-- paste-buffer -d: delete after paste
-- delete-buffer: create temp buffer
-- delete-buffer: delete buffer
-- save-buffer: create buffer
-- save-buffer: save to file
-- load-buffer: load from file
-- list-keys: list all keys
+- 列出-buffers -F: formatted
+- 显示-缓冲区: 显示 缓冲区 contents
+- paste-缓冲区: paste 缓冲区
+- paste-缓冲区 -d: 删除 after paste
+- 删除-缓冲区: 创建 temp 缓冲区
+- 删除-缓冲区: 删除 缓冲区
+- save-缓冲区: 创建 缓冲区
+- save-缓冲区: save 文件
+- load-缓冲区: load from 文件
+- 列出-keys: 列出 all keys
 
 </details>
 
 <details>
-<summary><b>Source and configuration ===</b></summary>
+<summary><b>Source 和 configuration</b></summary>
 
-- list-keys -T: prefix table
-- list-keys -T: root table
-- list-keys -a: all keys
-- list-keys -N: with notes
-- bind-key -n: bind to key
+- 列出-keys -T: prefix table
+- 列出-keys -T: root table
+- 列出-keys -a: all keys
+- 列出-keys -N: 使用 notes
+- bind-key -n: bind key
 - unbind-key -n: unbind key
 - bind-key -T: bind in table
 - unbind-key -T: unbind in table
@@ -3302,109 +3302,109 @@
 </details>
 
 <details>
-<summary><b>Copy mode ===</b></summary>
+<summary><b>复制 模式</b></summary>
 
 - 0d
 - send-prefix: send prefix key
-- set-option -g: global
-- set-option -a: append
-- set-option: mouse on
-- set-option -s: server option
-- set-window-option: monitor activity
-- set-window-option -g: global
-- show-options -g: global options
-- show-options -s: server options
+- 设置-选项 -g: global
+- 设置-选项 -a: append
+- 设置-选项: mouse on
+- 设置-选项 -s: server 选项
+- 设置-窗口-选项: monitor activity
+- 设置-窗口-选项 -g: global
+- 显示-选项 -g: global 选项
+- 显示-选项 -s: server 选项
 
 </details>
 
 <details>
-<summary><b>Find window ===</b></summary>
+<summary><b>Find 窗口</b></summary>
 
-- show-window-options: window options
-- show-window-options -g: global window options
-- set-environment -g: global env
-- set-environment: session env
-- set-environment -gur: update then remove
-- show-environment -g: global env
-- show-environment: session env
-- set-hook: session-created
-- set-hook: client-attached
-- show-hooks -g: global hooks
+- 显示-窗口-选项: 窗口 选项
+- 显示-窗口-选项 -g: global 窗口 选项
+- 设置-环境变量 -g: global env
+- 设置-环境变量: 会话 env
+- 设置-环境变量 -gur: update then 删除
+- 显示-环境变量 -g: global env
+- 显示-环境变量: 会话 env
+- 设置-钩子: 会话-created
+- 设置-钩子: client-attached
+- 显示-hooks -g: global hooks
 
 </details>
 
 <details>
-<summary><b>Choose commands (interactive) ===</b></summary>
+<summary><b>Choose commands (interactive)</b></summary>
 
-- set-hook -gu: remove global hook
-- set-hook -gu: remove hook
-- display-message: show message
+- 设置-钩子 -gu: 删除 global 钩子
+- 设置-钩子 -gu: 删除 钩子
+- display-message: 显示 message
 - display-message -p: print format
-- show-messages: message log
+- 显示-messages: message 日志
 - display-popup -C: close popup
-- clear-history: clear pane history
+- clear-历史: clear 窗格 历史
 - if-shell: true condition
-- run-shell: run shell command
-- run-shell -b: background
+- 运行-shell: 运行 shell 命令
+- 运行-shell -b: background
 
 </details>
 
 <details>
-<summary><b>Clock mode ===</b></summary>
+<summary><b>Clock 模式</b></summary>
 
-- command-prompt: open prompt
+- 命令-prompt: open prompt
 - confirm-before: confirm dialog
-- source-file: source config
-- copy-mode: enter copy mode
-- find-window: search windows
+- source-文件: source config
+- 复制-模式: enter 复制 模式
+- find-窗口: search windows
 - choose-tree -G: tree display
 - choose-client: client selection
-- clock-mode: show clock
-- lock-server: lock server
-- lock-session: lock session
+- clock-模式: 显示 clock
+- 锁定-server: 锁定 server
+- 锁定-会话: 锁定 会话
 
 </details>
 
 <details>
-<summary><b>Lock management ===</b></summary>
+<summary><b>锁定 management</b></summary>
 
-- show-prompt-history: prompt history
-- clear-prompt-history: clear prompt history
-- wait-for -L: lock channel
-- kill-session: kill renamed_sess
-- kill-session: kill sess_fmt
-- kill-session: kill sess_sz
-- kill-session: kill sess_flags
-- kill-session: kill sess_env
-- kill-session: kill main test session
-- kill-server: terminate server
-
-</details>
-
-<details>
-<summary><b>Show prompt history ===</b></summary>
-
-- Error: nonexistent session
-- Error: invalid option
+- 显示-prompt-历史: prompt 历史
+- clear-prompt-历史: clear prompt 历史
+- wait- -L: 锁定 channel
+- 终止-会话: 终止 renamed_sess
+- 终止-会话: 终止 sess_fmt
+- 终止-会话: 终止 sess_sz
+- 终止-会话: 终止 sess_flags
+- 终止-会话: 终止 sess_env
+- 终止-会话: 终止 main 测试 会话
+- 终止-server: terminate server
 
 </details>
 
 <details>
-<summary><b>Wait-for (event channels) ===</b></summary>
+<summary><b>显示 prompt 历史</b></summary>
+
+- 错误: nonexistent 会话
+- 错误: invalid 选项
+
+</details>
+
+<details>
+<summary><b>Wait- (event channels)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Cleanup - kill sessions ===</b></summary>
+<summary><b>Cleanup - 终止 sessions</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -3420,88 +3420,88 @@
 - **被测命令**: `vim`, `vimdiff`
 
 <details>
-<summary><b>Basic editing ===</b></summary>
+<summary><b>基本 editing</b></summary>
 
-- Check vim-common installed
-- Check vim available
-- vim version
-- vim -e: ex mode
-- vim: print buffer
-- vim --help
-- vim -c: execute command
-- vim -R: readonly mode
-- vim -b: binary mode
-- vim -n: no swap file
+- 检查 vim-common 已安装
+- 检查 vim 可用
+- vim 版本
+- vim -e: ex 模式
+- vim: print 缓冲区
+- vim --帮助
+- vim -c: execute 命令
+- vim -R: readonly 模式
+- vim -b: binary 模式
+- vim -n: 无 交换 文件
 
 </details>
 
 <details>
-<summary><b>Batch/ex mode commands ===</b></summary>
+<summary><b>Batch/ex 模式 commands</b></summary>
 
-- vimdiff available
+- vimdiff 可用
 - vimdiff: compare files
-- vim: syntax enable
-- vim: search and replace
+- vim: syntax 启用
+- vim: search 和 replace
 - Replace verified
 - vim: multiple files
-- vim: insert in ex mode
+- vim: insert in ex 模式
 - vim -T: terminal type
-- vim: invalid option
-- vim: nonexistent file
+- vim: invalid 选项
+- vim: nonexistent 文件
 
 </details>
 
 <details>
-<summary><b>Command line options ===</b></summary>
+<summary><b>命令 line 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Vimdiff ===</b></summary>
+<summary><b>Vimdiff</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Syntax check ===</b></summary>
+<summary><b>Syntax 检查</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Search and replace (ex mode) ===</b></summary>
+<summary><b>Search 和 replace (ex 模式)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Multiple files ===</b></summary>
+<summary><b>Multiple files</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Recording test ===</b></summary>
+<summary><b>Recording 测试</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Terminal options ===</b></summary>
+<summary><b>Terminal 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -3517,76 +3517,76 @@
 - **被测命令**: `weston`, `weston-debug`, `weston-screenshooter`, `weston-terminal`, `wcap-decode`
 
 <details>
-<summary><b>Version ===</b></summary>
+<summary><b>版本</b></summary>
 
-- Check weston installed
-- Check weston available
-- Check weston-debug available
-- Check weston-screenshooter available
-- Check weston-terminal available
-- Check wcap-decode available
-- weston version
-- weston help
-- weston-terminal help
-- weston-debug help
+- 检查 weston 已安装
+- 检查 weston 可用
+- 检查 weston-调试 可用
+- 检查 weston-screenshooter 可用
+- 检查 weston-terminal 可用
+- 检查 wcap-decode 可用
+- weston 版本
+- weston 帮助
+- weston-terminal 帮助
+- weston-调试 帮助
 
 </details>
 
 <details>
-<summary><b>Help ===</b></summary>
+<summary><b>帮助</b></summary>
 
-- weston-screenshooter help
-- wcap-decode help
-- Available backends
+- weston-screenshooter 帮助
+- wcap-decode 帮助
+- 可用 backends
 - weston: headless backend
-- weston: invalid option
+- weston: invalid 选项
 
 </details>
 
 <details>
-<summary><b>Weston terminal (headless) ===</b></summary>
+<summary><b>Weston terminal (headless)</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Weston debug ===</b></summary>
+<summary><b>Weston 调试</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Screenshooter ===</b></summary>
+<summary><b>Screenshooter</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>wcap-decode ===</b></summary>
+<summary><b>wcap-decode</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Backend check ===</b></summary>
+<summary><b>Backend 检查</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Headless backend test ===</b></summary>
+<summary><b>Headless backend 测试</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
@@ -3602,118 +3602,118 @@
 - **被测命令**: `wget`
 
 <details>
-<summary><b>Basic download ===</b></summary>
+<summary><b>基本 下载</b></summary>
 
-- Test section: Basic download ===
-- Test section: Output options ===
-- Test section: Verbose and quiet modes ===
-- Test section: Spider mode ===
-- Test section: Header options ===
-- Test section: User agent ===
-- Test section: Timeout and retries ===
-- Test section: Recursive download ===
-- Test section: Continue and mirror ===
-- Test section: Rate limiting ===
-
-</details>
-
-<details>
-<summary><b>Output options ===</b></summary>
-
-- Test section: Progress indicators ===
-- Test section: Error handling ===
-- Test section: Directory listing ===
-- Test section: Timestamps ===
-- Test section: Special features ===
+- 测试 section: 基本 下载 ===
+- 测试 section: 输出 选项 ===
+- 测试 section: 详细 和 quiet modes ===
+- 测试 section: Spider 模式 ===
+- 测试 section: Header 选项 ===
+- 测试 section: 用户 agent ===
+- 测试 section: Timeout 和 retries ===
+- 测试 section: 递归 下载 ===
+- 测试 section: Continue 和 mirror ===
+- 测试 section: Rate limiting ===
 
 </details>
 
 <details>
-<summary><b>Verbose and quiet modes ===</b></summary>
+<summary><b>输出 选项</b></summary>
+
+- 测试 section: Progress indicators ===
+- 测试 section: 错误 处理 ===
+- 测试 section: 目录 listing ===
+- 测试 section: Timestamps ===
+- 测试 section: Special features ===
+
+</details>
+
+<details>
+<summary><b>详细 和 quiet modes</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Spider mode ===</b></summary>
+<summary><b>Spider 模式</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Header options ===</b></summary>
+<summary><b>Header 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>User agent ===</b></summary>
+<summary><b>用户 agent</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Timeout and retries ===</b></summary>
+<summary><b>Timeout 和 retries</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Recursive download ===</b></summary>
+<summary><b>递归 下载</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Continue and mirror ===</b></summary>
+<summary><b>Continue 和 mirror</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Rate limiting ===</b></summary>
+<summary><b>Rate limiting</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Progress indicators ===</b></summary>
+<summary><b>Progress indicators</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Directory listing ===</b></summary>
+<summary><b>目录 listing</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Timestamps ===</b></summary>
+<summary><b>Timestamps</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Special features ===</b></summary>
+<summary><b>Special features</b></summary>
 
 - 执行相关功能验证
 
@@ -3729,118 +3729,118 @@
 - **被测命令**: `wget2`
 
 <details>
-<summary><b>Basic download ===</b></summary>
+<summary><b>基本 下载</b></summary>
 
-- Test section: Basic download ===
-- Test section: Output file options ===
-- Test section: Verbose modes ===
-- Test section: Spider mode ===
-- Test section: Headers ===
-- Test section: User agent ===
-- Test section: Timeouts and retries ===
-- Test section: Continue download ===
-- Test section: Rate limiting ===
-- Test section: HTTP/2 support ===
-
-</details>
-
-<details>
-<summary><b>Output file options ===</b></summary>
-
-- Test section: TLS options ===
-- Test section: Error handling ===
-- Test section: Follow redirects ===
-- Test section: Content disposition ===
-- Test section: Plugin system ===
+- 测试 section: 基本 下载 ===
+- 测试 section: 输出 文件 选项 ===
+- 测试 section: 详细 modes ===
+- 测试 section: Spider 模式 ===
+- 测试 section: Headers ===
+- 测试 section: 用户 agent ===
+- 测试 section: Timeouts 和 retries ===
+- 测试 section: Continue 下载 ===
+- 测试 section: Rate limiting ===
+- 测试 section: HTTP/2 support ===
 
 </details>
 
 <details>
-<summary><b>Verbose modes ===</b></summary>
+<summary><b>输出 文件 选项</b></summary>
+
+- 测试 section: TLS 选项 ===
+- 测试 section: 错误 处理 ===
+- 测试 section: Follow redirects ===
+- 测试 section: Content disposition ===
+- 测试 section: Plugin system ===
+
+</details>
+
+<details>
+<summary><b>详细 modes</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Spider mode ===</b></summary>
+<summary><b>Spider 模式</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Headers ===</b></summary>
+<summary><b>Headers</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>User agent ===</b></summary>
+<summary><b>用户 agent</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Timeouts and retries ===</b></summary>
+<summary><b>Timeouts 和 retries</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Continue download ===</b></summary>
+<summary><b>Continue 下载</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Rate limiting ===</b></summary>
+<summary><b>Rate limiting</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>HTTP/2 support ===</b></summary>
+<summary><b>HTTP/2 support</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>TLS options ===</b></summary>
+<summary><b>TLS 选项</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Error handling ===</b></summary>
+<summary><b>错误 处理</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Follow redirects ===</b></summary>
+<summary><b>Follow redirects</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Content disposition ===</b></summary>
+<summary><b>Content disposition</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Plugin system ===</b></summary>
+<summary><b>Plugin system</b></summary>
 
 - 执行相关功能验证
 
