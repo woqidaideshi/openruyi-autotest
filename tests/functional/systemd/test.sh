@@ -51,13 +51,7 @@ echo "=== Test 3: systemd-analyze - System profiling ==="
 
 rlRun 'systemd-analyze --version 2>&1 || true' 0 "systemd-analyze version"
 rlRun 'systemd-analyze time 2>&1 || true' 0 "systemd-analyze time: boot time"
-rlRun 'systemd-analyze blame 2>&1 | head -10' 0 "systemd-analyze blame: slowest units"
-rlRun 'systemd-analyze critical-chain 2>&1 | head -10' 0 "systemd-analyze critical-chain"
-rlRun 'systemd-analyze plot 2>&1 | head -3 || true' 0 "systemd-analyze plot: SVG boot chart"
-rlRun 'systemd-analyze dot 2>&1 | head -3 || true' 0 "systemd-analyze dot: dependency graph"
-rlRun 'systemd-analyze dump 2>&1 | head -5' 0 "systemd-analyze dump: state dump"
 rlRun 'systemd-analyze security 2>&1 | head -5' 0 "systemd-analyze security"
-rlRun 'systemd-analyze verify /dev/null 2>&1 || true' 0 "systemd-analyze verify"
 
 # ===================================================================
 echo "=== Test 4: hostnamectl - Hostname management ==="

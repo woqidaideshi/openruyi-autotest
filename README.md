@@ -30,7 +30,49 @@ openruyi-autotest/
 └── README.md
 ```
 
-## 快速开始
+## 功能测试覆盖
+
+本项目包含 **30 个功能测试套件**，覆盖 openRuyi 系统的核心软件包，所有测试已在 openRuyi Creek (riscv64) 平台上验证通过。
+
+| 分类 | 软件包 | 覆盖要点 |
+|------|--------|---------|
+| **编译工具** | gcc, g++ (gxx), clang, cmake, make | C/C++ 编译、链接、优化选项、标准支持 |
+| **系统管理** | systemd, systemd-timesyncd | 服务管理、日志查询、性能分析、时间同步 |
+| **文件工具** | coreutils, tar, grep, acl | 文件操作、归档、搜索、权限控制 |
+| **进程工具** | procps-ng, psmisc | 进程查看、信号管理、killall |
+| **网络工具** | iputils, wget, wget2 | 网络诊断、文件下载 |
+| **容器工具** | podman, podmansh | 镜像管理、容器运行、网络配置 |
+| **SSH 工具** | openssh, openssh-clients | 密钥生成、SSH 连接、scp/sftp |
+| **编辑器** | vim | 编辑模式、搜索替换、vimdiff |
+| **版本控制** | git | 仓库初始化、分支操作、远程管理 |
+| **硬件工具** | pciutils | PCI 设备信息查询 |
+| **构建工具** | rpmbuild | RPM 包构建 |
+| **显示/桌面** | sddm, weston, labwc | 显示管理器、Wayland 合成器 |
+| **包管理** | dnf5-plugins | DNF5 插件系统 |
+| **系统工具** | tmux, cloud-utils-growpart | 终端复用、分区扩容 |
+
+### 测试脚本模式
+
+每个测试套件遵循统一的 Shell 测试模式：
+
+```bash
+#!/bin/sh -eux
+rlRun() { eval "$1" 2>&1; return $?; }
+
+rlRun 'rpm -q <package>' 0 "Check package installed"
+# ... 命令覆盖测试 ...
+echo "All <package> functional tests passed!"
+```
+
+### 在服务器上批量运行
+
+```bash
+# 上传所有测试脚本到服务器
+# 使用 nohup 后台运行，避免 SSH 断开
+for pkg in */; do
+    nohup timeout 300 bash ${pkg}test.sh > ${pkg}result.log 2>&1 &
+done
+```
 
 ### 环境要求
 
