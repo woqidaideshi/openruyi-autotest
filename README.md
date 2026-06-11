@@ -34,6 +34,8 @@ openruyi-autotest/
 
 本项目包含 **30 个功能测试套件**，覆盖 openRuyi 系统的核心软件包，所有测试已在 openRuyi Creek (riscv64) 平台上验证通过。
 
+> 📋 详细测试覆盖请查看：[docs/functional-coverage.md](docs/functional-coverage.md)
+
 | 分类 | 软件包 | 覆盖要点 |
 |------|--------|---------|
 | **编译工具** | gcc, g++ (gxx), clang, cmake, make | C/C++ 编译、链接、优化选项、标准支持 |
@@ -352,7 +354,7 @@ tier: 0
 
 > 每次新增测试脚本后需同步更新此表格。
 
-| 测试类型 | 测试套数 | 用例数 |
+| 测试类型 | 测试用例数量 | 测试点数量 |
 |---------|:------:|:----:|
 | Smoke | 1 | 1 |
 | Functional | 30 | 1599 |
