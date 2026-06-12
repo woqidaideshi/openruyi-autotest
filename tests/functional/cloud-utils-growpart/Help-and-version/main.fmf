@@ -1,0 +1,10 @@
+summary: 功能测试 - cloud-utils-growpart - Help and version
+test: ./test.sh
+tag:
+  - functional
+  - cloud-utils-growpart
+duration: 2m
+tier: 1
+path: /tests/functional/cloud-utils-growpart/Help-and-version
+require:
+  - cloud-utils-growpart

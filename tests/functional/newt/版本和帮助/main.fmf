@@ -1,0 +1,10 @@
+summary: 功能测试 - newt - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - newt
+duration: 2m
+tier: 1
+path: /tests/functional/newt/版本和帮助
+require:
+  - newt

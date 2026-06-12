@@ -1,0 +1,10 @@
+summary: 功能测试 - weston - Weston terminal (headless)
+test: ./test.sh
+tag:
+  - functional
+  - weston
+duration: 2m
+tier: 1
+path: /tests/functional/weston/Weston-terminal--headless
+require:
+  - weston

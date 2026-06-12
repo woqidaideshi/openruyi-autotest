@@ -1,0 +1,10 @@
+summary: 功能测试 - systemd - systemd-creds
+test: ./test.sh
+tag:
+  - functional
+  - systemd
+duration: 2m
+tier: 1
+path: /tests/functional/systemd/systemd-creds
+require:
+  - systemd

@@ -1,0 +1,10 @@
+summary: 功能测试 - xz - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - xz
+duration: 2m
+tier: 1
+path: /tests/functional/xz/版本和帮助
+require:
+  - xz

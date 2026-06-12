@@ -1,0 +1,10 @@
+summary: 功能测试 - coreutils - Boolean and condition (true, false, test, [)
+test: ./test.sh
+tag:
+  - functional
+  - coreutils
+duration: 2m
+tier: 1
+path: /tests/functional/coreutils/Boolean-and-condition--true--false--test
+require:
+  - coreutils

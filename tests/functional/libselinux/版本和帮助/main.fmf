@@ -1,0 +1,10 @@
+summary: 功能测试 - libselinux - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - libselinux
+duration: 2m
+tier: 1
+path: /tests/functional/libselinux/版本和帮助
+require:
+  - libselinux

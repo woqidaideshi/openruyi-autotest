@@ -1,0 +1,10 @@
+summary: 功能测试 - labwc - Check for display (no DISPLAY)
+test: ./test.sh
+tag:
+  - functional
+  - labwc
+duration: 2m
+tier: 1
+path: /tests/functional/labwc/Check-for-display--no-DISPLAY
+require:
+  - labwc

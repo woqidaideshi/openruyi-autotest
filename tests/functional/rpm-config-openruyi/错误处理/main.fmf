@@ -1,0 +1,10 @@
+summary: 功能测试 - rpm-config-openruyi - 错误处理
+test: ./test.sh
+tag:
+  - functional
+  - rpm-config-openruyi
+duration: 2m
+tier: 1
+path: /tests/functional/rpm-config-openruyi/错误处理
+require:
+  - rpm-config-openruyi

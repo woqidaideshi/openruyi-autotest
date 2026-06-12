@@ -1,0 +1,10 @@
+summary: 功能测试 - python - 命令行选项
+test: ./test.sh
+tag:
+  - functional
+  - python
+duration: 2m
+tier: 1
+path: /tests/functional/python/命令行选项
+require:
+  - python

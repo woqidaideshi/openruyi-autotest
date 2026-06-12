@@ -1,0 +1,10 @@
+summary: 功能测试 - pciutils - pcilmr
+test: ./test.sh
+tag:
+  - functional
+  - pciutils
+duration: 2m
+tier: 1
+path: /tests/functional/pciutils/pcilmr
+require:
+  - pciutils

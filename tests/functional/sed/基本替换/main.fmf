@@ -1,0 +1,10 @@
+summary: 功能测试 - sed - 基本替换
+test: ./test.sh
+tag:
+  - functional
+  - sed
+duration: 2m
+tier: 1
+path: /tests/functional/sed/基本替换
+require:
+  - sed

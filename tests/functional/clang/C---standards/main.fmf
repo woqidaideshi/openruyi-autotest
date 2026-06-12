@@ -1,0 +1,10 @@
+summary: 功能测试 - clang - C++ standards
+test: ./test.sh
+tag:
+  - functional
+  - clang
+duration: 2m
+tier: 1
+path: /tests/functional/clang/C---standards
+require:
+  - clang

@@ -1,0 +1,10 @@
+summary: 功能测试 - nettle - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - nettle
+duration: 2m
+tier: 1
+path: /tests/functional/nettle/版本和帮助
+require:
+  - nettle

@@ -1,0 +1,10 @@
+summary: 功能测试 - rpmbuild - RPM verification
+test: ./test.sh
+tag:
+  - functional
+  - rpmbuild
+duration: 2m
+tier: 1
+path: /tests/functional/rpmbuild/RPM-verification
+require:
+  - rpmbuild

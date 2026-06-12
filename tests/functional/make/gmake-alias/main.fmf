@@ -1,0 +1,10 @@
+summary: 功能测试 - make - gmake alias
+test: ./test.sh
+tag:
+  - functional
+  - make
+duration: 2m
+tier: 1
+path: /tests/functional/make/gmake-alias
+require:
+  - make

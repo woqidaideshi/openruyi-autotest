@@ -1,0 +1,10 @@
+summary: 功能测试 - tar - Advanced tar options
+test: ./test.sh
+tag:
+  - functional
+  - tar
+duration: 2m
+tier: 1
+path: /tests/functional/tar/Advanced-tar-options
+require:
+  - tar

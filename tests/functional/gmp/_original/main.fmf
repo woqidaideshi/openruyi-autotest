@@ -1,0 +1,10 @@
+summary: 功能测试 - GMP 大数运算库
+test: ./test.sh
+tag:
+  - functional
+  - gmp
+duration: 5m
+tier: 1
+path: /tests/functional/gmp
+require:
+  - gmp

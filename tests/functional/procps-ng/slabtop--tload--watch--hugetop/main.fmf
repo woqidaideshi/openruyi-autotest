@@ -1,0 +1,10 @@
+summary: 功能测试 - procps-ng - slabtop, tload, watch, hugetop
+test: ./test.sh
+tag:
+  - functional
+  - procps-ng
+duration: 2m
+tier: 1
+path: /tests/functional/procps-ng/slabtop--tload--watch--hugetop
+require:
+  - procps-ng

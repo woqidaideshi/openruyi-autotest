@@ -1,0 +1,12 @@
+summary: Functional test - rpmbuild package verification
+test: ./test.sh
+tag:
+  - functional
+  - rpmbuild
+duration: 10m
+tier: 1
+path: /tests/functional/rpmbuild
+require:
+  - rpm-build
+  - rpmdevtools
+  - coreutils

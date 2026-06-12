@@ -1,0 +1,10 @@
+summary: 功能测试 - openssh-clients - ssh connection (dry-run)
+test: ./test.sh
+tag:
+  - functional
+  - openssh-clients
+duration: 2m
+tier: 1
+path: /tests/functional/openssh-clients/ssh-connection--dry-run
+require:
+  - openssh-clients

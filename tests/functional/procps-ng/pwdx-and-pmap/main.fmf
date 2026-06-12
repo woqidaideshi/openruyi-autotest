@@ -1,0 +1,10 @@
+summary: 功能测试 - procps-ng - pwdx and pmap
+test: ./test.sh
+tag:
+  - functional
+  - procps-ng
+duration: 2m
+tier: 1
+path: /tests/functional/procps-ng/pwdx-and-pmap
+require:
+  - procps-ng

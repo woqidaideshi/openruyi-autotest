@@ -1,0 +1,11 @@
+summary: Functional test - tar package verification
+test: ./test.sh
+tag:
+  - functional
+  - tar
+duration: 5m
+tier: 1
+path: /tests/functional/tar
+require:
+  - tar
+  - coreutils

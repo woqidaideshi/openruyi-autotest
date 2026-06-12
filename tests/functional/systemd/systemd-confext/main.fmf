@@ -1,0 +1,10 @@
+summary: 功能测试 - systemd - systemd-confext
+test: ./test.sh
+tag:
+  - functional
+  - systemd
+duration: 2m
+tier: 1
+path: /tests/functional/systemd/systemd-confext
+require:
+  - systemd

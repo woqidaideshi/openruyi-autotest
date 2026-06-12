@@ -1,0 +1,10 @@
+summary: 功能测试 - vim - Recording test
+test: ./test.sh
+tag:
+  - functional
+  - vim
+duration: 2m
+tier: 1
+path: /tests/functional/vim/Recording-test
+require:
+  - vim

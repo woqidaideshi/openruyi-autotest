@@ -1,0 +1,10 @@
+summary: 功能测试 - Linux内核头文件
+test: ./test.sh
+tag:
+  - functional
+  - linux-headers
+duration: 5m
+tier: 1
+path: /tests/functional/linux-headers
+require:
+  - linux-headers

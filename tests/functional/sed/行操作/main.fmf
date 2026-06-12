@@ -1,0 +1,10 @@
+summary: 功能测试 - sed - 行操作
+test: ./test.sh
+tag:
+  - functional
+  - sed
+duration: 2m
+tier: 1
+path: /tests/functional/sed/行操作
+require:
+  - sed

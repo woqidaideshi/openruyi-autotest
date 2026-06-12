@@ -1,0 +1,10 @@
+summary: 功能测试 - cloud-utils-growpart - Free percent option
+test: ./test.sh
+tag:
+  - functional
+  - cloud-utils-growpart
+duration: 2m
+tier: 1
+path: /tests/functional/cloud-utils-growpart/Free-percent-option
+require:
+  - cloud-utils-growpart

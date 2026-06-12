@@ -1,0 +1,10 @@
+summary: 功能测试 - cryptsetup - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - cryptsetup
+duration: 2m
+tier: 1
+path: /tests/functional/cryptsetup/版本和帮助
+require:
+  - cryptsetup

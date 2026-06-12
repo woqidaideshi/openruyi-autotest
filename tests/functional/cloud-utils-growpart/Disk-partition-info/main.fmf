@@ -1,0 +1,10 @@
+summary: 功能测试 - cloud-utils-growpart - Disk/partition info
+test: ./test.sh
+tag:
+  - functional
+  - cloud-utils-growpart
+duration: 2m
+tier: 1
+path: /tests/functional/cloud-utils-growpart/Disk-partition-info
+require:
+  - cloud-utils-growpart

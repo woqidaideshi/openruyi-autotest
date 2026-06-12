@@ -1,0 +1,10 @@
+summary: 功能测试 - glibc - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - glibc
+duration: 2m
+tier: 1
+path: /tests/functional/glibc/版本和帮助
+require:
+  - glibc

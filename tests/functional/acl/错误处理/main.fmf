@@ -1,0 +1,10 @@
+summary: 功能测试 - acl - 错误处理
+test: ./test.sh
+tag:
+  - functional
+  - acl
+duration: 2m
+tier: 1
+path: /tests/functional/acl/错误处理
+require:
+  - acl

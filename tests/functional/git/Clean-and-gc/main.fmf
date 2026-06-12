@@ -1,0 +1,10 @@
+summary: 功能测试 - git - Clean and gc
+test: ./test.sh
+tag:
+  - functional
+  - git
+duration: 2m
+tier: 1
+path: /tests/functional/git/Clean-and-gc
+require:
+  - git
