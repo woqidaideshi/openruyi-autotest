@@ -1,0 +1,10 @@
+summary: 功能测试 - ISL 整数集库
+test: ./test.sh
+tag:
+  - functional
+  - isl
+duration: 5m
+tier: 1
+path: /tests/functional/isl
+require:
+  - isl

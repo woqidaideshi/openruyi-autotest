@@ -1,0 +1,10 @@
+summary: 功能测试 - sed 流编辑器
+test: ./test.sh
+tag:
+  - functional
+  - sed
+duration: 5m
+tier: 1
+path: /tests/functional/sed
+require:
+  - sed

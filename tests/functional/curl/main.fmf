@@ -1,0 +1,10 @@
+summary: 功能测试 - curl 下载工具
+test: ./test.sh
+tag:
+  - functional
+  - curl
+duration: 5m
+tier: 1
+path: /tests/functional/curl
+require:
+  - curl

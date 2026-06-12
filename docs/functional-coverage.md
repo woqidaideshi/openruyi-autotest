@@ -1,6 +1,6 @@
 # 功能测试覆盖详情
 
-> 共 **30** 个软件包，**1168** 个测试点
+> 共 **61** 个软件包，**1603** 个测试点
 > 点击展开查看各软件包详情
 
 ## 目录
@@ -8,35 +8,66 @@
 | 软件包 | 测试点 | 版本 |
 |--------|:-----:|------|
 | [acl](#acl) | 99 | acl 2.3.2 |
+| [audit](#audit) | 23 | audit |
+| [bash](#bash) | 13 | bash |
+| [ca-certificates](#ca-certificates) | 5 | ca-certificates |
+| [ca-certificates-mozilla](#ca-certificates-mozilla) | 3 | ca-certificates-mozilla |
 | [clang](#clang) | 32 | clang 21.1 |
 | [cloud-utils-growpart](#cloud-utils-growpart) | 12 | cloud-utils-growpart |
 | [cmake](#cmake) | 7 | cmake |
 | [coreutils](#coreutils) | 238 | coreutils 9.10 |
+| [cryptsetup](#cryptsetup) | 5 | cryptsetup |
+| [curl](#curl) | 15 | curl |
+| [debugedit](#debugedit) | 8 | debugedit |
 | [dnf5-plugins](#dnf5-plugins) | 13 | dnf5-plugins 5.4 |
+| [dwz](#dwz) | 5 | dwz |
+| [elfutils](#elfutils) | 47 | elfutils |
+| [filesystem](#filesystem) | 3 | filesystem |
+| [findutils](#findutils) | 18 | findutils |
 | [gcc](#gcc) | 63 | gcc |
 | [git](#git) | 50 | git 2.54.0 |
+| [glibc](#glibc) | 26 | glibc |
+| [gmp](#gmp) | 3 | gmp |
 | [grep](#grep) | 50 | GNU grep 3.12 |
 | [gxx](#gxx) | 20 | gcc-c++ |
+| [gzip](#gzip) | 44 | gzip |
 | [iputils](#iputils) | 10 | iputils 20250605 |
+| [isl](#isl) | 3 | isl |
 | [labwc](#labwc) | 14 | labwc 0.9.7 |
+| [libselinux](#libselinux) | 3 | libselinux |
+| [linux-headers](#linux-headers) | 3 | linux-headers |
+| [lua](#lua) | 8 | lua |
 | [make](#make) | 26 | GNU Make 4.4.1 |
+| [mpc](#mpc) | 3 | mpc |
+| [mpdecimal](#mpdecimal) | 3 | mpdecimal |
+| [mpfr](#mpfr) | 3 | mpfr |
+| [nettle](#nettle) | 17 | nettle |
+| [newt](#newt) | 5 | newt |
 | [openssh](#openssh) | 27 | openssh 10.3p1 |
 | [openssh-clients](#openssh-clients) | 27 | openssh-clients 10.3p1 |
+| [pam](#pam) | 17 | pam |
 | [pciutils](#pciutils) | 13 | pciutils |
+| [pkgconf](#pkgconf) | 8 | pkgconf |
 | [podman](#podman) | 21 | podman |
 | [podmansh](#podmansh) | 11 | podmansh |
 | [procps-ng](#procps-ng) | 14 | procps-ng 4.0.5 |
 | [psmisc](#psmisc) | 13 | psmisc |
+| [python](#python) | 12 | python3 |
+| [rpm-config-openruyi](#rpm-config-openruyi) | 3 | rpm-config-openruyi |
 | [rpmbuild](#rpmbuild) | 9 | rpm-build |
 | [sddm](#sddm) | 13 | sddm 0.21.0 |
+| [sed](#sed) | 15 | sed |
 | [systemd](#systemd) | 115 | systemd 259 |
 | [systemd-timesyncd](#systemd-timesyncd) | 14 | systemd-timesyncd 259 |
 | [tar](#tar) | 10 | tar 1.35 |
 | [tmux](#tmux) | 182 | tmux 3.6a |
+| [util-linux](#util-linux) | 47 | util-linux |
 | [vim](#vim) | 20 | Vim 9.2 |
 | [weston](#weston) | 15 | weston 14.0.2 |
 | [wget](#wget) | 15 | wget (provided by wget2) |
 | [wget2](#wget2) | 15 | wget2 |
+| [xz](#xz) | 47 | xz |
+| [zstd](#zstd) | 20 | zstd |
 
 ---
 
@@ -147,6 +178,105 @@
 - 验证 --test 模式未修改 ACL
 - 离开测试目录
 - 清理临时测试目录
+
+</details>
+
+---
+
+## audit
+
+- **版本**: audit
+- **测试点**: 23
+- **被测命令**: `auditctl`, `ausearch`, `aureport`, `aulast`, `aulastlog`, `ausyscall`, `augenrules`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 audit 是否已安装
+- 检查 auditctl 命令是否可用
+- 检查 ausearch 命令是否可用
+- 检查 aureport 命令是否可用
+- 检查 aulast 命令是否可用
+- 检查 aulastlog 命令是否可用
+- 检查 ausyscall 命令是否可用
+- 检查 augenrules 命令是否可用
+- auditctl 版本信息
+- auditctl 帮助信息
+- ausearch 版本信息
+- ausearch 帮助信息
+- aureport 版本信息
+- aureport 帮助信息
+- aulast 版本信息
+- aulast 帮助信息
+- aulastlog 版本信息
+- aulastlog 帮助信息
+- ausyscall 版本信息
+- ausyscall 帮助信息
+- augenrules 版本信息
+- augenrules 帮助信息
+- auditctl: 无效选项
+
+</details>
+
+---
+
+## bash
+
+- **版本**: bash
+- **测试点**: 13
+- **被测命令**: `bash`, `sh`, `bashbug`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 bash 是否已安装
+- 检查 bash 命令是否可用
+- 检查 sh 命令是否可用
+- 检查 bashbug 命令是否可用
+- bash 版本
+- sh 版本
+- bash 执行脚本
+- bash -c: for循环
+- bash: if条件
+- bash: 函数定义调用
+- bash: 管道
+- bashbug 帮助
+- bash: 错误退出
+
+</details>
+
+---
+
+## ca-certificates
+
+- **版本**: ca-certificates
+- **测试点**: 5
+- **被测命令**: `update-ca-trust`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 ca-certificates 是否已安装
+- 检查 update-ca-trust 命令是否可用
+- update-ca-trust 版本信息
+- update-ca-trust 帮助信息
+- update-ca-trust: 无效选项
+
+</details>
+
+---
+
+## ca-certificates-mozilla
+
+- **版本**: ca-certificates-mozilla
+- **测试点**: 3
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 ca-certificates-mozilla 是否已安装
+- 列出包文件
+- 库文件检查
 
 </details>
 
@@ -809,6 +939,76 @@
 
 ---
 
+## cryptsetup
+
+- **版本**: cryptsetup
+- **测试点**: 5
+- **被测命令**: `cryptsetup`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 cryptsetup 是否已安装
+- 检查 cryptsetup 命令是否可用
+- cryptsetup 版本信息
+- cryptsetup 帮助信息
+- cryptsetup: 无效选项
+
+</details>
+
+---
+
+## curl
+
+- **版本**: curl
+- **测试点**: 15
+- **被测命令**: `curl`, `wcurl`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 curl 是否已安装
+- 检查 curl 命令是否可用
+- 检查 wcurl 命令是否可用
+- curl 版本信息
+- curl 下载示例页面
+- curl -I: 仅获取响应头
+- curl -o: 输出到文件
+- curl -O: 远程文件名
+- curl -v: 详细模式
+- curl -s: 静默模式
+- curl -L: 跟随重定向
+- curl -k: 忽略SSL证书
+- curl --connect-timeout: 连接超时
+- wcurl 帮助
+- curl: 无效选项
+
+</details>
+
+---
+
+## debugedit
+
+- **版本**: debugedit
+- **测试点**: 8
+- **被测命令**: `debugedit`, `debugedit-classify-ar`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 debugedit 是否已安装
+- 检查 debugedit 命令是否可用
+- 检查 debugedit-classify-ar 命令是否可用
+- debugedit 版本信息
+- debugedit 帮助信息
+- debugedit-classify-ar 版本信息
+- debugedit-classify-ar 帮助信息
+- debugedit: 无效选项
+
+</details>
+
+---
+
 ## dnf5-plugins
 
 - **版本**: dnf5-plugins 5.4
@@ -896,6 +1096,134 @@
 
 </details>
 
+
+---
+
+## dwz
+
+- **版本**: dwz
+- **测试点**: 5
+- **被测命令**: `dwz`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 dwz 是否已安装
+- 检查 dwz 命令是否可用
+- dwz 版本信息
+- dwz 帮助信息
+- dwz: 无效选项
+
+</details>
+
+---
+
+## elfutils
+
+- **版本**: elfutils
+- **测试点**: 47
+- **被测命令**: `eu-addr2line`, `eu-ar`, `eu-elfclassify`, `eu-elfcmp`, `eu-elfcompress`, `eu-elflint`, `eu-findtextrel`, `eu-make-debug-archive`, `eu-nm`, `eu-objdump`, `eu-ranlib`, `eu-readelf`, `eu-size`, `eu-srcfiles`, `eu-stack`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 elfutils 是否已安装
+- 检查 eu-addr2line 命令是否可用
+- 检查 eu-ar 命令是否可用
+- 检查 eu-elfclassify 命令是否可用
+- 检查 eu-elfcmp 命令是否可用
+- 检查 eu-elfcompress 命令是否可用
+- 检查 eu-elflint 命令是否可用
+- 检查 eu-findtextrel 命令是否可用
+- 检查 eu-make-调试-归档 命令是否可用
+- 检查 eu-nm 命令是否可用
+- 检查 eu-objdump 命令是否可用
+- 检查 eu-ranlib 命令是否可用
+- 检查 eu-readelf 命令是否可用
+- 检查 eu-size 命令是否可用
+- 检查 eu-srcfiles 命令是否可用
+- 检查 eu-stack 命令是否可用
+- eu-addr2line 版本信息
+- eu-addr2line 帮助信息
+- eu-ar 版本信息
+- eu-ar 帮助信息
+- eu-elfclassify 版本信息
+- eu-elfclassify 帮助信息
+- eu-elfcmp 版本信息
+- eu-elfcmp 帮助信息
+- eu-elfcompress 版本信息
+- eu-elfcompress 帮助信息
+- eu-elflint 版本信息
+- eu-elflint 帮助信息
+- eu-findtextrel 版本信息
+- eu-findtextrel 帮助信息
+- eu-make-调试-归档 版本信息
+- eu-make-调试-归档 帮助信息
+- eu-nm 版本信息
+- eu-nm 帮助信息
+- eu-objdump 版本信息
+- eu-objdump 帮助信息
+- eu-ranlib 版本信息
+- eu-ranlib 帮助信息
+- eu-readelf 版本信息
+- eu-readelf 帮助信息
+- eu-size 版本信息
+- eu-size 帮助信息
+- eu-srcfiles 版本信息
+- eu-srcfiles 帮助信息
+- eu-stack 版本信息
+- eu-stack 帮助信息
+- eu-addr2line: 无效选项
+
+</details>
+
+---
+
+## filesystem
+
+- **版本**: filesystem
+- **测试点**: 3
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 filesystem 是否已安装
+- 列出包文件
+- 库文件检查
+
+</details>
+
+---
+
+## findutils
+
+- **版本**: findutils
+- **测试点**: 18
+- **被测命令**: `find`, `xargs`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 findutils 是否已安装
+- 检查 find 命令是否可用
+- 检查 xargs 命令是否可用
+- find 版本
+- xargs 版本
+- find -name: 按名称查找
+- find -type f: 查找文件
+- find -type d: 查找目录
+- find -maxdepth: 最大深度
+- find -mindepth: 最小深度
+- find -empty: 空文件/目录
+- find -size: 按大小
+- find -exec: 执行命令
+- find -删除: 删除文件
+- find -删除: 验证删除
+- xargs: 基本用法
+- xargs -n1: 每次一个参数
+- find: 无效路径
+
+</details>
 
 ---
 
@@ -1206,6 +1534,62 @@
 
 ---
 
+## glibc
+
+- **版本**: glibc
+- **测试点**: 26
+- **被测命令**: `gencat`, `getconf`, `getent`, `iconv`, `ldconfig`, `ldd`, `locale`, `localedef`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 glibc 是否已安装
+- 检查 gencat 命令是否可用
+- 检查 getconf 命令是否可用
+- 检查 getent 命令是否可用
+- 检查 iconv 命令是否可用
+- 检查 ldconfig 命令是否可用
+- 检查 ldd 命令是否可用
+- 检查 locale 命令是否可用
+- 检查 localedef 命令是否可用
+- gencat 版本信息
+- gencat 帮助信息
+- getconf 版本信息
+- getconf 帮助信息
+- getent 版本信息
+- getent 帮助信息
+- iconv 版本信息
+- iconv 帮助信息
+- ldconfig 版本信息
+- ldconfig 帮助信息
+- ldd 版本信息
+- ldd 帮助信息
+- locale 版本信息
+- locale 帮助信息
+- localedef 版本信息
+- localedef 帮助信息
+- gencat: 无效选项
+
+</details>
+
+---
+
+## gmp
+
+- **版本**: gmp
+- **测试点**: 3
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 gmp 是否已安装
+- 列出包文件
+- 库文件检查
+
+</details>
+
+---
+
 ## grep
 
 - **版本**: GNU grep 3.12
@@ -1440,6 +1824,64 @@
 
 ---
 
+## gzip
+
+- **版本**: gzip
+- **测试点**: 44
+- **被测命令**: `gzip`, `gunzip`, `zcat`, `zcmp`, `zdiff`, `zgrep`, `zless`, `zmore`, `znew`, `gzexe`, `zforce`, `zegrep`, `zfgrep`, `uncompress`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 gzip 是否已安装
+- 检查 gzip 命令是否可用
+- 检查 gunzip 命令是否可用
+- 检查 zcat 命令是否可用
+- 检查 zcmp 命令是否可用
+- 检查 zdiff 命令是否可用
+- 检查 zgrep 命令是否可用
+- 检查 zless 命令是否可用
+- 检查 zmore 命令是否可用
+- 检查 znew 命令是否可用
+- 检查 gzexe 命令是否可用
+- 检查 zforce 命令是否可用
+- 检查 zegrep 命令是否可用
+- 检查 zfgrep 命令是否可用
+- 检查 uncompress 命令是否可用
+- gzip 版本信息
+- gzip 帮助信息
+- gunzip 版本信息
+- gunzip 帮助信息
+- zcat 版本信息
+- zcat 帮助信息
+- zcmp 版本信息
+- zcmp 帮助信息
+- zdiff 版本信息
+- zdiff 帮助信息
+- zgrep 版本信息
+- zgrep 帮助信息
+- zless 版本信息
+- zless 帮助信息
+- zmore 版本信息
+- zmore 帮助信息
+- znew 版本信息
+- znew 帮助信息
+- gzexe 版本信息
+- gzexe 帮助信息
+- zforce 版本信息
+- zforce 帮助信息
+- zegrep 版本信息
+- zegrep 帮助信息
+- zfgrep 版本信息
+- zfgrep 帮助信息
+- uncompress 版本信息
+- uncompress 帮助信息
+- gzip: 无效选项
+
+</details>
+
+---
+
 ## iputils
 
 - **版本**: iputils 20250605
@@ -1528,6 +1970,22 @@
 
 ---
 
+## isl
+
+- **版本**: isl
+- **测试点**: 3
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 isl 是否已安装
+- 列出包文件
+- 库文件检查
+
+</details>
+
+---
+
 ## labwc
 
 - **版本**: labwc 0.9.7
@@ -1609,6 +2067,60 @@
 
 </details>
 
+
+---
+
+## libselinux
+
+- **版本**: libselinux
+- **测试点**: 3
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 libselinux 是否已安装
+- 列出包文件
+- 库文件检查
+
+</details>
+
+---
+
+## linux-headers
+
+- **版本**: linux-headers
+- **测试点**: 3
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 linux-headers 是否已安装
+- 列出包文件
+- 库文件检查
+
+</details>
+
+---
+
+## lua
+
+- **版本**: lua
+- **测试点**: 8
+- **被测命令**: `lua`, `luac`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 lua 是否已安装
+- 检查 lua 命令是否可用
+- 检查 luac 命令是否可用
+- lua 版本信息
+- lua 帮助信息
+- luac 版本信息
+- luac 帮助信息
+- lua: 无效选项
+
+</details>
 
 ---
 
@@ -1704,6 +2216,104 @@
 
 </details>
 
+
+---
+
+## mpc
+
+- **版本**: mpc
+- **测试点**: 3
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 mpc 是否已安装
+- 列出包文件
+- 库文件检查
+
+</details>
+
+---
+
+## mpdecimal
+
+- **版本**: mpdecimal
+- **测试点**: 3
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 mpdecimal 是否已安装
+- 列出包文件
+- 库文件检查
+
+</details>
+
+---
+
+## mpfr
+
+- **版本**: mpfr
+- **测试点**: 3
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 mpfr 是否已安装
+- 列出包文件
+- 库文件检查
+
+</details>
+
+---
+
+## nettle
+
+- **版本**: nettle
+- **测试点**: 17
+- **被测命令**: `nettle-hash`, `nettle-lfib-stream`, `nettle-pbkdf2`, `pkcs1-conv`, `sexp-conv`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 nettle 是否已安装
+- 检查 nettle-hash 命令是否可用
+- 检查 nettle-lfib-stream 命令是否可用
+- 检查 nettle-pbkdf2 命令是否可用
+- 检查 pkcs1-conv 命令是否可用
+- 检查 sexp-conv 命令是否可用
+- nettle-hash 版本信息
+- nettle-hash 帮助信息
+- nettle-lfib-stream 版本信息
+- nettle-lfib-stream 帮助信息
+- nettle-pbkdf2 版本信息
+- nettle-pbkdf2 帮助信息
+- pkcs1-conv 版本信息
+- pkcs1-conv 帮助信息
+- sexp-conv 版本信息
+- sexp-conv 帮助信息
+- nettle-hash: 无效选项
+
+</details>
+
+---
+
+## newt
+
+- **版本**: newt
+- **测试点**: 5
+- **被测命令**: `whiptail`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 newt 是否已安装
+- 检查 whiptail 命令是否可用
+- whiptail 版本信息
+- whiptail 帮助信息
+- whiptail: 无效选项
+
+</details>
 
 ---
 
@@ -1920,6 +2530,37 @@
 
 ---
 
+## pam
+
+- **版本**: pam
+- **测试点**: 17
+- **被测命令**: `faillock`, `mkhomedir_helper`, `pam_timestamp_check`, `unix_chkpwd`, `unix_update`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 pam 是否已安装
+- 检查 faillock 命令是否可用
+- 检查 mkhomedir_helper 命令是否可用
+- 检查 pam_timestamp_check 命令是否可用
+- 检查 unix_chkpwd 命令是否可用
+- 检查 unix_update 命令是否可用
+- faillock 版本信息
+- faillock 帮助信息
+- mkhomedir_helper 版本信息
+- mkhomedir_helper 帮助信息
+- pam_timestamp_check 版本信息
+- pam_timestamp_check 帮助信息
+- unix_chkpwd 版本信息
+- unix_chkpwd 帮助信息
+- unix_update 版本信息
+- unix_update 帮助信息
+- faillock: 无效选项
+
+</details>
+
+---
+
 ## pciutils
 
 - **版本**: pciutils
@@ -2028,6 +2669,28 @@
 
 </details>
 
+
+---
+
+## pkgconf
+
+- **版本**: pkgconf
+- **测试点**: 8
+- **被测命令**: `pkgconf`, `bomtool`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 pkgconf 是否已安装
+- 检查 pkgconf 命令是否可用
+- 检查 bomtool 命令是否可用
+- pkgconf 版本信息
+- pkgconf 帮助信息
+- bomtool 版本信息
+- bomtool 帮助信息
+- pkgconf: 无效选项
+
+</details>
 
 ---
 
@@ -2432,6 +3095,48 @@
 
 ---
 
+## python
+
+- **版本**: python3
+- **测试点**: 12
+- **被测命令**: `python3`, `python3`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 python3 是否已安装
+- 检查 python3 命令是否可用
+- Python 版本
+- python3 可用
+- Python 基本运算
+- Python sys模块
+- python3 -h: 帮助
+- python3 -V: 版本
+- python3: os模块
+- python3 执行脚本
+- python3: 导入标准模块
+- python3: 导入错误
+
+</details>
+
+---
+
+## rpm-config-openruyi
+
+- **版本**: rpm-config-openruyi
+- **测试点**: 3
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 rpm-config-openruyi 是否已安装
+- 列出包文件
+- 库文件检查
+
+</details>
+
+---
+
 ## rpmbuild
 
 - **版本**: rpm-build
@@ -2578,6 +3283,35 @@
 
 </details>
 
+
+---
+
+## sed
+
+- **版本**: sed
+- **测试点**: 15
+- **被测命令**: `sed`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 sed 是否已安装
+- 检查 sed 命令是否可用
+- sed 版本
+- sed s: 基本替换
+- sed s: 替换hello
+- sed -n: 打印指定行
+- sed d: 删除指定行
+- sed a: 追加行
+- sed i: 插入行
+- sed g: 全局替换
+- sed: 正则替换
+- sed -i: 就地编辑
+- sed -i: 验证修改
+- sed -e: 多表达式
+- sed: 无效选项
+
+</details>
 
 ---
 
@@ -3413,6 +4147,67 @@
 
 ---
 
+## util-linux
+
+- **版本**: util-linux
+- **测试点**: 47
+- **被测命令**: `addpart`, `agetty`, `blkid`, `blkdiscard`, `blockdev`, `cal`, `cfdisk`, `chcpu`, `chfn`, `chmem`, `choom`, `chrt`, `bits`, `blkpr`, `blkzone`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 util-linux 是否已安装
+- 检查 addpart 命令是否可用
+- 检查 agetty 命令是否可用
+- 检查 blkid 命令是否可用
+- 检查 blkdiscard 命令是否可用
+- 检查 blockdev 命令是否可用
+- 检查 cal 命令是否可用
+- 检查 cfdisk 命令是否可用
+- 检查 chcpu 命令是否可用
+- 检查 chfn 命令是否可用
+- 检查 chmem 命令是否可用
+- 检查 choom 命令是否可用
+- 检查 chrt 命令是否可用
+- 检查 bits 命令是否可用
+- 检查 blkpr 命令是否可用
+- 检查 blkzone 命令是否可用
+- addpart 版本信息
+- addpart 帮助信息
+- agetty 版本信息
+- agetty 帮助信息
+- blkid 版本信息
+- blkid 帮助信息
+- blkdiscard 版本信息
+- blkdiscard 帮助信息
+- blockdev 版本信息
+- blockdev 帮助信息
+- cal 版本信息
+- cal 帮助信息
+- cfdisk 版本信息
+- cfdisk 帮助信息
+- chcpu 版本信息
+- chcpu 帮助信息
+- chfn 版本信息
+- chfn 帮助信息
+- chmem 版本信息
+- chmem 帮助信息
+- choom 版本信息
+- choom 帮助信息
+- chrt 版本信息
+- chrt 帮助信息
+- bits 版本信息
+- bits 帮助信息
+- blkpr 版本信息
+- blkpr 帮助信息
+- blkzone 版本信息
+- blkzone 帮助信息
+- addpart: 无效选项
+
+</details>
+
+---
+
 ## vim
 
 - **版本**: Vim 9.2
@@ -3846,3 +4641,98 @@
 
 </details>
 
+
+---
+
+## xz
+
+- **版本**: xz
+- **测试点**: 47
+- **被测命令**: `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `lzcmp`, `lzdiff`, `lzgrep`, `lzless`, `lzmore`, `lzmadec`, `lzmainfo`, `lzegrep`, `lzfgrep`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 xz 是否已安装
+- 检查 xz 命令是否可用
+- 检查 unxz 命令是否可用
+- 检查 xzcat 命令是否可用
+- 检查 lzma 命令是否可用
+- 检查 unlzma 命令是否可用
+- 检查 lzcat 命令是否可用
+- 检查 lzcmp 命令是否可用
+- 检查 lzdiff 命令是否可用
+- 检查 lzgrep 命令是否可用
+- 检查 lzless 命令是否可用
+- 检查 lzmore 命令是否可用
+- 检查 lzmadec 命令是否可用
+- 检查 lzmainfo 命令是否可用
+- 检查 lzegrep 命令是否可用
+- 检查 lzfgrep 命令是否可用
+- xz 版本信息
+- xz 帮助信息
+- unxz 版本信息
+- unxz 帮助信息
+- xzcat 版本信息
+- xzcat 帮助信息
+- lzma 版本信息
+- lzma 帮助信息
+- unlzma 版本信息
+- unlzma 帮助信息
+- lzcat 版本信息
+- lzcat 帮助信息
+- lzcmp 版本信息
+- lzcmp 帮助信息
+- lzdiff 版本信息
+- lzdiff 帮助信息
+- lzgrep 版本信息
+- lzgrep 帮助信息
+- lzless 版本信息
+- lzless 帮助信息
+- lzmore 版本信息
+- lzmore 帮助信息
+- lzmadec 版本信息
+- lzmadec 帮助信息
+- lzmainfo 版本信息
+- lzmainfo 帮助信息
+- lzegrep 版本信息
+- lzegrep 帮助信息
+- lzfgrep 版本信息
+- lzfgrep 帮助信息
+- xz: 无效选项
+
+</details>
+
+---
+
+## zstd
+
+- **版本**: zstd
+- **测试点**: 20
+- **被测命令**: `zstd`, `unzstd`, `zstdcat`, `zstdgrep`, `zstdless`, `zstdmt`
+
+<details>
+<summary><b>测试点列表</b></summary>
+
+- 检查 zstd 是否已安装
+- 检查 zstd 命令是否可用
+- 检查 unzstd 命令是否可用
+- 检查 zstdcat 命令是否可用
+- 检查 zstdgrep 命令是否可用
+- 检查 zstdless 命令是否可用
+- 检查 zstdmt 命令是否可用
+- zstd 版本信息
+- zstd 帮助信息
+- unzstd 版本信息
+- unzstd 帮助信息
+- zstdcat 版本信息
+- zstdcat 帮助信息
+- zstdgrep 版本信息
+- zstdgrep 帮助信息
+- zstdless 版本信息
+- zstdless 帮助信息
+- zstdmt 版本信息
+- zstdmt 帮助信息
+- zstd: 无效选项
+
+</details>
