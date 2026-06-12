@@ -1,0 +1,11 @@
+summary: 功能测试 - iputils - ping advanced options
+test: ./test.sh
+tag:
+  - functional
+  - iputils
+duration: 2m
+tier: 1
+path: /tests/functional/iputils/test_iputils_ping-advanced-options
+ping-advanced-options
+require:
+  - iputils

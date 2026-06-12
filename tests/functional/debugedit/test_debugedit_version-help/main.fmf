@@ -1,0 +1,11 @@
+summary: 功能测试 - debugedit - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - debugedit
+duration: 2m
+tier: 1
+path: /tests/functional/debugedit/test_debugedit_version-help
+版本和帮助
+require:
+  - debugedit

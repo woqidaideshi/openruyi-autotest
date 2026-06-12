@@ -1,0 +1,11 @@
+summary: 功能测试 - systemd - systemd-analyze - System profiling
+test: ./test.sh
+tag:
+  - functional
+  - systemd
+duration: 2m
+tier: 1
+path: /tests/functional/systemd/test_systemd_systemd-analyze---system-profiling
+systemd-analyze---System-profiling
+require:
+  - systemd

@@ -1,0 +1,11 @@
+summary: 功能测试 - clang - Debug and warnings
+test: ./test.sh
+tag:
+  - functional
+  - clang
+duration: 2m
+tier: 1
+path: /tests/functional/clang/test_clang_debug-and-warnings
+Debug-and-warnings
+require:
+  - clang

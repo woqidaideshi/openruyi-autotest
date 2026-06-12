@@ -1,0 +1,11 @@
+summary: 功能测试 - make - Error handling
+test: ./test.sh
+tag:
+  - functional
+  - make
+duration: 2m
+tier: 1
+path: /tests/functional/make/test_make_error-handling
+Error-handling
+require:
+  - make

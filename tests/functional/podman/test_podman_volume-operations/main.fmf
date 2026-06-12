@@ -1,0 +1,11 @@
+summary: 功能测试 - podman - Volume operations
+test: ./test.sh
+tag:
+  - functional
+  - podman
+duration: 2m
+tier: 1
+path: /tests/functional/podman/test_podman_volume-operations
+Volume-operations
+require:
+  - podman

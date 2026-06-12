@@ -1,0 +1,11 @@
+summary: 功能测试 - rpm-config-openruyi - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - rpm-config-openruyi
+duration: 2m
+tier: 1
+path: /tests/functional/rpm-config-openruyi/test_rpm-config-openruyi_version-help
+版本和帮助
+require:
+  - rpm-config-openruyi

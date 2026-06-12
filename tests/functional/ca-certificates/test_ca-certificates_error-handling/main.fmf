@@ -1,0 +1,11 @@
+summary: 功能测试 - ca-certificates - 错误处理
+test: ./test.sh
+tag:
+  - functional
+  - ca-certificates
+duration: 2m
+tier: 1
+path: /tests/functional/ca-certificates/test_ca-certificates_error-handling
+错误处理
+require:
+  - ca-certificates

@@ -1,0 +1,11 @@
+summary: 功能测试 - pam - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - pam
+duration: 2m
+tier: 1
+path: /tests/functional/pam/test_pam_version-help
+版本和帮助
+require:
+  - pam

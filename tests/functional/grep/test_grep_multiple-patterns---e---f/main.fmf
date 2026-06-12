@@ -1,0 +1,11 @@
+summary: 功能测试 - grep - Multiple patterns (-e, -f)
+test: ./test.sh
+tag:
+  - functional
+  - grep
+duration: 2m
+tier: 1
+path: /tests/functional/grep/test_grep_multiple-patterns---e---f
+Multiple-patterns---e---f
+require:
+  - grep

@@ -1,0 +1,11 @@
+summary: 功能测试 - weston - Backend check
+test: ./test.sh
+tag:
+  - functional
+  - weston
+duration: 2m
+tier: 1
+path: /tests/functional/weston/test_weston_backend-check
+Backend-check
+require:
+  - weston

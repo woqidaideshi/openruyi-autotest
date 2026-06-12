@@ -1,0 +1,11 @@
+summary: 功能测试 - tmux - Environment variables
+test: ./test.sh
+tag:
+  - functional
+  - tmux
+duration: 2m
+tier: 1
+path: /tests/functional/tmux/test_tmux_environment-variables
+Environment-variables
+require:
+  - tmux

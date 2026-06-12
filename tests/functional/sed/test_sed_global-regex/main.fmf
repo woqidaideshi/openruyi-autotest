@@ -1,0 +1,11 @@
+summary: 功能测试 - sed - 全局和正则
+test: ./test.sh
+tag:
+  - functional
+  - sed
+duration: 2m
+tier: 1
+path: /tests/functional/sed/test_sed_global-regex
+全局和正则
+require:
+  - sed

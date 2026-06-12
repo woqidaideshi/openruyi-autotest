@@ -1,0 +1,11 @@
+summary: 功能测试 - dnf5-plugins - Commands with plugins
+test: ./test.sh
+tag:
+  - functional
+  - dnf5-plugins
+duration: 2m
+tier: 1
+path: /tests/functional/dnf5-plugins/test_dnf5-plugins_commands-with-plugins
+Commands-with-plugins
+require:
+  - dnf5-plugins

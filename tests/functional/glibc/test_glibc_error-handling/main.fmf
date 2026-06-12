@@ -1,0 +1,11 @@
+summary: 功能测试 - glibc - 错误处理
+test: ./test.sh
+tag:
+  - functional
+  - glibc
+duration: 2m
+tier: 1
+path: /tests/functional/glibc/test_glibc_error-handling
+错误处理
+require:
+  - glibc

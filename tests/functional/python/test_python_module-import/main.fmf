@@ -1,0 +1,11 @@
+summary: 功能测试 - python - 模块导入
+test: ./test.sh
+tag:
+  - functional
+  - python
+duration: 2m
+tier: 1
+path: /tests/functional/python/test_python_module-import
+模块导入
+require:
+  - python

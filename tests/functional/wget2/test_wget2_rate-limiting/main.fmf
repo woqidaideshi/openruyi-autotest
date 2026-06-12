@@ -1,0 +1,11 @@
+summary: 功能测试 - wget2 - Rate limiting
+test: ./test.sh
+tag:
+  - functional
+  - wget2
+duration: 2m
+tier: 1
+path: /tests/functional/wget2/test_wget2_rate-limiting
+Rate-limiting
+require:
+  - wget2

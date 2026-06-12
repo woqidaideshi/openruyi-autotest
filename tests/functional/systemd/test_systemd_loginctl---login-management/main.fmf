@@ -1,0 +1,11 @@
+summary: 功能测试 - systemd - loginctl - Login management
+test: ./test.sh
+tag:
+  - functional
+  - systemd
+duration: 2m
+tier: 1
+path: /tests/functional/systemd/test_systemd_loginctl---login-management
+loginctl---Login-management
+require:
+  - systemd

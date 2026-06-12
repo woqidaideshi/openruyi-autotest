@@ -1,0 +1,11 @@
+summary: 功能测试 - wget2 - HTTP/2 support
+test: ./test.sh
+tag:
+  - functional
+  - wget2
+duration: 2m
+tier: 1
+path: /tests/functional/wget2/test_wget2_http-2-support
+HTTP-2-support
+require:
+  - wget2

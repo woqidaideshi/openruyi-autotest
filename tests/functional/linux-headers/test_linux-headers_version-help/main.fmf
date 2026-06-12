@@ -1,0 +1,11 @@
+summary: 功能测试 - linux-headers - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - linux-headers
+duration: 2m
+tier: 1
+path: /tests/functional/linux-headers/test_linux-headers_version-help
+版本和帮助
+require:
+  - linux-headers

@@ -1,0 +1,11 @@
+summary: 功能测试 - wget2 - Timeouts and retries
+test: ./test.sh
+tag:
+  - functional
+  - wget2
+duration: 2m
+tier: 1
+path: /tests/functional/wget2/test_wget2_timeouts-and-retries
+Timeouts-and-retries
+require:
+  - wget2

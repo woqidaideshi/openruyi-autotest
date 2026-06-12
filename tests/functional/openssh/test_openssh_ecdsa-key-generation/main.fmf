@@ -1,0 +1,11 @@
+summary: 功能测试 - openssh - ECDSA key generation
+test: ./test.sh
+tag:
+  - functional
+  - openssh
+duration: 2m
+tier: 1
+path: /tests/functional/openssh/test_openssh_ecdsa-key-generation
+ECDSA-key-generation
+require:
+  - openssh

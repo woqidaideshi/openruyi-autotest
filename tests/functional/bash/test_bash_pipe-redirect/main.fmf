@@ -1,0 +1,11 @@
+summary: 功能测试 - bash - 管道和重定向
+test: ./test.sh
+tag:
+  - functional
+  - bash
+duration: 2m
+tier: 1
+path: /tests/functional/bash/test_bash_pipe-redirect
+管道和重定向
+require:
+  - bash

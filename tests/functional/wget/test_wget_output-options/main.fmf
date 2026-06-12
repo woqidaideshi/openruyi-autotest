@@ -1,0 +1,11 @@
+summary: 功能测试 - wget - Output options
+test: ./test.sh
+tag:
+  - functional
+  - wget
+duration: 2m
+tier: 1
+path: /tests/functional/wget/test_wget_output-options
+Output-options
+require:
+  - wget

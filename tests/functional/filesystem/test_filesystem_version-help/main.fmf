@@ -1,0 +1,11 @@
+summary: 功能测试 - filesystem - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - filesystem
+duration: 2m
+tier: 1
+path: /tests/functional/filesystem/test_filesystem_version-help
+版本和帮助
+require:
+  - filesystem

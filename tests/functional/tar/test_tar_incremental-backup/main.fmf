@@ -1,0 +1,11 @@
+summary: 功能测试 - tar - Incremental backup
+test: ./test.sh
+tag:
+  - functional
+  - tar
+duration: 2m
+tier: 1
+path: /tests/functional/tar/test_tar_incremental-backup
+Incremental-backup
+require:
+  - tar

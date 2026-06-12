@@ -1,0 +1,11 @@
+summary: 功能测试 - wget - Special features
+test: ./test.sh
+tag:
+  - functional
+  - wget
+duration: 2m
+tier: 1
+path: /tests/functional/wget/test_wget_special-features
+Special-features
+require:
+  - wget

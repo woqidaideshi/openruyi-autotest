@@ -1,0 +1,11 @@
+summary: 功能测试 - coreutils - File viewing (head, tail, tac, nl)
+test: ./test.sh
+tag:
+  - functional
+  - coreutils
+duration: 2m
+tier: 1
+path: /tests/functional/coreutils/test_coreutils_file-viewing--head--tail--tac--nl
+File-viewing--head--tail--tac--nl
+require:
+  - coreutils

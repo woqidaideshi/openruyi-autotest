@@ -1,0 +1,11 @@
+summary: 功能测试 - coreutils - Links and path resolution (ln, link, unlink, readlink, realpath)
+test: ./test.sh
+tag:
+  - functional
+  - coreutils
+duration: 2m
+tier: 1
+path: /tests/functional/coreutils/test_coreutils_links-and-path-resolution--ln--link--unlink--readl
+Links-and-path-resolution--ln--link--unlink--readl
+require:
+  - coreutils

@@ -1,0 +1,11 @@
+summary: 功能测试 - podmansh - podmansh config
+test: ./test.sh
+tag:
+  - functional
+  - podmansh
+duration: 2m
+tier: 1
+path: /tests/functional/podmansh/test_podmansh_podmansh-config
+podmansh-config
+require:
+  - podmansh

@@ -1,0 +1,11 @@
+summary: 功能测试 - openssh-clients - ssh-keygen via openssh
+test: ./test.sh
+tag:
+  - functional
+  - openssh-clients
+duration: 2m
+tier: 1
+path: /tests/functional/openssh-clients/test_openssh-clients_ssh-keygen-via-openssh
+ssh-keygen-via-openssh
+require:
+  - openssh-clients

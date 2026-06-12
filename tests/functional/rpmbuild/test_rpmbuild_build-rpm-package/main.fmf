@@ -1,0 +1,11 @@
+summary: 功能测试 - rpmbuild - Build RPM package
+test: ./test.sh
+tag:
+  - functional
+  - rpmbuild
+duration: 2m
+tier: 1
+path: /tests/functional/rpmbuild/test_rpmbuild_build-rpm-package
+Build-RPM-package
+require:
+  - rpmbuild

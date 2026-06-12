@@ -1,0 +1,11 @@
+summary: 功能测试 - dwz - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - dwz
+duration: 2m
+tier: 1
+path: /tests/functional/dwz/test_dwz_version-help
+版本和帮助
+require:
+  - dwz
