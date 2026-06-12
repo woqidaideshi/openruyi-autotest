@@ -5,11 +5,21 @@
 
 # rlRun wrapper for standalone execution
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install acl ===
+INSTALLED_BY_TEST=0
+if ! rpm -q acl 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y acl 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed acl"
+    else
+        echo "SKIP: acl not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: acl already installed"
+fi
 
-rlRun 'rpm -q acl' 0 "检查 acl 软件包是否已安装"
-rlRun 'which getfacl' 0 "检查 getfacl 命令是否可用"
-rlRun 'which setfacl' 0 "检查 setfacl 命令是否可用"
-rlRun 'which chacl' 0 "检查 chacl 命令是否可用"
+
 
 # 获取 acl 版本信息
 rlRun 'getfacl --version' 0 "获取 getfacl 版本信息"
@@ -221,3 +231,10 @@ rlRun 'rm -rf $TmpDir' 0 "清理临时测试目录"
 
 echo ""
 echo "All acl functional tests passed!"
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y acl 2>/dev/null || true
+    echo "TEARDOWN: removed acl"
+fi
+

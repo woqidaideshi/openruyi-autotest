@@ -1,0 +1,10 @@
+summary: atf
+test: ./test.sh
+tag:
+  - functional
+  - atf
+duration: 2m
+tier: 1
+path: /tests/functional/atf
+require:
+  - atf

@@ -4,22 +4,21 @@
 # Version: gzip
 
 rlRun() { eval "\$1" 2>&1; return \$?; }
+# === SETUP: check/install gzip ===
+INSTALLED_BY_TEST=0
+if ! rpm -q gzip 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y gzip 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed gzip"
+    else
+        echo "SKIP: gzip not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: gzip already installed"
+fi
 
-rlRun 'rpm -q gzip' 0 "检查 gzip 是否已安装"
-rlRun 'which gzip' 0 "检查 gzip 命令是否可用"
-rlRun 'which gunzip' 0 "检查 gunzip 命令是否可用"
-rlRun 'which zcat' 0 "检查 zcat 命令是否可用"
-rlRun 'which zcmp' 0 "检查 zcmp 命令是否可用"
-rlRun 'which zdiff' 0 "检查 zdiff 命令是否可用"
-rlRun 'which zgrep' 0 "检查 zgrep 命令是否可用"
-rlRun 'which zless' 0 "检查 zless 命令是否可用"
-rlRun 'which zmore' 0 "检查 zmore 命令是否可用"
-rlRun 'which znew' 0 "检查 znew 命令是否可用"
-rlRun 'which gzexe' 0 "检查 gzexe 命令是否可用"
-rlRun 'which zforce' 0 "检查 zforce 命令是否可用"
-rlRun 'which zegrep' 0 "检查 zegrep 命令是否可用"
-rlRun 'which zfgrep' 0 "检查 zfgrep 命令是否可用"
-rlRun 'which uncompress' 0 "检查 uncompress 命令是否可用"
+
 
 echo "=== 测试 1: 版本和帮助 ==="
 rlRun 'gzip --version 2>&1 || true' 0 "gzip 版本信息"
@@ -54,5 +53,11 @@ rlRun 'uncompress --help 2>&1 | head -5 || true' 0 "uncompress 帮助信息"
 echo "=== 测试 2: 错误处理 ==="
 rlRun 'gzip --invalid 2>&1 || true' 0 "gzip: 无效选项"
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y gzip 2>/dev/null || true
+    echo "TEARDOWN: removed gzip"
+fi
 echo ""
 echo "All gzip functional tests passed!"

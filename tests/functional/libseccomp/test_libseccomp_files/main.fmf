@@ -1,0 +1,8 @@
+summary: libseccomp - 文件验证
+test: ./test.sh
+tag:
+  - functional
+  - libseccomp
+duration: 2m
+tier: 1
+path: /tests/functional/libseccomp/test_libseccomp_files

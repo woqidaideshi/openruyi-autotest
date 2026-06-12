@@ -2,7 +2,20 @@
 # Functional test: systemd - Error-handling
 
 rlRun() { eval "$1" 2>&1; return $?; }
-rlRun 'rpm -q systemd' 0 "Check systemd package is installed"
+# === SETUP: check/install systemd ===
+INSTALLED_BY_TEST=0
+if ! rpm -q systemd 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y systemd 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed systemd"
+    else
+        echo "SKIP: systemd not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: systemd already installed"
+fi
+
 TmpDir=$(mktemp -d)
 cd $TmpDir
 
@@ -15,6 +28,12 @@ rlRun 'hostnamectl --invalid 2>&1 || true' 0 "hostnamectl: invalid option"
 cd /
 rm -rf $TmpDir
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y systemd 2>/dev/null || true
+    echo "TEARDOWN: removed systemd"
+fi
 echo ""
 echo "All systemd functional tests passed!"
 

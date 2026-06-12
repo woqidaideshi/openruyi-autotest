@@ -1,0 +1,10 @@
+summary: autoconf
+test: ./test.sh
+tag:
+  - functional
+  - autoconf
+duration: 2m
+tier: 1
+path: /tests/functional/autoconf
+require:
+  - autoconf

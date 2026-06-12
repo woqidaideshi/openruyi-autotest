@@ -1,0 +1,8 @@
+summary: pcre2 - 基本功能
+test: ./test.sh
+tag:
+  - functional
+  - pcre2
+duration: 2m
+tier: 1
+path: /tests/functional/pcre2/test_pcre2_basic

@@ -1,0 +1,10 @@
+summary: python-wheel
+test: ./test.sh
+tag:
+  - functional
+  - python-wheel
+duration: 2m
+tier: 1
+path: /tests/functional/python-wheel
+require:
+  - python3-wheel

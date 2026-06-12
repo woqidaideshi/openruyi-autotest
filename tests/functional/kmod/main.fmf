@@ -1,0 +1,7 @@
+summary: ¹¦ÄÜ²âÊÔ - kmod
+test: ./test.sh
+duration: 5m
+tier: 1
+path: /tests/functional/kmod
+require:
+  - kmod

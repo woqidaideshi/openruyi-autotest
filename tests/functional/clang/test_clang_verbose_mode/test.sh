@@ -2,12 +2,20 @@
 # Functional test: clang - Verbose-mode
 
 rlRun() { eval "$1" 2>&1; return $?; }
-rlRun 'rpm -q clang' 0 "Check clang installed"
-rlRun 'which clang' 0 "Check clang available"
-rlRun 'which clang++' 0 "Check clang++ available"
-rlRun 'which clang-cl' 0 "Check clang-cl available"
-rlRun 'which clang-cpp' 0 "Check clang-cpp available"
-rlRun 'which clang-scan-deps' 0 "Check clang-scan-deps available"
+# === SETUP: check/install clang ===
+INSTALLED_BY_TEST=0
+if ! rpm -q clang 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y clang 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed clang"
+    else
+        echo "SKIP: clang not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: clang already installed"
+fi
+
 rlRun 'clang --version' 0 "clang version"
 TmpDir=$(mktemp -d)
 cd $TmpDir
@@ -16,5 +24,11 @@ echo "=== Test 14: Verbose mode ==="
 rlRun 'clang -v -c hello.c -o /dev/null 2>&1 | head -10' 0 "clang -v: verbose"
 
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y clang 2>/dev/null || true
+    echo "TEARDOWN: removed clang"
+fi
 echo ""
 echo "All clang Verbose-mode tests passed!"

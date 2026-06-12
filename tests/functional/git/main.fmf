@@ -1,10 +1,7 @@
-summary: 鍔熻兘娴嬭瘯 - git 鐗堟湰鎺у埗鍔熻兘楠岃瘉
+summary: 功能测试 - git 配置验证
 test: ./test.sh
-tag:
-  - functional
-  - git
 duration: 5m
 tier: 1
 path: /tests/functional/git
 require:
-  - git-core
+  - git

@@ -1,0 +1,10 @@
+summary: chrpath
+test: ./test.sh
+tag:
+  - functional
+  - chrpath
+duration: 2m
+tier: 1
+path: /tests/functional/chrpath
+require:
+  - chrpath

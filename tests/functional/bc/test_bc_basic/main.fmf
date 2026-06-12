@@ -1,0 +1,8 @@
+summary: bc - »ù±¾ÔËËã
+test: ./test.sh
+tag:
+  - functional
+  - bc
+duration: 2m
+tier: 1
+path: /tests/functional/bc/test_bc_basic

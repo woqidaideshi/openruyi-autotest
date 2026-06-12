@@ -106,3 +106,10 @@ pstree nonexistent-user 2>&1 || echo "Expected: no such user"
 
 echo ""
 echo "All psmisc functional tests passed!"
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y psmisc 2>/dev/null || true
+    echo "TEARDOWN: removed psmisc"
+fi
+

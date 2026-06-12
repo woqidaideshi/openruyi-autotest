@@ -1,0 +1,8 @@
+summary: kmod - 基本功能
+test: ./test.sh
+tag:
+  - functional
+  - kmod
+duration: 2m
+tier: 1
+path: /tests/functional/kmod/test_kmod_basic

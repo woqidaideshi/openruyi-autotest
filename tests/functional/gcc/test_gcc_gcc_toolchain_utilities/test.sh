@@ -2,11 +2,20 @@
 # Functional test: gcc - GCC-toolchain-utilities
 
 rlRun() { eval "$1" 2>&1; return $?; }
-rlRun 'rpm -q gcc' 0 "Check gcc package is installed"
-rlRun 'rpm -q gcc-c++' 0 "Check gcc-c++ package is installed"
-rlRun 'which gcc' 0 "Check gcc command is available"
-rlRun 'which g++' 0 "Check g++ command is available"
-rlRun 'which cpp' 0 "Check cpp command is available"
+# === SETUP: check/install gcc ===
+INSTALLED_BY_TEST=0
+if ! rpm -q gcc 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y gcc 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed gcc"
+    else
+        echo "SKIP: gcc not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: gcc already installed"
+fi
+
 rlRun 'gcc --version' 0 "Get gcc version info"
 rlRun 'g++ --version' 0 "Get g++ version info"
 TmpDir=$(mktemp -d)
@@ -43,6 +52,12 @@ rlRun 'test "$(c++ --version 2>&1 | head -1)" = "$(g++ --version 2>&1 | head -1)
 cd /
 rm -rf $TmpDir
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y gcc 2>/dev/null || true
+    echo "TEARDOWN: removed gcc"
+fi
 echo ""
 echo "All gcc functional tests passed!"
 

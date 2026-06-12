@@ -1,0 +1,10 @@
+summary: libsodium
+test: ./test.sh
+tag:
+  - functional
+  - libsodium
+duration: 2m
+tier: 1
+path: /tests/functional/libsodium
+require:
+  - libsodium

@@ -1,0 +1,8 @@
+summary: e2fsprogs - 基本功能
+test: ./test.sh
+tag:
+  - functional
+  - e2fsprogs
+duration: 2m
+tier: 1
+path: /tests/functional/e2fsprogs/test_e2fsprogs_basic

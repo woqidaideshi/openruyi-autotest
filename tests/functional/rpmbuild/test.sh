@@ -138,5 +138,11 @@ rpm -V test-package 2>&1 || echo "Package verification completed"
 cd /
 rm -rf $TmpDir
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y rpmbuild 2>/dev/null || true
+    echo "TEARDOWN: removed rpmbuild"
+fi
 echo ""
 echo "All rpmbuild functional tests passed!"

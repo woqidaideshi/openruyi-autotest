@@ -1,0 +1,10 @@
+summary: flex
+test: ./test.sh
+tag:
+  - functional
+  - flex
+duration: 2m
+tier: 1
+path: /tests/functional/flex
+require:
+  - flex

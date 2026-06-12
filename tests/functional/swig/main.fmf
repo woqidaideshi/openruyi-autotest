@@ -1,0 +1,10 @@
+summary: swig
+test: ./test.sh
+tag:
+  - functional
+  - swig
+duration: 2m
+tier: 1
+path: /tests/functional/swig
+require:
+  - swig

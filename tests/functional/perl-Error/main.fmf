@@ -1,0 +1,10 @@
+summary: perl-Error
+test: ./test.sh
+tag:
+  - functional
+  - perl-Error
+duration: 2m
+tier: 1
+path: /tests/functional/perl-Error
+require:
+  - perl-Error

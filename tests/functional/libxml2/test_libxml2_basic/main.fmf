@@ -1,0 +1,8 @@
+summary: libxml2 - 基本功能
+test: ./test.sh
+tag:
+  - functional
+  - libxml2
+duration: 2m
+tier: 1
+path: /tests/functional/libxml2/test_libxml2_basic

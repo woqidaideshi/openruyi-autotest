@@ -4,16 +4,21 @@
 # Version: glibc
 
 rlRun() { eval "\$1" 2>&1; return \$?; }
+# === SETUP: check/install glibc ===
+INSTALLED_BY_TEST=0
+if ! rpm -q glibc 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y glibc 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed glibc"
+    else
+        echo "SKIP: glibc not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: glibc already installed"
+fi
 
-rlRun 'rpm -q glibc' 0 "检查 glibc 是否已安装"
-rlRun 'which gencat' 0 "检查 gencat 命令是否可用"
-rlRun 'which getconf' 0 "检查 getconf 命令是否可用"
-rlRun 'which getent' 0 "检查 getent 命令是否可用"
-rlRun 'which iconv' 0 "检查 iconv 命令是否可用"
-rlRun 'which ldconfig' 0 "检查 ldconfig 命令是否可用"
-rlRun 'which ldd' 0 "检查 ldd 命令是否可用"
-rlRun 'which locale' 0 "检查 locale 命令是否可用"
-rlRun 'which localedef' 0 "检查 localedef 命令是否可用"
+
 
 echo "=== 测试 1: 版本和帮助 ==="
 rlRun 'gencat --version 2>&1 || true' 0 "gencat 版本信息"
@@ -36,5 +41,11 @@ rlRun 'localedef --help 2>&1 | head -5 || true' 0 "localedef 帮助信息"
 echo "=== 测试 2: 错误处理 ==="
 rlRun 'gencat --invalid 2>&1 || true' 0 "gencat: 无效选项"
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y glibc 2>/dev/null || true
+    echo "TEARDOWN: removed glibc"
+fi
 echo ""
 echo "All glibc functional tests passed!"

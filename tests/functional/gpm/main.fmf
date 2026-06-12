@@ -1,0 +1,10 @@
+summary: gpm
+test: ./test.sh
+tag:
+  - functional
+  - gpm
+duration: 2m
+tier: 1
+path: /tests/functional/gpm
+require:
+  - gpm

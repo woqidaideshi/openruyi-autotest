@@ -1,0 +1,8 @@
+summary: ncurses - 基本功能
+test: ./test.sh
+tag:
+  - functional
+  - ncurses
+duration: 2m
+tier: 1
+path: /tests/functional/ncurses/test_ncurses_basic

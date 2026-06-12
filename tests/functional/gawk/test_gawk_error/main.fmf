@@ -1,0 +1,8 @@
+summary: gawk - ´íÎó´¦Àí
+test: ./test.sh
+tag:
+  - functional
+  - gawk
+duration: 2m
+tier: 1
+path: /tests/functional/gawk/test_gawk_error

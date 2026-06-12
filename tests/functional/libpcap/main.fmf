@@ -1,0 +1,10 @@
+summary: libpcap
+test: ./test.sh
+tag:
+  - functional
+  - libpcap
+duration: 2m
+tier: 1
+path: /tests/functional/libpcap
+require:
+  - libpcap

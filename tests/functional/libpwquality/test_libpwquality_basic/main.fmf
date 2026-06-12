@@ -1,0 +1,8 @@
+summary: libpwquality - 基本功能
+test: ./test.sh
+tag:
+  - functional
+  - libpwquality
+duration: 2m
+tier: 1
+path: /tests/functional/libpwquality/test_libpwquality_basic

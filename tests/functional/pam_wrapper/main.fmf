@@ -1,0 +1,10 @@
+summary: pam_wrapper
+test: ./test.sh
+tag:
+  - functional
+  - pam_wrapper
+duration: 2m
+tier: 1
+path: /tests/functional/pam_wrapper
+require:
+  - pam_wrapper

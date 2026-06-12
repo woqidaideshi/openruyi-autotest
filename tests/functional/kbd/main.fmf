@@ -1,0 +1,7 @@
+summary: ¹¦ÄÜ²âÊÔ - kbd
+test: ./test.sh
+duration: 5m
+tier: 1
+path: /tests/functional/kbd
+require:
+  - kbd

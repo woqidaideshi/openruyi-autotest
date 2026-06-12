@@ -1,0 +1,7 @@
+summary: 功能测试 - json-c 库包验证
+test: ./test.sh
+duration: 5m
+tier: 1
+path: /tests/functional/json-c
+require:
+  - json-c

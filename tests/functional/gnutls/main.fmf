@@ -1,0 +1,7 @@
+summary: ¹¦ÄÜ²âÊÔ - gnutls
+test: ./test.sh
+duration: 5m
+tier: 1
+path: /tests/functional/gnutls
+require:
+  - gnutls

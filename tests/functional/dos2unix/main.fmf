@@ -1,0 +1,10 @@
+summary: dos2unix
+test: ./test.sh
+tag:
+  - functional
+  - dos2unix
+duration: 2m
+tier: 1
+path: /tests/functional/dos2unix
+require:
+  - dos2unix

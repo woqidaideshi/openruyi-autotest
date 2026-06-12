@@ -1,0 +1,10 @@
+summary: systemtap
+test: ./test.sh
+tag:
+  - functional
+  - systemtap
+duration: 2m
+tier: 1
+path: /tests/functional/systemtap
+require:
+  - systemtap

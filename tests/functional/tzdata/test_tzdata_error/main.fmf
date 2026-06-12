@@ -1,0 +1,8 @@
+summary: tzdata - ´íÎó´¦Àí
+test: ./test.sh
+tag:
+  - functional
+  - tzdata
+duration: 2m
+tier: 1
+path: /tests/functional/tzdata/test_tzdata_error

@@ -158,5 +158,11 @@ tar -tvf hardlink_archive.tar
 cd /
 rm -rf $TmpDir
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y tar 2>/dev/null || true
+    echo "TEARDOWN: removed tar"
+fi
 echo ""
 echo "All tar functional tests passed!"

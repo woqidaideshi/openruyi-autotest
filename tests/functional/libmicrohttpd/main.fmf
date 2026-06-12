@@ -1,0 +1,10 @@
+summary: libmicrohttpd
+test: ./test.sh
+tag:
+  - functional
+  - libmicrohttpd
+duration: 2m
+tier: 1
+path: /tests/functional/libmicrohttpd
+require:
+  - libmicrohttpd

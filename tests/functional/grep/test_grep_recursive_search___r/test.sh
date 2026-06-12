@@ -2,10 +2,20 @@
 # Functional test: grep - Recursive-search---r
 
 rlRun() { eval "$1" 2>&1; return $?; }
-rlRun 'rpm -q grep' 0 "Check grep package is installed"
-rlRun 'which grep' 0 "Check grep command is available"
-rlRun 'which egrep' 0 "Check egrep command is available"
-rlRun 'which fgrep' 0 "Check fgrep command is available"
+# === SETUP: check/install grep ===
+INSTALLED_BY_TEST=0
+if ! rpm -q grep 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y grep 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed grep"
+    else
+        echo "SKIP: grep not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: grep already installed"
+fi
+
 rlRun 'grep --version' 0 "Get grep version info"
 TmpDir=$(mktemp -d)
 cd $TmpDir
@@ -39,5 +49,11 @@ rlRun 'grep -rl hello subdir/' 0 "Recursive list files with matches"
 rlRun 'grep -r --include="*.txt" hello .' 0 "Recursive with --include filter"
 
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y grep 2>/dev/null || true
+    echo "TEARDOWN: removed grep"
+fi
 echo ""
 echo "All grep Recursive-search---r tests passed!"

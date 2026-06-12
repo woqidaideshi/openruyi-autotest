@@ -1,0 +1,8 @@
+summary: libidn2 - ´íÎó´¦Àí
+test: ./test.sh
+tag:
+  - functional
+  - libidn2
+duration: 2m
+tier: 1
+path: /tests/functional/libidn2/test_libidn2_error

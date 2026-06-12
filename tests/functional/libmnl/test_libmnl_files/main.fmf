@@ -1,0 +1,8 @@
+summary: libmnl - 文件验证
+test: ./test.sh
+tag:
+  - functional
+  - libmnl
+duration: 2m
+tier: 1
+path: /tests/functional/libmnl/test_libmnl_files

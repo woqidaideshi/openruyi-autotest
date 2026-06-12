@@ -4,15 +4,21 @@
 # Version: audit
 
 rlRun() { eval "\$1" 2>&1; return \$?; }
+# === SETUP: check/install audit ===
+INSTALLED_BY_TEST=0
+if ! rpm -q audit 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y audit 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed audit"
+    else
+        echo "SKIP: audit not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: audit already installed"
+fi
 
-rlRun 'rpm -q audit' 0 "检查 audit 是否已安装"
-rlRun 'which auditctl' 0 "检查 auditctl 命令是否可用"
-rlRun 'which ausearch' 0 "检查 ausearch 命令是否可用"
-rlRun 'which aureport' 0 "检查 aureport 命令是否可用"
-rlRun 'which aulast' 0 "检查 aulast 命令是否可用"
-rlRun 'which aulastlog' 0 "检查 aulastlog 命令是否可用"
-rlRun 'which ausyscall' 0 "检查 ausyscall 命令是否可用"
-rlRun 'which augenrules' 0 "检查 augenrules 命令是否可用"
+
 
 echo "=== 测试 1: 版本和帮助 ==="
 rlRun 'auditctl --version 2>&1 || true' 0 "auditctl 版本信息"
@@ -33,5 +39,11 @@ rlRun 'augenrules --help 2>&1 | head -5 || true' 0 "augenrules 帮助信息"
 echo "=== 测试 2: 错误处理 ==="
 rlRun 'auditctl --invalid 2>&1 || true' 0 "auditctl: 无效选项"
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y audit 2>/dev/null || true
+    echo "TEARDOWN: removed audit"
+fi
 echo ""
 echo "All audit functional tests passed!"

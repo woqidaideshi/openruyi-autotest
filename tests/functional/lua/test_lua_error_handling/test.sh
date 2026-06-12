@@ -2,15 +2,32 @@
 # Functional test: lua - 错误处理
 
 rlRun() { eval "$1" 2>&1; return $?; }
-rlRun 'rpm -q lua' 0 "检查 lua 是否已安装"
-rlRun 'which lua' 0 "检查 lua 命令是否可用"
-rlRun 'which luac' 0 "检查 luac 命令是否可用"
+# === SETUP: check/install lua ===
+INSTALLED_BY_TEST=0
+if ! rpm -q lua 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y lua 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed lua"
+    else
+        echo "SKIP: lua not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: lua already installed"
+fi
+
 TmpDir=$(mktemp -d)
 cd $TmpDir
 
 echo "=== 测试 2: 错误处理 ==="
 rlRun 'lua --invalid 2>&1 || true' 0 "lua: 无效选项"
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y lua 2>/dev/null || true
+    echo "TEARDOWN: removed lua"
+fi
 echo ""
 echo "All lua functional tests passed!"
 

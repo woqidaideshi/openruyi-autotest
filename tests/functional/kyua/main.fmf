@@ -1,0 +1,10 @@
+summary: kyua
+test: ./test.sh
+tag:
+  - functional
+  - kyua
+duration: 2m
+tier: 1
+path: /tests/functional/kyua
+require:
+  - kyua

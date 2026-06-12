@@ -1,0 +1,8 @@
+summary: libnfnetlink - 文件验证
+test: ./test.sh
+tag:
+  - functional
+  - libnfnetlink
+duration: 2m
+tier: 1
+path: /tests/functional/libnfnetlink/test_libnfnetlink_files

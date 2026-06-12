@@ -1,0 +1,7 @@
+summary: ¹¦ÄÜ²âÊÔ - dbus
+test: ./test.sh
+duration: 5m
+tier: 1
+path: /tests/functional/dbus
+require:
+  - dbus
