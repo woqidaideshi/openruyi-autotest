@@ -6,6 +6,7 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/git/test_git_stash
+test_git_stash
 Stash
 require:
   - git

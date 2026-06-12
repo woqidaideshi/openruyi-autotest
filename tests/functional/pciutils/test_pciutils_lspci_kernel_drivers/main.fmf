@@ -1,0 +1,12 @@
+summary: 功能测试 - pciutils - lspci kernel drivers
+test: ./test.sh
+tag:
+  - functional
+  - pciutils
+duration: 2m
+tier: 1
+path: /tests/functional/pciutils/test_pciutils_lspci_kernel_drivers
+test_pciutils_lspci-kernel-drivers
+lspci-kernel-drivers
+require:
+  - pciutils

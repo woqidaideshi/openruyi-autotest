@@ -1,0 +1,12 @@
+summary: 功能测试 - coreutils - Environment and time (env, printenv, date, printf)
+test: ./test.sh
+tag:
+  - functional
+  - coreutils
+duration: 2m
+tier: 1
+path: /tests/functional/coreutils/test_coreutils_environment_and_time__env__printenv__date__printf
+test_coreutils_environment-and-time--env--printenv--date--printf
+Environment-and-time--env--printenv--date--printf
+require:
+  - coreutils

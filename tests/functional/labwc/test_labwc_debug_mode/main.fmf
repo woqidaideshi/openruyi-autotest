@@ -1,0 +1,12 @@
+summary: 功能测试 - labwc - Debug mode
+test: ./test.sh
+tag:
+  - functional
+  - labwc
+duration: 2m
+tier: 1
+path: /tests/functional/labwc/test_labwc_debug_mode
+test_labwc_debug-mode
+Debug-mode
+require:
+  - labwc

@@ -1,0 +1,12 @@
+summary: 功能测试 - git - git-shell
+test: ./test.sh
+tag:
+  - functional
+  - git
+duration: 2m
+tier: 1
+path: /tests/functional/git/test_git_git_shell
+test_git_git-shell
+git-shell
+require:
+  - git

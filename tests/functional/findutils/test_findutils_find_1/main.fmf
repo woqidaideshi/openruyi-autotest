@@ -6,6 +6,7 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/findutils/test_findutils_find_1
+test_findutils_find_1
 find-选项
 require:
   - findutils

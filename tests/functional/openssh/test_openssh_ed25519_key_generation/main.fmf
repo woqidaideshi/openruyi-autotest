@@ -1,0 +1,12 @@
+summary: 功能测试 - openssh - Ed25519 key generation
+test: ./test.sh
+tag:
+  - functional
+  - openssh
+duration: 2m
+tier: 1
+path: /tests/functional/openssh/test_openssh_ed25519_key_generation
+test_openssh_ed25519-key-generation
+Ed25519-key-generation
+require:
+  - openssh

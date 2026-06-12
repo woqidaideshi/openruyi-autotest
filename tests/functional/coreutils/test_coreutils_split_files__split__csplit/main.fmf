@@ -1,0 +1,12 @@
+summary: 功能测试 - coreutils - Split files (split, csplit)
+test: ./test.sh
+tag:
+  - functional
+  - coreutils
+duration: 2m
+tier: 1
+path: /tests/functional/coreutils/test_coreutils_split_files__split__csplit
+test_coreutils_split-files--split--csplit
+Split-files--split--csplit
+require:
+  - coreutils

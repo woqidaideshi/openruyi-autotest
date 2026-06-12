@@ -1,0 +1,12 @@
+summary: 功能测试 - cloud-utils-growpart - Fudge factor option
+test: ./test.sh
+tag:
+  - functional
+  - cloud-utils-growpart
+duration: 2m
+tier: 1
+path: /tests/functional/cloud-utils-growpart/test_cloud_utils_growpart_fudge_factor_option
+test_cloud-utils-growpart_fudge-factor-option
+Fudge-factor-option
+require:
+  - cloud-utils-growpart

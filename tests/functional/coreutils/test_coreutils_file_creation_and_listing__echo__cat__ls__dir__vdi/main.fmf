@@ -1,0 +1,12 @@
+summary: 功能测试 - coreutils - File creation and listing (echo, cat, ls, dir, vdir)
+test: ./test.sh
+tag:
+  - functional
+  - coreutils
+duration: 2m
+tier: 1
+path: /tests/functional/coreutils/test_coreutils_file_creation_and_listing__echo__cat__ls__dir__vdi
+test_coreutils_file-creation-and-listing--echo--cat--ls--dir--vdi
+File-creation-and-listing--echo--cat--ls--dir--vdi
+require:
+  - coreutils

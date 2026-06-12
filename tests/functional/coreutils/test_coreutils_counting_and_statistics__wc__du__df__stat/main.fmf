@@ -1,0 +1,12 @@
+summary: 功能测试 - coreutils - Counting and statistics (wc, du, df, stat)
+test: ./test.sh
+tag:
+  - functional
+  - coreutils
+duration: 2m
+tier: 1
+path: /tests/functional/coreutils/test_coreutils_counting_and_statistics__wc__du__df__stat
+test_coreutils_counting-and-statistics--wc--du--df--stat
+Counting-and-statistics--wc--du--df--stat
+require:
+  - coreutils

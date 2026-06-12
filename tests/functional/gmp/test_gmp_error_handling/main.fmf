@@ -1,0 +1,12 @@
+summary: 功能测试 - gmp - 错误处理
+test: ./test.sh
+tag:
+  - functional
+  - gmp
+duration: 2m
+tier: 1
+path: /tests/functional/gmp/test_gmp_error_handling
+test_gmp_error-handling
+错误处理
+require:
+  - gmp

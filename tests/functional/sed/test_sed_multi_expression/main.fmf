@@ -1,0 +1,12 @@
+summary: 功能测试 - sed - 多表达式
+test: ./test.sh
+tag:
+  - functional
+  - sed
+duration: 2m
+tier: 1
+path: /tests/functional/sed/test_sed_multi_expression
+test_sed_multi-expression
+多表达式
+require:
+  - sed

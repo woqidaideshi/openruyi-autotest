@@ -6,6 +6,7 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/iputils/test_iputils_tracepath
+test_iputils_tracepath
 tracepath
 require:
   - iputils

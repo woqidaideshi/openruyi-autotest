@@ -1,0 +1,12 @@
+summary: 功能测试 - git - File modifications
+test: ./test.sh
+tag:
+  - functional
+  - git
+duration: 2m
+tier: 1
+path: /tests/functional/git/test_git_file_modifications
+test_git_file-modifications
+File-modifications
+require:
+  - git

@@ -1,0 +1,12 @@
+summary: 功能测试 - dnf5-plugins - Error handling
+test: ./test.sh
+tag:
+  - functional
+  - dnf5-plugins
+duration: 2m
+tier: 1
+path: /tests/functional/dnf5-plugins/test_dnf5_plugins_error_handling
+test_dnf5-plugins_error-handling
+Error-handling
+require:
+  - dnf5-plugins

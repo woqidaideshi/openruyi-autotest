@@ -6,6 +6,7 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/wget2/test_wget2_headers
+test_wget2_headers
 Headers
 require:
   - wget2

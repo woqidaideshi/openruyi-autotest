@@ -1,0 +1,12 @@
+summary: 功能测试 - openssh - Key conversion
+test: ./test.sh
+tag:
+  - functional
+  - openssh
+duration: 2m
+tier: 1
+path: /tests/functional/openssh/test_openssh_key_conversion
+test_openssh_key-conversion
+Key-conversion
+require:
+  - openssh

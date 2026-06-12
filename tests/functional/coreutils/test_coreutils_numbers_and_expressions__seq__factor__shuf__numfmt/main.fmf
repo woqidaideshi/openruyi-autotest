@@ -1,0 +1,12 @@
+summary: 功能测试 - coreutils - Numbers and expressions (seq, factor, shuf, numfmt, expr)
+test: ./test.sh
+tag:
+  - functional
+  - coreutils
+duration: 2m
+tier: 1
+path: /tests/functional/coreutils/test_coreutils_numbers_and_expressions__seq__factor__shuf__numfmt
+test_coreutils_numbers-and-expressions--seq--factor--shuf--numfmt
+Numbers-and-expressions--seq--factor--shuf--numfmt
+require:
+  - coreutils

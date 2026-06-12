@@ -6,6 +6,7 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/make/test_make_options
+test_make_options
 Options
 require:
   - make

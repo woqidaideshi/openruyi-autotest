@@ -6,6 +6,7 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/bash/test_bash_bashbug
+test_bash_bashbug
 bashbug
 require:
   - bash

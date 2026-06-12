@@ -6,6 +6,7 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/gxx/test_gxx_preprocessor
+test_gxx_preprocessor
 Preprocessor
 require:
   - gxx

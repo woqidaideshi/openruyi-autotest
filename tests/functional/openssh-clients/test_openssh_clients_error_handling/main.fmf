@@ -1,0 +1,12 @@
+summary: 功能测试 - openssh-clients - Error handling
+test: ./test.sh
+tag:
+  - functional
+  - openssh-clients
+duration: 2m
+tier: 1
+path: /tests/functional/openssh-clients/test_openssh_clients_error_handling
+test_openssh-clients_error-handling
+Error-handling
+require:
+  - openssh-clients

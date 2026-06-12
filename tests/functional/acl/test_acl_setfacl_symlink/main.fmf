@@ -1,0 +1,12 @@
+summary: 功能测试 - acl - setfacl 符号链接处理
+test: ./test.sh
+tag:
+  - functional
+  - acl
+duration: 2m
+tier: 1
+path: /tests/functional/acl/test_acl_setfacl_symlink
+test_acl_setfacl-symlink
+setfacl-符号链接处理
+require:
+  - acl

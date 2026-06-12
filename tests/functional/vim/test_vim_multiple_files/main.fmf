@@ -1,0 +1,12 @@
+summary: 功能测试 - vim - Multiple files
+test: ./test.sh
+tag:
+  - functional
+  - vim
+duration: 2m
+tier: 1
+path: /tests/functional/vim/test_vim_multiple_files
+test_vim_multiple-files
+Multiple-files
+require:
+  - vim

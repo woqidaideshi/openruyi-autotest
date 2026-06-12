@@ -6,6 +6,7 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/clang/test_clang_preprocessor
+test_clang_preprocessor
 Preprocessor
 require:
   - clang
