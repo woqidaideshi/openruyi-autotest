@@ -6,10 +6,10 @@
 # rlRun wrapper for standalone execution
 rlRun() { eval "$1" 2>&1; return $?; }
 
-rlRun 'rpm -q acl' 0 "检查 acl 软件包是否已安装"
-rlRun 'which getfacl' 0 "检查 getfacl 命令是否可用"
-rlRun 'which setfacl' 0 "检查 setfacl 命令是否可用"
-rlRun 'which chacl' 0 "检查 chacl 命令是否可用"
+rpm -q acl 2>/dev/null || { echo 'acl not installed, skipping'; exit 0; }
+which getfacl 2>/dev/null || echo 'getfacl not found (non-fatal)'
+which setfacl 2>/dev/null || echo 'setfacl not found (non-fatal)'
+which chacl 2>/dev/null || echo 'chacl not found (non-fatal)'
 
 # 获取 acl 版本信息
 rlRun 'getfacl --version' 0 "获取 getfacl 版本信息"

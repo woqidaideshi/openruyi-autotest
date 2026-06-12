@@ -1,0 +1,10 @@
+summary: xxhash
+test: ./test.sh
+tag:
+  - functional
+  - xxhash
+duration: 2m
+tier: 1
+path: /tests/functional/xxhash
+require:
+  - xxhash

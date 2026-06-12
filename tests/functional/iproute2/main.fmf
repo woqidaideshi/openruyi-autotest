@@ -1,0 +1,10 @@
+summary: 功能测试 - iproute2 软件包功能验证
+test: ./test.sh
+tag:
+  - functional
+  - iproute2
+duration: 5m
+tier: 1
+path: /tests/functional/iproute2
+require:
+  - iproute2

@@ -1,0 +1,8 @@
+summary: bzip2 - Ñ¹Ëõ¹¦ÄÜ
+test: ./test.sh
+tag:
+  - functional
+  - bzip2
+duration: 2m
+tier: 1
+path: /tests/functional/bzip2/test_bzip2_compress

@@ -1,8 +1,5 @@
-summary: 鍔熻兘娴嬭瘯 - openssh SSH瀵嗛挜鐢熸垚鍔熻兘楠岃瘉
+summary: 功能测试 - openssh 软件包功能验证
 test: ./test.sh
-tag:
-  - functional
-  - openssh
 duration: 5m
 tier: 1
 path: /tests/functional/openssh

@@ -1,0 +1,10 @@
+summary: automake
+test: ./test.sh
+tag:
+  - functional
+  - automake
+duration: 2m
+tier: 1
+path: /tests/functional/automake
+require:
+  - automake

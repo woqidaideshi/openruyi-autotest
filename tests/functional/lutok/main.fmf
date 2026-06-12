@@ -1,0 +1,10 @@
+summary: lutok
+test: ./test.sh
+tag:
+  - functional
+  - lutok
+duration: 2m
+tier: 1
+path: /tests/functional/lutok
+require:
+  - lutok

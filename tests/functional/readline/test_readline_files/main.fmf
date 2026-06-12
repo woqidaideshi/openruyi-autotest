@@ -1,0 +1,8 @@
+summary: readline - 文件验证
+test: ./test.sh
+tag:
+  - functional
+  - readline
+duration: 2m
+tier: 1
+path: /tests/functional/readline/test_readline_files

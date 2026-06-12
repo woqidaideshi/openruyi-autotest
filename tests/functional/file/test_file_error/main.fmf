@@ -1,0 +1,8 @@
+summary: file - ´íÎó´¦Àí
+test: ./test.sh
+tag:
+  - functional
+  - file
+duration: 2m
+tier: 1
+path: /tests/functional/file/test_file_error

@@ -1,0 +1,7 @@
+summary: ¹¦ÄÜ²âÊÔ - python-pip
+test: ./test.sh
+duration: 5m
+tier: 1
+path: /tests/functional/python-pip
+require:
+  - python3-pip

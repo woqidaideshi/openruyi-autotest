@@ -1,0 +1,8 @@
+summary: beakerlib - 基本功能
+test: ./test.sh
+tag:
+  - functional
+  - beakerlib
+duration: 2m
+tier: 1
+path: /tests/functional/beakerlib/test_beakerlib_basic

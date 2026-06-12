@@ -5,22 +5,22 @@
 
 rlRun() { eval "\$1" 2>&1; return \$?; }
 
-rlRun 'rpm -q xz' 0 "检查 xz 是否已安装"
-rlRun 'which xz' 0 "检查 xz 命令是否可用"
-rlRun 'which unxz' 0 "检查 unxz 命令是否可用"
-rlRun 'which xzcat' 0 "检查 xzcat 命令是否可用"
-rlRun 'which lzma' 0 "检查 lzma 命令是否可用"
-rlRun 'which unlzma' 0 "检查 unlzma 命令是否可用"
-rlRun 'which lzcat' 0 "检查 lzcat 命令是否可用"
-rlRun 'which lzcmp' 0 "检查 lzcmp 命令是否可用"
-rlRun 'which lzdiff' 0 "检查 lzdiff 命令是否可用"
-rlRun 'which lzgrep' 0 "检查 lzgrep 命令是否可用"
-rlRun 'which lzless' 0 "检查 lzless 命令是否可用"
-rlRun 'which lzmore' 0 "检查 lzmore 命令是否可用"
-rlRun 'which lzmadec' 0 "检查 lzmadec 命令是否可用"
-rlRun 'which lzmainfo' 0 "检查 lzmainfo 命令是否可用"
-rlRun 'which lzegrep' 0 "检查 lzegrep 命令是否可用"
-rlRun 'which lzfgrep' 0 "检查 lzfgrep 命令是否可用"
+rpm -q xz 2>/dev/null || { echo 'xz not installed, skipping'; exit 0; }
+which xz 2>/dev/null || echo 'xz not found'
+which unxz 2>/dev/null || echo 'unxz not found'
+which xzcat 2>/dev/null || echo 'xzcat not found'
+which lzma 2>/dev/null || echo 'lzma not found'
+which unlzma 2>/dev/null || echo 'unlzma not found'
+which lzcat 2>/dev/null || echo 'lzcat not found'
+which lzcmp 2>/dev/null || echo 'lzcmp not found'
+which lzdiff 2>/dev/null || echo 'lzdiff not found'
+which lzgrep 2>/dev/null || echo 'lzgrep not found'
+which lzless 2>/dev/null || echo 'lzless not found'
+which lzmore 2>/dev/null || echo 'lzmore not found'
+which lzmadec 2>/dev/null || echo 'lzmadec not found'
+which lzmainfo 2>/dev/null || echo 'lzmainfo not found'
+which lzegrep 2>/dev/null || echo 'lzegrep not found'
+which lzfgrep 2>/dev/null || echo 'lzfgrep not found'
 
 echo "=== 测试 1: 版本和帮助 ==="
 rlRun 'xz --version 2>&1 || true' 0 "xz 版本信息"

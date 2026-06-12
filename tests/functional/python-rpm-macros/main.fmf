@@ -1,0 +1,7 @@
+summary: 功能测试 - python-rpm-macros 配置验证
+test: ./test.sh
+duration: 5m
+tier: 1
+path: /tests/functional/python-rpm-macros
+require:
+  - python-rpm-macros

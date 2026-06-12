@@ -1,0 +1,10 @@
+summary: meson
+test: ./test.sh
+tag:
+  - functional
+  - meson
+duration: 2m
+tier: 1
+path: /tests/functional/meson
+require:
+  - meson

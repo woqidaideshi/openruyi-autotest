@@ -1,0 +1,10 @@
+summary: uid_wrapper
+test: ./test.sh
+tag:
+  - functional
+  - uid_wrapper
+duration: 2m
+tier: 1
+path: /tests/functional/uid_wrapper
+require:
+  - uid_wrapper

@@ -1,0 +1,8 @@
+summary: dc - Äæ²¨À¼¼ÆËãÆ÷
+test: ./test.sh
+tag:
+  - functional
+  - bc
+duration: 2m
+tier: 1
+path: /tests/functional/bc/test_dc_basic

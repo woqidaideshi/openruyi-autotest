@@ -1,0 +1,8 @@
+summary: slang - ´íÎó´¦Àí
+test: ./test.sh
+tag:
+  - functional
+  - slang
+duration: 2m
+tier: 1
+path: /tests/functional/slang/test_slang_error

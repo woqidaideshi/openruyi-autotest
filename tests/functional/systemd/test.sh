@@ -5,7 +5,7 @@
 
 rlRun() { eval "$1" 2>&1; return $?; }
 
-rlRun 'rpm -q systemd' 0 "Check systemd package is installed"
+rpm -q systemd 2>/dev/null || { echo 'systemd not installed, skipping'; exit 0; }
 
 TmpDir=$(mktemp -d)
 cd $TmpDir

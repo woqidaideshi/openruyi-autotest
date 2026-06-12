@@ -1,0 +1,8 @@
+summary: json-c - 文件验证
+test: ./test.sh
+tag:
+  - functional
+  - json-c
+duration: 2m
+tier: 1
+path: /tests/functional/json-c/test_json-c_files

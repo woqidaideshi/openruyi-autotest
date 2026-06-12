@@ -1,6 +1,13 @@
 # 功能测试 - 软件包测试
 
-本目录包含各个软件包的功能测试用例。
+本目录包含各个软件包的功能测试用例，采用 ACL 子目录结构标准。
+
+## 测试覆盖概览
+
+- **CLI 工具包**：52 个，每个含 2-7 个子测试
+- **库包**：28 个，含文件验证和 pkg-config 测试
+- **配置/数据包**：10 个，含文件列表验证
+- **总计**：90+ 个软件包，500+ 个测试用例
 
 ## 目录结构
 
@@ -8,56 +15,38 @@
 tests/functional/
 ├── main.fmf              # 共享配置（所有子目录继承）
 ├── README.md             # 本文件
-├── acl/                  # acl 软件包测试
-│   ├── main.fmf         # acl 测试元数据
-│   └── test.sh          # acl 测试脚本
-├── coreutils/           # coreutils 软件包测试（示例）
+├── acl/                  # acl 软件包测试（参考标准）
 │   ├── main.fmf
-│   └── test.sh
-└── ...                  # 更多软件包测试
+│   ├── test.sh
+│   └── test_acl_*/       # 子测试目录
+├── attr/                 # attr 软件包测试
+│   ├── main.fmf
+│   ├── test.sh
+│   └── test_attr_*/      # 子测试目录
+└── ...                   # 更多软件包测试
 ```
+
+## 测试结构规范（参照 ACL）
+
+每个软件包测试目录包含：
+- `main.fmf` — 包级元数据配置
+- `test.sh` — 包级主测试脚本
+- `test_<pkg>_<feature>/` — 按功能点拆分的子测试目录
+  - `main.fmf` — 子测试元数据
+  - `test.sh` — 子测试脚本
 
 ## 添加新软件包测试
 
-### 1. 创建软件包目录
+1. 创建目录 `tests/functional/<package_name>/`
+2. 创建 `main.fmf`（参照 `acl/main.fmf`）
+3. 创建 `test.sh`（参照模板）
+4. 按功能点创建子测试目录
 
-```bash
-mkdir -p tests/functional/<package_name>
-```
-
-### 2. 创建元数据文件 (main.fmf)
-
-```yaml
-summary: 功能测试 - <package_name> 软件包功能验证
-test: ./test.sh
-tag:
-  - functional
-  - <package_name>
-duration: 5m
-tier: 1
-path: /tests/functional/<package_name>
-require:
-  - <package_name>
-  - <其他依赖>
-```
-
-### 3. 创建测试脚本 (test.sh)
-
-参考 `.trellis/tasks/06-09-acl/package-test-guide.md` 中的编写指南。
-
-### 4. 验证测试
-
-在服务器上运行测试：
+## 运行测试
 
 ```bash
 tmt run plan --name /plans/functional test --name /tests/functional/<package_name>
 ```
-
-## 命名规范
-
-- 软件包目录名使用小写，与软件包名称一致
-- 多个单词使用连字符分隔（如 `net-tools`）
-- 测试脚本统一命名为 `test.sh`
 - 元数据文件统一命名为 `main.fmf`
 
 ## 测试覆盖进度

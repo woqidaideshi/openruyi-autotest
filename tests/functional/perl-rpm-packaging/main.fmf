@@ -1,0 +1,10 @@
+summary: perl-rpm-packaging
+test: ./test.sh
+tag:
+  - functional
+  - perl-rpm-packaging
+duration: 2m
+tier: 1
+path: /tests/functional/perl-rpm-packaging
+require:
+  - perl-rpm-packaging

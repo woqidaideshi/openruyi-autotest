@@ -1,0 +1,8 @@
+summary: libevent - 文件验证
+test: ./test.sh
+tag:
+  - functional
+  - libevent
+duration: 2m
+tier: 1
+path: /tests/functional/libevent/test_libevent_files

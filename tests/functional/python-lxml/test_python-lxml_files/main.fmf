@@ -1,0 +1,8 @@
+summary: python-lxml - 文件验证
+test: ./test.sh
+tag:
+  - functional
+  - python-lxml
+duration: 2m
+tier: 1
+path: /tests/functional/python-lxml/test_python-lxml_files

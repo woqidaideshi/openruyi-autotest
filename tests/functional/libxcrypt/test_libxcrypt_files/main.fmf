@@ -1,0 +1,8 @@
+summary: libxcrypt - 文件验证
+test: ./test.sh
+tag:
+  - functional
+  - libxcrypt
+duration: 2m
+tier: 1
+path: /tests/functional/libxcrypt/test_libxcrypt_files

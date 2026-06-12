@@ -1,0 +1,8 @@
+summary: libpng - ´íÎó´¦Àí
+test: ./test.sh
+tag:
+  - functional
+  - libpng
+duration: 2m
+tier: 1
+path: /tests/functional/libpng/test_libpng_error

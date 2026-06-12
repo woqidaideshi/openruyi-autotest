@@ -1,0 +1,10 @@
+summary: texinfo
+test: ./test.sh
+tag:
+  - functional
+  - texinfo
+duration: 2m
+tier: 1
+path: /tests/functional/texinfo
+require:
+  - texinfo

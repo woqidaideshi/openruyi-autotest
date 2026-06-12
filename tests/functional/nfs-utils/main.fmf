@@ -1,0 +1,10 @@
+summary: nfs-utils
+test: ./test.sh
+tag:
+  - functional
+  - nfs-utils
+duration: 2m
+tier: 1
+path: /tests/functional/nfs-utils
+require:
+  - nfs-utils

@@ -1,0 +1,10 @@
+summary: groff
+test: ./test.sh
+tag:
+  - functional
+  - groff
+duration: 2m
+tier: 1
+path: /tests/functional/groff
+require:
+  - groff

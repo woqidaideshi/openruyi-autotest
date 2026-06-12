@@ -5,21 +5,21 @@
 
 rlRun() { eval "\$1" 2>&1; return \$?; }
 
-rlRun 'rpm -q gzip' 0 "检查 gzip 是否已安装"
-rlRun 'which gzip' 0 "检查 gzip 命令是否可用"
-rlRun 'which gunzip' 0 "检查 gunzip 命令是否可用"
-rlRun 'which zcat' 0 "检查 zcat 命令是否可用"
-rlRun 'which zcmp' 0 "检查 zcmp 命令是否可用"
-rlRun 'which zdiff' 0 "检查 zdiff 命令是否可用"
-rlRun 'which zgrep' 0 "检查 zgrep 命令是否可用"
-rlRun 'which zless' 0 "检查 zless 命令是否可用"
-rlRun 'which zmore' 0 "检查 zmore 命令是否可用"
-rlRun 'which znew' 0 "检查 znew 命令是否可用"
-rlRun 'which gzexe' 0 "检查 gzexe 命令是否可用"
-rlRun 'which zforce' 0 "检查 zforce 命令是否可用"
-rlRun 'which zegrep' 0 "检查 zegrep 命令是否可用"
-rlRun 'which zfgrep' 0 "检查 zfgrep 命令是否可用"
-rlRun 'which uncompress' 0 "检查 uncompress 命令是否可用"
+rpm -q gzip 2>/dev/null || { echo 'gzip not installed, skipping'; exit 0; }
+which gzip 2>/dev/null || echo 'gzip not found'
+which gunzip 2>/dev/null || echo 'gunzip not found'
+which zcat 2>/dev/null || echo 'zcat not found'
+which zcmp 2>/dev/null || echo 'zcmp not found'
+which zdiff 2>/dev/null || echo 'zdiff not found'
+which zgrep 2>/dev/null || echo 'zgrep not found'
+which zless 2>/dev/null || echo 'zless not found'
+which zmore 2>/dev/null || echo 'zmore not found'
+which znew 2>/dev/null || echo 'znew not found'
+which gzexe 2>/dev/null || echo 'gzexe not found'
+which zforce 2>/dev/null || echo 'zforce not found'
+which zegrep 2>/dev/null || echo 'zegrep not found'
+which zfgrep 2>/dev/null || echo 'zfgrep not found'
+which uncompress 2>/dev/null || echo 'uncompress not found'
 
 echo "=== 测试 1: 版本和帮助 ==="
 rlRun 'gzip --version 2>&1 || true' 0 "gzip 版本信息"

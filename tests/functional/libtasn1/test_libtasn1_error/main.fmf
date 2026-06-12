@@ -1,0 +1,8 @@
+summary: libtasn1 - ´íÎó´¦Àí
+test: ./test.sh
+tag:
+  - functional
+  - libtasn1
+duration: 2m
+tier: 1
+path: /tests/functional/libtasn1/test_libtasn1_error

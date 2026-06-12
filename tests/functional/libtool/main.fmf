@@ -1,0 +1,10 @@
+summary: libtool
+test: ./test.sh
+tag:
+  - functional
+  - libtool
+duration: 2m
+tier: 1
+path: /tests/functional/libtool
+require:
+  - libtool

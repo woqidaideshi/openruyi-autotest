@@ -1,0 +1,10 @@
+summary: source-highlight
+test: ./test.sh
+tag:
+  - functional
+  - source-highlight
+duration: 2m
+tier: 1
+path: /tests/functional/source-highlight
+require:
+  - source-highlight

@@ -1,0 +1,7 @@
+summary: 功能测试 - libnetfilter_conntrack 库包验证
+test: ./test.sh
+duration: 5m
+tier: 1
+path: /tests/functional/libnetfilter_conntrack
+require:
+  - libnetfilter_conntrack

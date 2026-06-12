@@ -1,0 +1,8 @@
+summary: libunistring - 文件验证
+test: ./test.sh
+tag:
+  - functional
+  - libunistring
+duration: 2m
+tier: 1
+path: /tests/functional/libunistring/test_libunistring_files

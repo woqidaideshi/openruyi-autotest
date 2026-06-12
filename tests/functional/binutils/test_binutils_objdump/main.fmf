@@ -1,0 +1,8 @@
+summary: binutils - objdump ·´»ã±à
+test: ./test.sh
+tag:
+  - functional
+  - binutils
+duration: 2m
+tier: 1
+path: /tests/functional/binutils/test_binutils_objdump
