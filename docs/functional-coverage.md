@@ -1,6 +1,6 @@
 # 功能测试覆盖详情
 
-> 共 **61** 个软件包，**1603** 个测试点
+> 共 **61** 个软件包，**1602** 个测试点
 > 点击展开查看各软件包详情
 
 ## 目录
@@ -14,7 +14,7 @@
 | [ca-certificates-mozilla](#ca-certificates-mozilla) | 3 | ca-certificates-mozilla |
 | [clang](#clang) | 32 | clang 21.1 |
 | [cloud-utils-growpart](#cloud-utils-growpart) | 12 | cloud-utils-growpart |
-| [cmake](#cmake) | 7 | cmake |
+| [cmake](#cmake) | 6 | cmake |
 | [coreutils](#coreutils) | 238 | coreutils 9.10 |
 | [cryptsetup](#cryptsetup) | 5 | cryptsetup |
 | [curl](#curl) | 15 | curl |
@@ -488,7 +488,7 @@
 ## cmake
 
 - **版本**: cmake
-- **测试点**: 7
+- **测试点**: 6
 - **被测命令**: `cmake`
 
 <details>
@@ -496,9 +496,8 @@
 
 - 测试 section: 基本 CMake project ===
 - 测试 section: CMake 配置 ===
-- 测试 section: CMake 构建 和 运行 ===
-- 测试 section: Library project ===
-- 测试 section: Module finder ===
+- 测试 section: CMake -E 模式 ===
+- 测试 section: ctest 和 cpack ===
 - 测试 section: 错误 处理 ===
 - 测试 section: CMake 版本 和 帮助 ===
 
@@ -512,21 +511,14 @@
 </details>
 
 <details>
-<summary><b>CMake 构建 和 运行</b></summary>
+<summary><b>CMake -E 模式</b></summary>
 
 - 执行相关功能验证
 
 </details>
 
 <details>
-<summary><b>Library project</b></summary>
-
-- 执行相关功能验证
-
-</details>
-
-<details>
-<summary><b>Module finder</b></summary>
+<summary><b>ctest 和 cpack</b></summary>
 
 - 执行相关功能验证
 
