@@ -1,0 +1,12 @@
+summary: 功能测试 - iputils - Network interface testing
+test: ./test.sh
+tag:
+  - functional
+  - iputils
+duration: 2m
+tier: 1
+path: /tests/functional/iputils/test_iputils_network_interface_testing
+test_iputils_network-interface-testing
+Network-interface-testing
+require:
+  - iputils

@@ -1,0 +1,12 @@
+summary: 功能测试 - gxx - Optimization
+test: ./test.sh
+tag:
+  - functional
+  - gxx
+duration: 2m
+tier: 1
+path: /tests/functional/gxx/test_gxx_optimization
+test_gxx_optimization
+Optimization
+require:
+  - gxx

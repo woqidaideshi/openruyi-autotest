@@ -1,0 +1,12 @@
+summary: 功能测试 - findutils - find 基本查找
+test: ./test.sh
+tag:
+  - functional
+  - findutils
+duration: 2m
+tier: 1
+path: /tests/functional/findutils/test_findutils_find
+test_findutils_find
+find-基本查找
+require:
+  - findutils

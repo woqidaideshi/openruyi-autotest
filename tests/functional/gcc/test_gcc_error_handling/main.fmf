@@ -1,0 +1,12 @@
+summary: 功能测试 - gcc - Error handling
+test: ./test.sh
+tag:
+  - functional
+  - gcc
+duration: 2m
+tier: 1
+path: /tests/functional/gcc/test_gcc_error_handling
+test_gcc_error-handling
+Error-handling
+require:
+  - gcc

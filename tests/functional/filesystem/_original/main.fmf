@@ -1,0 +1,10 @@
+summary: 功能测试 - filesystem 文件系统包
+test: ./test.sh
+tag:
+  - functional
+  - filesystem
+duration: 5m
+tier: 1
+path: /tests/functional/filesystem
+require:
+  - filesystem

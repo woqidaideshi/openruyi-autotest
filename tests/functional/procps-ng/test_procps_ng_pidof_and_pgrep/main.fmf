@@ -1,0 +1,12 @@
+summary: 功能测试 - procps-ng - pidof and pgrep
+test: ./test.sh
+tag:
+  - functional
+  - procps-ng
+duration: 2m
+tier: 1
+path: /tests/functional/procps-ng/test_procps_ng_pidof_and_pgrep
+test_procps-ng_pidof-and-pgrep
+pidof-and-pgrep
+require:
+  - procps-ng

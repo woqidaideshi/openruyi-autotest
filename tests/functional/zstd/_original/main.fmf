@@ -1,0 +1,10 @@
+summary: 功能测试 - zstd 压缩工具
+test: ./test.sh
+tag:
+  - functional
+  - zstd
+duration: 5m
+tier: 1
+path: /tests/functional/zstd
+require:
+  - zstd

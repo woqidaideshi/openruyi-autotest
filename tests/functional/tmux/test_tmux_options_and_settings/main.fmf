@@ -1,0 +1,12 @@
+summary: 功能测试 - tmux - Options and settings
+test: ./test.sh
+tag:
+  - functional
+  - tmux
+duration: 2m
+tier: 1
+path: /tests/functional/tmux/test_tmux_options_and_settings
+test_tmux_options-and-settings
+Options-and-settings
+require:
+  - tmux

@@ -1,0 +1,12 @@
+summary: 功能测试 - gzip - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - gzip
+duration: 2m
+tier: 1
+path: /tests/functional/gzip/test_gzip_version_help
+test_gzip_version-help
+版本和帮助
+require:
+  - gzip

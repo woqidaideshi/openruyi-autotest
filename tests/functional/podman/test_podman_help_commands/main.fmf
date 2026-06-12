@@ -1,0 +1,12 @@
+summary: 功能测试 - podman - Help commands
+test: ./test.sh
+tag:
+  - functional
+  - podman
+duration: 2m
+tier: 1
+path: /tests/functional/podman/test_podman_help_commands
+test_podman_help-commands
+Help-commands
+require:
+  - podman

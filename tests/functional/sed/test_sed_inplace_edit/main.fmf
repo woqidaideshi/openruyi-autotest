@@ -1,0 +1,12 @@
+summary: 功能测试 - sed - 就地编辑
+test: ./test.sh
+tag:
+  - functional
+  - sed
+duration: 2m
+tier: 1
+path: /tests/functional/sed/test_sed_inplace_edit
+test_sed_inplace-edit
+就地编辑
+require:
+  - sed

@@ -1,0 +1,12 @@
+summary: 功能测试 - coreutils - Encoding (base32, base64, basenc)
+test: ./test.sh
+tag:
+  - functional
+  - coreutils
+duration: 2m
+tier: 1
+path: /tests/functional/coreutils/test_coreutils_encoding__base32__base64__basenc
+test_coreutils_encoding--base32--base64--basenc
+Encoding--base32--base64--basenc
+require:
+  - coreutils

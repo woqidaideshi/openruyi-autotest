@@ -1,0 +1,12 @@
+summary: 功能测试 - wget - Spider mode
+test: ./test.sh
+tag:
+  - functional
+  - wget
+duration: 2m
+tier: 1
+path: /tests/functional/wget/test_wget_spider_mode
+test_wget_spider-mode
+Spider-mode
+require:
+  - wget

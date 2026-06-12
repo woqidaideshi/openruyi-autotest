@@ -1,0 +1,12 @@
+summary: 功能测试 - acl - getfacl 基本功能
+test: ./test.sh
+tag:
+  - functional
+  - acl
+duration: 2m
+tier: 1
+path: /tests/functional/acl/test_acl_getfacl_basic
+test_acl_getfacl-basic
+getfacl-基本功能
+require:
+  - acl

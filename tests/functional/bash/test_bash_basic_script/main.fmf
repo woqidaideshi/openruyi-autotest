@@ -1,0 +1,12 @@
+summary: 功能测试 - bash - 基本脚本执行
+test: ./test.sh
+tag:
+  - functional
+  - bash
+duration: 2m
+tier: 1
+path: /tests/functional/bash/test_bash_basic_script
+test_bash_basic-script
+基本脚本执行
+require:
+  - bash

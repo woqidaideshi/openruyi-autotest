@@ -1,0 +1,12 @@
+summary: 功能测试 - bash - bashbug
+test: ./test.sh
+tag:
+  - functional
+  - bash
+duration: 2m
+tier: 1
+path: /tests/functional/bash/test_bash_bashbug
+test_bash_bashbug
+bashbug
+require:
+  - bash

@@ -1,0 +1,12 @@
+summary: 功能测试 - tmux - Cleanup - kill sessions
+test: ./test.sh
+tag:
+  - functional
+  - tmux
+duration: 2m
+tier: 1
+path: /tests/functional/tmux/test_tmux_cleanup___kill_sessions
+test_tmux_cleanup---kill-sessions
+Cleanup---kill-sessions
+require:
+  - tmux

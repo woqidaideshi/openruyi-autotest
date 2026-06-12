@@ -1,0 +1,12 @@
+summary: 功能测试 - rpmbuild - rpmbuild basic functionality
+test: ./test.sh
+tag:
+  - functional
+  - rpmbuild
+duration: 2m
+tier: 1
+path: /tests/functional/rpmbuild/test_rpmbuild_rpmbuild_basic_functionality
+test_rpmbuild_rpmbuild-basic-functionality
+rpmbuild-basic-functionality
+require:
+  - rpmbuild

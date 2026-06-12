@@ -1,0 +1,12 @@
+summary: 功能测试 - grep - Only matching and quiet (-o, -q)
+test: ./test.sh
+tag:
+  - functional
+  - grep
+duration: 2m
+tier: 1
+path: /tests/functional/grep/test_grep_only_matching_and_quiet___o___q
+test_grep_only-matching-and-quiet---o---q
+Only-matching-and-quiet---o---q
+require:
+  - grep

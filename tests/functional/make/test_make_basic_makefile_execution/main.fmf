@@ -1,0 +1,12 @@
+summary: 功能测试 - make - Basic Makefile execution
+test: ./test.sh
+tag:
+  - functional
+  - make
+duration: 2m
+tier: 1
+path: /tests/functional/make/test_make_basic_makefile_execution
+test_make_basic-makefile-execution
+Basic-Makefile-execution
+require:
+  - make

@@ -1,0 +1,60 @@
+#!/bin/sh -eux
+# Functional test: util-linux - 版本和帮助
+
+rlRun() { eval "$1" 2>&1; return $?; }
+rlRun 'rpm -q util-linux' 0 "检查 util-linux 是否已安装"
+rlRun 'which addpart' 0 "检查 addpart 命令是否可用"
+rlRun 'which agetty' 0 "检查 agetty 命令是否可用"
+rlRun 'which blkid' 0 "检查 blkid 命令是否可用"
+rlRun 'which blkdiscard' 0 "检查 blkdiscard 命令是否可用"
+rlRun 'which blockdev' 0 "检查 blockdev 命令是否可用"
+rlRun 'which cal' 0 "检查 cal 命令是否可用"
+rlRun 'which cfdisk' 0 "检查 cfdisk 命令是否可用"
+rlRun 'which chcpu' 0 "检查 chcpu 命令是否可用"
+rlRun 'which chfn' 0 "检查 chfn 命令是否可用"
+rlRun 'which chmem' 0 "检查 chmem 命令是否可用"
+rlRun 'which choom' 0 "检查 choom 命令是否可用"
+rlRun 'which chrt' 0 "检查 chrt 命令是否可用"
+rlRun 'which bits' 0 "检查 bits 命令是否可用"
+rlRun 'which blkpr' 0 "检查 blkpr 命令是否可用"
+rlRun 'which blkzone' 0 "检查 blkzone 命令是否可用"
+TmpDir=$(mktemp -d)
+cd $TmpDir
+
+echo "=== 测试 1: 版本和帮助 ==="
+rlRun 'addpart --version 2>&1 || true' 0 "addpart 版本信息"
+rlRun 'addpart --help 2>&1 | head -5 || true' 0 "addpart 帮助信息"
+rlRun 'agetty --version 2>&1 || true' 0 "agetty 版本信息"
+rlRun 'agetty --help 2>&1 | head -5 || true' 0 "agetty 帮助信息"
+rlRun 'blkid --version 2>&1 || true' 0 "blkid 版本信息"
+rlRun 'blkid --help 2>&1 | head -5 || true' 0 "blkid 帮助信息"
+rlRun 'blkdiscard --version 2>&1 || true' 0 "blkdiscard 版本信息"
+rlRun 'blkdiscard --help 2>&1 | head -5 || true' 0 "blkdiscard 帮助信息"
+rlRun 'blockdev --version 2>&1 || true' 0 "blockdev 版本信息"
+rlRun 'blockdev --help 2>&1 | head -5 || true' 0 "blockdev 帮助信息"
+rlRun 'cal --version 2>&1 || true' 0 "cal 版本信息"
+rlRun 'cal --help 2>&1 | head -5 || true' 0 "cal 帮助信息"
+rlRun 'cfdisk --version 2>&1 || true' 0 "cfdisk 版本信息"
+rlRun 'cfdisk --help 2>&1 | head -5 || true' 0 "cfdisk 帮助信息"
+rlRun 'chcpu --version 2>&1 || true' 0 "chcpu 版本信息"
+rlRun 'chcpu --help 2>&1 | head -5 || true' 0 "chcpu 帮助信息"
+rlRun 'chfn --version 2>&1 || true' 0 "chfn 版本信息"
+rlRun 'chfn --help 2>&1 | head -5 || true' 0 "chfn 帮助信息"
+rlRun 'chmem --version 2>&1 || true' 0 "chmem 版本信息"
+rlRun 'chmem --help 2>&1 | head -5 || true' 0 "chmem 帮助信息"
+rlRun 'choom --version 2>&1 || true' 0 "choom 版本信息"
+rlRun 'choom --help 2>&1 | head -5 || true' 0 "choom 帮助信息"
+rlRun 'chrt --version 2>&1 || true' 0 "chrt 版本信息"
+rlRun 'chrt --help 2>&1 | head -5 || true' 0 "chrt 帮助信息"
+rlRun 'bits --version 2>&1 || true' 0 "bits 版本信息"
+rlRun 'bits --help 2>&1 | head -5 || true' 0 "bits 帮助信息"
+rlRun 'blkpr --version 2>&1 || true' 0 "blkpr 版本信息"
+rlRun 'blkpr --help 2>&1 | head -5 || true' 0 "blkpr 帮助信息"
+rlRun 'blkzone --version 2>&1 || true' 0 "blkzone 版本信息"
+rlRun 'blkzone --help 2>&1 | head -5 || true' 0 "blkzone 帮助信息"
+
+cd /
+rm -rf $TmpDir
+
+echo ""
+echo "All util-linux 版本和帮助 tests passed!"

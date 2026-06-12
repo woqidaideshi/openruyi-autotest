@@ -1,0 +1,12 @@
+summary: 功能测试 - ca-certificates-mozilla - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - ca-certificates-mozilla
+duration: 2m
+tier: 1
+path: /tests/functional/ca-certificates-mozilla/test_ca_certificates_mozilla_version_help
+test_ca-certificates-mozilla_version-help
+版本和帮助
+require:
+  - ca-certificates-mozilla

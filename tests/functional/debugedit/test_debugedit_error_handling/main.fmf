@@ -1,0 +1,12 @@
+summary: 功能测试 - debugedit - 错误处理
+test: ./test.sh
+tag:
+  - functional
+  - debugedit
+duration: 2m
+tier: 1
+path: /tests/functional/debugedit/test_debugedit_error_handling
+test_debugedit_error-handling
+错误处理
+require:
+  - debugedit

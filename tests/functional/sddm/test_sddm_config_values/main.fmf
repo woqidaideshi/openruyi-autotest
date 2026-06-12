@@ -1,0 +1,12 @@
+summary: 功能测试 - sddm - Config values
+test: ./test.sh
+tag:
+  - functional
+  - sddm
+duration: 2m
+tier: 1
+path: /tests/functional/sddm/test_sddm_config_values
+test_sddm_config-values
+Config-values
+require:
+  - sddm

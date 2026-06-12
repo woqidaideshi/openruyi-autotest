@@ -1,0 +1,12 @@
+summary: 功能测试 - make - Variables
+test: ./test.sh
+tag:
+  - functional
+  - make
+duration: 2m
+tier: 1
+path: /tests/functional/make/test_make_variables
+test_make_variables
+Variables
+require:
+  - make

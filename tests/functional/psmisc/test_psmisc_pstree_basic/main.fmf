@@ -1,0 +1,12 @@
+summary: 功能测试 - psmisc - pstree basic
+test: ./test.sh
+tag:
+  - functional
+  - psmisc
+duration: 2m
+tier: 1
+path: /tests/functional/psmisc/test_psmisc_pstree_basic
+test_psmisc_pstree-basic
+pstree-basic
+require:
+  - psmisc

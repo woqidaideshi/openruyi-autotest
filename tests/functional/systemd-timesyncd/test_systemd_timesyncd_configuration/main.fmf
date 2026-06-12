@@ -1,0 +1,12 @@
+summary: 功能测试 - systemd-timesyncd - Configuration
+test: ./test.sh
+tag:
+  - functional
+  - systemd-timesyncd
+duration: 2m
+tier: 1
+path: /tests/functional/systemd-timesyncd/test_systemd_timesyncd_configuration
+test_systemd-timesyncd_configuration
+Configuration
+require:
+  - systemd-timesyncd

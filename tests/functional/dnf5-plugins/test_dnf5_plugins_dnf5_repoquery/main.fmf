@@ -1,0 +1,12 @@
+summary: 功能测试 - dnf5-plugins - dnf5 repoquery
+test: ./test.sh
+tag:
+  - functional
+  - dnf5-plugins
+duration: 2m
+tier: 1
+path: /tests/functional/dnf5-plugins/test_dnf5_plugins_dnf5_repoquery
+test_dnf5-plugins_dnf5-repoquery
+dnf5-repoquery
+require:
+  - dnf5-plugins

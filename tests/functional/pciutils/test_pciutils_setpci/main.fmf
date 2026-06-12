@@ -1,0 +1,12 @@
+summary: 功能测试 - pciutils - setpci
+test: ./test.sh
+tag:
+  - functional
+  - pciutils
+duration: 2m
+tier: 1
+path: /tests/functional/pciutils/test_pciutils_setpci
+test_pciutils_setpci
+setpci
+require:
+  - pciutils

@@ -1,0 +1,12 @@
+summary: 功能测试 - pciutils - lspci by device class
+test: ./test.sh
+tag:
+  - functional
+  - pciutils
+duration: 2m
+tier: 1
+path: /tests/functional/pciutils/test_pciutils_lspci_by_device_class
+test_pciutils_lspci-by-device-class
+lspci-by-device-class
+require:
+  - pciutils
