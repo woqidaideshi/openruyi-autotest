@@ -357,12 +357,12 @@ tier: 0
 | 测试类型 | 测试套数量 | 测试用例数量 | 最新测试结果 |
 |---------|:------:|:----:|:----:|
 | Smoke | 1 | 1 | PASS:0 FAIL:0 SKIP:1 |
-| Functional | 61 | 447 | PASS:405 FAIL:42 SKIP:0 |
+| Functional | 61 | 447 | PASS:447 FAIL:0 SKIP:0 |
 | Compatibility | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
 | Security | 1 | 4 | PASS:0 FAIL:0 SKIP:1 |
 | Performance | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
 | Reliability | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
-| **合计** | **66** | **467** | **PASS:405 FAIL:42 SKIP:5** |
+| **合计** | **66** | **467** | **PASS:447 FAIL:0 SKIP:5** |
 
 ## 参考资源
 
