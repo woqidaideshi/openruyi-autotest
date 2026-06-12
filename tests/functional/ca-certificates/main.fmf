@@ -1,0 +1,10 @@
+summary: 功能测试 - CA证书管理
+test: ./test.sh
+tag:
+  - functional
+  - ca-certificates
+duration: 5m
+tier: 1
+path: /tests/functional/ca-certificates
+require:
+  - ca-certificates

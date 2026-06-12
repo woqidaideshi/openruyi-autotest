@@ -1,0 +1,10 @@
+summary: 功能测试 - MPFR 多精度浮点库
+test: ./test.sh
+tag:
+  - functional
+  - mpfr
+duration: 5m
+tier: 1
+path: /tests/functional/mpfr
+require:
+  - mpfr

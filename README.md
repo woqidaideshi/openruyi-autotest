@@ -32,7 +32,9 @@ openruyi-autotest/
 
 ## 功能测试覆盖
 
-本项目包含 **30 个功能测试套件**，覆盖 openRuyi 系统的核心软件包，所有测试已在 openRuyi Creek (riscv64) 平台上验证通过。
+本项目包含 **61 个功能测试套件**，覆盖 openRuyi 系统的核心软件包，所有测试已在 openRuyi Creek (riscv64) 平台上验证通过。
+
+> 📋 详细测试覆盖请查看：[docs/functional-coverage.md](docs/functional-coverage.md)
 
 | 分类 | 软件包 | 覆盖要点 |
 |------|--------|---------|
@@ -352,15 +354,15 @@ tier: 0
 
 > 每次新增测试脚本后需同步更新此表格。
 
-| 测试类型 | 测试套数 | 用例数 |
+| 测试类型 | 测试用例数量 | 测试点数量 |
 |---------|:------:|:----:|
 | Smoke | 1 | 1 |
-| Functional | 30 | 1599 |
+| Functional | 61 | 1537 |
 | Compatibility | 1 | 5 |
 | Security | 1 | 4 |
 | Performance | 1 | 5 |
 | Reliability | 1 | 5 |
-| **合计** | **35** | **1619** |
+| **合计** | **66** | **1555** |
 
 ## 参考资源
 

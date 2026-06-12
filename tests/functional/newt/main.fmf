@@ -1,0 +1,10 @@
+summary: 功能测试 - newt/whiptail 对话框工具
+test: ./test.sh
+tag:
+  - functional
+  - newt
+duration: 5m
+tier: 1
+path: /tests/functional/newt
+require:
+  - newt
