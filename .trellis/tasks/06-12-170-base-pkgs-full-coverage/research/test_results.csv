@@ -1,4 +1,14 @@
 test_id,status
+acl,FAIL
+acl__test_acl_acl_inheritance,FAIL
+acl__test_acl_acl_permission_verify,FAIL
+acl__test_acl_chacl_command,FAIL
+acl__test_acl_error_handling,FAIL
+acl__test_acl_getfacl_basic,FAIL
+acl__test_acl_setfacl_advanced,FAIL
+acl__test_acl_setfacl_basic,FAIL
+acl__test_acl_setfacl_recursive,FAIL
+acl__test_acl_setfacl_remove,FAIL
 acl__test_acl_setfacl_symlink,FAIL
 acl__test_acl_special_cases,FAIL
 atf,FAIL
