@@ -2,12 +2,20 @@
 # Functional test: weston - Backend-check
 
 rlRun() { eval "$1" 2>&1; return $?; }
-rpm -q weston 2>/dev/null || { echo 'weston not installed, skipping'; exit 0; }
-which weston 2>/dev/null || echo 'weston not found'
-which weston-debug 2>/dev/null || echo 'weston-debug not found'
-which weston-screenshooter 2>/dev/null || echo 'weston-screenshooter not found'
-which weston-terminal 2>/dev/null || echo 'weston-terminal not found'
-which wcap-decode 2>/dev/null || echo 'wcap-decode not found'
+# === SETUP: check/install weston ===
+INSTALLED_BY_TEST=0
+if ! rpm -q weston 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y weston 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed weston"
+    else
+        echo "SKIP: weston not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: weston already installed"
+fi
+
 TmpDir=$(mktemp -d)
 cd $TmpDir
 
@@ -17,5 +25,11 @@ rlRun 'weston --help 2>&1 | grep -i "backend" | head -5' 0 "Available backends"
 cd /
 rm -rf $TmpDir
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y weston 2>/dev/null || true
+    echo "TEARDOWN: removed weston"
+fi
 echo ""
 echo "All weston Backend-check tests passed!"

@@ -2,10 +2,20 @@
 # Functional test: acl - ACL-继承测试
 
 rlRun() { eval "$1" 2>&1; return $?; }
-rpm -q acl 2>/dev/null || { echo 'acl not installed, skipping'; exit 0; }
-which getfacl 2>/dev/null || echo 'getfacl not found (non-fatal)'
-which setfacl 2>/dev/null || echo 'setfacl not found (non-fatal)'
-which chacl 2>/dev/null || echo 'chacl not found (non-fatal)'
+# === SETUP: check/install acl ===
+INSTALLED_BY_TEST=0
+if ! rpm -q acl 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y acl 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed acl"
+    else
+        echo "SKIP: acl not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: acl already installed"
+fi
+
 rlRun 'getfacl --version' 0 "获取 getfacl 版本信息"
 rlRun 'setfacl --version' 0 "获取 setfacl 版本信息"
 rlRun 'TmpDir=$(mktemp -d)' 0 "创建临时测试目录"
@@ -25,5 +35,11 @@ rlRun 'mkdir testdir/newsubdir' 0 "在目录中创建子目录"
 rlRun 'getfacl testdir/newsubdir' 0 "验证子目录继承了 default ACL"
 
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y acl 2>/dev/null || true
+    echo "TEARDOWN: removed acl"
+fi
 echo ""
 echo "All acl ACL-继承测试 tests passed!"

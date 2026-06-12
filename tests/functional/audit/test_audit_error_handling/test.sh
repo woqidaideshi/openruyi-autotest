@@ -2,20 +2,32 @@
 # Functional test: audit - 错误处理
 
 rlRun() { eval "$1" 2>&1; return $?; }
-rpm -q audit 2>/dev/null || { echo 'audit not installed, skipping'; exit 0; }
-which auditctl 2>/dev/null || echo 'auditctl not found'
-which ausearch 2>/dev/null || echo 'ausearch not found'
-which aureport 2>/dev/null || echo 'aureport not found'
-which aulast 2>/dev/null || echo 'aulast not found'
-which aulastlog 2>/dev/null || echo 'aulastlog not found'
-which ausyscall 2>/dev/null || echo 'ausyscall not found'
-which augenrules 2>/dev/null || echo 'augenrules not found'
+# === SETUP: check/install audit ===
+INSTALLED_BY_TEST=0
+if ! rpm -q audit 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y audit 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed audit"
+    else
+        echo "SKIP: audit not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: audit already installed"
+fi
+
 TmpDir=$(mktemp -d)
 cd $TmpDir
 
 echo "=== 测试 2: 错误处理 ==="
 rlRun 'auditctl --invalid 2>&1 || true' 0 "auditctl: 无效选项"
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y audit 2>/dev/null || true
+    echo "TEARDOWN: removed audit"
+fi
 echo ""
 echo "All audit functional tests passed!"
 

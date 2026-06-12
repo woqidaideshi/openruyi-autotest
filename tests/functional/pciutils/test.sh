@@ -68,3 +68,10 @@ lspci --invalid-option 2>&1 || echo "Expected: invalid option"
 
 echo ""
 echo "All pciutils functional tests passed!"
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y pciutils 2>/dev/null || true
+    echo "TEARDOWN: removed pciutils"
+fi
+

@@ -2,6 +2,20 @@
 # Functional test: nss_wrapper
 
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install nss_wrapper ===
+INSTALLED_BY_TEST=0
+if ! rpm -q nss_wrapper 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y nss_wrapper 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed nss_wrapper"
+    else
+        echo "SKIP: nss_wrapper not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: nss_wrapper already installed"
+fi
+
 
 rpm -q nss_wrapper 2>/dev/null || { echo "nss_wrapper not installed"; exit 0; }
 
@@ -14,5 +28,11 @@ echo "=== 测试 2: 文件验证 ==="
 ls /usr/lib64/libnss_wrapper*.so* 2>/dev/null | head -5 || echo "No shared libs"
 ls /usr/share/nss_wrapper/ 2>/dev/null | head -5 || true
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y nss_wrapper 2>/dev/null || true
+    echo "TEARDOWN: removed nss_wrapper"
+fi
 echo ""
 echo "All nss_wrapper functional tests passed!"

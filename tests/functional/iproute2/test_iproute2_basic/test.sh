@@ -3,11 +3,21 @@
 # Commands: ip, ss, tc
 
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install iproute2 ===
+INSTALLED_BY_TEST=0
+if ! rpm -q iproute2 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y iproute2 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed iproute2"
+    else
+        echo "SKIP: iproute2 not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: iproute2 already installed"
+fi
 
-rpm -q iproute2 2>/dev/null || { echo 'iproute2 not installed, skipping'; exit 0; }
-which ip 2>/dev/null || echo 'ip not found'
-which ss 2>/dev/null || echo 'ss not found'
-which tc 2>/dev/null || echo 'tc not found'
+
 
 echo "=== ip ���� ==="
 rlRun 'ip --help 2>&1 | head -10' 0 "ip ����"
@@ -22,5 +32,11 @@ rlRun 'ss -tln 2>&1 | head -10' 0 "��ʾ�����˿�"
 echo "=== tc ���� ==="
 rlRun 'tc --help 2>&1 | head -10' 0 "tc ����"
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y iproute2 2>/dev/null || true
+    echo "TEARDOWN: removed iproute2"
+fi
 echo ""
 echo "All iproute2-basic functional tests passed!"

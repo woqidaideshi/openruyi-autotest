@@ -2,6 +2,20 @@
 # Functional test: fdupes
 
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install fdupes ===
+INSTALLED_BY_TEST=0
+if ! rpm -q fdupes 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y fdupes 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed fdupes"
+    else
+        echo "SKIP: fdupes not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: fdupes already installed"
+fi
+
 
 rpm -q fdupes 2>/dev/null || { echo "fdupes not installed"; exit 0; }
 
@@ -14,5 +28,11 @@ echo "=== 测试 2: 文件验证 ==="
 ls /usr/lib64/libfdupes*.so* 2>/dev/null | head -5 || echo "No shared libs"
 ls /usr/share/fdupes/ 2>/dev/null | head -5 || true
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y fdupes 2>/dev/null || true
+    echo "TEARDOWN: removed fdupes"
+fi
 echo ""
 echo "All fdupes functional tests passed!"

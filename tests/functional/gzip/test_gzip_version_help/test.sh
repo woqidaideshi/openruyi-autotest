@@ -2,21 +2,20 @@
 # Functional test: gzip - 版本和帮助
 
 rlRun() { eval "$1" 2>&1; return $?; }
-rpm -q gzip 2>/dev/null || { echo 'gzip not installed, skipping'; exit 0; }
-which gzip 2>/dev/null || echo 'gzip not found'
-which gunzip 2>/dev/null || echo 'gunzip not found'
-which zcat 2>/dev/null || echo 'zcat not found'
-which zcmp 2>/dev/null || echo 'zcmp not found'
-which zdiff 2>/dev/null || echo 'zdiff not found'
-which zgrep 2>/dev/null || echo 'zgrep not found'
-which zless 2>/dev/null || echo 'zless not found'
-which zmore 2>/dev/null || echo 'zmore not found'
-which znew 2>/dev/null || echo 'znew not found'
-which gzexe 2>/dev/null || echo 'gzexe not found'
-which zforce 2>/dev/null || echo 'zforce not found'
-which zegrep 2>/dev/null || echo 'zegrep not found'
-which zfgrep 2>/dev/null || echo 'zfgrep not found'
-which uncompress 2>/dev/null || echo 'uncompress not found'
+# === SETUP: check/install gzip ===
+INSTALLED_BY_TEST=0
+if ! rpm -q gzip 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y gzip 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed gzip"
+    else
+        echo "SKIP: gzip not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: gzip already installed"
+fi
+
 TmpDir=$(mktemp -d)
 cd $TmpDir
 
@@ -53,5 +52,11 @@ rlRun 'uncompress --help 2>&1 | head -5 || true' 0 "uncompress 帮助信息"
 cd /
 rm -rf $TmpDir
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y gzip 2>/dev/null || true
+    echo "TEARDOWN: removed gzip"
+fi
 echo ""
 echo "All gzip 版本和帮助 tests passed!"

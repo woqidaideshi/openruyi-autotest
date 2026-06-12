@@ -4,12 +4,30 @@
 
 # rlRun wrapper for standalone execution
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install libidn2 ===
+INSTALLED_BY_TEST=0
+if ! rpm -q libidn2 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y libidn2 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed libidn2"
+    else
+        echo "SKIP: libidn2 not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: libidn2 already installed"
+fi
 
-rpm -q libidn2 2>/dev/null || { echo 'libidn2 not installed, skipping'; exit 0; }
-which idn2 2>/dev/null || echo 'idn2 not found'
+
 
 echo "=== ����: libidn2 �������� ==="
 rlRun 'idn2 --help 2>&1 | head -10' 0 "�鿴 idn2 ������Ϣ"
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y libidn2 2>/dev/null || true
+    echo "TEARDOWN: removed libidn2"
+fi
 echo ""
 echo "All libidn2-basic functional tests passed!"

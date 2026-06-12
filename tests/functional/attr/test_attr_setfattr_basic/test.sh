@@ -4,9 +4,21 @@
 
 # rlRun wrapper for standalone execution
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install attr ===
+INSTALLED_BY_TEST=0
+if ! rpm -q attr 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y attr 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed attr"
+    else
+        echo "SKIP: attr not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: attr already installed"
+fi
 
-rpm -q attr 2>/dev/null || { echo 'attr not installed, skipping'; exit 0; }
-which setfattr 2>/dev/null || echo 'setfattr not found'
+
 rlRun 'TmpDir=$(mktemp -d)' 0 "������ʱ����Ŀ¼"
 rlRun 'cd $TmpDir' 0 "�������Ŀ¼"
 rlRun 'touch testfile' 0 "���������ļ�"
@@ -20,5 +32,11 @@ rlRun 'getfattr -d testfile' 0 "�鿴�����չ����"
 rlRun 'setfattr -x user.test testfile' 0 "ɾ����չ����"
 rlRun 'setfattr -x user.test2 testfile' 0 "ɾ���ڶ�����չ����"
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y attr 2>/dev/null || true
+    echo "TEARDOWN: removed attr"
+fi
 echo ""
 echo "All attr-setfattr-basic functional tests passed!"

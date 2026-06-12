@@ -2,10 +2,20 @@
 # Functional test: grep - Extended-regex---E
 
 rlRun() { eval "$1" 2>&1; return $?; }
-rpm -q grep 2>/dev/null || { echo 'grep not installed, skipping'; exit 0; }
-which grep 2>/dev/null || echo 'grep not found'
-which egrep 2>/dev/null || echo 'egrep not found'
-which fgrep 2>/dev/null || echo 'fgrep not found'
+# === SETUP: check/install grep ===
+INSTALLED_BY_TEST=0
+if ! rpm -q grep 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y grep 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed grep"
+    else
+        echo "SKIP: grep not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: grep already installed"
+fi
+
 rlRun 'grep --version' 0 "Get grep version info"
 TmpDir=$(mktemp -d)
 cd $TmpDir
@@ -42,5 +52,11 @@ rlRun 'test $(grep -E "[0-9]+" test1.txt | wc -l) -ge 1' 0 "Verify digit match c
 rlRun 'egrep "apple|banana" test2.txt' 0 "egrep equivalent to grep -E"
 
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y grep 2>/dev/null || true
+    echo "TEARDOWN: removed grep"
+fi
 echo ""
 echo "All grep Extended-regex---E tests passed!"

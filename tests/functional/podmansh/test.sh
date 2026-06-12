@@ -23,6 +23,12 @@ echo "=== Test 4: podman basic ==="
 podman version 2>&1 | head -5 || echo "Version check"
 podman info 2>&1 | head -5 || echo "Info check"
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y podmansh 2>/dev/null || true
+    echo "TEARDOWN: removed podmansh"
+fi
 echo ""
 echo "All podmansh functional tests passed!"
 

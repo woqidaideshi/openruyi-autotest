@@ -203,5 +203,11 @@ watch --version 2>&1 | grep -q "watch" || echo "watch version check"
 # Test 14.4: hugetop
 hugetop --version 2>&1 | head -3 || echo "hugetop version check"
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y procps-ng 2>/dev/null || true
+    echo "TEARDOWN: removed procps-ng"
+fi
 echo ""
 echo "All procps-ng functional tests passed!"

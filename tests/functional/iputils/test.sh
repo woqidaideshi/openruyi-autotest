@@ -132,5 +132,11 @@ ping -c 2 127.0.0.1 &
 ping -c 2 127.0.0.1 &
 wait || echo "Multiple ping instances test completed"
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y iputils 2>/dev/null || true
+    echo "TEARDOWN: removed iputils"
+fi
 echo ""
 echo "All iputils functional tests passed!"

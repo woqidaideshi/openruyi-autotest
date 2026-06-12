@@ -4,13 +4,21 @@
 # Version: clang 21.1
 
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install clang ===
+INSTALLED_BY_TEST=0
+if ! rpm -q clang 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y clang 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed clang"
+    else
+        echo "SKIP: clang not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: clang already installed"
+fi
 
-rpm -q clang 2>/dev/null || { echo 'clang not installed, skipping'; exit 0; }
-which clang 2>/dev/null || echo 'clang not found'
-which clang++ 2>/dev/null || echo 'clang++ not found'
-which clang-cl 2>/dev/null || echo 'clang-cl not found'
-which clang-cpp 2>/dev/null || echo 'clang-cpp not found'
-which clang-scan-deps 2>/dev/null || echo 'clang-scan-deps not found'
+
 
 rlRun 'clang --version' 0 "clang version"
 
@@ -90,3 +98,10 @@ rm -rf $TmpDir
 
 echo ""
 echo "All clang functional tests passed!"
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y clang 2>/dev/null || true
+    echo "TEARDOWN: removed clang"
+fi
+

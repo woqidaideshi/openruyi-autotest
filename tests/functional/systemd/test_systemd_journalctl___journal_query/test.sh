@@ -2,7 +2,20 @@
 # Functional test: systemd - journalctl---Journal-query
 
 rlRun() { eval "$1" 2>&1; return $?; }
-rpm -q systemd 2>/dev/null || { echo 'systemd not installed, skipping'; exit 0; }
+# === SETUP: check/install systemd ===
+INSTALLED_BY_TEST=0
+if ! rpm -q systemd 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y systemd 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed systemd"
+    else
+        echo "SKIP: systemd not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: systemd already installed"
+fi
+
 TmpDir=$(mktemp -d)
 cd $TmpDir
 
@@ -24,5 +37,11 @@ rlRun 'journalctl --no-pager -n 1 -q 2>&1 || true' 0 "journalctl -q: quiet"
 
 # ===================================================================
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y systemd 2>/dev/null || true
+    echo "TEARDOWN: removed systemd"
+fi
 echo ""
 echo "All systemd journalctl---Journal-query tests passed!"

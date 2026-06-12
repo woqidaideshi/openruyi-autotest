@@ -2,9 +2,20 @@
 # Functional test: debugedit - 版本和帮助
 
 rlRun() { eval "$1" 2>&1; return $?; }
-rpm -q debugedit 2>/dev/null || { echo 'debugedit not installed, skipping'; exit 0; }
-which debugedit 2>/dev/null || echo 'debugedit not found'
-which debugedit-classify-ar 2>/dev/null || echo 'debugedit-classify-ar not found'
+# === SETUP: check/install debugedit ===
+INSTALLED_BY_TEST=0
+if ! rpm -q debugedit 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y debugedit 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed debugedit"
+    else
+        echo "SKIP: debugedit not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: debugedit already installed"
+fi
+
 TmpDir=$(mktemp -d)
 cd $TmpDir
 
@@ -17,5 +28,11 @@ rlRun 'debugedit-classify-ar --help 2>&1 | head -5 || true' 0 "debugedit-classif
 cd /
 rm -rf $TmpDir
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y debugedit 2>/dev/null || true
+    echo "TEARDOWN: removed debugedit"
+fi
 echo ""
 echo "All debugedit 版本和帮助 tests passed!"

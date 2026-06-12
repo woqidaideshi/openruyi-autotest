@@ -2,6 +2,20 @@
 # Functional test: kyua
 
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install kyua ===
+INSTALLED_BY_TEST=0
+if ! rpm -q kyua 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y kyua 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed kyua"
+    else
+        echo "SKIP: kyua not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: kyua already installed"
+fi
+
 
 rpm -q kyua 2>/dev/null || { echo "kyua not installed"; exit 0; }
 
@@ -14,5 +28,11 @@ echo "=== 测试 2: 文件验证 ==="
 ls /usr/lib64/libkyua*.so* 2>/dev/null | head -5 || echo "No shared libs"
 ls /usr/share/kyua/ 2>/dev/null | head -5 || true
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y kyua 2>/dev/null || true
+    echo "TEARDOWN: removed kyua"
+fi
 echo ""
 echo "All kyua functional tests passed!"

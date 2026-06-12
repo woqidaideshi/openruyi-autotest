@@ -4,14 +4,31 @@
 
 # rlRun wrapper for standalone execution
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install gawk ===
+INSTALLED_BY_TEST=0
+if ! rpm -q gawk 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y gawk 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed gawk"
+    else
+        echo "SKIP: gawk not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: gawk already installed"
+fi
 
-rpm -q gawk 2>/dev/null || { echo 'gawk not installed, skipping'; exit 0; }
-which awk 2>/dev/null || echo 'awk not found'
-which gawk 2>/dev/null || echo 'gawk not found'
+
 
 echo "=== ����: gawk �������� ==="
 rlRun 'awk --help 2>&1 | head -10' 0 "�鿴 awk ������Ϣ"
 rlRun 'gawk --help 2>&1 | head -10' 0 "�鿴 gawk ������Ϣ"
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y gawk 2>/dev/null || true
+    echo "TEARDOWN: removed gawk"
+fi
 echo ""
 echo "All gawk-basic functional tests passed!"

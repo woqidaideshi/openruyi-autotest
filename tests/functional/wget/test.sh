@@ -94,3 +94,10 @@ rm -rf $TmpDir
 
 echo ""
 echo "All wget functional tests passed!"
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y wget 2>/dev/null || true
+    echo "TEARDOWN: removed wget"
+fi
+

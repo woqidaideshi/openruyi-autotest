@@ -52,3 +52,10 @@ rm -rf $TmpDir
 
 echo ""
 echo "All cmake functional tests passed!"
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y cmake 2>/dev/null || true
+    echo "TEARDOWN: removed cmake"
+fi
+

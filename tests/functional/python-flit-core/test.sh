@@ -2,6 +2,20 @@
 # Functional test: python-flit-core
 
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install python-flit-core ===
+INSTALLED_BY_TEST=0
+if ! rpm -q python-flit-core 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y python-flit-core 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed python-flit-core"
+    else
+        echo "SKIP: python-flit-core not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: python-flit-core already installed"
+fi
+
 
 rpm -q python3-flit-core 2>/dev/null || { echo "python3-flit-core not installed"; exit 0; }
 
@@ -14,5 +28,11 @@ echo "=== 测试 2: 文件验证 ==="
 ls /usr/lib64/libpython-flit-core*.so* 2>/dev/null | head -5 || echo "No shared libs"
 ls /usr/share/python-flit-core/ 2>/dev/null | head -5 || true
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y python-flit-core 2>/dev/null || true
+    echo "TEARDOWN: removed python-flit-core"
+fi
 echo ""
 echo "All python-flit-core functional tests passed!"

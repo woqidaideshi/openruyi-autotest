@@ -2,6 +2,20 @@
 # Functional test: dos2unix
 
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install dos2unix ===
+INSTALLED_BY_TEST=0
+if ! rpm -q dos2unix 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y dos2unix 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed dos2unix"
+    else
+        echo "SKIP: dos2unix not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: dos2unix already installed"
+fi
+
 
 rpm -q dos2unix 2>/dev/null || { echo "dos2unix not installed"; exit 0; }
 
@@ -14,5 +28,11 @@ echo "=== 测试 2: 文件验证 ==="
 ls /usr/lib64/libdos2unix*.so* 2>/dev/null | head -5 || echo "No shared libs"
 ls /usr/share/dos2unix/ 2>/dev/null | head -5 || true
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y dos2unix 2>/dev/null || true
+    echo "TEARDOWN: removed dos2unix"
+fi
 echo ""
 echo "All dos2unix functional tests passed!"

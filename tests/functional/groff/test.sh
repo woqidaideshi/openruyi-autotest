@@ -2,6 +2,20 @@
 # Functional test: groff
 
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install groff ===
+INSTALLED_BY_TEST=0
+if ! rpm -q groff 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y groff 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed groff"
+    else
+        echo "SKIP: groff not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: groff already installed"
+fi
+
 
 rpm -q groff 2>/dev/null || { echo "groff not installed"; exit 0; }
 
@@ -14,5 +28,11 @@ echo "=== 测试 2: 文件验证 ==="
 ls /usr/lib64/libgroff*.so* 2>/dev/null | head -5 || echo "No shared libs"
 ls /usr/share/groff/ 2>/dev/null | head -5 || true
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y groff 2>/dev/null || true
+    echo "TEARDOWN: removed groff"
+fi
 echo ""
 echo "All groff functional tests passed!"

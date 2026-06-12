@@ -2,13 +2,20 @@
 # Functional test: zstd - 版本和帮助
 
 rlRun() { eval "$1" 2>&1; return $?; }
-rpm -q zstd 2>/dev/null || { echo 'zstd not installed, skipping'; exit 0; }
-which zstd 2>/dev/null || echo 'zstd not found'
-which unzstd 2>/dev/null || echo 'unzstd not found'
-which zstdcat 2>/dev/null || echo 'zstdcat not found'
-which zstdgrep 2>/dev/null || echo 'zstdgrep not found'
-which zstdless 2>/dev/null || echo 'zstdless not found'
-which zstdmt 2>/dev/null || echo 'zstdmt not found'
+# === SETUP: check/install zstd ===
+INSTALLED_BY_TEST=0
+if ! rpm -q zstd 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y zstd 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed zstd"
+    else
+        echo "SKIP: zstd not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: zstd already installed"
+fi
+
 TmpDir=$(mktemp -d)
 cd $TmpDir
 
@@ -29,5 +36,11 @@ rlRun 'zstdmt --help 2>&1 | head -5 || true' 0 "zstdmt 帮助信息"
 cd /
 rm -rf $TmpDir
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y zstd 2>/dev/null || true
+    echo "TEARDOWN: removed zstd"
+fi
 echo ""
 echo "All zstd 版本和帮助 tests passed!"

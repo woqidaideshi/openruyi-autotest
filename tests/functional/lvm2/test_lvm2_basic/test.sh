@@ -3,12 +3,21 @@
 # Commands: lvm, pvs, vgs, lvs, pvcreate, vgcreate, lvcreate
 
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install lvm2 ===
+INSTALLED_BY_TEST=0
+if ! rpm -q lvm2 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y lvm2 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed lvm2"
+    else
+        echo "SKIP: lvm2 not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: lvm2 already installed"
+fi
 
-rpm -q lvm2 2>/dev/null || { echo 'lvm2 not installed, skipping'; exit 0; }
-which lvm 2>/dev/null || echo 'lvm not found'
-which pvs 2>/dev/null || echo 'pvs not found'
-which vgs 2>/dev/null || echo 'vgs not found'
-which lvs 2>/dev/null || echo 'lvs not found'
+
 
 echo "=== LVM ���� ==="
 rlRun 'lvm version 2>&1 || true' 0 "LVM �汾"
@@ -20,5 +29,11 @@ rlRun 'pvdisplay 2>&1 || true' 0 "����������"
 rlRun 'vgdisplay 2>&1 || true' 0 "��������"
 rlRun 'lvdisplay 2>&1 || true' 0 "�߼�������"
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y lvm2 2>/dev/null || true
+    echo "TEARDOWN: removed lvm2"
+fi
 echo ""
 echo "All lvm2-basic functional tests passed!"

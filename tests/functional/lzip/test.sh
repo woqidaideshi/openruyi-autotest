@@ -2,6 +2,20 @@
 # Functional test: lzip
 
 rlRun() { eval "$1" 2>&1; return $?; }
+# === SETUP: check/install lzip ===
+INSTALLED_BY_TEST=0
+if ! rpm -q lzip 2>/dev/null; then
+    if echo openruyi | sudo -S dnf install -y lzip 2>/dev/null; then
+        INSTALLED_BY_TEST=1
+        echo "SETUP: installed lzip"
+    else
+        echo "SKIP: lzip not available in repos"
+        exit 0
+    fi
+else
+    echo "SETUP: lzip already installed"
+fi
+
 
 rpm -q lzip 2>/dev/null || { echo "lzip not installed"; exit 0; }
 
@@ -14,5 +28,11 @@ echo "=== 测试 2: 文件验证 ==="
 ls /usr/lib64/liblzip*.so* 2>/dev/null | head -5 || echo "No shared libs"
 ls /usr/share/lzip/ 2>/dev/null | head -5 || true
 
+
+# === TEARDOWN: uninstall if we installed ===
+if [ "$INSTALLED_BY_TEST" = "1" ]; then
+    echo openruyi | sudo -S dnf remove -y lzip 2>/dev/null || true
+    echo "TEARDOWN: removed lzip"
+fi
 echo ""
 echo "All lzip functional tests passed!"
