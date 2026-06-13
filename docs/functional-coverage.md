@@ -332,13 +332,13 @@
 <details>
 <summary><b>attr — 7 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ attr �汾��Ϣ
-- ��ȡ getfattr �汾��Ϣ
-- ��ȡ setfattr �汾��Ϣ
-- ������ʱ����Ŀ¼
-- �������Ŀ¼
-- ���������ļ�
-- ��������Ŀ¼
+- ȡ attr 汾Ϣ
+- ȡ getfattr 汾Ϣ
+- ȡ setfattr 汾Ϣ
+- ʱĿ¼
+- Ŀ¼
+- ļ
+- Ŀ¼
 
 </details>
 
@@ -374,7 +374,7 @@
 <details>
 <summary><b>authselect — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ authselect �汾
+- ȡ authselect 汾
 
 </details>
 
@@ -428,7 +428,7 @@
 <details>
 <summary><b>bash-completion — 1 个测试用例 (rlRun)</b></summary>
 
-- �г����ļ�
+- гļ
 
 </details>
 
@@ -439,8 +439,8 @@
 <details>
 <summary><b>bc — 2 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ bc �汾��Ϣ
-- ��ȡ dc �汾��Ϣ
+- ȡ bc 汾Ϣ
+- ȡ dc 汾Ϣ
 
 </details>
 
@@ -452,7 +452,6 @@
 <summary><b>beakerlib — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: beakerlib
 
 </details>
 
@@ -464,7 +463,6 @@
 <summary><b>binutils — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: binutils
 
 </details>
 
@@ -499,7 +497,7 @@
 <details>
 <summary><b>brotli — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ brotli �汾��Ϣ
+- ȡ brotli 汾Ϣ
 
 </details>
 
@@ -510,7 +508,7 @@
 <details>
 <summary><b>bzip2 — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ bzip2 �汾
+- ȡ bzip2 汾
 
 </details>
 
@@ -546,7 +544,7 @@
 <details>
 <summary><b>chkconfig — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ chkconfig �汾
+- ȡ chkconfig 汾
 
 </details>
 
@@ -912,7 +910,7 @@
 <details>
 <summary><b>cpio — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ cpio �汾��Ϣ
+- ȡ cpio 汾Ϣ
 
 </details>
 
@@ -924,7 +922,6 @@
 <summary><b>cracklib — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: cracklib
 
 </details>
 
@@ -970,7 +967,7 @@
 <details>
 <summary><b>dbus — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ dbus-launch �汾
+- ȡ dbus-launch 汾
 
 </details>
 
@@ -981,7 +978,7 @@
 <details>
 <summary><b>dbus-broker — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ dbus-broker �汾��Ϣ
+- ȡ dbus-broker 汾Ϣ
 
 </details>
 
@@ -1019,10 +1016,10 @@
 <details>
 <summary><b>diffutils — 4 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ cmp �汾��Ϣ
-- ��ȡ diff �汾��Ϣ
-- ��ȡ diff3 �汾��Ϣ
-- ��ȡ sdiff �汾��Ϣ
+- ȡ cmp 汾Ϣ
+- ȡ diff 汾Ϣ
+- ȡ diff3 汾Ϣ
+- ȡ sdiff 汾Ϣ
 
 </details>
 
@@ -1080,7 +1077,6 @@
 <summary><b>e2fsprogs — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: e2fsprogs
 
 </details>
 
@@ -1144,7 +1140,7 @@
 <details>
 <summary><b>expat — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ xmlwf �汾��Ϣ
+- ȡ xmlwf 汾Ϣ
 
 </details>
 
@@ -1179,7 +1175,7 @@
 <details>
 <summary><b>file — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ file �汾��Ϣ
+- ȡ file 汾Ϣ
 
 </details>
 
@@ -1239,8 +1235,8 @@
 <details>
 <summary><b>gawk — 2 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ awk �汾��Ϣ
-- ��ȡ gawk �汾��Ϣ
+- ȡ awk 汾Ϣ
+- ȡ gawk 汾Ϣ
 
 </details>
 
@@ -1316,7 +1312,6 @@
 <summary><b>gcc16 — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: gcc16
 
 </details>
 
@@ -1351,7 +1346,7 @@
 <details>
 <summary><b>git — 1 个测试用例 (rlRun)</b></summary>
 
-- �г����ļ�
+- гļ
 
 </details>
 
@@ -1363,7 +1358,6 @@
 <summary><b>glib — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: glib
 
 </details>
 
@@ -1414,7 +1408,6 @@
 <summary><b>gnutls — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: gnutls
 
 </details>
 
@@ -1595,7 +1588,6 @@
 <summary><b>icu4c — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: icu4c
 
 </details>
 
@@ -1607,7 +1599,6 @@
 <summary><b>iproute2 — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: iproute2
 
 </details>
 
@@ -1662,7 +1653,7 @@
 <details>
 <summary><b>iso-codes — 1 个测试用例 (rlRun)</b></summary>
 
-- �г����ļ�
+- гļ
 
 </details>
 
@@ -1673,8 +1664,8 @@
 <details>
 <summary><b>jitterentropy — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1685,8 +1676,8 @@
 <details>
 <summary><b>json-c — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1698,7 +1689,6 @@
 <summary><b>kbd — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: kbd
 
 </details>
 
@@ -1710,7 +1700,6 @@
 <summary><b>keyutils — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: keyutils
 
 </details>
 
@@ -1722,7 +1711,6 @@
 <summary><b>kmod — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: kmod
 
 </details>
 
@@ -1734,7 +1722,6 @@
 <summary><b>krb5 — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: krb5
 
 </details>
 
@@ -1777,9 +1764,9 @@
 <details>
 <summary><b>less — 3 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ less �汾��Ϣ
-- ��ȡ lessecho �汾��Ϣ
-- ��ȡ lesskey �汾��Ϣ
+- ȡ less 汾Ϣ
+- ȡ lessecho 汾Ϣ
+- ȡ lesskey 汾Ϣ
 
 </details>
 
@@ -1790,8 +1777,8 @@
 <details>
 <summary><b>libaio — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1802,8 +1789,8 @@
 <details>
 <summary><b>libarchive — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1814,8 +1801,8 @@
 <details>
 <summary><b>libbpf — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1826,8 +1813,8 @@
 <details>
 <summary><b>libcap — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1838,8 +1825,8 @@
 <details>
 <summary><b>libcap-ng — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1850,8 +1837,8 @@
 <details>
 <summary><b>libeconf — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1862,8 +1849,8 @@
 <details>
 <summary><b>libedit — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1874,8 +1861,8 @@
 <details>
 <summary><b>libevent — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1886,8 +1873,8 @@
 <details>
 <summary><b>libffi — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1898,8 +1885,8 @@
 <details>
 <summary><b>libgcrypt — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1910,8 +1897,8 @@
 <details>
 <summary><b>libgpg-error — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1922,7 +1909,7 @@
 <details>
 <summary><b>libidn2 — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ idn2 �汾��Ϣ
+- ȡ idn2 汾Ϣ
 
 </details>
 
@@ -1945,8 +1932,8 @@
 <details>
 <summary><b>libmnl — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1957,8 +1944,8 @@
 <details>
 <summary><b>libnetfilter_conntrack — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1969,8 +1956,8 @@
 <details>
 <summary><b>libnfnetlink — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1981,8 +1968,8 @@
 <details>
 <summary><b>libnftnl — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -1993,8 +1980,8 @@
 <details>
 <summary><b>libnl — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -2017,7 +2004,7 @@
 <details>
 <summary><b>libpng — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ pngfix �汾��Ϣ
+- ȡ pngfix 汾Ϣ
 
 </details>
 
@@ -2028,8 +2015,8 @@
 <details>
 <summary><b>libpsl — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -2040,8 +2027,8 @@
 <details>
 <summary><b>libpwquality — 2 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ pwmake �汾��Ϣ
-- ��ȡ pwscore �汾��Ϣ
+- ȡ pwmake 汾Ϣ
+- ȡ pwscore 汾Ϣ
 
 </details>
 
@@ -2052,8 +2039,8 @@
 <details>
 <summary><b>libseccomp — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -2076,8 +2063,8 @@
 <details>
 <summary><b>libsepol — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -2112,9 +2099,9 @@
 <details>
 <summary><b>libtasn1 — 3 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ asn1Coding �汾��Ϣ
-- ��ȡ asn1Decoding �汾��Ϣ
-- ��ȡ asn1Parser �汾��Ϣ
+- ȡ asn1Coding 汾Ϣ
+- ȡ asn1Decoding 汾Ϣ
+- ȡ asn1Parser 汾Ϣ
 
 </details>
 
@@ -2125,8 +2112,8 @@
 <details>
 <summary><b>libtirpc — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -2149,8 +2136,8 @@
 <details>
 <summary><b>libunistring — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -2161,8 +2148,8 @@
 <details>
 <summary><b>libxcrypt — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -2173,8 +2160,8 @@
 <details>
 <summary><b>libxml2 — 2 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ xmlcatalog �汾��Ϣ
-- ��ȡ xmllint �汾��Ϣ
+- ȡ xmlcatalog 汾Ϣ
+- ȡ xmllint 汾Ϣ
 
 </details>
 
@@ -2185,7 +2172,7 @@
 <details>
 <summary><b>libxslt — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ xsltproc �汾��Ϣ
+- ȡ xsltproc 汾Ϣ
 
 </details>
 
@@ -2236,7 +2223,6 @@
 <summary><b>lvm2 — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: lvm2
 
 </details>
 
@@ -2247,10 +2233,10 @@
 <details>
 <summary><b>lz4 — 4 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ lz4 �汾��Ϣ
-- ��ȡ lz4c �汾��Ϣ
-- ��ȡ lz4cat �汾��Ϣ
-- ��ȡ unlz4 �汾��Ϣ
+- ȡ lz4 汾Ϣ
+- ȡ lz4c 汾Ϣ
+- ȡ lz4cat 汾Ϣ
+- ȡ unlz4 汾Ϣ
 
 </details>
 
@@ -2355,7 +2341,6 @@
 <summary><b>ncurses — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: ncurses
 
 </details>
 
@@ -2412,8 +2397,8 @@
 <details>
 <summary><b>nghttp2 — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -2460,7 +2445,7 @@
 <details>
 <summary><b>openruyi-release — 1 个测试用例 (rlRun)</b></summary>
 
-- �г����ļ�
+- гļ
 
 </details>
 
@@ -2471,7 +2456,7 @@
 <details>
 <summary><b>openssh — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ ssh �汾��Ϣ
+- ȡ ssh 汾Ϣ
 
 </details>
 
@@ -2511,7 +2496,7 @@
 <details>
 <summary><b>openssl — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ openssl �汾
+- ȡ openssl 汾
 
 </details>
 
@@ -2523,7 +2508,6 @@
 <summary><b>p11-kit — 简单检查</b></summary>
 
 - 基本安装验证
-- 检查: p11-kit
 
 </details>
 
@@ -2567,7 +2551,7 @@
 <details>
 <summary><b>patch — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ patch �汾��Ϣ
+- ȡ patch 汾Ϣ
 
 </details>
 
@@ -2601,8 +2585,8 @@
 <details>
 <summary><b>pcre2 — 2 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ pcre2grep �汾��Ϣ
-- ��ȡ pcre2test �汾��Ϣ
+- ȡ pcre2grep 汾Ϣ
+- ȡ pcre2test 汾Ϣ
 
 </details>
 
@@ -2613,7 +2597,7 @@
 <details>
 <summary><b>perl — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ perl �汾
+- ȡ perl 汾
 
 </details>
 
@@ -2636,8 +2620,8 @@
 <details>
 <summary><b>perl-Locale-gettext — 2 个测试用例 (rlRun)</b></summary>
 
-- ���� Locale::gettext ģ�����
-- �г����ļ�
+- Locale::gettext ģ
+- гļ
 
 </details>
 
@@ -2724,8 +2708,8 @@
 <details>
 <summary><b>popt — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -2783,7 +2767,7 @@
 <details>
 <summary><b>publicsuffix-list — 1 个测试用例 (rlRun)</b></summary>
 
-- �г����ļ�
+- гļ
 
 </details>
 
@@ -2794,7 +2778,7 @@
 <details>
 <summary><b>pyproject-rpm-macros — 1 个测试用例 (rlRun)</b></summary>
 
-- �г����ļ�
+- гļ
 
 </details>
 
@@ -2836,8 +2820,8 @@
 <details>
 <summary><b>python-lxml — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -2848,7 +2832,7 @@
 <details>
 <summary><b>python-packaging — 1 个测试用例 (rlRun)</b></summary>
 
-- �г����ļ�
+- гļ
 
 </details>
 
@@ -2859,7 +2843,7 @@
 <details>
 <summary><b>python-pip — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ pip3 �汾
+- ȡ pip3 汾
 
 </details>
 
@@ -2894,7 +2878,7 @@
 <details>
 <summary><b>python-rpm-macros — 1 个测试用例 (rlRun)</b></summary>
 
-- �г����ļ�
+- гļ
 
 </details>
 
@@ -2917,7 +2901,7 @@
 <details>
 <summary><b>python-srpm-macros — 1 个测试用例 (rlRun)</b></summary>
 
-- �г����ļ�
+- гļ
 
 </details>
 
@@ -2952,8 +2936,8 @@
 <details>
 <summary><b>readline — 2 个测试用例 (rlRun)</b></summary>
 
-- ldconfig ���ҿ��ļ�
-- �г� .so �ļ�
+- ldconfig ҿļ
+- г .so ļ
 
 </details>
 
@@ -2964,7 +2948,7 @@
 <details>
 <summary><b>rpm — 1 个测试用例 (rlRun)</b></summary>
 
-- rpm �汾
+- rpm 汾
 
 </details>
 
@@ -3074,7 +3058,7 @@
 <details>
 <summary><b>setup — 1 个测试用例 (rlRun)</b></summary>
 
-- �г����ļ�
+- гļ
 
 </details>
 
@@ -3085,7 +3069,7 @@
 <details>
 <summary><b>slang — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ slsh �汾��Ϣ
+- ȡ slsh 汾Ϣ
 
 </details>
 
@@ -3120,8 +3104,8 @@
 <details>
 <summary><b>sqlite — 2 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ sqldiff �汾��Ϣ
-- ��ȡ sqlite3 �汾��Ϣ
+- ȡ sqldiff 汾Ϣ
+- ȡ sqlite3 汾Ϣ
 
 </details>
 
@@ -3335,7 +3319,7 @@
 <details>
 <summary><b>tcsh — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ tcsh �汾��Ϣ
+- ȡ tcsh 汾Ϣ
 
 </details>
 
@@ -3358,7 +3342,7 @@
 <details>
 <summary><b>time — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ time �汾��Ϣ
+- ȡ time 汾Ϣ
 
 </details>
 
@@ -3559,9 +3543,9 @@
 <details>
 <summary><b>tzdata — 3 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ tzselect �汾��Ϣ
-- ��ȡ zdump �汾��Ϣ
-- ��ȡ zic �汾��Ϣ
+- ȡ tzselect 汾Ϣ
+- ȡ zdump 汾Ϣ
+- ȡ zic 汾Ϣ
 
 </details>
 
@@ -3596,10 +3580,10 @@
 <details>
 <summary><b>unzip — 4 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ unzip �汾��Ϣ
-- ��ȡ funzip �汾��Ϣ
-- ��ȡ zipgrep �汾��Ϣ
-- ��ȡ zipinfo �汾��Ϣ
+- ȡ unzip 汾Ϣ
+- ȡ funzip 汾Ϣ
+- ȡ zipgrep 汾Ϣ
+- ȡ zipinfo 汾Ϣ
 
 </details>
 
@@ -3651,7 +3635,7 @@
 <details>
 <summary><b>vim — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ vim �汾
+- ȡ vim 汾
 
 </details>
 
@@ -3731,7 +3715,7 @@
 <details>
 <summary><b>which — 1 个测试用例 (rlRun)</b></summary>
 
-- ��ȡ which �汾��Ϣ
+- ȡ which 汾Ϣ
 
 </details>
 
