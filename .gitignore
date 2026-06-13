@@ -9,3 +9,6 @@
 
 # Agent 配置（本地使用）
 AGENTS.md
+
+# 测试结果（本地存放）
+.test_results_server/
