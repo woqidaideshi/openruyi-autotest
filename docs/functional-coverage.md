@@ -3,37 +3,29 @@
 > 最后更新: 2026-06-13 | 自动生成
 > 测试环境: openEuler (10.20.237.192)
 
-共 **204** 个软件包，**1553** 个测试用例（1311 rlRun + 242 分段 + 0 简单检查）
+共 **147** 个软件包，**1424** 个测试用例（1292 rlRun + 132 分段 + 0 简单检查）
 
 ## 全部软件包一览
 
 | 软件包 | 用例数 | 类型 |
 |--------|:---:|:---:|
 | [acl](#acl) | 89 | rlRun |
-| [atf](#atf) | 2 | 分段 |
 | [attr](#attr) | 7 | rlRun |
 | [audit](#audit) | 15 | rlRun |
 | [authselect](#authselect) | 1 | rlRun |
-| [autoconf](#autoconf) | 2 | 分段 |
-| [automake](#automake) | 2 | 分段 |
 | [bash](#bash) | 9 | rlRun |
 | [bash-completion](#bashcompletion) | 1 | rlRun |
 | [bc](#bc) | 2 | rlRun |
 | [beakerlib](#beakerlib) | 1 | 分段 |
 | [binutils](#binutils) | 1 | 分段 |
-| [bison](#bison) | 2 | 分段 |
-| [boost](#boost) | 2 | 分段 |
 | [brotli](#brotli) | 1 | rlRun |
 | [bzip2](#bzip2) | 1 | rlRun |
 | [ca-certificates](#cacertificates) | 3 | rlRun |
 | [ca-certificates-mozilla](#cacertificatesmozilla) | 2 | rlRun |
 | [chkconfig](#chkconfig) | 1 | rlRun |
-| [chrpath](#chrpath) | 2 | 分段 |
 | [clang](#clang) | 26 | rlRun |
 | [cloud-utils-growpart](#cloudutilsgrowpart) | 10 | rlRun |
 | [cmake](#cmake) | 6 | 分段 |
-| [cmocka](#cmocka) | 2 | 分段 |
-| [config](#config) | 2 | 分段 |
 | [coreutils](#coreutils) | 237 | rlRun |
 | [cpio](#cpio) | 1 | rlRun |
 | [cracklib](#cracklib) | 1 | 分段 |
@@ -42,41 +34,27 @@
 | [dbus](#dbus) | 1 | rlRun |
 | [dbus-broker](#dbusbroker) | 1 | rlRun |
 | [debugedit](#debugedit) | 5 | rlRun |
-| [dejagnu](#dejagnu) | 2 | 分段 |
 | [diffutils](#diffutils) | 4 | rlRun |
 | [dnf5-plugins](#dnf5plugins) | 11 | rlRun |
-| [dos2unix](#dos2unix) | 2 | 分段 |
 | [dwz](#dwz) | 3 | rlRun |
 | [e2fsprogs](#e2fsprogs) | 1 | 分段 |
-| [ed](#ed) | 2 | 分段 |
 | [elfutils](#elfutils) | 31 | rlRun |
 | [expat](#expat) | 1 | rlRun |
-| [expect](#expect) | 2 | 分段 |
-| [fdupes](#fdupes) | 2 | 分段 |
 | [file](#file) | 1 | rlRun |
 | [filesystem](#filesystem) | 2 | rlRun |
 | [findutils](#findutils) | 15 | rlRun |
-| [flex](#flex) | 2 | 分段 |
 | [gawk](#gawk) | 2 | rlRun |
 | [gcc](#gcc) | 54 | rlRun |
 | [gcc16](#gcc16) | 1 | 分段 |
-| [gdb](#gdb) | 2 | 分段 |
-| [gdbm](#gdbm) | 2 | 分段 |
 | [git](#git) | 1 | rlRun |
 | [glib](#glib) | 1 | 分段 |
 | [glibc](#glibc) | 17 | rlRun |
 | [gmp](#gmp) | 2 | rlRun |
 | [gnutls](#gnutls) | 1 | 分段 |
-| [gobject-introspection](#gobjectintrospection) | 2 | 分段 |
-| [gpm](#gpm) | 2 | 分段 |
 | [grep](#grep) | 45 | rlRun |
-| [groff](#groff) | 2 | 分段 |
-| [gxx](#gxx) | 17 | rlRun |
 | [gzip](#gzip) | 29 | rlRun |
-| [help2man](#help2man) | 2 | 分段 |
 | [icu4c](#icu4c) | 1 | 分段 |
 | [iproute2](#iproute2) | 1 | 分段 |
-| [iptables](#iptables) | 2 | 分段 |
 | [iputils](#iputils) | 10 | 分段 |
 | [isl](#isl) | 2 | rlRun |
 | [iso-codes](#isocodes) | 1 | rlRun |
@@ -86,7 +64,6 @@
 | [keyutils](#keyutils) | 1 | 分段 |
 | [kmod](#kmod) | 1 | 分段 |
 | [krb5](#krb5) | 1 | 分段 |
-| [kyua](#kyua) | 2 | 分段 |
 | [labwc](#labwc) | 10 | rlRun |
 | [less](#less) | 3 | rlRun |
 | [libaio](#libaio) | 2 | rlRun |
@@ -101,61 +78,45 @@
 | [libgcrypt](#libgcrypt) | 2 | rlRun |
 | [libgpg-error](#libgpgerror) | 2 | rlRun |
 | [libidn2](#libidn2) | 1 | rlRun |
-| [libmicrohttpd](#libmicrohttpd) | 2 | 分段 |
 | [libmnl](#libmnl) | 2 | rlRun |
 | [libnetfilter_conntrack](#libnetfilter_conntrack) | 2 | rlRun |
 | [libnfnetlink](#libnfnetlink) | 2 | rlRun |
 | [libnftnl](#libnftnl) | 2 | rlRun |
 | [libnl](#libnl) | 2 | rlRun |
-| [libpcap](#libpcap) | 2 | 分段 |
 | [libpng](#libpng) | 1 | rlRun |
 | [libpsl](#libpsl) | 2 | rlRun |
 | [libpwquality](#libpwquality) | 2 | rlRun |
 | [libseccomp](#libseccomp) | 2 | rlRun |
 | [libselinux](#libselinux) | 2 | rlRun |
 | [libsepol](#libsepol) | 2 | rlRun |
-| [libsodium](#libsodium) | 2 | 分段 |
-| [libssh](#libssh) | 2 | 分段 |
 | [libtasn1](#libtasn1) | 3 | rlRun |
 | [libtirpc](#libtirpc) | 2 | rlRun |
-| [libtool](#libtool) | 2 | 分段 |
 | [libunistring](#libunistring) | 2 | rlRun |
 | [libxcrypt](#libxcrypt) | 2 | rlRun |
 | [libxml2](#libxml2) | 2 | rlRun |
 | [libxslt](#libxslt) | 1 | rlRun |
 | [linux-headers](#linuxheaders) | 2 | rlRun |
 | [lua](#lua) | 5 | rlRun |
-| [lutok](#lutok) | 2 | 分段 |
 | [lvm2](#lvm2) | 1 | 分段 |
 | [lz4](#lz4) | 4 | rlRun |
-| [lzip](#lzip) | 2 | 分段 |
 | [make](#make) | 23 | rlRun |
-| [meson](#meson) | 2 | 分段 |
 | [mpc](#mpc) | 2 | rlRun |
 | [mpdecimal](#mpdecimal) | 2 | rlRun |
 | [mpfr](#mpfr) | 2 | rlRun |
 | [ncurses](#ncurses) | 1 | 分段 |
 | [nettle](#nettle) | 11 | rlRun |
 | [newt](#newt) | 3 | rlRun |
-| [nfs-utils](#nfsutils) | 2 | 分段 |
 | [nghttp2](#nghttp2) | 2 | rlRun |
-| [ninja](#ninja) | 2 | 分段 |
-| [nss](#nss) | 2 | 分段 |
-| [nss_wrapper](#nss_wrapper) | 2 | 分段 |
 | [openruyi-release](#openruyirelease) | 1 | rlRun |
 | [openssh](#openssh) | 1 | rlRun |
 | [openssh-clients](#opensshclients) | 19 | rlRun |
 | [openssl](#openssl) | 1 | rlRun |
 | [p11-kit](#p11kit) | 1 | 分段 |
 | [pam](#pam) | 11 | rlRun |
-| [pam_wrapper](#pam_wrapper) | 2 | 分段 |
 | [patch](#patch) | 1 | rlRun |
 | [pciutils](#pciutils) | 13 | 分段 |
 | [pcre2](#pcre2) | 2 | rlRun |
 | [perl](#perl) | 1 | rlRun |
-| [perl-Error](#perlError) | 2 | 分段 |
-| [perl-Locale-gettext](#perlLocalegettext) | 2 | rlRun |
-| [perl-rpm-packaging](#perlrpmpackaging) | 2 | 分段 |
 | [pkgconf](#pkgconf) | 5 | rlRun |
 | [podman](#podman) | 18 | rlRun |
 | [podmansh](#podmansh) | 11 | 分段 |
@@ -165,43 +126,27 @@
 | [publicsuffix-list](#publicsuffixlist) | 1 | rlRun |
 | [pyproject-rpm-macros](#pyprojectrpmmacros) | 1 | rlRun |
 | [python](#python) | 9 | rlRun |
-| [python-flit-core](#pythonflitcore) | 2 | 分段 |
 | [python-lxml](#pythonlxml) | 2 | rlRun |
 | [python-packaging](#pythonpackaging) | 1 | rlRun |
 | [python-pip](#pythonpip) | 1 | rlRun |
-| [python-pyelftools](#pythonpyelftools) | 2 | 分段 |
-| [python-rpm-generators](#pythonrpmgenerators) | 2 | 分段 |
 | [python-rpm-macros](#pythonrpmmacros) | 1 | rlRun |
-| [python-setuptools](#pythonsetuptools) | 2 | 分段 |
 | [python-srpm-macros](#pythonsrpmmacros) | 1 | rlRun |
-| [python-wheel](#pythonwheel) | 2 | 分段 |
-| [re2c](#re2c) | 2 | 分段 |
 | [readline](#readline) | 2 | rlRun |
 | [rpm](#rpm) | 1 | rlRun |
 | [rpm-config-openruyi](#rpmconfigopenruyi) | 2 | rlRun |
 | [rpmbuild](#rpmbuild) | 9 | 分段 |
-| [rsync](#rsync) | 2 | 分段 |
-| [scdoc](#scdoc) | 2 | 分段 |
 | [sddm](#sddm) | 11 | rlRun |
 | [sed](#sed) | 13 | rlRun |
 | [setup](#setup) | 1 | rlRun |
 | [slang](#slang) | 1 | rlRun |
-| [socket_wrapper](#socket_wrapper) | 2 | 分段 |
-| [source-highlight](#sourcehighlight) | 2 | 分段 |
 | [sqlite](#sqlite) | 2 | rlRun |
-| [swig](#swig) | 2 | 分段 |
 | [systemd](#systemd) | 114 | rlRun |
 | [systemd-timesyncd](#systemdtimesyncd) | 13 | rlRun |
-| [systemtap](#systemtap) | 2 | 分段 |
 | [tar](#tar) | 10 | 分段 |
-| [tcl](#tcl) | 2 | 分段 |
 | [tcsh](#tcsh) | 1 | rlRun |
-| [texinfo](#texinfo) | 2 | 分段 |
 | [time](#time) | 1 | rlRun |
 | [tmux](#tmux) | 180 | rlRun |
 | [tzdata](#tzdata) | 3 | rlRun |
-| [uid_wrapper](#uid_wrapper) | 2 | 分段 |
-| [unbound](#unbound) | 2 | 分段 |
 | [unzip](#unzip) | 4 | rlRun |
 | [util-linux](#utillinux) | 31 | rlRun |
 | [vim](#vim) | 1 | rlRun |
@@ -209,8 +154,6 @@
 | [wget](#wget) | 15 | 分段 |
 | [wget2](#wget2) | 15 | 分段 |
 | [which](#which) | 1 | rlRun |
-| [xmlto](#xmlto) | 2 | 分段 |
-| [xxhash](#xxhash) | 2 | 分段 |
 | [xz](#xz) | 31 | rlRun |
 | [zstd](#zstd) | 13 | rlRun |
 
@@ -315,18 +258,6 @@
 
 ---
 
-## atf
-
-<details>
-<summary><b>atf — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## attr
 
 <details>
@@ -375,30 +306,6 @@
 <summary><b>authselect — 1 个测试点</b></summary>
 
 - 锟斤拷取 authselect 锟芥本
-
-</details>
-
----
-
-## autoconf
-
-<details>
-<summary><b>autoconf — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## automake
-
-<details>
-<summary><b>automake — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -468,30 +375,6 @@
 
 ---
 
-## bison
-
-<details>
-<summary><b>bison — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## boost
-
-<details>
-<summary><b>boost — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## brotli
 
 <details>
@@ -545,18 +428,6 @@
 <summary><b>chkconfig — 1 个测试点</b></summary>
 
 - 获取 chkconfig 版本信息
-
-</details>
-
----
-
-## chrpath
-
-<details>
-<summary><b>chrpath — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -629,30 +500,6 @@
 - 测试 4: ctest and cpack
 - 测试 5: Error handling
 - 测试 6: CMake version and help
-
-</details>
-
----
-
-## cmocka
-
-<details>
-<summary><b>cmocka — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## config
-
-<details>
-<summary><b>config — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -999,18 +846,6 @@
 
 ---
 
-## dejagnu
-
-<details>
-<summary><b>dejagnu — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## diffutils
 
 <details>
@@ -1046,18 +881,6 @@
 
 ---
 
-## dos2unix
-
-<details>
-<summary><b>dos2unix — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## dwz
 
 <details>
@@ -1077,18 +900,6 @@
 <summary><b>e2fsprogs — 1 个测试点</b></summary>
 
 - 基本安装验证: e2fsprogs
-
-</details>
-
----
-
-## ed
-
-<details>
-<summary><b>ed — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -1146,30 +957,6 @@
 
 ---
 
-## expect
-
-<details>
-<summary><b>expect — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## fdupes
-
-<details>
-<summary><b>fdupes — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## file
 
 <details>
@@ -1213,18 +1000,6 @@
 - xargs: 基本用法
 - xargs -n1: 每次一个参数
 - find: 无效路径
-
-</details>
-
----
-
-## flex
-
-<details>
-<summary><b>flex — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -1317,30 +1092,6 @@
 
 ---
 
-## gdb
-
-<details>
-<summary><b>gdb — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## gdbm
-
-<details>
-<summary><b>gdbm — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## git
 
 <details>
@@ -1413,30 +1164,6 @@
 
 ---
 
-## gobject-introspection
-
-<details>
-<summary><b>gobject-introspection — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## gpm
-
-<details>
-<summary><b>gpm — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## grep
 
 <details>
@@ -1492,45 +1219,6 @@
 
 ---
 
-## groff
-
-<details>
-<summary><b>groff — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## gxx
-
-<details>
-<summary><b>gxx — 17 个测试点</b></summary>
-
-- g++ version info
-- Compile hello.cpp
-- Run compiled binary
-- Output is ELF binary
-- g++ -c: compile only
-- Object file exists
-- Optimization -$lvl
-- Debug symbols
-- -Wall warnings
-- -Wextra warnings
-- g++ -E: preprocess
-- Link from object
-- g++ -shared: shared library
-- g++ -I: include path
-- c++ alias works
-- Compilation error
-- Invalid option
-
-</details>
-
----
-
 ## gzip
 
 <details>
@@ -1570,18 +1258,6 @@
 
 ---
 
-## help2man
-
-<details>
-<summary><b>help2man — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## icu4c
 
 <details>
@@ -1599,18 +1275,6 @@
 <summary><b>iproute2 — 1 个测试点</b></summary>
 
 - 基本安装验证: iproute2
-
-</details>
-
----
-
-## iptables
-
-<details>
-<summary><b>iptables — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -1722,18 +1386,6 @@
 <summary><b>krb5 — 1 个测试点</b></summary>
 
 - 基本安装验证: krb5
-
-</details>
-
----
-
-## kyua
-
-<details>
-<summary><b>kyua — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -1915,18 +1567,6 @@
 
 ---
 
-## libmicrohttpd
-
-<details>
-<summary><b>libmicrohttpd — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## libmnl
 
 <details>
@@ -1982,18 +1622,6 @@
 
 - ldconfig 查找库文件
 - 检查包已安装
-
-</details>
-
----
-
-## libpcap
-
-<details>
-<summary><b>libpcap — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -2070,30 +1698,6 @@
 
 ---
 
-## libsodium
-
-<details>
-<summary><b>libsodium — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## libssh
-
-<details>
-<summary><b>libssh — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## libtasn1
 
 <details>
@@ -2114,18 +1718,6 @@
 
 - ldconfig 查找库文件
 - 检查包已安装
-
-</details>
-
----
-
-## libtool
-
-<details>
-<summary><b>libtool — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -2205,18 +1797,6 @@
 
 ---
 
-## lutok
-
-<details>
-<summary><b>lutok — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## lvm2
 
 <details>
@@ -2237,18 +1817,6 @@
 - 锟斤拷取 lz4c 锟芥本锟斤拷息
 - 锟斤拷取 lz4cat 锟芥本锟斤拷息
 - 锟斤拷取 unlz4 锟芥本锟斤拷息
-
-</details>
-
----
-
-## lzip
-
-<details>
-<summary><b>lzip — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -2282,18 +1850,6 @@
 - gmake is GNU Make
 - make -k: continue on error
 - make -i: ignore errors
-
-</details>
-
----
-
-## meson
-
-<details>
-<summary><b>meson — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -2380,18 +1936,6 @@
 
 ---
 
-## nfs-utils
-
-<details>
-<summary><b>nfs-utils — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## nghttp2
 
 <details>
@@ -2399,42 +1943,6 @@
 
 - ldconfig 查找库文件
 - 检查包已安装
-
-</details>
-
----
-
-## ninja
-
-<details>
-<summary><b>ninja — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## nss
-
-<details>
-<summary><b>nss — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## nss_wrapper
-
-<details>
-<summary><b>nss_wrapper — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -2534,18 +2042,6 @@
 
 ---
 
-## pam_wrapper
-
-<details>
-<summary><b>pam_wrapper — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## patch
 
 <details>
@@ -2598,42 +2094,6 @@
 <summary><b>perl — 1 个测试点</b></summary>
 
 - 锟斤拷取 perl 锟芥本
-
-</details>
-
----
-
-## perl-Error
-
-<details>
-<summary><b>perl-Error — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## perl-Locale-gettext
-
-<details>
-<summary><b>perl-Locale-gettext — 2 个测试点</b></summary>
-
-- 测试 Locale::gettext 模块安装
-- 检查包已安装
-
-</details>
-
----
-
-## perl-rpm-packaging
-
-<details>
-<summary><b>perl-rpm-packaging — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -2803,18 +2263,6 @@
 
 ---
 
-## python-flit-core
-
-<details>
-<summary><b>python-flit-core — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## python-lxml
 
 <details>
@@ -2849,30 +2297,6 @@
 
 ---
 
-## python-pyelftools
-
-<details>
-<summary><b>python-pyelftools — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## python-rpm-generators
-
-<details>
-<summary><b>python-rpm-generators — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## python-rpm-macros
 
 <details>
@@ -2884,48 +2308,12 @@
 
 ---
 
-## python-setuptools
-
-<details>
-<summary><b>python-setuptools — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## python-srpm-macros
 
 <details>
 <summary><b>python-srpm-macros — 1 个测试点</b></summary>
 
 - 锟叫筹拷锟斤拷锟侥硷拷
-
-</details>
-
----
-
-## python-wheel
-
-<details>
-<summary><b>python-wheel — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## re2c
-
-<details>
-<summary><b>re2c — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -2980,30 +2368,6 @@
 - 测试 7: RPM build options
 - 测试 8: Error handling
 - 测试 9: RPM verification
-
-</details>
-
----
-
-## rsync
-
-<details>
-<summary><b>rsync — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## scdoc
-
-<details>
-<summary><b>scdoc — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -3075,30 +2439,6 @@
 
 ---
 
-## socket_wrapper
-
-<details>
-<summary><b>socket_wrapper — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## source-highlight
-
-<details>
-<summary><b>source-highlight — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## sqlite
 
 <details>
@@ -3106,18 +2446,6 @@
 
 - 锟斤拷取 sqldiff 锟芥本锟斤拷息
 - 锟斤拷取 sqlite3 锟芥本锟斤拷息
-
-</details>
-
----
-
-## swig
-
-<details>
-<summary><b>swig — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -3270,18 +2598,6 @@
 
 ---
 
-## systemtap
-
-<details>
-<summary><b>systemtap — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## tar
 
 <details>
@@ -3302,36 +2618,12 @@
 
 ---
 
-## tcl
-
-<details>
-<summary><b>tcl — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## tcsh
 
 <details>
 <summary><b>tcsh — 1 个测试点</b></summary>
 
 - 锟斤拷取 tcsh 锟芥本锟斤拷息
-
-</details>
-
----
-
-## texinfo
-
-<details>
-<summary><b>texinfo — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
@@ -3551,30 +2843,6 @@
 
 ---
 
-## uid_wrapper
-
-<details>
-<summary><b>uid_wrapper — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## unbound
-
-<details>
-<summary><b>unbound — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
 ## unzip
 
 <details>
@@ -3716,30 +2984,6 @@
 <summary><b>which — 1 个测试点</b></summary>
 
 - 锟斤拷取 which 锟芥本锟斤拷息
-
-</details>
-
----
-
-## xmlto
-
-<details>
-<summary><b>xmlto — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
-
-</details>
-
----
-
-## xxhash
-
-<details>
-<summary><b>xxhash — 2 个测试点</b></summary>
-
-- 测试 1: 库包验证
-- 测试 2: 文件验证
 
 </details>
 
