@@ -40,14 +40,17 @@ openruyi-autotest/
 
 > 📋 详细测试覆盖请查看：[docs/functional-coverage.md](docs/functional-coverage.md)
 
-### 测试统计
+### 用例数量统计
 
-| 类别 | 软件包数 | 用例数 |
-|------|:---:|:---:|
-| rlRun 结构化测试 | 123 | 1,319 |
-| 测试分段模式 | 65 | 226 |
-| 简单检查 | 16 | 16 |
-| **总计** | **204** | **1,561** |
+| 测试类型 | 测试套数量 | 测试用例数量 | 最新测试结果 |
+|---------|:------:|:----:|:----:|
+| Smoke | 1 | 1 | PASS:0 FAIL:0 SKIP:1 |
+| Functional | 204 | 1,561 | PASS:147 FAIL:0 SKIP:57 |
+| Compatibility | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
+| Security | 1 | 4 | PASS:0 FAIL:0 SKIP:1 |
+| Performance | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
+| Reliability | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
+| **合计** | **209** | **1,581** | **PASS:147 FAIL:0 SKIP:62** |
 
 ### 主要覆盖分类
 
@@ -364,20 +367,6 @@ tier: 0
 | **0** | 每次提交 / PR | 冒烟测试 |
 | **1** | 每日构建 | 功能测试 + 安全测试 |
 | **2** | 发布前验证 | 兼容性 + 性能 + 可靠性 + 集成测试 |
-
-## 用例数量统计
-
-> 每次新增测试脚本后需同步更新此表格。
-
-| 测试类型 | 测试套数量 | 测试用例数量 | 最新测试结果 |
-|---------|:------:|:----:|:----:|
-| Smoke | 1 | 1 | PASS:0 FAIL:0 SKIP:1 |
-| Functional | 204 | 1,561 | PASS:147 FAIL:0 SKIP:57 |
-| Compatibility | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
-| Security | 1 | 4 | PASS:0 FAIL:0 SKIP:1 |
-| Performance | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
-| Reliability | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
-| **合计** | **209** | **1,581** | **PASS:147 FAIL:0 SKIP:62** |
 
 ## 参考资源
 
