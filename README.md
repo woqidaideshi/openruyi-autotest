@@ -34,8 +34,11 @@ openruyi-autotest/
 
 本项目包含 **147 个软件包**的功能测试脚本，覆盖 openRuyi 系统的核心软件包，全部已在服务器验证通过。
 
-- **rlRun 模式**（123 个包）：使用结构化测试框架，共 **1,292** 个测试用例
-- **测试分段模式**（24 个包）：使用 `=== Test N ===` 分段或简单检查，共 **132** 个测试段
+- **rlRun 模式**（121 个包）：使用结构化测试框架，按测试用例分组
+- **测试分段模式**（10 个包）：使用 `=== Test N ===` 分段
+- **简单检查模式**（16 个包）：基本安装验证
+
+共 **476 个测试用例 / 1,499 个功能点**
 
 > 📋 详细测试覆盖请查看：[docs/functional-coverage.md](docs/functional-coverage.md)
 
@@ -44,12 +47,12 @@ openruyi-autotest/
 | 测试类型 | 测试套数量 | 测试用例数量 | 最新测试结果 |
 |---------|:------:|:----:|:----:|
 | Smoke | 1 | 1 | PASS:0 FAIL:0 SKIP:1 |
-| Functional | 147 | 1,424 | PASS:147 FAIL:0 SKIP:0 |
+| Functional | 147 | 1,499 | PASS:147 FAIL:0 SKIP:0 |
 | Compatibility | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
 | Security | 1 | 4 | PASS:0 FAIL:0 SKIP:1 |
 | Performance | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
 | Reliability | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
-| **合计** | **152** | **1,444** | **PASS:147 FAIL:0 SKIP:5** |
+| **合计** | **152** | **1,519** | **PASS:147 FAIL:0 SKIP:5** |
 
 ### 主要覆盖分类
 
