@@ -164,7 +164,7 @@
 <details>
 <summary><b>acl — 10 个用例 / 81 个功能点</b></summary>
 
-#### 测试 1: getfacl 基本功能
+#### test_acl_getfacl_basic
 
 - 查看文件默认 ACL
 - 查看目录默认 ACL
@@ -174,7 +174,7 @@
 - 使用 -n 参数显示数字 ID
 - 使用 -t 参数表格输出
 
-#### 测试 2: setfacl 基本功能
+#### test_acl_setfacl_basic
 
 - 设置用户 root 的 rwx 权限
 - 验证 ACL 设置
@@ -187,7 +187,7 @@
 - 使用 -n 参数不重新计算 mask
 - 验证 ACL 设置
 
-#### 测试 3: setfacl 高级功能
+#### test_acl_setfacl_advanced
 
 - 为目录设置 default user ACL
 - 验证 default ACL 设置
@@ -203,7 +203,7 @@
 - 从文件读取并应用 ACL
 - 验证从文件应用的 ACL
 
-#### 测试 4: setfacl 删除功能
+#### test_acl_setfacl_remove
 
 - 删除用户 root 的 ACL 条目
 - 验证 ACL 删除
@@ -218,7 +218,7 @@
 - 从文件读取并删除 ACL
 - 验证从文件删除的 ACL
 
-#### 测试 5: setfacl 递归功能
+#### test_acl_setfacl_recursive
 
 - 创建多层子目录
 - 创建测试文件
@@ -229,14 +229,14 @@
 - 验证递归删除 - file1
 - 验证递归删除 - file2
 
-#### 测试 6: setfacl 符号链接处理
+#### test_acl_setfacl_symlink
 
 - 创建符号链接
 - 使用 -L 跟随符号链接设置 ACL
 - 验证符号链接目标文件的 ACL
 - 使用 -P 不跟随符号链接
 
-#### 测试 7: chacl 命令功能
+#### test_acl_chacl
 
 - 先清理 ACL
 - 使用 chacl 查看 ACL
@@ -249,7 +249,7 @@
 - 使用 chacl -b 同时设置
 - 验证 chacl -b 设置
 
-#### 测试 8: ACL 继承测试
+#### test_acl_inheritance
 
 - 设置目录 default ACL
 - 在目录中创建新文件
@@ -257,14 +257,14 @@
 - 在目录中创建子目录
 - 验证子目录继承了 default ACL
 
-#### 测试 9: ACL 权限验证
+#### test_acl_permission_verify
 
 - 设置完整权限
 - 验证权限设置
 - 设置 mask 限制有效权限
 - 验证 mask 限制后的有效权限
 
-#### 测试 11: 特殊场景
+#### test_acl_special_cases
 
 - 设置多个用户和组 ACL
 - 验证多个 ACL 条目
@@ -284,7 +284,7 @@
 <details>
 <summary><b>attr — 1 个用例 / 6 个功能点</b></summary>
 
-#### 主要功能点
+#### test_attr_main
 
 - 获取 attr 版本信息
 - 获取 getfattr 版本信息
@@ -302,7 +302,7 @@
 <details>
 <summary><b>audit — 2 个用例 / 15 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_audit_version_help
 
 - auditctl 版本信息
 - auditctl 帮助信息
@@ -319,7 +319,7 @@
 - augenrules 版本信息
 - augenrules 帮助信息
 
-#### 测试 2: 错误处理
+#### test_audit_error_handling
 
 - auditctl: 无效选项
 
@@ -332,7 +332,7 @@
 <details>
 <summary><b>authselect — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_authselect_main
 
 - 锟斤拷取 authselect 锟芥本
 
@@ -345,31 +345,31 @@
 <details>
 <summary><b>bash — 7 个用例 / 7 个功能点</b></summary>
 
-#### 测试 1: 基本脚本执行
+#### test_bash_basic_script
 
 - bash 执行脚本
 
-#### 测试 2: 变量和循环
+#### test_bash_variables_loops
 
 - bash -c: for循环
 
-#### 测试 3: 条件判断
+#### test_bash_conditionals
 
 - bash: if条件
 
-#### 测试 4: 函数
+#### test_bash_functions
 
 - bash: 函数定义调用
 
-#### 测试 5: 管道和重定向
+#### test_bash_pipe_redirect
 
 - bash: 管道
 
-#### 测试 6: bashbug
+#### test_bash_bashbug
 
 - bashbug 帮助
 
-#### 测试 7: 错误处理
+#### test_bash_error_handling
 
 - bash: 错误退出
 
@@ -382,7 +382,7 @@
 <details>
 <summary><b>bash-completion — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_bash_completion_main
 
 - 锟叫筹拷锟斤拷锟侥硷拷
 
@@ -395,7 +395,7 @@
 <details>
 <summary><b>bc — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_bc_main
 
 - 锟斤拷取 bc 锟芥本锟斤拷息
 - 锟斤拷取 dc 锟芥本锟斤拷息
@@ -409,7 +409,7 @@
 <details>
 <summary><b>beakerlib — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_beakerlib_basic_check
 
 - 检查 beakerlib 已安装
 
@@ -422,7 +422,7 @@
 <details>
 <summary><b>binutils — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_binutils_basic_check
 
 - 检查 binutils 已安装
 
@@ -435,7 +435,7 @@
 <details>
 <summary><b>brotli — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_brotli_main
 
 - 锟斤拷取 brotli 锟芥本锟斤拷息
 
@@ -448,7 +448,7 @@
 <details>
 <summary><b>bzip2 — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_bzip2_main
 
 - 锟斤拷取 bzip2 锟芥本
 
@@ -461,12 +461,12 @@
 <details>
 <summary><b>ca-certificates — 2 个用例 / 3 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_ca_certificates_version_help
 
 - update-ca-trust 版本信息
 - update-ca-trust 帮助信息
 
-#### 测试 2: 错误处理
+#### test_ca_certificates_error_handling
 
 - update-ca-trust: 无效选项
 
@@ -479,7 +479,7 @@
 <details>
 <summary><b>ca-certificates-mozilla — 1 个用例 / 2 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_ca_certificates_mozilla_version_help
 
 - 列出包文件
 - 库文件检查
@@ -493,7 +493,7 @@
 <details>
 <summary><b>chkconfig — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_chkconfig_main
 
 - 获取 chkconfig 版本信息
 
@@ -506,72 +506,72 @@
 <details>
 <summary><b>clang — 15 个用例 / 25 个功能点</b></summary>
 
-#### 测试 1: Basic C compilation
+#### test_clang_basic_c_compilation
 
 - Compile hello.c
 - Run compiled binary
 - Output is ELF binary
 
-#### 测试 2: Basic C++ compilation
+#### test_clang_basic_c_compilation
 
 - Compile C++ from hello.c
 - Run C++ binary
 
-#### 测试 3: Compile-only
+#### test_clang_compileonly
 
 - clang -c: compile only
 - Object file exists
 
-#### 测试 4: Optimization levels
+#### test_clang_optimization_levels
 
 - Optimization -$lvl
 
-#### 测试 5: Debug and warnings
+#### test_clang_debug_and_warnings
 
 - Debug symbols
 - -Wall warnings
 - -Wextra warnings
 - -Werror
 
-#### 测试 6: C standards
+#### test_clang_c_standards
 
 - C standard: $std
 
-#### 测试 7: C++ standards
+#### test_clang_c_standards
 
 - C++ standard: $std
 
-#### 测试 8: Preprocessor
+#### test_clang_preprocessor
 
 - clang -E: preprocess
 - clang -dM: dump macros
 
-#### 测试 9: Static analysis
+#### test_clang_static_analysis
 
 - clang --analyze: static analysis
 
-#### 测试 10: clang-cl (MSVC compat)
+#### test_clang_clangcl_msvc_compat
 
 - clang-cl help
 
-#### 测试 11: clang-cpp
+#### test_clang_clangcpp
 
 - clang-cpp: preprocessor
 
-#### 测试 12: clang-scan-deps
+#### test_clang_clangscandeps
 
 - clang-scan-deps help
 
-#### 测试 13: Linking options
+#### test_clang_linking_options
 
 - Compile with -fPIC
 - clang -shared: shared library
 
-#### 测试 14: Verbose mode
+#### test_clang_verbose_mode
 
 - clang -v: verbose
 
-#### 测试 15: Error handling
+#### test_clang_error_handling
 
 - Compilation error
 - Invalid option
@@ -585,29 +585,29 @@
 <details>
 <summary><b>cloud-utils-growpart — 6 个用例 / 10 个功能点</b></summary>
 
-#### 测试 1: Help and version
+#### test_cloud_utils_growpart_help_and_version
 
 - growpart help
 - growpart -h: short help
 
-#### 测试 2: Disk/partition info
+#### test_cloud_utils_growpart_diskpartition_info
 
 - lsblk: list block devices
 - df: disk free space
 
-#### 测试 3: Dry-run (no actual resize)
+#### test_cloud_utils_growpart_dryrun_no_actual_resize
 
 - growpart -N: dry run
 
-#### 测试 4: Free percent option
+#### test_cloud_utils_growpart_free_percent_option
 
 - growpart: has free-percent option
 
-#### 测试 5: Fudge factor option
+#### test_cloud_utils_growpart_fudge_factor_option
 
 - growpart: has fudge option
 
-#### 测试 6: Error handling
+#### test_cloud_utils_growpart_error_handling
 
 - growpart: no args (expected fail)
 - growpart: nonexistent disk
@@ -622,29 +622,29 @@
 <details>
 <summary><b>cmake — 6 个用例 / 6 个功能点</b></summary>
 
-#### 测试 1: Basic CMake project
+#### test_cmake_basic_cmake_project
 
 - include <stdio.h>
 
-#### 测试 2: CMake configure
+#### test_cmake_cmake_configure
 
-- 测试 2: CMake configure
+- test_cmake_cmake_configure
 
-#### 测试 3: CMake -E mode
+#### test_cmake_cmake_e_mode
 
-- 测试 3: CMake -E mode
+- test_cmake_cmake_e_mode
 
-#### 测试 4: ctest and cpack
+#### test_cmake_ctest_and_cpack
 
-- 测试 4: ctest and cpack
+- test_cmake_ctest_and_cpack
 
-#### 测试 5: Error handling
+#### test_cmake_error_handling
 
-- 测试 5: Error handling
+- test_cmake_error_handling
 
-#### 测试 6: CMake version and help
+#### test_cmake_cmake_version_and_help
 
-- 测试 6: CMake version and help
+- test_cmake_cmake_version_and_help
 
 </details>
 
@@ -655,7 +655,7 @@
 <details>
 <summary><b>coreutils — 24 个用例 / 234 个功能点</b></summary>
 
-#### 测试 1: File creation and listing (echo, cat, ls, dir, vdir)
+#### test_coreutils_file_creation_and_listing_echo_cat_ls_dir_vdir
 
 - echo create file
 - echo append
@@ -673,7 +673,7 @@
 - dir list directory
 - vdir long format list
 
-#### 测试 2: Copy, move, remove (cp, mv, rm, rmdir)
+#### test_coreutils_copy_move_remove_cp_mv_rm_rmdir
 
 - cp copy file
 - cp: verify copy exists
@@ -694,7 +694,7 @@
 - rmdir remove empty directory
 - rmdir: directory removed
 
-#### 测试 3: Directory, file creation, temp files (mkdir, touch, mktemp)
+#### test_coreutils_directory_file_creation_temp_files_mkdir_touch_mktemp
 
 - mkdir -p nested directories
 - mkdir -p: verify nested dir
@@ -704,7 +704,7 @@
 - touch -t set timestamp
 - touch -a access time only
 
-#### 测试 4: Links and path resolution (ln, link, unlink, readlink, realpath)
+#### test_coreutils_links_and_path_resolution_ln_link_unlink_readlink_realpath
 
 - Create link source
 - ln create hard link
@@ -722,7 +722,7 @@
 - readlink -f canonicalize
 - realpath canonical path
 
-#### 测试 5: File viewing (head, tail, tac, nl)
+#### test_coreutils_file_viewing_head_tail_tac_nl
 
 - head -n 5: first 5 lines
 - head -n 3: verify count
@@ -735,7 +735,7 @@
 - tac: first becomes last
 - nl number lines
 
-#### 测试 6: Counting and statistics (wc, du, df, stat)
+#### test_coreutils_counting_and_statistics_wc_du_df_stat
 
 - wc -l line count
 - wc -l: 20 lines
@@ -750,7 +750,7 @@
 - stat -c format output
 - stat -f filesystem status
 
-#### 测试 7: Text processing I (sort, uniq, cut, tr)
+#### test_coreutils_text_processing_i_sort_uniq_cut_tr
 
 - sort alphabetically
 - sort: first is apple
@@ -770,7 +770,7 @@
 - tr -d delete characters
 - tr -s squeeze repeats
 
-#### 测试 8: Text processing II (paste, comm, join, fmt, fold, pr, expand, unexpand)
+#### test_coreutils_text_processing_ii_paste_comm_join_fmt_fold_pr_expand_unexpand
 
 - paste merge files side by side
 - paste -d: custom delimiter
@@ -785,14 +785,14 @@
 - expand tabs to spaces
 - unexpand -a spaces to tabs
 
-#### 测试 9: Octal dump (od)
+#### test_coreutils_octal_dump_od
 
 - od octal dump
 - od -c character dump
 - od -x hex dump
 - od -A x hex address
 
-#### 测试 10: Path operations (basename, dirname, pwd)
+#### test_coreutils_path_operations_basename_dirname_pwd
 
 - basename extract filename
 - basename strip suffix
@@ -800,7 +800,7 @@
 - dirname path extraction
 - pwd print working directory
 
-#### 测试 11: Permissions and ownership (chmod, chown, chgrp)
+#### test_coreutils_permissions_and_ownership_chmod_chown_chgrp
 
 - Create permission test file
 - chmod u+x add exec
@@ -813,13 +813,13 @@
 - chown to self
 - chgrp version check
 
-#### 测试 12: Redirection (tee)
+#### test_coreutils_redirection_tee
 
 - tee write to file
 - tee: verify output
 - tee -a append mode
 
-#### 测试 13: Checksums (cksum, md5sum, sha1sum, sha224sum, sha384sum, sha512sum, sha256sum, b2sum, sum)
+#### test_coreutils_checksums_cksum_md5sum_sha1sum_sha224sum_sha384sum_sha512sum_sha256sum_b2sum_sum
 
 - cksum CRC checksum
 - md5sum compute
@@ -837,7 +837,7 @@
 - b2sum BLAKE2 checksum
 - sum BSD checksum
 
-#### 测试 14: Encoding (base32, base64, basenc)
+#### test_coreutils_encoding_base32_base64_basenc
 
 - base32 encode
 - base32 -d decode
@@ -845,7 +845,7 @@
 - base64 -d decode
 - basenc --base64 encode
 
-#### 测试 15: System information (uname, who, whoami, id, groups, users, hostid, nproc, tty, logname, pinky)
+#### test_coreutils_system_information_uname_who_whoami_id_groups_users_hostid_nproc_tty_logname_pinky
 
 - uname system name
 - uname -a all info
@@ -866,7 +866,7 @@
 - logname login name
 - pinky user info
 
-#### 测试 16: Boolean and condition (true, false, test, [)
+#### test_coreutils_boolean_and_condition_true_false_test
 
 - true returns success
 - false returns failure
@@ -877,7 +877,7 @@
 - [ -f: file exists
 - [ string equality
 
-#### 测试 17: Environment and time (env, printenv, date, printf)
+#### test_coreutils_environment_and_time_env_printenv_date_printf
 
 - env show environment
 - env set variable for command
@@ -888,7 +888,7 @@
 - printf formatted output
 - printf string output
 
-#### 测试 18: Flow control (sleep, timeout, yes)
+#### test_coreutils_flow_control_sleep_timeout_yes
 
 - sleep delay
 - timeout: command finishes in time
@@ -897,13 +897,13 @@
 - yes repeated output
 - yes custom string
 
-#### 测试 19: Process control (nice, nohup, stdbuf)
+#### test_coreutils_process_control_nice_nohup_stdbuf
 
 - nice adjust priority
 - nohup run command
 - stdbuf line buffered output
 
-#### 测试 20: File operations (dd, truncate, shred, sync, install, chroot)
+#### test_coreutils_file_operations_dd_truncate_shred_sync_install_chroot
 
 - dd copy file
 - truncate set size
@@ -921,7 +921,7 @@
 - mkfifo: verify pipe created
 - mknod version check
 
-#### 测试 21: Numbers and expressions (seq, factor, shuf, numfmt, expr)
+#### test_coreutils_numbers_and_expressions_seq_factor_shuf_numfmt_expr
 
 - seq generate sequence
 - seq: 5 numbers
@@ -937,13 +937,13 @@
 - expr multiplication
 - expr string length
 
-#### 测试 22: Split files (split, csplit)
+#### test_coreutils_split_files_split_csplit
 
 - split by lines
 - split: multiple output files
 - csplit split by pattern
 
-#### 测试 23: Special utilities (stty, pathchk, tsort, ptx, dircolors)
+#### test_coreutils_special_utilities_stty_pathchk_tsort_ptx_dircolors
 
 - stty -a show all terminal settings
 - pathchk validate path
@@ -953,7 +953,7 @@
 - dircolors -p print database
 - dircolors output LS_COLORS
 
-#### 测试 24: Error handling
+#### test_coreutils_error_handling
 
 - cp: error on nonexistent source
 - ls: error on nonexistent file
@@ -970,7 +970,7 @@
 <details>
 <summary><b>cpio — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_cpio_main
 
 - 锟斤拷取 cpio 锟芥本锟斤拷息
 
@@ -983,7 +983,7 @@
 <details>
 <summary><b>cracklib — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_cracklib_basic_check
 
 - 检查 cracklib 已安装
 
@@ -996,12 +996,12 @@
 <details>
 <summary><b>cryptsetup — 2 个用例 / 3 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_cryptsetup_version_help
 
 - cryptsetup 版本信息
 - cryptsetup 帮助信息
 
-#### 测试 2: 错误处理
+#### test_cryptsetup_error_handling
 
 - cryptsetup: 无效选项
 
@@ -1014,32 +1014,32 @@
 <details>
 <summary><b>curl — 6 个用例 / 11 个功能点</b></summary>
 
-#### 测试 1: 基本下载
+#### test_curl_basic_download
 
 - curl 下载示例页面
 - curl -I: 仅获取响应头
 
-#### 测试 2: 输出选项
+#### test_curl_output_options
 
 - curl -o: 输出到文件
 - curl -O: 远程文件名
 
-#### 测试 3: 详细模式和静默模式
+#### test_curl_verbose_mode
 
 - curl -v: 详细模式
 - curl -s: 静默模式
 
-#### 测试 4: 其他选项
+#### test_curl_basic
 
 - curl -L: 跟随重定向
 - curl -k: 忽略SSL证书
 - curl --connect-timeout: 连接超时
 
-#### 测试 5: wcurl
+#### test_curl_wcurl
 
 - wcurl 帮助
 
-#### 测试 6: 错误处理
+#### test_curl_error_handling
 
 - curl: 无效选项
 
@@ -1052,7 +1052,7 @@
 <details>
 <summary><b>dbus — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_dbus_main
 
 - 锟斤拷取 dbus-launch 锟芥本
 
@@ -1065,7 +1065,7 @@
 <details>
 <summary><b>dbus-broker — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_dbus_broker_main
 
 - 锟斤拷取 dbus-broker 锟芥本锟斤拷息
 
@@ -1078,14 +1078,14 @@
 <details>
 <summary><b>debugedit — 2 个用例 / 5 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_debugedit_version_help
 
 - debugedit 版本信息
 - debugedit 帮助信息
 - debugedit-classify-ar 版本信息
 - debugedit-classify-ar 帮助信息
 
-#### 测试 2: 错误处理
+#### test_debugedit_error_handling
 
 - debugedit: 无效选项
 
@@ -1098,7 +1098,7 @@
 <details>
 <summary><b>diffutils — 1 个用例 / 4 个功能点</b></summary>
 
-#### 主要功能点
+#### test_diffutils_main
 
 - 锟斤拷取 cmp 锟芥本锟斤拷息
 - 锟斤拷取 diff 锟芥本锟斤拷息
@@ -1114,44 +1114,44 @@
 <details>
 <summary><b>dnf5-plugins — 10 个用例 / 11 个功能点</b></summary>
 
-#### 测试 1: dnf5 version
+#### test_dnf5_plugins_dnf5_version
 
 - dnf5 version
 
-#### 测试 2: dnf5 help
+#### test_dnf5_plugins_dnf5_help
 
 - dnf5 help
 
-#### 测试 3: List installed plugins
+#### test_dnf5_plugins_list_installed_plugins
 
 - Plugin files
 - Plugin directory
 
-#### 测试 4: Available plugins
+#### test_dnf5_plugins_available_plugins
 
 - Check plugin: $plugin
 
-#### 测试 5: Commands with plugins
+#### test_dnf5_plugins_commands_with_plugins
 
 - Plugin commands in help
 
-#### 测试 6: dnf5 repoquery
+#### test_dnf5_plugins_dnf5_repoquery
 
 - dnf5 repoquery help
 
-#### 测试 7: dnf5 repolist
+#### test_dnf5_plugins_dnf5_repolist
 
 - dnf5 repolist
 
-#### 测试 8: dnf5 list
+#### test_dnf5_plugins_dnf5_list
 
 - dnf5 list installed
 
-#### 测试 9: dnf5 info
+#### test_dnf5_plugins_dnf5_info
 
 - dnf5 info
 
-#### 测试 10: Error handling
+#### test_dnf5_plugins_error_handling
 
 - dnf5: invalid option
 
@@ -1164,12 +1164,12 @@
 <details>
 <summary><b>dwz — 2 个用例 / 3 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_dwz_version_help
 
 - dwz 版本信息
 - dwz 帮助信息
 
-#### 测试 2: 错误处理
+#### test_dwz_error_handling
 
 - dwz: 无效选项
 
@@ -1182,7 +1182,7 @@
 <details>
 <summary><b>e2fsprogs — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_e2fsprogs_basic_check
 
 - 检查 e2fsprogs 已安装
 
@@ -1195,7 +1195,7 @@
 <details>
 <summary><b>elfutils — 2 个用例 / 31 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_elfutils_version_help
 
 - eu-addr2line 版本信息
 - eu-addr2line 帮助信息
@@ -1228,7 +1228,7 @@
 - eu-stack 版本信息
 - eu-stack 帮助信息
 
-#### 测试 2: 错误处理
+#### test_elfutils_error_handling
 
 - eu-addr2line: 无效选项
 
@@ -1241,7 +1241,7 @@
 <details>
 <summary><b>expat — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_expat_main
 
 - 锟斤拷取 xmlwf 锟芥本锟斤拷息
 
@@ -1254,7 +1254,7 @@
 <details>
 <summary><b>file — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_file_main
 
 - 锟斤拷取 file 锟芥本锟斤拷息
 
@@ -1267,7 +1267,7 @@
 <details>
 <summary><b>filesystem — 1 个用例 / 2 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_filesystem_version_help
 
 - 列出包文件
 - 库文件检查
@@ -1281,31 +1281,31 @@
 <details>
 <summary><b>findutils — 5 个用例 / 13 个功能点</b></summary>
 
-#### 测试 1: find 基本查找
+#### test_findutils_find
 
 - find -name: 按名称查找
 - find -type f: 查找文件
 - find -type d: 查找目录
 
-#### 测试 2: find 选项
+#### test_findutils_find
 
 - find -maxdepth: 最大深度
 - find -mindepth: 最小深度
 - find -empty: 空文件/目录
 - find -size: 按大小
 
-#### 测试 3: find 执行操作
+#### test_findutils_find
 
 - find -exec: 执行命令
 - find -delete: 删除文件
 - find -delete: 验证删除
 
-#### 测试 4: xargs
+#### test_findutils_xargs
 
 - xargs: 基本用法
 - xargs -n1: 每次一个参数
 
-#### 测试 5: 错误处理
+#### test_findutils_error_handling
 
 - find: 无效路径
 
@@ -1318,7 +1318,7 @@
 <details>
 <summary><b>gawk — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_gawk_main
 
 - 锟斤拷取 awk 锟芥本锟斤拷息
 - 锟斤拷取 gawk 锟芥本锟斤拷息
@@ -1332,7 +1332,7 @@
 <details>
 <summary><b>gcc — 12 个用例 / 52 个功能点</b></summary>
 
-#### 测试 1: Basic C compilation
+#### test_gcc_basic_c_compilation
 
 - Compile hello.c to hello
 - Run compiled hello
@@ -1340,19 +1340,19 @@
 - Compile with -o flag
 - Run myhello
 
-#### 测试 2: C++ compilation
+#### test_gcc_c_compilation
 
 - Compile hello.cpp
 - Compile with C++11 standard
 
-#### 测试 3: Compiler optimization flags
+#### test_gcc_compiler_optimization_flags
 
 - Compile with -O0
 - Compile with -O2
 - Compile with debug symbols -g
 - Verify debug symbols present
 
-#### 测试 4: Preprocessor
+#### test_gcc_preprocessor
 
 - Preprocess with -E
 - Verify macro expanded in preprocessed output
@@ -1361,25 +1361,25 @@
 - Compile with -D flag
 - Run with -D defined macro
 
-#### 测试 5: Assembly output
+#### test_gcc_assembly_output
 
 - Generate assembly with -S
 - Check main label in assembly
 - Assemble to object file
 
-#### 测试 6: Linking and libraries
+#### test_gcc_linking_and_libraries
 
 - Link with -lm
 - Run math linked program
 - Compile static binary
 
-#### 测试 7: Warning flags
+#### test_gcc_warning_flags
 
 - Compile with -Wall warnings enabled
 - Compile with -Werror
 - Compile with -pedantic
 
-#### 测试 8: Multi-file compilation
+#### test_gcc_multifile_compilation
 
 - Compile add.c to object
 - Compile main.c to object
@@ -1388,18 +1388,18 @@
 - Compile multiple files in one command
 - Run single-command multi-file program
 
-#### 测试 9: Code coverage (gcov)
+#### test_gcc_code_coverage_gcov
 
 - Compile with coverage flags
 - Run coverage test program
 - Run gcov
 - Check gcov output file exists
 
-#### 测试 10: Error handling
+#### test_gcc_error_handling
 
 - Test type mismatch warning
 
-#### 测试 11: Special features
+#### test_gcc_special_features
 
 - Compile with C99 standard
 - Compile with __attribute__
@@ -1407,7 +1407,7 @@
 - Compile with -I include path
 - Run include path test
 
-#### 测试 12: GCC toolchain utilities
+#### test_gcc_gcc_toolchain_utilities
 
 - gcc-ar version check
 - gcc-nm version check
@@ -1429,7 +1429,7 @@
 <details>
 <summary><b>gcc16 — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_gcc16_basic_check
 
 - 检查 gcc16 已安装
 
@@ -1442,7 +1442,7 @@
 <details>
 <summary><b>git — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_git_main
 
 - 锟叫筹拷锟斤拷锟侥硷拷
 
@@ -1455,7 +1455,7 @@
 <details>
 <summary><b>glib — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_glib_basic_check
 
 - 检查 glib 已安装
 
@@ -1468,7 +1468,7 @@
 <details>
 <summary><b>glibc — 2 个用例 / 17 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_glibc_version_help
 
 - gencat 版本信息
 - gencat 帮助信息
@@ -1487,7 +1487,7 @@
 - localedef 版本信息
 - localedef 帮助信息
 
-#### 测试 2: 错误处理
+#### test_glibc_error_handling
 
 - gencat: 无效选项
 
@@ -1500,7 +1500,7 @@
 <details>
 <summary><b>gmp — 1 个用例 / 2 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_gmp_version_help
 
 - 列出包文件
 - 库文件检查
@@ -1514,7 +1514,7 @@
 <details>
 <summary><b>gnutls — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_gnutls_basic_check
 
 - 检查 gnutls 已安装
 
@@ -1527,25 +1527,25 @@
 <details>
 <summary><b>grep — 13 个用例 / 44 个功能点</b></summary>
 
-#### 测试 1: Basic pattern matching
+#### test_grep_basic_pattern_matching
 
 - Basic grep for Hello
 - Verify multiple matches
 - Grep from pipe
 - Grep across multiple files
 
-#### 测试 2: Case insensitive (-i)
+#### test_grep_case_insensitive_i
 
 - Case insensitive grep
 - Verify case insensitive matches
 - Case sensitive: lowercase only matches lowercase
 
-#### 测试 3: Invert match (-v)
+#### test_grep_invert_match_v
 
 - Invert match: exclude Hello
 - Verify inverted output contains other lines
 
-#### 测试 4: Word and line matching (-w, -x)
+#### test_grep_word_and_line_matching_w_x
 
 - Create word test file
 - Add line with separate words
@@ -1554,56 +1554,56 @@
 - Add different line
 - Whole line exact match
 
-#### 测试 5: Count and line numbers (-c, -n)
+#### test_grep_count_and_line_numbers_c_n
 
 - Count matches with -c
 - Verify count >= 2
 - Show line numbers with -n
 - Verify line number format
 
-#### 测试 6: Recursive search (-r)
+#### test_grep_recursive_search_r
 
 - Recursive grep in subdirectory
 - Recursive list files with matches
 - Recursive with --include filter
 
-#### 测试 7: Extended regex (-E)
+#### test_grep_extended_regex_e
 
 - Extended regex with alternation
 - Extended regex: digit quantifier
 - Verify digit match count
 - egrep equivalent to grep -E
 
-#### 测试 8: Fixed strings (-F)
+#### test_grep_fixed_strings_f
 
 - Fixed string with special chars
 - Fixed string: no regex meta-char interpretation
 - fgrep equivalent to grep -F
 
-#### 测试 9: Only matching and quiet (-o, -q)
+#### test_grep_only_matching_and_quiet_o_q
 
 - Only matching: digits only
 - Quiet mode: pattern found
 - Quiet mode: pattern not found
 
-#### 测试 10: Context lines (-A, -B, -C)
+#### test_grep_context_lines_a_b_c
 
 - Context: 1 line after match
 - Context: 1 line before match
 - Context: 1 line before and after
 
-#### 测试 11: File listing (-l, -L)
+#### test_grep_file_listing_l_l
 
 - List files with matches
 - List files without matches
 
-#### 测试 12: Multiple patterns (-e, -f)
+#### test_grep_multiple_patterns_e_f
 
 - Multiple patterns with -e
 - Patterns from file with -f
 - Max count: stop after first match
 
-#### 测试 13: Error handling
+#### test_grep_error_handling
 
 - Error on nonexistent file
 - Error on invalid regex
@@ -1619,7 +1619,7 @@
 <details>
 <summary><b>gzip — 2 个用例 / 29 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_gzip_version_help
 
 - gzip 版本信息
 - gzip 帮助信息
@@ -1650,7 +1650,7 @@
 - uncompress 版本信息
 - uncompress 帮助信息
 
-#### 测试 2: 错误处理
+#### test_gzip_error_handling
 
 - gzip: 无效选项
 
@@ -1663,7 +1663,7 @@
 <details>
 <summary><b>icu4c — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_icu4c_basic_check
 
 - 检查 icu4c 已安装
 
@@ -1676,7 +1676,7 @@
 <details>
 <summary><b>iproute2 — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_iproute2_basic_check
 
 - 检查 iproute2 已安装
 
@@ -1689,7 +1689,7 @@
 <details>
 <summary><b>iputils — 10 个用例 / 33 个功能点</b></summary>
 
-#### 测试 1: ping basic functionality
+#### test_iputils_ping_basic_functionality
 
 - Ping localhost
 - Ping with count limit
@@ -1697,7 +1697,7 @@
 - Ping with packet size
 - Ping with timeout
 
-#### 测试 2: ping advanced options
+#### test_iputils_ping_advanced_options
 
 - Ping with flood mode (requires root)
 - Ping with numeric output
@@ -1705,49 +1705,49 @@
 - Ping with verbose output
 - Ping with timestamp
 
-#### 测试 3: ping6 (IPv6)
+#### test_iputils_ping6_ipv6
 
 - Ping6 localhost
 - Ping6 with count
 
-#### 测试 4: traceroute6
+#### test_iputils_traceroute6
 
 - Basic traceroute6 to localhost
 - traceroute6 with max hops
 - traceroute6 with wait time
 
-#### 测试 5: tracepath
+#### test_iputils_tracepath
 
 - Basic tracepath to localhost
 - tracepath with max hops
 - tracepath IPv6
 
-#### 测试 6: arping
+#### test_iputils_arping
 
 - ARP ping to localhost interface
 - arping with count
 - arping with timeout
 
-#### 测试 7: clockdiff
+#### test_iputils_clockdiff
 
 - Clock difference to localhost
 - clockdiff with IPv6
 
-#### 测试 8: ping error handling
+#### test_iputils_ping_error_handling
 
 - Ping unreachable address
 - Ping with invalid address
 - Ping with invalid count
 - Ping with negative count
 
-#### 测试 9: ping special scenarios
+#### test_iputils_ping_special_scenarios
 
 - Ping broadcast address (may require special permissions)
 - Ping with source address
 - Ping with TTL
 - Continuous ping (limited by timeout)
 
-#### 测试 10: Network interface testing
+#### test_iputils_network_interface_testing
 
 - Ping via specific interface
 - Multiple ping instances
@@ -1761,7 +1761,7 @@
 <details>
 <summary><b>isl — 1 个用例 / 2 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_isl_version_help
 
 - 列出包文件
 - 库文件检查
@@ -1775,7 +1775,7 @@
 <details>
 <summary><b>iso-codes — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_iso_codes_main
 
 - 锟叫筹拷锟斤拷锟侥硷拷
 
@@ -1788,7 +1788,7 @@
 <details>
 <summary><b>jitterentropy — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_jitterentropy_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -1802,7 +1802,7 @@
 <details>
 <summary><b>json-c — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_json_c_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -1816,7 +1816,7 @@
 <details>
 <summary><b>kbd — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_kbd_basic_check
 
 - 检查 kbd 已安装
 
@@ -1829,7 +1829,7 @@
 <details>
 <summary><b>keyutils — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_keyutils_basic_check
 
 - 检查 keyutils 已安装
 
@@ -1842,7 +1842,7 @@
 <details>
 <summary><b>kmod — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_kmod_basic_check
 
 - 检查 kmod 已安装
 
@@ -1855,7 +1855,7 @@
 <details>
 <summary><b>krb5 — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_krb5_basic_check
 
 - 检查 krb5 已安装
 
@@ -1868,40 +1868,40 @@
 <details>
 <summary><b>labwc — 9 个用例 / 10 个功能点</b></summary>
 
-#### 测试 1: Help
+#### test_labwc_help
 
 - labwc help
 
-#### 测试 2: Configuration
+#### test_labwc_configuration
 
 - labwc: config options
 
-#### 测试 3: Debug mode
+#### test_labwc_debug_mode
 
 - labwc: debug option
 
-#### 测试 4: Check for display (no DISPLAY)
+#### test_labwc_check_for_display_no_display
 
 - labwc: startup/session options
 
-#### 测试 5: Library check
+#### test_labwc_library_check
 
 - labwc: linked libraries
 
-#### 测试 6: labnag
+#### test_labwc_labnag
 
 - labnag help
 
-#### 测试 7: lab-sensible-terminal
+#### test_labwc_labsensibleterminal
 
 - lab-sensible-terminal help
 
-#### 测试 8: Config dirs
+#### test_labwc_config_dirs
 
 - System config dir
 - Data dir
 
-#### 测试 9: Error handling
+#### test_labwc_error_handling
 
 - labwc: invalid option
 
@@ -1914,7 +1914,7 @@
 <details>
 <summary><b>less — 1 个用例 / 3 个功能点</b></summary>
 
-#### 主要功能点
+#### test_less_main
 
 - 锟斤拷取 less 锟芥本锟斤拷息
 - 锟斤拷取 lessecho 锟芥本锟斤拷息
@@ -1929,7 +1929,7 @@
 <details>
 <summary><b>libaio — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libaio_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -1943,7 +1943,7 @@
 <details>
 <summary><b>libarchive — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libarchive_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -1957,7 +1957,7 @@
 <details>
 <summary><b>libbpf — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libbpf_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -1971,7 +1971,7 @@
 <details>
 <summary><b>libcap — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libcap_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -1985,7 +1985,7 @@
 <details>
 <summary><b>libcap-ng — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libcap_ng_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -1999,7 +1999,7 @@
 <details>
 <summary><b>libeconf — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libeconf_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2013,7 +2013,7 @@
 <details>
 <summary><b>libedit — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libedit_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2027,7 +2027,7 @@
 <details>
 <summary><b>libevent — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libevent_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2041,7 +2041,7 @@
 <details>
 <summary><b>libffi — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libffi_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2055,7 +2055,7 @@
 <details>
 <summary><b>libgcrypt — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libgcrypt_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2069,7 +2069,7 @@
 <details>
 <summary><b>libgpg-error — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libgpg_error_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2083,7 +2083,7 @@
 <details>
 <summary><b>libidn2 — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libidn2_main
 
 - 锟斤拷取 idn2 锟芥本锟斤拷息
 
@@ -2096,7 +2096,7 @@
 <details>
 <summary><b>libmnl — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libmnl_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2110,7 +2110,7 @@
 <details>
 <summary><b>libnetfilter_conntrack — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libnetfilter_conntrack_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2124,7 +2124,7 @@
 <details>
 <summary><b>libnfnetlink — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libnfnetlink_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2138,7 +2138,7 @@
 <details>
 <summary><b>libnftnl — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libnftnl_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2152,7 +2152,7 @@
 <details>
 <summary><b>libnl — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libnl_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2166,7 +2166,7 @@
 <details>
 <summary><b>libpng — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libpng_main
 
 - 锟斤拷取 pngfix 锟芥本锟斤拷息
 
@@ -2179,7 +2179,7 @@
 <details>
 <summary><b>libpsl — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libpsl_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2193,7 +2193,7 @@
 <details>
 <summary><b>libpwquality — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libpwquality_main
 
 - 锟斤拷取 pwmake 锟芥本锟斤拷息
 - 锟斤拷取 pwscore 锟芥本锟斤拷息
@@ -2207,7 +2207,7 @@
 <details>
 <summary><b>libseccomp — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libseccomp_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2221,7 +2221,7 @@
 <details>
 <summary><b>libselinux — 1 个用例 / 2 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_libselinux_version_help
 
 - 列出包文件
 - 库文件检查
@@ -2235,7 +2235,7 @@
 <details>
 <summary><b>libsepol — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libsepol_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2249,7 +2249,7 @@
 <details>
 <summary><b>libtasn1 — 1 个用例 / 3 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libtasn1_main
 
 - 锟斤拷取 asn1Coding 锟芥本锟斤拷息
 - 锟斤拷取 asn1Decoding 锟芥本锟斤拷息
@@ -2264,7 +2264,7 @@
 <details>
 <summary><b>libtirpc — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libtirpc_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2278,7 +2278,7 @@
 <details>
 <summary><b>libunistring — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libunistring_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2292,7 +2292,7 @@
 <details>
 <summary><b>libxcrypt — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libxcrypt_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2306,7 +2306,7 @@
 <details>
 <summary><b>libxml2 — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libxml2_main
 
 - 锟斤拷取 xmlcatalog 锟芥本锟斤拷息
 - 锟斤拷取 xmllint 锟芥本锟斤拷息
@@ -2320,7 +2320,7 @@
 <details>
 <summary><b>libxslt — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_libxslt_main
 
 - 锟斤拷取 xsltproc 锟芥本锟斤拷息
 
@@ -2333,7 +2333,7 @@
 <details>
 <summary><b>linux-headers — 1 个用例 / 2 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_linux_headers_version_help
 
 - 列出包文件
 - 库文件检查
@@ -2347,14 +2347,14 @@
 <details>
 <summary><b>lua — 2 个用例 / 5 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_lua_version_help
 
 - lua 版本信息
 - lua 帮助信息
 - luac 版本信息
 - luac 帮助信息
 
-#### 测试 2: 错误处理
+#### test_lua_error_handling
 
 - lua: 无效选项
 
@@ -2367,7 +2367,7 @@
 <details>
 <summary><b>lvm2 — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_lvm2_basic_check
 
 - 检查 lvm2 已安装
 
@@ -2380,7 +2380,7 @@
 <details>
 <summary><b>lz4 — 1 个用例 / 4 个功能点</b></summary>
 
-#### 主要功能点
+#### test_lz4_main
 
 - 锟斤拷取 lz4 锟芥本锟斤拷息
 - 锟斤拷取 lz4c 锟芥本锟斤拷息
@@ -2396,19 +2396,19 @@
 <details>
 <summary><b>make — 9 个用例 / 21 个功能点</b></summary>
 
-#### 测试 1: Basic Makefile execution
+#### test_make_basic_makefile_execution
 
 - Run default target
 - Run specific target
 - Run clean target
 - make -s: silent mode
 
-#### 测试 2: Variables
+#### test_make_variables
 
 - Variable expansion
 - Override variable
 
-#### 测试 3: Options
+#### test_make_options
 
 - make -n: dry run
 - make -B: always make
@@ -2418,28 +2418,28 @@
 - make -q: question mode
 - make -s: silent
 
-#### 测试 4: Parallel execution
+#### test_make_parallel_execution
 
 - make -j2: parallel 2 jobs
 
-#### 测试 5: Environment
+#### test_make_environment
 
 - make -e: environment overrides
 - Environment variable in make
 
-#### 测试 6: Directory change
+#### test_make_directory_change
 
 - make -C: change directory
 
-#### 测试 7: Include
+#### test_make_include
 
 - Include file
 
-#### 测试 8: gmake alias
+#### test_make_gmake_alias
 
 - gmake is GNU Make
 
-#### 测试 9: Error handling
+#### test_make_error_handling
 
 - make -k: continue on error
 - make -i: ignore errors
@@ -2453,7 +2453,7 @@
 <details>
 <summary><b>mpc — 1 个用例 / 2 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_mpc_version_help
 
 - 列出包文件
 - 库文件检查
@@ -2467,7 +2467,7 @@
 <details>
 <summary><b>mpdecimal — 1 个用例 / 2 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_mpdecimal_version_help
 
 - 列出包文件
 - 库文件检查
@@ -2481,7 +2481,7 @@
 <details>
 <summary><b>mpfr — 1 个用例 / 2 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_mpfr_version_help
 
 - 列出包文件
 - 库文件检查
@@ -2495,7 +2495,7 @@
 <details>
 <summary><b>ncurses — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_ncurses_basic_check
 
 - 检查 ncurses 已安装
 
@@ -2508,7 +2508,7 @@
 <details>
 <summary><b>nettle — 2 个用例 / 11 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_nettle_version_help
 
 - nettle-hash 版本信息
 - nettle-hash 帮助信息
@@ -2521,7 +2521,7 @@
 - sexp-conv 版本信息
 - sexp-conv 帮助信息
 
-#### 测试 2: 错误处理
+#### test_nettle_error_handling
 
 - nettle-hash: 无效选项
 
@@ -2534,12 +2534,12 @@
 <details>
 <summary><b>newt — 2 个用例 / 3 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_newt_version_help
 
 - whiptail 版本信息
 - whiptail 帮助信息
 
-#### 测试 2: 错误处理
+#### test_newt_error_handling
 
 - whiptail: 无效选项
 
@@ -2552,7 +2552,7 @@
 <details>
 <summary><b>nghttp2 — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_nghttp2_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2566,7 +2566,7 @@
 <details>
 <summary><b>openruyi-release — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_openruyi_release_main
 
 - 锟叫筹拷锟斤拷锟侥硷拷
 
@@ -2579,7 +2579,7 @@
 <details>
 <summary><b>openssh — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_openssh_main
 
 - 锟斤拷取 ssh 锟芥本锟斤拷息
 
@@ -2592,7 +2592,7 @@
 <details>
 <summary><b>openssh-clients — 7 个用例 / 19 个功能点</b></summary>
 
-#### 测试 1: ssh version and help
+#### test_openssh_clients_ssh_version_and_help
 
 - ssh version
 - ssh -Q key: supported keys
@@ -2600,17 +2600,17 @@
 - ssh -Q mac: MACs
 - ssh -Q kex: key exchange
 
-#### 测试 2: ssh connection (dry-run)
+#### test_openssh_clients_ssh_connection_dryrun
 
 - ssh -G: print config
 - ssh -T: disable PTY
 - ssh -v: verbose
 
-#### 测试 3: ssh-keygen via openssh
+#### test_openssh_clients_sshkeygen_via_openssh
 
 - Generate test key
 
-#### 测试 4: ssh-agent
+#### test_openssh_clients_sshagent
 
 - ssh-add: list keys
 - ssh-add: add key
@@ -2618,17 +2618,17 @@
 - ssh-add -L: list public keys
 - ssh-add -d: remove key
 
-#### 测试 5: ssh-keyscan
+#### test_openssh_clients_sshkeyscan
 
 - ssh-keyscan: scan localhost
 - ssh-keyscan -t rsa
 - ssh-keyscan -t ecdsa
 
-#### 测试 6: sftp
+#### test_openssh_clients_sftp
 
 - sftp: help command
 
-#### 测试 7: scp
+#### test_openssh_clients_scp
 
 - scp version
 
@@ -2641,7 +2641,7 @@
 <details>
 <summary><b>openssl — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_openssl_main
 
 - 锟斤拷取 openssl 锟芥本
 
@@ -2654,7 +2654,7 @@
 <details>
 <summary><b>p11-kit — 1 个用例 / 1 个功能点</b></summary>
 
-#### 基本安装验证
+#### test_p11_kit_basic_check
 
 - 检查 p11-kit 已安装
 
@@ -2667,7 +2667,7 @@
 <details>
 <summary><b>pam — 2 个用例 / 11 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_pam_version_help
 
 - faillock 版本信息
 - faillock 帮助信息
@@ -2680,7 +2680,7 @@
 - unix_update 版本信息
 - unix_update 帮助信息
 
-#### 测试 2: 错误处理
+#### test_pam_error_handling
 
 - faillock: 无效选项
 
@@ -2693,7 +2693,7 @@
 <details>
 <summary><b>patch — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_patch_main
 
 - 锟斤拷取 patch 锟芥本锟斤拷息
 
@@ -2706,57 +2706,57 @@
 <details>
 <summary><b>pciutils — 13 个用例 / 13 个功能点</b></summary>
 
-#### 测试 1: lspci basic
+#### test_pciutils_lspci_basic
 
-- 测试 1: lspci basic
+- test_pciutils_lspci_basic
 
-#### 测试 2: lspci verbose
+#### test_pciutils_lspci_verbose
 
-- 测试 2: lspci verbose
+- test_pciutils_lspci_verbose
 
-#### 测试 3: lspci with filtering
+#### test_pciutils_lspci_with_filtering
 
-- 测试 3: lspci with filtering
+- test_pciutils_lspci_with_filtering
 
-#### 测试 4: lspci numeric
+#### test_pciutils_lspci_numeric
 
-- 测试 4: lspci numeric
+- test_pciutils_lspci_numeric
 
-#### 测试 5: lspci tree view
+#### test_pciutils_lspci_tree_view
 
-- 测试 5: lspci tree view
+- test_pciutils_lspci_tree_view
 
-#### 测试 6: lspci kernel drivers
+#### test_pciutils_lspci_kernel_drivers
 
-- 测试 6: lspci kernel drivers
+- test_pciutils_lspci_kernel_drivers
 
-#### 测试 7: lspci by device class
+#### test_pciutils_lspci_by_device_class
 
-- 测试 7: lspci by device class
+- test_pciutils_lspci_by_device_class
 
-#### 测试 8: lspci with domain
+#### test_pciutils_lspci_with_domain
 
-- 测试 8: lspci with domain
+- test_pciutils_lspci_with_domain
 
-#### 测试 9: update-pciids
+#### test_pciutils_updatepciids
 
-- 测试 9: update-pciids
+- test_pciutils_updatepciids
 
-#### 测试 10: lspci format options
+#### test_pciutils_lspci_format_options
 
-- 测试 10: lspci format options
+- test_pciutils_lspci_format_options
 
-#### 测试 11: setpci
+#### test_pciutils_setpci
 
-- 测试 11: setpci
+- test_pciutils_setpci
 
-#### 测试 12: pcilmr
+#### test_pciutils_pcilmr
 
-- 测试 12: pcilmr
+- test_pciutils_pcilmr
 
-#### 测试 13: Error handling
+#### test_pciutils_error_handling
 
-- 测试 13: Error handling
+- test_pciutils_error_handling
 
 </details>
 
@@ -2767,7 +2767,7 @@
 <details>
 <summary><b>pcre2 — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_pcre2_main
 
 - 锟斤拷取 pcre2grep 锟芥本锟斤拷息
 - 锟斤拷取 pcre2test 锟芥本锟斤拷息
@@ -2781,7 +2781,7 @@
 <details>
 <summary><b>perl — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_perl_main
 
 - 锟斤拷取 perl 锟芥本
 
@@ -2794,14 +2794,14 @@
 <details>
 <summary><b>pkgconf — 2 个用例 / 5 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_pkgconf_version_help
 
 - pkgconf 版本信息
 - pkgconf 帮助信息
 - bomtool 版本信息
 - bomtool 帮助信息
 
-#### 测试 2: 错误处理
+#### test_pkgconf_error_handling
 
 - pkgconf: 无效选项
 
@@ -2814,32 +2814,32 @@
 <details>
 <summary><b>podman — 7 个用例 / 16 个功能点</b></summary>
 
-#### 测试 1: Image operations
+#### test_podman_image_operations
 
 - podman images: list images
 - podman image list
 
-#### 测试 2: Container operations
+#### test_podman_container_operations
 
 - podman ps: list containers
 - podman ps -a: all containers
 - podman container list
 
-#### 测试 3: Network operations
+#### test_podman_network_operations
 
 - podman network ls
 - podman network inspect
 
-#### 测试 4: Volume operations
+#### test_podman_volume_operations
 
 - podman volume ls
 
-#### 测试 5: System operations
+#### test_podman_system_operations
 
 - podman system info
 - podman system df: disk usage
 
-#### 测试 6: Help commands
+#### test_podman_help_commands
 
 - podman manifest help
 - podman healthcheck help
@@ -2847,7 +2847,7 @@
 - podman pod list
 - podman-remote help
 
-#### 测试 7: Error handling
+#### test_podman_error_handling
 
 - podman: invalid command
 
@@ -2860,49 +2860,49 @@
 <details>
 <summary><b>podmansh — 11 个用例 / 11 个功能点</b></summary>
 
-#### 测试 1: podmansh basic
+#### test_podmansh_podmansh_basic
 
-- 测试 1: podmansh basic
+- test_podmansh_podmansh_basic
 
-#### 测试 2: podmansh help
+#### test_podmansh_podmansh_help
 
-- 测试 2: podmansh help
+- test_podmansh_podmansh_help
 
-#### 测试 3: podmansh config
+#### test_podmansh_podmansh_config
 
-- 测试 3: podmansh config
+- test_podmansh_podmansh_config
 
-#### 测试 4: podman basic
+#### test_podmansh_podman_basic
 
-- 测试 4: podman basic
+- test_podmansh_podman_basic
 
-#### 测试 6: podman images
+#### test_podmansh_podman_images
 
-- 测试 6: podman images
+- test_podmansh_podman_images
 
-#### 测试 7: podman network
+#### test_podmansh_podman_network
 
-- 测试 7: podman network
+- test_podmansh_podman_network
 
-#### 测试 8: podman volume
+#### test_podmansh_podman_volume
 
-- 测试 8: podman volume
+- test_podmansh_podman_volume
 
-#### 测试 9: podman stats
+#### test_podmansh_podman_stats
 
-- 测试 9: podman stats
+- test_podmansh_podman_stats
 
-#### 测试 10: podman ps
+#### test_podmansh_podman_ps
 
-- 测试 10: podman ps
+- test_podmansh_podman_ps
 
-#### 测试 11: Error handling
+#### test_podmansh_error_handling
 
-- 测试 11: Error handling
+- test_podmansh_error_handling
 
-#### 测试 12: Cleanup
+#### test_podmansh_cleanup
 
-- 测试 12: Cleanup
+- test_podmansh_cleanup
 
 </details>
 
@@ -2913,7 +2913,7 @@
 <details>
 <summary><b>popt — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_popt_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -2927,7 +2927,7 @@
 <details>
 <summary><b>procps-ng — 14 个用例 / 53 个功能点</b></summary>
 
-#### 测试 1: ps command basic functionality
+#### test_procps_ng_ps_command_basic_functionality
 
 - Basic ps output
 - ps with full format
@@ -2935,7 +2935,7 @@
 - ps showing all processes
 - ps with tree view
 
-#### 测试 2: ps command advanced features
+#### test_procps_ng_ps_command_advanced_features
 
 - Filter by user
 - Filter by PID
@@ -2944,7 +2944,7 @@
 - Sort by CPU usage
 - Sort by memory usage
 
-#### 测试 3: free command
+#### test_procps_ng_free_command
 
 - Basic memory info
 - Human-readable format
@@ -2953,14 +2953,14 @@
 - Show total column
 - Show low/high memory
 
-#### 测试 4: top command
+#### test_procps_ng_top_command
 
 - Basic top (batch mode, single iteration)
 - Top with specific number of processes
 - Top sorted by memory
 - Top with delay
 
-#### 测试 5: vmstat command
+#### test_procps_ng_vmstat_command
 
 - Basic vmstat output
 - vmstat with custom intervals
@@ -2968,13 +2968,13 @@
 - vmstat with disk stats
 - vmstat with partitions
 
-#### 测试 6: uptime and w commands
+#### test_procps_ng_uptime_and_w_commands
 
 - System uptime
 - Show users
 - Show who is logged in
 
-#### 测试 7: kill command
+#### test_procps_ng_kill_command
 
 - Start a background process
 - List signal numbers
@@ -2982,40 +2982,40 @@
 - Wait for process to terminate
 - Verify process terminated
 
-#### 测试 8: pidof and pgrep
+#### test_procps_ng_pidof_and_pgrep
 
 - Find PID by name
 - pgrep basic usage
 - pgrep with full command line
 
-#### 测试 9: pwdx and pmap
+#### test_procps_ng_pwdx_and_pmap
 
 - Show process working directory
 - Show process memory map
 
-#### 测试 10: sysctl (if available)
+#### test_procps_ng_sysctl_if_available
 
 - List all sysctl parameters
 - Read specific parameter
 
-#### 测试 11: Error handling
+#### test_procps_ng_error_handling
 
 - ps with invalid PID
 - kill with invalid PID
 - free with invalid option
 
-#### 测试 12: Special scenarios
+#### test_procps_ng_special_scenarios
 
 - ps with environment variables
 - Process with real-time priority
 - Show process namespaces
 
-#### 测试 13: pkill and pidwait
+#### test_procps_ng_pkill_and_pidwait
 
 - pkill version check
 - pidwait version check
 
-#### 测试 14: slabtop, tload, watch, hugetop
+#### test_procps_ng_slabtop_tload_watch_hugetop
 
 - slabtop display
 - tload version
@@ -3031,27 +3031,27 @@
 <details>
 <summary><b>psmisc — 13 个用例 / 22 个功能点</b></summary>
 
-#### 测试 1: fuser basic
+#### test_psmisc_fuser_basic
 
 - Test fuser on /tmp
 
-#### 测试 2: fuser with processes
+#### test_psmisc_fuser_with_processes
 
 - Show processes using /tmp
 
-#### 测试 3: fuser mount points
+#### test_psmisc_fuser_mount_points
 
-- 测试 3: fuser mount points
+- test_psmisc_fuser_mount_points
 
-#### 测试 4: fuser with options
+#### test_psmisc_fuser_with_options
 
-- 测试 4: fuser with options
+- test_psmisc_fuser_with_options
 
-#### 测试 5: pstree basic
+#### test_psmisc_pstree_basic
 
-- 测试 5: pstree basic
+- test_psmisc_pstree_basic
 
-#### 测试 6: pstree with options
+#### test_psmisc_pstree_with_options
 
 - Show PIDs
 - Show numeric sort
@@ -3060,37 +3060,37 @@
 - Show full details
 - Show only one user's processes
 
-#### 测试 7: killall basic
+#### test_psmisc_killall_basic
 
 - Start test process
 - Try killall (may not kill itself)
 - Clean up
 
-#### 测试 8: prtstat
+#### test_psmisc_prtstat
 
-- 测试 8: prtstat
+- test_psmisc_prtstat
 
-#### 测试 9: peekfd
+#### test_psmisc_peekfd
 
-- 测试 9: peekfd
+- test_psmisc_peekfd
 
-#### 测试 10: pslog
+#### test_psmisc_pslog
 
-- 测试 10: pslog
+- test_psmisc_pslog
 
-#### 测试 11: killall with signals
+#### test_psmisc_killall_with_signals
 
 - List signal names
 - Test signal send
 
-#### 测试 12: fuser special cases
+#### test_psmisc_fuser_special_cases
 
 - fuser on unix socket
 - fuser reset signal output
 
-#### 测试 13: Error handling
+#### test_psmisc_error_handling
 
-- 测试 13: Error handling
+- test_psmisc_error_handling
 
 </details>
 
@@ -3101,7 +3101,7 @@
 <details>
 <summary><b>publicsuffix-list — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_publicsuffix_list_main
 
 - 锟叫筹拷锟斤拷锟侥硷拷
 
@@ -3114,7 +3114,7 @@
 <details>
 <summary><b>pyproject-rpm-macros — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_pyproject_rpm_macros_main
 
 - 锟叫筹拷锟斤拷锟侥硷拷
 
@@ -3127,26 +3127,26 @@
 <details>
 <summary><b>python — 5 个用例 / 8 个功能点</b></summary>
 
-#### 测试 1: 基本执行
+#### test_python_basic_execution
 
 - Python 基本运算
 - Python sys模块
 
-#### 测试 2: 命令行选项
+#### test_python_basic
 
 - python3 -h: 帮助
 - python3 -V: 版本
 - python3: os模块
 
-#### 测试 3: 脚本执行
+#### test_python_basic
 
 - python3 执行脚本
 
-#### 测试 4: 模块导入
+#### test_python_basic
 
 - python3: 导入标准模块
 
-#### 测试 5: 错误处理
+#### test_python_error_handling
 
 - python3: 导入错误
 
@@ -3159,7 +3159,7 @@
 <details>
 <summary><b>python-lxml — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_python_lxml_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -3173,7 +3173,7 @@
 <details>
 <summary><b>python-packaging — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_python_packaging_main
 
 - 锟叫筹拷锟斤拷锟侥硷拷
 
@@ -3186,7 +3186,7 @@
 <details>
 <summary><b>python-pip — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_python_pip_main
 
 - 锟斤拷取 pip3 锟芥本
 
@@ -3199,7 +3199,7 @@
 <details>
 <summary><b>python-rpm-macros — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_python_rpm_macros_main
 
 - 锟叫筹拷锟斤拷锟侥硷拷
 
@@ -3212,7 +3212,7 @@
 <details>
 <summary><b>python-srpm-macros — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_python_srpm_macros_main
 
 - 锟叫筹拷锟斤拷锟侥硷拷
 
@@ -3225,7 +3225,7 @@
 <details>
 <summary><b>readline — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_readline_main
 
 - 查找 .so 库文件
 - 检查包已安装
@@ -3239,7 +3239,7 @@
 <details>
 <summary><b>rpm — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_rpm_main
 
 - rpm 锟芥本
 
@@ -3252,7 +3252,7 @@
 <details>
 <summary><b>rpm-config-openruyi — 1 个用例 / 2 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_rpm_config_openruyi_version_help
 
 - 列出包文件
 - 库文件检查
@@ -3266,48 +3266,48 @@
 <details>
 <summary><b>rpmbuild — 9 个用例 / 20 个功能点</b></summary>
 
-#### 测试 1: rpmbuild basic functionality
+#### test_rpmbuild_rpmbuild_basic_functionality
 
 - Check rpmbuild version
 - Setup RPM build tree
 
-#### 测试 2: Create simple spec file
+#### test_rpmbuild_create_simple_spec_file
 
 - Create minimal spec file
 
-#### 测试 3: Create source tarball
+#### test_rpmbuild_create_source_tarball
 
 - Create test source
 - Verify source file
 
-#### 测试 4: Build RPM package
+#### test_rpmbuild_build_rpm_package
 
 - Build binary RPM
 - Build source RPM
 
-#### 测试 5: Verify built RPM
+#### test_rpmbuild_verify_built_rpm
 
 - Query RPM info
 - Verify RPM dependencies
 - Check RPM provides
 
-#### 测试 6: Install and test RPM
+#### test_rpmbuild_install_and_test_rpm
 
 - Install the RPM (test mode)
 - Actually install
 - Verify installation
 
-#### 测试 7: RPM build options
+#### test_rpmbuild_rpm_build_options
 
 - Build with --define
 - Check build log
 
-#### 测试 8: Error handling
+#### test_rpmbuild_error_handling
 
 - Build with missing spec file
 - Build with missing source
 
-#### 测试 9: RPM verification
+#### test_rpmbuild_rpm_verification
 
 - Verify RPM signature (may not be signed)
 - Check RPM integrity
@@ -3322,28 +3322,28 @@
 <details>
 <summary><b>sddm — 5 个用例 / 10 个功能点</b></summary>
 
-#### 测试 1: Version and help
+#### test_sddm_version_and_help
 
 - sddm help
 - sddm --test-mode help
 
-#### 测试 2: Configuration
+#### test_sddm_configuration
 
 - sddm: example config
 - Config directory
 - Default config dir
 
-#### 测试 3: Service check
+#### test_sddm_service_check
 
 - sddm service unit
 - sddm service status
 - sddm enabled status
 
-#### 测试 4: Theme check
+#### test_sddm_theme_check
 
 - sddm themes installed
 
-#### 测试 5: Config values
+#### test_sddm_config_values
 
 - sddm: key config values
 
@@ -3356,33 +3356,33 @@
 <details>
 <summary><b>sed — 6 个用例 / 12 个功能点</b></summary>
 
-#### 测试 1: 基本替换
+#### test_sed_basic_substitution
 
 - sed s: 基本替换
 - sed s: 替换hello
 
-#### 测试 2: 行操作
+#### test_sed_line_operations
 
 - sed -n: 打印指定行
 - sed d: 删除指定行
 - sed a: 追加行
 - sed i: 插入行
 
-#### 测试 3: 全局和正则
+#### test_sed_global_regex
 
 - sed g: 全局替换
 - sed: 正则替换
 
-#### 测试 4: 就地编辑
+#### test_sed_basic
 
 - sed -i: 就地编辑
 - sed -i: 验证修改
 
-#### 测试 5: 多表达式
+#### test_sed_basic
 
 - sed -e: 多表达式
 
-#### 测试 6: 错误处理
+#### test_sed_error_handling
 
 - sed: 无效选项
 
@@ -3395,7 +3395,7 @@
 <details>
 <summary><b>setup — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_setup_main
 
 - 锟叫筹拷锟斤拷锟侥硷拷
 
@@ -3408,7 +3408,7 @@
 <details>
 <summary><b>slang — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_slang_main
 
 - 锟斤拷取 slsh 锟芥本锟斤拷息
 
@@ -3421,7 +3421,7 @@
 <details>
 <summary><b>sqlite — 1 个用例 / 2 个功能点</b></summary>
 
-#### 主要功能点
+#### test_sqlite_main
 
 - 锟斤拷取 sqldiff 锟芥本锟斤拷息
 - 锟斤拷取 sqlite3 锟芥本锟斤拷息
@@ -3435,7 +3435,7 @@
 <details>
 <summary><b>systemd — 36 个用例 / 114 个功能点</b></summary>
 
-#### 测试 1: systemctl - Service and system management
+#### test_systemd_systemctl_service_and_system_management
 
 - systemctl version
 - systemctl: list running services
@@ -3453,7 +3453,7 @@
 - systemctl list-timers
 - systemctl list-machines
 
-#### 测试 2: journalctl - Journal query
+#### test_systemd_journalctl_journal_query
 
 - journalctl version
 - journalctl -n: last entries
@@ -3469,13 +3469,13 @@
 - journalctl --since
 - journalctl -q: quiet
 
-#### 测试 3: systemd-analyze - System profiling
+#### test_systemd_systemdanalyze_system_profiling
 
 - systemd-analyze version
 - systemd-analyze time: boot time
 - systemd-analyze security
 
-#### 测试 4: hostnamectl - Hostname management
+#### test_systemd_hostnamectl_hostname_management
 
 - hostnamectl version
 - hostnamectl status: system info
@@ -3485,13 +3485,13 @@
 - hostnamectl --pretty
 - hostnamectl chassis
 
-#### 测试 5: localectl - Locale management
+#### test_systemd_localectl_locale_management
 
 - localectl version
 - localectl status: locale info
 - localectl list-locales
 
-#### 测试 6: timedatectl - Time/date management
+#### test_systemd_timedatectl_timedate_management
 
 - timedatectl version
 - timedatectl status: time info
@@ -3499,7 +3499,7 @@
 - timedatectl list-timezones
 - timedatectl show-timesync
 
-#### 测试 7: loginctl - Login management
+#### test_systemd_loginctl_login_management
 
 - loginctl version
 - loginctl list-sessions
@@ -3508,7 +3508,7 @@
 - loginctl show-user
 - loginctl user-status
 
-#### 测试 8: systemd-detect-virt
+#### test_systemd_systemddetectvirt
 
 - systemd-detect-virt: detect VM
 - systemd-detect-virt -q: quiet mode
@@ -3516,22 +3516,22 @@
 - systemd-detect-virt -v: VM only
 - systemd-detect-virt -r: chroot only
 
-#### 测试 9: systemd-cgls - Cgroup listing
+#### test_systemd_systemdcgls_cgroup_listing
 
 - systemd-cgls: cgroup tree
 - systemd-cgls -k: kernel threads
 - systemd-cgls --no-pager
 
-#### 测试 10: systemd-cgtop - Cgroup top
+#### test_systemd_systemdcgtop_cgroup_top
 
 - systemd-cgtop -b: batch mode
 
-#### 测试 11: systemd-tmpfiles
+#### test_systemd_systemdtmpfiles
 
 - systemd-tmpfiles version
 - systemd-tmpfiles --cat-config
 
-#### 测试 12: busctl - D-Bus introspection
+#### test_systemd_busctl_dbus_introspection
 
 - busctl version
 - busctl list: list services
@@ -3539,29 +3539,29 @@
 - busctl tree: object tree
 - busctl introspect
 
-#### 测试 13: systemd-run
+#### test_systemd_systemdrun
 
 - systemd-run version
 - systemd-run --user --scope
 
-#### 测试 14: systemd-cat
+#### test_systemd_systemdcat
 
 - systemd-cat: pipe to journal
 - systemd-cat version
 
-#### 测试 15: systemd-notify
+#### test_systemd_systemdnotify
 
 - systemd-notify version
 - systemd-notify help
 
-#### 测试 16: systemd-path
+#### test_systemd_systemdpath
 
 - systemd-path: all paths
 - systemd-path: specific path
 - systemd-path --suffix
 - systemd-path help
 
-#### 测试 17: systemd-escape
+#### test_systemd_systemdescape
 
 - systemd-escape: basic escape
 - systemd-escape --path: path escape
@@ -3569,89 +3569,89 @@
 - systemd-escape --suffix
 - systemd-escape --template
 
-#### 测试 18: systemd-machine-id-setup
+#### test_systemd_systemdmachineidsetup
 
 - systemd-machine-id-setup help
 - systemd-machine-id-setup: check machine-id
 
-#### 测试 19: coredumpctl
+#### test_systemd_coredumpctl
 
 - coredumpctl version
 - coredumpctl list: list dumps
 - coredumpctl info
 
-#### 测试 20: systemd-delta
+#### test_systemd_systemddelta
 
 - systemd-delta help
 - systemd-delta: show overrides
 
-#### 测试 21: systemd-id128
+#### test_systemd_systemdid128
 
 - systemd-id128 show: show IDs
 - systemd-id128 new: generate ID
 
-#### 测试 22: systemd-inhibit
+#### test_systemd_systemdinhibit
 
 - systemd-inhibit help
 - systemd-inhibit --list
 
-#### 测试 23: systemd-ac-power
+#### test_systemd_systemdacpower
 
 - systemd-ac-power: check power
 
-#### 测试 24: systemd-ask-password
+#### test_systemd_systemdaskpassword
 
 - systemd-ask-password help
 
-#### 测试 25: systemd-creds
+#### test_systemd_systemdcreds
 
 - systemd-creds help
 
-#### 测试 26: systemd-socket-activate
+#### test_systemd_systemdsocketactivate
 
 - systemd-socket-activate help
 
-#### 测试 27: Power management commands
+#### test_systemd_power_management_commands
 
 - $cmd help
 
-#### 测试 28: systemd-firstboot
+#### test_systemd_systemdfirstboot
 
 - systemd-firstboot help
 
-#### 测试 29: systemd-stdio-bridge
+#### test_systemd_systemdstdiobridge
 
 - systemd-stdio-bridge help
 
-#### 测试 30: oomctl
+#### test_systemd_oomctl
 
 - oomctl help
 - oomctl dump
 
-#### 测试 31: systemctl service operations
+#### test_systemd_systemctl_service_operations
 
 - systemctl try-restart
 - systemctl reload-or-restart
 - systemctl reset-failed
 - systemctl daemon-reload
 
-#### 测试 32: run0 - Privilege escalation
+#### test_systemd_run0_privilege_escalation
 
 - run0 help
 
-#### 测试 33: systemd-mount
+#### test_systemd_systemdmount
 
 - systemd-mount help
 
-#### 测试 34: systemd-sysext
+#### test_systemd_systemdsysext
 
 - systemd-sysext help
 
-#### 测试 35: systemd-confext
+#### test_systemd_systemdconfext
 
 - systemd-confext help
 
-#### 测试 36: Error handling
+#### test_systemd_error_handling
 
 - systemctl: invalid command
 - journalctl: invalid option
@@ -3666,31 +3666,31 @@
 <details>
 <summary><b>systemd-timesyncd — 5 个用例 / 13 个功能点</b></summary>
 
-#### 测试 1: Service status
+#### test_systemd_timesyncd_service_status
 
 - Service status
 - Time sync status
 - Timesync detail
 - Is enabled
 
-#### 测试 2: NTP management
+#### test_systemd_timesyncd_ntp_management
 
 - Fallback NTP servers
 - Current NTP server
 - Server address
 - NTP servers list
 
-#### 测试 3: Service control
+#### test_systemd_timesyncd_service_control
 
 - Restart service
 - Is active
 
-#### 测试 4: Configuration
+#### test_systemd_timesyncd_configuration
 
 - Config file
 - Cat config
 
-#### 测试 5: systemd-time-wait-sync
+#### test_systemd_timesyncd_systemdtimewaitsync
 
 - Wait sync service
 
@@ -3703,58 +3703,58 @@
 <details>
 <summary><b>tar — 10 个用例 / 27 个功能点</b></summary>
 
-#### 测试 1: Basic archive creation
+#### test_tar_basic_archive_creation
 
 - Create test files
 - Create tar archive
 - List archive contents
 
-#### 测试 2: Archive extraction
+#### test_tar_archive_extraction
 
 - Extract archive
 - Verify extracted files
 
-#### 测试 3: Compression formats
+#### test_tar_compression_formats
 
 - Create gzip compressed archive
 - Create bzip2 compressed archive
 - Create xz compressed archive
 - Extract different formats
 
-#### 测试 4: Advanced tar options
+#### test_tar_advanced_tar_options
 
 - Append files to existing archive
 - Extract specific files
 - Extract to different directory
 - Create archive from directory
 
-#### 测试 5: Archive verification
+#### test_tar_archive_verification
 
 - Test archive integrity
 - Compare archive with original files
 
-#### 测试 6: Special attributes
+#### test_tar_special_attributes
 
 - Preserve permissions
 - Preserve timestamps
 
-#### 测试 7: Error handling
+#### test_tar_error_handling
 
 - Non-existent file
 - Corrupted archive
 - Empty archive
 
-#### 测试 8: Wildcard and patterns
+#### test_tar_wildcard_and_patterns
 
 - Extract with wildcard pattern
 - Exclude patterns
 
-#### 测试 9: Incremental backup
+#### test_tar_incremental_backup
 
 - Create incremental backup
 - Multi-volume archive (test only)
 
-#### 测试 10: Special file types
+#### test_tar_special_file_types
 
 - Archive with symlinks
 - Archive with hardlinks
@@ -3769,7 +3769,7 @@
 <details>
 <summary><b>tcsh — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_tcsh_main
 
 - 锟斤拷取 tcsh 锟芥本锟斤拷息
 
@@ -3782,7 +3782,7 @@
 <details>
 <summary><b>time — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_time_main
 
 - 锟斤拷取 time 锟芥本锟斤拷息
 
@@ -3795,7 +3795,7 @@
 <details>
 <summary><b>tmux — 22 个用例 / 179 个功能点</b></summary>
 
-#### 测试 1: Server management
+#### test_tmux_server_management
 
 - start-server: start tmux server
 - list-sessions: initial state
@@ -3806,7 +3806,7 @@
 - list-commands: format output
 - server-access -l: list access
 
-#### 测试 2: Session creation and management
+#### test_tmux_session_creation_and_management
 
 - new-session -d: create detached session
 - has-session: verify session exists
@@ -3830,7 +3830,7 @@
 - refresh-client -S: status line only
 - refresh-client -L: lease
 
-#### 测试 3: Window management
+#### test_tmux_window_management
 
 - new-window: create window
 - new-window -d: detached
@@ -3862,7 +3862,7 @@
 - resize-window -U: up
 - resize-window -D: down
 
-#### 测试 4: Pane management
+#### test_tmux_pane_management
 
 - split-window: horizontal split
 - split-window -h: vertical split
@@ -3903,7 +3903,7 @@
 - pipe-pane -o: pipe output
 - respawn-pane -k: respawn
 
-#### 测试 5: Layout management
+#### test_tmux_layout_management
 
 - select-layout: even-horizontal
 - select-layout: even-vertical
@@ -3913,7 +3913,7 @@
 - next-layout: cycle layouts
 - previous-layout: prev layout
 
-#### 测试 6: Buffer management
+#### test_tmux_buffer_management
 
 - set-buffer -b: named buffer
 - set-buffer: direct data
@@ -3929,7 +3929,7 @@
 - save-buffer: save to file
 - load-buffer: load from file
 
-#### 测试 7: Key bindings and input
+#### test_tmux_key_bindings_and_input
 
 - list-keys: list all keys
 - list-keys -T: prefix table
@@ -3945,7 +3945,7 @@
 - send-keys -H: hex
 - send-prefix: send prefix key
 
-#### 测试 8: Options and settings
+#### test_tmux_options_and_settings
 
 - set-option -g: global
 - set-option -a: append
@@ -3958,7 +3958,7 @@
 - show-window-options: window options
 - show-window-options -g: global window options
 
-#### 测试 9: Environment variables
+#### test_tmux_environment_variables
 
 - set-environment -g: global env
 - set-environment: session env
@@ -3966,7 +3966,7 @@
 - show-environment -g: global env
 - show-environment: session env
 
-#### 测试 10: Hooks
+#### test_tmux_hooks
 
 - set-hook: session-created
 - set-hook: client-attached
@@ -3974,7 +3974,7 @@
 - set-hook -gu: remove global hook
 - set-hook -gu: remove hook
 
-#### 测试 11: Messages and display
+#### test_tmux_messages_and_display
 
 - display-message: show message
 - display-message -p: print format
@@ -3982,7 +3982,7 @@
 - display-popup -C: close popup
 - clear-history: clear pane history
 
-#### 测试 12: Conditional and shell execution
+#### test_tmux_conditional_and_shell_execution
 
 - if-shell: true condition
 - run-shell: run shell command
@@ -3990,42 +3990,42 @@
 - command-prompt: open prompt
 - confirm-before: confirm dialog
 
-#### 测试 13: Source and configuration
+#### test_tmux_source_and_configuration
 
 - source-file: source config
 
-#### 测试 14: Copy mode
+#### test_tmux_copy_mode
 
 - copy-mode: enter copy mode
 
-#### 测试 15: Find window
+#### test_tmux_find_window
 
 - find-window: search windows
 
-#### 测试 16: Choose commands (interactive)
+#### test_tmux_choose_commands_interactive
 
 - choose-tree -G: tree display
 - choose-client: client selection
 
-#### 测试 17: Clock mode
+#### test_tmux_clock_mode
 
 - clock-mode: show clock
 
-#### 测试 18: Lock management
+#### test_tmux_lock_management
 
 - lock-server: lock server
 - lock-session: lock session
 
-#### 测试 19: Show prompt history
+#### test_tmux_show_prompt_history
 
 - show-prompt-history: prompt history
 - clear-prompt-history: clear prompt history
 
-#### 测试 20: Wait-for (event channels)
+#### test_tmux_waitfor_event_channels
 
 - wait-for -L: lock channel
 
-#### 测试 21: Cleanup - kill sessions
+#### test_tmux_cleanup_kill_sessions
 
 - kill-session: kill renamed_sess
 - kill-session: kill sess_fmt
@@ -4035,7 +4035,7 @@
 - kill-session: kill main test session
 - kill-server: terminate server
 
-#### 测试 22: Error handling
+#### test_tmux_error_handling
 
 - Error: nonexistent session
 - Error: invalid option
@@ -4049,7 +4049,7 @@
 <details>
 <summary><b>tzdata — 1 个用例 / 3 个功能点</b></summary>
 
-#### 主要功能点
+#### test_tzdata_main
 
 - 锟斤拷取 tzselect 锟芥本锟斤拷息
 - 锟斤拷取 zdump 锟芥本锟斤拷息
@@ -4064,7 +4064,7 @@
 <details>
 <summary><b>unzip — 1 个用例 / 4 个功能点</b></summary>
 
-#### 主要功能点
+#### test_unzip_main
 
 - 锟斤拷取 unzip 锟芥本锟斤拷息
 - 锟斤拷取 funzip 锟芥本锟斤拷息
@@ -4080,7 +4080,7 @@
 <details>
 <summary><b>util-linux — 2 个用例 / 31 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_util_linux_version_help
 
 - addpart 版本信息
 - addpart 帮助信息
@@ -4113,7 +4113,7 @@
 - blkzone 版本信息
 - blkzone 帮助信息
 
-#### 测试 2: 错误处理
+#### test_util_linux_error_handling
 
 - addpart: 无效选项
 
@@ -4126,7 +4126,7 @@
 <details>
 <summary><b>vim — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_vim_main
 
 - 锟斤拷取 vim 锟芥本
 
@@ -4139,39 +4139,39 @@
 <details>
 <summary><b>weston — 9 个用例 / 9 个功能点</b></summary>
 
-#### 测试 1: Version
+#### test_weston_version
 
 - weston version
 
-#### 测试 2: Help
+#### test_weston_help
 
 - weston help
 
-#### 测试 3: Weston terminal (headless)
+#### test_weston_weston_terminal_headless
 
 - weston-terminal help
 
-#### 测试 4: Weston debug
+#### test_weston_weston_debug
 
 - weston-debug help
 
-#### 测试 5: Screenshooter
+#### test_weston_screenshooter
 
 - weston-screenshooter help
 
-#### 测试 6: wcap-decode
+#### test_weston_wcapdecode
 
 - wcap-decode help
 
-#### 测试 7: Backend check
+#### test_weston_backend_check
 
 - Available backends
 
-#### 测试 8: Headless backend test
+#### test_weston_headless_backend_test
 
 - weston: headless backend
 
-#### 测试 9: Error handling
+#### test_weston_error_handling
 
 - weston: invalid option
 
@@ -4184,65 +4184,65 @@
 <details>
 <summary><b>wget — 15 个用例 / 18 个功能点</b></summary>
 
-#### 测试 1: Basic download
+#### test_wget_basic_download
 
 - Test downloading a small file
 
-#### 测试 2: Output options
+#### test_wget_output_options
 
-- 测试 2: Output options
+- test_wget_output_options
 
-#### 测试 3: Verbose and quiet modes
+#### test_wget_verbose_and_quiet_modes
 
-- 测试 3: Verbose and quiet modes
+- test_wget_verbose_and_quiet_modes
 
-#### 测试 4: Spider mode
+#### test_wget_spider_mode
 
-- 测试 4: Spider mode
+- test_wget_spider_mode
 
-#### 测试 5: Header options
+#### test_wget_header_options
 
-- 测试 5: Header options
+- test_wget_header_options
 
-#### 测试 6: User agent
+#### test_wget_user_agent
 
-- 测试 6: User agent
+- test_wget_user_agent
 
-#### 测试 7: Timeout and retries
+#### test_wget_timeout_and_retries
 
-- 测试 7: Timeout and retries
+- test_wget_timeout_and_retries
 
-#### 测试 8: Recursive download
+#### test_wget_recursive_download
 
 - Test mirror mode (limited depth)
 
-#### 测试 9: Continue and mirror
+#### test_wget_continue_and_mirror
 
 - Test continue option
 
-#### 测试 10: Rate limiting
+#### test_wget_rate_limiting
 
-- 测试 10: Rate limiting
+- test_wget_rate_limiting
 
-#### 测试 11: Progress indicators
+#### test_wget_progress_indicators
 
-- 测试 11: Progress indicators
+- test_wget_progress_indicators
 
-#### 测试 12: Error handling
+#### test_wget_error_handling
 
 - Invalid URL
 - 404 error
 - Invalid option
 
-#### 测试 13: Directory listing
+#### test_wget_directory_listing
 
-- 测试 13: Directory listing
+- test_wget_directory_listing
 
-#### 测试 14: Timestamps
+#### test_wget_timestamps
 
-- 测试 14: Timestamps
+- test_wget_timestamps
 
-#### 测试 15: Special features
+#### test_wget_special_features
 
 - Follow redirects (default)
 - Content disposition
@@ -4256,67 +4256,67 @@
 <details>
 <summary><b>wget2 — 15 个用例 / 17 个功能点</b></summary>
 
-#### 测试 1: Basic download
+#### test_wget2_basic_download
 
-- 测试 1: Basic download
+- test_wget2_basic_download
 
-#### 测试 2: Output file options
+#### test_wget2_output_file_options
 
-- 测试 2: Output file options
+- test_wget2_output_file_options
 
-#### 测试 3: Verbose modes
+#### test_wget2_verbose_modes
 
-- 测试 3: Verbose modes
+- test_wget2_verbose_modes
 
-#### 测试 4: Spider mode
+#### test_wget2_spider_mode
 
-- 测试 4: Spider mode
+- test_wget2_spider_mode
 
-#### 测试 5: Headers
+#### test_wget2_headers
 
-- 测试 5: Headers
+- test_wget2_headers
 
-#### 测试 6: User agent
+#### test_wget2_user_agent
 
-- 测试 6: User agent
+- test_wget2_user_agent
 
-#### 测试 7: Timeouts and retries
+#### test_wget2_timeouts_and_retries
 
-- 测试 7: Timeouts and retries
+- test_wget2_timeouts_and_retries
 
-#### 测试 8: Continue download
+#### test_wget2_continue_download
 
-- 测试 8: Continue download
+- test_wget2_continue_download
 
-#### 测试 9: Rate limiting
+#### test_wget2_rate_limiting
 
-- 测试 9: Rate limiting
+- test_wget2_rate_limiting
 
-#### 测试 10: HTTP/2 support
+#### test_wget2_http2_support
 
-- 测试 10: HTTP/2 support
+- test_wget2_http2_support
 
-#### 测试 11: TLS options
+#### test_wget2_tls_options
 
-- 测试 11: TLS options
+- test_wget2_tls_options
 
-#### 测试 12: Error handling
+#### test_wget2_error_handling
 
 - Invalid URL
 - 404 error
 - Invalid option
 
-#### 测试 13: Follow redirects
+#### test_wget2_follow_redirects
 
-- 测试 13: Follow redirects
+- test_wget2_follow_redirects
 
-#### 测试 14: Content disposition
+#### test_wget2_content_disposition
 
-- 测试 14: Content disposition
+- test_wget2_content_disposition
 
-#### 测试 15: Plugin system
+#### test_wget2_plugin_system
 
-- 测试 15: Plugin system
+- test_wget2_plugin_system
 
 </details>
 
@@ -4327,7 +4327,7 @@
 <details>
 <summary><b>which — 1 个用例 / 1 个功能点</b></summary>
 
-#### 主要功能点
+#### test_which_main
 
 - 锟斤拷取 which 锟芥本锟斤拷息
 
@@ -4340,7 +4340,7 @@
 <details>
 <summary><b>xz — 2 个用例 / 31 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_xz_version_help
 
 - xz 版本信息
 - xz 帮助信息
@@ -4373,7 +4373,7 @@
 - lzfgrep 版本信息
 - lzfgrep 帮助信息
 
-#### 测试 2: 错误处理
+#### test_xz_error_handling
 
 - xz: 无效选项
 
@@ -4386,7 +4386,7 @@
 <details>
 <summary><b>zstd — 2 个用例 / 13 个功能点</b></summary>
 
-#### 测试 1: 版本和帮助
+#### test_zstd_version_help
 
 - zstd 版本信息
 - zstd 帮助信息
@@ -4401,7 +4401,7 @@
 - zstdmt 版本信息
 - zstdmt 帮助信息
 
-#### 测试 2: 错误处理
+#### test_zstd_error_handling
 
 - zstd: 无效选项
 
