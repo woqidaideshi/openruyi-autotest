@@ -1,0 +1,8 @@
+﻿# Trellis 工具类目录（本地使用，不提交）
+.trellis/
+
+# Qoder 工具类目录（已废弃）
+.qoder/
+
+# Agent 配置（本地使用）
+AGENTS.md
