@@ -1,0 +1,9 @@
+summary: nmap 安全扫描测试
+test: ./test.sh
+tag:
+  - security
+  - nmap
+duration: 10m
+tier: 1
+require:
+  - nmap

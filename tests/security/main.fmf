@@ -1,9 +1,9 @@
-summary: 安全测试 - 验证系统安全特性
-test: ./test.sh
+summary: 安全测试 - nmap 安全扫描
+test: ./nmap/test.sh
 tag:
   - security
-duration: 5m
+  - nmap
+duration: 10m
 tier: 1
 require:
-  - coreutils
-  - openssl
+  - nmap
