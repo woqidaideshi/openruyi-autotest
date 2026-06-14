@@ -52,10 +52,10 @@ openruyi-autotest/
 | Smoke | 1 | 1 | PASS:0 FAIL:0 SKIP:1 |
 | Functional | 147 | 1,499 | PASS:147 FAIL:0 SKIP:0 |
 | Compatibility | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
-| Security | 1 | 8 | PASS:6 FAIL:2 SKIP:0 |
+| Security | 1 | 8 | PASS:8 FAIL:0 SKIP:0 |
 | Performance | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
 | Reliability | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
-| **合计** | **152** | **1,523** | **PASS:153 FAIL:2 SKIP:4** |
+| **合计** | **152** | **1,523** | **PASS:155 FAIL:0 SKIP:4** |
 
 ### 主要覆盖分类
 
