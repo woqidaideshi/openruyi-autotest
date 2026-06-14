@@ -12,3 +12,7 @@ AGENTS.md
 
 # 测试结果（本地存放）
 .test_results_server/
+test_results_server/
+
+# 测试打包文件
+test_bundle.tar.gz
