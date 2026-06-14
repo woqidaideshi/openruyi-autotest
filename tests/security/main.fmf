@@ -1,9 +1,6 @@
-summary: 安全测试 - 验证系统安全特性
-test: ./test.sh
-tag:
-  - security
+# 安全测试 - 共享配置
+# 所有子目录的安全测试都会继承这些配置
+framework: shell
 duration: 5m
 tier: 1
-require:
-  - coreutils
-  - openssl
+contact: QA Team
