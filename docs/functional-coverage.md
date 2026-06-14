@@ -1,6 +1,6 @@
 # 功能测试覆盖详情
 
-> 最后更新: 2026-06-14 | 自动生成 | 全量测试全部通过
+> 最后更新: 2026-06-14 | 自动生成
 > 测试环境: openEuler (10.20.237.192)
 
 共 **147** 个软件包，**476** 个测试用例，**1499** 个功能点
@@ -334,7 +334,7 @@
 
 #### test_authselect_main
 
-- 锟斤拷取 authselect 锟芥本
+- 获取 authselect 版本信息
 
 </details>
 
@@ -384,7 +384,7 @@
 
 #### test_bash_completion_main
 
-- 锟叫筹拷锟斤拷锟侥硷拷
+- 检查包已安装
 
 </details>
 
@@ -397,8 +397,8 @@
 
 #### test_bc_main
 
-- 锟斤拷取 bc 锟芥本锟斤拷息
-- 锟斤拷取 dc 锟芥本锟斤拷息
+- 获取 bc 版本信息
+- 获取 dc 版本信息
 
 </details>
 
@@ -437,7 +437,7 @@
 
 #### test_brotli_main
 
-- 锟斤拷取 brotli 锟芥本锟斤拷息
+- 获取 brotli 版本信息
 
 </details>
 
@@ -450,7 +450,7 @@
 
 #### test_bzip2_main
 
-- 锟斤拷取 bzip2 锟芥本
+- 获取 bzip2 版本信息
 
 </details>
 
@@ -972,7 +972,7 @@
 
 #### test_cpio_main
 
-- 锟斤拷取 cpio 锟芥本锟斤拷息
+- 获取 cpio 版本信息
 
 </details>
 
@@ -1054,7 +1054,7 @@
 
 #### test_dbus_main
 
-- 锟斤拷取 dbus-launch 锟芥本
+- 获取 dbus-launch 版本信息
 
 </details>
 
@@ -1067,7 +1067,7 @@
 
 #### test_dbus_broker_main
 
-- 锟斤拷取 dbus-broker 锟芥本锟斤拷息
+- 获取 dbus-broker 版本信息
 
 </details>
 
@@ -1100,10 +1100,10 @@
 
 #### test_diffutils_main
 
-- 锟斤拷取 cmp 锟芥本锟斤拷息
-- 锟斤拷取 diff 锟芥本锟斤拷息
-- 锟斤拷取 diff3 锟芥本锟斤拷息
-- 锟斤拷取 sdiff 锟芥本锟斤拷息
+- 获取 cmp 版本信息
+- 获取 diff 版本信息
+- 获取 diff3 版本信息
+- 获取 sdiff 版本信息
 
 </details>
 
@@ -1243,7 +1243,7 @@
 
 #### test_expat_main
 
-- 锟斤拷取 xmlwf 锟芥本锟斤拷息
+- 获取 xmlwf 版本信息
 
 </details>
 
@@ -1256,7 +1256,7 @@
 
 #### test_file_main
 
-- 锟斤拷取 file 锟芥本锟斤拷息
+- 获取 file 版本信息
 
 </details>
 
@@ -1320,8 +1320,8 @@
 
 #### test_gawk_main
 
-- 锟斤拷取 awk 锟芥本锟斤拷息
-- 锟斤拷取 gawk 锟芥本锟斤拷息
+- 获取 awk 版本信息
+- 获取 gawk 版本信息
 
 </details>
 
@@ -1444,7 +1444,7 @@
 
 #### test_git_main
 
-- 锟叫筹拷锟斤拷锟侥硷拷
+- 检查包已安装
 
 </details>
 
@@ -1777,7 +1777,7 @@
 
 #### test_iso_codes_main
 
-- 锟叫筹拷锟斤拷锟侥硷拷
+- 检查包已安装
 
 </details>
 
@@ -1916,9 +1916,9 @@
 
 #### test_less_main
 
-- 锟斤拷取 less 锟芥本锟斤拷息
-- 锟斤拷取 lessecho 锟芥本锟斤拷息
-- 锟斤拷取 lesskey 锟芥本锟斤拷息
+- 获取 less 版本信息
+- 获取 lessecho 版本信息
+- 获取 lesskey 版本信息
 
 </details>
 
@@ -2085,7 +2085,7 @@
 
 #### test_libidn2_main
 
-- 锟斤拷取 idn2 锟芥本锟斤拷息
+- 获取 idn2 版本信息
 
 </details>
 
@@ -2168,7 +2168,7 @@
 
 #### test_libpng_main
 
-- 锟斤拷取 pngfix 锟芥本锟斤拷息
+- 获取 pngfix 版本信息
 
 </details>
 
@@ -2195,8 +2195,8 @@
 
 #### test_libpwquality_main
 
-- 锟斤拷取 pwmake 锟芥本锟斤拷息
-- 锟斤拷取 pwscore 锟芥本锟斤拷息
+- 获取 pwmake 版本信息
+- 获取 pwscore 版本信息
 
 </details>
 
@@ -2251,9 +2251,9 @@
 
 #### test_libtasn1_main
 
-- 锟斤拷取 asn1Coding 锟芥本锟斤拷息
-- 锟斤拷取 asn1Decoding 锟芥本锟斤拷息
-- 锟斤拷取 asn1Parser 锟芥本锟斤拷息
+- 获取 asn1Coding 版本信息
+- 获取 asn1Decoding 版本信息
+- 获取 asn1Parser 版本信息
 
 </details>
 
@@ -2308,8 +2308,8 @@
 
 #### test_libxml2_main
 
-- 锟斤拷取 xmlcatalog 锟芥本锟斤拷息
-- 锟斤拷取 xmllint 锟芥本锟斤拷息
+- 获取 xmlcatalog 版本信息
+- 获取 xmllint 版本信息
 
 </details>
 
@@ -2322,7 +2322,7 @@
 
 #### test_libxslt_main
 
-- 锟斤拷取 xsltproc 锟芥本锟斤拷息
+- 获取 xsltproc 版本信息
 
 </details>
 
@@ -2382,10 +2382,10 @@
 
 #### test_lz4_main
 
-- 锟斤拷取 lz4 锟芥本锟斤拷息
-- 锟斤拷取 lz4c 锟芥本锟斤拷息
-- 锟斤拷取 lz4cat 锟芥本锟斤拷息
-- 锟斤拷取 unlz4 锟芥本锟斤拷息
+- 获取 lz4 版本信息
+- 获取 lz4c 版本信息
+- 获取 lz4cat 版本信息
+- 获取 unlz4 版本信息
 
 </details>
 
@@ -2568,7 +2568,7 @@
 
 #### test_openruyi_release_main
 
-- 锟叫筹拷锟斤拷锟侥硷拷
+- 检查包已安装
 
 </details>
 
@@ -2581,7 +2581,7 @@
 
 #### test_openssh_main
 
-- 锟斤拷取 ssh 锟芥本锟斤拷息
+- 获取 ssh 版本信息
 
 </details>
 
@@ -2643,7 +2643,7 @@
 
 #### test_openssl_main
 
-- 锟斤拷取 openssl 锟芥本
+- 获取 openssl 版本信息
 
 </details>
 
@@ -2695,7 +2695,7 @@
 
 #### test_patch_main
 
-- 锟斤拷取 patch 锟芥本锟斤拷息
+- 获取 patch 版本信息
 
 </details>
 
@@ -2769,8 +2769,8 @@
 
 #### test_pcre2_main
 
-- 锟斤拷取 pcre2grep 锟芥本锟斤拷息
-- 锟斤拷取 pcre2test 锟芥本锟斤拷息
+- 获取 pcre2grep 版本信息
+- 获取 pcre2test 版本信息
 
 </details>
 
@@ -2783,7 +2783,7 @@
 
 #### test_perl_main
 
-- 锟斤拷取 perl 锟芥本
+- 获取 perl 版本信息
 
 </details>
 
@@ -3103,7 +3103,7 @@
 
 #### test_publicsuffix_list_main
 
-- 锟叫筹拷锟斤拷锟侥硷拷
+- 检查包已安装
 
 </details>
 
@@ -3116,7 +3116,7 @@
 
 #### test_pyproject_rpm_macros_main
 
-- 锟叫筹拷锟斤拷锟侥硷拷
+- 检查包已安装
 
 </details>
 
@@ -3175,7 +3175,7 @@
 
 #### test_python_packaging_main
 
-- 锟叫筹拷锟斤拷锟侥硷拷
+- 检查包已安装
 
 </details>
 
@@ -3188,7 +3188,7 @@
 
 #### test_python_pip_main
 
-- 锟斤拷取 pip3 锟芥本
+- 获取 pip3 版本信息
 
 </details>
 
@@ -3201,7 +3201,7 @@
 
 #### test_python_rpm_macros_main
 
-- 锟叫筹拷锟斤拷锟侥硷拷
+- 检查包已安装
 
 </details>
 
@@ -3214,7 +3214,7 @@
 
 #### test_python_srpm_macros_main
 
-- 锟叫筹拷锟斤拷锟侥硷拷
+- 检查包已安装
 
 </details>
 
@@ -3397,7 +3397,7 @@
 
 #### test_setup_main
 
-- 锟叫筹拷锟斤拷锟侥硷拷
+- 检查包已安装
 
 </details>
 
@@ -3410,7 +3410,7 @@
 
 #### test_slang_main
 
-- 锟斤拷取 slsh 锟芥本锟斤拷息
+- 获取 slsh 版本信息
 
 </details>
 
@@ -3423,8 +3423,8 @@
 
 #### test_sqlite_main
 
-- 锟斤拷取 sqldiff 锟芥本锟斤拷息
-- 锟斤拷取 sqlite3 锟芥本锟斤拷息
+- 获取 sqldiff 版本信息
+- 获取 sqlite3 版本信息
 
 </details>
 
@@ -3771,7 +3771,7 @@
 
 #### test_tcsh_main
 
-- 锟斤拷取 tcsh 锟芥本锟斤拷息
+- 获取 tcsh 版本信息
 
 </details>
 
@@ -3784,7 +3784,7 @@
 
 #### test_time_main
 
-- 锟斤拷取 time 锟芥本锟斤拷息
+- 获取 time 版本信息
 
 </details>
 
@@ -4051,9 +4051,9 @@
 
 #### test_tzdata_main
 
-- 锟斤拷取 tzselect 锟芥本锟斤拷息
-- 锟斤拷取 zdump 锟芥本锟斤拷息
-- 锟斤拷取 zic 锟芥本锟斤拷息
+- 获取 tzselect 版本信息
+- 获取 zdump 版本信息
+- 获取 zic 版本信息
 
 </details>
 
@@ -4066,10 +4066,10 @@
 
 #### test_unzip_main
 
-- 锟斤拷取 unzip 锟芥本锟斤拷息
-- 锟斤拷取 funzip 锟芥本锟斤拷息
-- 锟斤拷取 zipgrep 锟芥本锟斤拷息
-- 锟斤拷取 zipinfo 锟芥本锟斤拷息
+- 获取 unzip 版本信息
+- 获取 funzip 版本信息
+- 获取 zipgrep 版本信息
+- 获取 zipinfo 版本信息
 
 </details>
 
@@ -4128,7 +4128,7 @@
 
 #### test_vim_main
 
-- 锟斤拷取 vim 锟芥本
+- 获取 vim 版本信息
 
 </details>
 
@@ -4329,7 +4329,7 @@
 
 #### test_which_main
 
-- 锟斤拷取 which 锟芥本锟斤拷息
+- 获取 which 版本信息
 
 </details>
 
