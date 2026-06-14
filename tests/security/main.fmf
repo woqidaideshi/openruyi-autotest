@@ -1,9 +1,6 @@
-summary: 安全测试 - nmap 安全扫描
-test: ./nmap/test.sh
-tag:
-  - security
-  - nmap
-duration: 10m
+# 安全测试 - 共享配置
+# 所有子目录的安全测试都会继承这些配置
+framework: shell
+duration: 5m
 tier: 1
-require:
-  - nmap
+contact: QA Team
