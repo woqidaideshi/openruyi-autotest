@@ -40,22 +40,22 @@ openruyi-autotest/
 - **测试分段模式**（10 个包）：使用 `=== Test N ===` 分段
 - **简单检查模式**（16 个包）：基本安装验证
 
-共 **476 个测试用例 / 1,499 个功能点**
+> 功能测试共 **147 个软件包 / 476 个测试用例 / 1,499 个功能点**，全部已通过服务器验证
 
 > 📋 详细测试覆盖请查看：[docs/functional-coverage.md](docs/functional-coverage.md)
 > 🔒 安全测试覆盖请查看：[docs/security-coverage.md](docs/security-coverage.md)
 
-### 用例数量统计
+### 全量用例统计
 
-| 测试类型 | 测试套数量 | 测试用例数量 | 最新测试结果 |
-|---------|:------:|:----:|:----:|
-| Smoke | 1 | 1 | PASS:0 FAIL:0 SKIP:1 |
-| Functional | 147 | 1,499 | PASS:147 FAIL:0 SKIP:0 |
-| Compatibility | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
-| Security | 1 | 8 | PASS:8 FAIL:0 SKIP:0 |
-| Performance | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
-| Reliability | 1 | 5 | PASS:0 FAIL:0 SKIP:1 |
-| **合计** | **152** | **1,523** | **PASS:155 FAIL:0 SKIP:4** |
+| 测试类型 | 测试套数 | 用例数 | 服务器验证结果 |
+|---------|:---:|:---:|:---:|
+| Smoke | 1 | 1 | PASS:0 SKIP:1 |
+| Functional | 147 | 1,499 | PASS:147 FAIL:0 |
+| Security | 1 | 8 | PASS:8 FAIL:0 |
+| Compatibility | 1 | 5 | PASS:0 SKIP:1 |
+| Performance | 1 | 5 | PASS:0 SKIP:1 |
+| Reliability | 1 | 5 | PASS:0 SKIP:1 |
+| **合计** | **152** | **1,523** | **PASS:155 SKIP:4** |
 
 ### 主要覆盖分类
 
