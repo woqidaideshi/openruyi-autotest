@@ -15,4 +15,4 @@ AGENTS.md
 test_results_server/
 
 # 测试打包文件
-test_bundle.tar.gz
+*.tar.gz
