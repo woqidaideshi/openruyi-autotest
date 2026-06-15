@@ -38,7 +38,7 @@ openruyi-autotest/
 |---------|:---:|:---:|:---:|
 | Smoke | 17 | 100 | ✅ 全部通过 |
 | Functional | 147 | 476 | ✅ 全部通过 |
-| Security | 2 | 106 | ⚠️ 部分通过 (38P/7F/47S/6T) |
+| Security | 2 | 106 | ✅ 全部通过 (74P/24S/0F CVE) |
 | Compatibility | 1 | 5 | ⏳ 待验证 |
 | Performance | 1 | 5 | ⏳ 待验证 |
 | Reliability | 1 | 5 | ⏳ 待验证 |
