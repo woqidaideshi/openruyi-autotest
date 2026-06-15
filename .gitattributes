@@ -1,0 +1,11 @@
+# 统一换行符：所有文件使用 LF
+* text=auto
+
+# Shell 脚本必须使用 LF（CRLF 会导致 bash 语法错误）
+*.sh text eol=lf
+
+# FMF 配置文件使用 LF
+*.fmf text eol=lf
+
+# Markdown 文档使用 LF
+*.md text eol=lf
