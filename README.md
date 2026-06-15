@@ -30,33 +30,25 @@ openruyi-autotest/
 └── README.md
 ```
 
-## 功能测试覆盖
-
-本项目包含 **147 个软件包**的功能测试脚本，覆盖 openRuyi 系统的核心软件包，全部已在服务器验证通过。
-
-> ✅ 最近全量测试：2026-06-14 | 147/147 通过 | 测试环境：10.20.237.192:12055
-
-- **rlRun 模式**（121 个包）：使用结构化测试框架，按测试用例分组
-- **测试分段模式**（10 个包）：使用 `=== Test N ===` 分段
-- **简单检查模式**（16 个包）：基本安装验证
-
-> 功能测试共 **147 个软件包 / 476 个测试用例 / 1,499 个功能点**，全部已通过服务器验证
-
-> 📋 详细测试覆盖请查看：[docs/functional-coverage.md](docs/functional-coverage.md)
-> 🔒 安全测试覆盖请查看：[docs/security-coverage.md](docs/security-coverage.md)
-> 🔥 冒烟测试覆盖请查看：[docs/smoke-coverage.md](docs/smoke-coverage.md)
+## 测试覆盖
 
 ### 全量用例统计
 
-| 测试类型 | 测试套数 | 用例数 | 服务器验证结果 |
+| 测试类型 | 测试套数 | 用例数 | 状态 |
 |---------|:---:|:---:|:---:|
-| Smoke | 17 | 100 | PASS:100 FAIL:0 |
-| Functional | 147 | 476 | PASS:476 FAIL:0 |
-| Security | 1 | 8 | PASS:8 FAIL:0 |
-| Compatibility | 1 | 5 | PASS:0 SKIP:1 |
-| Performance | 1 | 5 | PASS:0 SKIP:1 |
-| Reliability | 1 | 5 | PASS:0 SKIP:1 |
-| **合计** | **168** | **599** | **PASS:584 SKIP:3** |
+| Smoke | 17 | 100 | ✅ 全部通过 |
+| Functional | 147 | 476 | ✅ 全部通过 |
+| Security | 1 | 8 | ✅ 全部通过 |
+| Compatibility | 1 | 5 | ⏳ 待验证 |
+| Performance | 1 | 5 | ⏳ 待验证 |
+| Reliability | 1 | 5 | ⏳ 待验证 |
+| **合计** | **168** | **599** | |
+
+### 详情文档
+
+- [冒烟测试覆盖详情](docs/smoke-coverage.md) — 17 个类别，100 个用例
+- [功能测试覆盖详情](docs/functional-coverage.md) — 147 个软件包，476 个用例，1,499 个功能点
+- [安全测试覆盖详情](docs/security-coverage.md) — 8 个用例
 
 ### 主要覆盖分类
 
