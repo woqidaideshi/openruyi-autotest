@@ -38,17 +38,17 @@ openruyi-autotest/
 |---------|:---:|:---:|:---:|
 | Smoke | 17 | 100 | ✅ 全部通过 |
 | Functional | 147 | 476 | ✅ 全部通过 |
-| Security | 1 | 8 | ✅ 全部通过 |
+| Security | 2 | 106 | ⚠️ 部分通过 (38P/7F/47S/6T) |
 | Compatibility | 1 | 5 | ⏳ 待验证 |
 | Performance | 1 | 5 | ⏳ 待验证 |
 | Reliability | 1 | 5 | ⏳ 待验证 |
-| **合计** | **168** | **599** | |
+| **合计** | **169** | **697** | |
 
 ### 详情文档
 
 - [冒烟测试覆盖详情](docs/smoke-coverage.md) — 17 个类别，100 个用例
 - [功能测试覆盖详情](docs/functional-coverage.md) — 147 个软件包，476 个用例，1,499 个功能点
-- [安全测试覆盖详情](docs/security-coverage.md) — 8 个用例
+- [安全测试覆盖详情](docs/security-coverage.md) — 2 个套件（nmap + CVE），106 个用例
 
 ### 主要覆盖分类
 
