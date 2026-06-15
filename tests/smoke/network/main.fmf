@@ -1,0 +1,38 @@
+summary: 冒烟测试 - 基本network功能
+contact: QA Team
+tag: [smoke, network]
+tier: 0
+duration: 2m
+path: /tests/smoke/network
+
+/test_smoke_curl_http:
+  summary: curl HTTP请求
+  test: ./test_smoke_curl_http.sh
+
+/test_smoke_hostname_resolve:
+  summary: DNS 解析测试
+  test: ./test_smoke_hostname_resolve.sh
+
+/test_smoke_ip_network_config:
+  summary: ip 网络配置查看
+  test: ./test_smoke_ip_network_config.sh
+
+/test_smoke_loopback_interface:
+  summary: lo 回环接口检查
+  test: ./test_smoke_loopback_interface.sh
+
+/test_smoke_ping_localhost:
+  summary: ping 网络连通性
+  test: ./test_smoke_ping_localhost.sh
+
+/test_smoke_ss_socket_stats:
+  summary: ss 网络连接状态
+  test: ./test_smoke_ss_socket_stats.sh
+
+/test_smoke_ssh_client_check:
+  summary: SSH 客户端可用性
+  test: ./test_smoke_ssh_client_check.sh
+
+/test_smoke_wget_download:
+  summary: wget 文件下载
+  test: ./test_smoke_wget_download.sh

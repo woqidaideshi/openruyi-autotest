@@ -1,0 +1,46 @@
+summary: 冒烟测试 - 基本filesystem功能
+contact: QA Team
+tag: [smoke, filesystem]
+tier: 0
+duration: 2m
+path: /tests/smoke/filesystem
+
+/test_smoke_cat_read_file:
+  summary: cat 读取和拼接文件
+  test: ./test_smoke_cat_read_file.sh
+
+/test_smoke_cp_copy_file:
+  summary: cp 复制文件和目录
+  test: ./test_smoke_cp_copy_file.sh
+
+/test_smoke_file_type_detect:
+  summary: file 检测文件类型
+  test: ./test_smoke_file_type_detect.sh
+
+/test_smoke_ln_hardlink_symlink:
+  summary: ln 创建硬链接和符号链接
+  test: ./test_smoke_ln_hardlink_symlink.sh
+
+/test_smoke_ls_list_files:
+  summary: ls 列出文件和目录
+  test: ./test_smoke_ls_list_files.sh
+
+/test_smoke_mkdir_rmdir_directory:
+  summary: mkdir/rmdir 创建删除目录
+  test: ./test_smoke_mkdir_rmdir_directory.sh
+
+/test_smoke_mv_move_file:
+  summary: mv 移动和重命名文件
+  test: ./test_smoke_mv_move_file.sh
+
+/test_smoke_rm_delete_file:
+  summary: rm 删除文件和目录
+  test: ./test_smoke_rm_delete_file.sh
+
+/test_smoke_stat_file_info:
+  summary: stat 查看文件详细信息
+  test: ./test_smoke_stat_file_info.sh
+
+/test_smoke_touch_create_file:
+  summary: touch 创建空文件和修改时间戳
+  test: ./test_smoke_touch_create_file.sh

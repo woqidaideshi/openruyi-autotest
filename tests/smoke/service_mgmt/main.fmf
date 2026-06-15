@@ -1,0 +1,26 @@
+summary: 冒烟测试 - 基本service_mgmt功能
+contact: QA Team
+tag: [smoke, service]
+tier: 0
+duration: 2m
+path: /tests/smoke/service_mgmt
+
+/test_smoke_hostnamectl:
+  summary: hostnamectl 主机名管理
+  test: ./test_smoke_hostnamectl.sh
+
+/test_smoke_journalctl_logs:
+  summary: journalctl 日志查询
+  test: ./test_smoke_journalctl_logs.sh
+
+/test_smoke_systemctl_status:
+  summary: systemctl 服务状态
+  test: ./test_smoke_systemctl_status.sh
+
+/test_smoke_systemd_analyze:
+  summary: systemd 启动分析
+  test: ./test_smoke_systemd_analyze.sh
+
+/test_smoke_timedatectl_time:
+  summary: timedatectl 时间设置
+  test: ./test_smoke_timedatectl_time.sh

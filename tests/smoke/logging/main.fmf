@@ -1,0 +1,27 @@
+summary: 冒烟测试 - 日志/审计功能
+contact: QA Team
+tag: [smoke, logging]
+tier: 0
+duration: 2m
+path: /tests/smoke/logging
+require: [coreutils]
+
+/test_smoke_dmesg_kernel_log:
+  summary: dmesg 内核日志
+  test: ./test_smoke_dmesg_kernel_log.sh
+
+/test_smoke_logrotate_config:
+  summary: logrotate 日志轮转配置
+  test: ./test_smoke_logrotate_config.sh
+
+/test_smoke_var_log_check:
+  summary: /var/log 日志目录
+  test: ./test_smoke_var_log_check.sh
+
+/test_smoke_last_login_records:
+  summary: last 登录记录
+  test: ./test_smoke_last_login_records.sh
+
+/test_smoke_syslog_available:
+  summary: syslog/rsyslog 系统日志
+  test: ./test_smoke_syslog_available.sh

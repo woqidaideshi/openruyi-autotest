@@ -1,0 +1,26 @@
+summary: 冒烟测试 - 基本scripting功能
+contact: QA Team
+tag: [smoke, script]
+tier: 0
+duration: 2m
+path: /tests/smoke/scripting
+
+/test_smoke_env_variables:
+  summary: env 环境变量
+  test: ./test_smoke_env_variables.sh
+
+/test_smoke_printf_format:
+  summary: printf 格式化输出
+  test: ./test_smoke_printf_format.sh
+
+/test_smoke_shebang_script:
+  summary: 可执行脚本
+  test: ./test_smoke_shebang_script.sh
+
+/test_smoke_sleep_timeout:
+  summary: sleep/timeout 延时
+  test: ./test_smoke_sleep_timeout.sh
+
+/test_smoke_tee_write:
+  summary: tee 分流输出
+  test: ./test_smoke_tee_write.sh

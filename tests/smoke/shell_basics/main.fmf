@@ -1,0 +1,38 @@
+summary: 冒烟测试 - 基本shell_basics功能
+contact: QA Team
+tag: [smoke, shell]
+tier: 0
+duration: 2m
+path: /tests/smoke/shell_basics
+
+/test_smoke_bash_version:
+  summary: bash 版本和基本执行
+  test: ./test_smoke_bash_version.sh
+
+/test_smoke_exit_code_handling:
+  summary: 退出码和逻辑运算符
+  test: ./test_smoke_exit_code_handling.sh
+
+/test_smoke_for_while_loops:
+  summary: shell 循环结构
+  test: ./test_smoke_for_while_loops.sh
+
+/test_smoke_globbing_wildcard:
+  summary: 通配符和 glob
+  test: ./test_smoke_globbing_wildcard.sh
+
+/test_smoke_if_condition_test:
+  summary: 条件判断 test/[ ]
+  test: ./test_smoke_if_condition_test.sh
+
+/test_smoke_pipe_redirect:
+  summary: 管道和重定向
+  test: ./test_smoke_pipe_redirect.sh
+
+/test_smoke_subshell_command:
+  summary: 命令替换 $( )
+  test: ./test_smoke_subshell_command.sh
+
+/test_smoke_variable_expansion:
+  summary: shell 变量和展开
+  test: ./test_smoke_variable_expansion.sh

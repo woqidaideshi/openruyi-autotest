@@ -1,0 +1,26 @@
+summary: 冒烟测试 - 基本user_mgmt功能
+contact: QA Team
+tag: [smoke, user]
+tier: 0
+duration: 2m
+path: /tests/smoke/user_mgmt
+
+/test_smoke_etc_skel_home:
+  summary: 用户骨架目录检查
+  test: ./test_smoke_etc_skel_home.sh
+
+/test_smoke_groups_membership:
+  summary: groups 组成员关系
+  test: ./test_smoke_groups_membership.sh
+
+/test_smoke_passwd_shadow:
+  summary: 用户密码文件检查
+  test: ./test_smoke_passwd_shadow.sh
+
+/test_smoke_sudo_check:
+  summary: sudo 提权验证
+  test: ./test_smoke_sudo_check.sh
+
+/test_smoke_whoami_id:
+  summary: whoami/id 用户身份
+  test: ./test_smoke_whoami_id.sh
