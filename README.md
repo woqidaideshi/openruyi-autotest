@@ -44,18 +44,19 @@ openruyi-autotest/
 
 > 📋 详细测试覆盖请查看：[docs/functional-coverage.md](docs/functional-coverage.md)
 > 🔒 安全测试覆盖请查看：[docs/security-coverage.md](docs/security-coverage.md)
+> 🔥 冒烟测试覆盖请查看：[docs/smoke-coverage.md](docs/smoke-coverage.md)
 
 ### 全量用例统计
 
 | 测试类型 | 测试套数 | 用例数 | 服务器验证结果 |
 |---------|:---:|:---:|:---:|
-| Smoke | 17 | 100 | PASS:0 SKIP:1 |
+| Smoke | 17 | 100 | PASS:100 FAIL:0 |
 | Functional | 147 | 476 | PASS:476 FAIL:0 |
 | Security | 1 | 8 | PASS:8 FAIL:0 |
 | Compatibility | 1 | 5 | PASS:0 SKIP:1 |
 | Performance | 1 | 5 | PASS:0 SKIP:1 |
 | Reliability | 1 | 5 | PASS:0 SKIP:1 |
-| **合计** | **168** | **599** | **PASS:476 SKIP:4** |
+| **合计** | **168** | **599** | **PASS:584 SKIP:3** |
 
 ### 主要覆盖分类
 
