@@ -1,0 +1,22 @@
+summary: 冒烟测试 - 基本dev_tools功能
+contact: QA Team
+tag: [smoke, dev]
+tier: 0
+duration: 2m
+path: /tests/smoke/dev_tools
+
+/test_smoke_gcc_compile:
+  summary: gcc 编译C程序
+  test: ./test_smoke_gcc_compile.sh
+
+/test_smoke_ldd_deps:
+  summary: ldd 查看动态链接
+  test: ./test_smoke_ldd_deps.sh
+
+/test_smoke_make_build:
+  summary: make 构建工具
+  test: ./test_smoke_make_build.sh
+
+/test_smoke_python_interpreter:
+  summary: Python 解释器可用
+  test: ./test_smoke_python_interpreter.sh

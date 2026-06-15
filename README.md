@@ -49,13 +49,13 @@ openruyi-autotest/
 
 | 测试类型 | 测试套数 | 用例数 | 服务器验证结果 |
 |---------|:---:|:---:|:---:|
-| Smoke | 1 | 1 | PASS:0 SKIP:1 |
+| Smoke | 17 | 100 | PASS:0 SKIP:1 |
 | Functional | 147 | 476 | PASS:476 FAIL:0 |
 | Security | 1 | 8 | PASS:8 FAIL:0 |
 | Compatibility | 1 | 5 | PASS:0 SKIP:1 |
 | Performance | 1 | 5 | PASS:0 SKIP:1 |
 | Reliability | 1 | 5 | PASS:0 SKIP:1 |
-| **合计** | **152** | **500** | **PASS:484 SKIP:4** |
+| **合计** | **168** | **599** | **PASS:476 SKIP:4** |
 
 ### 主要覆盖分类
 

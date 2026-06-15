@@ -1,0 +1,38 @@
+summary: 冒烟测试 - 基本system_info功能
+contact: QA Team
+tag: [smoke, system]
+tier: 0
+duration: 2m
+path: /tests/smoke/system_info
+
+/test_smoke_cpu_mem_info:
+  summary: /proc CPU和内存信息
+  test: ./test_smoke_cpu_mem_info.sh
+
+/test_smoke_date_time:
+  summary: date 日期时间
+  test: ./test_smoke_date_time.sh
+
+/test_smoke_df_disk_usage:
+  summary: df 磁盘空间
+  test: ./test_smoke_df_disk_usage.sh
+
+/test_smoke_du_disk_usage:
+  summary: du 目录磁盘用量
+  test: ./test_smoke_du_disk_usage.sh
+
+/test_smoke_free_memory:
+  summary: free 内存信息
+  test: ./test_smoke_free_memory.sh
+
+/test_smoke_hostname_check:
+  summary: hostname 主机名
+  test: ./test_smoke_hostname_check.sh
+
+/test_smoke_uname_system_info:
+  summary: uname 系统信息
+  test: ./test_smoke_uname_system_info.sh
+
+/test_smoke_uptime_load:
+  summary: 系统运行时间和负载
+  test: ./test_smoke_uptime_load.sh

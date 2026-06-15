@@ -1,5 +1,5 @@
-summary: 鍐掔儫娴嬭瘯 - 楠岃瘉 tmt 宸ュ叿甯姪淇℃伅
-test: ./test.sh
-tag: smoke
+summary: 冒烟测试 - 快速验证系统基本功能
+framework: shell
 duration: 1m
 tier: 0
+contact: QA Team

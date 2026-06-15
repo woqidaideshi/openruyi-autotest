@@ -1,0 +1,46 @@
+summary: 冒烟测试 - 基本text_processing功能
+contact: QA Team
+tag: [smoke, text]
+tier: 0
+duration: 2m
+path: /tests/smoke/text_processing
+
+/test_smoke_awk_text_processing:
+  summary: awk 文本处理
+  test: ./test_smoke_awk_text_processing.sh
+
+/test_smoke_cut_field_extract:
+  summary: cut 字段提取
+  test: ./test_smoke_cut_field_extract.sh
+
+/test_smoke_diff_compare:
+  summary: diff 文件比较
+  test: ./test_smoke_diff_compare.sh
+
+/test_smoke_find_search_files:
+  summary: find 查找文件
+  test: ./test_smoke_find_search_files.sh
+
+/test_smoke_grep_search:
+  summary: grep 文本搜索
+  test: ./test_smoke_grep_search.sh
+
+/test_smoke_head_tail_lines:
+  summary: head/tail 查看行首行尾
+  test: ./test_smoke_head_tail_lines.sh
+
+/test_smoke_sed_substitution:
+  summary: sed 流编辑器替换
+  test: ./test_smoke_sed_substitution.sh
+
+/test_smoke_sort_uniq_dedup:
+  summary: sort/uniq 排序去重
+  test: ./test_smoke_sort_uniq_dedup.sh
+
+/test_smoke_tr_translate:
+  summary: tr 字符转换
+  test: ./test_smoke_tr_translate.sh
+
+/test_smoke_wc_count:
+  summary: wc 统计行数字数
+  test: ./test_smoke_wc_count.sh
