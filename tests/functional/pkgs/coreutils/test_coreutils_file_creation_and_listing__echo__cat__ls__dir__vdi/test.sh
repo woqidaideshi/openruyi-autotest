@@ -1,23 +1,7 @@
 #!/bin/sh -eux
 # Functional test: coreutils - File-creation-and-listing--echo--cat--ls--dir--vdi
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install coreutils ===
-INSTALLED_BY_TEST=0
-if ! rpm -q coreutils 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y coreutils 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed coreutils"
-    else
-        echo "SKIP: coreutils not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: coreutils already installed"
-fi
-
-TmpDir=$(mktemp -d)
-cd $TmpDir
+. "../setup.sh"
 
 echo "=== Test 1: File creation and listing (echo, cat, ls, dir, vdir) ==="
 
@@ -50,11 +34,5 @@ rlRun 'vdir' 0 "vdir long format list"
 
 # ===================================================================
 
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y coreutils 2>/dev/null || true
-    echo "TEARDOWN: removed coreutils"
-fi
-echo ""
+. "../teardown.sh"
 echo "All coreutils File-creation-and-listing--echo--cat--ls--dir--vdi tests passed!"

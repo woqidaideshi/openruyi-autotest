@@ -3,23 +3,7 @@
 # Tests SDDM display manager
 # Version: sddm 0.21.0
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install sddm ===
-INSTALLED_BY_TEST=0
-if ! rpm -q sddm 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y sddm 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed sddm"
-    else
-        echo "SKIP: sddm not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: sddm already installed"
-fi
-
-
-rlRun 'which sddm-greeter-qt6 2>&1 || true' 0 "Check sddm-greeter available"
+. "./setup.sh"
 
 echo "=== Test 1: Version and help ==="
 rlRun 'sddm --help 2>&1 | head -10' 0 "sddm help"
@@ -48,9 +32,5 @@ echo "DBus check completed"
 echo "=== Test 7: Error handling ==="
 echo "All sddm functional tests passed!"
 
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y sddm 2>/dev/null || true
-    echo "TEARDOWN: removed sddm"
-fi
-
+. "./teardown.sh"
+echo "All sddm tests passed!"

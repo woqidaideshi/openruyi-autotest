@@ -1,23 +1,7 @@
 #!/bin/sh -eux
 # Functional test: coreutils - System-information--uname--who--whoami--id--groups
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install coreutils ===
-INSTALLED_BY_TEST=0
-if ! rpm -q coreutils 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y coreutils 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed coreutils"
-    else
-        echo "SKIP: coreutils not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: coreutils already installed"
-fi
-
-TmpDir=$(mktemp -d)
-cd $TmpDir
+. "../setup.sh"
 
 echo "=== Test 15: System information (uname, who, whoami, id, groups, users, hostid, nproc, tty, logname, pinky) ==="
 
@@ -63,11 +47,5 @@ rlRun 'pinky' 0 "pinky user info"
 
 # ===================================================================
 
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y coreutils 2>/dev/null || true
-    echo "TEARDOWN: removed coreutils"
-fi
-echo ""
+. "../teardown.sh"
 echo "All coreutils System-information--uname--who--whoami--id--groups tests passed!"

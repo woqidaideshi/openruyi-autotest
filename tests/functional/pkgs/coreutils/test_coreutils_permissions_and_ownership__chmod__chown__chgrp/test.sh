@@ -1,23 +1,7 @@
 #!/bin/sh -eux
 # Functional test: coreutils - Permissions-and-ownership--chmod--chown--chgrp
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install coreutils ===
-INSTALLED_BY_TEST=0
-if ! rpm -q coreutils 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y coreutils 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed coreutils"
-    else
-        echo "SKIP: coreutils not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: coreutils already installed"
-fi
-
-TmpDir=$(mktemp -d)
-cd $TmpDir
+. "../setup.sh"
 
 echo "=== Test 11: Permissions and ownership (chmod, chown, chgrp) ==="
 
@@ -40,11 +24,5 @@ rlRun 'chgrp --version' 0 "chgrp version check"
 
 # ===================================================================
 
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y coreutils 2>/dev/null || true
-    echo "TEARDOWN: removed coreutils"
-fi
-echo ""
+. "../teardown.sh"
 echo "All coreutils Permissions-and-ownership--chmod--chown--chgrp tests passed!"

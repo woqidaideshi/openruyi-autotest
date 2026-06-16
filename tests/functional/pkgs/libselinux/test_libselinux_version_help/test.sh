@@ -1,23 +1,7 @@
 #!/bin/sh -eux
 # Functional test: libselinux - 版本和帮助
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install libselinux ===
-INSTALLED_BY_TEST=0
-if ! rpm -q libselinux 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y libselinux 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed libselinux"
-    else
-        echo "SKIP: libselinux not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: libselinux already installed"
-fi
-
-TmpDir=$(mktemp -d)
-cd $TmpDir
+. "../setup.sh"
 
 echo "=== 测试 1: 版本和帮助 ==="
 
@@ -28,11 +12,5 @@ rlRun 'ls /usr/lib64/lib*.so* 2>/dev/null | head -5 || echo "无库文件"' 0 "�
 cd /
 rm -rf $TmpDir
 
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y libselinux 2>/dev/null || true
-    echo "TEARDOWN: removed libselinux"
-fi
-echo ""
+. "../teardown.sh"
 echo "All libselinux 版本和帮助 tests passed!"

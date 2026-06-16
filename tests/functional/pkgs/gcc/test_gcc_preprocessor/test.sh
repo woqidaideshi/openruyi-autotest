@@ -1,25 +1,7 @@
 #!/bin/sh -eux
 # Functional test: gcc - Preprocessor
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install gcc ===
-INSTALLED_BY_TEST=0
-if ! rpm -q gcc 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y gcc 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed gcc"
-    else
-        echo "SKIP: gcc not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: gcc already installed"
-fi
-
-rlRun 'gcc --version' 0 "Get gcc version info"
-rlRun 'g++ --version' 0 "Get g++ version info"
-TmpDir=$(mktemp -d)
-cd $TmpDir
+. "../setup.sh"
 
 echo "=== Test 4: Preprocessor ==="
 
@@ -41,12 +23,5 @@ rlRun './macro_bin' 0 "Run from preprocessed source"
 rlRun 'gcc -DTEST_VAL=42 hello.c -o hello_def' 0 "Compile with -D flag"
 rlRun './hello_def' 0 "Run with -D defined macro"
 
-
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y gcc 2>/dev/null || true
-    echo "TEARDOWN: removed gcc"
-fi
-echo ""
+. "../teardown.sh"
 echo "All gcc Preprocessor tests passed!"

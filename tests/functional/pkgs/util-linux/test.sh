@@ -3,22 +3,7 @@
 # Tests util-linux 系统工具集
 # Version: util-linux
 
-rlRun() { eval "\$1" 2>&1; return \$?; }
-# === SETUP: check/install util-linux ===
-INSTALLED_BY_TEST=0
-if ! rpm -q util-linux 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y util-linux 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed util-linux"
-    else
-        echo "SKIP: util-linux not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: util-linux already installed"
-fi
-
-
+. "./setup.sh"
 
 echo "=== 测试 1: 版本和帮助 ==="
 rlRun 'addpart --version 2>&1 || true' 0 "addpart 版本信息"
@@ -55,11 +40,5 @@ rlRun 'blkzone --help 2>&1 | head -5 || true' 0 "blkzone 帮助信息"
 echo "=== 测试 2: 错误处理 ==="
 rlRun 'addpart --invalid 2>&1 || true' 0 "addpart: 无效选项"
 
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y util-linux 2>/dev/null || true
-    echo "TEARDOWN: removed util-linux"
-fi
-echo ""
+. "./teardown.sh"
 echo "All util-linux functional tests passed!"

@@ -1,23 +1,7 @@
 #!/bin/sh -eux
 # Functional test: elfutils - 版本和帮助
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install elfutils ===
-INSTALLED_BY_TEST=0
-if ! rpm -q elfutils 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y elfutils 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed elfutils"
-    else
-        echo "SKIP: elfutils not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: elfutils already installed"
-fi
-
-TmpDir=$(mktemp -d)
-cd $TmpDir
+. "../setup.sh"
 
 echo "=== 测试 1: 版本和帮助 ==="
 rlRun 'eu-addr2line --version 2>&1 || true' 0 "eu-addr2line 版本信息"
@@ -54,11 +38,5 @@ rlRun 'eu-stack --help 2>&1 | head -5 || true' 0 "eu-stack 帮助信息"
 cd /
 rm -rf $TmpDir
 
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y elfutils 2>/dev/null || true
-    echo "TEARDOWN: removed elfutils"
-fi
-echo ""
+. "../teardown.sh"
 echo "All elfutils 版本和帮助 tests passed!"
