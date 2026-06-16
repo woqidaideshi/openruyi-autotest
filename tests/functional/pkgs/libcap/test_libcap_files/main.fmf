@@ -1,0 +1,8 @@
+summary: libcap - �ļ���֤
+test: ./test.sh
+tag:
+  - functional
+  - libcap
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/libcap/test_libcap_files

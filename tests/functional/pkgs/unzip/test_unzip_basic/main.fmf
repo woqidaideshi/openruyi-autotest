@@ -1,0 +1,8 @@
+summary: unzip - ��������
+test: ./test.sh
+tag:
+  - functional
+  - unzip
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/unzip/test_unzip_basic

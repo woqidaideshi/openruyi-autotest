@@ -1,0 +1,12 @@
+summary: 功能测试 - gcc - Warning flags
+test: ./test.sh
+tag:
+  - functional
+  - gcc
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/gcc/test_gcc_warning_flags
+test_gcc_warning-flags
+Warning-flags
+require:
+  - gcc

@@ -1,0 +1,8 @@
+summary: libnl - �ļ���֤
+test: ./test.sh
+tag:
+  - functional
+  - libnl
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/libnl/test_libnl_files

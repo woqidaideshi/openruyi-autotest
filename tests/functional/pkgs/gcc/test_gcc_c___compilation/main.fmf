@@ -1,0 +1,12 @@
+summary: 功能测试 - gcc - C++ compilation
+test: ./test.sh
+tag:
+  - functional
+  - gcc
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/gcc/test_gcc_c___compilation
+test_gcc_c---compilation
+C---compilation
+require:
+  - gcc

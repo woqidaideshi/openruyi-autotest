@@ -1,7 +1,0 @@
-summary: ¹¦ÄÜ²âÊÔ - chkconfig
-test: ./test.sh
-duration: 5m
-tier: 1
-path: /tests/functional/chkconfig
-require:
-  - chkconfig

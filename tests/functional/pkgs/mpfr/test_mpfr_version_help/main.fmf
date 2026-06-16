@@ -1,0 +1,12 @@
+summary: 功能测试 - mpfr - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - mpfr
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/mpfr/test_mpfr_version_help
+test_mpfr_version-help
+版本和帮助
+require:
+  - mpfr

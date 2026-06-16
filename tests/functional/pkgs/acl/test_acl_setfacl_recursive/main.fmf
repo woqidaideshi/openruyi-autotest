@@ -1,0 +1,12 @@
+summary: 功能测试 - acl - setfacl 递归功能
+test: ./test.sh
+tag:
+  - functional
+  - acl
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/acl/test_acl_setfacl_recursive
+test_acl_setfacl-recursive
+setfacl-递归功能
+require:
+  - acl

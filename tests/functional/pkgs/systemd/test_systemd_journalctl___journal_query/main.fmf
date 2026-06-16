@@ -1,0 +1,12 @@
+summary: 功能测试 - systemd - journalctl - Journal query
+test: ./test.sh
+tag:
+  - functional
+  - systemd
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/systemd/test_systemd_journalctl___journal_query
+test_systemd_journalctl---journal-query
+journalctl---Journal-query
+require:
+  - systemd

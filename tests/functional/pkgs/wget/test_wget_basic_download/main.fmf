@@ -1,0 +1,12 @@
+summary: 功能测试 - wget - Basic download
+test: ./test.sh
+tag:
+  - functional
+  - wget
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/wget/test_wget_basic_download
+test_wget_basic-download
+Basic-download
+require:
+  - wget

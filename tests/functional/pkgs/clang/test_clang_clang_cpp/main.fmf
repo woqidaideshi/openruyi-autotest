@@ -1,0 +1,12 @@
+summary: 功能测试 - clang - clang-cpp
+test: ./test.sh
+tag:
+  - functional
+  - clang
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/clang/test_clang_clang_cpp
+test_clang_clang-cpp
+clang-cpp
+require:
+  - clang

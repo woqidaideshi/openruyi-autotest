@@ -1,0 +1,10 @@
+summary: 功能测试 - sddm 显示管理器功能验证
+test: ./test.sh
+tag:
+  - functional
+  - sddm
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/sddm
+require:
+  - sddm

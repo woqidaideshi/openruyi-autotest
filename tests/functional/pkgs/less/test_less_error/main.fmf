@@ -1,0 +1,8 @@
+summary: less - ������
+test: ./test.sh
+tag:
+  - functional
+  - less
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/less/test_less_error

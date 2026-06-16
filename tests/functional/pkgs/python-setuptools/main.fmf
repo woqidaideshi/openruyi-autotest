@@ -1,0 +1,10 @@
+summary: 功能测试 - python-setuptools 软件包功能验证
+test: ./test.sh
+tag:
+  - functional
+  - python-setuptools
+duration: 3m
+tier: 1
+path: /tests/functional/pkgs/python-setuptools
+require:
+  - python-setuptools

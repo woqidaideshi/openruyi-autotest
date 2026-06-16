@@ -1,0 +1,10 @@
+summary: 功能测试 - help2man 软件包功能验证
+test: ./test.sh
+tag:
+  - functional
+  - help2man
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/help2man
+require:
+  - help2man

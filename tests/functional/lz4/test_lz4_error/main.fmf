@@ -1,8 +1,0 @@
-summary: lz4 - ´íÎó´¦Àí
-test: ./test.sh
-tag:
-  - functional
-  - lz4
-duration: 2m
-tier: 1
-path: /tests/functional/lz4/test_lz4_error

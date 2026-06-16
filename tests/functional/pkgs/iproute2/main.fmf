@@ -1,0 +1,10 @@
+summary: ���ܲ��� - iproute2 ������������֤
+test: ./test.sh
+tag:
+  - functional
+  - iproute2
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/iproute2
+require:
+  - iproute2

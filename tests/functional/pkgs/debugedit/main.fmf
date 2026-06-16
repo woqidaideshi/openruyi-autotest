@@ -1,0 +1,10 @@
+summary: 功能测试 - debugedit 调试信息编辑
+test: ./test.sh
+tag:
+  - functional
+  - debugedit
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/debugedit
+require:
+  - debugedit

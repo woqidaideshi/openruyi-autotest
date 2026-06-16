@@ -1,0 +1,12 @@
+summary: 功能测试 - systemd - systemd-machine-id-setup
+test: ./test.sh
+tag:
+  - functional
+  - systemd
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/systemd/test_systemd_systemd_machine_id_setup
+test_systemd_systemd-machine-id-setup
+systemd-machine-id-setup
+require:
+  - systemd

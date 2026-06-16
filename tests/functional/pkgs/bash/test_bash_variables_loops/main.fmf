@@ -1,0 +1,12 @@
+summary: 功能测试 - bash - 变量和循环
+test: ./test.sh
+tag:
+  - functional
+  - bash
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/bash/test_bash_variables_loops
+test_bash_variables-loops
+变量和循环
+require:
+  - bash

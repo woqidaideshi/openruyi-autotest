@@ -1,0 +1,12 @@
+summary: 功能测试 - curl - 详细模式和静默模式
+test: ./test.sh
+tag:
+  - functional
+  - curl
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/curl/test_curl_verbose_quiet
+test_curl_verbose-quiet
+详细模式和静默模式
+require:
+  - curl

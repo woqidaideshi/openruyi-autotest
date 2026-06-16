@@ -1,0 +1,12 @@
+summary: 功能测试 - cmake - CMake -E mode
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/cmake/test_cmake_cmake__e_mode
+test_cmake_cmake--e-mode
+CMake--E-mode
+require:
+  - cmake

@@ -1,0 +1,12 @@
+summary: 功能测试 - weston - Error handling
+test: ./test.sh
+tag:
+  - functional
+  - weston
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/weston/test_weston_error_handling
+test_weston_error-handling
+Error-handling
+require:
+  - weston

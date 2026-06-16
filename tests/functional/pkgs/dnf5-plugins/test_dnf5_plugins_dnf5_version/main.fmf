@@ -1,0 +1,12 @@
+summary: 功能测试 - dnf5-plugins - dnf5 version
+test: ./test.sh
+tag:
+  - functional
+  - dnf5-plugins
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/dnf5-plugins/test_dnf5_plugins_dnf5_version
+test_dnf5-plugins_dnf5-version
+dnf5-version
+require:
+  - dnf5-plugins

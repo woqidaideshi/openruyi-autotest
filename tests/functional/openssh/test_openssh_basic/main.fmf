@@ -1,8 +1,0 @@
-summary: openssh - 基本功能
-test: ./test.sh
-tag:
-  - functional
-  - openssh
-duration: 2m
-tier: 1
-path: /tests/functional/openssh/test_openssh_basic

@@ -1,0 +1,12 @@
+summary: 功能测试 - cmake - Error handling
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/cmake/test_cmake_error_handling
+test_cmake_error-handling
+Error-handling
+require:
+  - cmake

@@ -1,0 +1,12 @@
+summary: 功能测试 - grep - Basic pattern matching
+test: ./test.sh
+tag:
+  - functional
+  - grep
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/grep/test_grep_basic_pattern_matching
+test_grep_basic-pattern-matching
+Basic-pattern-matching
+require:
+  - grep

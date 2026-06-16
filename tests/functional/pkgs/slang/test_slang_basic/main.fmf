@@ -1,0 +1,8 @@
+summary: slang - ��������
+test: ./test.sh
+tag:
+  - functional
+  - slang
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/slang/test_slang_basic

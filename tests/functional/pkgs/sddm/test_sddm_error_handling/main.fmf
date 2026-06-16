@@ -1,0 +1,12 @@
+summary: 功能测试 - sddm - Error handling
+test: ./test.sh
+tag:
+  - functional
+  - sddm
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/sddm/test_sddm_error_handling
+test_sddm_error-handling
+Error-handling
+require:
+  - sddm

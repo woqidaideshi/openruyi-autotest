@@ -21,6 +21,9 @@ openruyi-autotest/
 │   ├── main.fmf                  # 共享配置（子目录自动继承）
 │   ├── smoke/                    # 冒烟测试
 │   ├── functional/               # 功能测试
+│   │   ├── main.fmf               # 共享配置
+│   │   ├── README.md
+│   │   └── pkgs/                  # RPM 软件包功能测试（202 个包）
 │   ├── security/                 # 安全测试
 │   ├── compatibility/            # 兼容性测试
 │   ├── performance/              # 性能测试

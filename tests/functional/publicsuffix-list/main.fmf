@@ -1,7 +1,0 @@
-summary: 功能测试 - publicsuffix-list 配置验证
-test: ./test.sh
-duration: 5m
-tier: 1
-path: /tests/functional/publicsuffix-list
-require:
-  - publicsuffix-list

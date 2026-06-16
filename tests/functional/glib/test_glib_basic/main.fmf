@@ -1,8 +1,0 @@
-summary: glib - 基本功能
-test: ./test.sh
-tag:
-  - functional
-  - glib
-duration: 2m
-tier: 1
-path: /tests/functional/glib/test_glib_basic

@@ -1,0 +1,12 @@
+summary: 功能测试 - mpfr - 错误处理
+test: ./test.sh
+tag:
+  - functional
+  - mpfr
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/mpfr/test_mpfr_error_handling
+test_mpfr_error-handling
+错误处理
+require:
+  - mpfr

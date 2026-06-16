@@ -1,8 +1,0 @@
-summary: p11-kit - 基本功能
-test: ./test.sh
-tag:
-  - functional
-  - p11-kit
-duration: 2m
-tier: 1
-path: /tests/functional/p11-kit/test_p11kit_basic

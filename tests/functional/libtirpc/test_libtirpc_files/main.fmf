@@ -1,8 +1,0 @@
-summary: libtirpc - 文件验证
-test: ./test.sh
-tag:
-  - functional
-  - libtirpc
-duration: 2m
-tier: 1
-path: /tests/functional/libtirpc/test_libtirpc_files

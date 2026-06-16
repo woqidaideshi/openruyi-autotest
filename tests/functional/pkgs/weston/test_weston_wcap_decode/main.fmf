@@ -1,0 +1,12 @@
+summary: 功能测试 - weston - wcap-decode
+test: ./test.sh
+tag:
+  - functional
+  - weston
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/weston/test_weston_wcap_decode
+test_weston_wcap-decode
+wcap-decode
+require:
+  - weston

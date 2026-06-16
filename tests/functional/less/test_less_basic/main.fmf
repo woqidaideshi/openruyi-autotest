@@ -1,8 +1,0 @@
-summary: less - 基本功能
-test: ./test.sh
-tag:
-  - functional
-  - less
-duration: 2m
-tier: 1
-path: /tests/functional/less/test_less_basic

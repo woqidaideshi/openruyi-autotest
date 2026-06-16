@@ -1,0 +1,12 @@
+summary: 功能测试 - systemd - systemd-cgls - Cgroup listing
+test: ./test.sh
+tag:
+  - functional
+  - systemd
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/systemd/test_systemd_systemd_cgls___cgroup_listing
+test_systemd_systemd-cgls---cgroup-listing
+systemd-cgls---Cgroup-listing
+require:
+  - systemd

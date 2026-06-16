@@ -1,0 +1,8 @@
+summary: gawk - ��������
+test: ./test.sh
+tag:
+  - functional
+  - gawk
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/gawk/test_gawk_basic

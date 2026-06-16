@@ -1,0 +1,10 @@
+summary: ���ܲ��� - e2fsprogs ������������֤
+test: ./test.sh
+tag:
+  - functional
+  - e2fsprogs
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/e2fsprogs
+require:
+  - e2fsprogs

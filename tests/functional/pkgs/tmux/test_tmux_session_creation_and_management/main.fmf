@@ -1,0 +1,12 @@
+summary: 功能测试 - tmux - Session creation and management
+test: ./test.sh
+tag:
+  - functional
+  - tmux
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/tmux/test_tmux_session_creation_and_management
+test_tmux_session-creation-and-management
+Session-creation-and-management
+require:
+  - tmux

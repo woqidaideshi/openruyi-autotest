@@ -1,0 +1,8 @@
+summary: attr - getfattr ��������
+test: ./test.sh
+tag:
+  - functional
+  - attr
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/attr/test_attr_getfattr_basic

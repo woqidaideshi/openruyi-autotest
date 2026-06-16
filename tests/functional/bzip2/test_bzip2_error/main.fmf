@@ -1,8 +1,0 @@
-summary: bzip2 - ´íÎó´¦Àí
-test: ./test.sh
-tag:
-  - functional
-  - bzip2
-duration: 2m
-tier: 1
-path: /tests/functional/bzip2/test_bzip2_error

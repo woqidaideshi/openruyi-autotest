@@ -1,0 +1,8 @@
+summary: alternatives - ��������
+test: ./test.sh
+tag:
+  - functional
+  - chkconfig
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/chkconfig/test_alternatives_basic

@@ -1,0 +1,12 @@
+summary: 功能测试 - gmp - 版本和帮助
+test: ./test.sh
+tag:
+  - functional
+  - gmp
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/gmp/test_gmp_version_help
+test_gmp_version-help
+版本和帮助
+require:
+  - gmp

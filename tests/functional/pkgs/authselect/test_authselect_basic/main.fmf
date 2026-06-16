@@ -1,0 +1,8 @@
+summary: authselect - ��������
+test: ./test.sh
+tag:
+  - functional
+  - authselect
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/authselect/test_authselect_basic

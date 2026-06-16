@@ -1,0 +1,12 @@
+summary: 功能测试 - acl - ACL 继承测试
+test: ./test.sh
+tag:
+  - functional
+  - acl
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/acl/test_acl_acl_inheritance
+test_acl_acl-inheritance
+ACL-继承测试
+require:
+  - acl

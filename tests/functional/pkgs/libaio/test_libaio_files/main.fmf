@@ -1,0 +1,8 @@
+summary: libaio - �ļ���֤
+test: ./test.sh
+tag:
+  - functional
+  - libaio
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/libaio/test_libaio_files

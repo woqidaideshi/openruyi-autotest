@@ -1,0 +1,10 @@
+summary: 功能测试 - meson 软件包功能验证
+test: ./test.sh
+tag:
+  - functional
+  - meson
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/meson
+require:
+  - meson

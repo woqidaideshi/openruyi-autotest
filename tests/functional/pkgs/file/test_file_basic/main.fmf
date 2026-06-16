@@ -1,0 +1,8 @@
+summary: file - ��������
+test: ./test.sh
+tag:
+  - functional
+  - file
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/file/test_file_basic

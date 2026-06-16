@@ -1,8 +1,0 @@
-summary: cracklib - 基本功能
-test: ./test.sh
-tag:
-  - functional
-  - cracklib
-duration: 2m
-tier: 1
-path: /tests/functional/cracklib/test_cracklib_basic

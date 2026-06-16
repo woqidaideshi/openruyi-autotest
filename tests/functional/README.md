@@ -4,26 +4,27 @@
 
 ## 测试覆盖概览
 
-- **CLI 工具包**：52 个，每个含 2-7 个子测试
-- **库包**：28 个，含文件验证和 pkg-config 测试
-- **配置/数据包**：10 个，含文件列表验证
-- **总计**：90+ 个软件包，500+ 个测试用例
+- **202 个软件包**，**561 个测试用例**，**1,692 个功能点**
+- 所有测试脚本均已在 openEuler RISC-V 服务器上验证通过
+- 详见 [功能测试覆盖详情](../../docs/functional-coverage.md)
 
 ## 目录结构
 
 ```
 tests/functional/
-├── main.fmf              # 共享配置（所有子目录继承）
-├── README.md             # 本文件
-├── acl/                  # acl 软件包测试（参考标准）
-│   ├── main.fmf
-│   ├── test.sh
-│   └── test_acl_*/       # 子测试目录
-├── attr/                 # attr 软件包测试
-│   ├── main.fmf
-│   ├── test.sh
-│   └── test_attr_*/      # 子测试目录
-└── ...                   # 更多软件包测试
+├── main.fmf                  # 共享配置（所有子目录继承）
+├── README.md                 # 本文件
+└── pkgs/                     # RPM 软件包功能测试
+    ├── main.fmf              # 共享配置
+    ├── acl/                  # acl 软件包测试（参考标准）
+    │   ├── main.fmf
+    │   ├── test.sh
+    │   └── test_acl_*/       # 子测试目录
+    ├── attr/                 # attr 软件包测试
+    │   ├── main.fmf
+    │   ├── test.sh
+    │   └── test_attr_*/      # 子测试目录
+    └── ...                   # 更多软件包测试
 ```
 
 ## 测试结构规范（参照 ACL）
@@ -37,8 +38,8 @@ tests/functional/
 
 ## 添加新软件包测试
 
-1. 创建目录 `tests/functional/<package_name>/`
-2. 创建 `main.fmf`（参照 `acl/main.fmf`）
+1. 创建目录 `tests/functional/pkgs/<package_name>/`
+2. 创建 `main.fmf`（参照 `pkgs/acl/main.fmf`）
 3. 创建 `test.sh`（参照模板）
 4. 按功能点创建子测试目录
 

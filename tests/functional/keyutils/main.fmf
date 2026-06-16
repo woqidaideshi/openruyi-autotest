@@ -1,7 +1,0 @@
-summary: ¹¦ÄÜ²âÊÔ - keyutils
-test: ./test.sh
-duration: 5m
-tier: 1
-path: /tests/functional/keyutils
-require:
-  - keyutils

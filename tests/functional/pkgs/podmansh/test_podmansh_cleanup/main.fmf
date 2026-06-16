@@ -1,0 +1,12 @@
+summary: 功能测试 - podmansh - Cleanup
+test: ./test.sh
+tag:
+  - functional
+  - podmansh
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/podmansh/test_podmansh_cleanup
+test_podmansh_cleanup
+Cleanup
+require:
+  - podmansh

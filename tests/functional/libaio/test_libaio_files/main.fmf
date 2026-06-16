@@ -1,8 +1,0 @@
-summary: libaio - 文件验证
-test: ./test.sh
-tag:
-  - functional
-  - libaio
-duration: 2m
-tier: 1
-path: /tests/functional/libaio/test_libaio_files

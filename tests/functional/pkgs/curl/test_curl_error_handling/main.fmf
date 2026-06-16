@@ -1,0 +1,12 @@
+summary: 功能测试 - curl - 错误处理
+test: ./test.sh
+tag:
+  - functional
+  - curl
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/curl/test_curl_error_handling
+test_curl_error-handling
+错误处理
+require:
+  - curl

@@ -1,0 +1,8 @@
+summary: beakerlib - ��������
+test: ./test.sh
+tag:
+  - functional
+  - beakerlib
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/beakerlib/test_beakerlib_basic

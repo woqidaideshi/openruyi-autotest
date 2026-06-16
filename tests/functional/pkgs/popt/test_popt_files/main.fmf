@@ -1,0 +1,8 @@
+summary: popt - �ļ���֤
+test: ./test.sh
+tag:
+  - functional
+  - popt
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/popt/test_popt_files

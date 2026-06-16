@@ -1,0 +1,8 @@
+summary: libseccomp - �ļ���֤
+test: ./test.sh
+tag:
+  - functional
+  - libseccomp
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/libseccomp/test_libseccomp_files
