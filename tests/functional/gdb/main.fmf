@@ -1,0 +1,10 @@
+summary: 功能测试 - gdb 软件包功能验证
+test: ./test.sh
+tag:
+  - functional
+  - gdb
+duration: 5m
+tier: 1
+path: /tests/functional/gdb
+require:
+  - gdb

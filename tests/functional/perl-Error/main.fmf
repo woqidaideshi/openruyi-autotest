@@ -1,0 +1,10 @@
+summary: 功能测试 - perl-Error 软件包功能验证
+test: ./test.sh
+tag:
+  - functional
+  - perl-Error
+duration: 3m
+tier: 1
+path: /tests/functional/perl-Error
+require:
+  - perl-Error
