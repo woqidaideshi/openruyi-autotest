@@ -2,29 +2,7 @@
 # Functional test: groff - groff GNU 排版系统
 # Tools: groff/troff/nroff/eqn/tbl/pic
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install groff ===
-# Kill any stale dnf processes first
-echo openruyi | sudo -S pkill -9 dnf 2>/dev/null || true
-echo openruyi | sudo -S rm -f /var/run/dnf.pid 2>/dev/null || true
-INSTALLED_BY_TEST=0
-if ! rpm -q groff 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y --nogpgcheck groff 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed groff"
-    else
-        echo "SKIP: groff not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: groff already installed"
-fi
-
-# 获取版本信息
-rlRun 'rpm -q groff' 0 "获取 groff 版本信息"
-
-# 列出包内二进制文件
-rlRun 'rpm -ql groff 2>/dev/null | grep -E "^/usr/bin/|^/usr/sbin/|^/bin/|^/sbin/"' 0 "列出包内二进制文件"
+. "./setup.sh"
 
 echo "=== 测试 1: groff 基本功能 ==="
 
@@ -40,10 +18,5 @@ if [ -n "$MAIN_BIN" ] && [ -x "$MAIN_BIN" ]; then
     rlRun 'timeout 5 "$MAIN_BIN" --version 2>&1 || timeout 5 "$MAIN_BIN" -V 2>&1 || timeout 5 "$MAIN_BIN" -v 2>&1 || echo "NO_VERSION_FLAG"' 0 "获取 groff 版本信息"
 fi
 
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y groff 2>/dev/null || true
-    echo "TEARDOWN: removed groff"
-fi
-echo ""
+. "./teardown.sh"
 echo "All groff tests passed!"

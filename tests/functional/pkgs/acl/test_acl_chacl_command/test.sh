@@ -1,27 +1,7 @@
 #!/bin/sh -eux
 # Functional test: acl - chacl-命令功能
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install acl ===
-INSTALLED_BY_TEST=0
-if ! rpm -q acl 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y acl 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed acl"
-    else
-        echo "SKIP: acl not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: acl already installed"
-fi
-
-rlRun 'getfacl --version' 0 "获取 getfacl 版本信息"
-rlRun 'setfacl --version' 0 "获取 setfacl 版本信息"
-rlRun 'TmpDir=$(mktemp -d)' 0 "创建临时测试目录"
-rlRun 'cd $TmpDir' 0 "进入测试目录"
-rlRun 'touch testfile' 0 "创建测试文件"
-rlRun 'mkdir testdir' 0 "创建测试目录"
+. "../setup.sh"
 
 echo "=== 测试 7: chacl 命令功能 ==="
 
@@ -45,12 +25,5 @@ rlRun 'getfacl testdir/file1' 0 "验证 chacl 递归设置"
 rlRun 'chacl -b u::rwx,g::r-x,o::r-x u::rwx,g::r-x,o::r-x testdir' 0 "使用 chacl -b 同时设置"
 rlRun 'getfacl testdir' 0 "验证 chacl -b 设置"
 
-
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y acl 2>/dev/null || true
-    echo "TEARDOWN: removed acl"
-fi
-echo ""
+. "../teardown.sh"
 echo "All acl chacl-命令功能 tests passed!"

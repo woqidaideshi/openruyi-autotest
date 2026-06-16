@@ -1,24 +1,7 @@
 #!/bin/sh -eux
 # Functional test: rpmbuild - Error-handling
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install rpmbuild ===
-INSTALLED_BY_TEST=0
-if ! rpm -q rpmbuild 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y rpmbuild 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed rpmbuild"
-    else
-        echo "SKIP: rpmbuild not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: rpmbuild already installed"
-fi
-
-
-TmpDir=$(mktemp -d)
-cd $TmpDir
+. "../setup.sh"
 
 echo "=== Test 8: Error handling ==="
 
@@ -40,11 +23,5 @@ rpmbuild -bb rpmbuild/SPECS/bad-package.spec 2>&1 || echo "Expected error for mi
 cd /
 rm -rf $TmpDir
 
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y rpmbuild 2>/dev/null || true
-    echo "TEARDOWN: removed rpmbuild"
-fi
-echo ""
+. "../teardown.sh"
 echo "All rpmbuild Error-handling tests passed!"

@@ -1,23 +1,7 @@
 #!/bin/sh -eux
 # Functional test: gzip - 版本和帮助
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install gzip ===
-INSTALLED_BY_TEST=0
-if ! rpm -q gzip 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y gzip 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed gzip"
-    else
-        echo "SKIP: gzip not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: gzip already installed"
-fi
-
-TmpDir=$(mktemp -d)
-cd $TmpDir
+. "../setup.sh"
 
 echo "=== 测试 1: 版本和帮助 ==="
 rlRun 'gzip --version 2>&1 || true' 0 "gzip 版本信息"
@@ -52,11 +36,5 @@ rlRun 'uncompress --help 2>&1 | head -5 || true' 0 "uncompress 帮助信息"
 cd /
 rm -rf $TmpDir
 
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y gzip 2>/dev/null || true
-    echo "TEARDOWN: removed gzip"
-fi
-echo ""
+. "../teardown.sh"
 echo "All gzip 版本和帮助 tests passed!"

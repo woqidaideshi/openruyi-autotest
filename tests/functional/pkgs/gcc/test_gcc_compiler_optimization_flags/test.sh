@@ -1,25 +1,7 @@
 #!/bin/sh -eux
 # Functional test: gcc - Compiler-optimization-flags
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install gcc ===
-INSTALLED_BY_TEST=0
-if ! rpm -q gcc 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y gcc 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed gcc"
-    else
-        echo "SKIP: gcc not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: gcc already installed"
-fi
-
-rlRun 'gcc --version' 0 "Get gcc version info"
-rlRun 'g++ --version' 0 "Get g++ version info"
-TmpDir=$(mktemp -d)
-cd $TmpDir
+. "../setup.sh"
 
 echo "=== Test 3: Compiler optimization flags ==="
 
@@ -37,12 +19,5 @@ rlRun 'gcc -O2 compute.c -o compute_O2' 0 "Compile with -O2"
 rlRun 'gcc -g hello.c -o hello_dbg' 0 "Compile with debug symbols -g"
 rlRun 'file hello_dbg | grep -q "debug_info"' 0 "Verify debug symbols present" || echo "Debug info verified via file command"
 
-
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y gcc 2>/dev/null || true
-    echo "TEARDOWN: removed gcc"
-fi
-echo ""
+. "../teardown.sh"
 echo "All gcc Compiler-optimization-flags tests passed!"

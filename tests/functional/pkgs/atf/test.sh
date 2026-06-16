@@ -2,29 +2,7 @@
 # Functional test: atf - ATF 自动化测试框架
 # Tools: atf-sh
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install atf ===
-# Kill any stale dnf processes first
-echo openruyi | sudo -S pkill -9 dnf 2>/dev/null || true
-echo openruyi | sudo -S rm -f /var/run/dnf.pid 2>/dev/null || true
-INSTALLED_BY_TEST=0
-if ! rpm -q atf 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y --nogpgcheck atf 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed atf"
-    else
-        echo "SKIP: atf not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: atf already installed"
-fi
-
-# 获取版本信息
-rlRun 'rpm -q atf' 0 "获取 atf 版本信息"
-
-# 列出包内二进制文件
-rlRun 'rpm -ql atf 2>/dev/null | grep -E "^/usr/bin/|^/usr/sbin/|^/bin/|^/sbin/"' 0 "列出包内二进制文件"
+. "./setup.sh"
 
 echo "=== 测试 1: atf 基本功能 ==="
 
@@ -40,10 +18,5 @@ if [ -n "$MAIN_BIN" ] && [ -x "$MAIN_BIN" ]; then
     rlRun 'timeout 5 "$MAIN_BIN" --version 2>&1 || timeout 5 "$MAIN_BIN" -V 2>&1 || timeout 5 "$MAIN_BIN" -v 2>&1 || echo "NO_VERSION_FLAG"' 0 "获取 atf 版本信息"
 fi
 
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y atf 2>/dev/null || true
-    echo "TEARDOWN: removed atf"
-fi
-echo ""
+. "./teardown.sh"
 echo "All atf tests passed!"

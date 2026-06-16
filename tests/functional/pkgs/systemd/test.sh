@@ -3,27 +3,8 @@
 # Tests core systemd commands, services, and management tools
 # Version: systemd 259
 
-rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install systemd ===
-INSTALLED_BY_TEST=0
-if ! rpm -q systemd 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y systemd 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed systemd"
-    else
-        echo "SKIP: systemd not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: systemd already installed"
-fi
+. "./setup.sh"
 
-
-
-TmpDir=$(mktemp -d)
-cd $TmpDir
-
-# ===================================================================
 echo "=== Test 1: systemctl - Service and system management ==="
 
 rlRun 'systemctl --version' 0 "systemctl version"
@@ -289,9 +270,5 @@ rm -rf $TmpDir
 echo ""
 echo "All systemd functional tests passed!"
 
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y systemd 2>/dev/null || true
-    echo "TEARDOWN: removed systemd"
-fi
-
+. "./teardown.sh"
+echo "All systemd tests passed!"

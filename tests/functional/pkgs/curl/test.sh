@@ -3,24 +3,7 @@
 # Tests curl 下载工具
 # Version: curl
 
-rlRun() { eval "\$1" 2>&1; return \$?; }
-# === SETUP: check/install curl ===
-INSTALLED_BY_TEST=0
-if ! rpm -q curl 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y curl 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed curl"
-    else
-        echo "SKIP: curl not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: curl already installed"
-fi
-
-
-
-rlRun 'curl --version' 0 "curl 版本信息"
+. "./setup.sh"
 
 echo "=== 测试 1: 基本下载 ==="
 rlRun 'curl -s -o /dev/null http://example.com 2>&1 || echo "网络测试完成"' 0 "curl 下载示例页面"
@@ -45,11 +28,5 @@ rlRun 'wcurl --help 2>&1 | head -5 || echo "wcurl帮助"' 0 "wcurl 帮助"
 echo "=== 测试 6: 错误处理 ==="
 rlRun 'curl --invalid 2>&1 || true' 0 "curl: 无效选项"
 
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y curl 2>/dev/null || true
-    echo "TEARDOWN: removed curl"
-fi
-echo ""
+. "./teardown.sh"
 echo "All curl functional tests passed!"
