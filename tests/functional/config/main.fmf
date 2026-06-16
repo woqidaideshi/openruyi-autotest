@@ -1,0 +1,10 @@
+summary: 功能测试 - config 软件包功能验证
+test: ./test.sh
+tag:
+  - functional
+  - config
+duration: 5m
+tier: 1
+path: /tests/functional/config
+require:
+  - config

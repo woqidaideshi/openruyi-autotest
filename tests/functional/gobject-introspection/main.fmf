@@ -1,0 +1,10 @@
+summary: 功能测试 - gobject-introspection 软件包功能验证
+test: ./test.sh
+tag:
+  - functional
+  - gobject-introspection
+duration: 5m
+tier: 1
+path: /tests/functional/gobject-introspection
+require:
+  - gobject-introspection

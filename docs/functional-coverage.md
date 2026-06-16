@@ -1,31 +1,39 @@
 # 功能测试覆盖详情
 
-> 最后更新: 2026-06-14 | 自动生成
+> 最后更新: 2026-06-16 | 自动生成
 > 测试环境: openEuler (10.20.237.192)
 
-共 **147** 个软件包，**476** 个测试用例，**1499** 个功能点
+共 **202** 个软件包，**561** 个测试用例，**1692** 个功能点
 
 ## 全部软件包一览
 
 | 软件包 | 用例数 | 功能点 | 类型 |
 |--------|:---:|:---:|:---:|
 | [acl](#acl) | 10 | 81 | rlRun |
+| [atf](#atf) | 2 | 3 | rlRun |
 | [attr](#attr) | 1 | 6 | rlRun |
 | [audit](#audit) | 2 | 15 | rlRun |
 | [authselect](#authselect) | 1 | 1 | rlRun |
+| [autoconf](#autoconf) | 1 | 4 | rlRun |
+| [automake](#automake) | 1 | 4 | rlRun |
 | [bash](#bash) | 7 | 7 | rlRun |
 | [bash-completion](#bashcompletion) | 1 | 1 | rlRun |
 | [bc](#bc) | 1 | 2 | rlRun |
 | [beakerlib](#beakerlib) | 1 | 1 | 简单 |
 | [binutils](#binutils) | 1 | 1 | 简单 |
+| [bison](#bison) | 2 | 3 | rlRun |
+| [boost](#boost) | 1 | 4 | rlRun |
 | [brotli](#brotli) | 1 | 1 | rlRun |
 | [bzip2](#bzip2) | 1 | 1 | rlRun |
 | [ca-certificates](#cacertificates) | 2 | 3 | rlRun |
 | [ca-certificates-mozilla](#cacertificatesmozilla) | 1 | 2 | rlRun |
 | [chkconfig](#chkconfig) | 1 | 1 | rlRun |
+| [chrpath](#chrpath) | 2 | 3 | rlRun |
 | [clang](#clang) | 15 | 25 | rlRun |
 | [cloud-utils-growpart](#cloudutilsgrowpart) | 6 | 10 | rlRun |
 | [cmake](#cmake) | 6 | 6 | 分段 |
+| [cmocka](#cmocka) | 1 | 4 | rlRun |
+| [config](#config) | 2 | 3 | rlRun |
 | [coreutils](#coreutils) | 24 | 234 | rlRun |
 | [cpio](#cpio) | 1 | 1 | rlRun |
 | [cracklib](#cracklib) | 1 | 1 | 简单 |
@@ -34,27 +42,40 @@
 | [dbus](#dbus) | 1 | 1 | rlRun |
 | [dbus-broker](#dbusbroker) | 1 | 1 | rlRun |
 | [debugedit](#debugedit) | 2 | 5 | rlRun |
+| [dejagnu](#dejagnu) | 2 | 3 | rlRun |
 | [diffutils](#diffutils) | 1 | 4 | rlRun |
 | [dnf5-plugins](#dnf5plugins) | 10 | 11 | rlRun |
+| [dos2unix](#dos2unix) | 2 | 3 | rlRun |
 | [dwz](#dwz) | 2 | 3 | rlRun |
 | [e2fsprogs](#e2fsprogs) | 1 | 1 | 简单 |
+| [ed](#ed) | 2 | 3 | rlRun |
 | [elfutils](#elfutils) | 2 | 31 | rlRun |
 | [expat](#expat) | 1 | 1 | rlRun |
+| [expect](#expect) | 2 | 3 | rlRun |
+| [fdupes](#fdupes) | 2 | 3 | rlRun |
 | [file](#file) | 1 | 1 | rlRun |
 | [filesystem](#filesystem) | 1 | 2 | rlRun |
 | [findutils](#findutils) | 5 | 13 | rlRun |
+| [flex](#flex) | 2 | 3 | rlRun |
 | [gawk](#gawk) | 1 | 2 | rlRun |
 | [gcc](#gcc) | 12 | 52 | rlRun |
 | [gcc16](#gcc16) | 1 | 1 | 简单 |
+| [gdb](#gdb) | 2 | 3 | rlRun |
+| [gdbm](#gdbm) | 2 | 3 | rlRun |
 | [git](#git) | 1 | 1 | rlRun |
 | [glib](#glib) | 1 | 1 | 简单 |
 | [glibc](#glibc) | 2 | 17 | rlRun |
 | [gmp](#gmp) | 1 | 2 | rlRun |
 | [gnutls](#gnutls) | 1 | 1 | 简单 |
+| [gobject-introspection](#gobjectintrospection) | 2 | 3 | rlRun |
+| [gpm](#gpm) | 1 | 5 | rlRun |
 | [grep](#grep) | 13 | 44 | rlRun |
+| [groff](#groff) | 2 | 3 | rlRun |
 | [gzip](#gzip) | 2 | 29 | rlRun |
+| [help2man](#help2man) | 2 | 3 | rlRun |
 | [icu4c](#icu4c) | 1 | 1 | 简单 |
 | [iproute2](#iproute2) | 1 | 1 | 简单 |
+| [iptables](#iptables) | 2 | 3 | rlRun |
 | [iputils](#iputils) | 10 | 33 | 分段 |
 | [isl](#isl) | 1 | 2 | rlRun |
 | [iso-codes](#isocodes) | 1 | 1 | rlRun |
@@ -64,6 +85,7 @@
 | [keyutils](#keyutils) | 1 | 1 | 简单 |
 | [kmod](#kmod) | 1 | 1 | 简单 |
 | [krb5](#krb5) | 1 | 1 | 简单 |
+| [kyua](#kyua) | 2 | 3 | rlRun |
 | [labwc](#labwc) | 9 | 10 | rlRun |
 | [less](#less) | 1 | 3 | rlRun |
 | [libaio](#libaio) | 1 | 2 | rlRun |
@@ -78,35 +100,47 @@
 | [libgcrypt](#libgcrypt) | 1 | 2 | rlRun |
 | [libgpg-error](#libgpgerror) | 1 | 2 | rlRun |
 | [libidn2](#libidn2) | 1 | 1 | rlRun |
+| [libmicrohttpd](#libmicrohttpd) | 1 | 4 | rlRun |
 | [libmnl](#libmnl) | 1 | 2 | rlRun |
 | [libnetfilter_conntrack](#libnetfilter_conntrack) | 1 | 2 | rlRun |
 | [libnfnetlink](#libnfnetlink) | 1 | 2 | rlRun |
 | [libnftnl](#libnftnl) | 1 | 2 | rlRun |
 | [libnl](#libnl) | 1 | 2 | rlRun |
+| [libpcap](#libpcap) | 1 | 4 | rlRun |
 | [libpng](#libpng) | 1 | 1 | rlRun |
 | [libpsl](#libpsl) | 1 | 2 | rlRun |
 | [libpwquality](#libpwquality) | 1 | 2 | rlRun |
 | [libseccomp](#libseccomp) | 1 | 2 | rlRun |
 | [libselinux](#libselinux) | 1 | 2 | rlRun |
 | [libsepol](#libsepol) | 1 | 2 | rlRun |
+| [libsodium](#libsodium) | 1 | 4 | rlRun |
+| [libssh](#libssh) | 1 | 4 | rlRun |
 | [libtasn1](#libtasn1) | 1 | 3 | rlRun |
 | [libtirpc](#libtirpc) | 1 | 2 | rlRun |
+| [libtool](#libtool) | 2 | 3 | rlRun |
 | [libunistring](#libunistring) | 1 | 2 | rlRun |
 | [libxcrypt](#libxcrypt) | 1 | 2 | rlRun |
 | [libxml2](#libxml2) | 1 | 2 | rlRun |
 | [libxslt](#libxslt) | 1 | 1 | rlRun |
 | [linux-headers](#linuxheaders) | 1 | 2 | rlRun |
 | [lua](#lua) | 2 | 5 | rlRun |
+| [lutok](#lutok) | 1 | 4 | rlRun |
 | [lvm2](#lvm2) | 1 | 1 | 简单 |
 | [lz4](#lz4) | 1 | 4 | rlRun |
+| [lzip](#lzip) | 2 | 3 | rlRun |
 | [make](#make) | 9 | 21 | rlRun |
+| [meson](#meson) | 1 | 4 | rlRun |
 | [mpc](#mpc) | 1 | 2 | rlRun |
 | [mpdecimal](#mpdecimal) | 1 | 2 | rlRun |
 | [mpfr](#mpfr) | 1 | 2 | rlRun |
 | [ncurses](#ncurses) | 1 | 1 | 简单 |
 | [nettle](#nettle) | 2 | 11 | rlRun |
 | [newt](#newt) | 2 | 3 | rlRun |
+| [nfs-utils](#nfsutils) | 1 | 5 | rlRun |
 | [nghttp2](#nghttp2) | 1 | 2 | rlRun |
+| [ninja](#ninja) | 1 | 4 | rlRun |
+| [nss](#nss) | 2 | 3 | rlRun |
+| [nss_wrapper](#nss_wrapper) | 1 | 4 | rlRun |
 | [openruyi-release](#openruyirelease) | 1 | 1 | rlRun |
 | [openssh](#openssh) | 1 | 1 | rlRun |
 | [openssh-clients](#opensshclients) | 7 | 19 | rlRun |
@@ -117,6 +151,9 @@
 | [pciutils](#pciutils) | 13 | 13 | 分段 |
 | [pcre2](#pcre2) | 1 | 2 | rlRun |
 | [perl](#perl) | 1 | 1 | rlRun |
+| [perl-Error](#perlError) | 1 | 4 | rlRun |
+| [perl-Locale-gettext](#perlLocalegettext) | 1 | 4 | rlRun |
+| [perl-rpm-packaging](#perlrpmpackaging) | 1 | 4 | rlRun |
 | [pkgconf](#pkgconf) | 2 | 5 | rlRun |
 | [podman](#podman) | 7 | 16 | rlRun |
 | [podmansh](#podmansh) | 11 | 11 | 分段 |
@@ -126,27 +163,43 @@
 | [publicsuffix-list](#publicsuffixlist) | 1 | 1 | rlRun |
 | [pyproject-rpm-macros](#pyprojectrpmmacros) | 1 | 1 | rlRun |
 | [python](#python) | 5 | 8 | rlRun |
+| [python-flit-core](#pythonflitcore) | 1 | 4 | rlRun |
 | [python-lxml](#pythonlxml) | 1 | 2 | rlRun |
 | [python-packaging](#pythonpackaging) | 1 | 1 | rlRun |
 | [python-pip](#pythonpip) | 1 | 1 | rlRun |
+| [python-pyelftools](#pythonpyelftools) | 1 | 4 | rlRun |
+| [python-rpm-generators](#pythonrpmgenerators) | 1 | 4 | rlRun |
 | [python-rpm-macros](#pythonrpmmacros) | 1 | 1 | rlRun |
+| [python-setuptools](#pythonsetuptools) | 1 | 4 | rlRun |
 | [python-srpm-macros](#pythonsrpmmacros) | 1 | 1 | rlRun |
+| [python-wheel](#pythonwheel) | 1 | 4 | rlRun |
+| [re2c](#re2c) | 2 | 3 | rlRun |
 | [readline](#readline) | 1 | 2 | rlRun |
 | [rpm](#rpm) | 1 | 1 | rlRun |
 | [rpm-config-openruyi](#rpmconfigopenruyi) | 1 | 2 | rlRun |
 | [rpmbuild](#rpmbuild) | 9 | 20 | 分段 |
+| [rsync](#rsync) | 2 | 3 | rlRun |
+| [scdoc](#scdoc) | 2 | 3 | rlRun |
 | [sddm](#sddm) | 5 | 10 | rlRun |
 | [sed](#sed) | 6 | 12 | rlRun |
 | [setup](#setup) | 1 | 1 | rlRun |
 | [slang](#slang) | 1 | 1 | rlRun |
+| [socket_wrapper](#socket_wrapper) | 1 | 4 | rlRun |
+| [source-highlight](#sourcehighlight) | 2 | 3 | rlRun |
 | [sqlite](#sqlite) | 1 | 2 | rlRun |
+| [swig](#swig) | 2 | 3 | rlRun |
 | [systemd](#systemd) | 36 | 114 | rlRun |
 | [systemd-timesyncd](#systemdtimesyncd) | 5 | 13 | rlRun |
+| [systemtap](#systemtap) | 2 | 3 | rlRun |
 | [tar](#tar) | 10 | 27 | 分段 |
+| [tcl](#tcl) | 2 | 3 | rlRun |
 | [tcsh](#tcsh) | 1 | 1 | rlRun |
+| [texinfo](#texinfo) | 2 | 3 | rlRun |
 | [time](#time) | 1 | 1 | rlRun |
 | [tmux](#tmux) | 22 | 179 | rlRun |
 | [tzdata](#tzdata) | 1 | 3 | rlRun |
+| [uid_wrapper](#uid_wrapper) | 1 | 4 | rlRun |
+| [unbound](#unbound) | 1 | 5 | rlRun |
 | [unzip](#unzip) | 1 | 4 | rlRun |
 | [util-linux](#utillinux) | 2 | 31 | rlRun |
 | [vim](#vim) | 1 | 1 | rlRun |
@@ -154,6 +207,8 @@
 | [wget](#wget) | 15 | 18 | 分段 |
 | [wget2](#wget2) | 15 | 17 | 分段 |
 | [which](#which) | 1 | 1 | rlRun |
+| [xmlto](#xmlto) | 2 | 3 | rlRun |
+| [xxhash](#xxhash) | 2 | 3 | rlRun |
 | [xz](#xz) | 2 | 31 | rlRun |
 | [zstd](#zstd) | 2 | 13 | rlRun |
 
@@ -279,6 +334,24 @@
 
 ---
 
+## atf
+
+<details>
+<summary><b>atf — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_atf_atf_basic
+
+- 检查主要工具可执行性
+
+#### test_atf_atf_version
+
+- 获取 atf 帮助信息
+- 获取 atf 版本信息
+
+</details>
+
+---
+
 ## attr
 
 <details>
@@ -335,6 +408,38 @@
 #### test_authselect_main
 
 - 获取 authselect 版本信息
+
+</details>
+
+---
+
+## autoconf
+
+<details>
+<summary><b>autoconf — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_autoconf_main
+
+- 获取 autoconf 版本信息
+- 列出包内二进制文件
+- 获取 autoconf 版本输出
+- 检查手册页
+
+</details>
+
+---
+
+## automake
+
+<details>
+<summary><b>automake — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_automake_main
+
+- 获取 automake 版本信息
+- 列出包内二进制文件
+- 获取 automake 版本输出
+- 检查手册页
 
 </details>
 
@@ -430,6 +535,40 @@
 
 ---
 
+## bison
+
+<details>
+<summary><b>bison — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_bison_bison_basic
+
+- 检查主要工具可执行性
+
+#### test_bison_bison_version
+
+- 获取 bison 帮助信息
+- 获取 bison 版本信息
+
+</details>
+
+---
+
+## boost
+
+<details>
+<summary><b>boost — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_boost_main
+
+- 获取 boost 版本信息
+- 列出 boost 文件列表
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
 ## brotli
 
 <details>
@@ -496,6 +635,24 @@
 #### test_chkconfig_main
 
 - 获取 chkconfig 版本信息
+
+</details>
+
+---
+
+## chrpath
+
+<details>
+<summary><b>chrpath — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_chrpath_chrpath_basic
+
+- 检查主要工具可执行性
+
+#### test_chrpath_chrpath_version
+
+- 获取 chrpath 帮助信息
+- 获取 chrpath 版本信息
 
 </details>
 
@@ -645,6 +802,40 @@
 #### test_cmake_cmake_version_and_help
 
 - test_cmake_cmake_version_and_help
+
+</details>
+
+---
+
+## cmocka
+
+<details>
+<summary><b>cmocka — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_cmocka_main
+
+- 获取 cmocka 版本信息
+- 列出 cmocka 文件列表
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
+## config
+
+<details>
+<summary><b>config — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_config_config
+
+- 检查主要工具可执行性
+
+#### test_config_config
+
+- 获取 config 帮助信息
+- 获取 config 版本信息
 
 </details>
 
@@ -1093,6 +1284,24 @@
 
 ---
 
+## dejagnu
+
+<details>
+<summary><b>dejagnu — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_dejagnu_dejagnu_basic
+
+- 检查主要工具可执行性
+
+#### test_dejagnu_dejagnu_version
+
+- 获取 dejagnu 帮助信息
+- 获取 dejagnu 版本信息
+
+</details>
+
+---
+
 ## diffutils
 
 <details>
@@ -1159,6 +1368,24 @@
 
 ---
 
+## dos2unix
+
+<details>
+<summary><b>dos2unix — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_dos2unix_dos2unix_basic
+
+- 检查主要工具可执行性
+
+#### test_dos2unix_dos2unix_version
+
+- 获取 dos2unix 帮助信息
+- 获取 dos2unix 版本信息
+
+</details>
+
+---
+
 ## dwz
 
 <details>
@@ -1185,6 +1412,24 @@
 #### test_e2fsprogs_basic_check
 
 - 检查 e2fsprogs 已安装
+
+</details>
+
+---
+
+## ed
+
+<details>
+<summary><b>ed — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_ed_ed_basic
+
+- 检查主要工具可执行性
+
+#### test_ed_ed_version
+
+- 获取 ed 帮助信息
+- 获取 ed 版本信息
 
 </details>
 
@@ -1249,6 +1494,42 @@
 
 ---
 
+## expect
+
+<details>
+<summary><b>expect — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_expect_expect_basic
+
+- 检查主要工具可执行性
+
+#### test_expect_expect_version
+
+- 获取 expect 帮助信息
+- 获取 expect 版本信息
+
+</details>
+
+---
+
+## fdupes
+
+<details>
+<summary><b>fdupes — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_fdupes_fdupes_basic
+
+- 检查主要工具可执行性
+
+#### test_fdupes_fdupes_version
+
+- 获取 fdupes 帮助信息
+- 获取 fdupes 版本信息
+
+</details>
+
+---
+
 ## file
 
 <details>
@@ -1308,6 +1589,24 @@
 #### test_findutils_error_handling
 
 - find: 无效路径
+
+</details>
+
+---
+
+## flex
+
+<details>
+<summary><b>flex — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_flex_flex_basic
+
+- 检查主要工具可执行性
+
+#### test_flex_flex_version
+
+- 获取 flex 帮助信息
+- 获取 flex 版本信息
 
 </details>
 
@@ -1437,6 +1736,42 @@
 
 ---
 
+## gdb
+
+<details>
+<summary><b>gdb — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_gdb_gdb_basic
+
+- 检查主要工具可执行性
+
+#### test_gdb_gdb_version
+
+- 获取 gdb 帮助信息
+- 获取 gdb 版本信息
+
+</details>
+
+---
+
+## gdbm
+
+<details>
+<summary><b>gdbm — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_gdbm_gdbm
+
+- 检查主要工具可执行性
+
+#### test_gdbm_gdbm
+
+- 获取 gdbm 帮助信息
+- 获取 gdbm 版本信息
+
+</details>
+
+---
+
 ## git
 
 <details>
@@ -1517,6 +1852,41 @@
 #### test_gnutls_basic_check
 
 - 检查 gnutls 已安装
+
+</details>
+
+---
+
+## gobject-introspection
+
+<details>
+<summary><b>gobject-introspection — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_gobject_introspection_gobject_introspection
+
+- 检查主要工具可执行性
+
+#### test_gobject_introspection_gobject_introspection
+
+- 获取 gobject-introspection 帮助信息
+- 获取 gobject-introspection 版本信息
+
+</details>
+
+---
+
+## gpm
+
+<details>
+<summary><b>gpm — 1 个用例 / 5 个功能点</b></summary>
+
+#### test_gpm_main
+
+- 获取 gpm 版本信息
+- 列出包内二进制文件
+- 检查 systemd 服务文件
+- 检查配置文件
+- 检查手册页
 
 </details>
 
@@ -1614,6 +1984,24 @@
 
 ---
 
+## groff
+
+<details>
+<summary><b>groff — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_groff_groff_basic
+
+- 检查主要工具可执行性
+
+#### test_groff_groff_version
+
+- 获取 groff 帮助信息
+- 获取 groff 版本信息
+
+</details>
+
+---
+
 ## gzip
 
 <details>
@@ -1658,6 +2046,24 @@
 
 ---
 
+## help2man
+
+<details>
+<summary><b>help2man — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_help2man_help2man_basic
+
+- 检查主要工具可执行性
+
+#### test_help2man_help2man_version
+
+- 获取 help2man 帮助信息
+- 获取 help2man 版本信息
+
+</details>
+
+---
+
 ## icu4c
 
 <details>
@@ -1679,6 +2085,24 @@
 #### test_iproute2_basic_check
 
 - 检查 iproute2 已安装
+
+</details>
+
+---
+
+## iptables
+
+<details>
+<summary><b>iptables — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_iptables_iptables_basic
+
+- 检查主要工具可执行性
+
+#### test_iptables_iptables_version
+
+- 获取 iptables 帮助信息
+- 获取 iptables 版本信息
 
 </details>
 
@@ -1858,6 +2282,24 @@
 #### test_krb5_basic_check
 
 - 检查 krb5 已安装
+
+</details>
+
+---
+
+## kyua
+
+<details>
+<summary><b>kyua — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_kyua_kyua_basic
+
+- 检查主要工具可执行性
+
+#### test_kyua_kyua_version
+
+- 获取 kyua 帮助信息
+- 获取 kyua 版本信息
 
 </details>
 
@@ -2091,6 +2533,22 @@
 
 ---
 
+## libmicrohttpd
+
+<details>
+<summary><b>libmicrohttpd — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_libmicrohttpd_main
+
+- 获取 libmicrohttpd 版本信息
+- 列出 libmicrohttpd 文件列表
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
 ## libmnl
 
 <details>
@@ -2156,6 +2614,22 @@
 
 - 查找 .so 库文件
 - 检查包已安装
+
+</details>
+
+---
+
+## libpcap
+
+<details>
+<summary><b>libpcap — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_libpcap_main
+
+- 获取 libpcap 版本信息
+- 列出 libpcap 文件列表
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
 
 </details>
 
@@ -2244,6 +2718,38 @@
 
 ---
 
+## libsodium
+
+<details>
+<summary><b>libsodium — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_libsodium_main
+
+- 获取 libsodium 版本信息
+- 列出 libsodium 文件列表
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
+## libssh
+
+<details>
+<summary><b>libssh — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_libssh_main
+
+- 获取 libssh 版本信息
+- 列出 libssh 文件列表
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
 ## libtasn1
 
 <details>
@@ -2268,6 +2774,24 @@
 
 - 查找 .so 库文件
 - 检查包已安装
+
+</details>
+
+---
+
+## libtool
+
+<details>
+<summary><b>libtool — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_libtool_libtool
+
+- 检查主要工具可执行性
+
+#### test_libtool_libtool
+
+- 获取 libtool 帮助信息
+- 获取 libtool 版本信息
 
 </details>
 
@@ -2362,6 +2886,22 @@
 
 ---
 
+## lutok
+
+<details>
+<summary><b>lutok — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_lutok_main
+
+- 获取 lutok 版本信息
+- 列出 lutok 文件列表
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
 ## lvm2
 
 <details>
@@ -2386,6 +2926,24 @@
 - 获取 lz4c 版本信息
 - 获取 lz4cat 版本信息
 - 获取 unlz4 版本信息
+
+</details>
+
+---
+
+## lzip
+
+<details>
+<summary><b>lzip — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_lzip_lzip_basic
+
+- 检查主要工具可执行性
+
+#### test_lzip_lzip_version
+
+- 获取 lzip 帮助信息
+- 获取 lzip 版本信息
 
 </details>
 
@@ -2443,6 +3001,22 @@
 
 - make -k: continue on error
 - make -i: ignore errors
+
+</details>
+
+---
+
+## meson
+
+<details>
+<summary><b>meson — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_meson_main
+
+- 获取 meson 版本信息
+- 列出包内二进制文件
+- 获取 meson 版本输出
+- 检查手册页
 
 </details>
 
@@ -2547,6 +3121,23 @@
 
 ---
 
+## nfs-utils
+
+<details>
+<summary><b>nfs-utils — 1 个用例 / 5 个功能点</b></summary>
+
+#### test_nfs_utils_main
+
+- 获取 nfs-utils 版本信息
+- 列出包内二进制文件
+- 检查 systemd 服务文件
+- 检查配置文件
+- 检查手册页
+
+</details>
+
+---
+
 ## nghttp2
 
 <details>
@@ -2556,6 +3147,56 @@
 
 - 查找 .so 库文件
 - 检查包已安装
+
+</details>
+
+---
+
+## ninja
+
+<details>
+<summary><b>ninja — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_ninja_main
+
+- 获取 ninja 版本信息
+- 列出包内二进制文件
+- 获取 ninja 版本输出
+- 检查手册页
+
+</details>
+
+---
+
+## nss
+
+<details>
+<summary><b>nss — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_nss_nss
+
+- 检查主要工具可执行性
+
+#### test_nss_nss
+
+- 获取 nss 帮助信息
+- 获取 nss 版本信息
+
+</details>
+
+---
+
+## nss_wrapper
+
+<details>
+<summary><b>nss_wrapper — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_nss_wrapper_main
+
+- 获取 nss_wrapper 版本信息
+- 列出 nss_wrapper 文件列表
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
 
 </details>
 
@@ -2784,6 +3425,54 @@
 #### test_perl_main
 
 - 获取 perl 版本信息
+
+</details>
+
+---
+
+## perl-Error
+
+<details>
+<summary><b>perl-Error — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_perl_error_main
+
+- 获取 perl-Error 版本信息
+- 加载 perl-Error Perl 模块
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
+## perl-Locale-gettext
+
+<details>
+<summary><b>perl-Locale-gettext — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_perl_locale_gettext_main
+
+- 获取 perl-Locale-gettext 版本信息
+- 加载 perl-Locale-gettext Perl 模块
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
+## perl-rpm-packaging
+
+<details>
+<summary><b>perl-rpm-packaging — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_perl_rpm_packaging_main
+
+- 获取 perl-rpm-packaging 版本信息
+- 加载 perl-rpm-packaging Perl 模块
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
 
 </details>
 
@@ -3154,6 +3843,22 @@
 
 ---
 
+## python-flit-core
+
+<details>
+<summary><b>python-flit-core — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_python_flit_core_main
+
+- 获取 python-flit-core 版本信息
+- 导入 python-flit-core Python 模块
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
 ## python-lxml
 
 <details>
@@ -3194,6 +3899,38 @@
 
 ---
 
+## python-pyelftools
+
+<details>
+<summary><b>python-pyelftools — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_python_pyelftools_main
+
+- 获取 python-pyelftools 版本信息
+- 导入 python-pyelftools Python 模块
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
+## python-rpm-generators
+
+<details>
+<summary><b>python-rpm-generators — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_python_rpm_generators_main
+
+- 获取 python-rpm-generators 版本信息
+- 导入 python-rpm-generators Python 模块
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
 ## python-rpm-macros
 
 <details>
@@ -3207,6 +3944,22 @@
 
 ---
 
+## python-setuptools
+
+<details>
+<summary><b>python-setuptools — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_python_setuptools_main
+
+- 获取 python-setuptools 版本信息
+- 导入 python-setuptools Python 模块
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
 ## python-srpm-macros
 
 <details>
@@ -3215,6 +3968,40 @@
 #### test_python_srpm_macros_main
 
 - 检查包已安装
+
+</details>
+
+---
+
+## python-wheel
+
+<details>
+<summary><b>python-wheel — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_python_wheel_main
+
+- 获取 python-wheel 版本信息
+- 导入 python-wheel Python 模块
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
+## re2c
+
+<details>
+<summary><b>re2c — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_re2c_re2c_basic
+
+- 检查主要工具可执行性
+
+#### test_re2c_re2c_version
+
+- 获取 re2c 帮助信息
+- 获取 re2c 版本信息
 
 </details>
 
@@ -3312,6 +4099,42 @@
 - Verify RPM signature (may not be signed)
 - Check RPM integrity
 - Cleanup
+
+</details>
+
+---
+
+## rsync
+
+<details>
+<summary><b>rsync — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_rsync_rsync_basic
+
+- 检查主要工具可执行性
+
+#### test_rsync_rsync_version
+
+- 获取 rsync 帮助信息
+- 获取 rsync 版本信息
+
+</details>
+
+---
+
+## scdoc
+
+<details>
+<summary><b>scdoc — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_scdoc_scdoc_basic
+
+- 检查主要工具可执行性
+
+#### test_scdoc_scdoc_version
+
+- 获取 scdoc 帮助信息
+- 获取 scdoc 版本信息
 
 </details>
 
@@ -3416,6 +4239,40 @@
 
 ---
 
+## socket_wrapper
+
+<details>
+<summary><b>socket_wrapper — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_socket_wrapper_main
+
+- 获取 socket_wrapper 版本信息
+- 列出 socket_wrapper 文件列表
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
+## source-highlight
+
+<details>
+<summary><b>source-highlight — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_source_highlight_source_highlight_basic
+
+- 检查主要工具可执行性
+
+#### test_source_highlight_source_highlight_version
+
+- 获取 source-highlight 帮助信息
+- 获取 source-highlight 版本信息
+
+</details>
+
+---
+
 ## sqlite
 
 <details>
@@ -3425,6 +4282,24 @@
 
 - 获取 sqldiff 版本信息
 - 获取 sqlite3 版本信息
+
+</details>
+
+---
+
+## swig
+
+<details>
+<summary><b>swig — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_swig_swig_basic
+
+- 检查主要工具可执行性
+
+#### test_swig_swig_version
+
+- 获取 swig 帮助信息
+- 获取 swig 版本信息
 
 </details>
 
@@ -3698,6 +4573,24 @@
 
 ---
 
+## systemtap
+
+<details>
+<summary><b>systemtap — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_systemtap_systemtap_basic
+
+- 检查主要工具可执行性
+
+#### test_systemtap_systemtap_version
+
+- 获取 systemtap 帮助信息
+- 获取 systemtap 版本信息
+
+</details>
+
+---
+
 ## tar
 
 <details>
@@ -3764,6 +4657,24 @@
 
 ---
 
+## tcl
+
+<details>
+<summary><b>tcl — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_tcl_tcl_basic
+
+- 检查主要工具可执行性
+
+#### test_tcl_tcl_version
+
+- 获取 tcl 帮助信息
+- 获取 tcl 版本信息
+
+</details>
+
+---
+
 ## tcsh
 
 <details>
@@ -3772,6 +4683,24 @@
 #### test_tcsh_main
 
 - 获取 tcsh 版本信息
+
+</details>
+
+---
+
+## texinfo
+
+<details>
+<summary><b>texinfo — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_texinfo_texinfo_basic
+
+- 检查主要工具可执行性
+
+#### test_texinfo_texinfo_version
+
+- 获取 texinfo 帮助信息
+- 获取 texinfo 版本信息
 
 </details>
 
@@ -4059,6 +4988,39 @@
 
 ---
 
+## uid_wrapper
+
+<details>
+<summary><b>uid_wrapper — 1 个用例 / 4 个功能点</b></summary>
+
+#### test_uid_wrapper_main
+
+- 获取 uid_wrapper 版本信息
+- 列出 uid_wrapper 文件列表
+- 检查共享库文件
+- 检查头文件和 pkg-config 文件
+
+</details>
+
+---
+
+## unbound
+
+<details>
+<summary><b>unbound — 1 个用例 / 5 个功能点</b></summary>
+
+#### test_unbound_main
+
+- 获取 unbound 版本信息
+- 列出包内二进制文件
+- 检查 systemd 服务文件
+- 检查配置文件
+- 检查手册页
+
+</details>
+
+---
+
 ## unzip
 
 <details>
@@ -4330,6 +5292,42 @@
 #### test_which_main
 
 - 获取 which 版本信息
+
+</details>
+
+---
+
+## xmlto
+
+<details>
+<summary><b>xmlto — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_xmlto_xmlto_basic
+
+- 检查主要工具可执行性
+
+#### test_xmlto_xmlto_version
+
+- 获取 xmlto 帮助信息
+- 获取 xmlto 版本信息
+
+</details>
+
+---
+
+## xxhash
+
+<details>
+<summary><b>xxhash — 2 个用例 / 3 个功能点</b></summary>
+
+#### test_xxhash_xxhash_basic
+
+- 检查主要工具可执行性
+
+#### test_xxhash_xxhash_version
+
+- 获取 xxhash 帮助信息
+- 获取 xxhash 版本信息
 
 </details>
 

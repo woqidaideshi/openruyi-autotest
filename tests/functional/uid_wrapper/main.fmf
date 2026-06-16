@@ -1,0 +1,10 @@
+summary: 功能测试 - uid_wrapper 软件包功能验证
+test: ./test.sh
+tag:
+  - functional
+  - uid_wrapper
+duration: 3m
+tier: 1
+path: /tests/functional/uid_wrapper
+require:
+  - uid_wrapper
