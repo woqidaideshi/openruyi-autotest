@@ -1,0 +1,12 @@
+summary: 功能测试 - make - Environment
+test: ./test.sh
+tag:
+  - functional
+  - make
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/make/test_make_environment
+test_make_environment
+Environment
+require:
+  - make

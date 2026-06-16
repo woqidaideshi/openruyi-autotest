@@ -1,0 +1,12 @@
+summary: 功能测试 - procps-ng - uptime and w commands
+test: ./test.sh
+tag:
+  - functional
+  - procps-ng
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/procps-ng/test_procps_ng_uptime_and_w_commands
+test_procps-ng_uptime-and-w-commands
+uptime-and-w-commands
+require:
+  - procps-ng

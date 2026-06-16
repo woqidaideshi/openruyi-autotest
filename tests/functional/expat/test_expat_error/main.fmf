@@ -1,8 +1,0 @@
-summary: expat - ´íÎó´¦Àí
-test: ./test.sh
-tag:
-  - functional
-  - expat
-duration: 2m
-tier: 1
-path: /tests/functional/expat/test_expat_error

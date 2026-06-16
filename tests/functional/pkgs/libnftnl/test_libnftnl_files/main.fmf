@@ -1,0 +1,8 @@
+summary: libnftnl - �ļ���֤
+test: ./test.sh
+tag:
+  - functional
+  - libnftnl
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/libnftnl/test_libnftnl_files

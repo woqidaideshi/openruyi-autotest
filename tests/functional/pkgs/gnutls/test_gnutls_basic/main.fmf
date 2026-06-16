@@ -1,0 +1,8 @@
+summary: gnutls - ��������
+test: ./test.sh
+tag:
+  - functional
+  - gnutls
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/gnutls/test_gnutls_basic

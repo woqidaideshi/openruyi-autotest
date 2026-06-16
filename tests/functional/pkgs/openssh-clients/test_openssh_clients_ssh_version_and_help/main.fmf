@@ -1,0 +1,12 @@
+summary: 功能测试 - openssh-clients - ssh version and help
+test: ./test.sh
+tag:
+  - functional
+  - openssh-clients
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/openssh-clients/test_openssh_clients_ssh_version_and_help
+test_openssh-clients_ssh-version-and-help
+ssh-version-and-help
+require:
+  - openssh-clients

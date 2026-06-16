@@ -1,0 +1,12 @@
+summary: 功能测试 - gcc - GCC toolchain utilities
+test: ./test.sh
+tag:
+  - functional
+  - gcc
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/gcc/test_gcc_gcc_toolchain_utilities
+test_gcc_gcc-toolchain-utilities
+GCC-toolchain-utilities
+require:
+  - gcc

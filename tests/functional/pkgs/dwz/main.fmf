@@ -1,0 +1,10 @@
+summary: 功能测试 - dwz DWARF优化器
+test: ./test.sh
+tag:
+  - functional
+  - dwz
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/dwz
+require:
+  - dwz

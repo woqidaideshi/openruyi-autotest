@@ -1,0 +1,10 @@
+summary: ���ܲ��� - beakerlib ������������֤
+test: ./test.sh
+tag:
+  - functional
+  - beakerlib
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/beakerlib
+require:
+  - beakerlib

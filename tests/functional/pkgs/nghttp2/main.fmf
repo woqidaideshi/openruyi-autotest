@@ -1,0 +1,7 @@
+summary: ���ܲ��� - nghttp2 �����֤
+test: ./test.sh
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/nghttp2
+require:
+  - nghttp2

@@ -1,0 +1,7 @@
+summary: ���ܲ��� - pcre2 ������������֤
+test: ./test.sh
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/pcre2
+require:
+  - pcre2

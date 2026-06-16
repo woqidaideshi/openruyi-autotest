@@ -1,8 +1,0 @@
-summary: patch - ´íÎó´¦Àí
-test: ./test.sh
-tag:
-  - functional
-  - patch
-duration: 2m
-tier: 1
-path: /tests/functional/patch/test_patch_error

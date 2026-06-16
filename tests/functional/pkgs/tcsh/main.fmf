@@ -1,0 +1,7 @@
+summary: ���ܲ��� - tcsh ������������֤
+test: ./test.sh
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/tcsh
+require:
+  - tcsh

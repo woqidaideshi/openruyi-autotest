@@ -1,0 +1,10 @@
+summary: 功能测试 - weston Wayland合成器功能验证
+test: ./test.sh
+tag:
+  - functional
+  - weston
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/weston
+require:
+  - weston

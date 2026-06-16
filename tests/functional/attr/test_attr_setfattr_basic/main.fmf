@@ -1,8 +1,0 @@
-summary: attr - setfattr 基本功能
-test: ./test.sh
-tag:
-  - functional
-  - attr
-duration: 2m
-tier: 1
-path: /tests/functional/attr/test_attr_setfattr_basic

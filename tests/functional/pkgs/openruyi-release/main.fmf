@@ -1,0 +1,7 @@
+summary: ���ܲ��� - openruyi-release ������֤
+test: ./test.sh
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/openruyi-release
+require:
+  - openruyi-release

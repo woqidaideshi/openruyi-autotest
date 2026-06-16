@@ -1,0 +1,10 @@
+summary: ���ܲ��� - lvm2 ������������֤
+test: ./test.sh
+tag:
+  - functional
+  - lvm2
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/lvm2
+require:
+  - lvm2

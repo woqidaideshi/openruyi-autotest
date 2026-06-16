@@ -1,0 +1,8 @@
+summary: tzdata - ������
+test: ./test.sh
+tag:
+  - functional
+  - tzdata
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/tzdata/test_tzdata_error

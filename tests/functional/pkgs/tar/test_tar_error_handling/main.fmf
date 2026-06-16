@@ -1,0 +1,12 @@
+summary: 功能测试 - tar - Error handling
+test: ./test.sh
+tag:
+  - functional
+  - tar
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/tar/test_tar_error_handling
+test_tar_error-handling
+Error-handling
+require:
+  - tar

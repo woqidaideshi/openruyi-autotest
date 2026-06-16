@@ -1,7 +1,0 @@
-summary: ¹¦ÄÜ²âÊÔ - glib
-test: ./test.sh
-duration: 5m
-tier: 1
-path: /tests/functional/glib
-require:
-  - glib

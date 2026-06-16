@@ -1,8 +1,0 @@
-summary: libnetfilter_conntrack - 文件验证
-test: ./test.sh
-tag:
-  - functional
-  - libnetfilter_conntrack
-duration: 2m
-tier: 1
-path: /tests/functional/libnetfilter_conntrack/test_libnetfilter_conntrack_files

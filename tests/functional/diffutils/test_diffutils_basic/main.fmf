@@ -1,8 +1,0 @@
-summary: diffutils - 基本功能
-test: ./test.sh
-tag:
-  - functional
-  - diffutils
-duration: 2m
-tier: 1
-path: /tests/functional/diffutils/test_diffutils_basic

@@ -1,0 +1,12 @@
+summary: 功能测试 - tmux - Wait-for (event channels)
+test: ./test.sh
+tag:
+  - functional
+  - tmux
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/tmux/test_tmux_wait_for__event_channels
+test_tmux_wait-for--event-channels
+Wait-for--event-channels
+require:
+  - tmux

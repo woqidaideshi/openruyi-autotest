@@ -1,7 +1,0 @@
-summary: 功能测试 - nghttp2 库包验证
-test: ./test.sh
-duration: 5m
-tier: 1
-path: /tests/functional/nghttp2
-require:
-  - nghttp2

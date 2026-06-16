@@ -1,0 +1,8 @@
+summary: bc/dc - ������
+test: ./test.sh
+tag:
+  - functional
+  - bc
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/bc/test_bc_error

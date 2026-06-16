@@ -1,8 +1,0 @@
-summary: libeconf - 文件验证
-test: ./test.sh
-tag:
-  - functional
-  - libeconf
-duration: 2m
-tier: 1
-path: /tests/functional/libeconf/test_libeconf_files

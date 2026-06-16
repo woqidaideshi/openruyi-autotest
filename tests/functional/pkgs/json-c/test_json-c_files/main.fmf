@@ -1,0 +1,8 @@
+summary: json-c - �ļ���֤
+test: ./test.sh
+tag:
+  - functional
+  - json-c
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/json-c/test_json-c_files

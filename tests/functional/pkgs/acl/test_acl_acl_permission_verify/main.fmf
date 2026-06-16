@@ -1,0 +1,12 @@
+summary: 功能测试 - acl - ACL 权限验证
+test: ./test.sh
+tag:
+  - functional
+  - acl
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/acl/test_acl_acl_permission_verify
+test_acl_acl-permission-verify
+ACL-权限验证
+require:
+  - acl

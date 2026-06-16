@@ -1,8 +1,0 @@
-summary: perl - 基本功能
-test: ./test.sh
-tag:
-  - functional
-  - perl
-duration: 2m
-tier: 1
-path: /tests/functional/perl/test_perl_basic

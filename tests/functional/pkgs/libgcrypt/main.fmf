@@ -1,0 +1,7 @@
+summary: ���ܲ��� - libgcrypt �����֤
+test: ./test.sh
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/libgcrypt
+require:
+  - libgcrypt

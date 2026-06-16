@@ -1,0 +1,8 @@
+summary: attr - ������
+test: ./test.sh
+tag:
+  - functional
+  - attr
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/attr/test_attr_error_handling

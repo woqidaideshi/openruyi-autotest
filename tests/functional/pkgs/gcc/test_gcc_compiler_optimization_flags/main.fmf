@@ -1,0 +1,12 @@
+summary: 功能测试 - gcc - Compiler optimization flags
+test: ./test.sh
+tag:
+  - functional
+  - gcc
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/gcc/test_gcc_compiler_optimization_flags
+test_gcc_compiler-optimization-flags
+Compiler-optimization-flags
+require:
+  - gcc

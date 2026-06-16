@@ -1,0 +1,10 @@
+summary: 功能测试 - Lua 脚本语言
+test: ./test.sh
+tag:
+  - functional
+  - lua
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/lua
+require:
+  - lua

@@ -1,0 +1,10 @@
+summary: ���ܲ��� - binutils ������������֤
+test: ./test.sh
+tag:
+  - functional
+  - binutils
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/binutils
+require:
+  - binutils

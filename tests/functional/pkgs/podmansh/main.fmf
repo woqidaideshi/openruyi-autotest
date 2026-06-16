@@ -1,0 +1,12 @@
+summary: Functional test - podmansh package verification
+test: ./test.sh
+tag:
+  - functional
+  - podmansh
+duration: 10m
+tier: 1
+path: /tests/functional/pkgs/podmansh
+require:
+  - podmansh
+  - podman
+  - coreutils

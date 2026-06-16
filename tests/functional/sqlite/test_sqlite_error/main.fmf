@@ -1,8 +1,0 @@
-summary: sqlite - ´íÎó´¦Àí
-test: ./test.sh
-tag:
-  - functional
-  - sqlite
-duration: 2m
-tier: 1
-path: /tests/functional/sqlite/test_sqlite_error

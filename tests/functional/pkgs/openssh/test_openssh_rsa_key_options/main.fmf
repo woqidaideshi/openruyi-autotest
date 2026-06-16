@@ -1,0 +1,12 @@
+summary: 功能测试 - openssh - RSA key options
+test: ./test.sh
+tag:
+  - functional
+  - openssh
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/openssh/test_openssh_rsa_key_options
+test_openssh_rsa-key-options
+RSA-key-options
+require:
+  - openssh

@@ -1,0 +1,10 @@
+summary: 功能测试 - gzip 压缩工具集
+test: ./test.sh
+tag:
+  - functional
+  - gzip
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/gzip
+require:
+  - gzip

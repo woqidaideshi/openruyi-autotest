@@ -1,0 +1,12 @@
+summary: 功能测试 - labwc - Library check
+test: ./test.sh
+tag:
+  - functional
+  - labwc
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/labwc/test_labwc_library_check
+test_labwc_library-check
+Library-check
+require:
+  - labwc

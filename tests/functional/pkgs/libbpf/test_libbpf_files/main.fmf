@@ -1,0 +1,8 @@
+summary: libbpf - �ļ���֤
+test: ./test.sh
+tag:
+  - functional
+  - libbpf
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/libbpf/test_libbpf_files

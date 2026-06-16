@@ -1,8 +1,0 @@
-summary: tcsh - ´íÎó´¦Àí
-test: ./test.sh
-tag:
-  - functional
-  - tcsh
-duration: 2m
-tier: 1
-path: /tests/functional/tcsh/test_tcsh_error

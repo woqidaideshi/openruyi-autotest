@@ -1,8 +1,0 @@
-summary: libgcrypt - 文件验证
-test: ./test.sh
-tag:
-  - functional
-  - libgcrypt
-duration: 2m
-tier: 1
-path: /tests/functional/libgcrypt/test_libgcrypt_files

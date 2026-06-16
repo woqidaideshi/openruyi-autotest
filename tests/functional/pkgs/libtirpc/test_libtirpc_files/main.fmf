@@ -1,0 +1,8 @@
+summary: libtirpc - �ļ���֤
+test: ./test.sh
+tag:
+  - functional
+  - libtirpc
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/libtirpc/test_libtirpc_files

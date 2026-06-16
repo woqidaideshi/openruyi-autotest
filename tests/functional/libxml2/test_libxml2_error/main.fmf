@@ -1,8 +1,0 @@
-summary: libxml2 - ¥ÌŒÛ¥¶¿Ì
-test: ./test.sh
-tag:
-  - functional
-  - libxml2
-duration: 2m
-tier: 1
-path: /tests/functional/libxml2/test_libxml2_error

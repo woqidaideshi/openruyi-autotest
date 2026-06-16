@@ -1,0 +1,12 @@
+summary: 功能测试 - util-linux - 错误处理
+test: ./test.sh
+tag:
+  - functional
+  - util-linux
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/util-linux/test_util_linux_error_handling
+test_util-linux_error-handling
+错误处理
+require:
+  - util-linux

@@ -1,0 +1,10 @@
+summary: ���ܲ��� - icu4c ������������֤
+test: ./test.sh
+tag:
+  - functional
+  - icu4c
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/icu4c
+require:
+  - icu4c

@@ -1,0 +1,12 @@
+summary: 功能测试 - tar - Archive verification
+test: ./test.sh
+tag:
+  - functional
+  - tar
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/tar/test_tar_archive_verification
+test_tar_archive-verification
+Archive-verification
+require:
+  - tar

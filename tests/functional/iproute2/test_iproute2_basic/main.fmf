@@ -1,8 +1,0 @@
-summary: iproute2 - 基本功能
-test: ./test.sh
-tag:
-  - functional
-  - iproute2
-duration: 2m
-tier: 1
-path: /tests/functional/iproute2/test_iproute2_basic

@@ -1,0 +1,8 @@
+summary: kbd - ��������
+test: ./test.sh
+tag:
+  - functional
+  - kbd
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/kbd/test_kbd_basic

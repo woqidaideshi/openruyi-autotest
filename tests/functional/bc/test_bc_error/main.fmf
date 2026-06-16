@@ -1,8 +1,0 @@
-summary: bc/dc - ´íÎó´¦Àí
-test: ./test.sh
-tag:
-  - functional
-  - bc
-duration: 2m
-tier: 1
-path: /tests/functional/bc/test_bc_error

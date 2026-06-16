@@ -1,7 +1,0 @@
-summary: ¹¦ÄÜ²âÊÔ - p11-kit
-test: ./test.sh
-duration: 5m
-tier: 1
-path: /tests/functional/p11-kit
-require:
-  - p11-kit

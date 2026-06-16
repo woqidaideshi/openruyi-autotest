@@ -1,0 +1,8 @@
+summary: libcap-ng - �ļ���֤
+test: ./test.sh
+tag:
+  - functional
+  - libcap-ng
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/libcap-ng/test_libcap-ng_files

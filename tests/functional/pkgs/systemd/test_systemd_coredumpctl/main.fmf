@@ -1,0 +1,12 @@
+summary: 功能测试 - systemd - coredumpctl
+test: ./test.sh
+tag:
+  - functional
+  - systemd
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/systemd/test_systemd_coredumpctl
+test_systemd_coredumpctl
+coredumpctl
+require:
+  - systemd

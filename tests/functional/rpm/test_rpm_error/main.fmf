@@ -1,8 +1,0 @@
-summary: rpm - ´íÎó´¦Àí
-test: ./test.sh
-tag:
-  - functional
-  - rpm
-duration: 2m
-tier: 1
-path: /tests/functional/rpm/test_rpm_error

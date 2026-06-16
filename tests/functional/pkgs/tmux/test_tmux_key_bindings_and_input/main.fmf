@@ -1,0 +1,12 @@
+summary: 功能测试 - tmux - Key bindings and input
+test: ./test.sh
+tag:
+  - functional
+  - tmux
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/tmux/test_tmux_key_bindings_and_input
+test_tmux_key-bindings-and-input
+Key-bindings-and-input
+require:
+  - tmux

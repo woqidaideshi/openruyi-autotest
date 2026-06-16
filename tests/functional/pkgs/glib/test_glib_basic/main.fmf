@@ -1,0 +1,8 @@
+summary: glib - ��������
+test: ./test.sh
+tag:
+  - functional
+  - glib
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/glib/test_glib_basic

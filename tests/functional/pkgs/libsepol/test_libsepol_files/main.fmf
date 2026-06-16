@@ -1,0 +1,8 @@
+summary: libsepol - �ļ���֤
+test: ./test.sh
+tag:
+  - functional
+  - libsepol
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/libsepol/test_libsepol_files

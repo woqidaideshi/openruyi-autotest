@@ -1,0 +1,8 @@
+summary: openssl - �ӽ���
+test: ./test.sh
+tag:
+  - functional
+  - openssl
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/openssl/test_openssl_encrypt

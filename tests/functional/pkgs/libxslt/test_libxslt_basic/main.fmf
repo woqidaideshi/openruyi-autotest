@@ -1,0 +1,8 @@
+summary: libxslt - ��������
+test: ./test.sh
+tag:
+  - functional
+  - libxslt
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/libxslt/test_libxslt_basic
