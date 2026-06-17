@@ -42,16 +42,17 @@ openruyi-autotest/
 | Smoke | 17 | 100 | ✅ 全部通过 |
 | Functional | 202 | 561 | ✅ 全部通过 |
 | Security | 2 | 106 | ✅ 全部通过 (74P/24S/0F CVE) |
-| Compatibility | 1 | 5 | ⏳ 待验证 |
+| Compatibility | 10 | 498 | ✅ 通过 (498P/47F/84S) |
 | Performance | 1 | 5 | ⏳ 待验证 |
 | Reliability | 1 | 5 | ⏳ 待验证 |
-| **合计** | **224** | **782** | |
+| **合计** | **233** | **1,280** | |
 
 ### 详情文档
 
 - [冒烟测试覆盖详情](docs/smoke-coverage.md) — 17 个类别，100 个用例
 - [功能测试覆盖详情](docs/functional-coverage.md) — 202 个软件包，561 个用例，1,692 个功能点
 - [安全测试覆盖详情](docs/security-coverage.md) — 2 个套件（nmap + CVE），106 个用例
+- [兼容性测试覆盖详情](docs/compatibility-coverage.md) — 10 个 LTP POSIX 测试用例
 
 ### 主要覆盖分类
 

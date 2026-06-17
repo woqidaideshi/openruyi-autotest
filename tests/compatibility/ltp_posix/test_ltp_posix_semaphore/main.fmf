@@ -1,0 +1,8 @@
+summary: LTP POSIX semaphore 信号量接口一致性测试
+test: ./test.sh
+tag:
+  - compatibility
+  - posix
+  - semaphore
+duration: 5m
+tier: 2
