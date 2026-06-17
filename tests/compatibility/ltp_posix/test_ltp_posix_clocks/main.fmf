@@ -1,0 +1,8 @@
+﻿summary: LTP POSIX clocks 时钟 接口一致性测试
+test: ./test.sh
+tag:
+  - compatibility
+  - posix
+  - clocks
+duration: 5m
+tier: 2
