@@ -1,8 +1,6 @@
-summary: 兼容性测试 - 验证系统兼容性
-test: ./test.sh
+summary: 兼容性测试 - LTP POSIX 及系统兼容性验证
 tag:
   - compatibility
-duration: 5m
 tier: 2
 require:
   - coreutils

@@ -2,7 +2,8 @@
 
 > 更新日期：2026-06-17
 > 测试环境：openEuler RISC-V（10.20.237.192:12055）
-> 共 10 个测试用例，基于 LTP open_posix_testsuite 验证 POSIX 标准兼容性
+> 共 10 个测试用例，基于 LTP open_posix_testsuite 验证 POSIX 1003.1-2001 标准兼容性
+> 旧模版测试已移除，由 ltp_posix 测试套件替代
 
 ## 一览表
 
