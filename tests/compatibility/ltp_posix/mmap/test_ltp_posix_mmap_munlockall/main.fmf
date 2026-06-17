@@ -1,0 +1,8 @@
+summary: LTP POSIX 内存映射兼容性测试 - munlockall
+test: ./test.sh
+tag:
+  - compatibility
+  - posix
+  - mmap
+duration: 2m
+tier: 2

@@ -1,0 +1,8 @@
+summary: LTP POSIX 信号量兼容性测试 - sem_wait
+test: ./test.sh
+tag:
+  - compatibility
+  - posix
+  - semaphore
+duration: 2m
+tier: 2

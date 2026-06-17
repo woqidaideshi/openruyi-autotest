@@ -1,0 +1,8 @@
+summary: LTP POSIX 信号兼容性测试 - sigemptyset
+test: ./test.sh
+tag:
+  - compatibility
+  - posix
+  - signal
+duration: 2m
+tier: 2

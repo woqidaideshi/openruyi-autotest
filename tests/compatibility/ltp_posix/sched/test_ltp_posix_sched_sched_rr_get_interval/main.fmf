@@ -1,0 +1,8 @@
+summary: LTP POSIX 调度兼容性测试 - sched_rr_get_interval
+test: ./test.sh
+tag:
+  - compatibility
+  - posix
+  - sched
+duration: 2m
+tier: 2

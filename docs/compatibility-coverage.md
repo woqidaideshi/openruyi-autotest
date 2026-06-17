@@ -2,24 +2,24 @@
 
 > 更新日期：2026-06-17
 > 测试环境：openEuler RISC-V（10.20.237.192:12055）
-> 共 10 个测试用例，基于 LTP open_posix_testsuite 验证 POSIX 1003.1-2001 标准兼容性
-> 旧模版测试已移除，由 ltp_posix 测试套件替代
+> 共 188 个测试用例，覆盖 10 个 POSIX 功能分类，基于 LTP open_posix_testsuite
+> 旧模版测试已移除，每个 POSIX 接口独立为一个测试用例
 
 ## 一览表
 
-| 测试用例 | 接口数 | PASS | FAIL | SKIP | 状态 |
-|---------|:---:|:---:|:---:|:---:|------|
-| [pthread](#ltp_posix_pthread) | ~80 | 227 | 11 | 61 | ✅ |
-| [semaphore](#ltp_posix_semaphore) | 8 | 26 | 7 | 0 | ✅ |
-| [mqueue](#ltp_posix_mqueue) | 10 | 35 | 7 | 2 | ✅ |
-| [signal](#ltp_posix_signal) | 22 | 43 | 0 | 21 | ✅ |
-| [timer](#ltp_posix_timer) | 5 | 28 | 0 | 0 | ✅ |
-| [mmap](#ltp_posix_mmap) | 8 | 40 | 4 | 0 | ✅ |
-| [clocks](#ltp_posix_clocks) | 7 | 32 | 3 | 0 | ✅ |
-| [sched](#ltp_posix_sched) | 8 | 23 | 11 | 0 | ⚠️ |
-| [aio](#ltp_posix_aio) | 8 | 21 | 3 | 0 | ✅ |
-| [filesystem](#ltp_posix_filesystem) | 16 | 23 | 1 | 0 | ✅ |
-| **合计** | **~172** | **498** | **47** | **84** | |
+| 分类 | 测试用例数 | 覆盖接口 |
+|------|:---:|------|
+| [pthread](#pthread) | 95 | pthread_create, pthread_mutex_*, pthread_cond_*, pthread_rwlock_*, pthread_barrier_*, pthread_spin_*, pthread_attr_*, pthread_key_*, pthread_cancel, pthread_join 等 |
+| [signal](#signal) | 22 | sigaction, sigprocmask, sigwait, sigqueue, sigtimedwait, kill, raise 等 |
+| [filesystem](#filesystem) | 16 | access, fork, fsync, getpid, strchr, strcpy, time, asctime 等 |
+| [mqueue](#mqueue) | 10 | mq_open, mq_close, mq_send, mq_receive, mq_notify 等 |
+| [semaphore](#semaphore) | 9 | sem_init, sem_open, sem_wait, sem_post, sem_close 等 |
+| [sched](#sched) | 8 | sched_getparam, sched_setparam, sched_yield 等 |
+| [mmap](#mmap) | 8 | mmap, munmap, mlock, shm_open, shm_unlink 等 |
+| [aio](#aio) | 8 | aio_read, aio_write, aio_error, lio_listio 等 |
+| [clocks](#clocks) | 7 | clock_gettime, clock_nanosleep, nanosleep 等 |
+| [timer](#timer) | 5 | timer_create, timer_delete, timer_gettime 等 |
+| **合计** | **188** | |
 
 ## 测试原理
 
@@ -37,80 +37,65 @@ tests/compatibility/ltp_posix/
 ├── main.fmf                    # 测试套件元数据
 ├── setup.sh                    # 环境准备（安装依赖、clone LTP）
 ├── teardown.sh                 # 环境清理
-├── helper.sh                   # 公共辅助函数
-├── test.sh                     # 主测试脚本
-├── test_ltp_posix_pthread/     # pthread 测试
-├── test_ltp_posix_semaphore/   # 信号量测试
-├── test_ltp_posix_mqueue/      # 消息队列测试
-├── test_ltp_posix_signal/      # 信号测试
-├── test_ltp_posix_timer/       # 定时器测试
-├── test_ltp_posix_mmap/        # 内存映射测试
-├── test_ltp_posix_clocks/      # 时钟测试
-├── test_ltp_posix_sched/       # 调度测试
-├── test_ltp_posix_aio/         # 异步 I/O 测试
-└── test_ltp_posix_filesystem/  # 文件系统测试
+├── helper.sh                   # 公共辅助函数（编译+运行）
+├── test.sh                     # 主测试脚本（聚合全部 188 个用例）
+├── pthread/                    # pthread 多线程（95 个用例）
+│   ├── test_ltp_posix_pthread_create/
+│   ├── test_ltp_posix_pthread_mutex_init/
+│   └── ...
+├── signal/                     # 信号（22 个用例）
+│   ├── test_ltp_posix_signal_sigaction/
+│   └── ...
+├── filesystem/                 # 文件系统（16 个用例）
+├── mqueue/                     # 消息队列（10 个用例）
+├── semaphore/                  # 信号量（9 个用例）
+├── sched/                      # 调度（8 个用例）
+├── mmap/                       # 内存映射（8 个用例）
+├── aio/                        # 异步 I/O（8 个用例）
+├── clocks/                     # 时钟（7 个用例）
+└── timer/                      # 定时器（5 个用例）
 ```
 
 ---
 
-## 测试用例详情
+## 分类详情
 
-### test_ltp_posix_pthread {#ltp_posix_pthread}
+### pthread {#pthread}
 
-pthread 接口一致性测试，覆盖 ~80 个 pthread_* 接口。
+95 个测试用例，覆盖全部 pthread_* POSIX 接口：线程创建/销毁、互斥锁、条件变量、读写锁、屏障、自旋锁、线程属性、线程局部存储、取消、信号掩码等。
 
-**状态**: ✅ PASS=227 FAIL=11 SKIP=61
+### signal {#signal}
 
-### test_ltp_posix_semaphore {#ltp_posix_semaphore}
+22 个测试用例，覆盖信号处理接口：sigaction、sigprocmask、sigwait、sigqueue、sigtimedwait、sigpending、sigsuspend、kill、raise 等。
 
-信号量接口一致性测试，覆盖 8 个 sem_* 接口。
+### filesystem {#filesystem}
 
-**状态**: ✅ PASS=26 FAIL=7 SKIP=0
+16 个测试用例，覆盖文件系统及基础 C 库接口：access、fork、fsync、getpid、strchr、strcpy、strlen、strftime、time、asctime 等。
 
-### test_ltp_posix_mqueue {#ltp_posix_mqueue}
+### mqueue {#mqueue}
 
-POSIX 消息队列接口一致性测试，覆盖 10 个 mq_* 接口。
+10 个测试用例，覆盖 POSIX 消息队列接口：mq_open、mq_close、mq_send、mq_receive、mq_notify、mq_getattr、mq_setattr、mq_timedreceive、mq_timedsend、mq_unlink。
 
-**状态**: ✅ PASS=35 FAIL=7 SKIP=2
+### semaphore {#semaphore}
 
-### test_ltp_posix_signal {#ltp_posix_signal}
+9 个测试用例，覆盖 POSIX 信号量接口：sem_init、sem_open、sem_close、sem_wait、sem_post、sem_timedwait、sem_getvalue、sem_destroy、sem_unlink。
 
-信号接口一致性测试，覆盖 22 个 sig*、kill、raise 接口。
+### sched {#sched}
 
-**状态**: ✅ PASS=43 FAIL=0 SKIP=21
+8 个测试用例，覆盖调度接口：sched_get_priority_max/min、sched_getparam、sched_setparam、sched_getscheduler、sched_setscheduler、sched_yield、sched_rr_get_interval。
 
-### test_ltp_posix_timer {#ltp_posix_timer}
+### mmap {#mmap}
 
-定时器接口一致性测试，覆盖 5 个 timer_* 接口。
+8 个测试用例，覆盖内存映射接口：mmap、munmap、mlock、mlockall、munlock、munlockall、shm_open、shm_unlink。
 
-**状态**: ✅ PASS=28 FAIL=0 SKIP=0
+### aio {#aio}
 
-### test_ltp_posix_mmap {#ltp_posix_mmap}
+8 个测试用例，覆盖异步 I/O 接口：aio_read、aio_write、aio_error、aio_return、aio_suspend、aio_cancel、aio_fsync、lio_listio。
 
-内存映射接口一致性测试，覆盖 8 个接口。
+### clocks {#clocks}
 
-**状态**: ✅ PASS=40 FAIL=4 SKIP=0
+7 个测试用例，覆盖时钟接口：clock_getres、clock_gettime、clock_settime、clock_nanosleep、clock_getcpuclockid、clock、nanosleep。
 
-### test_ltp_posix_clocks {#ltp_posix_clocks}
+### timer {#timer}
 
-时钟接口一致性测试，覆盖 7 个接口。
-
-**状态**: ✅ PASS=32 FAIL=3 SKIP=0
-
-### test_ltp_posix_sched {#ltp_posix_sched}
-
-调度接口一致性测试，覆盖 8 个接口。
-
-**状态**: ⚠️ PASS=23 FAIL=11 SKIP=0（部分调度操作需 root 权限）
-
-### test_ltp_posix_aio {#ltp_posix_aio}
-
-异步 I/O 接口一致性测试，覆盖 8 个接口。
-
-**状态**: ✅ PASS=21 FAIL=3 SKIP=0
-
-### test_ltp_posix_filesystem {#ltp_posix_filesystem}
-
-文件系统及基础接口一致性测试，覆盖 16 个接口。
-
-**状态**: ✅ PASS=23 FAIL=1 SKIP=0
+5 个测试用例，覆盖定时器接口：timer_create、timer_delete、timer_getoverrun、timer_gettime、timer_settime。

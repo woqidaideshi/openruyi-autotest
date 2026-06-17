@@ -1,0 +1,8 @@
+summary: LTP POSIX 时钟兼容性测试 - clock_settime
+test: ./test.sh
+tag:
+  - compatibility
+  - posix
+  - clocks
+duration: 2m
+tier: 2

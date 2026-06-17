@@ -1,0 +1,8 @@
+summary: LTP POSIX 文件系统兼容性测试 - fsync
+test: ./test.sh
+tag:
+  - compatibility
+  - posix
+  - filesystem
+duration: 2m
+tier: 2
