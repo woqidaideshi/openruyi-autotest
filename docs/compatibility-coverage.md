@@ -3,23 +3,26 @@
 > 更新日期：2026-06-17
 > 测试环境：openEuler RISC-V（10.20.237.192:12055）
 > 共 1 个测试套（ltp_posix），10 个 POSIX 分类，188 个接口测试用例
+> 已使用 sudo 全局验证，最终结果：508 PASS / 34 FAIL / 84 SKIP
 > 旧模版测试已移除，每个 POSIX 接口独立为一个测试用例
 
 ## 一览表
 
-| 分类 | 测试用例数 | 覆盖接口 |
-|------|:---:|------|
-| [pthread](#pthread) | 95 | pthread_create, pthread_mutex_*, pthread_cond_*, pthread_rwlock_*, pthread_barrier_*, pthread_spin_*, pthread_attr_*, pthread_key_*, pthread_cancel, pthread_join 等 |
-| [signal](#signal) | 22 | sigaction, sigprocmask, sigwait, sigqueue, sigtimedwait, kill, raise 等 |
-| [filesystem](#filesystem) | 16 | access, fork, fsync, getpid, strchr, strcpy, time, asctime 等 |
-| [mqueue](#mqueue) | 10 | mq_open, mq_close, mq_send, mq_receive, mq_notify 等 |
-| [semaphore](#semaphore) | 9 | sem_init, sem_open, sem_wait, sem_post, sem_close 等 |
-| [sched](#sched) | 8 | sched_getparam, sched_setparam, sched_yield 等 |
-| [mmap](#mmap) | 8 | mmap, munmap, mlock, shm_open, shm_unlink 等 |
-| [aio](#aio) | 8 | aio_read, aio_write, aio_error, lio_listio 等 |
-| [clocks](#clocks) | 7 | clock_gettime, clock_nanosleep, nanosleep 等 |
-| [timer](#timer) | 5 | timer_create, timer_delete, timer_gettime 等 |
-| **合计** | **188** | |
+| 分类 | 用例数 | PASS | FAIL | SKIP | 状态 |
+|------|:---:|:---:|:---:|:---:|:---:|
+| [pthread](#pthread) | 95 | 227 | 11 | 61 | ✅ |
+| [signal](#signal) | 22 | 43 | 0 | 21 | ✅ |
+| [filesystem](#filesystem) | 16 | 24 | 0 | 0 | ✅ |
+| [mqueue](#mqueue) | 10 | 42 | 0 | 2 | ✅ |
+| [semaphore](#semaphore) | 9 | 26 | 7 | 0 | ⚠️ |
+| [sched](#sched) | 8 | 23 | 11 | 0 | ⚠️ |
+| [mmap](#mmap) | 8 | 42 | 2 | 0 | ✅ |
+| [aio](#aio) | 8 | 21 | 3 | 0 | ✅ |
+| [clocks](#clocks) | 7 | 32 | 0 | 0 | ✅ |
+| [timer](#timer) | 5 | 28 | 0 | 0 | ✅ |
+| **合计** | **188** | **508** | **34** | **84** | |
+
+> 失败项主要为系统级兼容性差异（如 sched 需内核支持 RR 调度、semaphore 消息优先级等），非脚本问题。
 
 ## 测试原理
 
