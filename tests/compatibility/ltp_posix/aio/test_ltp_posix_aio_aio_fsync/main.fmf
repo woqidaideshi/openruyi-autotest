@@ -1,0 +1,8 @@
+summary: LTP POSIX 异步 I/O兼容性测试 - aio_fsync
+test: ./test.sh
+tag:
+  - compatibility
+  - posix
+  - aio
+duration: 2m
+tier: 2

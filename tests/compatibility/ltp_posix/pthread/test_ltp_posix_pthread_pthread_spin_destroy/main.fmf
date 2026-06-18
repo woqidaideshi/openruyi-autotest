@@ -1,0 +1,8 @@
+summary: LTP POSIX pthread 多线程兼容性测试 - pthread_spin_destroy
+test: ./test.sh
+tag:
+  - compatibility
+  - posix
+  - pthread
+duration: 2m
+tier: 2

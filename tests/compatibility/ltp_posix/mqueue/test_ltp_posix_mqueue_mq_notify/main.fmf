@@ -1,0 +1,8 @@
+summary: LTP POSIX 消息队列兼容性测试 - mq_notify
+test: ./test.sh
+tag:
+  - compatibility
+  - posix
+  - mqueue
+duration: 2m
+tier: 2

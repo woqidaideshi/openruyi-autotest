@@ -1,14 +1,13 @@
-summary: LTP POSIX 兼容性测试 - 基于 open_posix_testsuite 验证 POSIX 标准兼容性
+summary: LTP POSIX 兼容性测试 — 基于 open_posix_testsuite（10 分类，188 接口）
 test: ./test.sh
 tag:
   - compatibility
   - posix
   - ltp
-duration: 60m
+duration: 120m
 tier: 2
 require:
   - coreutils
   - git
   - gcc
   - make
-extra-summary: /tests/compatibility/ltp_posix

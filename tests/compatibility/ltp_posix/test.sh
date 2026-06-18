@@ -16,19 +16,24 @@ TOTAL_PASS=0
 TOTAL_FAIL=0
 TOTAL_SKIP=0
 
-# 运行所有子测试
+# 运行所有子测试 — 遍历 10 个分类目录下的 188 个测试用例
 TEST_DIR="$(dirname "$0")"
-for test_case in "$TEST_DIR"/test_ltp_posix_*/test.sh; do
-    if [ -f "$test_case" ]; then
-        echo ""
-        echo ">>> 运行: $(basename "$(dirname "$test_case")")"
-        # 子测试脚本已自带 setup guard，直接运行
-        if sh -eux "$test_case" 2>&1; then
-            echo "<<< $(basename "$(dirname "$test_case")"): 完成"
-        else
-            echo "<<< $(basename "$(dirname "$test_case")"): 部分失败"
+for cat_dir in "$TEST_DIR"/aio "$TEST_DIR"/clocks "$TEST_DIR"/filesystem \
+               "$TEST_DIR"/mmap "$TEST_DIR"/mqueue "$TEST_DIR"/pthread \
+               "$TEST_DIR"/sched "$TEST_DIR"/semaphore "$TEST_DIR"/signal \
+               "$TEST_DIR"/timer; do
+    [ -d "$cat_dir" ] || continue
+    for test_case in "$cat_dir"/test_ltp_posix_*/test.sh; do
+        if [ -f "$test_case" ]; then
+            echo ""
+            echo ">>> 运行: $(basename "$(dirname "$test_case")")"
+            if sh -eux "$test_case" 2>&1; then
+                echo "<<< $(basename "$(dirname "$test_case")"): 完成"
+            else
+                echo "<<< $(basename "$(dirname "$test_case")"): 部分失败"
+            fi
         fi
-    fi
+    done
 done
 
 echo ""

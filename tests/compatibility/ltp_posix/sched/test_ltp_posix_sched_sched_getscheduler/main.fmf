@@ -1,0 +1,8 @@
+summary: LTP POSIX 调度兼容性测试 - sched_getscheduler
+test: ./test.sh
+tag:
+  - compatibility
+  - posix
+  - sched
+duration: 2m
+tier: 2

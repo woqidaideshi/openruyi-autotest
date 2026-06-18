@@ -1,8 +1,0 @@
-﻿summary: LTP POSIX filesystem 文件系统 接口一致性测试
-test: ./test.sh
-tag:
-  - compatibility
-  - posix
-  - filesystem
-duration: 5m
-tier: 2

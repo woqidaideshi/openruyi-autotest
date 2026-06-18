@@ -1,8 +1,0 @@
-﻿summary: LTP POSIX aio 异步I/O 接口一致性测试
-test: ./test.sh
-tag:
-  - compatibility
-  - posix
-  - aio
-duration: 5m
-tier: 2

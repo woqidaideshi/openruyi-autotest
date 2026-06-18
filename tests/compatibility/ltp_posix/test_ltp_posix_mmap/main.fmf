@@ -1,8 +1,0 @@
-﻿summary: LTP POSIX mmap 内存映射 接口一致性测试
-test: ./test.sh
-tag:
-  - compatibility
-  - posix
-  - mmap
-duration: 5m
-tier: 2

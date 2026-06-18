@@ -24,26 +24,26 @@ run_posix_iface_test() {
     
     local found=0
     
-    # 1. 运行 .sh 脚本测试
+    # 1. 运行 .sh 脚本测试（使用 sudo 确保权限）
     for test_sh in $(find . -maxdepth 1 -type f -name "*.sh" ! -name "Makefile" 2>/dev/null | sort); do
         test_name="${iface}/$(basename "$test_sh")"
         found=1
-        if rlRun "sh $test_sh" 0 "POSIX $test_name"; then
+        if rlRun "echo ${SUDO_PASSWORD:-openruyi} | sudo -S sh $test_sh" 0 "POSIX $test_name"; then
             PASS=$((PASS + 1))
         else
             FAIL=$((FAIL + 1))
         fi
     done
     
-    # 2. 编译 .c 文件（与 lib/common.c 链接）并运行（每接口最多 3 个样本）
+    # 2. 编译 .c 文件（与 lib/common.c 链接）并运行（每接口最多 3 个样本，使用 sudo）
     local c_count=0
     for src in $(find . -maxdepth 1 -type f -name "*.c" 2>/dev/null | sort); do
         local test_name="${iface}/$(basename "$src" .c)"
         local bin="/tmp/posix_test_$$_${c_count}"
         found=1
         c_count=$((c_count + 1))
-        if gcc -I"$inc_dir" -o "$bin" "$lib_common" "$src" -lpthread -lrt -lm 2>/dev/null; then
-            if rlRun "$bin" 0 "POSIX $test_name"; then
+        if gcc -std=gnu11 -I"$inc_dir" -Wno-error=incompatible-pointer-types -o "$bin" "$lib_common" "$src" -lpthread -lrt -lm 2>/dev/null; then
+            if rlRun "echo ${SUDO_PASSWORD:-openruyi} | sudo -S $bin" 0 "POSIX $test_name"; then
                 PASS=$((PASS + 1))
             else
                 FAIL=$((FAIL + 1))

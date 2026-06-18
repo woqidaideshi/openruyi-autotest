@@ -1,8 +1,0 @@
-summary: LTP POSIX pthread 接口一致性测试
-test: ./test.sh
-tag:
-  - compatibility
-  - posix
-  - pthread
-duration: 15m
-tier: 2

@@ -1,8 +1,0 @@
-﻿summary: LTP POSIX sched 调度 接口一致性测试
-test: ./test.sh
-tag:
-  - compatibility
-  - posix
-  - sched
-duration: 5m
-tier: 2
