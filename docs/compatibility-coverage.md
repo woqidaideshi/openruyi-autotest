@@ -3,14 +3,14 @@
 > 更新日期：2026-06-17
 > 测试环境：openEuler RISC-V（10.20.237.192:12055）
 > 共 1 个测试套（ltp_posix），10 个 POSIX 分类，188 个接口测试用例
-> 已使用 sudo 全局验证 + gcc 兼容性修复，最终结果：569 PASS / 36 FAIL / 21 SKIP
+> 最终结果：570 PASS / 36 FAIL / 20 SKIP（gcc 修复 + sudo 验证）
 > 旧模版测试已移除，每个 POSIX 接口独立为一个测试用例
 
 ## 一览表
 
 | 分类 | 用例数 | PASS | FAIL | SKIP | 状态 |
 |------|:---:|:---:|:---:|:---:|:---:|
-| [pthread](#pthread) | 95 | 285 | 13 | 1 | ✅ |
+| [pthread](#pthread) | 95 | 286 | 13 | 0 | ✅ |
 | [signal](#signal) | 22 | 46 | 0 | 18 | ✅ |
 | [filesystem](#filesystem) | 16 | 24 | 0 | 0 | ✅ |
 | [mqueue](#mqueue) | 10 | 42 | 0 | 2 | ✅ |
@@ -20,10 +20,9 @@
 | [aio](#aio) | 8 | 21 | 3 | 0 | ✅ |
 | [clocks](#clocks) | 7 | 32 | 0 | 0 | ✅ |
 | [timer](#timer) | 5 | 28 | 0 | 0 | ✅ |
-| **合计** | **188** | **569** | **36** | **21** | |
+| **合计** | **188** | **570** | **36** | **20** | |
 
-> 编译 SKIP 已通过 `-Wno-error=incompatible-pointer-types` 从 84 降至 21（gcc 16 兼容性修复）。
-> 失败项主要为系统级兼容性差异（如 sched 需内核支持 RR 调度、semaphore 消息优先级等）。
+> SKIP 已通过 `-std=gnu11` + `-Wno-error=incompatible-pointer-types` 修复至 20（剩余为 POSIX 废弃函数 sighold/sigignore 等）。
 
 ## 测试原理
 
