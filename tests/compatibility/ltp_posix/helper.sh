@@ -42,7 +42,7 @@ run_posix_iface_test() {
         local bin="/tmp/posix_test_$$_${c_count}"
         found=1
         c_count=$((c_count + 1))
-        if gcc -I"$inc_dir" -o "$bin" "$lib_common" "$src" -lpthread -lrt -lm 2>/dev/null; then
+        if gcc -I"$inc_dir" -Wno-error=incompatible-pointer-types -o "$bin" "$lib_common" "$src" -lpthread -lrt -lm 2>/dev/null; then
             if rlRun "echo ${SUDO_PASSWORD:-openruyi} | sudo -S $bin" 0 "POSIX $test_name"; then
                 PASS=$((PASS + 1))
             else
