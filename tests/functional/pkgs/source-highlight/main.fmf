@@ -1,5 +1,4 @@
 summary: 功能测试 - source-highlight 软件包功能验证
-test: ./test.sh
 tag:
   - functional
   - source-highlight
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/source-highlight
 require:
   - source-highlight
+  - beakerlib

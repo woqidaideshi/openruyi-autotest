@@ -10,3 +10,4 @@ test_wget2_spider-mode
 Spider-mode
 require:
   - wget2
+  - beakerlib

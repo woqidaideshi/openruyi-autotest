@@ -10,3 +10,4 @@ test_vim_syntax-check
 Syntax-check
 require:
   - vim
+  - beakerlib

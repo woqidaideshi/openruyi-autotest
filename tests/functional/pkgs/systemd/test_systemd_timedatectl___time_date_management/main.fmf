@@ -10,3 +10,4 @@ test_systemd_timedatectl---time-date-management
 timedatectl---Time-date-management
 require:
   - systemd
+  - beakerlib

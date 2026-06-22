@@ -10,3 +10,4 @@ test_coreutils_checksums--cksum--md5sum--sha1sum--sha224sum--sha3
 Checksums--cksum--md5sum--sha1sum--sha224sum--sha3
 require:
   - coreutils
+  - beakerlib

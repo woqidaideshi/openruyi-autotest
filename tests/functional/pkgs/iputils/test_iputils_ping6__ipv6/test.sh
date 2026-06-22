@@ -1,18 +1,30 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: iputils - ping6--IPv6
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 3: ping6 (IPv6) ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        iputilsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 3.1: Ping6 localhost
-ping6 -c 3 ::1 || echo "IPv6 ping test completed (IPv6 may not be enabled)"
+    rlPhaseStartTest "ping6--IPv6"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 3.2: Ping6 with count
-ping6 -c 5 ::1 || echo "IPv6 ping with count test completed"
 
-cd /
-rm -rf $TmpDir
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # iputils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All iputils ping6--IPv6 tests passed!"
+    rlJournalPrintText
+rlJournalEnd

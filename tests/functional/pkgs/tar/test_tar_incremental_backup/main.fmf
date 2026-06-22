@@ -10,3 +10,4 @@ test_tar_incremental-backup
 Incremental-backup
 require:
   - tar
+  - beakerlib

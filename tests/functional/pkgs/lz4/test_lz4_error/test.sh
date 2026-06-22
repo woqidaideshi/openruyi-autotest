@@ -1,15 +1,33 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: lz4 - ������
-# Tests: lz4, lz4c, lz4cat, unlz4 commands
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-# rlRun wrapper for standalone execution
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-. "../setup.sh"
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        lz4Setup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-rlRun 'lz4 --invalid-flag-xyz 2>&1 || true' 0 "���� lz4 ��Ч����������"
-rlRun 'lz4c --invalid-flag-xyz 2>&1 || true' 0 "���� lz4c ��Ч����������"
-rlRun 'lz4cat --invalid-flag-xyz 2>&1 || true' 0 "���� lz4cat ��Ч����������"
-rlRun 'unlz4 --invalid-flag-xyz 2>&1 || true' 0 "���� unlz4 ��Ч����������"
+    rlPhaseStartTest "������"
+        rlRun "lz4 --invalid-flag-xyz 2>&1 || true" 0 "���� lz4 ��Ч����������"
+        rlRun "lz4c --invalid-flag-xyz 2>&1 || true" 0 "���� lz4c ��Ч����������"
+        rlRun "lz4cat --invalid-flag-xyz 2>&1 || true" 0 "���� lz4cat ��Ч����������"
+        rlRun "unlz4 --invalid-flag-xyz 2>&1 || true" 0 "���� unlz4 ��Ч����������"
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All lz4-error functional tests passed!"
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # lz4 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

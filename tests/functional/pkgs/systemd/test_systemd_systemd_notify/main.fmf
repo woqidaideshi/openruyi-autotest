@@ -10,3 +10,4 @@ test_systemd_systemd-notify
 systemd-notify
 require:
   - systemd
+  - beakerlib

@@ -10,3 +10,4 @@ test_git_clean-and-gc
 Clean-and-gc
 require:
   - git
+  - beakerlib

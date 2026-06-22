@@ -10,3 +10,4 @@ test_libselinux_error-handling
 错误处理
 require:
   - libselinux
+  - beakerlib

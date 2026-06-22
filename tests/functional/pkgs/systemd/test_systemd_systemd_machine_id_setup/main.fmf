@@ -10,3 +10,4 @@ test_systemd_systemd-machine-id-setup
 systemd-machine-id-setup
 require:
   - systemd
+  - beakerlib

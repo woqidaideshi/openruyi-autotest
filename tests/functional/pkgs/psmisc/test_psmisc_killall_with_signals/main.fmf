@@ -10,3 +10,4 @@ test_psmisc_killall-with-signals
 killall-with-signals
 require:
   - psmisc
+  - beakerlib

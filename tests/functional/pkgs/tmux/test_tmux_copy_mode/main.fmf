@@ -10,3 +10,4 @@ test_tmux_copy-mode
 Copy-mode
 require:
   - tmux
+  - beakerlib

@@ -10,3 +10,4 @@ test_findutils_find_1
 find-选项
 require:
   - findutils
+  - beakerlib

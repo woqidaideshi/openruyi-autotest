@@ -10,3 +10,4 @@ test_grep_error-handling
 Error-handling
 require:
   - grep
+  - beakerlib

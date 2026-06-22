@@ -10,3 +10,4 @@ test_tmux_session-creation-and-management
 Session-creation-and-management
 require:
   - tmux
+  - beakerlib

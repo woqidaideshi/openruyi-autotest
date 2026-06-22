@@ -10,3 +10,4 @@ test_pciutils_setpci
 setpci
 require:
   - pciutils
+  - beakerlib

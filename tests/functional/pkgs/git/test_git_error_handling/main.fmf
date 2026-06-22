@@ -10,3 +10,4 @@ test_git_error-handling
 Error-handling
 require:
   - git
+  - beakerlib

@@ -10,3 +10,4 @@ test_weston_backend-check
 Backend-check
 require:
   - weston
+  - beakerlib

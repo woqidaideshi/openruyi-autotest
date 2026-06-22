@@ -10,3 +10,4 @@ test_coreutils_error-handling
 Error-handling
 require:
   - coreutils
+  - beakerlib

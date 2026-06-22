@@ -1,5 +1,4 @@
 summary: Functional test - wget package verification
-test: ./test.sh
 tag:
   - functional
   - wget
@@ -9,3 +8,4 @@ path: /tests/functional/pkgs/wget
 require:
   - wget
   - coreutils
+  - beakerlib

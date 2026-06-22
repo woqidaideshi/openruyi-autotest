@@ -10,3 +10,4 @@ test_ca-certificates_version-help
 版本和帮助
 require:
   - ca-certificates
+  - beakerlib

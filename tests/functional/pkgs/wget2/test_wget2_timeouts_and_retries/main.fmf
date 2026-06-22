@@ -10,3 +10,4 @@ test_wget2_timeouts-and-retries
 Timeouts-and-retries
 require:
   - wget2
+  - beakerlib

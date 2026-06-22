@@ -10,3 +10,4 @@ test_isl_error-handling
 错误处理
 require:
   - isl
+  - beakerlib

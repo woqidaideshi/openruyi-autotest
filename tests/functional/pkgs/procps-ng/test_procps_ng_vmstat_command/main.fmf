@@ -10,3 +10,4 @@ test_procps-ng_vmstat-command
 vmstat-command
 require:
   - procps-ng
+  - beakerlib

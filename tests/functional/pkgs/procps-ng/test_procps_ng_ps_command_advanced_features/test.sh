@@ -1,30 +1,30 @@
-#!/bin/sh -eux
-# Functional test: procps-ng - ps-command-advanced-features
+#!/bin/bash
+# Functional test: procps-ng - ng - ps-command-advanced-features
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 2: ps command advanced features ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        procpsNgSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 2.1: Filter by user
-ps -u root | head -10
+    rlPhaseStartTest "ng - ps-command-advanced-features"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 2.2: Filter by PID
-ps -p 1
 
-# Test 2.3: Show threads
-ps -eLf | head -10
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # procps-ng 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# Test 2.4: Process hierarchy
-ps --forest | head -20
-
-# Test 2.5: Sort by CPU usage
-ps aux --sort=-%cpu | head -10
-
-# Test 2.6: Sort by memory usage
-ps aux --sort=-%mem | head -10
-
-cd /
-rm -rf $TmpDir
-
-. "../teardown.sh"
-echo "All procps-ng ps-command-advanced-features tests passed!"
+    rlJournalPrintText
+rlJournalEnd

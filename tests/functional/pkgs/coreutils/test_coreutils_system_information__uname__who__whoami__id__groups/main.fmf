@@ -10,3 +10,4 @@ test_coreutils_system-information--uname--who--whoami--id--groups
 System-information--uname--who--whoami--id--groups
 require:
   - coreutils
+  - beakerlib

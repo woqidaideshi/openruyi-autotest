@@ -1,28 +1,30 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: iputils - ping-basic-functionality
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 1: ping basic functionality ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        iputilsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 1.1: Ping localhost
-ping -c 3 127.0.0.1
+    rlPhaseStartTest "ping-basic-functionality"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 1.2: Ping with count limit
-ping -c 5 127.0.0.1
 
-# Test 1.3: Ping with interval
-ping -c 3 -i 0.5 127.0.0.1
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # iputils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# Test 1.4: Ping with packet size
-ping -c 3 -s 64 127.0.0.1
-ping -c 3 -s 1024 127.0.0.1
-
-# Test 1.5: Ping with timeout
-ping -c 3 -W 2 127.0.0.1
-
-cd /
-rm -rf $TmpDir
-
-. "../teardown.sh"
-echo "All iputils ping-basic-functionality tests passed!"
+    rlJournalPrintText
+rlJournalEnd

@@ -10,3 +10,4 @@ test_tmux_lock-management
 Lock-management
 require:
   - tmux
+  - beakerlib

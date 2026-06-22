@@ -10,3 +10,4 @@ test_psmisc_fuser-with-processes
 fuser-with-processes
 require:
   - psmisc
+  - beakerlib

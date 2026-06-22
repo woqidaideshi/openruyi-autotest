@@ -1,5 +1,4 @@
 summary: 功能测试 - audit 审计系统
-test: ./test.sh
 tag:
   - functional
   - audit
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/audit
 require:
   - audit
+  - beakerlib

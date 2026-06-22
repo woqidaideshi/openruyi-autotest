@@ -1,43 +1,41 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: coreutils - Text-processing-II--paste--comm--join--fmt--fold--
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 8: Text processing II (paste, comm, join, fmt, fold, pr, expand, unexpand) ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        coreutilsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# 8.1 paste
-echo "a" > paste1.txt; echo "b" >> paste1.txt
-echo "1" > paste2.txt; echo "2" >> paste2.txt
-rlRun 'paste paste1.txt paste2.txt' 0 "paste merge files side by side"
-rlRun 'paste -d: paste1.txt paste2.txt' 0 "paste -d: custom delimiter"
-rlRun 'paste -s paste1.txt paste2.txt' 0 "paste -s serial"
+    rlPhaseStartTest "Text-processing-II--paste--comm--join--fmt--fold--"
+        rlRun "paste paste1.txt paste2.txt" 0 "paste merge files side by side"
+        rlRun "paste -d: paste1.txt paste2.txt" 0 "paste -d: custom delimiter"
+        rlRun "paste -s paste1.txt paste2.txt" 0 "paste -s serial"
+        rlRun "comm comm1.txt comm2.txt" 0 "comm compare sorted files"
+        rlRun "join join1.txt join2.txt" 0 "join files on common field"
+        rlRun "echo \"This is a long line that should be reformatted by fmt to a reasonable width\" | fmt" 0 "fmt reformat text"
+        rlRun "echo \"short\" | fmt -w 10" 0 "fmt -w set width"
+        rlRun "echo \"1234567890\" | fold -w 3" 0 "fold -w wrap at width"
+        rlRun "pr lines.txt" 0 "pr paginate file"
+        rlRun "pr -n lines.txt" 0 "pr -n number lines"
+        rlRun "printf \"a\tb\n\" | expand" 0 "expand tabs to spaces"
+        rlRun "printf \"a    b\n\" | unexpand -a" 0 "unexpand -a spaces to tabs"
+    rlPhaseEnd
 
-# 8.2 comm
-echo "a" > comm1.txt; echo "b" >> comm1.txt; echo "c" >> comm1.txt
-echo "b" > comm2.txt; echo "c" >> comm2.txt; echo "d" >> comm2.txt
-rlRun 'comm comm1.txt comm2.txt' 0 "comm compare sorted files"
 
-# 8.3 join
-echo "1 a" > join1.txt; echo "2 b" >> join1.txt
-echo "1 x" > join2.txt; echo "3 z" >> join2.txt
-rlRun 'join join1.txt join2.txt' 0 "join files on common field"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # coreutils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# 8.4 fmt
-rlRun 'echo "This is a long line that should be reformatted by fmt to a reasonable width" | fmt' 0 "fmt reformat text"
-rlRun 'echo "short" | fmt -w 10' 0 "fmt -w set width"
-
-# 8.5 fold
-rlRun 'echo "1234567890" | fold -w 3' 0 "fold -w wrap at width"
-
-# 8.6 pr
-rlRun 'pr lines.txt' 0 "pr paginate file"
-rlRun 'pr -n lines.txt' 0 "pr -n number lines"
-
-# 8.7 expand / unexpand
-rlRun 'printf "a\tb\n" | expand' 0 "expand tabs to spaces"
-rlRun 'printf "a    b\n" | unexpand -a' 0 "unexpand -a spaces to tabs"
-
-# ===================================================================
-
-. "../teardown.sh"
-echo "All coreutils Text-processing-II--paste--comm--join--fmt--fold-- tests passed!"
+    rlJournalPrintText
+rlJournalEnd

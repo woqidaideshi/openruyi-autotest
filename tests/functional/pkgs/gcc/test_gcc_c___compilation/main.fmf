@@ -10,3 +10,4 @@ test_gcc_c---compilation
 C---compilation
 require:
   - gcc
+  - beakerlib

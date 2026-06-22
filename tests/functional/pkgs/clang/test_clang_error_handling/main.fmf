@@ -10,3 +10,4 @@ test_clang_error-handling
 Error-handling
 require:
   - clang
+  - beakerlib

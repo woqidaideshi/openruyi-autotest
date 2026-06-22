@@ -10,3 +10,4 @@ test_bash_pipe-redirect
 管道和重定向
 require:
   - bash
+  - beakerlib

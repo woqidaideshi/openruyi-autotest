@@ -1,34 +1,32 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: sqlite - ��������
-# Tests: sqldiff, sqlite3 commands
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-# rlRun wrapper for standalone execution
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
+
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        sqliteSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
+
+    rlPhaseStartTest "��������"
 rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install sqlite ===
-INSTALLED_BY_TEST=0
-if ! rpm -q sqlite 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y sqlite 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed sqlite"
-    else
-        echo "SKIP: sqlite not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: sqlite already installed"
-fi
+        rlRun "sqldiff --help 2>&1 | head -10" 0 "�鿴 sqldiff ������Ϣ"
+        rlRun "sqlite3 --help 2>&1 | head -10" 0 "�鿴 sqlite3 ������Ϣ"
+    rlPhaseEnd
 
 
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # sqlite 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-echo "=== ����: sqlite �������� ==="
-rlRun 'sqldiff --help 2>&1 | head -10' 0 "�鿴 sqldiff ������Ϣ"
-rlRun 'sqlite3 --help 2>&1 | head -10' 0 "�鿴 sqlite3 ������Ϣ"
-
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y sqlite 2>/dev/null || true
-    echo "TEARDOWN: removed sqlite"
-fi
-echo ""
-echo "All sqlite-basic functional tests passed!"
+    rlJournalPrintText
+rlJournalEnd

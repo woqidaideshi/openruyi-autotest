@@ -10,3 +10,4 @@ test_git_user-configuration
 User-configuration
 require:
   - git
+  - beakerlib

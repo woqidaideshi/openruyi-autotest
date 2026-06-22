@@ -10,3 +10,4 @@ test_wget2_continue-download
 Continue-download
 require:
   - wget2
+  - beakerlib

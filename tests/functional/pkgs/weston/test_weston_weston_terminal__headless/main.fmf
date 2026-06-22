@@ -10,3 +10,4 @@ test_weston_weston-terminal--headless
 Weston-terminal--headless
 require:
   - weston
+  - beakerlib

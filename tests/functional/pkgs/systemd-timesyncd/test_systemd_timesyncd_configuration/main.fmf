@@ -10,3 +10,4 @@ test_systemd-timesyncd_configuration
 Configuration
 require:
   - systemd-timesyncd
+  - beakerlib

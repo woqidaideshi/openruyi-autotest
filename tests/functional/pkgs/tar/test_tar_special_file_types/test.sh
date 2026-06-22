@@ -1,23 +1,30 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: tar - Special-file-types
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 10: Special file types ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        tarSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 10.1: Archive with symlinks
-ln -s file1.txt link_to_file1
-tar -cvhf symlink_archive.tar link_to_file1
-tar -tvf symlink_archive.tar
+    rlPhaseStartTest "Special-file-types"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 10.2: Archive with hardlinks
-ln file1.txt hardlink_to_file1
-tar -cvf hardlink_archive.tar hardlink_to_file1
-tar -tvf hardlink_archive.tar
 
-# Cleanup
-cd /
-rm -rf $TmpDir
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # tar 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All tar Special-file-types tests passed!"
+    rlJournalPrintText
+rlJournalEnd

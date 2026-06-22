@@ -10,3 +10,4 @@ test_systemd_systemd-tmpfiles
 systemd-tmpfiles
 require:
   - systemd
+  - beakerlib

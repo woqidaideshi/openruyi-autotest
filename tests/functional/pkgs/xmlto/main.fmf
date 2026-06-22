@@ -1,5 +1,4 @@
 summary: 功能测试 - xmlto 软件包功能验证
-test: ./test.sh
 tag:
   - functional
   - xmlto
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/xmlto
 require:
   - xmlto
+  - beakerlib

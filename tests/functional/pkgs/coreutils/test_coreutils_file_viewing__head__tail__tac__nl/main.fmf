@@ -10,3 +10,4 @@ test_coreutils_file-viewing--head--tail--tac--nl
 File-viewing--head--tail--tac--nl
 require:
   - coreutils
+  - beakerlib

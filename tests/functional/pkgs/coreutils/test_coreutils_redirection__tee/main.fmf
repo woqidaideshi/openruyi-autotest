@@ -10,3 +10,4 @@ test_coreutils_redirection--tee
 Redirection--tee
 require:
   - coreutils
+  - beakerlib

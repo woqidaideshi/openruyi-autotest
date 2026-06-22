@@ -10,3 +10,4 @@ test_grep_recursive-search---r
 Recursive-search---r
 require:
   - grep
+  - beakerlib

@@ -1,7 +1,7 @@
 summary: ���ܲ��� - lz4 ������������֤
-test: ./test.sh
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/lz4
 require:
   - lz4
+  - beakerlib

@@ -1,5 +1,4 @@
 summary: 功能测试 - systemd-timesyncd NTP时间同步功能验证
-test: ./test.sh
 tag:
   - functional
   - systemd-timesyncd
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/systemd-timesyncd
 require:
   - systemd-timesyncd
+  - beakerlib

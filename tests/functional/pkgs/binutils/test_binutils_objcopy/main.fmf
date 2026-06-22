@@ -6,3 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/binutils/test_binutils_objcopy
+
+require:
+  - beakerlib

@@ -10,3 +10,4 @@ test_wget_output-options
 Output-options
 require:
   - wget
+  - beakerlib

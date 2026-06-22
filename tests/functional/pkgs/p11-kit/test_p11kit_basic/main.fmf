@@ -6,3 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/p11-kit/test_p11kit_basic
+
+require:
+  - beakerlib

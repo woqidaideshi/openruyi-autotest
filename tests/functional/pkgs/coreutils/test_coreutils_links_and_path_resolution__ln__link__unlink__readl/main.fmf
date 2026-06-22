@@ -10,3 +10,4 @@ test_coreutils_links-and-path-resolution--ln--link--unlink--readl
 Links-and-path-resolution--ln--link--unlink--readl
 require:
   - coreutils
+  - beakerlib

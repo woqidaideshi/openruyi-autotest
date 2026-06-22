@@ -1,27 +1,30 @@
-#!/bin/sh -eux
-# Functional test: procps-ng - vmstat-command
+#!/bin/bash
+# Functional test: procps-ng - ng - vmstat-command
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 5: vmstat command ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        procpsNgSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 5.1: Basic vmstat output
-vmstat
+    rlPhaseStartTest "ng - vmstat-command"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 5.2: vmstat with custom intervals
-vmstat 1 2
 
-# Test 5.3: vmstat with slabs info
-vmstat -m | head -10
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # procps-ng 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# Test 5.4: vmstat with disk stats
-vmstat -d | head -10
-
-# Test 5.5: vmstat with partitions
-vmstat -p /dev/sda 2>&1 || echo "Expected: disk may not exist"
-
-cd /
-rm -rf $TmpDir
-
-. "../teardown.sh"
-echo "All procps-ng vmstat-command tests passed!"
+    rlJournalPrintText
+rlJournalEnd

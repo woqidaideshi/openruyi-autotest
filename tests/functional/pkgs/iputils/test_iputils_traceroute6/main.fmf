@@ -10,3 +10,4 @@ test_iputils_traceroute6
 traceroute6
 require:
   - iputils
+  - beakerlib

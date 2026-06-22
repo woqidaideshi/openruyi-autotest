@@ -10,3 +10,4 @@ test_wget2_tls-options
 TLS-options
 require:
   - wget2
+  - beakerlib

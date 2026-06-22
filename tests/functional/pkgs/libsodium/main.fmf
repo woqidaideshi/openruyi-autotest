@@ -1,5 +1,4 @@
 summary: 功能测试 - libsodium 软件包功能验证
-test: ./test.sh
 tag:
   - functional
   - libsodium
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/libsodium
 require:
   - libsodium
+  - beakerlib

@@ -10,3 +10,4 @@ test_procps-ng_uptime-and-w-commands
 uptime-and-w-commands
 require:
   - procps-ng
+  - beakerlib

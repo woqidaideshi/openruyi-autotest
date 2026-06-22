@@ -6,3 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libeconf/test_libeconf_files
+
+require:
+  - beakerlib

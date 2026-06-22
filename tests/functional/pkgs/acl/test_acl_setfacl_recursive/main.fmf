@@ -10,3 +10,4 @@ test_acl_setfacl-recursive
 setfacl-递归功能
 require:
   - acl
+  - beakerlib

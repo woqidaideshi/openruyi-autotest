@@ -10,3 +10,4 @@ test_git_remote-operations
 Remote-operations
 require:
   - git
+  - beakerlib

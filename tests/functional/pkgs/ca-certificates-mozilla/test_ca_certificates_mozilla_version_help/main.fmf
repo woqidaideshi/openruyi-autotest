@@ -10,3 +10,4 @@ test_ca-certificates-mozilla_version-help
 版本和帮助
 require:
   - ca-certificates-mozilla
+  - beakerlib

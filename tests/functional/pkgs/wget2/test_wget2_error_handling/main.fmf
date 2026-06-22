@@ -10,3 +10,4 @@ test_wget2_error-handling
 Error-handling
 require:
   - wget2
+  - beakerlib

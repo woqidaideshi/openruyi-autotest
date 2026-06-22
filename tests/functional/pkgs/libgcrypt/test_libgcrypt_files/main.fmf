@@ -6,3 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libgcrypt/test_libgcrypt_files
+
+require:
+  - beakerlib

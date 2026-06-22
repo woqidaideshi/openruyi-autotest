@@ -10,3 +10,4 @@ test_cloud-utils-growpart_dry-run--no-actual-resize
 Dry-run--no-actual-resize
 require:
   - cloud-utils-growpart
+  - beakerlib

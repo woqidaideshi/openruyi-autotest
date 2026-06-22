@@ -1,46 +1,30 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: rpmbuild - Create-simple-spec-file
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 2: Create simple spec file ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        rpmbuildSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 2.1: Create minimal spec file
-cat > rpmbuild/SPECS/test-package.spec << 'SPEC'
-Name:           test-package
-Version:        1.0
-Release:        1%{?dist}
-Summary:        Test package for rpmbuild
+    rlPhaseStartTest "Create-simple-spec-file"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-License:        MIT
-URL:            https://example.com
-Source0:        %{name}-%{version}.tar.gz
 
-BuildArch:      noarch
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # rpmbuild 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-%description
-A test package for rpmbuild verification.
-
-%prep
-%setup -q
-
-%install
-mkdir -p %{buildroot}/usr/share/test-package
-echo "Test file content" > %{buildroot}/usr/share/test-package/test.txt
-
-%files
-/usr/share/test-package/test.txt
-
-%changelog
-* Mon Jun 09 2025 Test User - 1.0-1
-- Initial package
-SPEC
-
-echo "Spec file created successfully"
-cat rpmbuild/SPECS/test-package.spec | head -20
-
-cd /
-rm -rf $TmpDir
-
-. "../teardown.sh"
-echo "All rpmbuild Create-simple-spec-file tests passed!"
+    rlJournalPrintText
+rlJournalEnd

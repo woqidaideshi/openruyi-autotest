@@ -1,5 +1,4 @@
 summary: 功能测试 - labwc Wayland合成器功能验证
-test: ./test.sh
 tag:
   - functional
   - labwc
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/labwc
 require:
   - labwc
+  - beakerlib

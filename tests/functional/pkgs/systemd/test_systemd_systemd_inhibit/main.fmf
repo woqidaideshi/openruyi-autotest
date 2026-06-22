@@ -10,3 +10,4 @@ test_systemd_systemd-inhibit
 systemd-inhibit
 require:
   - systemd
+  - beakerlib

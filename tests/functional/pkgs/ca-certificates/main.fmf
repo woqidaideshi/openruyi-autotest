@@ -1,5 +1,4 @@
 summary: 功能测试 - CA证书管理
-test: ./test.sh
 tag:
   - functional
   - ca-certificates
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/ca-certificates
 require:
   - ca-certificates
+  - beakerlib

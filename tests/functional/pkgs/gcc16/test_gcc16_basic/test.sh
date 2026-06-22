@@ -1,14 +1,34 @@
-#!/bin/sh -eux
-# Functional test: gcc16 ��������
-# Commands: gcc-16, g++-16
+#!/bin/bash
+# Functional test: gcc16 - gcc16 ��������
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-rlRun 'TmpDir=$(mktemp -d)' 0 "������ʱĿ¼"
-rlRun 'cd $TmpDir' 0 "�������Ŀ¼"
-rlRun 'echo "int main(){return 0;}" > test.c' 0 "��������Դ��"
-rlRun 'gcc-16 -o test test.c' 0 "���� C ����"
-rlRun './test' 0 "���б����ĳ���"
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        gcc16Setup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All gcc16-basic functional tests passed!"
+    rlPhaseStartTest "gcc16 ��������"
+        rlRun "TmpDir=$(mktemp -d)" 0 "������ʱĿ¼"
+        rlRun "cd $TmpDir" 0 "�������Ŀ¼"
+        rlRun "echo \"int main(){return 0;}\" > test.c" 0 "��������Դ��"
+        rlRun "gcc-16 -o test test.c" 0 "���� C ����"
+        rlRun "./test" 0 "���б����ĳ���"
+    rlPhaseEnd
+
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # gcc16 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

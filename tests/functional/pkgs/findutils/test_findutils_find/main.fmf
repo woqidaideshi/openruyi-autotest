@@ -10,3 +10,4 @@ test_findutils_find
 find-基本查找
 require:
   - findutils
+  - beakerlib

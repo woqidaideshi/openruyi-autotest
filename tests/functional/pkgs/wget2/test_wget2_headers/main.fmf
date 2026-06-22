@@ -10,3 +10,4 @@ test_wget2_headers
 Headers
 require:
   - wget2
+  - beakerlib

@@ -10,3 +10,4 @@ test_tmux_pane-management
 Pane-management
 require:
   - tmux
+  - beakerlib

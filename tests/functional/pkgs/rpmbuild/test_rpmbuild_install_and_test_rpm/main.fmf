@@ -10,3 +10,4 @@ test_rpmbuild_install-and-test-rpm
 Install-and-test-RPM
 require:
   - rpmbuild
+  - beakerlib

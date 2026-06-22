@@ -10,3 +10,4 @@ test_rpmbuild_rpm-build-options
 RPM-build-options
 require:
   - rpmbuild
+  - beakerlib

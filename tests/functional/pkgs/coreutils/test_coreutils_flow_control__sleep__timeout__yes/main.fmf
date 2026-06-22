@@ -10,3 +10,4 @@ test_coreutils_flow-control--sleep--timeout--yes
 Flow-control--sleep--timeout--yes
 require:
   - coreutils
+  - beakerlib

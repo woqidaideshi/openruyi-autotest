@@ -10,3 +10,4 @@ test_rpmbuild_verify-built-rpm
 Verify-built-RPM
 require:
   - rpmbuild
+  - beakerlib

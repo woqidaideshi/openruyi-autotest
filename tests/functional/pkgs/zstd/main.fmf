@@ -1,5 +1,4 @@
 summary: 功能测试 - zstd 压缩工具
-test: ./test.sh
 tag:
   - functional
   - zstd
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/zstd
 require:
   - zstd
+  - beakerlib

@@ -10,3 +10,4 @@ test_zstd_version-help
 版本和帮助
 require:
   - zstd
+  - beakerlib

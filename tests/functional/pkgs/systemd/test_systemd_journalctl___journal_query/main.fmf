@@ -10,3 +10,4 @@ test_systemd_journalctl---journal-query
 journalctl---Journal-query
 require:
   - systemd
+  - beakerlib

@@ -10,3 +10,4 @@ test_grep_multiple-patterns---e---f
 Multiple-patterns---e---f
 require:
   - grep
+  - beakerlib

@@ -1,5 +1,4 @@
 summary: Functional test - iputils package verification
-test: ./test.sh
 tag:
   - functional
   - iputils
@@ -9,3 +8,4 @@ path: /tests/functional/pkgs/iputils
 require:
   - iputils
   - coreutils
+  - beakerlib

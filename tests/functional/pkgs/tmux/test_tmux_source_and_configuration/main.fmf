@@ -10,3 +10,4 @@ test_tmux_source-and-configuration
 Source-and-configuration
 require:
   - tmux
+  - beakerlib

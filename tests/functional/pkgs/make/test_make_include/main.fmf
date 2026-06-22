@@ -10,3 +10,4 @@ test_make_include
 Include
 require:
   - make
+  - beakerlib

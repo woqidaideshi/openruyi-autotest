@@ -1,5 +1,4 @@
 summary: ���ܲ��� - beakerlib ������������֤
-test: ./test.sh
 tag:
   - functional
   - beakerlib

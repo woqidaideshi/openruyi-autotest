@@ -10,3 +10,4 @@ test_dnf5-plugins_dnf5-info
 dnf5-info
 require:
   - dnf5-plugins
+  - beakerlib

@@ -10,3 +10,4 @@ test_grep_count-and-line-numbers---c---n
 Count-and-line-numbers---c---n
 require:
   - grep
+  - beakerlib

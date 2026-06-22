@@ -10,3 +10,4 @@ test_coreutils_numbers-and-expressions--seq--factor--shuf--numfmt
 Numbers-and-expressions--seq--factor--shuf--numfmt
 require:
   - coreutils
+  - beakerlib

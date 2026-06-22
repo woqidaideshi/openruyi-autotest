@@ -10,3 +10,4 @@ test_git_reset-and-restore
 Reset-and-restore
 require:
   - git
+  - beakerlib

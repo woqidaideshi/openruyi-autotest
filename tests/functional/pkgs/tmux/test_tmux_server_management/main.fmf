@@ -10,3 +10,4 @@ test_tmux_server-management
 Server-management
 require:
   - tmux
+  - beakerlib

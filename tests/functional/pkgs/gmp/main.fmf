@@ -1,5 +1,4 @@
 summary: 功能测试 - GMP 大数运算库
-test: ./test.sh
 tag:
   - functional
   - gmp
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/gmp
 require:
   - gmp
+  - beakerlib

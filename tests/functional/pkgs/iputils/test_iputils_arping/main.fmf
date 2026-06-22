@@ -10,3 +10,4 @@ test_iputils_arping
 arping
 require:
   - iputils
+  - beakerlib

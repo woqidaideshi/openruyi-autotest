@@ -10,3 +10,4 @@ test_pciutils_lspci-verbose
 lspci-verbose
 require:
   - pciutils
+  - beakerlib

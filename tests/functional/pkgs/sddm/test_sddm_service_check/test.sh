@@ -1,15 +1,32 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: sddm - Service-check
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 3: Service check ==="
-rlRun 'systemctl cat sddm.service 2>&1 | head -10' 0 "sddm service unit"
-rlRun 'systemctl status sddm.service 2>&1 | head -5 || true' 0 "sddm service status"
-rlRun 'systemctl is-enabled sddm.service 2>&1 || true' 0 "sddm enabled status"
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        sddmSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-cd /
-rm -rf $TmpDir
+    rlPhaseStartTest "Service-check"
+        rlRun "systemctl cat sddm.service 2>&1 | head -10" 0 "sddm service unit"
+        rlRun "systemctl status sddm.service 2>&1 | head -5 || true" 0 "sddm service status"
+        rlRun "systemctl is-enabled sddm.service 2>&1 || true" 0 "sddm enabled status"
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All sddm Service-check tests passed!"
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # sddm 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

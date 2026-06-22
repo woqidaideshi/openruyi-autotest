@@ -10,3 +10,4 @@ test_systemd_hostnamectl---hostname-management
 hostnamectl---Hostname-management
 require:
   - systemd
+  - beakerlib

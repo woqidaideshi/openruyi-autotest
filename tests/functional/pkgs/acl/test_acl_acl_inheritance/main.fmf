@@ -10,3 +10,4 @@ test_acl_acl-inheritance
 ACL-继承测试
 require:
   - acl
+  - beakerlib

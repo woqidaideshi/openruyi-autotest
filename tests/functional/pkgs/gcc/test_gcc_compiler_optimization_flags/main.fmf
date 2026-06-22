@@ -10,3 +10,4 @@ test_gcc_compiler-optimization-flags
 Compiler-optimization-flags
 require:
   - gcc
+  - beakerlib

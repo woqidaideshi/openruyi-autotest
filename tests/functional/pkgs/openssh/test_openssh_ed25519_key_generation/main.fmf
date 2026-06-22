@@ -10,3 +10,4 @@ test_openssh_ed25519-key-generation
 Ed25519-key-generation
 require:
   - openssh
+  - beakerlib

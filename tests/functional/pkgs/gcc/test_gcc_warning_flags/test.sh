@@ -1,25 +1,32 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: gcc - Warning-flags
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 7: Warning flags ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        gccSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-cat > warn.c << 'EOF'
-int main() {
-    int x;
-    return x;
-}
-EOF
+    rlPhaseStartTest "Warning-flags"
+        rlRun "gcc -Wall warn.c -o warn_test 2>&1" 0 "Compile with -Wall warnings enabled"
+        rlRun "gcc -Wall -Werror hello.c -o hello_werr" 0 "Compile with -Werror"
+        rlRun "gcc -pedantic hello.c -o hello_pedantic" 0 "Compile with -pedantic"
+    rlPhaseEnd
 
-# Test 7.1: Compile with -Wall
-rlRun 'gcc -Wall warn.c -o warn_test 2>&1' 0 "Compile with -Wall warnings enabled"
 
-# Test 7.2: Compile with -Werror (warnings as errors)
-rlRun 'gcc -Wall -Werror hello.c -o hello_werr' 0 "Compile with -Werror"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # gcc 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# Test 7.3: Compile with -pedantic
-rlRun 'gcc -pedantic hello.c -o hello_pedantic' 0 "Compile with -pedantic"
-
-. "../teardown.sh"
-echo "All gcc Warning-flags tests passed!"
+    rlJournalPrintText
+rlJournalEnd

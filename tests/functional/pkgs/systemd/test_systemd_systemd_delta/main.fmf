@@ -10,3 +10,4 @@ test_systemd_systemd-delta
 systemd-delta
 require:
   - systemd
+  - beakerlib

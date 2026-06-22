@@ -10,3 +10,4 @@ test_openssh_change-comment
 Change-comment
 require:
   - openssh
+  - beakerlib

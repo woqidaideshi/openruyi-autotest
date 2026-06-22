@@ -10,3 +10,4 @@ test_psmisc_fuser-basic
 fuser-basic
 require:
   - psmisc
+  - beakerlib

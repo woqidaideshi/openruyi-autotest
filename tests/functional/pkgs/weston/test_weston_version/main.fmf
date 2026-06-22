@@ -10,3 +10,4 @@ test_weston_version
 Version
 require:
   - weston
+  - beakerlib

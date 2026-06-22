@@ -10,3 +10,4 @@ test_sed_inplace-edit
 就地编辑
 require:
   - sed
+  - beakerlib

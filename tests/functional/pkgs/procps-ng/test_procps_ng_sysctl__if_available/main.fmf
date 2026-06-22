@@ -10,3 +10,4 @@ test_procps-ng_sysctl--if-available
 sysctl--if-available
 require:
   - procps-ng
+  - beakerlib

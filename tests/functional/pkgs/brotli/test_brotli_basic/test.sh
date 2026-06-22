@@ -1,33 +1,31 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: brotli - ��������
-# Tests: brotli commands
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-# rlRun wrapper for standalone execution
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
+
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        brotliSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
+
+    rlPhaseStartTest "��������"
 rlRun() { eval "$1" 2>&1; return $?; }
-# === SETUP: check/install brotli ===
-INSTALLED_BY_TEST=0
-if ! rpm -q brotli 2>/dev/null; then
-    if echo openruyi | sudo -S dnf install -y brotli 2>/dev/null; then
-        INSTALLED_BY_TEST=1
-        echo "SETUP: installed brotli"
-    else
-        echo "SKIP: brotli not available in repos"
-        exit 0
-    fi
-else
-    echo "SETUP: brotli already installed"
-fi
+        rlRun "brotli --help 2>&1 | head -10" 0 "�鿴 brotli ������Ϣ"
+    rlPhaseEnd
 
 
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # brotli 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-echo "=== ����: brotli �������� ==="
-rlRun 'brotli --help 2>&1 | head -10' 0 "�鿴 brotli ������Ϣ"
-
-
-# === TEARDOWN: uninstall if we installed ===
-if [ "$INSTALLED_BY_TEST" = "1" ]; then
-    echo openruyi | sudo -S dnf remove -y brotli 2>/dev/null || true
-    echo "TEARDOWN: removed brotli"
-fi
-echo ""
-echo "All brotli-basic functional tests passed!"
+    rlJournalPrintText
+rlJournalEnd

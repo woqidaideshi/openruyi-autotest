@@ -6,3 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libnetfilter_conntrack/test_libnetfilter_conntrack_files
+
+require:
+  - beakerlib

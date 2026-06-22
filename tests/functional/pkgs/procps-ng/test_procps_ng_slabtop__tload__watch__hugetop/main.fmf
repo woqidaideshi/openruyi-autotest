@@ -10,3 +10,4 @@ test_procps-ng_slabtop--tload--watch--hugetop
 slabtop--tload--watch--hugetop
 require:
   - procps-ng
+  - beakerlib

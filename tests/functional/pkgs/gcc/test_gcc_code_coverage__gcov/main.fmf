@@ -10,3 +10,4 @@ test_gcc_code-coverage--gcov
 Code-coverage--gcov
 require:
   - gcc
+  - beakerlib

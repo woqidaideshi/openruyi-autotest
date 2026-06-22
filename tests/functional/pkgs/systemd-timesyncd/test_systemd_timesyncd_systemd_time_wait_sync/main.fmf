@@ -10,3 +10,4 @@ test_systemd-timesyncd_systemd-time-wait-sync
 systemd-time-wait-sync
 require:
   - systemd-timesyncd
+  - beakerlib

@@ -10,3 +10,4 @@ test_iputils_ping6--ipv6
 ping6--IPv6
 require:
   - iputils
+  - beakerlib

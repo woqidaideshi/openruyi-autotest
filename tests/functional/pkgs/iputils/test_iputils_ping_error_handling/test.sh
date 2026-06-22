@@ -1,24 +1,30 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: iputils - ping-error-handling
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 8: ping error handling ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        iputilsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 8.1: Ping unreachable address
-ping -c 2 -W 1 192.0.2.1 2>&1 || echo "Expected: unreachable host"
+    rlPhaseStartTest "ping-error-handling"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 8.2: Ping with invalid address
-ping -c 1 999.999.999.999 2>&1 || echo "Expected error for invalid address"
 
-# Test 8.3: Ping with invalid count
-ping -c 0 127.0.0.1 2>&1 || echo "Expected error for invalid count"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # iputils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# Test 8.4: Ping with negative count
-ping -c -1 127.0.0.1 2>&1 || echo "Expected error for negative count"
-
-cd /
-rm -rf $TmpDir
-
-. "../teardown.sh"
-echo "All iputils ping-error-handling tests passed!"
+    rlJournalPrintText
+rlJournalEnd

@@ -1,19 +1,33 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: grep - Extended-regex---E
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 7: Extended regex (-E) ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        grepSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 7.1: Extended regex alternation
-rlRun 'grep -E "apple|banana" test2.txt' 0 "Extended regex with alternation"
+    rlPhaseStartTest "Extended-regex---E"
+        rlRun "grep -E \"apple|banana\" test2.txt" 0 "Extended regex with alternation"
+        rlRun "grep -E \"[0-9]+\" test1.txt" 0 "Extended regex: digit quantifier"
+        rlRun "test $(grep -E \"[0-9]+\" test1.txt | wc -l) -ge 1" 0 "Verify digit match count"
+        rlRun "egrep \"apple|banana\" test2.txt" 0 "egrep equivalent to grep -E"
+    rlPhaseEnd
 
-# Test 7.2: Extended regex with quantifiers
-rlRun 'grep -E "[0-9]+" test1.txt' 0 "Extended regex: digit quantifier"
-rlRun 'test $(grep -E "[0-9]+" test1.txt | wc -l) -ge 1' 0 "Verify digit match count"
 
-# Test 7.3: egrep equivalent
-rlRun 'egrep "apple|banana" test2.txt' 0 "egrep equivalent to grep -E"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # grep 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All grep Extended-regex---E tests passed!"
+    rlJournalPrintText
+rlJournalEnd

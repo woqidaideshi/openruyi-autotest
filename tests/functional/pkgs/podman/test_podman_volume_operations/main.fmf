@@ -10,3 +10,4 @@ test_podman_volume-operations
 Volume-operations
 require:
   - podman
+  - beakerlib

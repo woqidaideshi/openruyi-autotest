@@ -10,3 +10,4 @@ test_iputils_network-interface-testing
 Network-interface-testing
 require:
   - iputils
+  - beakerlib

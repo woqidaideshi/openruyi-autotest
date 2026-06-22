@@ -10,3 +10,4 @@ test_openssh-clients_ssh-copy-id
 ssh-copy-id
 require:
   - openssh-clients
+  - beakerlib

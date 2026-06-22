@@ -10,3 +10,4 @@ test_rpmbuild_rpmbuild-basic-functionality
 rpmbuild-basic-functionality
 require:
   - rpmbuild
+  - beakerlib

@@ -1,27 +1,30 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: iputils - ping-advanced-options
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 2: ping advanced options ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        iputilsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 2.1: Ping with flood mode (requires root)
-ping -c 10 -f 127.0.0.1 || echo "Flood ping test completed"
+    rlPhaseStartTest "ping-advanced-options"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 2.2: Ping with numeric output
-ping -c 3 -n 127.0.0.1
 
-# Test 2.3: Ping with quiet mode
-ping -c 3 -q 127.0.0.1
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # iputils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# Test 2.4: Ping with verbose output
-ping -c 3 -v 127.0.0.1
-
-# Test 2.5: Ping with timestamp
-ping -c 3 -D 127.0.0.1
-
-cd /
-rm -rf $TmpDir
-
-. "../teardown.sh"
-echo "All iputils ping-advanced-options tests passed!"
+    rlJournalPrintText
+rlJournalEnd

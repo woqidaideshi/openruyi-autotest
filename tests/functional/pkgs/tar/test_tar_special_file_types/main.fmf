@@ -10,3 +10,4 @@ test_tar_special-file-types
 Special-file-types
 require:
   - tar
+  - beakerlib

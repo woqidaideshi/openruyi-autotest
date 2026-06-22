@@ -10,3 +10,4 @@ test_systemd_power-management-commands
 Power-management-commands
 require:
   - systemd
+  - beakerlib

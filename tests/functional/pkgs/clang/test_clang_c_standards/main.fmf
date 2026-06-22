@@ -10,3 +10,4 @@ test_clang_c-standards
 C-standards
 require:
   - clang
+  - beakerlib

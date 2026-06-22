@@ -10,3 +10,4 @@ test_clang_basic-c-compilation
 Basic-C-compilation
 require:
   - clang
+  - beakerlib

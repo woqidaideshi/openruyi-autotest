@@ -10,3 +10,4 @@ test_vim_terminal-options
 Terminal-options
 require:
   - vim
+  - beakerlib

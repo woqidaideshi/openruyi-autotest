@@ -10,3 +10,4 @@ test_vim_error-handling
 Error-handling
 require:
   - vim
+  - beakerlib

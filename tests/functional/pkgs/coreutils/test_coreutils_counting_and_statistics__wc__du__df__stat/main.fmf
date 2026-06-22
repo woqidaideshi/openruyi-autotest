@@ -10,3 +10,4 @@ test_coreutils_counting-and-statistics--wc--du--df--stat
 Counting-and-statistics--wc--du--df--stat
 require:
   - coreutils
+  - beakerlib

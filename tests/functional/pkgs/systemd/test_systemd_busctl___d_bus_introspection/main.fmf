@@ -10,3 +10,4 @@ test_systemd_busctl---d-bus-introspection
 busctl---D-Bus-introspection
 require:
   - systemd
+  - beakerlib

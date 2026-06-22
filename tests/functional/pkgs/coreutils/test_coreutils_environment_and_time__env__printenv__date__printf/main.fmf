@@ -10,3 +10,4 @@ test_coreutils_environment-and-time--env--printenv--date--printf
 Environment-and-time--env--printenv--date--printf
 require:
   - coreutils
+  - beakerlib

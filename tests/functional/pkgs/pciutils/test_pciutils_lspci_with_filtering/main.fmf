@@ -10,3 +10,4 @@ test_pciutils_lspci-with-filtering
 lspci-with-filtering
 require:
   - pciutils
+  - beakerlib

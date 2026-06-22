@@ -10,3 +10,4 @@ test_wget_user-agent
 User-agent
 require:
   - wget
+  - beakerlib

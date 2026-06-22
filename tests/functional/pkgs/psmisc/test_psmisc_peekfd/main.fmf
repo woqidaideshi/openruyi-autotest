@@ -10,3 +10,4 @@ test_psmisc_peekfd
 peekfd
 require:
   - psmisc
+  - beakerlib

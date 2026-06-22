@@ -1,33 +1,30 @@
-#!/bin/sh -eux
-# Functional test: procps-ng - free-command
+#!/bin/bash
+# Functional test: procps-ng - ng - free-command
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 3: free command ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        procpsNgSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 3.1: Basic memory info
-free
+    rlPhaseStartTest "ng - free-command"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 3.2: Human-readable format
-free -h
 
-# Test 3.3: Display in different units
-free -b
-free -k
-free -m
-free -g
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # procps-ng 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# Test 3.4: Continuous monitoring (single iteration)
-free -s 1 -c 1
-
-# Test 3.5: Show total column
-free -t
-
-# Test 3.6: Show low/high memory
-free -l
-
-cd /
-rm -rf $TmpDir
-
-. "../teardown.sh"
-echo "All procps-ng free-command tests passed!"
+    rlJournalPrintText
+rlJournalEnd

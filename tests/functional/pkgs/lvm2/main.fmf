@@ -1,5 +1,4 @@
 summary: ���ܲ��� - lvm2 ������������֤
-test: ./test.sh
 tag:
   - functional
   - lvm2
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/lvm2
 require:
   - lvm2
+  - beakerlib

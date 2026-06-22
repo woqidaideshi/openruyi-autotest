@@ -10,3 +10,4 @@ test_procps-ng_special-scenarios
 Special-scenarios
 require:
   - procps-ng
+  - beakerlib

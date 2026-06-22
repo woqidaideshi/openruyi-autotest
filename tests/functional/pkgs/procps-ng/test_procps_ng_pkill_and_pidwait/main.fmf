@@ -10,3 +10,4 @@ test_procps-ng_pkill-and-pidwait
 pkill-and-pidwait
 require:
   - procps-ng
+  - beakerlib

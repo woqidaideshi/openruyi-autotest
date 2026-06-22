@@ -10,3 +10,4 @@ test_grep_extended-regex---e
 Extended-regex---E
 require:
   - grep
+  - beakerlib

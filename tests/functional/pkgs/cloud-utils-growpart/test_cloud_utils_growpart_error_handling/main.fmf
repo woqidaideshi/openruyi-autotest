@@ -10,3 +10,4 @@ test_cloud-utils-growpart_error-handling
 Error-handling
 require:
   - cloud-utils-growpart
+  - beakerlib

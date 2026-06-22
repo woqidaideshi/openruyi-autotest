@@ -10,3 +10,4 @@ test_tar_advanced-tar-options
 Advanced-tar-options
 require:
   - tar
+  - beakerlib

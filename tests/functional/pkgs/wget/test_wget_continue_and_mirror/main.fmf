@@ -10,3 +10,4 @@ test_wget_continue-and-mirror
 Continue-and-mirror
 require:
   - wget
+  - beakerlib

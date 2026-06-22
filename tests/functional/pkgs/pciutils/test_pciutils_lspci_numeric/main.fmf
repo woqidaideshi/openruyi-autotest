@@ -10,3 +10,4 @@ test_pciutils_lspci-numeric
 lspci-numeric
 require:
   - pciutils
+  - beakerlib

@@ -10,3 +10,4 @@ test_sddm_service-check
 Service-check
 require:
   - sddm
+  - beakerlib

@@ -10,3 +10,4 @@ test_tar_compression-formats
 Compression-formats
 require:
   - tar
+  - beakerlib

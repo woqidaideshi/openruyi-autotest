@@ -10,3 +10,4 @@ test_acl_special-cases
 特殊场景
 require:
   - acl
+  - beakerlib

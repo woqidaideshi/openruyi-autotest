@@ -10,3 +10,4 @@ test_coreutils_file-operations--dd--truncate--shred--sync--instal
 File-operations--dd--truncate--shred--sync--instal
 require:
   - coreutils
+  - beakerlib

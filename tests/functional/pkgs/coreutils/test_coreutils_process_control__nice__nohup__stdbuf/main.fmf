@@ -10,3 +10,4 @@ test_coreutils_process-control--nice--nohup--stdbuf
 Process-control--nice--nohup--stdbuf
 require:
   - coreutils
+  - beakerlib

@@ -10,3 +10,4 @@ test_acl_setfacl-symlink
 setfacl-符号链接处理
 require:
   - acl
+  - beakerlib

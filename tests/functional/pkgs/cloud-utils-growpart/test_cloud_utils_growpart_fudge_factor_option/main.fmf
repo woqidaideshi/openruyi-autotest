@@ -10,3 +10,4 @@ test_cloud-utils-growpart_fudge-factor-option
 Fudge-factor-option
 require:
   - cloud-utils-growpart
+  - beakerlib

@@ -10,3 +10,4 @@ test_dwz_version-help
 版本和帮助
 require:
   - dwz
+  - beakerlib

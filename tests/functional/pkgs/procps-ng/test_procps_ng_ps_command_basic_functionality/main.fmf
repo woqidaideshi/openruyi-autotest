@@ -10,3 +10,4 @@ test_procps-ng_ps-command-basic-functionality
 ps-command-basic-functionality
 require:
   - procps-ng
+  - beakerlib

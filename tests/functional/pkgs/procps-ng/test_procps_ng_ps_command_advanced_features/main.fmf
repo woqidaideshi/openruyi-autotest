@@ -10,3 +10,4 @@ test_procps-ng_ps-command-advanced-features
 ps-command-advanced-features
 require:
   - procps-ng
+  - beakerlib

@@ -10,3 +10,4 @@ test_gcc_error-handling
 Error-handling
 require:
   - gcc
+  - beakerlib

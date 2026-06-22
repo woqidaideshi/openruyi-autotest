@@ -10,3 +10,4 @@ test_openssh_rsa-key-options
 RSA-key-options
 require:
   - openssh
+  - beakerlib

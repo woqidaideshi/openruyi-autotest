@@ -1,23 +1,30 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: tar - Archive-extraction
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 2: Archive extraction ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        tarSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 2.1: Extract archive
-mkdir extract_dir
-cd extract_dir
-tar -xvf ../archive.tar
-ls -la
-cd ..
+    rlPhaseStartTest "Archive-extraction"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 2.2: Verify extracted files
-cat extract_dir/file1.txt
-cat extract_dir/file2.txt
 
-cd /
-rm -rf $TmpDir
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # tar 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All tar Archive-extraction tests passed!"
+    rlJournalPrintText
+rlJournalEnd

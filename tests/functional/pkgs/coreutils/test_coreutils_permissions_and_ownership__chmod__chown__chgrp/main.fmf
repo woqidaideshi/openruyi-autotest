@@ -10,3 +10,4 @@ test_coreutils_permissions-and-ownership--chmod--chown--chgrp
 Permissions-and-ownership--chmod--chown--chgrp
 require:
   - coreutils
+  - beakerlib

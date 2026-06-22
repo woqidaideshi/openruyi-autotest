@@ -10,3 +10,4 @@ test_git_tag-operations
 Tag-operations
 require:
   - git
+  - beakerlib

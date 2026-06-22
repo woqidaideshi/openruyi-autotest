@@ -10,3 +10,4 @@ test_clang_optimization-levels
 Optimization-levels
 require:
   - clang
+  - beakerlib

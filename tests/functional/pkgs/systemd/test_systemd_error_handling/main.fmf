@@ -10,3 +10,4 @@ test_systemd_error-handling
 Error-handling
 require:
   - systemd
+  - beakerlib

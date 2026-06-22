@@ -10,3 +10,4 @@ test_labwc_check-for-display--no-display
 Check-for-display--no-DISPLAY
 require:
   - labwc
+  - beakerlib

@@ -10,3 +10,4 @@ test_systemd_systemd-detect-virt
 systemd-detect-virt
 require:
   - systemd
+  - beakerlib

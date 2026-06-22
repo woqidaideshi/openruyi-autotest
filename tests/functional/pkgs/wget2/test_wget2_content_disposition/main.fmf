@@ -10,3 +10,4 @@ test_wget2_content-disposition
 Content-disposition
 require:
   - wget2
+  - beakerlib

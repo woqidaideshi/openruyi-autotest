@@ -10,3 +10,4 @@ test_filesystem_error-handling
 错误处理
 require:
   - filesystem
+  - beakerlib

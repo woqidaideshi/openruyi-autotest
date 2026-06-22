@@ -10,3 +10,4 @@ test_rpmbuild_rpm-verification
 RPM-verification
 require:
   - rpmbuild
+  - beakerlib

@@ -10,3 +10,4 @@ test_systemd-timesyncd_service-status
 Service-status
 require:
   - systemd-timesyncd
+  - beakerlib

@@ -10,3 +10,4 @@ test_ca-certificates_error-handling
 错误处理
 require:
   - ca-certificates
+  - beakerlib

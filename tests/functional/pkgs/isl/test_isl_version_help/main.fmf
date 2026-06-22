@@ -10,3 +10,4 @@ test_isl_version-help
 版本和帮助
 require:
   - isl
+  - beakerlib

@@ -6,3 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/icu4c/test_icu4c_basic
+
+require:
+  - beakerlib

@@ -10,3 +10,4 @@ test_procps-ng_top-command
 top-command
 require:
   - procps-ng
+  - beakerlib

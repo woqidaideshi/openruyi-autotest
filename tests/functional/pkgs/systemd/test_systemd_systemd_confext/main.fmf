@@ -10,3 +10,4 @@ test_systemd_systemd-confext
 systemd-confext
 require:
   - systemd
+  - beakerlib

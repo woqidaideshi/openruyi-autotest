@@ -10,3 +10,4 @@ test_systemd_systemd-socket-activate
 systemd-socket-activate
 require:
   - systemd
+  - beakerlib

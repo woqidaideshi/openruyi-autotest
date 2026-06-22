@@ -10,3 +10,4 @@ test_sddm_error-handling
 Error-handling
 require:
   - sddm
+  - beakerlib

@@ -10,3 +10,4 @@ test_cloud-utils-growpart_free-percent-option
 Free-percent-option
 require:
   - cloud-utils-growpart
+  - beakerlib

@@ -1,5 +1,4 @@
 summary: 功能测试 - cloud-utils-growpart 分区扩容功能验证
-test: ./test.sh
 tag:
   - functional
   - cloud-utils-growpart
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/cloud-utils-growpart
 require:
   - cloud-utils-growpart
+  - beakerlib

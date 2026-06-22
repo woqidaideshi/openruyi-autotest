@@ -1,17 +1,35 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: libevent - �ļ���֤
-# Commands: libevent-2.1.so.7, libevent-2.1.so.7.0.1, libevent_core-2.1.so.7, libevent_core-2.1.so.7.0.1, libevent_extra-2.1.so.7, libevent_extra-2.1.so.7.0.1, libevent_openssl-2.1.so.7, libevent_openssl-2.1.so.7.0.1, libevent_pthreads-2.1.so.7, libevent_pthreads-2.1.so.7.0.1
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-rlRun 'ls /usr/lib64/libevent-2.1.so.7* 2>/dev/null || ls /usr/lib/libevent-2.1.so.7* 2>/dev/null || echo "not in standard path"' 0 "��� libevent-2.1.so.7"
-rlRun 'ls /usr/lib64/libevent-2.1.so.7.0.1* 2>/dev/null || ls /usr/lib/libevent-2.1.so.7.0.1* 2>/dev/null || echo "not in standard path"' 0 "��� libevent-2.1.so.7.0.1"
-rlRun 'ls /usr/lib64/libevent_core-2.1.so.7* 2>/dev/null || ls /usr/lib/libevent_core-2.1.so.7* 2>/dev/null || echo "not in standard path"' 0 "��� libevent_core-2.1.so.7"
-rlRun 'ls /usr/lib64/libevent_core-2.1.so.7.0.1* 2>/dev/null || ls /usr/lib/libevent_core-2.1.so.7.0.1* 2>/dev/null || echo "not in standard path"' 0 "��� libevent_core-2.1.so.7.0.1"
-rlRun 'ls /usr/lib64/libevent_extra-2.1.so.7* 2>/dev/null || ls /usr/lib/libevent_extra-2.1.so.7* 2>/dev/null || echo "not in standard path"' 0 "��� libevent_extra-2.1.so.7"
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        libeventSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-echo "=== pkg-config ��֤ ==="
-rlRun 'pkg-config --libs libevent 2>&1 || true' 0 "pkg-config ����Ϣ"
+    rlPhaseStartTest "�ļ���֤"
+        rlRun "ls /usr/lib64/libevent-2.1.so.7* 2>/dev/null || ls /usr/lib/libevent-2.1.so.7* 2>/dev/null || echo \"not in standard path\"" 0 "��� libevent-2.1.so.7"
+        rlRun "ls /usr/lib64/libevent-2.1.so.7.0.1* 2>/dev/null || ls /usr/lib/libevent-2.1.so.7.0.1* 2>/dev/null || echo \"not in standard path\"" 0 "��� libevent-2.1.so.7.0.1"
+        rlRun "ls /usr/lib64/libevent_core-2.1.so.7* 2>/dev/null || ls /usr/lib/libevent_core-2.1.so.7* 2>/dev/null || echo \"not in standard path\"" 0 "��� libevent_core-2.1.so.7"
+        rlRun "ls /usr/lib64/libevent_core-2.1.so.7.0.1* 2>/dev/null || ls /usr/lib/libevent_core-2.1.so.7.0.1* 2>/dev/null || echo \"not in standard path\"" 0 "��� libevent_core-2.1.so.7.0.1"
+        rlRun "ls /usr/lib64/libevent_extra-2.1.so.7* 2>/dev/null || ls /usr/lib/libevent_extra-2.1.so.7* 2>/dev/null || echo \"not in standard path\"" 0 "��� libevent_extra-2.1.so.7"
+        rlRun "pkg-config --libs libevent 2>&1 || true" 0 "pkg-config ����Ϣ"
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All libevent-files functional tests passed!"
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # libevent 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

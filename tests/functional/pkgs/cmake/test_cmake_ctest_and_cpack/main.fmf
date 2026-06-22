@@ -10,3 +10,4 @@ test_cmake_ctest-and-cpack
 ctest-and-cpack
 require:
   - cmake
+  - beakerlib

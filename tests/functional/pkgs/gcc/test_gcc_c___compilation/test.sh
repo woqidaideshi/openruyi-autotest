@@ -1,15 +1,31 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: gcc - C---compilation
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 2: C++ compilation ==="
-# Simple C++ test (no iostream to avoid slow header compilation on riscv64)
-cat > hello2.cpp << 'EOF'
-int main() { return 0; }
-EOF
-rlRun 'g++ hello2.cpp -o hellocpp' 0 "Compile hello.cpp"
-rlRun 'g++ -std=c++11 hello2.cpp -o hellocpp11' 0 "Compile with C++11 standard"
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        gccSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All gcc C---compilation tests passed!"
+    rlPhaseStartTest "C---compilation"
+        rlRun "g++ hello2.cpp -o hellocpp" 0 "Compile hello.cpp"
+        rlRun "g++ -std=c++11 hello2.cpp -o hellocpp11" 0 "Compile with C++11 standard"
+    rlPhaseEnd
+
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # gcc 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

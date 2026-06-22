@@ -10,3 +10,4 @@ test_clang_linking-options
 Linking-options
 require:
   - clang
+  - beakerlib

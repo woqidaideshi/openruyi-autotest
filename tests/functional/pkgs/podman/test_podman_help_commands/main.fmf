@@ -10,3 +10,4 @@ test_podman_help-commands
 Help-commands
 require:
   - podman
+  - beakerlib

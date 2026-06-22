@@ -10,3 +10,4 @@ test_elfutils_error-handling
 错误处理
 require:
   - elfutils
+  - beakerlib

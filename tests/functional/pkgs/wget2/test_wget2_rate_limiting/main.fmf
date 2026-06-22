@@ -10,3 +10,4 @@ test_wget2_rate-limiting
 Rate-limiting
 require:
   - wget2
+  - beakerlib

@@ -10,3 +10,4 @@ test_tmux_clock-mode
 Clock-mode
 require:
   - tmux
+  - beakerlib

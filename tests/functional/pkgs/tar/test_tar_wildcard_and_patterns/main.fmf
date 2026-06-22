@@ -10,3 +10,4 @@ test_tar_wildcard-and-patterns
 Wildcard-and-patterns
 require:
   - tar
+  - beakerlib

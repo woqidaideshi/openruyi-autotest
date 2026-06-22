@@ -10,3 +10,4 @@ test_coreutils_text-processing-ii--paste--comm--join--fmt--fold--
 Text-processing-II--paste--comm--join--fmt--fold--
 require:
   - coreutils
+  - beakerlib

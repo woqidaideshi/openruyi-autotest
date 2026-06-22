@@ -10,3 +10,4 @@ test_openssh-clients_ssh-keygen-via-openssh
 ssh-keygen-via-openssh
 require:
   - openssh-clients
+  - beakerlib

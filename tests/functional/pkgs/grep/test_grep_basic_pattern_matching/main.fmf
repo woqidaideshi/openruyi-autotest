@@ -10,3 +10,4 @@ test_grep_basic-pattern-matching
 Basic-pattern-matching
 require:
   - grep
+  - beakerlib

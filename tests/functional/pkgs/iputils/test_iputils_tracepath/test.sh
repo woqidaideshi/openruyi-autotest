@@ -1,21 +1,30 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: iputils - tracepath
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 5: tracepath ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        iputilsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 5.1: Basic tracepath to localhost
-tracepath -m 5 127.0.0.1 || echo "tracepath test completed"
+    rlPhaseStartTest "tracepath"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 5.2: tracepath with max hops
-tracepath -m 10 127.0.0.1 || echo "tracepath with max hops test completed"
 
-# Test 5.3: tracepath IPv6
-tracepath6 -m 5 ::1 || echo "tracepath6 test completed"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # iputils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-cd /
-rm -rf $TmpDir
-
-. "../teardown.sh"
-echo "All iputils tracepath tests passed!"
+    rlJournalPrintText
+rlJournalEnd

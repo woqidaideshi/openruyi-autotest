@@ -1,18 +1,32 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: coreutils - Split-files--split--csplit
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 22: Split files (split, csplit) ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        coreutilsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# 22.1 split
-rlRun 'split -l 5 lines.txt split_' 0 "split by lines"
-rlRun 'test $(ls split_* | wc -l) -ge 4' 0 "split: multiple output files"
+    rlPhaseStartTest "Split-files--split--csplit"
+        rlRun "split -l 5 lines.txt split_" 0 "split by lines"
+        rlRun "test $(ls split_* | wc -l) -ge 4" 0 "split: multiple output files"
+        rlRun "csplit fruits.txt /apple/ {1} 2>&1 || true" 0 "csplit split by pattern"
+    rlPhaseEnd
 
-# 22.2 csplit
-rlRun 'csplit fruits.txt /apple/ {1} 2>&1 || true' 0 "csplit split by pattern"
 
-# ===================================================================
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # coreutils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All coreutils Split-files--split--csplit tests passed!"
+    rlJournalPrintText
+rlJournalEnd

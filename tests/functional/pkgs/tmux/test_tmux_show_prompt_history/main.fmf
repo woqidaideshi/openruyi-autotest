@@ -10,3 +10,4 @@ test_tmux_show-prompt-history
 Show-prompt-history
 require:
   - tmux
+  - beakerlib

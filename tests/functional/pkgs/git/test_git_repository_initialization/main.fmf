@@ -10,3 +10,4 @@ test_git_repository-initialization
 Repository-initialization
 require:
   - git
+  - beakerlib

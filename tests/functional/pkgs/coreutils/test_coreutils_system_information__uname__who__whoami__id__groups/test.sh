@@ -1,51 +1,47 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: coreutils - System-information--uname--who--whoami--id--groups
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 15: System information (uname, who, whoami, id, groups, users, hostid, nproc, tty, logname, pinky) ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        coreutilsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# 15.1 uname
-rlRun 'uname' 0 "uname system name"
-rlRun 'uname -a' 0 "uname -a all info"
-rlRun 'uname -r' 0 "uname -r kernel release"
-rlRun 'uname -m' 0 "uname -m machine hardware"
+    rlPhaseStartTest "System-information--uname--who--whoami--id--groups"
+        rlRun "uname" 0 "uname system name"
+        rlRun "uname -a" 0 "uname -a all info"
+        rlRun "uname -r" 0 "uname -r kernel release"
+        rlRun "uname -m" 0 "uname -m machine hardware"
+        rlRun "who" 0 "who show logged in users"
+        rlRun "whoami" 0 "whoami current user"
+        rlRun "id" 0 "id user identity"
+        rlRun "id -u" 0 "id -u user ID"
+        rlRun "id -g" 0 "id -g group ID"
+        rlRun "groups" 0 "groups show group membership"
+        rlRun "groups $(whoami)" 0 "groups for specific user"
+        rlRun "users" 0 "users list logged in users"
+        rlRun "hostid" 0 "hostid numeric host identifier"
+        rlRun "nproc" 0 "nproc number of CPUs"
+        rlRun "nproc --all" 0 "nproc --all all processors"
+        rlRun "tty" 0 "tty terminal name"
+        rlRun "logname" 0 "logname login name"
+        rlRun "pinky" 0 "pinky user info"
+    rlPhaseEnd
 
-# 15.2 who
-rlRun 'who' 0 "who show logged in users"
 
-# 15.3 whoami
-rlRun 'whoami' 0 "whoami current user"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # coreutils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# 15.4 id
-rlRun 'id' 0 "id user identity"
-rlRun 'id -u' 0 "id -u user ID"
-rlRun 'id -g' 0 "id -g group ID"
-
-# 15.5 groups
-rlRun 'groups' 0 "groups show group membership"
-rlRun 'groups $(whoami)' 0 "groups for specific user"
-
-# 15.6 users
-rlRun 'users' 0 "users list logged in users"
-
-# 15.7 hostid
-rlRun 'hostid' 0 "hostid numeric host identifier"
-
-# 15.8 nproc
-rlRun 'nproc' 0 "nproc number of CPUs"
-rlRun 'nproc --all' 0 "nproc --all all processors"
-
-# 15.9 tty
-rlRun 'tty' 0 "tty terminal name"
-
-# 15.10 logname
-rlRun 'logname' 0 "logname login name"
-
-# 15.11 pinky
-rlRun 'pinky' 0 "pinky user info"
-
-# ===================================================================
-
-. "../teardown.sh"
-echo "All coreutils System-information--uname--who--whoami--id--groups tests passed!"
+    rlJournalPrintText
+rlJournalEnd

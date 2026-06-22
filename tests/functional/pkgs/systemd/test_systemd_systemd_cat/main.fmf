@@ -10,3 +10,4 @@ test_systemd_systemd-cat
 systemd-cat
 require:
   - systemd
+  - beakerlib

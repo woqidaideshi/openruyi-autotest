@@ -10,3 +10,4 @@ test_acl_chacl-command
 chacl-命令功能
 require:
   - acl
+  - beakerlib

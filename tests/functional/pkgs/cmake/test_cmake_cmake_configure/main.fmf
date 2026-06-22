@@ -10,3 +10,4 @@ test_cmake_cmake-configure
 CMake-configure
 require:
   - cmake
+  - beakerlib

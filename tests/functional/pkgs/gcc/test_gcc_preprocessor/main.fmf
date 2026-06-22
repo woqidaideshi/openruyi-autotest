@@ -10,3 +10,4 @@ test_gcc_preprocessor
 Preprocessor
 require:
   - gcc
+  - beakerlib

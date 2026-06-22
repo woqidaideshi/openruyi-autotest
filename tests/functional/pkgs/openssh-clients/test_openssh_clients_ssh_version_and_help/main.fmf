@@ -10,3 +10,4 @@ test_openssh-clients_ssh-version-and-help
 ssh-version-and-help
 require:
   - openssh-clients
+  - beakerlib

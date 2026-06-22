@@ -10,3 +10,4 @@ test_systemd_loginctl---login-management
 loginctl---Login-management
 require:
   - systemd
+  - beakerlib

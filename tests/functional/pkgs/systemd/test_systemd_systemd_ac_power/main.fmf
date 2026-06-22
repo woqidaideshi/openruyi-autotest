@@ -10,3 +10,4 @@ test_systemd_systemd-ac-power
 systemd-ac-power
 require:
   - systemd
+  - beakerlib

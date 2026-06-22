@@ -10,3 +10,4 @@ test_tmux_options-and-settings
 Options-and-settings
 require:
   - tmux
+  - beakerlib

@@ -10,3 +10,4 @@ test_weston_help
 Help
 require:
   - weston
+  - beakerlib

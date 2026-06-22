@@ -10,3 +10,4 @@ test_clang_preprocessor
 Preprocessor
 require:
   - clang
+  - beakerlib

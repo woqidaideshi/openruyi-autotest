@@ -10,3 +10,4 @@ test_coreutils_split-files--split--csplit
 Split-files--split--csplit
 require:
   - coreutils
+  - beakerlib

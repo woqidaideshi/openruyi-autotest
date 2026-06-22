@@ -10,3 +10,4 @@ test_procps-ng_pidof-and-pgrep
 pidof-and-pgrep
 require:
   - procps-ng
+  - beakerlib

@@ -10,3 +10,4 @@ test_grep_invert-match---v
 Invert-match---v
 require:
   - grep
+  - beakerlib

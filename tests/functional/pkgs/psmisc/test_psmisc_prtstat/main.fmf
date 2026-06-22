@@ -10,3 +10,4 @@ test_psmisc_prtstat
 prtstat
 require:
   - psmisc
+  - beakerlib

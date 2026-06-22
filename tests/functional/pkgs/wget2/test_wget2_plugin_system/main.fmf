@@ -10,3 +10,4 @@ test_wget2_plugin-system
 Plugin-system
 require:
   - wget2
+  - beakerlib

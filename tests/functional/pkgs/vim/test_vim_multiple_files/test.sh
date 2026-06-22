@@ -1,12 +1,30 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: vim - Multiple-files
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 7: Multiple files ==="
-echo "a" > a.txt
-echo "b" > b.txt
-rlRun 'vim -e -s -c "bufdo wq" a.txt b.txt 2>&1 || true' 0 "vim: multiple files"
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        vimSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All vim Multiple-files tests passed!"
+    rlPhaseStartTest "Multiple-files"
+        rlRun "vim -e -s -c \"bufdo wq\" a.txt b.txt 2>&1 || true" 0 "vim: multiple files"
+    rlPhaseEnd
+
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # vim 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

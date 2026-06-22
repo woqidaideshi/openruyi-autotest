@@ -10,3 +10,4 @@ test_vim_recording-test
 Recording-test
 require:
   - vim
+  - beakerlib

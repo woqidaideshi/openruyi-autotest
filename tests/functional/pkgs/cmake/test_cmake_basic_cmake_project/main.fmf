@@ -10,3 +10,4 @@ test_cmake_basic-cmake-project
 Basic-CMake-project
 require:
   - cmake
+  - beakerlib

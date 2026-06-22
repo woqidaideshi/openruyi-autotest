@@ -1,16 +1,32 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: gcc - Assembly-output
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 5: Assembly output ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        gccSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 5.1: Generate assembly (-S)
-rlRun 'gcc -S hello.c -o hello.s' 0 "Generate assembly with -S"
-rlRun 'grep -q "main:" hello.s' 0 "Check main label in assembly"
+    rlPhaseStartTest "Assembly-output"
+        rlRun "gcc -S hello.c -o hello.s" 0 "Generate assembly with -S"
+        rlRun "grep -q \"main:\" hello.s" 0 "Check main label in assembly"
+        rlRun "as hello.s -o hello_obj.o" 0 "Assemble to object file"
+    rlPhaseEnd
 
-# Test 5.2: Assemble .s file to object
-rlRun 'as hello.s -o hello_obj.o' 0 "Assemble to object file"
 
-. "../teardown.sh"
-echo "All gcc Assembly-output tests passed!"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # gcc 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

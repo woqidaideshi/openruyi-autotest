@@ -10,3 +10,4 @@ test_tmux_error-handling
 Error-handling
 require:
   - tmux
+  - beakerlib

@@ -10,3 +10,4 @@ test_coreutils_octal-dump--od
 Octal-dump--od
 require:
   - coreutils
+  - beakerlib

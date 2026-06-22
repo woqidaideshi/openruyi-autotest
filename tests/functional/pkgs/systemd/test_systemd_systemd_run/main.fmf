@@ -10,3 +10,4 @@ test_systemd_systemd-run
 systemd-run
 require:
   - systemd
+  - beakerlib

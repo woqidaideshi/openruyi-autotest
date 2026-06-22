@@ -10,3 +10,4 @@ test_weston_weston-debug
 Weston-debug
 require:
   - weston
+  - beakerlib

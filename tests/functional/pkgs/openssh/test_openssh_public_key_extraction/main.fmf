@@ -10,3 +10,4 @@ test_openssh_public-key-extraction
 Public-key-extraction
 require:
   - openssh
+  - beakerlib

@@ -10,3 +10,4 @@ test_systemd_systemd-escape
 systemd-escape
 require:
   - systemd
+  - beakerlib

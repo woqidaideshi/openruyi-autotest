@@ -1,7 +1,7 @@
 summary: ���ܲ��� - libxml2 ������������֤
-test: ./test.sh
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/libxml2
 require:
   - libxml2
+  - beakerlib
