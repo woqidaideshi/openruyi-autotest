@@ -1,12 +1,8 @@
-summary: 性能测试 - UnixBench 基准测试
+summary: 性能测试 - 系统性能基准验证
 tag:
   - performance
-  - unixbench
 duration: 60m
 tier: 2
 path: /tests/performance
 require:
   - beakerlib
-  - gcc
-  - make
-  - perl

@@ -5,7 +5,7 @@ tag:
   - unixbench
 duration: 10m
 tier: 2
-path: /tests/performance/test_unixbench_process_only
+path: /tests/performance/unixbench/test_unixbench_process_only
 require:
   - beakerlib
   - gcc

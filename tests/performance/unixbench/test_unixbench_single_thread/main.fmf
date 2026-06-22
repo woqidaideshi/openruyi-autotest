@@ -1,11 +1,11 @@
-summary: 性能测试 - UnixBench 多线程基准测试（全核）
+summary: 性能测试 - UnixBench 单线程基准测试
 test: ./test.sh
 tag:
   - performance
   - unixbench
 duration: 10m
 tier: 2
-path: /tests/performance/test_unixbench_multi_thread
+path: /tests/performance/unixbench/test_unixbench_single_thread
 require:
   - beakerlib
   - gcc

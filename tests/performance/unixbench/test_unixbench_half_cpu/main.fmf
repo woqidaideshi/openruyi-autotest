@@ -1,11 +1,11 @@
-summary: 性能测试 - UnixBench 快速模式测试
+summary: 性能测试 - UnixBench 半核并行基准测试
 test: ./test.sh
 tag:
   - performance
   - unixbench
 duration: 10m
 tier: 2
-path: /tests/performance/test_unixbench_quick_mode
+path: /tests/performance/unixbench/test_unixbench_half_cpu
 require:
   - beakerlib
   - gcc
