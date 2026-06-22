@@ -1,8 +1,13 @@
-summary: LTP POSIX pthread 多线程兼容性测试 - pthread_rwlock_tryrdlock
+summary: 兼容性测试 - LTP POSIX - pthread/pthread_rwlock_tryrdlock
 test: ./test.sh
 tag:
   - compatibility
   - posix
   - pthread
-duration: 2m
+duration: 3m
 tier: 2
+path: /tests/compatibility/ltp_posix/pthread/test_ltp_posix_pthread_pthread_rwlock_tryrdlock
+require:
+  - beakerlib
+  - gcc
+  - make

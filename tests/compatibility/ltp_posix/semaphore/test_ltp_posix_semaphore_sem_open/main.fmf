@@ -1,8 +1,13 @@
-summary: LTP POSIX 信号量兼容性测试 - sem_open
+summary: 兼容性测试 - LTP POSIX - semaphore/sem_open
 test: ./test.sh
 tag:
   - compatibility
   - posix
   - semaphore
-duration: 2m
+duration: 3m
 tier: 2
+path: /tests/compatibility/ltp_posix/semaphore/test_ltp_posix_semaphore_sem_open
+require:
+  - beakerlib
+  - gcc
+  - make

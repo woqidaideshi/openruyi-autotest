@@ -1,8 +1,13 @@
-summary: LTP POSIX 文件系统兼容性测试 - ctime
+summary: 兼容性测试 - LTP POSIX - filesystem/ctime
 test: ./test.sh
 tag:
   - compatibility
   - posix
   - filesystem
-duration: 2m
+duration: 3m
 tier: 2
+path: /tests/compatibility/ltp_posix/filesystem/test_ltp_posix_filesystem_ctime
+require:
+  - beakerlib
+  - gcc
+  - make

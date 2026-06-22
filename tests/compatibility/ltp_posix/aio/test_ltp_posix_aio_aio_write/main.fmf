@@ -1,8 +1,13 @@
-summary: LTP POSIX 异步 I/O兼容性测试 - aio_write
+summary: 兼容性测试 - LTP POSIX - aio/aio_write
 test: ./test.sh
 tag:
   - compatibility
   - posix
   - aio
-duration: 2m
+duration: 3m
 tier: 2
+path: /tests/compatibility/ltp_posix/aio/test_ltp_posix_aio_aio_write
+require:
+  - beakerlib
+  - gcc
+  - make

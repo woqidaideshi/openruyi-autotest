@@ -1,8 +1,13 @@
-summary: LTP POSIX pthread 多线程兼容性测试 - pthread_attr_setscope
+summary: 兼容性测试 - LTP POSIX - pthread/pthread_attr_setscope
 test: ./test.sh
 tag:
   - compatibility
   - posix
   - pthread
-duration: 2m
+duration: 3m
 tier: 2
+path: /tests/compatibility/ltp_posix/pthread/test_ltp_posix_pthread_pthread_attr_setscope
+require:
+  - beakerlib
+  - gcc
+  - make

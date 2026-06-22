@@ -1,8 +1,13 @@
-summary: LTP POSIX 内存映射兼容性测试 - mlockall
+summary: 兼容性测试 - LTP POSIX - mmap/mlockall
 test: ./test.sh
 tag:
   - compatibility
   - posix
   - mmap
-duration: 2m
+duration: 3m
 tier: 2
+path: /tests/compatibility/ltp_posix/mmap/test_ltp_posix_mmap_mlockall
+require:
+  - beakerlib
+  - gcc
+  - make

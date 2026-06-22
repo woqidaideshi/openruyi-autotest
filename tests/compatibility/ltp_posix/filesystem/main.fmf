@@ -1,0 +1,12 @@
+summary: 兼容性测试 - LTP POSIX - filesystem
+tag:
+  - compatibility
+  - posix
+  - filesystem
+duration: 15m
+tier: 2
+path: /tests/compatibility/ltp_posix/filesystem
+require:
+  - beakerlib
+  - gcc
+  - make

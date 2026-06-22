@@ -1,8 +1,13 @@
-summary: LTP POSIX 时钟兼容性测试 - clock
+summary: 兼容性测试 - LTP POSIX - clocks/clock
 test: ./test.sh
 tag:
   - compatibility
   - posix
   - clocks
-duration: 2m
+duration: 3m
 tier: 2
+path: /tests/compatibility/ltp_posix/clocks/test_ltp_posix_clocks_clock
+require:
+  - beakerlib
+  - gcc
+  - make

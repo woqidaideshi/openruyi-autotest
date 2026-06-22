@@ -1,8 +1,13 @@
-summary: LTP POSIX 信号兼容性测试 - sigrelse
+summary: 兼容性测试 - LTP POSIX - signal/sigrelse
 test: ./test.sh
 tag:
   - compatibility
   - posix
   - signal
-duration: 2m
+duration: 3m
 tier: 2
+path: /tests/compatibility/ltp_posix/signal/test_ltp_posix_signal_sigrelse
+require:
+  - beakerlib
+  - gcc
+  - make

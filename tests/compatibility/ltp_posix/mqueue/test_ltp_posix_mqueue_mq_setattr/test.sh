@@ -1,15 +1,24 @@
-#!/bin/sh -eux
-# LTP POSIX 兼容性测试: 消息队列 - mq_setattr 接口一致性
+#!/bin/bash
+# Compatibility test: LTP POSIX - mqueue/mq_setattr
+# Beakerlib-based test with lifecycle management
 
-. "$(dirname "$0")/../../setup.sh"
-. "$(dirname "$0")/../../helper.sh"
-
-echo "=== LTP POSIX 兼容性测试: mqueue / mq_setattr ==="
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../../lib.sh"
 
 IFACE_DIR="$LTP_BUILD_DIR/conformance/interfaces"
-PASS=0; FAIL=0; SKIP=0
 
-run_posix_iface_test "mq_setattr" || true
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        ltpPosixSetup
+    rlPhaseEnd
 
-echo ""
-echo "=== mq_setattr 结果: PASS=$PASS FAIL=$FAIL SKIP=$SKIP ==="
+    rlPhaseStartTest "POSIX 接口: mqueue / mq_setattr"
+        rlRun "run_posix_iface_test 'mq_setattr'" 0 "mqueue/mq_setattr 接口一致性测试"
+    rlPhaseEnd
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

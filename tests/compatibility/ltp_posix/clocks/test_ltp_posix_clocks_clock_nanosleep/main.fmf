@@ -1,8 +1,13 @@
-summary: LTP POSIX 时钟兼容性测试 - clock_nanosleep
+summary: 兼容性测试 - LTP POSIX - clocks/clock_nanosleep
 test: ./test.sh
 tag:
   - compatibility
   - posix
   - clocks
-duration: 2m
+duration: 3m
 tier: 2
+path: /tests/compatibility/ltp_posix/clocks/test_ltp_posix_clocks_clock_nanosleep
+require:
+  - beakerlib
+  - gcc
+  - make

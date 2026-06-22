@@ -1,8 +1,13 @@
-summary: LTP POSIX 调度兼容性测试 - sched_setscheduler
+summary: 兼容性测试 - LTP POSIX - sched/sched_setscheduler
 test: ./test.sh
 tag:
   - compatibility
   - posix
   - sched
-duration: 2m
+duration: 3m
 tier: 2
+path: /tests/compatibility/ltp_posix/sched/test_ltp_posix_sched_sched_setscheduler
+require:
+  - beakerlib
+  - gcc
+  - make

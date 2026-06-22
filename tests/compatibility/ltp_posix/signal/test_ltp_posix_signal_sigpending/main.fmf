@@ -1,8 +1,13 @@
-summary: LTP POSIX 信号兼容性测试 - sigpending
+summary: 兼容性测试 - LTP POSIX - signal/sigpending
 test: ./test.sh
 tag:
   - compatibility
   - posix
   - signal
-duration: 2m
+duration: 3m
 tier: 2
+path: /tests/compatibility/ltp_posix/signal/test_ltp_posix_signal_sigpending
+require:
+  - beakerlib
+  - gcc
+  - make
