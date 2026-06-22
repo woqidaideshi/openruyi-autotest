@@ -1,6 +1,8 @@
-# 安全测试 - 共享配置
-# 所有子目录的安全测试都会继承这些配置
-framework: shell
+summary: 安全测试 - 系统安全验证
+tag:
+  - security
 duration: 5m
 tier: 1
-contact: QA Team
+path: /tests/security
+require:
+  - beakerlib

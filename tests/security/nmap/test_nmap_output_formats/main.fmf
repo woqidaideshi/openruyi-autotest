@@ -1,0 +1,11 @@
+summary: 安全测试 - nmap 输出格式
+test: ./test.sh
+tag:
+  - security
+  - nmap
+duration: 2m
+tier: 1
+path: /tests/security/nmap/test_nmap_output_formats
+require:
+  - beakerlib
+  - nmap
