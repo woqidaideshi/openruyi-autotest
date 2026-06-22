@@ -1,0 +1,13 @@
+summary: 冒烟测试 - /etc/logrotate.d 目录存在
+test: ./test.sh
+tag:
+  - smoke
+  - logging
+duration: 1m
+tier: 0
+path: /tests/smoke/logging/test_smoke_logrotate_config
+require:
+  - beakerlib
+  - util-linux
+  - logrotate
+  - rsyslog

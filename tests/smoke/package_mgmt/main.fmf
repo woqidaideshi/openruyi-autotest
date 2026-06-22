@@ -1,26 +1,11 @@
-summary: 冒烟测试 - 基本package_mgmt功能
-contact: QA Team
-tag: [smoke, package]
-tier: 0
+summary: 冒烟测试 - package_mgmt 功能验证
+tag:
+  - smoke
+  - package_mgmt
 duration: 2m
+tier: 0
 path: /tests/smoke/package_mgmt
-
-/test_smoke_dnf_package_manager:
-  summary: dnf 包管理器
-  test: ./test_smoke_dnf_package_manager.sh
-
-/test_smoke_os_release_check:
-  summary: 系统发行版信息
-  test: ./test_smoke_os_release_check.sh
-
-/test_smoke_rpm_query:
-  summary: rpm 包管理查询
-  test: ./test_smoke_rpm_query.sh
-
-/test_smoke_rpm_scripts:
-  summary: rpm 脚本列表
-  test: ./test_smoke_rpm_scripts.sh
-
-/test_smoke_rpm_verify:
-  summary: rpm 包验证
-  test: ./test_smoke_rpm_verify.sh
+require:
+  - beakerlib
+  - dnf
+  - rpm

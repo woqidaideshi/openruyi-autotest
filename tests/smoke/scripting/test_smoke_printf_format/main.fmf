@@ -1,0 +1,11 @@
+summary: 冒烟测试 - printf 基本输出
+test: ./test.sh
+tag:
+  - smoke
+  - scripting
+duration: 1m
+tier: 0
+path: /tests/smoke/scripting/test_smoke_printf_format
+require:
+  - beakerlib
+  - coreutils

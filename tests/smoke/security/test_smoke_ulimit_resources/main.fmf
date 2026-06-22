@@ -1,0 +1,12 @@
+summary: 冒烟测试 - ulimit -n 文件描述符上限
+test: ./test.sh
+tag:
+  - smoke
+  - security
+duration: 1m
+tier: 0
+path: /tests/smoke/security/test_smoke_ulimit_resources
+require:
+  - beakerlib
+  - sudo
+  - coreutils

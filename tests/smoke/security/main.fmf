@@ -1,22 +1,11 @@
-summary: 冒烟测试 - 基本security功能
-contact: QA Team
-tag: [smoke, security]
-tier: 0
+summary: 冒烟测试 - security 功能验证
+tag:
+  - smoke
+  - security
 duration: 2m
+tier: 0
 path: /tests/smoke/security
-
-/test_smoke_file_permissions:
-  summary: 文件权限检查
-  test: ./test_smoke_file_permissions.sh
-
-/test_smoke_sudo_access:
-  summary: sudo 访问控制
-  test: ./test_smoke_sudo_access.sh
-
-/test_smoke_ulimit_resources:
-  summary: ulimit 资源限制
-  test: ./test_smoke_ulimit_resources.sh
-
-/test_smoke_umask_default:
-  summary: umask 默认权限掩码
-  test: ./test_smoke_umask_default.sh
+require:
+  - beakerlib
+  - sudo
+  - coreutils

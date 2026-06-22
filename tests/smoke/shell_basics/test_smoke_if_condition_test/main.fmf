@@ -1,0 +1,12 @@
+summary: 冒烟测试 - test -f 文件存在
+test: ./test.sh
+tag:
+  - smoke
+  - shell_basics
+duration: 1m
+tier: 0
+path: /tests/smoke/shell_basics/test_smoke_if_condition_test
+require:
+  - beakerlib
+  - bash
+  - coreutils

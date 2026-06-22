@@ -1,0 +1,15 @@
+summary: 冒烟测试 - ss -tln 监听TCP端口
+test: ./test.sh
+tag:
+  - smoke
+  - network
+duration: 1m
+tier: 0
+path: /tests/smoke/network/test_smoke_ss_socket_stats
+require:
+  - beakerlib
+  - iputils
+  - curl
+  - wget
+  - openssh-clients
+  - iproute

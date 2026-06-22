@@ -1,0 +1,12 @@
+summary: 冒烟测试 - 内核版本
+test: ./test.sh
+tag:
+  - smoke
+  - kernel
+duration: 1m
+tier: 0
+path: /tests/smoke/kernel/test_smoke_kernel_version_verify
+require:
+  - beakerlib
+  - kmod
+  - procps-ng

@@ -1,26 +1,12 @@
-summary: 冒烟测试 - 基本archive功能
-contact: QA Team
-tag: [smoke, archive]
-tier: 0
+summary: 冒烟测试 - archive 功能验证
+tag:
+  - smoke
+  - archive
 duration: 2m
+tier: 0
 path: /tests/smoke/archive
-
-/test_smoke_gzip_compress:
-  summary: gzip/gunzip 压缩解压
-  test: ./test_smoke_gzip_compress.sh
-
-/test_smoke_tar_archive:
-  summary: tar 归档打包
-  test: ./test_smoke_tar_archive.sh
-
-/test_smoke_tar_gz_create:
-  summary: tar.gz 打包压缩
-  test: ./test_smoke_tar_gz_create.sh
-
-/test_smoke_tar_xz_create:
-  summary: tar.xz 打包压缩
-  test: ./test_smoke_tar_xz_create.sh
-
-/test_smoke_xz_compress:
-  summary: xz 高压缩比压缩
-  test: ./test_smoke_xz_compress.sh
+require:
+  - beakerlib
+  - tar
+  - gzip
+  - xz

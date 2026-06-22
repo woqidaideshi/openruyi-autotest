@@ -1,5 +1,8 @@
-summary: Ã°ÑÌ²âÊÔ - ¿ìËÙÑéÖ¤ÏµÍ³»ù±¾¹¦ÄÜ
-framework: shell
+summary: å†’çƒŸæµ‹è¯• - å¿«é€ŸéªŒè¯ç³»ç»ŸåŸºæœ¬åŠŸèƒ½
+tag:
+  - smoke
 duration: 1m
 tier: 0
-contact: QA Team
+path: /tests/smoke
+require:
+  - beakerlib

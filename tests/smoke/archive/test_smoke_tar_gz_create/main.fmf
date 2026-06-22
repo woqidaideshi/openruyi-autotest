@@ -1,0 +1,13 @@
+summary: 冒烟测试 - tar -czf 创建tar.gz
+test: ./test.sh
+tag:
+  - smoke
+  - archive
+duration: 1m
+tier: 0
+path: /tests/smoke/archive/test_smoke_tar_gz_create
+require:
+  - beakerlib
+  - tar
+  - gzip
+  - xz

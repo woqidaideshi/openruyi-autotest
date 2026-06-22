@@ -1,0 +1,13 @@
+summary: 冒烟测试 - gzip 压缩
+test: ./test.sh
+tag:
+  - smoke
+  - archive
+duration: 1m
+tier: 0
+path: /tests/smoke/archive/test_smoke_gzip_compress
+require:
+  - beakerlib
+  - tar
+  - gzip
+  - xz

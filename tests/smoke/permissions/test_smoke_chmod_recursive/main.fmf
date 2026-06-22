@@ -1,0 +1,11 @@
+summary: 冒烟测试 - chmod -R 递归
+test: ./test.sh
+tag:
+  - smoke
+  - permissions
+duration: 1m
+tier: 0
+path: /tests/smoke/permissions/test_smoke_chmod_recursive
+require:
+  - beakerlib
+  - coreutils

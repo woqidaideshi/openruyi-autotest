@@ -1,0 +1,13 @@
+summary: 冒烟测试 - cp 复制文件和目录
+test: ./test.sh
+tag:
+  - smoke
+  - filesystem
+duration: 1m
+tier: 0
+path: /tests/smoke/filesystem/test_smoke_cp_copy_file
+require:
+  - beakerlib
+  - coreutils
+  - file
+  - diffutils

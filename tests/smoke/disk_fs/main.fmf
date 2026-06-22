@@ -1,22 +1,10 @@
-summary: 冒烟测试 - 基本disk_fs功能
-contact: QA Team
-tag: [smoke, disk]
-tier: 0
+summary: 冒烟测试 - disk_fs 功能验证
+tag:
+  - smoke
+  - disk_fs
 duration: 2m
+tier: 0
 path: /tests/smoke/disk_fs
-
-/test_smoke_fstab_check:
-  summary: /etc/fstab 文件系统表
-  test: ./test_smoke_fstab_check.sh
-
-/test_smoke_lsblk_block_devices:
-  summary: lsblk 块设备列表
-  test: ./test_smoke_lsblk_block_devices.sh
-
-/test_smoke_mount_list:
-  summary: mount 挂载点查看
-  test: ./test_smoke_mount_list.sh
-
-/test_smoke_proc_partitions:
-  summary: /proc/partitions 分区信息
-  test: ./test_smoke_proc_partitions.sh
+require:
+  - beakerlib
+  - util-linux

@@ -1,0 +1,15 @@
+summary: 冒烟测试 - awk 打印第一列
+test: ./test.sh
+tag:
+  - smoke
+  - text_processing
+duration: 1m
+tier: 0
+path: /tests/smoke/text_processing/test_smoke_awk_text_processing
+require:
+  - beakerlib
+  - gawk
+  - coreutils
+  - findutils
+  - grep
+  - sed

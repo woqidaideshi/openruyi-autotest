@@ -1,27 +1,11 @@
-summary: 冒烟测试 - 内核/模块功能
-contact: QA Team
-tag: [smoke, kernel]
-tier: 0
+summary: 冒烟测试 - kernel 功能验证
+tag:
+  - smoke
+  - kernel
 duration: 2m
+tier: 0
 path: /tests/smoke/kernel
-require: [coreutils, kmod]
-
-/test_smoke_lsmod_modules:
-  summary: lsmod 已加载内核模块
-  test: ./test_smoke_lsmod_modules.sh
-
-/test_smoke_modprobe_check:
-  summary: modprobe 模块管理
-  test: ./test_smoke_modprobe_check.sh
-
-/test_smoke_sysctl_kernel_params:
-  summary: sysctl 内核参数
-  test: ./test_smoke_sysctl_kernel_params.sh
-
-/test_smoke_proc_sys_check:
-  summary: /proc/sys 内核参数接口
-  test: ./test_smoke_proc_sys_check.sh
-
-/test_smoke_kernel_version_verify:
-  summary: 内核版本和启动参数
-  test: ./test_smoke_kernel_version_verify.sh
+require:
+  - beakerlib
+  - kmod
+  - procps-ng

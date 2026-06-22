@@ -1,0 +1,15 @@
+summary: 冒烟测试 - lo 回环接口存在
+test: ./test.sh
+tag:
+  - smoke
+  - network
+duration: 1m
+tier: 0
+path: /tests/smoke/network/test_smoke_loopback_interface
+require:
+  - beakerlib
+  - iputils
+  - curl
+  - wget
+  - openssh-clients
+  - iproute

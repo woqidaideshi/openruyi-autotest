@@ -1,0 +1,13 @@
+summary: 冒烟测试 - date 当前时间
+test: ./test.sh
+tag:
+  - smoke
+  - system_info
+duration: 1m
+tier: 0
+path: /tests/smoke/system_info/test_smoke_date_time
+require:
+  - beakerlib
+  - coreutils
+  - procps-ng
+  - util-linux

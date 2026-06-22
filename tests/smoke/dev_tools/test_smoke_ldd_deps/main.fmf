@@ -1,0 +1,13 @@
+summary: 冒烟测试 - ldd 查看链接
+test: ./test.sh
+tag:
+  - smoke
+  - dev_tools
+duration: 1m
+tier: 0
+path: /tests/smoke/dev_tools/test_smoke_ldd_deps
+require:
+  - beakerlib
+  - gcc
+  - make
+  - python
