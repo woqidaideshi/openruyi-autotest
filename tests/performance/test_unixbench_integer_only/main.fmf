@@ -1,0 +1,13 @@
+summary: 性能测试 - UnixBench 纯整数运算测试
+test: ./test.sh
+tag:
+  - performance
+  - unixbench
+duration: 10m
+tier: 2
+path: /tests/performance/test_unixbench_integer_only
+require:
+  - beakerlib
+  - gcc
+  - make
+  - perl
