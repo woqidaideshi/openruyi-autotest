@@ -10,3 +10,4 @@ test_labwc_labnag
 labnag
 require:
   - labwc
+  - beakerlib

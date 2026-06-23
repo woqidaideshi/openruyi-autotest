@@ -1,6 +1,11 @@
-summary: CVE 安全漏洞测试 - 基于 LTP (Linux Test Project) CVE 测试套件
-framework: shell
+summary: 安全测试 - CVE 漏洞测试 (LTP)
+tag:
+  - security
+  - cve
+  - ltp
 duration: 5m
 tier: 2
-tag: security,cve,ltp
-contact: QA Team
+path: /tests/security/cve
+require:
+  - beakerlib
+  - ltp

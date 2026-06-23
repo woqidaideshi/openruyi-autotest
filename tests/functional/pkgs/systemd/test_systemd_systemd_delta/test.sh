@@ -1,14 +1,31 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: systemd - systemd-delta
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 20: systemd-delta ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        systemdSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-rlRun 'systemd-delta --help 2>&1 | head -3' 0 "systemd-delta help"
-rlRun 'systemd-delta 2>&1 | head -10' 0 "systemd-delta: show overrides"
+    rlPhaseStartTest "systemd-delta"
+        rlRun "systemd-delta --help 2>&1 | head -3" 0 "systemd-delta help"
+        rlRun "systemd-delta 2>&1 | head -10" 0 "systemd-delta: show overrides"
+    rlPhaseEnd
 
-# ===================================================================
 
-. "../teardown.sh"
-echo "All systemd systemd-delta tests passed!"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # systemd 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

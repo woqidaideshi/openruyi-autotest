@@ -10,3 +10,4 @@ test_make_gmake-alias
 gmake-alias
 require:
   - make
+  - beakerlib

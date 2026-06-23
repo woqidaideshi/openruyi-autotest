@@ -10,3 +10,4 @@ test_weston_headless-backend-test
 Headless-backend-test
 require:
   - weston
+  - beakerlib

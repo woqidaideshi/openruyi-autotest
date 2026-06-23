@@ -10,3 +10,4 @@ test_vim_command-line-options
 Command-line-options
 require:
   - vim
+  - beakerlib

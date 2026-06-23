@@ -1,5 +1,4 @@
 summary: 功能测试 - grep 软件包功能验证
-test: ./test.sh
 tag:
   - functional
   - grep
@@ -7,4 +6,5 @@ duration: 5m
 tier: 1
 path: /tests/functional/pkgs/grep
 require:
+  - beakerlib
   - grep

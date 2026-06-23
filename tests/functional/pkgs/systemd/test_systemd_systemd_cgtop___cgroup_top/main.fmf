@@ -10,3 +10,4 @@ test_systemd_systemd-cgtop---cgroup-top
 systemd-cgtop---Cgroup-top
 require:
   - systemd
+  - beakerlib

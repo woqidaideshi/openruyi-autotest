@@ -10,3 +10,4 @@ test_systemd-timesyncd_ntp-management
 NTP-management
 require:
   - systemd-timesyncd
+  - beakerlib

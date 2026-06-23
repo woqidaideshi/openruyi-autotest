@@ -1,22 +1,10 @@
-summary: 冒烟测试 - 基本permissions功能
-contact: QA Team
-tag: [smoke, permission]
-tier: 0
+summary: 冒烟测试 - permissions 功能验证
+tag:
+  - smoke
+  - permissions
 duration: 2m
+tier: 0
 path: /tests/smoke/permissions
-
-/test_smoke_chmod_recursive:
-  summary: chmod 递归权限修改
-  test: ./test_smoke_chmod_recursive.sh
-
-/test_smoke_chown_ownership:
-  summary: chown 修改所有者
-  test: ./test_smoke_chown_ownership.sh
-
-/test_smoke_special_perms:
-  summary: SUID/SGID 特殊权限
-  test: ./test_smoke_special_perms.sh
-
-/test_smoke_sticky_bit_tmp:
-  summary: /tmp 粘滞位检查
-  test: ./test_smoke_sticky_bit_tmp.sh
+require:
+  - beakerlib
+  - coreutils

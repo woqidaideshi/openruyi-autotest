@@ -1,15 +1,30 @@
-#!/bin/sh -eux
-# Functional test: dnf5-plugins - Available-plugins
+#!/bin/bash
+# Functional test: dnf5-plugins - plugins - Available-plugins
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 4: Available plugins ==="
-for plugin in copr builddep changelog needs-restarting post-transaction-actions; do
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        dnf5PluginsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
+
+    rlPhaseStartTest "plugins - Available-plugins"
     rlRun "ls /usr/lib/python*/site-packages/dnf5-plugins/${plugin}* 2>&1 | head -3 || echo 'plugin not found as file'" 0 "Check plugin: $plugin"
-done
+    rlPhaseEnd
 
-cd /
-rm -rf $TmpDir
 
-. "../teardown.sh"
-echo "All dnf5-plugins Available-plugins tests passed!"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # dnf5-plugins 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

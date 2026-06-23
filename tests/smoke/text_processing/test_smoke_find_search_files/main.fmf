@@ -1,0 +1,15 @@
+summary: 冒烟测试 - find 按名称查找
+test: ./test.sh
+tag:
+  - smoke
+  - text_processing
+duration: 1m
+tier: 0
+path: /tests/smoke/text_processing/test_smoke_find_search_files
+require:
+  - beakerlib
+  - gawk
+  - coreutils
+  - findutils
+  - grep
+  - sed

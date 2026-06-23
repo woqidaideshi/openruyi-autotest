@@ -10,3 +10,4 @@ test_curl_verbose-quiet
 详细模式和静默模式
 require:
   - curl
+  - beakerlib

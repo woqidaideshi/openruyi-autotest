@@ -1,0 +1,13 @@
+summary: 性能测试 - UnixBench I/O 密集测试
+test: ./test.sh
+tag:
+  - performance
+  - unixbench
+duration: 10m
+tier: 2
+path: /tests/performance/unixbench/test_unixbench_io_only
+require:
+  - beakerlib
+  - gcc
+  - make
+  - perl

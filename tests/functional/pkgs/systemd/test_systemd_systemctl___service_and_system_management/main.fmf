@@ -10,3 +10,4 @@ test_systemd_systemctl---service-and-system-management
 systemctl---Service-and-system-management
 require:
   - systemd
+  - beakerlib

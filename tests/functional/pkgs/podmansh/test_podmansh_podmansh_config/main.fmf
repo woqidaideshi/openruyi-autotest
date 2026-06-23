@@ -10,3 +10,4 @@ test_podmansh_podmansh-config
 podmansh-config
 require:
   - podmansh
+  - beakerlib

@@ -1,5 +1,4 @@
 summary: 功能测试 - python-rpm-generators 软件包功能验证
-test: ./test.sh
 tag:
   - functional
   - python-rpm-generators
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/python-rpm-generators
 require:
   - python-rpm-generators
+  - beakerlib

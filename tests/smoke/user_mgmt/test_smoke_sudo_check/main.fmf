@@ -1,0 +1,11 @@
+summary: 冒烟测试 - sudo 命令存在
+test: ./test.sh
+tag:
+  - smoke
+  - user_mgmt
+duration: 1m
+tier: 0
+path: /tests/smoke/user_mgmt/test_smoke_sudo_check
+require:
+  - beakerlib
+  - coreutils

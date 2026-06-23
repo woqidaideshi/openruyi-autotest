@@ -10,3 +10,4 @@ test_pciutils_lspci-kernel-drivers
 lspci-kernel-drivers
 require:
   - pciutils
+  - beakerlib

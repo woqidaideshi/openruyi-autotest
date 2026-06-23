@@ -1,24 +1,33 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: grep - Error-handling
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 13: Error handling ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        grepSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 13.1: Nonexistent file
-rlRun 'grep pattern nonexistent_file.txt 2>&1' 2 "Error on nonexistent file" || true
+    rlPhaseStartTest "Error-handling"
+        rlRun "grep pattern nonexistent_file.txt 2>&1" 2 "Error on nonexistent file"
+        rlRun "grep \"[\" test1.txt 2>&1" 2 "Error on invalid regex"
+        rlRun "grep pattern subdir/ 2>&1" 2 "Error on directory without -r"
+        rlRun "grep NONEXISTENT_PATTERN test1.txt" 1 "No match returns exit code 1"
+    rlPhaseEnd
 
-# Test 13.2: Invalid regex
-rlRun 'grep "[" test1.txt 2>&1' 2 "Error on invalid regex" || true
 
-# Test 13.3: Directory without -r
-rlRun 'grep pattern subdir/ 2>&1' 2 "Error on directory without -r" || true
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # grep 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# Test 13.4: No match (exit 1)
-rlRun 'grep NONEXISTENT_PATTERN test1.txt' 1 "No match returns exit code 1" || true
-
-cd /
-rm -rf $TmpDir
-
-. "../teardown.sh"
-echo "All grep Error-handling tests passed!"
+    rlJournalPrintText
+rlJournalEnd

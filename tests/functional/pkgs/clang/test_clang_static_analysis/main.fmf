@@ -10,3 +10,4 @@ test_clang_static-analysis
 Static-analysis
 require:
   - clang
+  - beakerlib

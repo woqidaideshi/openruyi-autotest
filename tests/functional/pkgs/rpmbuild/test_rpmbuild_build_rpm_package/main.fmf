@@ -10,3 +10,4 @@ test_rpmbuild_build-rpm-package
 Build-RPM-package
 require:
   - rpmbuild
+  - beakerlib

@@ -10,3 +10,4 @@ test_wget_verbose-and-quiet-modes
 Verbose-and-quiet-modes
 require:
   - wget
+  - beakerlib

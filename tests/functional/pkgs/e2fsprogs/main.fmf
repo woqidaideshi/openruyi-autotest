@@ -1,5 +1,4 @@
 summary: ���ܲ��� - e2fsprogs ������������֤
-test: ./test.sh
 tag:
   - functional
   - e2fsprogs
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/e2fsprogs
 require:
   - e2fsprogs
+  - beakerlib

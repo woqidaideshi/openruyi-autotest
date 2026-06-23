@@ -10,3 +10,4 @@ test_procps-ng_pwdx-and-pmap
 pwdx-and-pmap
 require:
   - procps-ng
+  - beakerlib

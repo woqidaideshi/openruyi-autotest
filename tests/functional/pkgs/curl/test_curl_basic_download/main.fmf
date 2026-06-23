@@ -10,3 +10,4 @@ test_curl_basic-download
 基本下载
 require:
   - curl
+  - beakerlib

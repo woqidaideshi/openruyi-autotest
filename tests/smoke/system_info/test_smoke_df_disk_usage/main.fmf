@@ -1,0 +1,13 @@
+summary: 冒烟测试 - df 磁盘使用
+test: ./test.sh
+tag:
+  - smoke
+  - system_info
+duration: 1m
+tier: 0
+path: /tests/smoke/system_info/test_smoke_df_disk_usage
+require:
+  - beakerlib
+  - coreutils
+  - procps-ng
+  - util-linux

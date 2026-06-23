@@ -1,5 +1,4 @@
 summary: Functional test - podmansh package verification
-test: ./test.sh
 tag:
   - functional
   - podmansh
@@ -9,4 +8,5 @@ path: /tests/functional/pkgs/podmansh
 require:
   - podmansh
   - podman
+  - beakerlib
   - coreutils

@@ -10,3 +10,4 @@ test_mpdecimal_version-help
 版本和帮助
 require:
   - mpdecimal
+  - beakerlib

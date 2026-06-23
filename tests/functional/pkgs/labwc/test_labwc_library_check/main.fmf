@@ -10,3 +10,4 @@ test_labwc_library-check
 Library-check
 require:
   - labwc
+  - beakerlib

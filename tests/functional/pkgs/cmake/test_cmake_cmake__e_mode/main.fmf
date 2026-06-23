@@ -10,3 +10,4 @@ test_cmake_cmake--e-mode
 CMake--E-mode
 require:
   - cmake
+  - beakerlib

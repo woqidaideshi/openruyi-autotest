@@ -10,3 +10,4 @@ test_rpmbuild_create-simple-spec-file
 Create-simple-spec-file
 require:
   - rpmbuild
+  - beakerlib

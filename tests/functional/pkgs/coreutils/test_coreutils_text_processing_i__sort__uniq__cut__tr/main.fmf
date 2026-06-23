@@ -10,3 +10,4 @@ test_coreutils_text-processing-i--sort--uniq--cut--tr
 Text-processing-I--sort--uniq--cut--tr
 require:
   - coreutils
+  - beakerlib

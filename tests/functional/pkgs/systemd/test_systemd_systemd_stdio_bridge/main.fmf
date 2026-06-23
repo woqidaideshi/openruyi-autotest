@@ -10,3 +10,4 @@ test_systemd_systemd-stdio-bridge
 systemd-stdio-bridge
 require:
   - systemd
+  - beakerlib

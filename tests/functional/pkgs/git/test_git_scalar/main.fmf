@@ -10,3 +10,4 @@ test_git_scalar
 scalar
 require:
   - git
+  - beakerlib

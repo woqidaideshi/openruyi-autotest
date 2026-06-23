@@ -10,3 +10,4 @@ test_make_variables
 Variables
 require:
   - make
+  - beakerlib

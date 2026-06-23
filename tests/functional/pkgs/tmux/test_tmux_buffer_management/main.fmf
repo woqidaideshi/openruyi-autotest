@@ -10,3 +10,4 @@ test_tmux_buffer-management
 Buffer-management
 require:
   - tmux
+  - beakerlib

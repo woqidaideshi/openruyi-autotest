@@ -1,5 +1,4 @@
 summary: 功能测试 - unbound 软件包功能验证
-test: ./test.sh
 tag:
   - functional
   - unbound
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/unbound
 require:
   - unbound
+  - beakerlib

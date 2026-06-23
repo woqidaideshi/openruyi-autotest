@@ -10,3 +10,4 @@ test_iputils_ping-special-scenarios
 ping-special-scenarios
 require:
   - iputils
+  - beakerlib

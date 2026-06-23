@@ -10,3 +10,4 @@ test_util-linux_version-help
 版本和帮助
 require:
   - util-linux
+  - beakerlib

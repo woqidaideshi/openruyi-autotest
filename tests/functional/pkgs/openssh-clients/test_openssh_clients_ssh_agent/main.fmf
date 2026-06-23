@@ -10,3 +10,4 @@ test_openssh-clients_ssh-agent
 ssh-agent
 require:
   - openssh-clients
+  - beakerlib

@@ -10,3 +10,4 @@ test_openssh-clients_sftp
 sftp
 require:
   - openssh-clients
+  - beakerlib

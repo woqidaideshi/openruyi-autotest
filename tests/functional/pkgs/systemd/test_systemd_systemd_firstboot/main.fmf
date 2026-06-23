@@ -10,3 +10,4 @@ test_systemd_systemd-firstboot
 systemd-firstboot
 require:
   - systemd
+  - beakerlib

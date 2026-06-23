@@ -10,3 +10,4 @@ test_pciutils_lspci-basic
 lspci-basic
 require:
   - pciutils
+  - beakerlib

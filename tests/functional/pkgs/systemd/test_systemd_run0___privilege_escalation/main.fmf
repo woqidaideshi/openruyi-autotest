@@ -10,3 +10,4 @@ test_systemd_run0---privilege-escalation
 run0---Privilege-escalation
 require:
   - systemd
+  - beakerlib

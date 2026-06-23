@@ -10,3 +10,4 @@ test_cryptsetup_version-help
 版本和帮助
 require:
   - cryptsetup
+  - beakerlib

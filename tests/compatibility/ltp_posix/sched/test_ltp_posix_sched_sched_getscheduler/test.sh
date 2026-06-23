@@ -1,15 +1,24 @@
-#!/bin/sh -eux
-# LTP POSIX 兼容性测试: 调度 - sched_getscheduler 接口一致性
+#!/bin/bash
+# Compatibility test: LTP POSIX - sched/sched_getscheduler
+# Beakerlib-based test with lifecycle management
 
-. "$(dirname "$0")/../../setup.sh"
-. "$(dirname "$0")/../../helper.sh"
-
-echo "=== LTP POSIX 兼容性测试: sched / sched_getscheduler ==="
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../../lib.sh"
 
 IFACE_DIR="$LTP_BUILD_DIR/conformance/interfaces"
-PASS=0; FAIL=0; SKIP=0
 
-run_posix_iface_test "sched_getscheduler" || true
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        ltpPosixSetup
+    rlPhaseEnd
 
-echo ""
-echo "=== sched_getscheduler 结果: PASS=$PASS FAIL=$FAIL SKIP=$SKIP ==="
+    rlPhaseStartTest "POSIX 接口: sched / sched_getscheduler"
+        rlRun "run_posix_iface_test 'sched_getscheduler'" 0 "sched/sched_getscheduler 接口一致性测试"
+    rlPhaseEnd
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

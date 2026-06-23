@@ -10,3 +10,4 @@ test_podman_error-handling
 Error-handling
 require:
   - podman
+  - beakerlib

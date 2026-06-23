@@ -10,3 +10,4 @@ test_coreutils_encoding--base32--base64--basenc
 Encoding--base32--base64--basenc
 require:
   - coreutils
+  - beakerlib

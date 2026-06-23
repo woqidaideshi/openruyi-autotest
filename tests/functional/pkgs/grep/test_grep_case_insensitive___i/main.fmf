@@ -10,3 +10,4 @@ test_grep_case-insensitive---i
 Case-insensitive---i
 require:
   - grep
+  - beakerlib

@@ -10,3 +10,4 @@ test_labwc_debug-mode
 Debug-mode
 require:
   - labwc
+  - beakerlib

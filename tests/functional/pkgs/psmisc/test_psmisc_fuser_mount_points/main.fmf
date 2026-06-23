@@ -10,3 +10,4 @@ test_psmisc_fuser-mount-points
 fuser-mount-points
 require:
   - psmisc
+  - beakerlib

@@ -10,3 +10,4 @@ test_wget_directory-listing
 Directory-listing
 require:
   - wget
+  - beakerlib

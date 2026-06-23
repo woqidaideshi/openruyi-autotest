@@ -10,3 +10,4 @@ test_gcc_linking-and-libraries
 Linking-and-libraries
 require:
   - gcc
+  - beakerlib

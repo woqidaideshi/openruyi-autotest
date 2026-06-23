@@ -1,5 +1,4 @@
 summary: 功能测试 - RPM配置(openRuyi)
-test: ./test.sh
 tag:
   - functional
   - rpm-config-openruyi
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/rpm-config-openruyi
 require:
   - rpm-config-openruyi
+  - beakerlib

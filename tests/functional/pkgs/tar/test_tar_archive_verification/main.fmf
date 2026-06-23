@@ -10,3 +10,4 @@ test_tar_archive-verification
 Archive-verification
 require:
   - tar
+  - beakerlib

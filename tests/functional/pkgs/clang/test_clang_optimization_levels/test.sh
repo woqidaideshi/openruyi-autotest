@@ -1,12 +1,30 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: clang - Optimization-levels
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 4: Optimization levels ==="
-for lvl in O0 O1 O2 O3 Os Oz; do
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        clangSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
+
+    rlPhaseStartTest "Optimization-levels"
     rlRun "clang -$lvl -c hello.c -o hello_$lvl.o" 0 "Optimization -$lvl"
-done
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All clang Optimization-levels tests passed!"
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # clang 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

@@ -10,3 +10,4 @@ test_openssh-clients_error-handling
 Error-handling
 require:
   - openssh-clients
+  - beakerlib

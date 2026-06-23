@@ -1,5 +1,4 @@
 summary: Functional test - pciutils package verification
-test: ./test.sh
 tag:
   - functional
   - pciutils
@@ -8,4 +7,5 @@ tier: 1
 path: /tests/functional/pkgs/pciutils
 require:
   - pciutils
+  - beakerlib
   - coreutils

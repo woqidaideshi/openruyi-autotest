@@ -10,3 +10,4 @@ test_bash_basic-script
 基本脚本执行
 require:
   - bash
+  - beakerlib

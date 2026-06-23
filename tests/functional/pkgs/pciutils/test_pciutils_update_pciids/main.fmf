@@ -10,3 +10,4 @@ test_pciutils_update-pciids
 update-pciids
 require:
   - pciutils
+  - beakerlib

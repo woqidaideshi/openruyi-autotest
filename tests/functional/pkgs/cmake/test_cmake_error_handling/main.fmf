@@ -10,3 +10,4 @@ test_cmake_error-handling
 Error-handling
 require:
   - cmake
+  - beakerlib

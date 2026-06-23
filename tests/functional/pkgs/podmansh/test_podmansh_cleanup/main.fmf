@@ -10,3 +10,4 @@ test_podmansh_cleanup
 Cleanup
 require:
   - podmansh
+  - beakerlib

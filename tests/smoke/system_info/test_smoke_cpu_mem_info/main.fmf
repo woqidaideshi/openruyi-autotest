@@ -1,0 +1,13 @@
+summary: 冒烟测试 - /proc/cpuinfo CPU 信息
+test: ./test.sh
+tag:
+  - smoke
+  - system_info
+duration: 1m
+tier: 0
+path: /tests/smoke/system_info/test_smoke_cpu_mem_info
+require:
+  - beakerlib
+  - coreutils
+  - procps-ng
+  - util-linux

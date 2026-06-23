@@ -10,3 +10,4 @@ test_coreutils_file-creation-and-listing--echo--cat--ls--dir--vdi
 File-creation-and-listing--echo--cat--ls--dir--vdi
 require:
   - coreutils
+  - beakerlib

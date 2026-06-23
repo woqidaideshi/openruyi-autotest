@@ -10,3 +10,4 @@ test_linux-headers_version-help
 版本和帮助
 require:
   - linux-headers
+  - beakerlib

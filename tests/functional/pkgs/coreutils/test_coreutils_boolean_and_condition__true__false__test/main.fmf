@@ -10,3 +10,4 @@ test_coreutils_boolean-and-condition--true--false--test
 Boolean-and-condition--true--false--test
 require:
   - coreutils
+  - beakerlib

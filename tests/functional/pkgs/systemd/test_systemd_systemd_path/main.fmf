@@ -10,3 +10,4 @@ test_systemd_systemd-path
 systemd-path
 require:
   - systemd
+  - beakerlib

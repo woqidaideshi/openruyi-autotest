@@ -10,3 +10,4 @@ test_psmisc_fuser-special-cases
 fuser-special-cases
 require:
   - psmisc
+  - beakerlib

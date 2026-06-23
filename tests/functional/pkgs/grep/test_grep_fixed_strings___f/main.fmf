@@ -10,3 +10,4 @@ test_grep_fixed-strings---f
 Fixed-strings---F
 require:
   - grep
+  - beakerlib

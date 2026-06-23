@@ -10,3 +10,4 @@ test_gcc_warning-flags
 Warning-flags
 require:
   - gcc
+  - beakerlib

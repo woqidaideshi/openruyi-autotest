@@ -10,3 +10,4 @@ test_wget_recursive-download
 Recursive-download
 require:
   - wget
+  - beakerlib

@@ -1,0 +1,11 @@
+summary: 冒烟测试 - mount 挂载列表
+test: ./test.sh
+tag:
+  - smoke
+  - disk_fs
+duration: 1m
+tier: 0
+path: /tests/smoke/disk_fs/test_smoke_mount_list
+require:
+  - beakerlib
+  - util-linux

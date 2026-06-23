@@ -10,3 +10,4 @@ test_rpmbuild_error-handling
 Error-handling
 require:
   - rpmbuild
+  - beakerlib

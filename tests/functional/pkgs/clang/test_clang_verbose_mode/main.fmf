@@ -10,3 +10,4 @@ test_clang_verbose-mode
 Verbose-mode
 require:
   - clang
+  - beakerlib

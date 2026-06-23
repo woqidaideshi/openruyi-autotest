@@ -10,3 +10,4 @@ test_podman_network-operations
 Network-operations
 require:
   - podman
+  - beakerlib

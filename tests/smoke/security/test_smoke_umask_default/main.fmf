@@ -1,0 +1,12 @@
+summary: 冒烟测试 - umask 当前掩码
+test: ./test.sh
+tag:
+  - smoke
+  - security
+duration: 1m
+tier: 0
+path: /tests/smoke/security/test_smoke_umask_default
+require:
+  - beakerlib
+  - sudo
+  - coreutils

@@ -6,3 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/attr/test_attr_setfattr_basic
+
+require:
+  - beakerlib

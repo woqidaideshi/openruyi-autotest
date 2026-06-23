@@ -10,3 +10,4 @@ test_sed_basic-substitution
 基本替换
 require:
   - sed
+  - beakerlib

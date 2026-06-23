@@ -1,0 +1,11 @@
+summary: 冒烟测试 - env 列出环境变量
+test: ./test.sh
+tag:
+  - smoke
+  - scripting
+duration: 1m
+tier: 0
+path: /tests/smoke/scripting/test_smoke_env_variables
+require:
+  - beakerlib
+  - coreutils

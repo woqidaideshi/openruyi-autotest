@@ -10,3 +10,4 @@ test_grep_word-and-line-matching---w---x
 Word-and-line-matching---w---x
 require:
   - grep
+  - beakerlib

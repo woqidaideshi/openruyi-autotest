@@ -10,3 +10,4 @@ test_curl_other-options
 其他选项
 require:
   - curl
+  - beakerlib

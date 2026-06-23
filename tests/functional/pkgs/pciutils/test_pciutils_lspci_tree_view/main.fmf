@@ -10,3 +10,4 @@ test_pciutils_lspci-tree-view
 lspci-tree-view
 require:
   - pciutils
+  - beakerlib

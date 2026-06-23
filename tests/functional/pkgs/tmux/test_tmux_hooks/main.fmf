@@ -10,3 +10,4 @@ test_tmux_hooks
 Hooks
 require:
   - tmux
+  - beakerlib

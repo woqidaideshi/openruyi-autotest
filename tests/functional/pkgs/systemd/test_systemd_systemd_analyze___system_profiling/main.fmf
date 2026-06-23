@@ -10,3 +10,4 @@ test_systemd_systemd-analyze---system-profiling
 systemd-analyze---System-profiling
 require:
   - systemd
+  - beakerlib

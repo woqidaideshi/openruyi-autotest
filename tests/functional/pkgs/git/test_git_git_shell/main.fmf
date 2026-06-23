@@ -10,3 +10,4 @@ test_git_git-shell
 git-shell
 require:
   - git
+  - beakerlib

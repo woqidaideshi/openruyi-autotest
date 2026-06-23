@@ -10,3 +10,4 @@ test_vim_batch-ex-mode-commands
 Batch-ex-mode-commands
 require:
   - vim
+  - beakerlib

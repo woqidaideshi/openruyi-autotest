@@ -1,14 +1,31 @@
-#!/bin/sh -eux
-# Functional test: dnf5-plugins - List-installed-plugins
+#!/bin/bash
+# Functional test: dnf5-plugins - plugins - List-installed-plugins
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 3: List installed plugins ==="
-rlRun 'ls /usr/lib/python*/site-packages/dnf5-plugins/ 2>&1 | head -20' 0 "Plugin files"
-rlRun 'ls /usr/share/dnf5/plugins/ 2>&1 | head -20 || echo "No plugin dir"' 0 "Plugin directory"
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        dnf5PluginsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-cd /
-rm -rf $TmpDir
+    rlPhaseStartTest "plugins - List-installed-plugins"
+        rlRun "ls /usr/lib/python*/site-packages/dnf5-plugins/ 2>&1 | head -20" 0 "Plugin files"
+        rlRun "ls /usr/share/dnf5/plugins/ 2>&1 | head -20 || echo \"No plugin dir\"" 0 "Plugin directory"
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All dnf5-plugins List-installed-plugins tests passed!"
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # dnf5-plugins 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

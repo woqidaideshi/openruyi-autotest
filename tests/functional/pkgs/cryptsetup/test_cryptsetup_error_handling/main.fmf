@@ -10,3 +10,4 @@ test_cryptsetup_error-handling
 错误处理
 require:
   - cryptsetup
+  - beakerlib

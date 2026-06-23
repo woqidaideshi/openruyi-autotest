@@ -10,3 +10,4 @@ test_curl_output-options
 输出选项
 require:
   - curl
+  - beakerlib

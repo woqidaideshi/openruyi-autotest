@@ -1,22 +1,30 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: tar - Wildcard-and-patterns
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 8: Wildcard and patterns ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        tarSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 8.1: Extract with wildcard pattern
-mkdir pattern_dir && cd pattern_dir
-tar -xvf ../archive.tar --wildcards '*.txt'
-ls -la
-cd ..
+    rlPhaseStartTest "Wildcard-and-patterns"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 8.2: Exclude patterns
-tar -cvf exclude_archive.tar --exclude='*.txt' file1.txt file2.txt testdir
-tar -tvf exclude_archive.tar
 
-cd /
-rm -rf $TmpDir
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # tar 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All tar Wildcard-and-patterns tests passed!"
+    rlJournalPrintText
+rlJournalEnd

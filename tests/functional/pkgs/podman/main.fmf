@@ -1,5 +1,4 @@
 summary: 功能测试 - podman 容器管理功能验证
-test: ./test.sh
 tag:
   - functional
   - podman
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/podman
 require:
   - podman
+  - beakerlib

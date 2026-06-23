@@ -10,3 +10,4 @@ test_clang_clang-scan-deps
 clang-scan-deps
 require:
   - clang
+  - beakerlib

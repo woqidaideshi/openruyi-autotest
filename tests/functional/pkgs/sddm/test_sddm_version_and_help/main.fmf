@@ -10,3 +10,4 @@ test_sddm_version-and-help
 Version-and-help
 require:
   - sddm
+  - beakerlib

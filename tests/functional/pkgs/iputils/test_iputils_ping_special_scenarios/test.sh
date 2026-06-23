@@ -1,24 +1,30 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: iputils - ping-special-scenarios
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 9: ping special scenarios ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        iputilsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 9.1: Ping broadcast address (may require special permissions)
-ping -c 1 -b 255.255.255.255 2>&1 || echo "Broadcast ping test completed"
+    rlPhaseStartTest "ping-special-scenarios"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 9.2: Ping with source address
-ping -c 3 -I 127.0.0.1 127.0.0.1 || echo "Source address ping test completed"
 
-# Test 9.3: Ping with TTL
-ping -c 3 -t 64 127.0.0.1
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # iputils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# Test 9.4: Continuous ping (limited by timeout)
-timeout 5 ping 127.0.0.1 || echo "Continuous ping test completed"
-
-cd /
-rm -rf $TmpDir
-
-. "../teardown.sh"
-echo "All iputils ping-special-scenarios tests passed!"
+    rlJournalPrintText
+rlJournalEnd

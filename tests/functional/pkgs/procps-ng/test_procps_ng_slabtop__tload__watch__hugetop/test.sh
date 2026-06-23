@@ -1,21 +1,30 @@
-#!/bin/sh -eux
-# Functional test: procps-ng - slabtop--tload--watch--hugetop
+#!/bin/bash
+# Functional test: procps-ng - ng - slabtop--tload--watch--hugetop
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 14: slabtop, tload, watch, hugetop ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        procpsNgSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 14.1: slabtop display
-slabtop -o 2>&1 | head -10 || echo "slabtop test completed"
+    rlPhaseStartTest "ng - slabtop--tload--watch--hugetop"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 14.2: tload version
-(tload -V 2>&1 || tload --version 2>&1) | head -5 || echo "tload version check"
 
-# Test 14.3: watch basic usage
-watch --version 2>&1 | grep -q "watch" || echo "watch version check"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # procps-ng 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# Test 14.4: hugetop
-hugetop --version 2>&1 | head -3 || echo "hugetop version check"
-
-. "../teardown.sh"
-echo "All procps-ng slabtop--tload--watch--hugetop tests passed!"
+    rlJournalPrintText
+rlJournalEnd

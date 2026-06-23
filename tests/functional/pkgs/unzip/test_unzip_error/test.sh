@@ -1,15 +1,33 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: unzip - ������
-# Tests: unzip, funzip, zipgrep, zipinfo commands
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-# rlRun wrapper for standalone execution
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-. "../setup.sh"
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        unzipSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-rlRun 'unzip --invalid-flag-xyz 2>&1 || true' 0 "���� unzip ��Ч����������"
-rlRun 'funzip --invalid-flag-xyz 2>&1 || true' 0 "���� funzip ��Ч����������"
-rlRun 'zipgrep --invalid-flag-xyz 2>&1 || true' 0 "���� zipgrep ��Ч����������"
-rlRun 'zipinfo --invalid-flag-xyz 2>&1 || true' 0 "���� zipinfo ��Ч����������"
+    rlPhaseStartTest "������"
+        rlRun "unzip --invalid-flag-xyz 2>&1 || true" 0 "���� unzip ��Ч����������"
+        rlRun "funzip --invalid-flag-xyz 2>&1 || true" 0 "���� funzip ��Ч����������"
+        rlRun "zipgrep --invalid-flag-xyz 2>&1 || true" 0 "���� zipgrep ��Ч����������"
+        rlRun "zipinfo --invalid-flag-xyz 2>&1 || true" 0 "���� zipinfo ��Ч����������"
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All unzip-error functional tests passed!"
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # unzip 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

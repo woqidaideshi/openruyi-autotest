@@ -10,3 +10,4 @@ test_podmansh_podman-images
 podman-images
 require:
   - podmansh
+  - beakerlib

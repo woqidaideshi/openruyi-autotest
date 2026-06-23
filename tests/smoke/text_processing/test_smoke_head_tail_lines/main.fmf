@@ -1,0 +1,15 @@
+summary: 冒烟测试 - head 前3行
+test: ./test.sh
+tag:
+  - smoke
+  - text_processing
+duration: 1m
+tier: 0
+path: /tests/smoke/text_processing/test_smoke_head_tail_lines
+require:
+  - beakerlib
+  - gawk
+  - coreutils
+  - findutils
+  - grep
+  - sed

@@ -10,3 +10,4 @@ test_bash_functions
 函数
 require:
   - bash
+  - beakerlib

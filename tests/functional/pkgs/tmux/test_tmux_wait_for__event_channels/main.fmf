@@ -10,3 +10,4 @@ test_tmux_wait-for--event-channels
 Wait-for--event-channels
 require:
   - tmux
+  - beakerlib

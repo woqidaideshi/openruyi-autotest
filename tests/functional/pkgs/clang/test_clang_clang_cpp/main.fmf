@@ -10,3 +10,4 @@ test_clang_clang-cpp
 clang-cpp
 require:
   - clang
+  - beakerlib

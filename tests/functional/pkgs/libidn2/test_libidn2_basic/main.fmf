@@ -6,3 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libidn2/test_libidn2_basic
+
+require:
+  - beakerlib

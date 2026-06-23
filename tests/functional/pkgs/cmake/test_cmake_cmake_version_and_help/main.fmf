@@ -10,3 +10,4 @@ test_cmake_cmake-version-and-help
 CMake-version-and-help
 require:
   - cmake
+  - beakerlib

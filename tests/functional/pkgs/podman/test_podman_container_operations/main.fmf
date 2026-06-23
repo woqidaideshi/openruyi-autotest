@@ -10,3 +10,4 @@ test_podman_container-operations
 Container-operations
 require:
   - podman
+  - beakerlib

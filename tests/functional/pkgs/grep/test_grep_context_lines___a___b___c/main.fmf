@@ -10,3 +10,4 @@ test_grep_context-lines---a---b---c
 Context-lines---A---B---C
 require:
   - grep
+  - beakerlib

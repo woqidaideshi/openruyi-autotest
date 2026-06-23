@@ -10,3 +10,4 @@ test_weston_screenshooter
 Screenshooter
 require:
   - weston
+  - beakerlib

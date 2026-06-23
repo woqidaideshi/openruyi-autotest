@@ -10,3 +10,4 @@ test_tmux_messages-and-display
 Messages-and-display
 require:
   - tmux
+  - beakerlib

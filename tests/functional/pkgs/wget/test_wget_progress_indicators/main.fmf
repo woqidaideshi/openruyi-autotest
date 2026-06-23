@@ -10,3 +10,4 @@ test_wget_progress-indicators
 Progress-indicators
 require:
   - wget
+  - beakerlib

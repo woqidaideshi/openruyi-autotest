@@ -10,3 +10,4 @@ test_psmisc_killall-basic
 killall-basic
 require:
   - psmisc
+  - beakerlib

@@ -10,3 +10,4 @@ test_gcc_assembly-output
 Assembly-output
 require:
   - gcc
+  - beakerlib

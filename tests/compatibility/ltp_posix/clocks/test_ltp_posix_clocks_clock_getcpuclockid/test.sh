@@ -1,15 +1,24 @@
-#!/bin/sh -eux
-# LTP POSIX 兼容性测试: 时钟 - clock_getcpuclockid 接口一致性
+#!/bin/bash
+# Compatibility test: LTP POSIX - clocks/clock_getcpuclockid
+# Beakerlib-based test with lifecycle management
 
-. "$(dirname "$0")/../../setup.sh"
-. "$(dirname "$0")/../../helper.sh"
-
-echo "=== LTP POSIX 兼容性测试: clocks / clock_getcpuclockid ==="
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../../lib.sh"
 
 IFACE_DIR="$LTP_BUILD_DIR/conformance/interfaces"
-PASS=0; FAIL=0; SKIP=0
 
-run_posix_iface_test "clock_getcpuclockid" || true
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        ltpPosixSetup
+    rlPhaseEnd
 
-echo ""
-echo "=== clock_getcpuclockid 结果: PASS=$PASS FAIL=$FAIL SKIP=$SKIP ==="
+    rlPhaseStartTest "POSIX 接口: clocks / clock_getcpuclockid"
+        rlRun "run_posix_iface_test 'clock_getcpuclockid'" 0 "clocks/clock_getcpuclockid 接口一致性测试"
+    rlPhaseEnd
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

@@ -10,3 +10,4 @@ test_lua_version-help
 版本和帮助
 require:
   - lua
+  - beakerlib

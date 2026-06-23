@@ -1,7 +1,7 @@
 summary: ���ܲ��� - libsepol �����֤
-test: ./test.sh
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/libsepol
 require:
   - libsepol
+  - beakerlib

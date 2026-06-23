@@ -10,3 +10,4 @@ test_wget_header-options
 Header-options
 require:
   - wget
+  - beakerlib

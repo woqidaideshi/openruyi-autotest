@@ -1,5 +1,4 @@
 summary: 功能测试 - mpdecimal 十进制库
-test: ./test.sh
 tag:
   - functional
   - mpdecimal
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/mpdecimal
 require:
   - mpdecimal
+  - beakerlib

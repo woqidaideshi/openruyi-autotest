@@ -10,3 +10,4 @@ test_podman_image-operations
 Image-operations
 require:
   - podman
+  - beakerlib

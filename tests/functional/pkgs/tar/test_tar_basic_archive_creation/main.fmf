@@ -10,3 +10,4 @@ test_tar_basic-archive-creation
 Basic-archive-creation
 require:
   - tar
+  - beakerlib

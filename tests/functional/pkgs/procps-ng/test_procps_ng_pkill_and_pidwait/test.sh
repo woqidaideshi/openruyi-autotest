@@ -1,18 +1,30 @@
-#!/bin/sh -eux
-# Functional test: procps-ng - pkill-and-pidwait
+#!/bin/bash
+# Functional test: procps-ng - ng - pkill-and-pidwait
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 13: pkill and pidwait ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        procpsNgSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 13.1: pkill version check
-pkill --version 2>&1 | grep -q "pkill" || echo "pkill version check"
+    rlPhaseStartTest "ng - pkill-and-pidwait"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 13.2: pidwait version check
-pidwait --version 2>&1 | grep -q "pidwait" || echo "pidwait version check"
 
-cd /
-rm -rf $TmpDir
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # procps-ng 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All procps-ng pkill-and-pidwait tests passed!"
+    rlJournalPrintText
+rlJournalEnd

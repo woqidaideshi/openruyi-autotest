@@ -1,8 +1,13 @@
-summary: LTP POSIX 异步 I/O兼容性测试 - lio_listio
+summary: 兼容性测试 - LTP POSIX - aio/lio_listio
 test: ./test.sh
 tag:
   - compatibility
   - posix
   - aio
-duration: 2m
+duration: 3m
 tier: 2
+path: /tests/compatibility/ltp_posix/aio/test_ltp_posix_aio_lio_listio
+require:
+  - beakerlib
+  - gcc
+  - make

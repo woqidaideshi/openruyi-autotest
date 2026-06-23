@@ -10,3 +10,4 @@ test_openssh_fingerprint-hashes
 Fingerprint-hashes
 require:
   - openssh
+  - beakerlib

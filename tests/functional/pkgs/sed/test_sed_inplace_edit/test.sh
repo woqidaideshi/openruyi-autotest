@@ -1,12 +1,31 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: sed - 就地编辑
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== 测试 4: 就地编辑 ==="
-echo "original" > edit.txt
-rlRun 'sed -i "s/original/modified/" edit.txt' 0 "sed -i: 就地编辑"
-rlRun 'grep modified edit.txt' 0 "sed -i: 验证修改"
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        sedSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All sed 就地编辑 tests passed!"
+    rlPhaseStartTest "就地编辑"
+        rlRun "sed -i \"s/original/modified/\" edit.txt" 0 "sed -i: 就地编辑"
+        rlRun "grep modified edit.txt" 0 "sed -i: 验证修改"
+    rlPhaseEnd
+
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # sed 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

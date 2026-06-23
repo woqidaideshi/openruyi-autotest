@@ -1,27 +1,34 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: gcc - Special-features
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 11: Special features ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        gccSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 11.1: Check supported C standards
-rlRun 'gcc -std=c99 hello.c -o hello_c99' 0 "Compile with C99 standard"
+    rlPhaseStartTest "Special-features"
+        rlRun "gcc -std=c99 hello.c -o hello_c99" 0 "Compile with C99 standard"
+        rlRun "gcc attr.c -o attr_test" 0 "Compile with __attribute__"
+        rlRun "./attr_test" 0 "Run attribute test"
+        rlRun "gcc -I include_dir main.c include_dir/mylib.c -o include_test" 0 "Compile with -I include path"
+        rlRun "./include_test" 0 "Run include path test"
+    rlPhaseEnd
 
-# Test 11.2: Use __attribute__
-cat > attr.c << 'EOF'
-#include <stdio.h>
-void __attribute__((constructor)) before_main() { printf("Constructor\n"); }
-int main() { printf("Main\n"); return 0; }
-EOF
-rlRun 'gcc attr.c -o attr_test' 0 "Compile with __attribute__"
-rlRun './attr_test' 0 "Run attribute test"
 
-# Test 11.3: Include path (-I)
-mkdir include_dir
-echo 'int add(int a, int b) { return a + b; }' > include_dir/mylib.c
-rlRun 'gcc -I include_dir main.c include_dir/mylib.c -o include_test' 0 "Compile with -I include path"
-rlRun './include_test' 0 "Run include path test"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # gcc 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All gcc Special-features tests passed!"
+    rlJournalPrintText
+rlJournalEnd

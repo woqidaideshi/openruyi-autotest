@@ -10,3 +10,4 @@ test_python_module-import
 模块导入
 require:
   - python
+  - beakerlib

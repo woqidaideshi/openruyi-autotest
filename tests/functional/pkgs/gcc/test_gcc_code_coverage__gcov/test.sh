@@ -1,21 +1,33 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: gcc - Code-coverage--gcov
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 9: Code coverage (gcov) ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        gccSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-cat > gcov_test.c << 'EOF'
-#include <stdio.h>
-int covered(int x) { return x > 0 ? x : -x; }
-int main() { printf("%d\n", covered(5)); return 0; }
-EOF
+    rlPhaseStartTest "Code-coverage--gcov"
+        rlRun "gcc -fprofile-arcs -ftest-coverage gcov_test.c -o gcov_test" 0 "Compile with coverage flags"
+        rlRun "./gcov_test" 0 "Run coverage test program"
+        rlRun "gcov gcov_test.c" 0 "Run gcov"
+        rlRun "ls -la gcov_test.c.gcov" 0 "Check gcov output file exists"
+    rlPhaseEnd
 
-# Test 9.1: Compile with coverage flags
-rlRun 'gcc -fprofile-arcs -ftest-coverage gcov_test.c -o gcov_test' 0 "Compile with coverage flags"
-rlRun './gcov_test' 0 "Run coverage test program"
-rlRun 'gcov gcov_test.c' 0 "Run gcov"
-rlRun 'ls -la gcov_test.c.gcov' 0 "Check gcov output file exists"
 
-. "../teardown.sh"
-echo "All gcc Code-coverage--gcov tests passed!"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # gcc 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

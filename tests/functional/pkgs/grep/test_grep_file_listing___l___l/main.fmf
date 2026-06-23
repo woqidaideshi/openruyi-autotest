@@ -10,3 +10,4 @@ test_grep_file-listing---l---l
 File-listing---l---L
 require:
   - grep
+  - beakerlib

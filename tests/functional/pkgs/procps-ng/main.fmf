@@ -1,5 +1,4 @@
 summary: Functional test - procps-ng package verification
-test: ./test.sh
 tag:
   - functional
   - procps-ng
@@ -9,3 +8,4 @@ path: /tests/functional/pkgs/procps-ng
 require:
   - procps-ng
   - coreutils
+  - beakerlib

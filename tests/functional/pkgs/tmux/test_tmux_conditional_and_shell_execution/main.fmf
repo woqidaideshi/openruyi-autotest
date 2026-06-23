@@ -10,3 +10,4 @@ test_tmux_conditional-and-shell-execution
 Conditional-and-shell-execution
 require:
   - tmux
+  - beakerlib

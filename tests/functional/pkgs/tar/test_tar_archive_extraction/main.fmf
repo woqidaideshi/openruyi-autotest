@@ -10,3 +10,4 @@ test_tar_archive-extraction
 Archive-extraction
 require:
   - tar
+  - beakerlib

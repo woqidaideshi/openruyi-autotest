@@ -1,5 +1,4 @@
 summary: 功能测试 - newt/whiptail 对话框工具
-test: ./test.sh
 tag:
   - functional
   - newt
@@ -8,3 +7,4 @@ tier: 1
 path: /tests/functional/pkgs/newt
 require:
   - newt
+  - beakerlib

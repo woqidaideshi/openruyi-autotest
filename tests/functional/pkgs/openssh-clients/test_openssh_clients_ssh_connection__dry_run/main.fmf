@@ -10,3 +10,4 @@ test_openssh-clients_ssh-connection--dry-run
 ssh-connection--dry-run
 require:
   - openssh-clients
+  - beakerlib

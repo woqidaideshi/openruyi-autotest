@@ -10,3 +10,4 @@ test_sddm_d-bus
 D-Bus
 require:
   - sddm
+  - beakerlib

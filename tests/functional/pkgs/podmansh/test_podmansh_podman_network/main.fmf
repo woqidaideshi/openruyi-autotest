@@ -10,3 +10,4 @@ test_podmansh_podman-network
 podman-network
 require:
   - podmansh
+  - beakerlib

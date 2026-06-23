@@ -6,3 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/dbus/test_dbus_basic
+
+require:
+  - beakerlib

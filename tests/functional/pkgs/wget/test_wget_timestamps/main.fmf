@@ -10,3 +10,4 @@ test_wget_timestamps
 Timestamps
 require:
   - wget
+  - beakerlib

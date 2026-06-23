@@ -1,5 +1,4 @@
 summary: Functional test - tar package verification
-test: ./test.sh
 tag:
   - functional
   - tar
@@ -9,3 +8,4 @@ path: /tests/functional/pkgs/tar
 require:
   - tar
   - coreutils
+  - beakerlib

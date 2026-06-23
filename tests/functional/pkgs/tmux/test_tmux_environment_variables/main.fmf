@@ -10,3 +10,4 @@ test_tmux_environment-variables
 Environment-variables
 require:
   - tmux
+  - beakerlib

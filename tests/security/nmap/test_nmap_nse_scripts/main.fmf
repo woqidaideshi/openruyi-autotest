@@ -1,0 +1,11 @@
+summary: 安全测试 - nmap NSE 脚本扫描
+test: ./test.sh
+tag:
+  - security
+  - nmap
+duration: 2m
+tier: 1
+path: /tests/security/nmap/test_nmap_nse_scripts
+require:
+  - beakerlib
+  - nmap

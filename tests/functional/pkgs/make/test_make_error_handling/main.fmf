@@ -10,3 +10,4 @@ test_make_error-handling
 Error-handling
 require:
   - make
+  - beakerlib

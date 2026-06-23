@@ -10,3 +10,4 @@ test_pciutils_lspci-by-device-class
 lspci-by-device-class
 require:
   - pciutils
+  - beakerlib

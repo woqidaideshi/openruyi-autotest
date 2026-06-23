@@ -1,0 +1,13 @@
+summary: 冒烟测试 - mv 移动/重命名文件
+test: ./test.sh
+tag:
+  - smoke
+  - filesystem
+duration: 1m
+tier: 0
+path: /tests/smoke/filesystem/test_smoke_mv_move_file
+require:
+  - beakerlib
+  - coreutils
+  - file
+  - diffutils

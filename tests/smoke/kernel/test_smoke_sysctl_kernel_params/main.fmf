@@ -1,0 +1,12 @@
+summary: 冒烟测试 - sysctl -a 内核参数
+test: ./test.sh
+tag:
+  - smoke
+  - kernel
+duration: 1m
+tier: 0
+path: /tests/smoke/kernel/test_smoke_sysctl_kernel_params
+require:
+  - beakerlib
+  - kmod
+  - procps-ng

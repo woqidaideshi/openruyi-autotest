@@ -10,3 +10,4 @@ test_clang_clang-cl--msvc-compat
 clang-cl--MSVC-compat
 require:
   - clang
+  - beakerlib

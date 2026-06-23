@@ -10,3 +10,4 @@ test_acl_getfacl-basic
 getfacl-基本功能
 require:
   - acl
+  - beakerlib

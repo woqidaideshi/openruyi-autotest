@@ -1,21 +1,30 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: rpmbuild - Install-and-test-RPM
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 6: Install and test RPM ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        rpmbuildSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 6.1: Install the RPM (test mode)
-rpm -ivh --test rpmbuild/RPMS/noarch/test-package-1.0-1*.rpm || echo "RPM test installation completed"
+    rlPhaseStartTest "Install-and-test-RPM"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 6.2: Actually install
-rpm -ivh rpmbuild/RPMS/noarch/test-package-1.0-1*.rpm || echo "RPM installation test completed"
 
-# Test 6.3: Verify installation
-rpm -q test-package || echo "Package installation verified"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # rpmbuild 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-cd /
-rm -rf $TmpDir
-
-. "../teardown.sh"
-echo "All rpmbuild Install-and-test-RPM tests passed!"
+    rlJournalPrintText
+rlJournalEnd

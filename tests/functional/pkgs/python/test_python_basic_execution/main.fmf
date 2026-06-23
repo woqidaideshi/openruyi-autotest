@@ -10,3 +10,4 @@ test_python_basic-execution
 基本执行
 require:
   - python
+  - beakerlib

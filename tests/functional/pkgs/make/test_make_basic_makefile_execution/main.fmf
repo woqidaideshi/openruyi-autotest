@@ -10,3 +10,4 @@ test_make_basic-makefile-execution
 Basic-Makefile-execution
 require:
   - make
+  - beakerlib

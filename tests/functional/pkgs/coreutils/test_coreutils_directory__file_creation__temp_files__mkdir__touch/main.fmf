@@ -10,3 +10,4 @@ test_coreutils_directory--file-creation--temp-files--mkdir--touch
 Directory--file-creation--temp-files--mkdir--touch
 require:
   - coreutils
+  - beakerlib

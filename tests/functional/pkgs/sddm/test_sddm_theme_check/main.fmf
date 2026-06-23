@@ -10,3 +10,4 @@ test_sddm_theme-check
 Theme-check
 require:
   - sddm
+  - beakerlib

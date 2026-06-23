@@ -10,3 +10,4 @@ test_systemd-timesyncd_service-control
 Service-control
 require:
   - systemd-timesyncd
+  - beakerlib

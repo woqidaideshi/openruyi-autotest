@@ -10,3 +10,4 @@ test_cloud-utils-growpart_disk-partition-info
 Disk-partition-info
 require:
   - cloud-utils-growpart
+  - beakerlib

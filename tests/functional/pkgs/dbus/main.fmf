@@ -1,7 +1,7 @@
 summary: ���ܲ��� - dbus
-test: ./test.sh
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/dbus
 require:
   - dbus
+  - beakerlib

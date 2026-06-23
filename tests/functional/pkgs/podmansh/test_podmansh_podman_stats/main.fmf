@@ -10,3 +10,4 @@ test_podmansh_podman-stats
 podman-stats
 require:
   - podmansh
+  - beakerlib

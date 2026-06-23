@@ -10,3 +10,4 @@ test_openssh_ecdsa-key-generation
 ECDSA-key-generation
 require:
   - openssh
+  - beakerlib

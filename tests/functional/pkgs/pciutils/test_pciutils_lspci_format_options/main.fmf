@@ -10,3 +10,4 @@ test_pciutils_lspci-format-options
 lspci-format-options
 require:
   - pciutils
+  - beakerlib

@@ -10,3 +10,4 @@ test_git_log-and-show
 Log-and-show
 require:
   - git
+  - beakerlib

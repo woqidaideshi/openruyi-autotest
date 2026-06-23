@@ -1,20 +1,32 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: coreutils - Process-control--nice--nohup--stdbuf
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 19: Process control (nice, nohup, stdbuf) ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        coreutilsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# 19.1 nice
-rlRun 'nice -n 10 true' 0 "nice adjust priority"
+    rlPhaseStartTest "Process-control--nice--nohup--stdbuf"
+        rlRun "nice -n 10 true" 0 "nice adjust priority"
+        rlRun "nohup true" 0 "nohup run command"
+        rlRun "stdbuf -oL echo test 2>&1 || true" 0 "stdbuf line buffered output"
+    rlPhaseEnd
 
-# 19.2 nohup
-rlRun 'nohup true' 0 "nohup run command"
 
-# 19.3 stdbuf
-rlRun 'stdbuf -oL echo test 2>&1 || true' 0 "stdbuf line buffered output"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # coreutils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# ===================================================================
-
-. "../teardown.sh"
-echo "All coreutils Process-control--nice--nohup--stdbuf tests passed!"
+    rlJournalPrintText
+rlJournalEnd

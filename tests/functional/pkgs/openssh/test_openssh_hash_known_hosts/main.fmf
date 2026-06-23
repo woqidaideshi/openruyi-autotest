@@ -10,3 +10,4 @@ test_openssh_hash-known-hosts
 Hash-known-hosts
 require:
   - openssh
+  - beakerlib

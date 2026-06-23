@@ -10,3 +10,4 @@ test_openssh-clients_ssh-keyscan
 ssh-keyscan
 require:
   - openssh-clients
+  - beakerlib

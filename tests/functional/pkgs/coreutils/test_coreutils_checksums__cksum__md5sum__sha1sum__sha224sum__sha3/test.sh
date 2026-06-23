@@ -1,44 +1,44 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: coreutils - Checksums--cksum--md5sum--sha1sum--sha224sum--sha3
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 13: Checksums (cksum, md5sum, sha1sum, sha224sum, sha384sum, sha512sum, sha256sum, b2sum, sum) ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        coreutilsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# 13.1 cksum
-rlRun 'cksum file1.txt' 0 "cksum CRC checksum"
+    rlPhaseStartTest "Checksums--cksum--md5sum--sha1sum--sha224sum--sha3"
+        rlRun "cksum file1.txt" 0 "cksum CRC checksum"
+        rlRun "md5sum file1.txt" 0 "md5sum compute"
+        rlRun "md5sum file1.txt > md5_check.txt" 0 "md5sum save"
+        rlRun "md5sum -c md5_check.txt" 0 "md5sum -c verify"
+        rlRun "sha1sum file1.txt" 0 "sha1sum compute"
+        rlRun "sha1sum file1.txt > sha1_check.txt" 0 "sha1sum save"
+        rlRun "sha1sum -c sha1_check.txt" 0 "sha1sum -c verify"
+        rlRun "sha224sum file1.txt" 0 "sha224sum compute"
+        rlRun "sha256sum file1.txt" 0 "sha256sum compute"
+        rlRun "sha256sum file1.txt > sha256_check.txt" 0 "sha256sum save"
+        rlRun "sha256sum -c sha256_check.txt" 0 "sha256sum -c verify"
+        rlRun "sha384sum file1.txt" 0 "sha384sum compute"
+        rlRun "sha512sum file1.txt" 0 "sha512sum compute"
+        rlRun "b2sum file1.txt" 0 "b2sum BLAKE2 checksum"
+        rlRun "sum file1.txt" 0 "sum BSD checksum"
+    rlPhaseEnd
 
-# 13.2 md5sum
-rlRun 'md5sum file1.txt' 0 "md5sum compute"
-rlRun 'md5sum file1.txt > md5_check.txt' 0 "md5sum save"
-rlRun 'md5sum -c md5_check.txt' 0 "md5sum -c verify"
 
-# 13.3 sha1sum
-rlRun 'sha1sum file1.txt' 0 "sha1sum compute"
-rlRun 'sha1sum file1.txt > sha1_check.txt' 0 "sha1sum save"
-rlRun 'sha1sum -c sha1_check.txt' 0 "sha1sum -c verify"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # coreutils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# 13.4 sha224sum
-rlRun 'sha224sum file1.txt' 0 "sha224sum compute"
-
-# 13.5 sha256sum
-rlRun 'sha256sum file1.txt' 0 "sha256sum compute"
-rlRun 'sha256sum file1.txt > sha256_check.txt' 0 "sha256sum save"
-rlRun 'sha256sum -c sha256_check.txt' 0 "sha256sum -c verify"
-
-# 13.6 sha384sum
-rlRun 'sha384sum file1.txt' 0 "sha384sum compute"
-
-# 13.7 sha512sum
-rlRun 'sha512sum file1.txt' 0 "sha512sum compute"
-
-# 13.8 b2sum
-rlRun 'b2sum file1.txt' 0 "b2sum BLAKE2 checksum"
-
-# 13.9 sum
-rlRun 'sum file1.txt' 0 "sum BSD checksum"
-
-# ===================================================================
-
-. "../teardown.sh"
-echo "All coreutils Checksums--cksum--md5sum--sha1sum--sha224sum--sha3 tests passed!"
+    rlJournalPrintText
+rlJournalEnd

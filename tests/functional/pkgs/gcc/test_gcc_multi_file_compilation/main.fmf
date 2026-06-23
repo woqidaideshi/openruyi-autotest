@@ -10,3 +10,4 @@ test_gcc_multi-file-compilation
 Multi-file-compilation
 require:
   - gcc
+  - beakerlib

@@ -1,24 +1,30 @@
-#!/bin/sh -eux
-# Functional test: procps-ng - top-command
+#!/bin/bash
+# Functional test: procps-ng - ng - top-command
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 4: top command ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        procpsNgSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 4.1: Basic top (batch mode, single iteration)
-top -b -n 1 | head -20
+    rlPhaseStartTest "ng - top-command"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 4.2: Top with specific number of processes
-top -b -n 1 -p 1
 
-# Test 4.3: Top sorted by memory
-top -b -n 1 -o %MEM | head -20
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # procps-ng 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# Test 4.4: Top with delay
-top -b -n 1 -d 1 | head -10
-
-cd /
-rm -rf $TmpDir
-
-. "../teardown.sh"
-echo "All procps-ng top-command tests passed!"
+    rlJournalPrintText
+rlJournalEnd

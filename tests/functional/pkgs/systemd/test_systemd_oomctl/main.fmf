@@ -10,3 +10,4 @@ test_systemd_oomctl
 oomctl
 require:
   - systemd
+  - beakerlib

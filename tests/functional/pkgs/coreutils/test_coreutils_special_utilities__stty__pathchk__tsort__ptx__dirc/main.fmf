@@ -10,3 +10,4 @@ test_coreutils_special-utilities--stty--pathchk--tsort--ptx--dirc
 Special-utilities--stty--pathchk--tsort--ptx--dirc
 require:
   - coreutils
+  - beakerlib

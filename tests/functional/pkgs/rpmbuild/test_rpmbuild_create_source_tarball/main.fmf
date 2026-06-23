@@ -10,3 +10,4 @@ test_rpmbuild_create-source-tarball
 Create-source-tarball
 require:
   - rpmbuild
+  - beakerlib

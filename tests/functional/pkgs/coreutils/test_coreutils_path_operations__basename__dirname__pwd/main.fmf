@@ -10,3 +10,4 @@ test_coreutils_path-operations--basename--dirname--pwd
 Path-operations--basename--dirname--pwd
 require:
   - coreutils
+  - beakerlib

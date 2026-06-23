@@ -1,10 +1,30 @@
-#!/bin/sh -eux
-# Functional test: openssh-clients - sftp
+#!/bin/bash
+# Functional test: openssh-clients - clients - sftp
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 6: sftp ==="
-rlRun 'echo "help" | sftp -b - localhost 2>&1 | head -10 || true' 0 "sftp: help command"
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        opensshClientsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All openssh-clients sftp tests passed!"
+    rlPhaseStartTest "clients - sftp"
+        rlRun "echo \"help\" | sftp -b - localhost 2>&1 | head -10 || true" 0 "sftp: help command"
+    rlPhaseEnd
+
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # openssh-clients 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

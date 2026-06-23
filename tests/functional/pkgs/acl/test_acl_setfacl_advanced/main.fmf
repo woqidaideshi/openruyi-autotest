@@ -10,3 +10,4 @@ test_acl_setfacl-advanced
 setfacl-高级功能
 require:
   - acl
+  - beakerlib

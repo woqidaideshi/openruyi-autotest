@@ -10,3 +10,4 @@ test_python_command-options
 命令行选项
 require:
   - python
+  - beakerlib

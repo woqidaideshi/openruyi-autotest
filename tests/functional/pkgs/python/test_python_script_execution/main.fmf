@@ -10,3 +10,4 @@ test_python_script-execution
 脚本执行
 require:
   - python
+  - beakerlib

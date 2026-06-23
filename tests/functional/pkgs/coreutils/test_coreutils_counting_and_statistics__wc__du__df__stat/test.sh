@@ -1,31 +1,41 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: coreutils - Counting-and-statistics--wc--du--df--stat
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 6: Counting and statistics (wc, du, df, stat) ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        coreutilsSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# 6.1 wc
-rlRun 'wc -l lines.txt' 0 "wc -l line count"
-rlRun 'test $(wc -l < lines.txt) -eq 20' 0 "wc -l: 20 lines"
-rlRun 'wc -c lines.txt' 0 "wc -c byte count"
-rlRun 'wc -w lines.txt' 0 "wc -w word count"
-rlRun 'wc -m lines.txt' 0 "wc -m character count"
+    rlPhaseStartTest "Counting-and-statistics--wc--du--df--stat"
+        rlRun "wc -l lines.txt" 0 "wc -l line count"
+        rlRun "test $(wc -l < lines.txt) -eq 20" 0 "wc -l: 20 lines"
+        rlRun "wc -c lines.txt" 0 "wc -c byte count"
+        rlRun "wc -w lines.txt" 0 "wc -w word count"
+        rlRun "wc -m lines.txt" 0 "wc -m character count"
+        rlRun "du -sh ." 0 "du -sh summary human"
+        rlRun "du -h a/" 0 "du -h directory usage"
+        rlRun "df -h" 0 "df -h human readable"
+        rlRun "df -h / | tail -1" 0 "df: root filesystem"
+        rlRun "stat file1.txt" 0 "stat file status"
+        rlRun "stat -c \"%s %n\" file1.txt" 0 "stat -c format output"
+        rlRun "stat -f /" 0 "stat -f filesystem status"
+    rlPhaseEnd
 
-# 6.2 du
-rlRun 'du -sh .' 0 "du -sh summary human"
-rlRun 'du -h a/' 0 "du -h directory usage"
 
-# 6.3 df
-rlRun 'df -h' 0 "df -h human readable"
-rlRun 'df -h / | tail -1' 0 "df: root filesystem"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # coreutils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# 6.4 stat
-rlRun 'stat file1.txt' 0 "stat file status"
-rlRun 'stat -c "%s %n" file1.txt' 0 "stat -c format output"
-rlRun 'stat -f /' 0 "stat -f filesystem status"
-
-# ===================================================================
-
-. "../teardown.sh"
-echo "All coreutils Counting-and-statistics--wc--du--df--stat tests passed!"
+    rlJournalPrintText
+rlJournalEnd

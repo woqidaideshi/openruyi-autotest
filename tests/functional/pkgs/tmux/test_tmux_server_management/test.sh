@@ -1,31 +1,37 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: tmux - Server-management
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 1: Server management ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        tmuxSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# 1.1 start-server
-rlRun 'tmux start-server' 0 "start-server: start tmux server"
+    rlPhaseStartTest "Server-management"
+        rlRun "tmux start-server" 0 "start-server: start tmux server"
+        rlRun "tmux list-sessions 2>&1 || true" 0 "list-sessions: initial state"
+        rlRun "tmux has-session -t test 2>&1 || true" 0 "has-session: check nonexistent"
+        rlRun "tmux list-clients 2>&1 || true" 0 "list-clients: list connected clients"
+        rlRun "tmux list-commands | head -20" 0 "list-commands: list all commands"
+        rlRun "tmux lscm new-session" 0 "list-commands: filter specific command"
+        rlRun "tmux lscm -F \"#{command}\" | head -10" 0 "list-commands: format output"
+        rlRun "tmux server-access -l 2>&1 || true" 0 "server-access -l: list access"
+    rlPhaseEnd
 
-# 1.2 list-sessions (initial: no sessions)
-rlRun 'tmux list-sessions 2>&1 || true' 0 "list-sessions: initial state"
 
-# 1.3 has-session
-rlRun 'tmux has-session -t test 2>&1 || true' 0 "has-session: check nonexistent"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # tmux 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# 1.4 list-clients
-rlRun 'tmux list-clients 2>&1 || true' 0 "list-clients: list connected clients"
-
-# 1.5 list-commands
-rlRun 'tmux list-commands | head -20' 0 "list-commands: list all commands"
-rlRun 'tmux lscm new-session' 0 "list-commands: filter specific command"
-rlRun 'tmux lscm -F "#{command}" | head -10' 0 "list-commands: format output"
-
-# 1.6 server-access
-rlRun 'tmux server-access -l 2>&1 || true' 0 "server-access -l: list access"
-
-# ===================================================================
-
-. "../teardown.sh"
-echo "All tmux Server-management tests passed!"
+    rlJournalPrintText
+rlJournalEnd

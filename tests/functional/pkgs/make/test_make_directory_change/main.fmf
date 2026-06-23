@@ -10,3 +10,4 @@ test_make_directory-change
 Directory-change
 require:
   - make
+  - beakerlib

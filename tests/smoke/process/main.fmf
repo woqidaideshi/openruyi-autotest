@@ -1,26 +1,10 @@
-summary: 冒烟测试 - 基本process功能
-contact: QA Team
-tag: [smoke, process]
-tier: 0
+summary: 冒烟测试 - process 功能验证
+tag:
+  - smoke
+  - process
 duration: 2m
+tier: 0
 path: /tests/smoke/process
-
-/test_smoke_jobs_background:
-  summary: 后台任务和jobs
-  test: ./test_smoke_jobs_background.sh
-
-/test_smoke_kill_signal:
-  summary: kill 发送信号
-  test: ./test_smoke_kill_signal.sh
-
-/test_smoke_nproc_cpu_count:
-  summary: nproc CPU核心数
-  test: ./test_smoke_nproc_cpu_count.sh
-
-/test_smoke_pidof_pgrep:
-  summary: pidof/pgrep 进程查找
-  test: ./test_smoke_pidof_pgrep.sh
-
-/test_smoke_ps_process_list:
-  summary: ps 进程列表
-  test: ./test_smoke_ps_process_list.sh
+require:
+  - beakerlib
+  - procps-ng

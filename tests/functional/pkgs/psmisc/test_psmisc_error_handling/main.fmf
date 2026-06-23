@@ -10,3 +10,4 @@ test_psmisc_error-handling
 Error-handling
 require:
   - psmisc
+  - beakerlib

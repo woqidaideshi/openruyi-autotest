@@ -10,3 +10,4 @@ test_openssh_key-conversion
 Key-conversion
 require:
   - openssh
+  - beakerlib

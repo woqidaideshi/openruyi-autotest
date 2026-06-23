@@ -10,3 +10,4 @@ test_gmp_error-handling
 错误处理
 require:
   - gmp
+  - beakerlib

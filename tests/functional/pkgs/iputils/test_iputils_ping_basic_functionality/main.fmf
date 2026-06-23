@@ -10,3 +10,4 @@ test_iputils_ping-basic-functionality
 ping-basic-functionality
 require:
   - iputils
+  - beakerlib

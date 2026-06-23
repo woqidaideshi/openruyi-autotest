@@ -10,3 +10,4 @@ test_vim_search-and-replace--ex-mode
 Search-and-replace--ex-mode
 require:
   - vim
+  - beakerlib

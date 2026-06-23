@@ -10,3 +10,4 @@ test_podman_system-operations
 System-operations
 require:
   - podman
+  - beakerlib

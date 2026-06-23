@@ -10,3 +10,4 @@ test_iputils_ping-advanced-options
 ping-advanced-options
 require:
   - iputils
+  - beakerlib

@@ -1,0 +1,13 @@
+summary: 冒烟测试 - ln 创建硬链接和符号链接
+test: ./test.sh
+tag:
+  - smoke
+  - filesystem
+duration: 1m
+tier: 0
+path: /tests/smoke/filesystem/test_smoke_ln_hardlink_symlink
+require:
+  - beakerlib
+  - coreutils
+  - file
+  - diffutils

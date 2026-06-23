@@ -10,3 +10,4 @@ test_wget2_basic-download
 Basic-download
 require:
   - wget2
+  - beakerlib

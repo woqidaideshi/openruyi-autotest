@@ -10,3 +10,4 @@ test_iputils_clockdiff
 clockdiff
 require:
   - iputils
+  - beakerlib

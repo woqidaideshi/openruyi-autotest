@@ -1,7 +1,7 @@
 summary: ���ܲ��� - python-packaging ������֤
-test: ./test.sh
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/python-packaging
 require:
   - python-packaging
+  - beakerlib

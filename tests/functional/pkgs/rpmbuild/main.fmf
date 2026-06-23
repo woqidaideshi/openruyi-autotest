@@ -1,5 +1,4 @@
 summary: Functional test - rpmbuild package verification
-test: ./test.sh
 tag:
   - functional
   - rpmbuild
@@ -10,3 +9,4 @@ require:
   - rpm-build
   - rpmdevtools
   - coreutils
+  - beakerlib

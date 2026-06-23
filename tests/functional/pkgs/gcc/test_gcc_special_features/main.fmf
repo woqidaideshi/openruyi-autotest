@@ -10,3 +10,4 @@ test_gcc_special-features
 Special-features
 require:
   - gcc
+  - beakerlib

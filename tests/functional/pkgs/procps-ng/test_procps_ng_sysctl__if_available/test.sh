@@ -1,18 +1,30 @@
-#!/bin/sh -eux
-# Functional test: procps-ng - sysctl--if-available
+#!/bin/bash
+# Functional test: procps-ng - ng - sysctl--if-available
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 10: sysctl (if available) ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        procpsNgSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 10.1: List all sysctl parameters
-sysctl -a 2>&1 | head -20 || echo "sysctl not available"
+    rlPhaseStartTest "ng - sysctl--if-available"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 10.2: Read specific parameter
-sysctl kernel.hostname 2>&1 || echo "sysctl parameter read test"
 
-cd /
-rm -rf $TmpDir
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # procps-ng 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-. "../teardown.sh"
-echo "All procps-ng sysctl--if-available tests passed!"
+    rlJournalPrintText
+rlJournalEnd

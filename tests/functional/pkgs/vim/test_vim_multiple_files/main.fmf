@@ -10,3 +10,4 @@ test_vim_multiple-files
 Multiple-files
 require:
   - vim
+  - beakerlib

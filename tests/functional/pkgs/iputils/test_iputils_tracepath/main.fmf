@@ -10,3 +10,4 @@ test_iputils_tracepath
 tracepath
 require:
   - iputils
+  - beakerlib

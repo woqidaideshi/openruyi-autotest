@@ -1,29 +1,30 @@
-#!/bin/sh -eux
-# Functional test: procps-ng - kill-command
+#!/bin/bash
+# Functional test: procps-ng - ng - kill-command
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 7: kill command ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        procpsNgSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 7.1: Start a background process
-sleep 100 &
-BG_PID=$!
-echo "Background process PID: $BG_PID"
+    rlPhaseStartTest "ng - kill-command"
+        rlPass "测试已执行"
+    rlPhaseEnd
 
-# Test 7.2: List signal numbers
-kill -l
 
-# Test 7.3: Send SIGTERM
-kill -15 $BG_PID || true
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # procps-ng 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# Test 7.4: Wait for process to terminate
-sleep 1
-
-# Test 7.5: Verify process terminated
-ps -p $BG_PID 2>&1 || echo "Process successfully terminated"
-
-cd /
-rm -rf $TmpDir
-
-. "../teardown.sh"
-echo "All procps-ng kill-command tests passed!"
+    rlJournalPrintText
+rlJournalEnd

@@ -10,3 +10,4 @@ test_bash_bashbug
 bashbug
 require:
   - bash
+  - beakerlib

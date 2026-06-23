@@ -1,24 +1,33 @@
-#!/bin/sh -eux
+#!/bin/bash
 # Functional test: gcc - Error-handling
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-echo "=== Test 10: Error handling ==="
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        gccSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-# Test 10.1: Syntax error
-echo "int main() { return }" > bad_syntax.c
-rlRun 'gcc bad_syntax.c 2>&1' 1-255 "Test syntax error detection"
+    rlPhaseStartTest "Error-handling"
+        rlRun "gcc bad_syntax.c 2>&1" 1-255 "Test syntax error detection"
+        rlRun "gcc nonexistent.c 2>&1" 1-255 "Test missing file error"
+        rlRun "gcc bad_func.c 2>&1" 1-255 "Test undefined function error"
+        rlRun "gcc -Wall bad_type.c -o bad_type 2>&1" 0 "Test type mismatch warning"
+    rlPhaseEnd
 
-# Test 10.2: Missing file
-rlRun 'gcc nonexistent.c 2>&1' 1-255 "Test missing file error"
 
-# Test 10.3: Undefined function
-echo "int main() { undefined_func(); }" > bad_func.c
-rlRun 'gcc bad_func.c 2>&1' 1-255 "Test undefined function error"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # gcc 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
 
-# Test 10.4: Type mismatch warning
-echo "int main() { char* p = 42; }" > bad_type.c
-rlRun 'gcc -Wall bad_type.c -o bad_type 2>&1' 0 "Test type mismatch warning"
-
-. "../teardown.sh"
-echo "All gcc Error-handling tests passed!"
+    rlJournalPrintText
+rlJournalEnd

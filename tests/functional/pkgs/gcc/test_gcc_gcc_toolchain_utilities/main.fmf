@@ -10,3 +10,4 @@ test_gcc_gcc-toolchain-utilities
 GCC-toolchain-utilities
 require:
   - gcc
+  - beakerlib

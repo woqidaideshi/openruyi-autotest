@@ -1,7 +1,7 @@
 summary: ���ܲ��� - pyproject-rpm-macros ������֤
-test: ./test.sh
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/pyproject-rpm-macros
 require:
   - pyproject-rpm-macros
+  - beakerlib

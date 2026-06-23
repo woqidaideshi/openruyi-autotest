@@ -10,3 +10,4 @@ test_grep_only-matching-and-quiet---o---q
 Only-matching-and-quiet---o---q
 require:
   - grep
+  - beakerlib

@@ -10,3 +10,4 @@ test_tar_special-attributes
 Special-attributes
 require:
   - tar
+  - beakerlib

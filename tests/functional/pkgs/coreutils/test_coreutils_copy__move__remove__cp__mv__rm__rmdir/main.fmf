@@ -10,3 +10,4 @@ test_coreutils_copy--move--remove--cp--mv--rm--rmdir
 Copy--move--remove--cp--mv--rm--rmdir
 require:
   - coreutils
+  - beakerlib

@@ -10,3 +10,4 @@ test_weston_error-handling
 Error-handling
 require:
   - weston
+  - beakerlib

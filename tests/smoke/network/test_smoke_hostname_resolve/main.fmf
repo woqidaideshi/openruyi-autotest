@@ -1,0 +1,15 @@
+summary: 冒烟测试 - getent 解析 localhost
+test: ./test.sh
+tag:
+  - smoke
+  - network
+duration: 1m
+tier: 0
+path: /tests/smoke/network/test_smoke_hostname_resolve
+require:
+  - beakerlib
+  - iputils
+  - curl
+  - wget
+  - openssh-clients
+  - iproute

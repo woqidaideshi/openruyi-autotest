@@ -1,0 +1,12 @@
+summary: 兼容性测试 - LTP POSIX - timer
+tag:
+  - compatibility
+  - posix
+  - timer
+duration: 15m
+tier: 2
+path: /tests/compatibility/ltp_posix/timer
+require:
+  - beakerlib
+  - gcc
+  - make

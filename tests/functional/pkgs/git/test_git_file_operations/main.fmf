@@ -10,3 +10,4 @@ test_git_file-operations
 File-operations
 require:
   - git
+  - beakerlib

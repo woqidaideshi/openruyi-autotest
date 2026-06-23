@@ -1,5 +1,4 @@
 ﻿summary: Functional test - cmake package verification
-test: ./test.sh
 tag:
   - functional
   - cmake
@@ -12,3 +11,4 @@ require:
   - gcc-c++
   - make
   - coreutils
+  - beakerlib

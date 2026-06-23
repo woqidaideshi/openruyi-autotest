@@ -10,3 +10,4 @@ test_findutils_xargs
 xargs
 require:
   - findutils
+  - beakerlib

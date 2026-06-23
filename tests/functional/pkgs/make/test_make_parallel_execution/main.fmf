@@ -10,3 +10,4 @@ test_make_parallel-execution
 Parallel-execution
 require:
   - make
+  - beakerlib

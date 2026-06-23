@@ -10,3 +10,4 @@ test_weston_wcap-decode
 wcap-decode
 require:
   - weston
+  - beakerlib

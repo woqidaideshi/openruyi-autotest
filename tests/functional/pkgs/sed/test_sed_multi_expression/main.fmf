@@ -10,3 +10,4 @@ test_sed_multi-expression
 多表达式
 require:
   - sed
+  - beakerlib

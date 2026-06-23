@@ -1,0 +1,11 @@
+summary: 冒烟测试 - jobs 列出后台任务
+test: ./test.sh
+tag:
+  - smoke
+  - process
+duration: 1m
+tier: 0
+path: /tests/smoke/process/test_smoke_jobs_background
+require:
+  - beakerlib
+  - procps-ng

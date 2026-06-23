@@ -10,3 +10,4 @@ test_tmux_key-bindings-and-input
 Key-bindings-and-input
 require:
   - tmux
+  - beakerlib

@@ -10,3 +10,4 @@ test_tmux_window-management
 Window-management
 require:
   - tmux
+  - beakerlib

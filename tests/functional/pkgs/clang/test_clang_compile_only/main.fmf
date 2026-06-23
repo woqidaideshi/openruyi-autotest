@@ -10,3 +10,4 @@ test_clang_compile-only
 Compile-only
 require:
   - clang
+  - beakerlib

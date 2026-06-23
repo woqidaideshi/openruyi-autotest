@@ -10,3 +10,4 @@ test_sed_global-regex
 全局和正则
 require:
   - sed
+  - beakerlib

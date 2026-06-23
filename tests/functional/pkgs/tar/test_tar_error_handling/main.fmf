@@ -10,3 +10,4 @@ test_tar_error-handling
 Error-handling
 require:
   - tar
+  - beakerlib

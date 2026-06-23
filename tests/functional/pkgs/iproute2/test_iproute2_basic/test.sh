@@ -1,19 +1,35 @@
-#!/bin/sh -eux
-# Functional test: iproute2 ��������
-# Commands: ip, ss, tc
+#!/bin/bash
+# Functional test: iproute2 - iproute2 ��������
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
-. "../setup.sh"
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
 
-rlRun 'ip addr show 2>&1 | head -10' 0 "��ʾ�����ַ"
-rlRun 'ip link show 2>&1 | head -10' 0 "��ʾ��������"
-rlRun 'ip route show 2>&1 | head -5' 0 "��ʾ·�ɱ�"
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        iproute2Setup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseEnd
 
-echo "=== ss ���� ==="
-rlRun 'ss --help 2>&1 | head -10' 0 "ss ����"
-rlRun 'ss -tln 2>&1 | head -10' 0 "��ʾ�����˿�"
+    rlPhaseStartTest "iproute2 ��������"
+        rlRun "ip addr show 2>&1 | head -10" 0 "��ʾ�����ַ"
+        rlRun "ip link show 2>&1 | head -10" 0 "��ʾ��������"
+        rlRun "ip route show 2>&1 | head -5" 0 "��ʾ·�ɱ�"
+        rlRun "ss --help 2>&1 | head -10" 0 "ss ����"
+        rlRun "ss -tln 2>&1 | head -10" 0 "��ʾ�����˿�"
+        rlRun "tc --help 2>&1 | head -10" 0 "tc ����"
+    rlPhaseEnd
 
-echo "=== tc ���� ==="
-rlRun 'tc --help 2>&1 | head -10' 0 "tc ����"
 
-. "../teardown.sh"
-echo "All iproute2-basic functional tests passed!"
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+        # iproute2 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd

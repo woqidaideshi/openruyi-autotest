@@ -10,3 +10,4 @@ test_openssh_key-with-passphrase
 Key-with-passphrase
 require:
   - openssh
+  - beakerlib

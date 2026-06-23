@@ -10,3 +10,4 @@ test_wget2_verbose-modes
 Verbose-modes
 require:
   - wget2
+  - beakerlib

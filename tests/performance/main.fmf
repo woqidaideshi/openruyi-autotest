@@ -1,9 +1,8 @@
-summary: 性能测试 - 验证系统性能指标
-test: ./test.sh
+summary: 性能测试 - 系统性能基准验证
 tag:
   - performance
-duration: 10m
+duration: 60m
 tier: 2
+path: /tests/performance
 require:
-  - coreutils
-  - time
+  - beakerlib

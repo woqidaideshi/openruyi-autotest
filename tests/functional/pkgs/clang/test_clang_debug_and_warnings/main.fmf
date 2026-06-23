@@ -10,3 +10,4 @@ test_clang_debug-and-warnings
 Debug-and-warnings
 require:
   - clang
+  - beakerlib

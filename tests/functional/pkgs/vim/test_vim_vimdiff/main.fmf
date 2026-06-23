@@ -10,3 +10,4 @@ test_vim_vimdiff
 Vimdiff
 require:
   - vim
+  - beakerlib

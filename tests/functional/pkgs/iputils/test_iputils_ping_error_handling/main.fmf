@@ -10,3 +10,4 @@ test_iputils_ping-error-handling
 ping-error-handling
 require:
   - iputils
+  - beakerlib

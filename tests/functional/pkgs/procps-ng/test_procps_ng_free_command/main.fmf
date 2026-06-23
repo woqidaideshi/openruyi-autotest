@@ -10,3 +10,4 @@ test_procps-ng_free-command
 free-command
 require:
   - procps-ng
+  - beakerlib

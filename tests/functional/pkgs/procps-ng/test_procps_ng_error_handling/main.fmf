@@ -10,3 +10,4 @@ test_procps-ng_error-handling
 Error-handling
 require:
   - procps-ng
+  - beakerlib

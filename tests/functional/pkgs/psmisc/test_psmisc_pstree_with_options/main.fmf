@@ -10,3 +10,4 @@ test_psmisc_pstree-with-options
 pstree-with-options
 require:
   - psmisc
+  - beakerlib
