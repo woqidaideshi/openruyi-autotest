@@ -20,7 +20,9 @@ rlJournalStart
             rlJournalEnd
             exit 0
         fi
-        rlRun "./Run -c 1 dhry2reg whetstone-double syscall pipe context1 spawn" 0 "UnixBench 快速模式 (单线程核心测试)"
+        rlRun "./Run -i 3 -c 1 dhry2reg whetstone-double syscall pipe context1 spawn" 0 "UnixBench 快速模式 (3次迭代)"
+        SCORE=$(grep -h "System Benchmarks Index Score" "$UNIXBENCH_DIR/UnixBench/results/"* 2>/dev/null | tail -1 | grep -oP '[\d.]+$' || echo "N/A")
+        rlLogInfo "System Benchmarks Index Score: $SCORE"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

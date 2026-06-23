@@ -20,7 +20,9 @@ rlJournalStart
             rlJournalEnd
             exit 0
         fi
-        rlRun "./Run -c 1" 0 "UnixBench 单线程基准测试 (-c 1)"
+        rlRun "./Run -i 3 -c 1" 0 "UnixBench 单线程基准测试 (3次迭代)"
+        SCORE=$(grep -h "System Benchmarks Index Score" "$UNIXBENCH_DIR/UnixBench/results/"* 2>/dev/null | tail -1 | grep -oP '[\d.]+$' || echo "N/A")
+        rlLogInfo "System Benchmarks Index Score: $SCORE"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"
