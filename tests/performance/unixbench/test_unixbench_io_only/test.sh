@@ -1,5 +1,6 @@
 #!/bin/bash
 # Performance test: UnixBench - UnixBench 文件系统 I/O 测试 (fstime/fsbuffer/fsdisk)
+# 按照 Testing-Guide.md 要求：执行三次，取各次总分的平均值作为最终结果
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
@@ -9,10 +10,9 @@ rlJournalStart
     rlPhaseStartSetup "环境准备"
         unixbenchSetup
         rlRun "cd $UNIXBENCH_DIR/UnixBench" 0 "进入 UnixBench 目录"
-
     rlPhaseEnd
 
-    rlPhaseStartTest "UnixBench 文件系统 I/O 测试 (fstime/fsbuffer/fsdisk)"
+    rlPhaseStartTest "UnixBench 文件系统 I/O 测试 (fstime/fsbuffer/fsdisk, 3次独立运行)"
         if [ ! -f "$UNIXBENCH_DIR/UnixBench/Run" ]; then
             rlLogWarning "UnixBench 未安装，跳过测试"
             rlPhaseEnd
@@ -20,9 +20,8 @@ rlJournalStart
             rlJournalEnd
             exit 0
         fi
-        rlRun "./Run -i 3 -c 1 fstime fsbuffer fsdisk" 0 "UnixBench 文件系统 I/O 测试 (3次迭代)"
-        SCORE=$(grep -h "System Benchmarks Index Score" "$UNIXBENCH_DIR/UnixBench/results/"* 2>/dev/null | tail -1 | grep -oP '[\d.]+$' || echo "N/A")
-        rlLogInfo "System Benchmarks Index Score: $SCORE"
+        AVG=$(run_unixbench_3x "io_only" "-i 3 -c 1 fstime fsbuffer fsdisk")
+        rlLogInfo "文件系统 I/O 3 次平均 System Benchmarks Index Score: $AVG"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"
