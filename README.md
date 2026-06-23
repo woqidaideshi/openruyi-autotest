@@ -39,20 +39,21 @@ openruyi-autotest/
 
 | 测试类型 | 测试套数 | 用例数 | 状态 |
 |---------|:---:|:---:|:---:|
-| Smoke | 17 | 100 | ✅ 全部通过 |
-| Functional | 202 | 561 | ✅ 全部通过 |
-| Security | 2 | 106 | ✅ 全部通过 (74P/24S/0F CVE) |
-| Compatibility | 1 | 10 | ✅ 通过 (570P/36F/20S) |
-| Performance | 1 | 5 | ⏳ 待验证 |
-| Reliability | 1 | 5 | ⏳ 待验证 |
-| **合计** | **224** | **787** | |
+| Smoke | 100 | 100 | ✅ 全部通过 |
+| Functional | 202 | 566 | ✅ 全部通过 |
+| Security | 106 | 106 | ✅ 全部通过 (CVE + nmap) |
+| Compatibility | 188 | 188 | ✅ 通过 (LTP POSIX) |
+| Performance | 7 | 7 | ✅ 已执行 (UnixBench) |
+| Reliability | 1 | 1 | ✅ 通过 |
+| **合计** | **604** | **968** | |
 
 ### 详情文档
 
-- [冒烟测试覆盖详情](docs/smoke-coverage.md) — 17 个类别，100 个用例
-- [功能测试覆盖详情](docs/functional-coverage.md) — 202 个软件包，561 个用例，1,692 个功能点
-- [安全测试覆盖详情](docs/security-coverage.md) — 2 个套件（nmap + CVE），106 个用例
-- [兼容性测试覆盖详情](docs/compatibility-coverage.md) — 1 个套件（ltp_posix），10 个分类，188 个接口，sudo 验证通过
+- [冒烟测试覆盖详情](docs/smoke-coverage.md) — 100 个用例
+- [功能测试覆盖详情](docs/functional-coverage.md) — 202 个软件包，566 个用例，1,692 个功能点
+- [安全测试覆盖详情](docs/security-coverage.md) — CVE + nmap 套件，106 个用例
+- [兼容性测试覆盖详情](docs/compatibility-coverage.md) — LTP POSIX 套件，188 个接口用例
+- [性能测试覆盖详情](docs/unixbench_results.md) — UnixBench 基准测试，7 个场景
 
 ### 主要覆盖分类
 
