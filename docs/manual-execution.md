@@ -43,9 +43,9 @@ rpm -q beakerlib
 
 ---
 
-## 2. 执行单个 ACL 测试用例
+## 2. 执行三个测试用例
 
-以 `test_acl_getfacl_basic`（getfacl 基本功能测试）为例：
+比如 acl 测试套中的 `test_acl_getfacl_basic`：
 
 ```bash
 cd openruyi-autotest
@@ -56,9 +56,9 @@ tmt run --verbose plan --name /plans/functional \
 
 ---
 
-## 3. 执行 ACL 测试套
+## 3. 执行单个测试套
 
-一次性执行整个 ACL 测试套（所有 11 个测试用例）：
+比如 acl：
 
 ```bash
 cd openruyi-autotest
@@ -69,11 +69,9 @@ tmt run plan --name /plans/functional \
 
 ---
 
-## 4. 执行某一类测试
+## 4. 执行测试类型全量用例
 
-### 4.1 执行全部功能测试（functional）
-
-功能测试包含 202 个软件包，共 566 个测试用例：
+比如功能测试（functional），包含 202 个软件包，共 566 个测试用例：
 
 ```bash
 cd openruyi-autotest

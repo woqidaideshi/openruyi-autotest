@@ -1,13 +1,17 @@
 # openruyi-autotest
 
-基于 BeakerLib 的自动化测试框架。
+openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试和可靠性测试六大类别，共 604 个测试套、968 个测试用例。
 
-## 目录结构
+---
+
+## 一、openruyi-autotest 简介
+
+### 1.1 目录结构
 
 ```
 openruyi-autotest/
-├── .fmf/                        # FMF 元数据根目录（必须提交到 Git）
-│   └── version                  # FMF 版本号
+├── .fmf/                        # FMF 元数据根目录
+│   └── version
 ├── plans/                       # 测试计划
 │   ├── smoke.fmf                 # 冒烟测试计划
 │   ├── functional.fmf            # 功能测试计划
@@ -18,44 +22,19 @@ openruyi-autotest/
 │   ├── integration.fmf           # 集成测试计划
 │   └── all.fmf                   # 全量测试计划
 ├── tests/                       # 测试用例
-│   ├── main.fmf                  # 共享配置（子目录自动继承）
-│   ├── smoke/                    # 冒烟测试
+│   ├── main.fmf                  # 全局共享配置
+│   ├── smoke/                    # 冒烟测试（100 个用例）
 │   ├── functional/               # 功能测试
-│   │   ├── main.fmf               # 共享配置
-│   │   ├── README.md
-│   │   └── pkgs/                  # RPM 软件包功能测试（202 个包）
-│   ├── security/                 # 安全测试
-│   ├── compatibility/            # 兼容性测试
+│   │   └── pkgs/                 # RPM 软件包功能测试（202 个包, 566 个用例）
+│   ├── security/                 # 安全测试（106 个用例）
+│   ├── compatibility/            # 兼容性测试（188 个用例）
 │   ├── performance/              # 性能测试
 │   └── reliability/              # 可靠性测试
-├── stories/                     # 用户故事
-│   └── init.fmf
+├── docs/                        # 文档
 └── README.md
 ```
 
-## 测试覆盖
-
-### 全量用例统计
-
-| 测试类型 | 测试套数 | 用例数 | 状态 |
-|---------|:---:|:---:|:---:|
-| Smoke | 100 | 100 | ✅ 全部通过 |
-| Functional | 202 | 566 | ✅ 全部通过 |
-| Security | 106 | 106 | ✅ 全部通过 (CVE + nmap) |
-| Compatibility | 188 | 188 | ✅ 通过 (LTP POSIX) |
-| Performance | 7 | 7 | ✅ 已执行 (UnixBench) |
-| Reliability | 1 | 1 | ✅ 通过 |
-| **合计** | **604** | **968** | |
-
-### 详情文档
-
-- [冒烟测试覆盖详情](docs/smoke-coverage.md) — 100 个用例
-- [功能测试覆盖详情](docs/functional-coverage.md) — 202 个软件包，566 个用例，1,692 个功能点
-- [安全测试覆盖详情](docs/security-coverage.md) — CVE + nmap 套件，106 个用例
-- [兼容性测试覆盖详情](docs/compatibility-coverage.md) — LTP POSIX 套件，188 个接口用例
-- [性能测试覆盖详情](docs/unixbench_results.md) — UnixBench 基准测试，7 个场景
-
-### 主要覆盖分类
+### 1.2 测试覆盖详情
 
 | 分类 | 代表性软件包 | 覆盖要点 |
 |------|--------|---------|
@@ -74,6 +53,33 @@ openruyi-autotest/
 | **测试框架** | atf, cmocka, dejagnu, kyua, lutok, beakerlib | 测试库、测试框架 |
 | **其他系统工具** | tmux, cloud-utils-growpart, procps-ng, psmisc, vim, less, bc, time, which, ed, fdupes, lzip, rsync, nfs-utils, cracklib, e2fsprogs, gdb, gdbm, gpm, kbd, lvm2, ncurses, nss, nss_wrapper, pam_wrapper, socket_wrapper, uid_wrapper, perl-Error, perl-Locale-gettext, systemtap, tzdata, unbound, ca-certificates, ca-certificates-mozilla, openruyi-release, linux-headers, pciutils, attr, acl, bash-completion, authselect, cpio, cryptsetup, dbus, dbus-broker, diffutils, elfutils, file, findutils, gawk, git, nghttp2, python-flit-core, python-lxml, python-packaging, python-pip, python-pyelftools, python-setuptools, python-wheel, re2c, scdoc, source-highlight, swig, uid_wrapper, xmlto, xxhash | 终端复用、分区扩容、进程管理、编辑器、时间日期 |
 
-## 如何执行测试
+### 1.3 用例运行状态统计
 
-参见 [执行测试脚本指南](docs/manual-execution.md) — 涵盖从克隆仓库到执行单个用例、测试套、某一类测试以及全部测试的完整步骤。
+| 测试类型 | 测试套数 | 用例数 | 状态 |
+|---------|:---:|:---:|:---:|
+| Smoke | 100 | 100 | ✅ 全部通过 |
+| Functional | 202 | 566 | ✅ 全部通过 |
+| Security | 106 | 106 | ✅ 全部通过 (CVE + nmap) |
+| Compatibility | 188 | 188 | ✅ 通过 (LTP POSIX) |
+| Performance | 7 | 7 | ✅ 已执行 (UnixBench) |
+| Reliability | 1 | 1 | ✅ 通过 |
+| **合计** | **604** | **968** | |
+
+详情文档：
+- [冒烟测试覆盖详情](docs/smoke-coverage.md)
+- [功能测试覆盖详情](docs/functional-coverage.md)
+- [安全测试覆盖详情](docs/security-coverage.md)
+- [兼容性测试覆盖详情](docs/compatibility-coverage.md)
+- [性能测试覆盖详情](docs/unixbench_results.md)
+
+---
+
+## 二、openruyi-autotest 应用
+
+参见 [执行测试脚本指南](docs/manual-execution.md) — 涵盖从克隆仓库、安装依赖到执行单个用例、测试套、测试类型全量用例以及全部测试的完整步骤。
+
+---
+
+## 三、openruyi-autotest 开发
+
+参见 [开发指南](docs/development-guide.md) — 涵盖如何添加新测试用例、目录约定、BeakerLib 生命周期、FMF 元数据规范以及命名规范。
