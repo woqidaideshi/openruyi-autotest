@@ -46,9 +46,11 @@ tests/
 ├── performance/                 # 性能测试
 ├── feature/                     # 特性测试
 │   ├── main.fmf                 # 特性级共享配置
-│   └── test_feature_<name>/     # 特性测试用例
-│       ├── main.fmf
-│       └── test.sh
+│   └── <xxx>/                   # 特性名称（如 gpu、network）
+│       ├── main.fmf             # 特性级元数据
+│       └── test_feature_<aaa>/  # 特性测试用例（aaa 为具体描述）
+│           ├── main.fmf
+│           └── test.sh
 └── reliability/                 # 可靠性测试
 ```
 
