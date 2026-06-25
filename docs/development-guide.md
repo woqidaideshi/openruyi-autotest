@@ -215,7 +215,7 @@ execute:
 
 ```bash
 # 执行单个新测试用例
-tmt run --verbose plan --name /plans/functional \
+tmt run --verbose --feeling-safe plan --name /plans/functional \
     test --name /tests/functional/pkgs/acl/test_acl_my_feature
 
 # 查看结果
