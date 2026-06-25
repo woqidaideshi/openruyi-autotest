@@ -198,6 +198,10 @@ discover:
     - /tests/functional
 provision:
   how: local
+prepare:
+  how: shell
+  script:
+    - echo ""
 execute:
   how: tmt
 ```
