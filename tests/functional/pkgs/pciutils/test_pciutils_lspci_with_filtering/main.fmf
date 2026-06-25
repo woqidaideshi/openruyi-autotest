@@ -1,4 +1,4 @@
-summary: 功能测试 - pciutils - lspci with filtering
+﻿summary: 鍔熻兘娴嬭瘯 - pciutils - lspci with filtering
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pciutils/test_pciutils_lspci_with_filtering
-test_pciutils_lspci-with-filtering
-lspci-with-filtering
 require:
   - pciutils
   - beakerlib

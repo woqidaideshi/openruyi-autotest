@@ -1,4 +1,4 @@
-summary: 功能测试 - procps-ng - vmstat command
+﻿summary: 鍔熻兘娴嬭瘯 - procps-ng - vmstat command
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/procps-ng/test_procps_ng_vmstat_command
-test_procps-ng_vmstat-command
-vmstat-command
 require:
   - procps-ng
   - beakerlib

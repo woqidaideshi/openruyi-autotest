@@ -1,4 +1,4 @@
-summary: 功能测试 - sed - 行操作
+﻿summary: 鍔熻兘娴嬭瘯 - sed - 琛屾搷浣?
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/sed/test_sed_line_operations
-test_sed_line-operations
-行操作
 require:
   - sed
   - beakerlib

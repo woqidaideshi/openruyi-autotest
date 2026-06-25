@@ -1,4 +1,4 @@
-summary: 功能测试 - gcc - Assembly output
+﻿summary: 鍔熻兘娴嬭瘯 - gcc - Assembly output
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/gcc/test_gcc_assembly_output
-test_gcc_assembly-output
-Assembly-output
 require:
   - gcc
   - beakerlib

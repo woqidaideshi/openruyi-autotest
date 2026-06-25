@@ -1,4 +1,4 @@
-summary: 功能测试 - wget - User agent
+﻿summary: 鍔熻兘娴嬭瘯 - wget - User agent
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/wget/test_wget_user_agent
-test_wget_user-agent
-User-agent
 require:
   - wget
   - beakerlib

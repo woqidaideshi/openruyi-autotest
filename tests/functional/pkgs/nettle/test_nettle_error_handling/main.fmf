@@ -1,4 +1,4 @@
-summary: 功能测试 - nettle - 错误处理
+﻿summary: 鍔熻兘娴嬭瘯 - nettle - 閿欒澶勭悊
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/nettle/test_nettle_error_handling
-test_nettle_error-handling
-错误处理
 require:
   - nettle
   - beakerlib

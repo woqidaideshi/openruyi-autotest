@@ -1,4 +1,4 @@
-summary: 功能测试 - grep - Recursive search (-r)
+﻿summary: 鍔熻兘娴嬭瘯 - grep - Recursive search (-r)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/grep/test_grep_recursive_search___r
-test_grep_recursive-search---r
-Recursive-search---r
 require:
   - grep
   - beakerlib

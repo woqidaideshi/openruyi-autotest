@@ -1,4 +1,4 @@
-summary: 功能测试 - make - Options
+﻿summary: 鍔熻兘娴嬭瘯 - make - Options
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/make/test_make_options
-test_make_options
-Options
 require:
   - make
   - beakerlib

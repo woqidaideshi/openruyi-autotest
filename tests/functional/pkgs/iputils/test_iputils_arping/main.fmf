@@ -1,4 +1,4 @@
-summary: 功能测试 - iputils - arping
+﻿summary: 鍔熻兘娴嬭瘯 - iputils - arping
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/iputils/test_iputils_arping
-test_iputils_arping
-arping
 require:
   - iputils
   - beakerlib

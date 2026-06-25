@@ -1,4 +1,4 @@
-summary: 功能测试 - coreutils - Checksums (cksum, md5sum, sha1sum, sha224sum, sha384sum, sha512sum, sha256sum, b2sum, sum)
+﻿summary: 鍔熻兘娴嬭瘯 - coreutils - Checksums (cksum, md5sum, sha1sum, sha224sum, sha384sum, sha512sum, sha256sum, b2sum, sum)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/coreutils/test_coreutils_checksums__cksum__md5sum__sha1sum__sha224sum__sha3
-test_coreutils_checksums--cksum--md5sum--sha1sum--sha224sum--sha3
-Checksums--cksum--md5sum--sha1sum--sha224sum--sha3
 require:
   - coreutils
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - rpmbuild - Create source tarball
+﻿summary: 鍔熻兘娴嬭瘯 - rpmbuild - Create source tarball
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/rpmbuild/test_rpmbuild_create_source_tarball
-test_rpmbuild_create-source-tarball
-Create-source-tarball
 require:
   - rpmbuild
   - beakerlib

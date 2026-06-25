@@ -1,4 +1,4 @@
-summary: 功能测试 - psmisc - peekfd
+﻿summary: 鍔熻兘娴嬭瘯 - psmisc - peekfd
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/psmisc/test_psmisc_peekfd
-test_psmisc_peekfd
-peekfd
 require:
   - psmisc
   - beakerlib

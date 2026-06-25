@@ -1,4 +1,4 @@
-summary: 功能测试 - python - 基本执行
+﻿summary: 鍔熻兘娴嬭瘯 - python - 鍩烘湰鎵ц
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/python/test_python_basic_execution
-test_python_basic-execution
-基本执行
 require:
   - python
   - beakerlib

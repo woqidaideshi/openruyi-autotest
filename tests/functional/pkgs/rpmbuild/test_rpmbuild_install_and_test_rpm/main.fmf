@@ -1,4 +1,4 @@
-summary: 功能测试 - rpmbuild - Install and test RPM
+﻿summary: 鍔熻兘娴嬭瘯 - rpmbuild - Install and test RPM
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/rpmbuild/test_rpmbuild_install_and_test_rpm
-test_rpmbuild_install-and-test-rpm
-Install-and-test-RPM
 require:
   - rpmbuild
   - beakerlib

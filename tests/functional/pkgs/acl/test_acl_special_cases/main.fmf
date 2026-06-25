@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/acl/test_acl_special_cases
-test_acl_special-cases
-特殊场景
 require:
   - acl
   - beakerlib

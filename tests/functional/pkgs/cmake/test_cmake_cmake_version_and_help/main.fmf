@@ -1,4 +1,4 @@
-summary: 功能测试 - cmake - CMake version and help
+﻿summary: 鍔熻兘娴嬭瘯 - cmake - CMake version and help
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/cmake/test_cmake_cmake_version_and_help
-test_cmake_cmake-version-and-help
-CMake-version-and-help
 require:
   - cmake
   - beakerlib

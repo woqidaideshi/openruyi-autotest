@@ -1,4 +1,4 @@
-summary: 功能测试 - systemd - systemd-analyze - System profiling
+﻿summary: 鍔熻兘娴嬭瘯 - systemd - systemd-analyze - System profiling
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_systemd_analyze___system_profiling
-test_systemd_systemd-analyze---system-profiling
-systemd-analyze---System-profiling
 require:
   - systemd
   - beakerlib

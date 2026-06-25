@@ -1,4 +1,4 @@
-summary: 功能测试 - wget - Continue and mirror
+﻿summary: 鍔熻兘娴嬭瘯 - wget - Continue and mirror
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/wget/test_wget_continue_and_mirror
-test_wget_continue-and-mirror
-Continue-and-mirror
 require:
   - wget
   - beakerlib

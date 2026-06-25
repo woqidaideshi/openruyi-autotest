@@ -1,4 +1,4 @@
-summary: 功能测试 - coreutils - Directory, file creation, temp files (mkdir, touch, mktemp)
+﻿summary: 鍔熻兘娴嬭瘯 - coreutils - Directory, file creation, temp files (mkdir, touch, mktemp)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/coreutils/test_coreutils_directory__file_creation__temp_files__mkdir__touch
-test_coreutils_directory--file-creation--temp-files--mkdir--touch
-Directory--file-creation--temp-files--mkdir--touch
 require:
   - coreutils
   - beakerlib

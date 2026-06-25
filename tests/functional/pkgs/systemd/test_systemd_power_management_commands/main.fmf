@@ -1,4 +1,4 @@
-summary: 功能测试 - systemd - Power management commands
+﻿summary: 鍔熻兘娴嬭瘯 - systemd - Power management commands
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_power_management_commands
-test_systemd_power-management-commands
-Power-management-commands
 require:
   - systemd
   - beakerlib

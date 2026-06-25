@@ -1,4 +1,4 @@
-summary: 功能测试 - isl - 错误处理
+﻿summary: 鍔熻兘娴嬭瘯 - isl - 閿欒澶勭悊
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/isl/test_isl_error_handling
-test_isl_error-handling
-错误处理
 require:
   - isl
   - beakerlib

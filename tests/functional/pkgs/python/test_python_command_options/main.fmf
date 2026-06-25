@@ -1,4 +1,4 @@
-summary: 功能测试 - python - 命令行选项
+﻿summary: 鍔熻兘娴嬭瘯 - python - 鍛戒护琛岄€夐」
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/python/test_python_command_options
-test_python_command-options
-命令行选项
 require:
   - python
   - beakerlib

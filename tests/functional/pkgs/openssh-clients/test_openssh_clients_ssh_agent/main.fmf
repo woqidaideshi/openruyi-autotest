@@ -1,4 +1,4 @@
-summary: 功能测试 - openssh-clients - ssh-agent
+﻿summary: 鍔熻兘娴嬭瘯 - openssh-clients - ssh-agent
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssh-clients/test_openssh_clients_ssh_agent
-test_openssh-clients_ssh-agent
-ssh-agent
 require:
   - openssh-clients
   - beakerlib

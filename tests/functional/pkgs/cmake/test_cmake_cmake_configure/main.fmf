@@ -1,4 +1,4 @@
-summary: 功能测试 - cmake - CMake configure
+﻿summary: 鍔熻兘娴嬭瘯 - cmake - CMake configure
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/cmake/test_cmake_cmake_configure
-test_cmake_cmake-configure
-CMake-configure
 require:
   - cmake
   - beakerlib

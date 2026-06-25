@@ -1,4 +1,4 @@
-summary: 功能测试 - vim - Batch/ex mode commands
+﻿summary: 鍔熻兘娴嬭瘯 - vim - Batch/ex mode commands
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/vim/test_vim_batch_ex_mode_commands
-test_vim_batch-ex-mode-commands
-Batch-ex-mode-commands
 require:
   - vim
   - beakerlib

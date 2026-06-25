@@ -1,4 +1,4 @@
-summary: 功能测试 - findutils - find 基本查找
+﻿summary: 鍔熻兘娴嬭瘯 - findutils - find 鍩烘湰鏌ユ壘
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/findutils/test_findutils_find
-test_findutils_find
-find-基本查找
 require:
   - findutils
   - beakerlib

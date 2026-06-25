@@ -1,4 +1,4 @@
-summary: 功能测试 - systemd-timesyncd - systemd-time-wait-sync
+﻿summary: 鍔熻兘娴嬭瘯 - systemd-timesyncd - systemd-time-wait-sync
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd-timesyncd/test_systemd_timesyncd_systemd_time_wait_sync
-test_systemd-timesyncd_systemd-time-wait-sync
-systemd-time-wait-sync
 require:
   - systemd-timesyncd
   - beakerlib

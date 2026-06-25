@@ -1,4 +1,4 @@
-summary: 功能测试 - pciutils - lspci kernel drivers
+﻿summary: 鍔熻兘娴嬭瘯 - pciutils - lspci kernel drivers
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pciutils/test_pciutils_lspci_kernel_drivers
-test_pciutils_lspci-kernel-drivers
-lspci-kernel-drivers
 require:
   - pciutils
   - beakerlib

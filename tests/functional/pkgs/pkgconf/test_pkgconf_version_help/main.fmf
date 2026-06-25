@@ -1,4 +1,4 @@
-summary: 功能测试 - pkgconf - 版本和帮助
+﻿summary: 鍔熻兘娴嬭瘯 - pkgconf - 鐗堟湰鍜屽府鍔?
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pkgconf/test_pkgconf_version_help
-test_pkgconf_version-help
-版本和帮助
 require:
   - pkgconf
   - beakerlib

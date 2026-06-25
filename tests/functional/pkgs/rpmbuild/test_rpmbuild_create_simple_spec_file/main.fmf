@@ -1,4 +1,4 @@
-summary: 功能测试 - rpmbuild - Create simple spec file
+﻿summary: 鍔熻兘娴嬭瘯 - rpmbuild - Create simple spec file
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/rpmbuild/test_rpmbuild_create_simple_spec_file
-test_rpmbuild_create-simple-spec-file
-Create-simple-spec-file
 require:
   - rpmbuild
   - beakerlib

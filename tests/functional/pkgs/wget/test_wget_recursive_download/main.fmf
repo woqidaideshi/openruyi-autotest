@@ -1,4 +1,4 @@
-summary: 功能测试 - wget - Recursive download
+﻿summary: 鍔熻兘娴嬭瘯 - wget - Recursive download
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/wget/test_wget_recursive_download
-test_wget_recursive-download
-Recursive-download
 require:
   - wget
   - beakerlib

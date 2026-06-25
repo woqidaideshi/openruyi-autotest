@@ -1,4 +1,4 @@
-summary: 功能测试 - systemd - systemd-id128
+﻿summary: 鍔熻兘娴嬭瘯 - systemd - systemd-id128
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_systemd_id128
-test_systemd_systemd-id128
-systemd-id128
 require:
   - systemd
   - beakerlib

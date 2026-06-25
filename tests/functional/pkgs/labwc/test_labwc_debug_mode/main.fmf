@@ -1,4 +1,4 @@
-summary: 功能测试 - labwc - Debug mode
+﻿summary: 鍔熻兘娴嬭瘯 - labwc - Debug mode
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/labwc/test_labwc_debug_mode
-test_labwc_debug-mode
-Debug-mode
 require:
   - labwc
   - beakerlib

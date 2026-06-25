@@ -1,4 +1,4 @@
-summary: 功能测试 - rpmbuild - RPM verification
+﻿summary: 鍔熻兘娴嬭瘯 - rpmbuild - RPM verification
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/rpmbuild/test_rpmbuild_rpm_verification
-test_rpmbuild_rpm-verification
-RPM-verification
 require:
   - rpmbuild
   - beakerlib

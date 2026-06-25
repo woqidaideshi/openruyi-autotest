@@ -1,4 +1,4 @@
-summary: 功能测试 - git - Reset and restore
+﻿summary: 鍔熻兘娴嬭瘯 - git - Reset and restore
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/git/test_git_reset_and_restore
-test_git_reset-and-restore
-Reset-and-restore
 require:
   - git
   - beakerlib

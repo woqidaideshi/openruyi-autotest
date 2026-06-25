@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/acl/test_acl_setfacl_symlink
-test_acl_setfacl-symlink
-setfacl-符号链接处理
 require:
   - acl
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - pciutils - lspci numeric
+﻿summary: 鍔熻兘娴嬭瘯 - pciutils - lspci numeric
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pciutils/test_pciutils_lspci_numeric
-test_pciutils_lspci-numeric
-lspci-numeric
 require:
   - pciutils
   - beakerlib

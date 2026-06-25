@@ -1,4 +1,4 @@
-summary: 功能测试 - git - User configuration
+﻿summary: 鍔熻兘娴嬭瘯 - git - User configuration
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/git/test_git_user_configuration
-test_git_user-configuration
-User-configuration
 require:
   - git
   - beakerlib

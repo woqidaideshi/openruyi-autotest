@@ -1,4 +1,4 @@
-summary: 功能测试 - openssh - Public key extraction
+﻿summary: 鍔熻兘娴嬭瘯 - openssh - Public key extraction
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssh/test_openssh_public_key_extraction
-test_openssh_public-key-extraction
-Public-key-extraction
 require:
   - openssh
   - beakerlib

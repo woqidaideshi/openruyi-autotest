@@ -1,4 +1,4 @@
-summary: 功能测试 - systemd - loginctl - Login management
+﻿summary: 鍔熻兘娴嬭瘯 - systemd - loginctl - Login management
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_loginctl___login_management
-test_systemd_loginctl---login-management
-loginctl---Login-management
 require:
   - systemd
   - beakerlib

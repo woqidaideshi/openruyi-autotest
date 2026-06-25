@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/acl/test_acl_setfacl_advanced
-test_acl_setfacl-advanced
-setfacl-高级功能
 require:
   - acl
   - beakerlib

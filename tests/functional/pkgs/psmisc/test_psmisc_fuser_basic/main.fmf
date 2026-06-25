@@ -1,4 +1,4 @@
-summary: 功能测试 - psmisc - fuser basic
+﻿summary: 鍔熻兘娴嬭瘯 - psmisc - fuser basic
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/psmisc/test_psmisc_fuser_basic
-test_psmisc_fuser-basic
-fuser-basic
 require:
   - psmisc
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - systemd - systemd-stdio-bridge
+﻿summary: 鍔熻兘娴嬭瘯 - systemd - systemd-stdio-bridge
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_systemd_stdio_bridge
-test_systemd_systemd-stdio-bridge
-systemd-stdio-bridge
 require:
   - systemd
   - beakerlib

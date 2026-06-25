@@ -1,4 +1,4 @@
-summary: 功能测试 - tmux - Messages and display
+﻿summary: 鍔熻兘娴嬭瘯 - tmux - Messages and display
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/tmux/test_tmux_messages_and_display
-test_tmux_messages-and-display
-Messages-and-display
 require:
   - tmux
   - beakerlib

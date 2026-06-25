@@ -1,4 +1,4 @@
-summary: 功能测试 - podman - Image operations
+﻿summary: 鍔熻兘娴嬭瘯 - podman - Image operations
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/podman/test_podman_image_operations
-test_podman_image-operations
-Image-operations
 require:
   - podman
   - beakerlib

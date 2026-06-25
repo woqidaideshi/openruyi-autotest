@@ -1,4 +1,4 @@
-summary: 功能测试 - procps-ng - top command
+﻿summary: 鍔熻兘娴嬭瘯 - procps-ng - top command
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/procps-ng/test_procps_ng_top_command
-test_procps-ng_top-command
-top-command
 require:
   - procps-ng
   - beakerlib

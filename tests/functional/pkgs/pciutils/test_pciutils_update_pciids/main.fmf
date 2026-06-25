@@ -1,4 +1,4 @@
-summary: 功能测试 - pciutils - update-pciids
+﻿summary: 鍔熻兘娴嬭瘯 - pciutils - update-pciids
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pciutils/test_pciutils_update_pciids
-test_pciutils_update-pciids
-update-pciids
 require:
   - pciutils
   - beakerlib

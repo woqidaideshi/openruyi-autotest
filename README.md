@@ -76,7 +76,7 @@ openruyi-autotest/
 
 ## 二、openruyi-autotest 应用
 
-参见 [执行测试脚本指南](docs/manual-execution.md) — 涵盖从克隆仓库、安装依赖到执行单个用例、测试套、测试类型全量用例以及全部测试的完整步骤。
+参见 [执行测试脚本指南](docs/user_guide.md) — 涵盖从克隆仓库、安装依赖到执行单个用例、测试套、测试类型全量用例以及全部测试的完整步骤。
 
 ---
 

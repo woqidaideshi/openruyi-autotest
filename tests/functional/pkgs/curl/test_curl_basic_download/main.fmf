@@ -1,4 +1,4 @@
-summary: 功能测试 - curl - 基本下载
+﻿summary: 鍔熻兘娴嬭瘯 - curl - 鍩烘湰涓嬭浇
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/curl/test_curl_basic_download
-test_curl_basic-download
-基本下载
 require:
   - curl
   - beakerlib

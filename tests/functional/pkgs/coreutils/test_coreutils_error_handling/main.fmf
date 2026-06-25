@@ -1,4 +1,4 @@
-summary: 功能测试 - coreutils - Error handling
+﻿summary: 鍔熻兘娴嬭瘯 - coreutils - Error handling
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/coreutils/test_coreutils_error_handling
-test_coreutils_error-handling
-Error-handling
 require:
   - coreutils
   - beakerlib

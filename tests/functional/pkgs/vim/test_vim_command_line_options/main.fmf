@@ -1,4 +1,4 @@
-summary: 功能测试 - vim - Command line options
+﻿summary: 鍔熻兘娴嬭瘯 - vim - Command line options
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/vim/test_vim_command_line_options
-test_vim_command-line-options
-Command-line-options
 require:
   - vim
   - beakerlib

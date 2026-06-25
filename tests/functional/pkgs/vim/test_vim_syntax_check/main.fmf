@@ -1,4 +1,4 @@
-summary: 功能测试 - vim - Syntax check
+﻿summary: 鍔熻兘娴嬭瘯 - vim - Syntax check
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/vim/test_vim_syntax_check
-test_vim_syntax-check
-Syntax-check
 require:
   - vim
   - beakerlib

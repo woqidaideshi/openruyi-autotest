@@ -1,4 +1,4 @@
-summary: 功能测试 - clang - Verbose mode
+﻿summary: 鍔熻兘娴嬭瘯 - clang - Verbose mode
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/clang/test_clang_verbose_mode
-test_clang_verbose-mode
-Verbose-mode
 require:
   - clang
   - beakerlib

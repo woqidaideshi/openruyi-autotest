@@ -1,4 +1,4 @@
-summary: 功能测试 - psmisc - pstree basic
+﻿summary: 鍔熻兘娴嬭瘯 - psmisc - pstree basic
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/psmisc/test_psmisc_pstree_basic
-test_psmisc_pstree-basic
-pstree-basic
 require:
   - psmisc
   - beakerlib

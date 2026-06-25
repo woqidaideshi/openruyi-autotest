@@ -1,4 +1,4 @@
-summary: 功能测试 - openssh-clients - sftp
+﻿summary: 鍔熻兘娴嬭瘯 - openssh-clients - sftp
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssh-clients/test_openssh_clients_sftp
-test_openssh-clients_sftp
-sftp
 require:
   - openssh-clients
   - beakerlib

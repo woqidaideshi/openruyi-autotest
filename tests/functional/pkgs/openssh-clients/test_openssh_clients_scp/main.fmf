@@ -1,4 +1,4 @@
-summary: 功能测试 - openssh-clients - scp
+﻿summary: 鍔熻兘娴嬭瘯 - openssh-clients - scp
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssh-clients/test_openssh_clients_scp
-test_openssh-clients_scp
-scp
 require:
   - openssh-clients
   - beakerlib

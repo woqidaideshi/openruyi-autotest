@@ -1,4 +1,4 @@
-summary: 功能测试 - clang - Basic C++ compilation
+﻿summary: 鍔熻兘娴嬭瘯 - clang - Basic C++ compilation
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/clang/test_clang_basic_c___compilation
-test_clang_basic-c---compilation
-Basic-C---compilation
 require:
   - clang
   - beakerlib
