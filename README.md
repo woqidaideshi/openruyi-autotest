@@ -54,7 +54,6 @@ openruyi-autotest/
 - [安全测试覆盖详情](docs/security-coverage.md) — CVE + nmap 套件，106 个用例
 - [兼容性测试覆盖详情](docs/compatibility-coverage.md) — LTP POSIX 套件，188 个接口用例
 - [性能测试覆盖详情](docs/unixbench_results.md) — UnixBench 基准测试，7 个场景
-- [手动执行测试脚本指南](docs/manual-execution.md) — 无需 tmt，从零开始执行测试
 
 ### 主要覆盖分类
 
@@ -77,4 +76,4 @@ openruyi-autotest/
 
 ## 如何执行测试
 
-参见 [手动执行测试脚本指南](docs/manual-execution.md) — 涵盖从克隆仓库到执行单个用例、测试套、某一类测试以及全部测试的完整步骤。
+参见 [执行测试脚本指南](docs/manual-execution.md) — 涵盖从克隆仓库到执行单个用例、测试套、某一类测试以及全部测试的完整步骤。

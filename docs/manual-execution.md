@@ -1,19 +1,25 @@
-# 手动执行测试脚本指南
+# 执行测试脚本指南
 
-> 适用于未安装 tmt 框架的**干净服务器**环境，从零开始手动执行所有测试。
+> 适用于**干净服务器**环境，从零开始执行所有测试。
 
 ---
 
 ## 1. 环境准备
 
-### 1.1 克隆代码仓库
+### 1.1 安装 git
+
+```bash
+sudo dnf install -y git
+```
+
+### 1.2 克隆代码仓库
 
 ```bash
 git clone https://git.openruyi.cn/woqidaideshi/openruyi-autotest.git
 cd openruyi-autotest
 ```
 
-### 1.2 安装 tmt 和 beakerlib
+### 1.3 安装 tmt 和 beakerlib
 
 测试用例使用 tmt (Test Management Tool) 框架管理和执行：
 
@@ -48,43 +54,6 @@ tmt run --verbose plan --name /plans/functional \
     test --name /tests/functional/pkgs/acl/test_acl_getfacl_basic
 ```
 
-**执行其他 ACL 用例**，修改 `--name` 参数即可：
-
-```bash
-# getfacl 基本功能
-tmt run plan --name /plans/functional test --name /tests/functional/pkgs/acl/test_acl_getfacl_basic
-
-# setfacl 基本功能
-tmt run plan --name /plans/functional test --name /tests/functional/pkgs/acl/test_acl_setfacl_basic
-
-# setfacl 高级功能
-tmt run plan --name /plans/functional test --name /tests/functional/pkgs/acl/test_acl_setfacl_advanced
-
-# setfacl 递归设置
-tmt run plan --name /plans/functional test --name /tests/functional/pkgs/acl/test_acl_setfacl_recursive
-
-# setfacl 删除 ACL
-tmt run plan --name /plans/functional test --name /tests/functional/pkgs/acl/test_acl_setfacl_remove
-
-# 软链接 ACL
-tmt run plan --name /plans/functional test --name /tests/functional/pkgs/acl/test_acl_setfacl_symlink
-
-# ACL 继承
-tmt run plan --name /plans/functional test --name /tests/functional/pkgs/acl/test_acl_acl_inheritance
-
-# ACL 权限校验
-tmt run plan --name /plans/functional test --name /tests/functional/pkgs/acl/test_acl_acl_permission_verify
-
-# chacl 命令
-tmt run plan --name /plans/functional test --name /tests/functional/pkgs/acl/test_acl_chacl_command
-
-# 错误处理
-tmt run plan --name /plans/functional test --name /tests/functional/pkgs/acl/test_acl_error_handling
-
-# 特殊情况
-tmt run plan --name /plans/functional test --name /tests/functional/pkgs/acl/test_acl_special_cases
-```
-
 ---
 
 ## 3. 执行 ACL 测试套
@@ -112,39 +81,75 @@ cd openruyi-autotest
 tmt run plan --name /plans/functional
 ```
 
-### 4.2 执行全部冒烟测试（smoke）
+---
+
+## 5. 查看测试结果和日志
+
+### 5.1 tmt 结果目录
+
+tmt 每次执行都会在 `/var/tmp/tmt/run-*` 下生成一个运行目录，包含所有测试用例的详细日志：
 
 ```bash
-tmt run plan --name /plans/smoke
+# 列出所有历史运行
+ls -lt /var/tmp/tmt/
+
+# 进入最近一次运行目录
+cd $(ls -dt /var/tmp/tmt/run-* | head -1)
 ```
 
-### 4.3 执行全部安全测试（security）
+运行目录结构：
 
-```bash
-tmt run plan --name /plans/security
+```
+/var/tmp/tmt/run-XXX/
+├── plan/
+│   └── execute/
+│       └── data/
+│           └── tests/functional/pkgs/acl/
+│               ├── test_acl_getfacl_basic/
+│               │   └── output.txt    # 该用例的完整输出
+│               ├── test_acl_setfacl_basic/
+│               │   └── output.txt
+│               └── ...
+└── run.yaml                         # 运行元数据
 ```
 
-### 4.4 执行全部兼容性测试（compatibility）
+### 5.2 查看单个用例日志
 
 ```bash
-tmt run plan --name /plans/compatibility
+# 进入最近一次运行目录
+RUN_DIR=$(ls -dt /var/tmp/tmt/run-* | head -1)
+
+# 查看某个测试用例的完整输出
+cat $RUN_DIR/plan/execute/data/tests/functional/pkgs/acl/test_acl_getfacl_basic/output.txt
 ```
 
-### 4.5 执行全部性能测试（performance）
+### 5.3 查看汇总报告
 
 ```bash
-tmt run plan --name /plans/performance
+# 简要报告
+tmt run --last report
+
+# 详细报告（含每个用例的 stdout/stderr）
+tmt run --last report -fvvv
 ```
 
-### 4.6 执行全部可靠性测试（reliability）
+### 5.4 查看所有用例的执行状态
 
 ```bash
-tmt run plan --name /plans/reliability
+RUN_DIR=$(ls -dt /var/tmp/tmt/run-* | head -1)
+
+# 列出所有用例的 output.txt 并显示最后几行（通常包含 PASS/FAIL）
+find $RUN_DIR -name "output.txt" | while read f; do
+    dir=$(dirname "$f")
+    echo "=== $(basename "$dir") ==="
+    tail -5 "$f"
+    echo ""
+done
 ```
 
 ---
 
-## 5. 执行所有测试脚本
+## 6. 执行所有测试脚本
 
 从项目根目录执行全部测试（所有计划）：
 
@@ -154,33 +159,9 @@ cd openruyi-autotest
 tmt run --all provision --how local
 ```
 
-### 5.1 查看执行结果
-
-```bash
-# 查看上次执行结果（简要）
-tmt run --last report
-
-# 查看上次执行结果（详细模式，含输出）
-tmt run --last report -fvvv
-```
-
-### 5.2 按标签过滤执行
-
-```bash
-# 仅执行带 functional 标签的测试
-tmt run discover --how fmf --filter tag:functional provision --how local
-
-# 仅执行 tier 0 的测试（冒烟级）
-tmt run discover --how fmf --filter tier:0 provision --how local
-```
-
 ---
 
-## 6. 目录结构速查
-
----
-
-## 6. 目录结构速查
+## 7. 目录结构速查
 
 ```
 tests/
@@ -221,7 +202,7 @@ tests/
 
 ---
 
-## 7. 常见问题
+## 8. 常见问题
 
 ### Q: 执行报错 `beakerlib.sh: No such file or directory`
 
