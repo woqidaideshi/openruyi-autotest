@@ -82,6 +82,13 @@ tmt run --all plan --name /plans/functional \
     provision --feeling-safe
 ```
 
+比如特性测试（feature）：
+
+```bash
+tmt run --all plan --name /plans/feature \
+    provision --feeling-safe
+```
+
 ---
 
 ## 5. 查看测试结果和日志
