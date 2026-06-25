@@ -9,6 +9,11 @@ discover:
 provision:
   how: local
 
+prepare:
+  how: shell
+  script:
+    - echo ""
+
 execute:
   how: tmt
 
