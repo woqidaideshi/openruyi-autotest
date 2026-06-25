@@ -1,0 +1,15 @@
+summary: 特性测试计划
+tier: 1
+
+discover:
+  how: fmf
+  filter: "tag:feature"
+
+provision:
+  how: local
+
+execute:
+  how: tmt
+
+report:
+  how: display

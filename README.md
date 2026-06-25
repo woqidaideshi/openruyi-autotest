@@ -1,6 +1,6 @@
 # openruyi-autotest
 
-openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试和可靠性测试六大类别，共 604 个测试套、968 个测试用例。
+openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试、可靠性测试和特性测试七大类，共 604 个测试套、968 个测试用例。
 
 ---
 
@@ -19,7 +19,7 @@ openruyi-autotest/
 │   ├── compatibility.fmf         # 兼容性测试计划
 │   ├── performance.fmf           # 性能测试计划
 │   ├── reliability.fmf           # 可靠性测试计划
-│   ├── integration.fmf           # 集成测试计划
+│   ├── feature.fmf               # 特性测试计划
 │   └── all.fmf                   # 全量测试计划
 ├── tests/                       # 测试用例
 │   ├── main.fmf                  # 全局共享配置
@@ -29,6 +29,7 @@ openruyi-autotest/
 │   ├── security/                 # 安全测试（106 个用例）
 │   ├── compatibility/            # 兼容性测试（188 个用例）
 │   ├── performance/              # 性能测试
+│   ├── feature/                  # 特性测试
 │   └── reliability/              # 可靠性测试
 ├── docs/                        # 文档
 └── README.md
@@ -63,6 +64,7 @@ openruyi-autotest/
 | Compatibility | 188 | 188 | ✅ 通过 (LTP POSIX) |
 | Performance | 7 | 7 | ✅ 已执行 (UnixBench) |
 | Reliability | 1 | 1 | ✅ 通过 |
+| Feature | 0 | 0 | 🆕 |
 | **合计** | **604** | **968** | |
 
 详情文档：

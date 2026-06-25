@@ -1,0 +1,8 @@
+summary: 特性测试
+tag:
+  - feature
+duration: 5m
+tier: 1
+path: /tests/feature
+require:
+  - beakerlib

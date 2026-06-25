@@ -44,6 +44,11 @@ tests/
 ├── security/                    # 安全测试
 ├── compatibility/               # 兼容性测试
 ├── performance/                 # 性能测试
+├── feature/                     # 特性测试
+│   ├── main.fmf                 # 特性级共享配置
+│   └── test_feature_<name>/     # 特性测试用例
+│       ├── main.fmf
+│       └── test.sh
 └── reliability/                 # 可靠性测试
 ```
 
