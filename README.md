@@ -74,12 +74,12 @@ openruyi-autotest/
 
 ---
 
-## 二、openruyi-autotest 应用
+## 二、openruyi-autotest 用户指南
 
-参见 [执行测试脚本指南](docs/user_guide.md) — 涵盖从克隆仓库、安装依赖到执行单个用例、测试套、测试类型全量用例以及全部测试的完整步骤。
+参见 [用户指南](docs/user_guide.md) — 涵盖从克隆仓库、安装依赖到执行单个用例、测试套、测试类型全量用例以及全部测试的完整步骤。
 
 ---
 
-## 三、openruyi-autotest 开发
+## 三、openruyi-autotest 开发指南
 
 参见 [开发指南](docs/development-guide.md) — 涵盖如何添加新测试用例、目录约定、BeakerLib 生命周期、FMF 元数据规范以及命名规范。
