@@ -50,8 +50,9 @@ rpm -q beakerlib
 ```bash
 cd openruyi-autotest
 
-tmt run --verbose --feeling-safe plan --name /plans/functional \
-    test --name /tests/functional/pkgs/acl/test_acl_getfacl_basic
+tmt run --verbose plan --name /plans/functional \
+    test --name /tests/functional/pkgs/acl/test_acl_getfacl_basic \
+    provision --feeling-safe
 ```
 
 ---
@@ -63,8 +64,9 @@ tmt run --verbose --feeling-safe plan --name /plans/functional \
 ```bash
 cd openruyi-autotest
 
-tmt run --feeling-safe plan --name /plans/functional \
-    test --name /tests/functional/pkgs/acl
+tmt run plan --name /plans/functional \
+    test --name /tests/functional/pkgs/acl \
+    provision --feeling-safe
 ```
 
 ---
@@ -76,7 +78,8 @@ tmt run --feeling-safe plan --name /plans/functional \
 ```bash
 cd openruyi-autotest
 
-tmt run --feeling-safe plan --name /plans/functional
+tmt run plan --name /plans/functional \
+    provision --feeling-safe
 ```
 
 ---
@@ -154,7 +157,7 @@ done
 ```bash
 cd openruyi-autotest
 
-tmt run --all --feeling-safe provision --how local
+tmt run --all provision --how local --feeling-safe
 ```
 
 ---
