@@ -1,4 +1,4 @@
-summary: 功能测试 - podmansh - podmansh basic
+﻿summary: 鍔熻兘娴嬭瘯 - podmansh - podmansh basic
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/podmansh/test_podmansh_podmansh_basic
-test_podmansh_podmansh-basic
-podmansh-basic
 require:
   - podmansh
   - beakerlib

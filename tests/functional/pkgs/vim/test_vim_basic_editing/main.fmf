@@ -1,4 +1,4 @@
-summary: 功能测试 - vim - Basic editing
+﻿summary: 鍔熻兘娴嬭瘯 - vim - Basic editing
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/vim/test_vim_basic_editing
-test_vim_basic-editing
-Basic-editing
 require:
   - vim
   - beakerlib

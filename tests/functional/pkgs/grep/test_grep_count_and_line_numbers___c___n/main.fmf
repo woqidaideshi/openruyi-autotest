@@ -1,4 +1,4 @@
-summary: 功能测试 - grep - Count and line numbers (-c, -n)
+﻿summary: 鍔熻兘娴嬭瘯 - grep - Count and line numbers (-c, -n)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/grep/test_grep_count_and_line_numbers___c___n
-test_grep_count-and-line-numbers---c---n
-Count-and-line-numbers---c---n
 require:
   - grep
   - beakerlib

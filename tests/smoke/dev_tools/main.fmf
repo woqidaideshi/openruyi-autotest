@@ -5,7 +5,8 @@ tag:
 duration: 2m
 tier: 0
 path: /tests/smoke/dev_tools
-require:  - beakerlib
+require:
+  - beakerlib
   - gcc
   - make
   - python

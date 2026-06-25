@@ -1,4 +1,4 @@
-summary: 功能测试 - systemd-timesyncd - Service status
+﻿summary: 鍔熻兘娴嬭瘯 - systemd-timesyncd - Service status
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd-timesyncd/test_systemd_timesyncd_service_status
-test_systemd-timesyncd_service-status
-Service-status
 require:
   - systemd-timesyncd
   - beakerlib

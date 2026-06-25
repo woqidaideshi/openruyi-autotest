@@ -1,4 +1,4 @@
-summary: 功能测试 - grep - Multiple patterns (-e, -f)
+﻿summary: 鍔熻兘娴嬭瘯 - grep - Multiple patterns (-e, -f)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/grep/test_grep_multiple_patterns___e___f
-test_grep_multiple-patterns---e---f
-Multiple-patterns---e---f
 require:
   - grep
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - coreutils - Text processing I (sort, uniq, cut, tr)
+﻿summary: 鍔熻兘娴嬭瘯 - coreutils - Text processing I (sort, uniq, cut, tr)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/coreutils/test_coreutils_text_processing_i__sort__uniq__cut__tr
-test_coreutils_text-processing-i--sort--uniq--cut--tr
-Text-processing-I--sort--uniq--cut--tr
 require:
   - coreutils
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - tmux - Copy mode
+﻿summary: 鍔熻兘娴嬭瘯 - tmux - Copy mode
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/tmux/test_tmux_copy_mode
-test_tmux_copy-mode
-Copy-mode
 require:
   - tmux
   - beakerlib

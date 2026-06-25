@@ -1,4 +1,4 @@
-summary: 功能测试 - procps-ng - ps command basic functionality
+﻿summary: 鍔熻兘娴嬭瘯 - procps-ng - ps command basic functionality
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/procps-ng/test_procps_ng_ps_command_basic_functionality
-test_procps-ng_ps-command-basic-functionality
-ps-command-basic-functionality
 require:
   - procps-ng
   - beakerlib

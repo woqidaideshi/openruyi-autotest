@@ -1,4 +1,4 @@
-summary: 功能测试 - make - Parallel execution
+﻿summary: 鍔熻兘娴嬭瘯 - make - Parallel execution
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/make/test_make_parallel_execution
-test_make_parallel-execution
-Parallel-execution
 require:
   - make
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - openssh-clients - ssh connection (dry-run)
+﻿summary: 鍔熻兘娴嬭瘯 - openssh-clients - ssh connection (dry-run)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssh-clients/test_openssh_clients_ssh_connection__dry_run
-test_openssh-clients_ssh-connection--dry-run
-ssh-connection--dry-run
 require:
   - openssh-clients
   - beakerlib

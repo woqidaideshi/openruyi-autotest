@@ -1,4 +1,4 @@
-summary: 功能测试 - coreutils - Permissions and ownership (chmod, chown, chgrp)
+﻿summary: 鍔熻兘娴嬭瘯 - coreutils - Permissions and ownership (chmod, chown, chgrp)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/coreutils/test_coreutils_permissions_and_ownership__chmod__chown__chgrp
-test_coreutils_permissions-and-ownership--chmod--chown--chgrp
-Permissions-and-ownership--chmod--chown--chgrp
 require:
   - coreutils
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - coreutils - Copy, move, remove (cp, mv, rm, rmdir)
+﻿summary: 鍔熻兘娴嬭瘯 - coreutils - Copy, move, remove (cp, mv, rm, rmdir)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/coreutils/test_coreutils_copy__move__remove__cp__mv__rm__rmdir
-test_coreutils_copy--move--remove--cp--mv--rm--rmdir
-Copy--move--remove--cp--mv--rm--rmdir
 require:
   - coreutils
   - beakerlib

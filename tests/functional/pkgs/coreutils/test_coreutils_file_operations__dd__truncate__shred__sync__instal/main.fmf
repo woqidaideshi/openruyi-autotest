@@ -1,4 +1,4 @@
-summary: 功能测试 - coreutils - File operations (dd, truncate, shred, sync, install, chroot)
+﻿summary: 鍔熻兘娴嬭瘯 - coreutils - File operations (dd, truncate, shred, sync, install, chroot)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/coreutils/test_coreutils_file_operations__dd__truncate__shred__sync__instal
-test_coreutils_file-operations--dd--truncate--shred--sync--instal
-File-operations--dd--truncate--shred--sync--instal
 require:
   - coreutils
   - beakerlib

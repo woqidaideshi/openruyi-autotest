@@ -1,4 +1,4 @@
-summary: 功能测试 - grep - Extended regex (-E)
+﻿summary: 鍔熻兘娴嬭瘯 - grep - Extended regex (-E)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/grep/test_grep_extended_regex___e
-test_grep_extended-regex---e
-Extended-regex---E
 require:
   - grep
   - beakerlib

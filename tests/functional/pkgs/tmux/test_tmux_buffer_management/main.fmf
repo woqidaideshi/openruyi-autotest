@@ -1,4 +1,4 @@
-summary: 功能测试 - tmux - Buffer management
+﻿summary: 鍔熻兘娴嬭瘯 - tmux - Buffer management
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/tmux/test_tmux_buffer_management
-test_tmux_buffer-management
-Buffer-management
 require:
   - tmux
   - beakerlib

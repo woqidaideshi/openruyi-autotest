@@ -1,4 +1,4 @@
-summary: 功能测试 - systemd - systemd-path
+﻿summary: 鍔熻兘娴嬭瘯 - systemd - systemd-path
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_systemd_path
-test_systemd_systemd-path
-systemd-path
 require:
   - systemd
   - beakerlib

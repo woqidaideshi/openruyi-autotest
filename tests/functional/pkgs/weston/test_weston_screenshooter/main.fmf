@@ -1,4 +1,4 @@
-summary: 功能测试 - weston - Screenshooter
+﻿summary: 鍔熻兘娴嬭瘯 - weston - Screenshooter
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/weston/test_weston_screenshooter
-test_weston_screenshooter
-Screenshooter
 require:
   - weston
   - beakerlib

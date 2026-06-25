@@ -1,4 +1,4 @@
-summary: 功能测试 - systemd - systemd-cgtop - Cgroup top
+﻿summary: 鍔熻兘娴嬭瘯 - systemd - systemd-cgtop - Cgroup top
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_systemd_cgtop___cgroup_top
-test_systemd_systemd-cgtop---cgroup-top
-systemd-cgtop---Cgroup-top
 require:
   - systemd
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - grep - Fixed strings (-F)
+﻿summary: 鍔熻兘娴嬭瘯 - grep - Fixed strings (-F)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/grep/test_grep_fixed_strings___f
-test_grep_fixed-strings---f
-Fixed-strings---F
 require:
   - grep
   - beakerlib

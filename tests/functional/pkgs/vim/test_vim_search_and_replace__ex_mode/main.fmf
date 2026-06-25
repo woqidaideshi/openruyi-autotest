@@ -1,4 +1,4 @@
-summary: 功能测试 - vim - Search and replace (ex mode)
+﻿summary: 鍔熻兘娴嬭瘯 - vim - Search and replace (ex mode)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/vim/test_vim_search_and_replace__ex_mode
-test_vim_search-and-replace--ex-mode
-Search-and-replace--ex-mode
 require:
   - vim
   - beakerlib

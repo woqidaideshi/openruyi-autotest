@@ -1,4 +1,4 @@
-summary: 功能测试 - python - 模块导入
+﻿summary: 鍔熻兘娴嬭瘯 - python - 妯″潡瀵煎叆
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/python/test_python_module_import
-test_python_module-import
-模块导入
 require:
   - python
   - beakerlib

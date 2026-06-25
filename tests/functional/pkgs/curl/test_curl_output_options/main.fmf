@@ -1,4 +1,4 @@
-summary: 功能测试 - curl - 输出选项
+﻿summary: 鍔熻兘娴嬭瘯 - curl - 杈撳嚭閫夐」
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/curl/test_curl_output_options
-test_curl_output-options
-输出选项
 require:
   - curl
   - beakerlib

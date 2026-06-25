@@ -1,4 +1,4 @@
-summary: 功能测试 - gcc - Code coverage (gcov)
+﻿summary: 鍔熻兘娴嬭瘯 - gcc - Code coverage (gcov)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/gcc/test_gcc_code_coverage__gcov
-test_gcc_code-coverage--gcov
-Code-coverage--gcov
 require:
   - gcc
   - beakerlib

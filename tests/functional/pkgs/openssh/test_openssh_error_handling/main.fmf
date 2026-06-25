@@ -1,4 +1,4 @@
-summary: 功能测试 - openssh - Error handling
+﻿summary: 鍔熻兘娴嬭瘯 - openssh - Error handling
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssh/test_openssh_error_handling
-test_openssh_error-handling
-Error-handling
 require:
   - openssh
   - beakerlib

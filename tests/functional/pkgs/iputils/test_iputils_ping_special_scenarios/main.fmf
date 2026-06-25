@@ -1,4 +1,4 @@
-summary: 功能测试 - iputils - ping special scenarios
+﻿summary: 鍔熻兘娴嬭瘯 - iputils - ping special scenarios
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/iputils/test_iputils_ping_special_scenarios
-test_iputils_ping-special-scenarios
-ping-special-scenarios
 require:
   - iputils
   - beakerlib

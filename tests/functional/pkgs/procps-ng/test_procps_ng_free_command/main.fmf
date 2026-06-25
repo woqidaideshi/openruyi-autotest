@@ -1,4 +1,4 @@
-summary: 功能测试 - procps-ng - free command
+﻿summary: 鍔熻兘娴嬭瘯 - procps-ng - free command
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/procps-ng/test_procps_ng_free_command
-test_procps-ng_free-command
-free-command
 require:
   - procps-ng
   - beakerlib

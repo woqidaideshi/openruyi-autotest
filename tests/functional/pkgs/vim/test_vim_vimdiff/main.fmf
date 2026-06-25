@@ -1,4 +1,4 @@
-summary: 功能测试 - vim - Vimdiff
+﻿summary: 鍔熻兘娴嬭瘯 - vim - Vimdiff
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/vim/test_vim_vimdiff
-test_vim_vimdiff
-Vimdiff
 require:
   - vim
   - beakerlib

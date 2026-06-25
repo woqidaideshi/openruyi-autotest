@@ -1,4 +1,4 @@
-summary: 功能测试 - grep - Invert match (-v)
+﻿summary: 鍔熻兘娴嬭瘯 - grep - Invert match (-v)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/grep/test_grep_invert_match___v
-test_grep_invert-match---v
-Invert-match---v
 require:
   - grep
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - wget - Spider mode
+﻿summary: 鍔熻兘娴嬭瘯 - wget - Spider mode
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/wget/test_wget_spider_mode
-test_wget_spider-mode
-Spider-mode
 require:
   - wget
   - beakerlib

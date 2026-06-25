@@ -1,4 +1,4 @@
-summary: 功能测试 - sed - 多表达式
+﻿summary: 鍔熻兘娴嬭瘯 - sed - 澶氳〃杈惧紡
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/sed/test_sed_multi_expression
-test_sed_multi-expression
-多表达式
 require:
   - sed
   - beakerlib

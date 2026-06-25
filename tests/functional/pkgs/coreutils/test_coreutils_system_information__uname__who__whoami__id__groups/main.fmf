@@ -1,4 +1,4 @@
-summary: 功能测试 - coreutils - System information (uname, who, whoami, id, groups, users, hostid, nproc, tty, logname, pinky)
+﻿summary: 鍔熻兘娴嬭瘯 - coreutils - System information (uname, who, whoami, id, groups, users, hostid, nproc, tty, logname, pinky)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/coreutils/test_coreutils_system_information__uname__who__whoami__id__groups
-test_coreutils_system-information--uname--who--whoami--id--groups
-System-information--uname--who--whoami--id--groups
 require:
   - coreutils
   - beakerlib

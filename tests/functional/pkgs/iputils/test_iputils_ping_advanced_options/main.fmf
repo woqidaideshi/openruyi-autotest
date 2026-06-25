@@ -1,4 +1,4 @@
-summary: 功能测试 - iputils - ping advanced options
+﻿summary: 鍔熻兘娴嬭瘯 - iputils - ping advanced options
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/iputils/test_iputils_ping_advanced_options
-test_iputils_ping-advanced-options
-ping-advanced-options
 require:
   - iputils
   - beakerlib

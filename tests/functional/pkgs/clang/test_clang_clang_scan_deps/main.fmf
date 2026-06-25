@@ -1,4 +1,4 @@
-summary: 功能测试 - clang - clang-scan-deps
+﻿summary: 鍔熻兘娴嬭瘯 - clang - clang-scan-deps
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/clang/test_clang_clang_scan_deps
-test_clang_clang-scan-deps
-clang-scan-deps
 require:
   - clang
   - beakerlib

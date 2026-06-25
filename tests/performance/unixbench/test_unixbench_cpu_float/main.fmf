@@ -1,0 +1,13 @@
+summary: 性能测试 - UnixBench 浮点运算 (whetstone-double)
+test: ./test.sh
+tag:
+  - performance
+  - unixbench
+duration: 10m
+tier: 2
+path: /tests/performance/unixbench/test_unixbench_cpu_float
+require:
+  - beakerlib
+  - gcc
+  - make
+  - perl

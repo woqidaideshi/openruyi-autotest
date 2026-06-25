@@ -1,4 +1,4 @@
-summary: 功能测试 - clang - Compile-only
+﻿summary: 鍔熻兘娴嬭瘯 - clang - Compile-only
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/clang/test_clang_compile_only
-test_clang_compile-only
-Compile-only
 require:
   - clang
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - systemd - timedatectl - Time/date management
+﻿summary: 鍔熻兘娴嬭瘯 - systemd - timedatectl - Time/date management
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_timedatectl___time_date_management
-test_systemd_timedatectl---time-date-management
-timedatectl---Time-date-management
 require:
   - systemd
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - vim - Recording test
+﻿summary: 鍔熻兘娴嬭瘯 - vim - Recording test
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/vim/test_vim_recording_test
-test_vim_recording-test
-Recording-test
 require:
   - vim
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - grep - Case insensitive (-i)
+﻿summary: 鍔熻兘娴嬭瘯 - grep - Case insensitive (-i)
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/grep/test_grep_case_insensitive___i
-test_grep_case-insensitive---i
-Case-insensitive---i
 require:
   - grep
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - clang - Debug and warnings
+﻿summary: 鍔熻兘娴嬭瘯 - clang - Debug and warnings
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/clang/test_clang_debug_and_warnings
-test_clang_debug-and-warnings
-Debug-and-warnings
 require:
   - clang
   - beakerlib

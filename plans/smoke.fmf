@@ -11,11 +11,5 @@ provision:
 execute:
   how: tmt
 
-provision:
-  how: local
-
-execute:
-  how: tmt
-
 report:
   how: display

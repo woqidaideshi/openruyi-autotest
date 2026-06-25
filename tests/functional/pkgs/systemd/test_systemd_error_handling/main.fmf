@@ -1,4 +1,4 @@
-summary: 功能测试 - systemd - Error handling
+﻿summary: 鍔熻兘娴嬭瘯 - systemd - Error handling
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_error_handling
-test_systemd_error-handling
-Error-handling
 require:
   - systemd
   - beakerlib

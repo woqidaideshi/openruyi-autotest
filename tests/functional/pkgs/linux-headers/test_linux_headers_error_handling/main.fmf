@@ -1,4 +1,4 @@
-summary: 功能测试 - linux-headers - 错误处理
+﻿summary: 鍔熻兘娴嬭瘯 - linux-headers - 閿欒澶勭悊
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/linux-headers/test_linux_headers_error_handling
-test_linux-headers_error-handling
-错误处理
 require:
   - linux-headers
   - beakerlib

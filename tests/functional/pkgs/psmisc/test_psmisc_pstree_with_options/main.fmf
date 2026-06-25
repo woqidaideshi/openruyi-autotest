@@ -1,4 +1,4 @@
-summary: 功能测试 - psmisc - pstree with options
+﻿summary: 鍔熻兘娴嬭瘯 - psmisc - pstree with options
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/psmisc/test_psmisc_pstree_with_options
-test_psmisc_pstree-with-options
-pstree-with-options
 require:
   - psmisc
   - beakerlib

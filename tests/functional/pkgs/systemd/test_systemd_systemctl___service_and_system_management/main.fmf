@@ -1,4 +1,4 @@
-summary: 功能测试 - systemd - systemctl - Service and system management
+﻿summary: 鍔熻兘娴嬭瘯 - systemd - systemctl - Service and system management
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_systemctl___service_and_system_management
-test_systemd_systemctl---service-and-system-management
-systemctl---Service-and-system-management
 require:
   - systemd
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - wget2 - Verbose modes
+﻿summary: 鍔熻兘娴嬭瘯 - wget2 - Verbose modes
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/wget2/test_wget2_verbose_modes
-test_wget2_verbose-modes
-Verbose-modes
 require:
   - wget2
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - tar - Archive extraction
+﻿summary: 鍔熻兘娴嬭瘯 - tar - Archive extraction
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/tar/test_tar_archive_extraction
-test_tar_archive-extraction
-Archive-extraction
 require:
   - tar
   - beakerlib

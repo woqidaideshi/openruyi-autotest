@@ -1,4 +1,4 @@
-summary: 功能测试 - clang - C standards
+﻿summary: 鍔熻兘娴嬭瘯 - clang - C standards
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/clang/test_clang_c_standards
-test_clang_c-standards
-C-standards
 require:
   - clang
   - beakerlib

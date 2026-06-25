@@ -1,4 +1,4 @@
-summary: 功能测试 - iputils - ping error handling
+﻿summary: 鍔熻兘娴嬭瘯 - iputils - ping error handling
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/iputils/test_iputils_ping_error_handling
-test_iputils_ping-error-handling
-ping-error-handling
 require:
   - iputils
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - wget2 - Plugin system
+﻿summary: 鍔熻兘娴嬭瘯 - wget2 - Plugin system
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/wget2/test_wget2_plugin_system
-test_wget2_plugin-system
-Plugin-system
 require:
   - wget2
   - beakerlib

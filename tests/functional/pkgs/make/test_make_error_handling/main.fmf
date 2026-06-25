@@ -1,4 +1,4 @@
-summary: 功能测试 - make - Error handling
+﻿summary: 鍔熻兘娴嬭瘯 - make - Error handling
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/make/test_make_error_handling
-test_make_error-handling
-Error-handling
 require:
   - make
   - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - git - File modifications
+﻿summary: 鍔熻兘娴嬭瘯 - git - File modifications
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/git/test_git_file_modifications
-test_git_file-modifications
-File-modifications
 require:
   - git
   - beakerlib

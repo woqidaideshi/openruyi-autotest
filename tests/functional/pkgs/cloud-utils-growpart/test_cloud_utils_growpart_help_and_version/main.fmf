@@ -1,4 +1,4 @@
-summary: 功能测试 - cloud-utils-growpart - Help and version
+﻿summary: 鍔熻兘娴嬭瘯 - cloud-utils-growpart - Help and version
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/cloud-utils-growpart/test_cloud_utils_growpart_help_and_version
-test_cloud-utils-growpart_help-and-version
-Help-and-version
 require:
   - cloud-utils-growpart
   - beakerlib

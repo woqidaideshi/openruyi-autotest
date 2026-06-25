@@ -1,4 +1,4 @@
-summary: 功能测试 - sddm - Service check
+﻿summary: 鍔熻兘娴嬭瘯 - sddm - Service check
 test: ./test.sh
 tag:
   - functional
@@ -6,8 +6,6 @@ tag:
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/sddm/test_sddm_service_check
-test_sddm_service-check
-Service-check
 require:
   - sddm
   - beakerlib
