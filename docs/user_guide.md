@@ -204,6 +204,8 @@ tests/
 │   └── ltp_posix/     # LTP POSIX 接口兼容性
 ├── performance/       # 性能测试
 │   └── unixbench/     # UnixBench 基准测试
+├── feature/           # 特性测试
+│   └── <xxx>/         # 特性名称
 └── reliability/       # 可靠性测试
     └── test.sh
 ```
