@@ -120,7 +120,9 @@ run_unixbench_3x() {
     shift
     local run_args="$*"
     local result_dir="$UNIXBENCH_DIR/UnixBench/results/$test_name"
-    mkdir -p "$result_dir"
+    # Also save to persistent location outside $UNIXBENCH_DIR (survives cleanup)
+    local persist_dir="/tmp/unixbench_results_${test_name}"
+    mkdir -p "$result_dir" "$persist_dir"
 
     # Clean up any prior results to avoid confusion with old .log files
     rm -f "$result_dir"/run_*.log "$result_dir"/summary.txt 2>/dev/null || true
@@ -186,6 +188,9 @@ run_unixbench_3x() {
     rlLogInfo "Run 1: ${scores[0]}  |  Run 2: ${scores[1]}  |  Run 3: ${scores[2]}"
     rlLogInfo "Average System Benchmarks Index Score: $avg"
     rlLogInfo "Results saved to: $result_dir/"
+    # Also copy to persistent location
+    cp -r "$result_dir"/* "$persist_dir/" 2>/dev/null || true
+    rlLogInfo "Persistent copy at: $persist_dir/"
 
     # Output average for caller
     echo "$avg"
