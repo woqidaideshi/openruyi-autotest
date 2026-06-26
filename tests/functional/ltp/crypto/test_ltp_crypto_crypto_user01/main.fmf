@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - crypto - crypto_user01
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - crypto
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/crypto/test_ltp_crypto_crypto_user01
+require:
+  - ltp
+  - beakerlib

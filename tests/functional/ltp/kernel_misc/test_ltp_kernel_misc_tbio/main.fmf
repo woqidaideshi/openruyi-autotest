@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - kernel_misc - tbio
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - kernel_misc
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/kernel_misc/test_ltp_kernel_misc_tbio
+require:
+  - ltp
+  - beakerlib

@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - net-sctp - test_inaddr_any_v6
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - net-sctp
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/net-sctp/test_ltp_net-sctp_test_inaddr_any_v6
+require:
+  - ltp
+  - beakerlib

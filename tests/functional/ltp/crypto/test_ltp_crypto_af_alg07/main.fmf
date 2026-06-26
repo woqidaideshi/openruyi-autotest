@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - crypto - af_alg07
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - crypto
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/crypto/test_ltp_crypto_af_alg07
+require:
+  - ltp
+  - beakerlib

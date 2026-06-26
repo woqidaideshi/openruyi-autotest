@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - syscalls - mremap03
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - syscalls
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/syscalls/test_ltp_syscalls_mremap03
+require:
+  - ltp
+  - beakerlib

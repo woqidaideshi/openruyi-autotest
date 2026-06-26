@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - tracing - ftrace-stress-test
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - tracing
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/tracing/test_ltp_tracing_ftrace-stress-test
+require:
+  - ltp
+  - beakerlib

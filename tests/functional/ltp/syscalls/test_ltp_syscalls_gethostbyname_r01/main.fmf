@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - syscalls - gethostbyname_r01
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - syscalls
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/syscalls/test_ltp_syscalls_gethostbyname_r01
+require:
+  - ltp
+  - beakerlib

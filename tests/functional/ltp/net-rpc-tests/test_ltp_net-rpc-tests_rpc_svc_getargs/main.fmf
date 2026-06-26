@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - net-rpc-tests - rpc_svc_getargs
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - net-rpc-tests
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/net-rpc-tests/test_ltp_net-rpc-tests_rpc_svc_getargs
+require:
+  - ltp
+  - beakerlib

@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - kernel_misc - fw_load02
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - kernel_misc
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/kernel_misc/test_ltp_kernel_misc_fw_load02
+require:
+  - ltp
+  - beakerlib

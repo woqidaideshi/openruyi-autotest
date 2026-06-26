@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - ima - ima_measurements
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - ima
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/ima/test_ltp_ima_ima_measurements
+require:
+  - ltp
+  - beakerlib

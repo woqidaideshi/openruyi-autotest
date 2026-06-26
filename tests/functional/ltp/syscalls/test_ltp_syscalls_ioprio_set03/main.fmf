@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - syscalls - ioprio_set03
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - syscalls
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/syscalls/test_ltp_syscalls_ioprio_set03
+require:
+  - ltp
+  - beakerlib

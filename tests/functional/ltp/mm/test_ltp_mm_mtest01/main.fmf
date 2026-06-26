@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - mm - mtest01
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - mm
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/mm/test_ltp_mm_mtest01
+require:
+  - ltp
+  - beakerlib
