@@ -85,3 +85,9 @@ openruyi-autotest/
 ## 三、openruyi-autotest 开发指南
 
 参见 [开发指南](docs/development-guide.md) — 涵盖如何添加新测试用例、目录约定、BeakerLib 生命周期、FMF 元数据规范以及命名规范。
+
+---
+
+## 四、openruyi-autotest 测试报告模版
+
+参见 [测试报告模版](docs/test_reports.md) — 涵盖测试概述、各类型测试的套数/用例数/通过/失败/跳过统计表格。
