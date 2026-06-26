@@ -1,57 +1,87 @@
 # library-prefix = ltp
 #
 # LTP suite-level shared library
-# Uses flag-file + reference counting to ensure the ltp package
-# is installed only ONCE and uninstalled only ONCE across all
-# test cases, regardless of execution mode (sequential or parallel).
+# Uses flag-file + reference counting to ensure LTP is installed
+# only ONCE across all test cases.
 #
-# Usage in each test file:
-#   . "$(dirname "$0")/../../lib.sh"    # from test_ltp_<suite>_<case>/ subdirectories
+# Strategy:
+#   1. Try dnf install (fast if package is in repo)
+#   2. If dnf fails or runltp not found, compile from source
 #
-# Then call:  ltpSetup   in rlPhaseStartSetup
-# The cleanup is auto-registered via rlCleanupAppend.
+# Usage: . "$(dirname "$0")/../../lib.sh"; ltpSetup
 
 LTP_FLAG="/tmp/.beakerlib_ltp_suite"
+LTP_INSTALL_DIR="/opt/ltp-src"
 
 ltpSetup() {
     if [ ! -f "$LTP_FLAG" ]; then
-        # First test to arrive: install if needed
-        if ! rpm -q ltp 2>/dev/null; then
-            rlRun "echo openruyi | sudo -S dnf install -y ltp" 0 "安装 LTP 测试套件（首次）"
-            echo "installed=1" > "$LTP_FLAG"
-        else
+        local method=""
+        # Check if any working LTP exists
+        if command -v runltp >/dev/null 2>&1; then
+            method="system"
             echo "installed=0" > "$LTP_FLAG"
-            rlLogInfo "LTP 软件包已存在"
+        elif [ -x "$LTP_INSTALL_DIR/runltp" ]; then
+            export PATH="$LTP_INSTALL_DIR:$PATH"
+            method="source-cached"
+            echo "installed=0" > "$LTP_FLAG"
+        else
+            rlLogInfo "安装 LTP（首次）..."
+            # Try dnf first
+            if echo openruyi | sudo -S dnf install -y ltp 2>/dev/null && command -v runltp >/dev/null 2>&1; then
+                method="dnf"
+                echo "installed=1" > "$LTP_FLAG"
+            else
+                # dnf failed or runltp not in PATH — compile from source
+                rlLogInfo "dnf 安装失败或无 runltp，从源码编译..."
+                echo openruyi | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig 2>/dev/null || true
+                if [ ! -d "$LTP_INSTALL_DIR" ]; then
+                    git clone --depth 1 https://github.com/linux-test-project/ltp.git "$LTP_INSTALL_DIR" 2>/dev/null || true
+                fi
+                if [ -f "$LTP_INSTALL_DIR/Makefile" ]; then
+                    cd "$LTP_INSTALL_DIR" && make autotools && ./configure --prefix="$LTP_INSTALL_DIR" && make -j$(nproc) && sudo make install 2>&1 | tail -3
+                fi
+                export PATH="$LTP_INSTALL_DIR/bin:$LTP_INSTALL_DIR:$PATH"
+                if command -v runltp >/dev/null 2>&1; then
+                    method="source"
+                    echo "installed=2" > "$LTP_FLAG"
+                else
+                    rlLogWarning "LTP 源码编译失败，测试可能无法执行"
+                    method="failed"
+                    echo "installed=3" > "$LTP_FLAG"
+                fi
+            fi
         fi
         echo "ref=1" >> "$LTP_FLAG"
+        rlLogInfo "LTP 安装方式: $method"
     else
-        # Subsequent tests: increment ref count, skip install
         local ref
         ref=$(grep "^ref=" "$LTP_FLAG" | cut -d= -f2)
         ref=$((ref + 1))
         sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
-        rlLogInfo "LTP 已由其他测试安装，引用计数: $ref"
+        rlLogInfo "LTP 已安装，引用计数: $ref"
+        # Restore PATH if source install
+        if [ -x "$LTP_INSTALL_DIR/runltp" ]; then
+            export PATH="$LTP_INSTALL_DIR:$PATH"
+        fi
     fi
 
-    # Register cleanup — runs at rlJournalEnd regardless of test failure
     rlCleanupAppend "ltpCleanup"
 }
 
 ltpCleanup() {
-    if [ ! -f "$LTP_FLAG" ]; then
-        return 0
-    fi
-
+    if [ ! -f "$LTP_FLAG" ]; then return 0; fi
     local ref
     ref=$(grep "^ref=" "$LTP_FLAG" | cut -d= -f2)
     ref=$((ref - 1))
-
     if [ "$ref" -le 0 ]; then
-        # Last test to leave: uninstall if we installed
-        if grep -q "^installed=1" "$LTP_FLAG"; then
-            echo openruyi | sudo -S dnf remove -y ltp 2>/dev/null || true
-            rlLogInfo "已卸载 LTP 软件包（最后一个测试）"
-        fi
+        local installed
+        installed=$(grep "^installed=" "$LTP_FLAG" | cut -d= -f2)
+        case "$installed" in
+            1) echo openruyi | sudo -S dnf remove -y ltp 2>/dev/null || true
+               rlLogInfo "已卸载 LTP（dnf 安装）" ;;
+            2) rm -rf "$LTP_INSTALL_DIR"
+               rlLogInfo "已删除 LTP 源码目录" ;;
+        esac
         rm -f "$LTP_FLAG"
     else
         sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
