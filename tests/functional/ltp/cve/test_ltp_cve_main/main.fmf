@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - cve
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - cve
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/cve/test_ltp_cve_main
+require:
+  - ltp
+  - beakerlib

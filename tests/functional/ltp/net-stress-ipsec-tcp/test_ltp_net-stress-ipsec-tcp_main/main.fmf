@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - net-stress-ipsec-tcp
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - net-stress-ipsec-tcp
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/net-stress-ipsec-tcp/test_ltp_net-stress-ipsec-tcp_main
+require:
+  - ltp
+  - beakerlib

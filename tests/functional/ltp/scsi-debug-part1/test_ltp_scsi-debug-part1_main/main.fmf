@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - scsi-debug-part1
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - scsi-debug-part1
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/scsi-debug-part1/test_ltp_scsi-debug-part1_main
+require:
+  - ltp
+  - beakerlib

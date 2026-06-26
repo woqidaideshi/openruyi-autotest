@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - can
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - can
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/can/test_ltp_can_main
+require:
+  - ltp
+  - beakerlib

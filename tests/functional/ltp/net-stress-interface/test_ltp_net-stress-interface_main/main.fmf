@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - net-stress-interface
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - net-stress-interface
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/net-stress-interface/test_ltp_net-stress-interface_main
+require:
+  - ltp
+  - beakerlib

@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - smoketest
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - smoketest
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/smoketest/test_ltp_smoketest_main
+require:
+  - ltp
+  - beakerlib

@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - net-stress-ipsec-icmp
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - net-stress-ipsec-icmp
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/net-stress-ipsec-icmp/test_ltp_net-stress-ipsec-icmp_main
+require:
+  - ltp
+  - beakerlib

@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - net-stress-ipsec-dccp
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - net-stress-ipsec-dccp
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/net-stress-ipsec-dccp/test_ltp_net-stress-ipsec-dccp_main
+require:
+  - ltp
+  - beakerlib

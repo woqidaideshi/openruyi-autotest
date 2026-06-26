@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - fs_perms_simple
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - fs_perms_simple
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/fs_perms_simple/test_ltp_fs_perms_simple_main
+require:
+  - ltp
+  - beakerlib

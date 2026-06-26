@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - input
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - input
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/input/test_ltp_input_main
+require:
+  - ltp
+  - beakerlib

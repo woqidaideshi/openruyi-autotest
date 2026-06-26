@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - ltp-aiodio-part4
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - ltp-aiodio-part4
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/ltp-aiodio-part4/test_ltp_ltp-aiodio-part4_main
+require:
+  - ltp
+  - beakerlib
