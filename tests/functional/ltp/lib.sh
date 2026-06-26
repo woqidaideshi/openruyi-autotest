@@ -14,6 +14,11 @@ LTP_FLAG="/tmp/.beakerlib_ltp_suite"
 LTP_INSTALL_DIR="/opt/ltp-src"
 
 _ltpEnsureBinLinks() {
+    # runltp expects ltp-pan at $LTPROOT/bin/ltp-pan
+    if [ ! -e "$LTP_INSTALL_DIR/bin/ltp-pan" ] && [ -x "$LTP_INSTALL_DIR/pan/ltp-pan" ]; then
+        mkdir -p "$LTP_INSTALL_DIR/bin"
+        ln -sf "$LTP_INSTALL_DIR/pan/ltp-pan" "$LTP_INSTALL_DIR/bin/ltp-pan"
+    fi
     # runltp expects test binaries in $LTPROOT/testcases/bin/
     if [ ! -d "$LTP_INSTALL_DIR/testcases/bin" ] || [ "$(ls -A "$LTP_INSTALL_DIR/testcases/bin" 2>/dev/null)" = "" ]; then
         mkdir -p "$LTP_INSTALL_DIR/testcases/bin"
