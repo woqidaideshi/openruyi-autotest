@@ -11,9 +11,13 @@ provision:
   how: local
 
 prepare:
-  how: shell
-  script:
-    - echo ""
+  - how: shell
+    name: requires
+    script:
+      - echo ""
+  - how: shell
+    script:
+      - echo ""
 
 execute:
   how: tmt
