@@ -68,11 +68,11 @@ openruyi-autotest/
 | **合计** | **604** | **968** | |
 
 详情文档：
-- [冒烟测试覆盖详情](docs/smoke-coverage.md)
-- [功能测试覆盖详情](docs/functional-coverage.md)
-- [安全测试覆盖详情](docs/security-coverage.md)
-- [兼容性测试覆盖详情](docs/compatibility-coverage.md)
-- [性能测试覆盖详情](docs/unixbench_results.md)
+- [冒烟测试覆盖详情](docs/coverage/smoke-coverage.md)
+- [功能测试覆盖详情](docs/coverage/functional-coverage.md)
+- [安全测试覆盖详情](docs/coverage/security-coverage.md)
+- [兼容性测试覆盖详情](docs/coverage/compatibility-coverage.md)
+- [性能测试覆盖详情](docs/coverage/unixbench_results.md)
 
 ---
 
