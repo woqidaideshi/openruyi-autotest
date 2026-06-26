@@ -6,7 +6,7 @@
 
 - **202 个软件包**，**561 个测试用例**，**1,692 个功能点**
 - 所有测试脚本均已在 openEuler RISC-V 服务器上验证通过
-- 详见 [功能测试覆盖详情](../../docs/functional-coverage.md)
+- 详见 [功能测试覆盖详情](../../docs/coverage/functional-coverage.md)
 
 ## 目录结构
 
