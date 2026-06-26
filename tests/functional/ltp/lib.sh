@@ -13,6 +13,19 @@
 LTP_FLAG="/tmp/.beakerlib_ltp_suite"
 LTP_INSTALL_DIR="/opt/ltp-src"
 
+_ltpEnsureBinLinks() {
+    # runltp expects test binaries in $LTPROOT/testcases/bin/
+    if [ ! -d "$LTP_INSTALL_DIR/testcases/bin" ] || [ "$(ls -A "$LTP_INSTALL_DIR/testcases/bin" 2>/dev/null)" = "" ]; then
+        mkdir -p "$LTP_INSTALL_DIR/testcases/bin"
+        find "$LTP_INSTALL_DIR/testcases" -type f -executable -exec ln -sf {} "$LTP_INSTALL_DIR/testcases/bin/" \; 2>/dev/null || true
+    fi
+}
+
+_ltpSetupPath() {
+    export PATH="$LTP_INSTALL_DIR:$LTP_INSTALL_DIR/pan:$LTP_INSTALL_DIR/testcases/bin:$PATH"
+    export LTPROOT="$LTP_INSTALL_DIR"
+}
+
 ltpSetup() {
     if [ ! -f "$LTP_FLAG" ]; then
         local method=""
@@ -21,7 +34,8 @@ ltpSetup() {
             method="system"
             echo "installed=0" > "$LTP_FLAG"
         elif [ -x "$LTP_INSTALL_DIR/runltp" ]; then
-            export PATH="$LTP_INSTALL_DIR:$PATH"
+            _ltpSetupPath
+            _ltpEnsureBinLinks
             method="source-cached"
             echo "installed=0" > "$LTP_FLAG"
         else
@@ -35,12 +49,13 @@ ltpSetup() {
                 rlLogInfo "dnf 安装失败或无 runltp，从源码编译..."
                 echo openruyi | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig 2>/dev/null || true
                 if [ ! -d "$LTP_INSTALL_DIR" ]; then
-                    git clone --depth 1 https://github.com/linux-test-project/ltp.git "$LTP_INSTALL_DIR" 2>/dev/null || true
+                    git clone --depth 1 --branch 20240524 https://github.com/linux-test-project/ltp.git "$LTP_INSTALL_DIR" 2>/dev/null || true
                 fi
                 if [ -f "$LTP_INSTALL_DIR/Makefile" ]; then
                     cd "$LTP_INSTALL_DIR" && make autotools && ./configure --prefix="$LTP_INSTALL_DIR" && make -j$(nproc) && sudo make install 2>&1 | tail -3
                 fi
-                export PATH="$LTP_INSTALL_DIR/bin:$LTP_INSTALL_DIR:$PATH"
+                _ltpSetupPath
+                _ltpEnsureBinLinks
                 if command -v runltp >/dev/null 2>&1; then
                     method="source"
                     echo "installed=2" > "$LTP_FLAG"
@@ -61,7 +76,8 @@ ltpSetup() {
         rlLogInfo "LTP 已安装，引用计数: $ref"
         # Restore PATH if source install
         if [ -x "$LTP_INSTALL_DIR/runltp" ]; then
-            export PATH="$LTP_INSTALL_DIR:$PATH"
+            _ltpSetupPath
+            _ltpEnsureBinLinks
         fi
     fi
 
