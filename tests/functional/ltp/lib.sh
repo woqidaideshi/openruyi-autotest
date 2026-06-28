@@ -47,6 +47,12 @@ ltpSetup() {
                     git clone --depth 1 --branch "$LTP_TAG" https://github.com/linux-test-project/ltp.git "$LTP_INSTALL_DIR" 2>/dev/null || true
                 fi
                 if [ -f "$LTP_INSTALL_DIR/Makefile" ]; then
+                    # Fix: listmount04.c uses struct mnt_id_req.spare which was
+                    # removed in newer kernel headers (riscv64). Add a pre-build patch.
+                    local lm_src="$LTP_INSTALL_DIR/testcases/kernel/syscalls/listmount/listmount04.c"
+                    if [ -f "$lm_src" ]; then
+                        grep -q 'spare' "$lm_src" 2>/dev/null && sed -i 's/req->spare = tc->spare;/\/\/ req->spare = tc->spare; (spare field removed from newer kernel)/' "$lm_src" || true
+                    fi
                     cd "$LTP_INSTALL_DIR" && make autotools && ./configure --prefix="$LTP_INSTALL_DIR" --with-open-posix-testsuite && make -j$(nproc) && sudo make install 2>&1 | tail -3
                 fi
                 _ltpSetupPath
