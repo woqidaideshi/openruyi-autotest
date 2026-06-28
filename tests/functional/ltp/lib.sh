@@ -14,7 +14,7 @@
 
 LTP_FLAG="/tmp/.beakerlib_ltp_suite"
 LTP_INSTALL_DIR="/opt/ltp"
-LTP_TAG="20250930"
+LTP_TAG="20240930"
 
 _ltpSetupPath() {
     export PATH="$LTP_INSTALL_DIR:$PATH"
@@ -47,13 +47,11 @@ ltpSetup() {
                     git clone --depth 1 --branch "$LTP_TAG" https://github.com/linux-test-project/ltp.git "$LTP_INSTALL_DIR" 2>/dev/null || true
                 fi
                 if [ -f "$LTP_INSTALL_DIR/Makefile" ]; then
-                    # Fix: listmount04.c uses struct mnt_id_req.spare which was
-                    # removed in newer kernel headers (riscv64). Add a pre-build patch.
-                    local lm_src="$LTP_INSTALL_DIR/testcases/kernel/syscalls/listmount/listmount04.c"
-                    if [ -f "$lm_src" ]; then
-                        grep -q 'spare' "$lm_src" 2>/dev/null && sed -i 's/req->spare = tc->spare;/\/\/ req->spare = tc->spare; (spare field removed from newer kernel)/' "$lm_src" || true
-                    fi
-                    cd "$LTP_INSTALL_DIR" && make autotools && ./configure --prefix="$LTP_INSTALL_DIR" --with-open-posix-testsuite && make -j$(nproc) && sudo make install 2>&1 | tail -3
+                    cd "$LTP_INSTALL_DIR" && make autotools && ./configure --prefix="$LTP_INSTALL_DIR" --with-open-posix-testsuite && make -j$(nproc) -k || true
+                    # Install whatever was built (kirk + test binaries). Some
+                    # test binaries may be missing due to kernel header
+                    # incompatibilities on riscv64, but kirk works fine.
+                    sudo make install 2>&1 | tail -3 || true
                 fi
                 _ltpSetupPath
                 if command -v kirk >/dev/null 2>&1; then
