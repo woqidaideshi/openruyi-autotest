@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - smack - smack_file_access
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP smack - smack_file_access"
-        rlRun "runltp -f smack -s smack_file_access -q" 0 "执行 LTP smack_file_access"
+        rlRun "kirk -f smack -p smack_file_access" 0 "执行 LTP smack_file_access"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

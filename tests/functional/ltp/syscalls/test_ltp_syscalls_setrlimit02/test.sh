@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - setrlimit02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - setrlimit02"
-        rlRun "runltp -f syscalls -s setrlimit02 -q" 0 "执行 LTP setrlimit02"
+        rlRun "kirk -f syscalls -p setrlimit02" 0 "执行 LTP setrlimit02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

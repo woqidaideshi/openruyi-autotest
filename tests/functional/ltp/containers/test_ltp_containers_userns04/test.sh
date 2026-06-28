@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - containers - userns04
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP containers - userns04"
-        rlRun "runltp -f containers -s userns04 -q" 0 "执行 LTP userns04"
+        rlRun "kirk -f containers -p userns04" 0 "执行 LTP userns04"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

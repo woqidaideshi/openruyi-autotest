@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - mm - ksm05
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP mm - ksm05"
-        rlRun "runltp -f mm -s ksm05 -q" 0 "执行 LTP ksm05"
+        rlRun "kirk -f mm -p ksm05" 0 "执行 LTP ksm05"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

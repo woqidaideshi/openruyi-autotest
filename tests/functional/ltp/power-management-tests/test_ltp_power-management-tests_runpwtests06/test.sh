@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - power-management-tests - runpwtests06
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP power-management-tests - runpwtests06"
-        rlRun "runltp -f power-management-tests -s runpwtests06 -q" 0 "执行 LTP runpwtests06"
+        rlRun "kirk -f power-management-tests -p runpwtests06" 0 "执行 LTP runpwtests06"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

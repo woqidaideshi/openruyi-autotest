@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - memfd_create01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - memfd_create01"
-        rlRun "runltp -f syscalls -s memfd_create01 -q" 0 "执行 LTP memfd_create01"
+        rlRun "kirk -f syscalls -p memfd_create01" 0 "执行 LTP memfd_create01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

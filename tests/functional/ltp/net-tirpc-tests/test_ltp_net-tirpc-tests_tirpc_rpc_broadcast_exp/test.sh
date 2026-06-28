@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-tirpc-tests - tirpc_rpc_broadcast_exp
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-tirpc-tests - tirpc_rpc_broadcast_exp"
-        rlRun "runltp -f net-tirpc-tests -s tirpc_rpc_broadcast_exp -q" 0 "执行 LTP tirpc_rpc_broadcast_exp"
+        rlRun "kirk -f net-tirpc-tests -p tirpc_rpc_broadcast_exp" 0 "执行 LTP tirpc_rpc_broadcast_exp"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - getrusage04
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - getrusage04"
-        rlRun "runltp -f syscalls -s getrusage04 -q" 0 "执行 LTP getrusage04"
+        rlRun "kirk -f syscalls -p getrusage04" 0 "执行 LTP getrusage04"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

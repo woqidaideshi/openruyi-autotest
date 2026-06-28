@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - eventfd06
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - eventfd06"
-        rlRun "runltp -f syscalls -s eventfd06 -q" 0 "执行 LTP eventfd06"
+        rlRun "kirk -f syscalls -p eventfd06" 0 "执行 LTP eventfd06"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

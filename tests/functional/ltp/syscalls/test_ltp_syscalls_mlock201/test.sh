@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - mlock201
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - mlock201"
-        rlRun "runltp -f syscalls -s mlock201 -q" 0 "执行 LTP mlock201"
+        rlRun "kirk -f syscalls -p mlock201" 0 "执行 LTP mlock201"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

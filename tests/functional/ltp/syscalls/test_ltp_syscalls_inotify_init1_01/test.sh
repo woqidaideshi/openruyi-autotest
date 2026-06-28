@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - inotify_init1_01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - inotify_init1_01"
-        rlRun "runltp -f syscalls -s inotify_init1_01 -q" 0 "执行 LTP inotify_init1_01"
+        rlRun "kirk -f syscalls -p inotify_init1_01" 0 "执行 LTP inotify_init1_01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-rpc-tests - rpcinfo
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-rpc-tests - rpcinfo"
-        rlRun "runltp -f net-rpc-tests -s rpcinfo -q" 0 "执行 LTP rpcinfo"
+        rlRun "kirk -f net-rpc-tests -p rpcinfo" 0 "执行 LTP rpcinfo"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

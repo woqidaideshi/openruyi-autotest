@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - ioprio_set03
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - ioprio_set03"
-        rlRun "runltp -f syscalls -s ioprio_set03 -q" 0 "执行 LTP ioprio_set03"
+        rlRun "kirk -f syscalls -p ioprio_set03" 0 "执行 LTP ioprio_set03"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

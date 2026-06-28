@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - munlockall01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - munlockall01"
-        rlRun "runltp -f syscalls -s munlockall01 -q" 0 "执行 LTP munlockall01"
+        rlRun "kirk -f syscalls -p munlockall01" 0 "执行 LTP munlockall01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

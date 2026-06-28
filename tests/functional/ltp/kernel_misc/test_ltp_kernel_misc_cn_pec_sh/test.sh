@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - kernel_misc - cn_pec_sh
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP kernel_misc - cn_pec_sh"
-        rlRun "runltp -f kernel_misc -s cn_pec_sh -q" 0 "执行 LTP cn_pec_sh"
+        rlRun "kirk -f kernel_misc -p cn_pec_sh" 0 "执行 LTP cn_pec_sh"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

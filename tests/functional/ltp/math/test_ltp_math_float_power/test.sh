@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - math - float_power
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP math - float_power"
-        rlRun "runltp -f math -s float_power -q" 0 "执行 LTP float_power"
+        rlRun "kirk -f math -p float_power" 0 "执行 LTP float_power"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

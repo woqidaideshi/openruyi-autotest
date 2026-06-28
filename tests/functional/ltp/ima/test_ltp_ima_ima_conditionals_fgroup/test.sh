@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - ima - ima_conditionals_fgroup
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP ima - ima_conditionals_fgroup"
-        rlRun "runltp -f ima -s ima_conditionals_fgroup -q" 0 "执行 LTP ima_conditionals_fgroup"
+        rlRun "kirk -f ima -p ima_conditionals_fgroup" 0 "执行 LTP ima_conditionals_fgroup"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

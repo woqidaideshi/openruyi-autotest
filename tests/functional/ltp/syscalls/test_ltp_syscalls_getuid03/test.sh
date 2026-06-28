@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - getuid03
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - getuid03"
-        rlRun "runltp -f syscalls -s getuid03 -q" 0 "执行 LTP getuid03"
+        rlRun "kirk -f syscalls -p getuid03" 0 "执行 LTP getuid03"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

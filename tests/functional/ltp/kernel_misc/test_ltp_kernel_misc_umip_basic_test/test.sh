@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - kernel_misc - umip_basic_test
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP kernel_misc - umip_basic_test"
-        rlRun "runltp -f kernel_misc -s umip_basic_test -q" 0 "执行 LTP umip_basic_test"
+        rlRun "kirk -f kernel_misc -p umip_basic_test" 0 "执行 LTP umip_basic_test"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

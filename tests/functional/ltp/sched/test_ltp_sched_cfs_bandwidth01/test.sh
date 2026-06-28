@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - sched - cfs_bandwidth01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP sched - cfs_bandwidth01"
-        rlRun "runltp -f sched -s cfs_bandwidth01 -q" 0 "执行 LTP cfs_bandwidth01"
+        rlRun "kirk -f sched -p cfs_bandwidth01" 0 "执行 LTP cfs_bandwidth01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

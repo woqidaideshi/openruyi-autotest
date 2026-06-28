@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - pty - pty09
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP pty - pty09"
-        rlRun "runltp -f pty -s pty09 -q" 0 "执行 LTP pty09"
+        rlRun "kirk -f pty -p pty09" 0 "执行 LTP pty09"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

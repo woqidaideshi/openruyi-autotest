@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-ipv6 - ipneigh6_ip
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-ipv6 - ipneigh6_ip"
-        rlRun "runltp -f net-ipv6 -s ipneigh6_ip -q" 0 "执行 LTP ipneigh6_ip"
+        rlRun "kirk -f net-ipv6 -p ipneigh6_ip" 0 "执行 LTP ipneigh6_ip"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

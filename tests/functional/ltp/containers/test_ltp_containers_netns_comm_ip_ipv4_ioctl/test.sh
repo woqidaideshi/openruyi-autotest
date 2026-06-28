@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - containers - netns_comm_ip_ipv4_ioctl
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP containers - netns_comm_ip_ipv4_ioctl"
-        rlRun "runltp -f containers -s netns_comm_ip_ipv4_ioctl -q" 0 "执行 LTP netns_comm_ip_ipv4_ioctl"
+        rlRun "kirk -f containers -p netns_comm_ip_ipv4_ioctl" 0 "执行 LTP netns_comm_ip_ipv4_ioctl"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

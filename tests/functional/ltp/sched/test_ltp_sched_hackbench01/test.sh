@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - sched - hackbench01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP sched - hackbench01"
-        rlRun "runltp -f sched -s hackbench01 -q" 0 "执行 LTP hackbench01"
+        rlRun "kirk -f sched -p hackbench01" 0 "执行 LTP hackbench01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

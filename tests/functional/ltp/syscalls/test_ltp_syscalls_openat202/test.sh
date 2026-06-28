@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - openat202
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - openat202"
-        rlRun "runltp -f syscalls -s openat202 -q" 0 "执行 LTP openat202"
+        rlRun "kirk -f syscalls -p openat202" 0 "执行 LTP openat202"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

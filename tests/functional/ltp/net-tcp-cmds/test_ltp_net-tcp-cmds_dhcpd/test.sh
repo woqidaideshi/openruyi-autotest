@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-tcp-cmds - dhcpd
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-tcp-cmds - dhcpd"
-        rlRun "runltp -f net-tcp-cmds -s dhcpd -q" 0 "执行 LTP dhcpd"
+        rlRun "kirk -f net-tcp-cmds -p dhcpd" 0 "执行 LTP dhcpd"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

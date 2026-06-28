@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - dio - dio21
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP dio - dio21"
-        rlRun "runltp -f dio -s dio21 -q" 0 "执行 LTP dio21"
+        rlRun "kirk -f dio -p dio21" 0 "执行 LTP dio21"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

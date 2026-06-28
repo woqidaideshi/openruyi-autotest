@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - realpath01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - realpath01"
-        rlRun "runltp -f syscalls -s realpath01 -q" 0 "执行 LTP realpath01"
+        rlRun "kirk -f syscalls -p realpath01" 0 "执行 LTP realpath01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

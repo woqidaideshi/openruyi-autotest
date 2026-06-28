@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - nftw6401
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - nftw6401"
-        rlRun "runltp -f syscalls -s nftw6401 -q" 0 "执行 LTP nftw6401"
+        rlRun "kirk -f syscalls -p nftw6401" 0 "执行 LTP nftw6401"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

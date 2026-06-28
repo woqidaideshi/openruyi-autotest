@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - tracing - pt_ex_user
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP tracing - pt_ex_user"
-        rlRun "runltp -f tracing -s pt_ex_user -q" 0 "执行 LTP pt_ex_user"
+        rlRun "kirk -f tracing -p pt_ex_user" 0 "执行 LTP pt_ex_user"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

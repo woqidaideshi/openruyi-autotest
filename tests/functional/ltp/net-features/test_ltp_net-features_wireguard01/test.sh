@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-features - wireguard01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-features - wireguard01"
-        rlRun "runltp -f net-features -s wireguard01 -q" 0 "执行 LTP wireguard01"
+        rlRun "kirk -f net-features -p wireguard01" 0 "执行 LTP wireguard01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

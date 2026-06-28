@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - mm - max_map_count
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP mm - max_map_count"
-        rlRun "runltp -f mm -s max_map_count -q" 0 "执行 LTP max_map_count"
+        rlRun "kirk -f mm -p max_map_count" 0 "执行 LTP max_map_count"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

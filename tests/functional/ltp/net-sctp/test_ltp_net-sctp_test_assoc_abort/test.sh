@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-sctp - test_assoc_abort
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-sctp - test_assoc_abort"
-        rlRun "runltp -f net-sctp -s test_assoc_abort -q" 0 "执行 LTP test_assoc_abort"
+        rlRun "kirk -f net-sctp -p test_assoc_abort" 0 "执行 LTP test_assoc_abort"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - input - input01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP input - input01"
-        rlRun "runltp -f input -s input01 -q" 0 "执行 LTP input01"
+        rlRun "kirk -f input -p input01" 0 "执行 LTP input01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

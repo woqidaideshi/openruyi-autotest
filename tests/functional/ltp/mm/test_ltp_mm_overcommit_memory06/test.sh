@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - mm - overcommit_memory06
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP mm - overcommit_memory06"
-        rlRun "runltp -f mm -s overcommit_memory06 -q" 0 "执行 LTP overcommit_memory06"
+        rlRun "kirk -f mm -p overcommit_memory06" 0 "执行 LTP overcommit_memory06"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

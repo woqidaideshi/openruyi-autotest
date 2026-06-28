@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - pwritev202
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - pwritev202"
-        rlRun "runltp -f syscalls -s pwritev202 -q" 0 "执行 LTP pwritev202"
+        rlRun "kirk -f syscalls -p pwritev202" 0 "执行 LTP pwritev202"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

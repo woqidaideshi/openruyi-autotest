@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - memcpy01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - memcpy01"
-        rlRun "runltp -f syscalls -s memcpy01 -q" 0 "执行 LTP memcpy01"
+        rlRun "kirk -f syscalls -p memcpy01" 0 "执行 LTP memcpy01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

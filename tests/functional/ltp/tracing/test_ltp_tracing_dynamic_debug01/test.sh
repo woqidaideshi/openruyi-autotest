@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - tracing - dynamic_debug01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP tracing - dynamic_debug01"
-        rlRun "runltp -f tracing -s dynamic_debug01 -q" 0 "执行 LTP dynamic_debug01"
+        rlRun "kirk -f tracing -p dynamic_debug01" 0 "执行 LTP dynamic_debug01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

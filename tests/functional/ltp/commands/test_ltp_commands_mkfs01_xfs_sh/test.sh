@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - commands - mkfs01_xfs_sh
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP commands - mkfs01_xfs_sh"
-        rlRun "runltp -f commands -s mkfs01_xfs_sh -q" 0 "执行 LTP mkfs01_xfs_sh"
+        rlRun "kirk -f commands -p mkfs01_xfs_sh" 0 "执行 LTP mkfs01_xfs_sh"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

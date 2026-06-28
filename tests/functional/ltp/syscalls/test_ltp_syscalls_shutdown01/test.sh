@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - shutdown01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - shutdown01"
-        rlRun "runltp -f syscalls -s shutdown01 -q" 0 "执行 LTP shutdown01"
+        rlRun "kirk -f syscalls -p shutdown01" 0 "执行 LTP shutdown01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

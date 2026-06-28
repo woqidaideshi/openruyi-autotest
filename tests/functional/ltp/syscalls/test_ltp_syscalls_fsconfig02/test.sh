@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - fsconfig02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - fsconfig02"
-        rlRun "runltp -f syscalls -s fsconfig02 -q" 0 "执行 LTP fsconfig02"
+        rlRun "kirk -f syscalls -p fsconfig02" 0 "执行 LTP fsconfig02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

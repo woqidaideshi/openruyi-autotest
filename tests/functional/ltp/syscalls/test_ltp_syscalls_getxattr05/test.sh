@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - getxattr05
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - getxattr05"
-        rlRun "runltp -f syscalls -s getxattr05 -q" 0 "执行 LTP getxattr05"
+        rlRun "kirk -f syscalls -p getxattr05" 0 "执行 LTP getxattr05"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - tracing - pt_disable_branch
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP tracing - pt_disable_branch"
-        rlRun "runltp -f tracing -s pt_disable_branch -q" 0 "执行 LTP pt_disable_branch"
+        rlRun "kirk -f tracing -p pt_disable_branch" 0 "执行 LTP pt_disable_branch"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

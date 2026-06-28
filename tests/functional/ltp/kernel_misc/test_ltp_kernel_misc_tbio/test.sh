@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - kernel_misc - tbio
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP kernel_misc - tbio"
-        rlRun "runltp -f kernel_misc -s tbio -q" 0 "执行 LTP tbio"
+        rlRun "kirk -f kernel_misc -p tbio" 0 "执行 LTP tbio"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

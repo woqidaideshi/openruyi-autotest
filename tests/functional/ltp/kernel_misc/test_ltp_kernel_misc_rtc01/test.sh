@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - kernel_misc - rtc01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP kernel_misc - rtc01"
-        rlRun "runltp -f kernel_misc -s rtc01 -q" 0 "执行 LTP rtc01"
+        rlRun "kirk -f kernel_misc -p rtc01" 0 "执行 LTP rtc01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

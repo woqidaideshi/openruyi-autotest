@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - mknod05
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - mknod05"
-        rlRun "runltp -f syscalls -s mknod05 -q" 0 "执行 LTP mknod05"
+        rlRun "kirk -f syscalls -p mknod05" 0 "执行 LTP mknod05"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

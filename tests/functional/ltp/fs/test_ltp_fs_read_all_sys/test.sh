@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - fs - read_all_sys
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP fs - read_all_sys"
-        rlRun "runltp -f fs -s read_all_sys -q" 0 "执行 LTP read_all_sys"
+        rlRun "kirk -f fs -p read_all_sys" 0 "执行 LTP read_all_sys"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

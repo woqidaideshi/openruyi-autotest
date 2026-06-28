@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - fs - squashfs01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP fs - squashfs01"
-        rlRun "runltp -f fs -s squashfs01 -q" 0 "执行 LTP squashfs01"
+        rlRun "kirk -f fs -p squashfs01" 0 "执行 LTP squashfs01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

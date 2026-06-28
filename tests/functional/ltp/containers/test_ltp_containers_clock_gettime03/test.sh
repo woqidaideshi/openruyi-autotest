@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - containers - clock_gettime03
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP containers - clock_gettime03"
-        rlRun "runltp -f containers -s clock_gettime03 -q" 0 "执行 LTP clock_gettime03"
+        rlRun "kirk -f containers -p clock_gettime03" 0 "执行 LTP clock_gettime03"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

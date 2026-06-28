@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - ima - ima_policy
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP ima - ima_policy"
-        rlRun "runltp -f ima -s ima_policy -q" 0 "执行 LTP ima_policy"
+        rlRun "kirk -f ima -p ima_policy" 0 "执行 LTP ima_policy"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

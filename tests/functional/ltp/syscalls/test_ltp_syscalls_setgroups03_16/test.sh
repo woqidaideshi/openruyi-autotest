@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - setgroups03_16
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - setgroups03_16"
-        rlRun "runltp -f syscalls -s setgroups03_16 -q" 0 "执行 LTP setgroups03_16"
+        rlRun "kirk -f syscalls -p setgroups03_16" 0 "执行 LTP setgroups03_16"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - capability - check_keepcaps03
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP capability - check_keepcaps03"
-        rlRun "runltp -f capability -s check_keepcaps03 -q" 0 "执行 LTP check_keepcaps03"
+        rlRun "kirk -f capability -p check_keepcaps03" 0 "执行 LTP check_keepcaps03"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - containers - utsname03_clone
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP containers - utsname03_clone"
-        rlRun "runltp -f containers -s utsname03_clone -q" 0 "执行 LTP utsname03_clone"
+        rlRun "kirk -f containers -p utsname03_clone" 0 "执行 LTP utsname03_clone"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

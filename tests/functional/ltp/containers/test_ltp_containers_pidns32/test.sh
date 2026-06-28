@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - containers - pidns32
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP containers - pidns32"
-        rlRun "runltp -f containers -s pidns32 -q" 0 "执行 LTP pidns32"
+        rlRun "kirk -f containers -p pidns32" 0 "执行 LTP pidns32"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

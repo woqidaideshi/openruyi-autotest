@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - splice09
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - splice09"
-        rlRun "runltp -f syscalls -s splice09 -q" 0 "执行 LTP splice09"
+        rlRun "kirk -f syscalls -p splice09" 0 "执行 LTP splice09"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - sched - autogroup01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP sched - autogroup01"
-        rlRun "runltp -f sched -s autogroup01 -q" 0 "执行 LTP autogroup01"
+        rlRun "kirk -f sched -p autogroup01" 0 "执行 LTP autogroup01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

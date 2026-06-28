@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-tcp-cmds - arping01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-tcp-cmds - arping01"
-        rlRun "runltp -f net-tcp-cmds -s arping01 -q" 0 "执行 LTP arping01"
+        rlRun "kirk -f net-tcp-cmds -p arping01" 0 "执行 LTP arping01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

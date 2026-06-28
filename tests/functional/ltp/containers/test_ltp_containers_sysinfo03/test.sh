@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - containers - sysinfo03
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP containers - sysinfo03"
-        rlRun "runltp -f containers -s sysinfo03 -q" 0 "执行 LTP sysinfo03"
+        rlRun "kirk -f containers -p sysinfo03" 0 "执行 LTP sysinfo03"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

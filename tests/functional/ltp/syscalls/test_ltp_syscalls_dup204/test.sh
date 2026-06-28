@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - dup204
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - dup204"
-        rlRun "runltp -f syscalls -s dup204 -q" 0 "执行 LTP dup204"
+        rlRun "kirk -f syscalls -p dup204" 0 "执行 LTP dup204"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-features - macsec02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-features - macsec02"
-        rlRun "runltp -f net-features -s macsec02 -q" 0 "执行 LTP macsec02"
+        rlRun "kirk -f net-features -p macsec02" 0 "执行 LTP macsec02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

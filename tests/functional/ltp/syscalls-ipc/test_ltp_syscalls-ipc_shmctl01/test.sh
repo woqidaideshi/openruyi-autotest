@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls-ipc - shmctl01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls-ipc - shmctl01"
-        rlRun "runltp -f syscalls-ipc -s shmctl01 -q" 0 "执行 LTP shmctl01"
+        rlRun "kirk -f syscalls-ipc -p shmctl01" 0 "执行 LTP shmctl01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

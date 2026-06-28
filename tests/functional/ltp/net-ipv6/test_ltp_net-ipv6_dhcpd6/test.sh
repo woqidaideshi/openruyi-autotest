@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-ipv6 - dhcpd6
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-ipv6 - dhcpd6"
-        rlRun "runltp -f net-ipv6 -s dhcpd6 -q" 0 "执行 LTP dhcpd6"
+        rlRun "kirk -f net-ipv6 -p dhcpd6" 0 "执行 LTP dhcpd6"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - containers - mountns02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP containers - mountns02"
-        rlRun "runltp -f containers -s mountns02 -q" 0 "执行 LTP mountns02"
+        rlRun "kirk -f containers -p mountns02" 0 "执行 LTP mountns02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

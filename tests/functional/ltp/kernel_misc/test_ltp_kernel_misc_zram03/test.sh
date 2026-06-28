@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - kernel_misc - zram03
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP kernel_misc - zram03"
-        rlRun "runltp -f kernel_misc -s zram03 -q" 0 "执行 LTP zram03"
+        rlRun "kirk -f kernel_misc -p zram03" 0 "执行 LTP zram03"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

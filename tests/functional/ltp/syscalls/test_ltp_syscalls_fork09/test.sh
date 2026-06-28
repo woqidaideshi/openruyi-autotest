@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - fork09
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - fork09"
-        rlRun "runltp -f syscalls -s fork09 -q" 0 "执行 LTP fork09"
+        rlRun "kirk -f syscalls -p fork09" 0 "执行 LTP fork09"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - rmdir02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - rmdir02"
-        rlRun "runltp -f syscalls -s rmdir02 -q" 0 "执行 LTP rmdir02"
+        rlRun "kirk -f syscalls -p rmdir02" 0 "执行 LTP rmdir02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

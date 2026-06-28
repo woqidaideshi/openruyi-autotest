@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - open07
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - open07"
-        rlRun "runltp -f syscalls -s open07 -q" 0 "执行 LTP open07"
+        rlRun "kirk -f syscalls -p open07" 0 "执行 LTP open07"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

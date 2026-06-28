@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - math - float_iperb
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP math - float_iperb"
-        rlRun "runltp -f math -s float_iperb -q" 0 "执行 LTP float_iperb"
+        rlRun "kirk -f math -p float_iperb" 0 "执行 LTP float_iperb"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

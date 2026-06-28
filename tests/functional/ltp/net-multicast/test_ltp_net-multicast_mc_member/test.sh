@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-multicast - mc_member
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-multicast - mc_member"
-        rlRun "runltp -f net-multicast -s mc_member -q" 0 "执行 LTP mc_member"
+        rlRun "kirk -f net-multicast -p mc_member" 0 "执行 LTP mc_member"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

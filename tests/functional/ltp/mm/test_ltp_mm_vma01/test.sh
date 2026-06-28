@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - mm - vma01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP mm - vma01"
-        rlRun "runltp -f mm -s vma01 -q" 0 "执行 LTP vma01"
+        rlRun "kirk -f mm -p vma01" 0 "执行 LTP vma01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

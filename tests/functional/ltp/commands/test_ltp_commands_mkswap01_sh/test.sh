@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - commands - mkswap01_sh
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP commands - mkswap01_sh"
-        rlRun "runltp -f commands -s mkswap01_sh -q" 0 "执行 LTP mkswap01_sh"
+        rlRun "kirk -f commands -p mkswap01_sh" 0 "执行 LTP mkswap01_sh"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

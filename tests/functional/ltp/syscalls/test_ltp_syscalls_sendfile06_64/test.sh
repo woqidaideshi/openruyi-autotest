@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - sendfile06_64
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - sendfile06_64"
-        rlRun "runltp -f syscalls -s sendfile06_64 -q" 0 "执行 LTP sendfile06_64"
+        rlRun "kirk -f syscalls -p sendfile06_64" 0 "执行 LTP sendfile06_64"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

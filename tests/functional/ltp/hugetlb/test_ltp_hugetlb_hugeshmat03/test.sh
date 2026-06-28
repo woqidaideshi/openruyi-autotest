@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - hugetlb - hugeshmat03
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP hugetlb - hugeshmat03"
-        rlRun "runltp -f hugetlb -s hugeshmat03 -q" 0 "执行 LTP hugeshmat03"
+        rlRun "kirk -f hugetlb -p hugeshmat03" 0 "执行 LTP hugeshmat03"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

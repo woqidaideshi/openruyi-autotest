@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - fs - gf07
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP fs - gf07"
-        rlRun "runltp -f fs -s gf07 -q" 0 "执行 LTP gf07"
+        rlRun "kirk -f fs -p gf07" 0 "执行 LTP gf07"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

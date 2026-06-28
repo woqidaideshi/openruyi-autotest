@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls-ipc - msgrcv06
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls-ipc - msgrcv06"
-        rlRun "runltp -f syscalls-ipc -s msgrcv06 -q" 0 "执行 LTP msgrcv06"
+        rlRun "kirk -f syscalls-ipc -p msgrcv06" 0 "执行 LTP msgrcv06"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

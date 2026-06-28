@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - can - can_bcm01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP can - can_bcm01"
-        rlRun "runltp -f can -s can_bcm01 -q" 0 "执行 LTP can_bcm01"
+        rlRun "kirk -f can -p can_bcm01" 0 "执行 LTP can_bcm01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

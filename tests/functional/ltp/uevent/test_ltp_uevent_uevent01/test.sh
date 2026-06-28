@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - uevent - uevent01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP uevent - uevent01"
-        rlRun "runltp -f uevent -s uevent01 -q" 0 "执行 LTP uevent01"
+        rlRun "kirk -f uevent -p uevent01" 0 "执行 LTP uevent01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

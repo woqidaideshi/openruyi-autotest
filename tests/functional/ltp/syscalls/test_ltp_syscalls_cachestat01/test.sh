@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - cachestat01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - cachestat01"
-        rlRun "runltp -f syscalls -s cachestat01 -q" 0 "执行 LTP cachestat01"
+        rlRun "kirk -f syscalls -p cachestat01" 0 "执行 LTP cachestat01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - ima - evm_overlay
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP ima - evm_overlay"
-        rlRun "runltp -f ima -s evm_overlay -q" 0 "执行 LTP evm_overlay"
+        rlRun "kirk -f ima -p evm_overlay" 0 "执行 LTP evm_overlay"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

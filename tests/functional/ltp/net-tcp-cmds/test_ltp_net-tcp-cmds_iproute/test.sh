@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-tcp-cmds - iproute
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-tcp-cmds - iproute"
-        rlRun "runltp -f net-tcp-cmds -s iproute -q" 0 "执行 LTP iproute"
+        rlRun "kirk -f net-tcp-cmds -p iproute" 0 "执行 LTP iproute"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

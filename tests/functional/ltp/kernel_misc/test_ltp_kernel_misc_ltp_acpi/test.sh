@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - kernel_misc - ltp_acpi
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP kernel_misc - ltp_acpi"
-        rlRun "runltp -f kernel_misc -s ltp_acpi -q" 0 "执行 LTP ltp_acpi"
+        rlRun "kirk -f kernel_misc -p ltp_acpi" 0 "执行 LTP ltp_acpi"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

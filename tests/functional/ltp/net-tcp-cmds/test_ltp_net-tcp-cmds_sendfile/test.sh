@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-tcp-cmds - sendfile
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-tcp-cmds - sendfile"
-        rlRun "runltp -f net-tcp-cmds -s sendfile -q" 0 "执行 LTP sendfile"
+        rlRun "kirk -f net-tcp-cmds -p sendfile" 0 "执行 LTP sendfile"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

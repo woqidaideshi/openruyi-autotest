@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-nfs - fsx_v41_ip4t
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-nfs - fsx_v41_ip4t"
-        rlRun "runltp -f net-nfs -s fsx_v41_ip4t -q" 0 "执行 LTP fsx_v41_ip4t"
+        rlRun "kirk -f net-nfs -p fsx_v41_ip4t" 0 "执行 LTP fsx_v41_ip4t"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

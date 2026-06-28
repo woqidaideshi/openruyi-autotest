@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-rpc-tests - rpc_xprt_unregister
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-rpc-tests - rpc_xprt_unregister"
-        rlRun "runltp -f net-rpc-tests -s rpc_xprt_unregister -q" 0 "执行 LTP rpc_xprt_unregister"
+        rlRun "kirk -f net-rpc-tests -p rpc_xprt_unregister" 0 "执行 LTP rpc_xprt_unregister"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

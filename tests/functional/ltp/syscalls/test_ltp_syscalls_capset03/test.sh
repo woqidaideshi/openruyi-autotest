@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - capset03
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - capset03"
-        rlRun "runltp -f syscalls -s capset03 -q" 0 "执行 LTP capset03"
+        rlRun "kirk -f syscalls -p capset03" 0 "执行 LTP capset03"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

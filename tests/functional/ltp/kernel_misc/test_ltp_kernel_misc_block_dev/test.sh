@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - kernel_misc - block_dev
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP kernel_misc - block_dev"
-        rlRun "runltp -f kernel_misc -s block_dev -q" 0 "执行 LTP block_dev"
+        rlRun "kirk -f kernel_misc -p block_dev" 0 "执行 LTP block_dev"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - mm - stack_space
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP mm - stack_space"
-        rlRun "runltp -f mm -s stack_space -q" 0 "执行 LTP stack_space"
+        rlRun "kirk -f mm -p stack_space" 0 "执行 LTP stack_space"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

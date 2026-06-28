@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-ipv6 - sendfile601
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-ipv6 - sendfile601"
-        rlRun "runltp -f net-ipv6 -s sendfile601 -q" 0 "执行 LTP sendfile601"
+        rlRun "kirk -f net-ipv6 -p sendfile601" 0 "执行 LTP sendfile601"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - ioctl09
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - ioctl09"
-        rlRun "runltp -f syscalls -s ioctl09 -q" 0 "执行 LTP ioctl09"
+        rlRun "kirk -f syscalls -p ioctl09" 0 "执行 LTP ioctl09"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

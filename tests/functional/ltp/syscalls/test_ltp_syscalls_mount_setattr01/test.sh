@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - mount_setattr01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - mount_setattr01"
-        rlRun "runltp -f syscalls -s mount_setattr01 -q" 0 "执行 LTP mount_setattr01"
+        rlRun "kirk -f syscalls -p mount_setattr01" 0 "执行 LTP mount_setattr01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

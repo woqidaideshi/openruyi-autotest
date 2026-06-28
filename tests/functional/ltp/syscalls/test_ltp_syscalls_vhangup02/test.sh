@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - vhangup02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - vhangup02"
-        rlRun "runltp -f syscalls -s vhangup02 -q" 0 "执行 LTP vhangup02"
+        rlRun "kirk -f syscalls -p vhangup02" 0 "执行 LTP vhangup02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

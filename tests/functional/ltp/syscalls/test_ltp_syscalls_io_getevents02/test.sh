@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - io_getevents02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - io_getevents02"
-        rlRun "runltp -f syscalls -s io_getevents02 -q" 0 "执行 LTP io_getevents02"
+        rlRun "kirk -f syscalls -p io_getevents02" 0 "执行 LTP io_getevents02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

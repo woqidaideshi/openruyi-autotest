@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - mm - min_free_kbytes
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP mm - min_free_kbytes"
-        rlRun "runltp -f mm -s min_free_kbytes -q" 0 "执行 LTP min_free_kbytes"
+        rlRun "kirk -f mm -p min_free_kbytes" 0 "执行 LTP min_free_kbytes"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

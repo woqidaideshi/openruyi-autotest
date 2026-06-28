@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - fs - fs_racer
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP fs - fs_racer"
-        rlRun "runltp -f fs -s fs_racer -q" 0 "执行 LTP fs_racer"
+        rlRun "kirk -f fs -p fs_racer" 0 "执行 LTP fs_racer"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

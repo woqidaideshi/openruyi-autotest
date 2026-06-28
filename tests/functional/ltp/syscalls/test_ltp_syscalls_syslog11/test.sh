@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - syslog11
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - syslog11"
-        rlRun "runltp -f syscalls -s syslog11 -q" 0 "执行 LTP syslog11"
+        rlRun "kirk -f syscalls -p syslog11" 0 "执行 LTP syslog11"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - containers - mesgq_nstest_none
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP containers - mesgq_nstest_none"
-        rlRun "runltp -f containers -s mesgq_nstest_none -q" 0 "执行 LTP mesgq_nstest_none"
+        rlRun "kirk -f containers -p mesgq_nstest_none" 0 "执行 LTP mesgq_nstest_none"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

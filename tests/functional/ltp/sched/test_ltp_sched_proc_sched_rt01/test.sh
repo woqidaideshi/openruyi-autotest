@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - sched - proc_sched_rt01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP sched - proc_sched_rt01"
-        rlRun "runltp -f sched -s proc_sched_rt01 -q" 0 "执行 LTP proc_sched_rt01"
+        rlRun "kirk -f sched -p proc_sched_rt01" 0 "执行 LTP proc_sched_rt01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

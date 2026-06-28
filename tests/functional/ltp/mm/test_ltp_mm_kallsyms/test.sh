@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - mm - kallsyms
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP mm - kallsyms"
-        rlRun "runltp -f mm -s kallsyms -q" 0 "执行 LTP kallsyms"
+        rlRun "kirk -f mm -p kallsyms" 0 "执行 LTP kallsyms"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

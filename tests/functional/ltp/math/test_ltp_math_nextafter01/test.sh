@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - math - nextafter01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP math - nextafter01"
-        rlRun "runltp -f math -s nextafter01 -q" 0 "执行 LTP nextafter01"
+        rlRun "kirk -f math -p nextafter01" 0 "执行 LTP nextafter01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

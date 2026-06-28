@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - mmap15
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - mmap15"
-        rlRun "runltp -f syscalls -s mmap15 -q" 0 "执行 LTP mmap15"
+        rlRun "kirk -f syscalls -p mmap15" 0 "执行 LTP mmap15"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

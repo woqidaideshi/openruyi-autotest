@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - kernel_misc - fw_load02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP kernel_misc - fw_load02"
-        rlRun "runltp -f kernel_misc -s fw_load02 -q" 0 "执行 LTP fw_load02"
+        rlRun "kirk -f kernel_misc -p fw_load02" 0 "执行 LTP fw_load02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

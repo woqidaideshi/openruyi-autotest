@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - kernel_misc - uaccess
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP kernel_misc - uaccess"
-        rlRun "runltp -f kernel_misc -s uaccess -q" 0 "执行 LTP uaccess"
+        rlRun "kirk -f kernel_misc -p uaccess" 0 "执行 LTP uaccess"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

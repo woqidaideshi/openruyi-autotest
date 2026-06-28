@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - epoll_ctl04
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - epoll_ctl04"
-        rlRun "runltp -f syscalls -s epoll_ctl04 -q" 0 "执行 LTP epoll_ctl04"
+        rlRun "kirk -f syscalls -p epoll_ctl04" 0 "执行 LTP epoll_ctl04"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

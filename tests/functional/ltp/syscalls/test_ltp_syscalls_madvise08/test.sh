@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - madvise08
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - madvise08"
-        rlRun "runltp -f syscalls -s madvise08 -q" 0 "执行 LTP madvise08"
+        rlRun "kirk -f syscalls -p madvise08" 0 "执行 LTP madvise08"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

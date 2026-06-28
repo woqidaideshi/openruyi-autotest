@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - fs - quota_remount_test01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP fs - quota_remount_test01"
-        rlRun "runltp -f fs -s quota_remount_test01 -q" 0 "执行 LTP quota_remount_test01"
+        rlRun "kirk -f fs -p quota_remount_test01" 0 "执行 LTP quota_remount_test01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

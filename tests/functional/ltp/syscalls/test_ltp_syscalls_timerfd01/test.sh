@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - timerfd01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - timerfd01"
-        rlRun "runltp -f syscalls -s timerfd01 -q" 0 "执行 LTP timerfd01"
+        rlRun "kirk -f syscalls -p timerfd01" 0 "执行 LTP timerfd01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

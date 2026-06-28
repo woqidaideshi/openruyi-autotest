@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - numa - numa_testcases
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP numa - numa_testcases"
-        rlRun "runltp -f numa -s numa_testcases -q" 0 "执行 LTP numa_testcases"
+        rlRun "kirk -f numa -p numa_testcases" 0 "执行 LTP numa_testcases"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

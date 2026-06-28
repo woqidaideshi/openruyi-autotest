@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - containers - sem_nstest_clone
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP containers - sem_nstest_clone"
-        rlRun "runltp -f containers -s sem_nstest_clone -q" 0 "执行 LTP sem_nstest_clone"
+        rlRun "kirk -f containers -p sem_nstest_clone" 0 "执行 LTP sem_nstest_clone"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

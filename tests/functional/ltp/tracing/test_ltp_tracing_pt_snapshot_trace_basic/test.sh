@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - tracing - pt_snapshot_trace_basic
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP tracing - pt_snapshot_trace_basic"
-        rlRun "runltp -f tracing -s pt_snapshot_trace_basic -q" 0 "执行 LTP pt_snapshot_trace_basic"
+        rlRun "kirk -f tracing -p pt_snapshot_trace_basic" 0 "执行 LTP pt_snapshot_trace_basic"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

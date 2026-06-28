@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - fpathconf01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - fpathconf01"
-        rlRun "runltp -f syscalls -s fpathconf01 -q" 0 "执行 LTP fpathconf01"
+        rlRun "kirk -f syscalls -p fpathconf01" 0 "执行 LTP fpathconf01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

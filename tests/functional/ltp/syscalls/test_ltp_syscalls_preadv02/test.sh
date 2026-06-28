@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - preadv02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - preadv02"
-        rlRun "runltp -f syscalls -s preadv02 -q" 0 "执行 LTP preadv02"
+        rlRun "kirk -f syscalls -p preadv02" 0 "执行 LTP preadv02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

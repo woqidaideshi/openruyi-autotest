@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls-ipc - msgctl12
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls-ipc - msgctl12"
-        rlRun "runltp -f syscalls-ipc -s msgctl12 -q" 0 "执行 LTP msgctl12"
+        rlRun "kirk -f syscalls-ipc -p msgctl12" 0 "执行 LTP msgctl12"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

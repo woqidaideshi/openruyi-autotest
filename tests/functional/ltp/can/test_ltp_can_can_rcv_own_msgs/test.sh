@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - can - can_rcv_own_msgs
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP can - can_rcv_own_msgs"
-        rlRun "runltp -f can -s can_rcv_own_msgs -q" 0 "执行 LTP can_rcv_own_msgs"
+        rlRun "kirk -f can -p can_rcv_own_msgs" 0 "执行 LTP can_rcv_own_msgs"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

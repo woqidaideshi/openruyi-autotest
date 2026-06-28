@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - containers - mqns_04_unshare
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP containers - mqns_04_unshare"
-        rlRun "runltp -f containers -s mqns_04_unshare -q" 0 "执行 LTP mqns_04_unshare"
+        rlRun "kirk -f containers -p mqns_04_unshare" 0 "执行 LTP mqns_04_unshare"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

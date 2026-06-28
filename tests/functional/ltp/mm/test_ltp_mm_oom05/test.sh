@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - mm - oom05
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP mm - oom05"
-        rlRun "runltp -f mm -s oom05 -q" 0 "执行 LTP oom05"
+        rlRun "kirk -f mm -p oom05" 0 "执行 LTP oom05"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

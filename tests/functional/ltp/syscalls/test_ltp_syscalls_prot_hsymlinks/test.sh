@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - prot_hsymlinks
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - prot_hsymlinks"
-        rlRun "runltp -f syscalls -s prot_hsymlinks -q" 0 "执行 LTP prot_hsymlinks"
+        rlRun "kirk -f syscalls -p prot_hsymlinks" 0 "执行 LTP prot_hsymlinks"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

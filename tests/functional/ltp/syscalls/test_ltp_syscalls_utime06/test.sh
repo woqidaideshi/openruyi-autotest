@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - utime06
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - utime06"
-        rlRun "runltp -f syscalls -s utime06 -q" 0 "执行 LTP utime06"
+        rlRun "kirk -f syscalls -p utime06" 0 "执行 LTP utime06"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

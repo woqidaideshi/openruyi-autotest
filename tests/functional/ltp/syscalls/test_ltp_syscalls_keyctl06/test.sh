@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - keyctl06
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - keyctl06"
-        rlRun "runltp -f syscalls -s keyctl06 -q" 0 "执行 LTP keyctl06"
+        rlRun "kirk -f syscalls -p keyctl06" 0 "执行 LTP keyctl06"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

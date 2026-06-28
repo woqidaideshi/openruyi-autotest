@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - adjtimex02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - adjtimex02"
-        rlRun "runltp -f syscalls -s adjtimex02 -q" 0 "执行 LTP adjtimex02"
+        rlRun "kirk -f syscalls -p adjtimex02" 0 "执行 LTP adjtimex02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

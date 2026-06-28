@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - setsockopt09
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - setsockopt09"
-        rlRun "runltp -f syscalls -s setsockopt09 -q" 0 "执行 LTP setsockopt09"
+        rlRun "kirk -f syscalls -p setsockopt09" 0 "执行 LTP setsockopt09"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

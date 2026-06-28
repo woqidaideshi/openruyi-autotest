@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - listmount04
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - listmount04"
-        rlRun "runltp -f syscalls -s listmount04 -q" 0 "执行 LTP listmount04"
+        rlRun "kirk -f syscalls -p listmount04" 0 "执行 LTP listmount04"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - sched_get_priority_min02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - sched_get_priority_min02"
-        rlRun "runltp -f syscalls -s sched_get_priority_min02 -q" 0 "执行 LTP sched_get_priority_min02"
+        rlRun "kirk -f syscalls -p sched_get_priority_min02" 0 "执行 LTP sched_get_priority_min02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

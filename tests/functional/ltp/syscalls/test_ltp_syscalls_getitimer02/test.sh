@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - getitimer02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - getitimer02"
-        rlRun "runltp -f syscalls -s getitimer02 -q" 0 "执行 LTP getitimer02"
+        rlRun "kirk -f syscalls -p getitimer02" 0 "执行 LTP getitimer02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

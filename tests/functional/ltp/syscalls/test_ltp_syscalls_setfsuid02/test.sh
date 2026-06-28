@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - setfsuid02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - setfsuid02"
-        rlRun "runltp -f syscalls -s setfsuid02 -q" 0 "执行 LTP setfsuid02"
+        rlRun "kirk -f syscalls -p setfsuid02" 0 "执行 LTP setfsuid02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

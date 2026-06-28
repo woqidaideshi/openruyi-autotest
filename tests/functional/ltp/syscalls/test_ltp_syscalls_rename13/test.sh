@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - rename13
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - rename13"
-        rlRun "runltp -f syscalls -s rename13 -q" 0 "执行 LTP rename13"
+        rlRun "kirk -f syscalls -p rename13" 0 "执行 LTP rename13"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

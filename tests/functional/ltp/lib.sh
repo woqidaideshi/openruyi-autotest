@@ -6,62 +6,51 @@
 #
 # Strategy:
 #   1. Try dnf install (fast if package is in repo)
-#   2. If dnf fails or runltp not found, compile from source
+#   2. If dnf fails or kirk not found, compile from source (tag 20250930)
 #
+# Reference: https://github.com/linux-test-project/ltp
+# Docs: https://git.openruyi.cn/woqidaideshi/docs/src/branch/main/guide/Testing-Guide/Testing-Guide.md#11-ltp
 # Usage: . "$(dirname "$0")/../../lib.sh"; ltpSetup
 
 LTP_FLAG="/tmp/.beakerlib_ltp_suite"
-LTP_INSTALL_DIR="/opt/ltp-src"
-
-_ltpEnsureBinLinks() {
-    # runltp expects ltp-pan at $LTPROOT/bin/ltp-pan
-    if [ ! -e "$LTP_INSTALL_DIR/bin/ltp-pan" ] && [ -x "$LTP_INSTALL_DIR/pan/ltp-pan" ]; then
-        mkdir -p "$LTP_INSTALL_DIR/bin"
-        ln -sf "$LTP_INSTALL_DIR/pan/ltp-pan" "$LTP_INSTALL_DIR/bin/ltp-pan"
-    fi
-    # runltp expects test binaries in $LTPROOT/testcases/bin/
-    if [ ! -d "$LTP_INSTALL_DIR/testcases/bin" ] || [ "$(ls -A "$LTP_INSTALL_DIR/testcases/bin" 2>/dev/null)" = "" ]; then
-        mkdir -p "$LTP_INSTALL_DIR/testcases/bin"
-        find "$LTP_INSTALL_DIR/testcases" -type f -executable -exec ln -sf {} "$LTP_INSTALL_DIR/testcases/bin/" \; 2>/dev/null || true
-    fi
-}
+LTP_INSTALL_DIR="/opt/ltp"
+LTP_TAG="20250930"
 
 _ltpSetupPath() {
-    export PATH="$LTP_INSTALL_DIR:$LTP_INSTALL_DIR/pan:$LTP_INSTALL_DIR/testcases/bin:$PATH"
-    export LTPROOT="$LTP_INSTALL_DIR"
+    export PATH="$LTP_INSTALL_DIR:$PATH"
 }
 
 ltpSetup() {
     if [ ! -f "$LTP_FLAG" ]; then
         local method=""
-        # Check if any working LTP exists
-        if command -v runltp >/dev/null 2>&1; then
+        # Check if any working LTP (kirk) exists
+        if command -v kirk >/dev/null 2>&1; then
             method="system"
             echo "installed=0" > "$LTP_FLAG"
-        elif [ -x "$LTP_INSTALL_DIR/runltp" ]; then
+        elif [ -x "$LTP_INSTALL_DIR/kirk" ]; then
             _ltpSetupPath
-            _ltpEnsureBinLinks
             method="source-cached"
             echo "installed=0" > "$LTP_FLAG"
         else
             rlLogInfo "安装 LTP（首次）..."
             # Try dnf first
-            if echo openruyi | sudo -S dnf install -y ltp 2>/dev/null && command -v runltp >/dev/null 2>&1; then
+            if echo openruyi | sudo -S dnf install -y ltp 2>/dev/null && command -v kirk >/dev/null 2>&1; then
                 method="dnf"
                 echo "installed=1" > "$LTP_FLAG"
             else
-                # dnf failed or runltp not in PATH — compile from source
-                rlLogInfo "dnf 安装失败或无 runltp，从源码编译..."
-                echo openruyi | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig 2>/dev/null || true
+                # dnf failed or kirk not in PATH — compile from source
+                rlLogInfo "dnf 安装失败或无 kirk，从源码编译（tag: $LTP_TAG）..."
+                echo openruyi | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig \
+                    zlib-devel keyutils-libs-devel libtirpc-devel libmnl-devel libaio-devel \
+                    libcap-devel openssl-devel numactl-devel 2>/dev/null || true
                 if [ ! -d "$LTP_INSTALL_DIR" ]; then
-                    git clone --depth 1 --branch 20240524 https://github.com/linux-test-project/ltp.git "$LTP_INSTALL_DIR" 2>/dev/null || true
+                    git clone --depth 1 --branch "$LTP_TAG" https://github.com/linux-test-project/ltp.git "$LTP_INSTALL_DIR" 2>/dev/null || true
                 fi
                 if [ -f "$LTP_INSTALL_DIR/Makefile" ]; then
-                    cd "$LTP_INSTALL_DIR" && make autotools && ./configure --prefix="$LTP_INSTALL_DIR" && make -j$(nproc) && sudo make install 2>&1 | tail -3
+                    cd "$LTP_INSTALL_DIR" && make autotools && ./configure --prefix="$LTP_INSTALL_DIR" --with-open-posix-testsuite && make -j$(nproc) && sudo make install 2>&1 | tail -3
                 fi
                 _ltpSetupPath
-                _ltpEnsureBinLinks
-                if command -v runltp >/dev/null 2>&1; then
+                if command -v kirk >/dev/null 2>&1; then
                     method="source"
                     echo "installed=2" > "$LTP_FLAG"
                 else
@@ -80,9 +69,8 @@ ltpSetup() {
         sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
         rlLogInfo "LTP 已安装，引用计数: $ref"
         # Restore PATH if source install
-        if [ -x "$LTP_INSTALL_DIR/runltp" ]; then
+        if [ -x "$LTP_INSTALL_DIR/kirk" ]; then
             _ltpSetupPath
-            _ltpEnsureBinLinks
         fi
     fi
 

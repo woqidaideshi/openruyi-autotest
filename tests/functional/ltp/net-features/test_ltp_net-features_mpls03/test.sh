@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-features - mpls03
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-features - mpls03"
-        rlRun "runltp -f net-features -s mpls03 -q" 0 "执行 LTP mpls03"
+        rlRun "kirk -f net-features -p mpls03" 0 "执行 LTP mpls03"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

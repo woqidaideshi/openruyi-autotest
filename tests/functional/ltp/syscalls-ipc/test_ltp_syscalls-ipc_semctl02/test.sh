@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls-ipc - semctl02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls-ipc - semctl02"
-        rlRun "runltp -f syscalls-ipc -s semctl02 -q" 0 "执行 LTP semctl02"
+        rlRun "kirk -f syscalls-ipc -p semctl02" 0 "执行 LTP semctl02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

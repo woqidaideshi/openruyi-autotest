@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - getrandom05
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - getrandom05"
-        rlRun "runltp -f syscalls -s getrandom05 -q" 0 "执行 LTP getrandom05"
+        rlRun "kirk -f syscalls -p getrandom05" 0 "执行 LTP getrandom05"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

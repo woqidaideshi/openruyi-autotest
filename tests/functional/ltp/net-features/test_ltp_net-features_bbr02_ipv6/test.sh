@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-features - bbr02_ipv6
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-features - bbr02_ipv6"
-        rlRun "runltp -f net-features -s bbr02_ipv6 -q" 0 "执行 LTP bbr02_ipv6"
+        rlRun "kirk -f net-features -p bbr02_ipv6" 0 "执行 LTP bbr02_ipv6"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

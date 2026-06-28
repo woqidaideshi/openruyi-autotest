@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - kernel_misc - rcu_torture
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP kernel_misc - rcu_torture"
-        rlRun "runltp -f kernel_misc -s rcu_torture -q" 0 "执行 LTP rcu_torture"
+        rlRun "kirk -f kernel_misc -p rcu_torture" 0 "执行 LTP rcu_torture"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

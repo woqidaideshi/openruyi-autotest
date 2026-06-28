@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - pidfd_send_signal02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - pidfd_send_signal02"
-        rlRun "runltp -f syscalls -s pidfd_send_signal02 -q" 0 "执行 LTP pidfd_send_signal02"
+        rlRun "kirk -f syscalls -p pidfd_send_signal02" 0 "执行 LTP pidfd_send_signal02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

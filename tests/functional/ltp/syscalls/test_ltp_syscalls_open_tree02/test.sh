@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - open_tree02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - open_tree02"
-        rlRun "runltp -f syscalls -s open_tree02 -q" 0 "执行 LTP open_tree02"
+        rlRun "kirk -f syscalls -p open_tree02" 0 "执行 LTP open_tree02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

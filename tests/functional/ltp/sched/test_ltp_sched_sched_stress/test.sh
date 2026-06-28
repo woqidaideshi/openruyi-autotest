@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - sched - sched_stress
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP sched - sched_stress"
-        rlRun "runltp -f sched -s sched_stress -q" 0 "执行 LTP sched_stress"
+        rlRun "kirk -f sched -p sched_stress" 0 "执行 LTP sched_stress"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

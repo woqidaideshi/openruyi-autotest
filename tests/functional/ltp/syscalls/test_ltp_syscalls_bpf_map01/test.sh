@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - bpf_map01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - bpf_map01"
-        rlRun "runltp -f syscalls -s bpf_map01 -q" 0 "执行 LTP bpf_map01"
+        rlRun "kirk -f syscalls -p bpf_map01" 0 "执行 LTP bpf_map01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

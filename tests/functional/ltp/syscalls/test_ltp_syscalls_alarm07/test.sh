@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - alarm07
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - alarm07"
-        rlRun "runltp -f syscalls -s alarm07 -q" 0 "执行 LTP alarm07"
+        rlRun "kirk -f syscalls -p alarm07" 0 "执行 LTP alarm07"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

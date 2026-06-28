@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - landlock05
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - landlock05"
-        rlRun "runltp -f syscalls -s landlock05 -q" 0 "执行 LTP landlock05"
+        rlRun "kirk -f syscalls -p landlock05" 0 "执行 LTP landlock05"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

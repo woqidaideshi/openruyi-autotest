@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - getcwd02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - getcwd02"
-        rlRun "runltp -f syscalls -s getcwd02 -q" 0 "执行 LTP getcwd02"
+        rlRun "kirk -f syscalls -p getcwd02" 0 "执行 LTP getcwd02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

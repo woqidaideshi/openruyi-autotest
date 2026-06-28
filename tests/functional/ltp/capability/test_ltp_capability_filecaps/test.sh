@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - capability - filecaps
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP capability - filecaps"
-        rlRun "runltp -f capability -s filecaps -q" 0 "执行 LTP filecaps"
+        rlRun "kirk -f capability -p filecaps" 0 "执行 LTP filecaps"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

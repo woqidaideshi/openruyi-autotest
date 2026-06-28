@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - fanotify08
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - fanotify08"
-        rlRun "runltp -f syscalls -s fanotify08 -q" 0 "执行 LTP fanotify08"
+        rlRun "kirk -f syscalls -p fanotify08" 0 "执行 LTP fanotify08"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

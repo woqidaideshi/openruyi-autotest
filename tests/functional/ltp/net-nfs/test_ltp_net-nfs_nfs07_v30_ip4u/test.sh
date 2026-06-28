@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-nfs - nfs07_v30_ip4u
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-nfs - nfs07_v30_ip4u"
-        rlRun "runltp -f net-nfs -s nfs07_v30_ip4u -q" 0 "执行 LTP nfs07_v30_ip4u"
+        rlRun "kirk -f net-nfs -p nfs07_v30_ip4u" 0 "执行 LTP nfs07_v30_ip4u"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

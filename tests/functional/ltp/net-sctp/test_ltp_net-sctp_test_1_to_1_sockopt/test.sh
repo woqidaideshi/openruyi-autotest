@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-sctp - test_1_to_1_sockopt
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-sctp - test_1_to_1_sockopt"
-        rlRun "runltp -f net-sctp -s test_1_to_1_sockopt -q" 0 "执行 LTP test_1_to_1_sockopt"
+        rlRun "kirk -f net-sctp -p test_1_to_1_sockopt" 0 "执行 LTP test_1_to_1_sockopt"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

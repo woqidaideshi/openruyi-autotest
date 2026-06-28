@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-ipv6 - ping602
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-ipv6 - ping602"
-        rlRun "runltp -f net-ipv6 -s ping602 -q" 0 "执行 LTP ping602"
+        rlRun "kirk -f net-ipv6 -p ping602" 0 "执行 LTP ping602"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

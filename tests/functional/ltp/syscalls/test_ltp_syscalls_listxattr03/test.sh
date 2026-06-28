@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - listxattr03
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - listxattr03"
-        rlRun "runltp -f syscalls -s listxattr03 -q" 0 "执行 LTP listxattr03"
+        rlRun "kirk -f syscalls -p listxattr03" 0 "执行 LTP listxattr03"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - fs - binfmt_misc02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP fs - binfmt_misc02"
-        rlRun "runltp -f fs -s binfmt_misc02 -q" 0 "执行 LTP binfmt_misc02"
+        rlRun "kirk -f fs -p binfmt_misc02" 0 "执行 LTP binfmt_misc02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

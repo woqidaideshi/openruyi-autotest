@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - epoll_pwait06
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - epoll_pwait06"
-        rlRun "runltp -f syscalls -s epoll_pwait06 -q" 0 "执行 LTP epoll_pwait06"
+        rlRun "kirk -f syscalls -p epoll_pwait06" 0 "执行 LTP epoll_pwait06"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

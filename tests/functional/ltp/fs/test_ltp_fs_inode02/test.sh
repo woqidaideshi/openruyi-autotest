@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - fs - inode02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP fs - inode02"
-        rlRun "runltp -f fs -s inode02 -q" 0 "执行 LTP inode02"
+        rlRun "kirk -f fs -p inode02" 0 "执行 LTP inode02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

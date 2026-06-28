@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - containers - mqns_02_clone
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP containers - mqns_02_clone"
-        rlRun "runltp -f containers -s mqns_02_clone -q" 0 "执行 LTP mqns_02_clone"
+        rlRun "kirk -f containers -p mqns_02_clone" 0 "执行 LTP mqns_02_clone"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - fsync03
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - fsync03"
-        rlRun "runltp -f syscalls -s fsync03 -q" 0 "执行 LTP fsync03"
+        rlRun "kirk -f syscalls -p fsync03" 0 "执行 LTP fsync03"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

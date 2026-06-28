@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-features - tcp_fastopen
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-features - tcp_fastopen"
-        rlRun "runltp -f net-features -s tcp_fastopen -q" 0 "执行 LTP tcp_fastopen"
+        rlRun "kirk -f net-features -p tcp_fastopen" 0 "执行 LTP tcp_fastopen"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-rpc-tests - rpc_svc_destroy
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-rpc-tests - rpc_svc_destroy"
-        rlRun "runltp -f net-rpc-tests -s rpc_svc_destroy -q" 0 "执行 LTP rpc_svc_destroy"
+        rlRun "kirk -f net-rpc-tests -p rpc_svc_destroy" 0 "执行 LTP rpc_svc_destroy"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

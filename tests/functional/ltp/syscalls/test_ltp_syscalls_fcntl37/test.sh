@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - fcntl37
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - fcntl37"
-        rlRun "runltp -f syscalls -s fcntl37 -q" 0 "执行 LTP fcntl37"
+        rlRun "kirk -f syscalls -p fcntl37" 0 "执行 LTP fcntl37"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

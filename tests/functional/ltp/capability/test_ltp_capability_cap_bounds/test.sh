@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - capability - cap_bounds
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP capability - cap_bounds"
-        rlRun "runltp -f capability -s cap_bounds -q" 0 "执行 LTP cap_bounds"
+        rlRun "kirk -f capability -p cap_bounds" 0 "执行 LTP cap_bounds"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

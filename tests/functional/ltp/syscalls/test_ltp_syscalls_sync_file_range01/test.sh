@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - sync_file_range01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - sync_file_range01"
-        rlRun "runltp -f syscalls -s sync_file_range01 -q" 0 "执行 LTP sync_file_range01"
+        rlRun "kirk -f syscalls -p sync_file_range01" 0 "执行 LTP sync_file_range01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

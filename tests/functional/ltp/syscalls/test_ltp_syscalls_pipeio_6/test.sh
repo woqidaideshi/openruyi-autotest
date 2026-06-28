@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - pipeio_6
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - pipeio_6"
-        rlRun "runltp -f syscalls -s pipeio_6 -q" 0 "执行 LTP pipeio_6"
+        rlRun "kirk -f syscalls -p pipeio_6" 0 "执行 LTP pipeio_6"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

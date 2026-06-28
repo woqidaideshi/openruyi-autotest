@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - waitpid11
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - waitpid11"
-        rlRun "runltp -f syscalls -s waitpid11 -q" 0 "执行 LTP waitpid11"
+        rlRun "kirk -f syscalls -p waitpid11" 0 "执行 LTP waitpid11"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

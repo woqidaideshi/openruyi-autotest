@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - ima - ima_keys
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP ima - ima_keys"
-        rlRun "runltp -f ima -s ima_keys -q" 0 "执行 LTP ima_keys"
+        rlRun "kirk -f ima -p ima_keys" 0 "执行 LTP ima_keys"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

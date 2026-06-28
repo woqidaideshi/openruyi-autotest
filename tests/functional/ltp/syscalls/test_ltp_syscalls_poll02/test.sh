@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - poll02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - poll02"
-        rlRun "runltp -f syscalls -s poll02 -q" 0 "执行 LTP poll02"
+        rlRun "kirk -f syscalls -p poll02" 0 "执行 LTP poll02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

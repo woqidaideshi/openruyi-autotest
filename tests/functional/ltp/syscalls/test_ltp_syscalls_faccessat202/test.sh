@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - faccessat202
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - faccessat202"
-        rlRun "runltp -f syscalls -s faccessat202 -q" 0 "执行 LTP faccessat202"
+        rlRun "kirk -f syscalls -p faccessat202" 0 "执行 LTP faccessat202"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-tirpc-tests - tirpc_interlevel_clnt_call
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-tirpc-tests - tirpc_interlevel_clnt_call"
-        rlRun "runltp -f net-tirpc-tests -s tirpc_interlevel_clnt_call -q" 0 "执行 LTP tirpc_interlevel_clnt_call"
+        rlRun "kirk -f net-tirpc-tests -p tirpc_interlevel_clnt_call" 0 "执行 LTP tirpc_interlevel_clnt_call"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

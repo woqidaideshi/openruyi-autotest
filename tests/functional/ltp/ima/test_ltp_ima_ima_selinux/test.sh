@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - ima - ima_selinux
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP ima - ima_selinux"
-        rlRun "runltp -f ima -s ima_selinux -q" 0 "执行 LTP ima_selinux"
+        rlRun "kirk -f ima -p ima_selinux" 0 "执行 LTP ima_selinux"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

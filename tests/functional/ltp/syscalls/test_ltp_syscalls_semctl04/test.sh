@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - semctl04
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - semctl04"
-        rlRun "runltp -f syscalls -s semctl04 -q" 0 "执行 LTP semctl04"
+        rlRun "kirk -f syscalls -p semctl04" 0 "执行 LTP semctl04"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

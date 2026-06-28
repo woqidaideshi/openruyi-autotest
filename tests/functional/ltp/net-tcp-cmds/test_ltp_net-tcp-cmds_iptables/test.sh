@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-tcp-cmds - iptables
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-tcp-cmds - iptables"
-        rlRun "runltp -f net-tcp-cmds -s iptables -q" 0 "执行 LTP iptables"
+        rlRun "kirk -f net-tcp-cmds -p iptables" 0 "执行 LTP iptables"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

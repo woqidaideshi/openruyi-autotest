@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - thermal - thermal_interrupt_events
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP thermal - thermal_interrupt_events"
-        rlRun "runltp -f thermal -s thermal_interrupt_events -q" 0 "执行 LTP thermal_interrupt_events"
+        rlRun "kirk -f thermal -p thermal_interrupt_events" 0 "执行 LTP thermal_interrupt_events"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

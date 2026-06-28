@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - net-tirpc-tests - tirpc_clnt_perrno
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-tirpc-tests - tirpc_clnt_perrno"
-        rlRun "runltp -f net-tirpc-tests -s tirpc_clnt_perrno -q" 0 "执行 LTP tirpc_clnt_perrno"
+        rlRun "kirk -f net-tirpc-tests -p tirpc_clnt_perrno" 0 "执行 LTP tirpc_clnt_perrno"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

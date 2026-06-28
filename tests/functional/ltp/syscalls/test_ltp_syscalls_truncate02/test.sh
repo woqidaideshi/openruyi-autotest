@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - truncate02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - truncate02"
-        rlRun "runltp -f syscalls -s truncate02 -q" 0 "执行 LTP truncate02"
+        rlRun "kirk -f syscalls -p truncate02" 0 "执行 LTP truncate02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

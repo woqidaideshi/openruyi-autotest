@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - mincore02
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - mincore02"
-        rlRun "runltp -f syscalls -s mincore02 -q" 0 "执行 LTP mincore02"
+        rlRun "kirk -f syscalls -p mincore02" 0 "执行 LTP mincore02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - numa - set_mempolicy05
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP numa - set_mempolicy05"
-        rlRun "runltp -f numa -s set_mempolicy05 -q" 0 "执行 LTP set_mempolicy05"
+        rlRun "kirk -f numa -p set_mempolicy05" 0 "执行 LTP set_mempolicy05"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - crypto - crypto_user01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP crypto - crypto_user01"
-        rlRun "runltp -f crypto -s crypto_user01 -q" 0 "执行 LTP crypto_user01"
+        rlRun "kirk -f crypto -p crypto_user01" 0 "执行 LTP crypto_user01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

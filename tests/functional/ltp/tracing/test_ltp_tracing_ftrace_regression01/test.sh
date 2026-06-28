@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - tracing - ftrace_regression01
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP tracing - ftrace_regression01"
-        rlRun "runltp -f tracing -s ftrace_regression01 -q" 0 "执行 LTP ftrace_regression01"
+        rlRun "kirk -f tracing -p ftrace_regression01" 0 "执行 LTP ftrace_regression01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

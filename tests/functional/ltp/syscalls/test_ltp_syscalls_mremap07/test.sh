@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Functional test: ltp - syscalls - mremap07
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../../lib.sh (install once, uninstall once)
@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - mremap07"
-        rlRun "runltp -f syscalls -s mremap07 -q" 0 "执行 LTP mremap07"
+        rlRun "kirk -f syscalls -p mremap07" 0 "执行 LTP mremap07"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"
