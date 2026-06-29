@@ -14,7 +14,10 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "CMake-version-and-help"
-        rlPass "测试已执行"
+        rlRun "cmake --version" 0 "检查 cmake 版本信息"
+        rlRun "cmake --help 2>&1 >/dev/null" 1 "cmake --help 返回帮助信息"
+        rlRun "cmake --help-full 2>&1 >/dev/null" 1 "cmake --help-full 返回完整帮助"
+        rlRun "cmake --help-command list 2>&1 >/dev/null" 1 "cmake --help-command list 返回命令帮助"
     rlPhaseEnd
 
 

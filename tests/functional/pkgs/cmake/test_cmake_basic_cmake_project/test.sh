@@ -14,7 +14,14 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Basic-CMake-project"
-        rlPass "测试已执行"
+        rlRun "echo 'cmake_minimum_required(VERSION 3.10)' > $TmpDir/CMakeLists.txt" 0 "创建 CMakeLists.txt"
+        rlRun "echo 'project(TestProject)' >> $TmpDir/CMakeLists.txt" 0 "添加 project 声明"
+        rlRun "echo 'add_executable(hello hello.c)' >> $TmpDir/CMakeLists.txt" 0 "添加可执行目标"
+        rlRun "echo 'int main(){return 0;}' > $TmpDir/hello.c" 0 "创建源文件"
+        rlRun "cmake -S $TmpDir -B $TmpDir/build" 0 "cmake 配置项目"
+        rlRun "test -f $TmpDir/build/CMakeCache.txt" 0 "验证 CMakeCache.txt 已生成"
+        rlRun "cmake --build $TmpDir/build" 0 "cmake 构建项目"
+        rlRun "test -x $TmpDir/build/hello" 0 "验证可执行文件已生成"
     rlPhaseEnd
 
 

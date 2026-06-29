@@ -14,7 +14,10 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ctest-and-cpack"
-        rlPass "测试已执行"
+        rlRun "ctest --version" 0 "检查 ctest 版本信息"
+        rlRun "cpack --version" 0 "检查 cpack 版本信息"
+        rlRun "ctest --help 2>&1 >/dev/null" 1 "ctest --help 返回帮助"
+        rlRun "cpack --help 2>&1 >/dev/null" 1 "cpack --help 返回帮助"
     rlPhaseEnd
 
 

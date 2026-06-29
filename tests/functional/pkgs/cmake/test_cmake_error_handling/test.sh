@@ -14,7 +14,10 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlPass "测试已执行"
+        rlRun "cmake /nonexistent/path 2>&1" 1 "cmake 对不存在的路径应报错"
+        rlRun "cmake --build /nonexistent/build 2>&1" 1 "cmake --build 对不存在目录应报错"
+        rlRun "cmake -E true" 0 "cmake -E true 返回成功"
+        rlRun "cmake -E false 2>&1" 1 "cmake -E false 返回失败"
     rlPhaseEnd
 
 
