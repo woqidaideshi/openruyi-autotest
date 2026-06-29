@@ -33,6 +33,11 @@ _ltpRunCase() {
     if command -v kirk >/dev/null 2>&1; then
         kirk -f "$suite" -p "$case" 2>&1 | tee "$out"
     elif command -v runltp >/dev/null 2>&1; then
+        # runltp may be a stub ("runltp was removed from LTP") in newer LTP
+        if runltp 2>&1 | grep -q "runltp was removed"; then
+            rlFail "LTP runner: runltp is a stub, need kirk (LTP >= 2026)"
+            return 1
+        fi
         runltp -f "$suite" -s "$case" -q 2>&1 | tee "$out"
     else
         rlFail "LTP runner not found (kirk or runltp)"
@@ -99,12 +104,12 @@ ltpSetup() {
                 if [ -f "$LTP_INSTALL_DIR/Makefile" ]; then
                     # Fix: riscv64 glibc already defines struct sched_attr /
                     # sched_setattr / sched_getattr (conflicting with lapi/sched.h).
-                    # Comment out the LTP fallback to avoid redefinition errors.
+                    # Wrap the LTP fallback with #ifndef guards.
                     local sched_h="$LTP_INSTALL_DIR/include/lapi/sched.h"
                     if [ -f "$sched_h" ] && grep -q 'struct sched_attr' "$sched_h" 2>/dev/null; then
-                        sed -i 's/^struct sched_attr/\/\/struct sched_attr/' "$sched_h"
-                        sed -i 's/^static inline int sched_setattr/\/\/static inline int sched_setattr/' "$sched_h"
-                        sed -i 's/^static inline int sched_getattr/\/\/static inline int sched_getattr/' "$sched_h"
+                        sed -i '/^struct sched_attr {/,/^};/s/^/\/\//' "$sched_h"
+                        sed -i '/^static inline int sched_setattr/,/^}/s/^/\/\//' "$sched_h"
+                        sed -i '/^static inline int sched_getattr/,/^}/s/^/\/\//' "$sched_h"
                     fi
                     cd "$LTP_INSTALL_DIR" && make autotools && ./configure --prefix="$LTP_INSTALL_DIR" --with-open-posix-testsuite && make -j$(nproc) -k || true
                     # Install whatever was built (kirk + test binaries). Some
