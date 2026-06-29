@@ -17,7 +17,7 @@ LTP_INSTALL_DIR="/opt/ltp"
 LTP_TAG="20240930"
 
 _ltpSetupPath() {
-    export PATH="$LTP_INSTALL_DIR:$PATH"
+    export PATH="$LTP_INSTALL_DIR:$LTP_INSTALL_DIR/tools:$PATH"
 }
 
 # Run a single LTP test case via kirk and report result to BeakerLib.
@@ -88,6 +88,15 @@ ltpSetup() {
                     git clone --depth 1 --branch "$LTP_TAG" https://github.com/linux-test-project/ltp.git "$LTP_INSTALL_DIR" 2>/dev/null || true
                 fi
                 if [ -f "$LTP_INSTALL_DIR/Makefile" ]; then
+                    # Fix: riscv64 glibc already defines struct sched_attr /
+                    # sched_setattr / sched_getattr (conflicting with lapi/sched.h).
+                    # Comment out the LTP fallback to avoid redefinition errors.
+                    local sched_h="$LTP_INSTALL_DIR/include/lapi/sched.h"
+                    if [ -f "$sched_h" ] && grep -q 'struct sched_attr' "$sched_h" 2>/dev/null; then
+                        sed -i 's/^struct sched_attr/\/\/struct sched_attr/' "$sched_h"
+                        sed -i 's/^static inline int sched_setattr/\/\/static inline int sched_setattr/' "$sched_h"
+                        sed -i 's/^static inline int sched_getattr/\/\/static inline int sched_getattr/' "$sched_h"
+                    fi
                     cd "$LTP_INSTALL_DIR" && make autotools && ./configure --prefix="$LTP_INSTALL_DIR" --with-open-posix-testsuite && make -j$(nproc) -k || true
                     # Install whatever was built (kirk + test binaries). Some
                     # test binaries may be missing due to kernel header
@@ -98,6 +107,19 @@ ltpSetup() {
                 if command -v kirk >/dev/null 2>&1; then
                     method="source"
                     echo "installed=2" > "$LTP_FLAG"
+                elif [ -x "$LTP_INSTALL_DIR/tools/kirk" ]; then
+                    # kirk was built but make install failed due to test binary
+                    # errors. Manually install kirk to LTP_INSTALL_DIR.
+                    cp "$LTP_INSTALL_DIR/tools/kirk" "$LTP_INSTALL_DIR/kirk" 2>/dev/null || true
+                    _ltpSetupPath
+                    if command -v kirk >/dev/null 2>&1; then
+                        method="source"
+                        echo "installed=2" > "$LTP_FLAG"
+                    else
+                        rlLogWarning "LTP 源码编译失败，测试可能无法执行"
+                        method="failed"
+                        echo "installed=3" > "$LTP_FLAG"
+                    fi
                 else
                     rlLogWarning "LTP 源码编译失败，测试可能无法执行"
                     method="failed"
