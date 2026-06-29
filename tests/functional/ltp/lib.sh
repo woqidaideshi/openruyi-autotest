@@ -6,7 +6,7 @@
 #
 # Strategy:
 #   1. Try dnf install (fast if package is in repo)
-#   2. If dnf fails or kirk not found, compile from source (tag 20250930)
+#   2. If dnf fails or kirk not found, compile from source (tag 20260529)
 #
 # Reference: https://github.com/linux-test-project/ltp
 # Docs: https://git.openruyi.cn/woqidaideshi/docs/src/branch/main/guide/Testing-Guide/Testing-Guide.md#11-ltp
@@ -14,10 +14,11 @@
 
 LTP_FLAG="/tmp/.beakerlib_ltp_suite"
 LTP_INSTALL_DIR="/opt/ltp"
-LTP_TAG="20240930"
+LTP_TAG="20260529"
 
 _ltpSetupPath() {
     export PATH="$LTP_INSTALL_DIR:$LTP_INSTALL_DIR/tools:$PATH"
+    export LTPROOT="$LTP_INSTALL_DIR"
 }
 
 # Run a single LTP test case via kirk and report result to BeakerLib.
@@ -28,7 +29,15 @@ _ltpRunCase() {
     local case="$2"
     local out="/tmp/ltp_out_$$"
 
-    kirk -f "$suite" -p "$case" 2>&1 | tee "$out"
+    # Try kirk first (newer LTP), fall back to runltp (older LTP)
+    if command -v kirk >/dev/null 2>&1; then
+        kirk -f "$suite" -p "$case" 2>&1 | tee "$out"
+    elif command -v runltp >/dev/null 2>&1; then
+        runltp -f "$suite" -s "$case" -q 2>&1 | tee "$out"
+    else
+        rlFail "LTP runner not found (kirk or runltp)"
+        return 1
+    fi
     local rc=${PIPESTATUS[0]}
 
     if [ "$rc" -ne 0 ]; then
@@ -64,11 +73,11 @@ _ltpRunCase() {
 ltpSetup() {
     if [ ! -f "$LTP_FLAG" ]; then
         local method=""
-        # Check if any working LTP (kirk) exists
-        if command -v kirk >/dev/null 2>&1; then
+        # Check if any working LTP exists (kirk or runltp)
+        if command -v kirk >/dev/null 2>&1 || command -v runltp >/dev/null 2>&1; then
             method="system"
             echo "installed=0" > "$LTP_FLAG"
-        elif [ -x "$LTP_INSTALL_DIR/kirk" ]; then
+        elif [ -x "$LTP_INSTALL_DIR/runltp" ] || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
             _ltpSetupPath
             method="source-cached"
             echo "installed=0" > "$LTP_FLAG"
@@ -104,15 +113,15 @@ ltpSetup() {
                     sudo make install 2>&1 | tail -3 || true
                 fi
                 _ltpSetupPath
-                if command -v kirk >/dev/null 2>&1; then
+                if command -v kirk >/dev/null 2>&1 || command -v runltp >/dev/null 2>&1; then
                     method="source"
                     echo "installed=2" > "$LTP_FLAG"
                 elif [ -x "$LTP_INSTALL_DIR/tools/kirk" ]; then
                     # kirk was built but make install failed due to test binary
                     # errors. Manually install kirk to LTP_INSTALL_DIR.
-                    cp "$LTP_INSTALL_DIR/tools/kirk" "$LTP_INSTALL_DIR/kirk" 2>/dev/null || true
+                    cp -r "$LTP_INSTALL_DIR/tools/kirk" "$LTP_INSTALL_DIR/kirk" 2>/dev/null || true
                     _ltpSetupPath
-                    if command -v kirk >/dev/null 2>&1; then
+                    if command -v kirk >/dev/null 2>&1 || command -v runltp >/dev/null 2>&1; then
                         method="source"
                         echo "installed=2" > "$LTP_FLAG"
                     else
@@ -136,7 +145,7 @@ ltpSetup() {
         sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
         rlLogInfo "LTP 已安装，引用计数: $ref"
         # Restore PATH if source install
-        if [ -x "$LTP_INSTALL_DIR/kirk" ]; then
+        if [ -x "$LTP_INSTALL_DIR/runltp" ] || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
             _ltpSetupPath
         fi
     fi
