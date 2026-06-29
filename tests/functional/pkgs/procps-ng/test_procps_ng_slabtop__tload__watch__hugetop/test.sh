@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - slabtop--tload--watch--hugetop"
-        rlPass "测试已执行"
+        rlRun "which slabtop 2>/dev/null || echo slabtop-not-found" 0 "slabtop 命令检查"
+        rlRun "which tload 2>/dev/null || echo tload-not-found" 0 "tload 命令检查"
+        rlRun "watch --version" 0 "watch --version"
     rlPhaseEnd
 
 

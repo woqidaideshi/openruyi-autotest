@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlPass "测试已执行"
+        rlRun "killall --nonexistent 2>&1" 1 "killall 无效选项应报错"
+        rlRun "fuser --nonexistent 2>&1" 1 "fuser 无效选项应报错"
     rlPhaseEnd
 
 

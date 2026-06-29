@@ -14,7 +14,13 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Create-simple-spec-file"
-        rlPass "测试已执行"
+        rlRun "echo 'Name: testpkg' > $TmpDir/test.spec" 0 "创建 spec 文件头"
+        rlRun "echo 'Version: 1.0' >> $TmpDir/test.spec" 0 "添加版本"
+        rlRun "echo 'Release: 1' >> $TmpDir/test.spec" 0 "添加 Release"
+        rlRun "echo 'Summary: Test package' >> $TmpDir/test.spec" 0 "添加 Summary"
+        rlRun "echo 'License: MIT' >> $TmpDir/test.spec" 0 "添加 License"
+        rlRun "echo '%description' >> $TmpDir/test.spec" 0 "添加 %description"
+        rlRun "echo 'Test package for rpmbuild' >> $TmpDir/test.spec" 0 "描述内容"
     rlPhaseEnd
 
 

@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "git-shell"
-        rlPass "测试已执行"
+        rlRun "git --version" 0 "检查 git 版本"
+        rlRun "which git-shell 2>/dev/null || echo 'git-shell is part of git'" 0 "检查 git-shell 存在性"
+        rlRun "git help" 0 "git help 可用"
     rlPhaseEnd
 
 

@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "podman-basic"
-        rlPass "测试已执行"
+        rlRun "podman --version" 0 "podman --version"
+        rlRun "podman --help 2>&1 >/dev/null" 1 "podman --help"
     rlPhaseEnd
 
 

@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Archive-extraction"
-        rlPass "测试已执行"
+        rlRun "mkdir $TmpDir/extract && tar -xf $TmpDir/test.tar -C $TmpDir/extract" 0 "tar 解压"
+        rlRun "test -f $TmpDir/extract/testdir/file.txt" 0 "验证提取文件"
     rlPhaseEnd
 
 

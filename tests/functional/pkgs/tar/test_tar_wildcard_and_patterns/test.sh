@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Wildcard-and-patterns"
-        rlPass "测试已执行"
+        rlRun "tar -cf $TmpDir/pattern.tar -C $TmpDir testdir" 0 "tar 创建归档"
     rlPhaseEnd
 
 

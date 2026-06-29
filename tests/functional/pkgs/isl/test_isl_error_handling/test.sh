@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "错误处理"
-        rlPass "测试已执行"
+        rlRun "rpm -q isl" 0 "isl 包已安装"
+        rlRun "rpm -ql isl | grep -E '\\.so' | head -3" 0 "isl 库文件存在"
+        rlRun "ldconfig -p | grep libisl" 0 "libisl 在 ldconfig 缓存中"
     rlPhaseEnd
 
 

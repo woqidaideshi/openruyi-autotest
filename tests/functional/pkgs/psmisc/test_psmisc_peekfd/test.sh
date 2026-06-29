@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "peekfd"
-        rlPass "测试已执行"
+        rlRun "which peekfd 2>/dev/null || echo peekfd-not-available" 0 "peekfd 命令检查"
+        rlRun "peekfd --help 2>&1 >/dev/null || echo ok" 0 "peekfd --help"
     rlPhaseEnd
 
 

@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "killall-basic"
-        rlPass "测试已执行"
+        rlRun "killall --version" 0 "killall --version"
+        rlRun "killall --help 2>&1 >/dev/null" 1 "killall --help"
     rlPhaseEnd
 
 

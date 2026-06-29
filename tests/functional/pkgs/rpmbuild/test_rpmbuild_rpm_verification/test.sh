@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "RPM-verification"
-        rlPass "测试已执行"
+        rlRun "rpm --version" 0 "rpm --version"
+        rlRun "rpm --help 2>&1 >/dev/null" 1 "rpm --help"
     rlPhaseEnd
 
 

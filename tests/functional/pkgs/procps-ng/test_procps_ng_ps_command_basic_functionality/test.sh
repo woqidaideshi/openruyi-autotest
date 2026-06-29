@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - ps-command-basic-functionality"
-        rlPass "测试已执行"
+        rlRun "ps aux" 0 "ps aux"
+        rlRun "ps -ef" 0 "ps -ef"
+        rlRun "ps --version" 0 "ps --version"
     rlPhaseEnd
 
 

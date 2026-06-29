@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "tracepath"
-        rlPass "测试已执行"
+        rlRun "tracepath --help 2>&1 >/dev/null" 1 "tracepath --help"
+        rlRun "which tracepath" 0 "tracepath 命令存在"
     rlPhaseEnd
 
 

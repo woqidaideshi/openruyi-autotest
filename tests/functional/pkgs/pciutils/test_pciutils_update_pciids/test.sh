@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "update-pciids"
-        rlPass "测试已执行"
+        rlRun "update-pciids --help 2>&1 >/dev/null" 1 "update-pciids --help"
+        rlRun "which update-pciids" 0 "update-pciids 命令存在"
     rlPhaseEnd
 
 

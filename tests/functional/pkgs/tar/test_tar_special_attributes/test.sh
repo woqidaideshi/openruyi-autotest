@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Special-attributes"
-        rlPass "测试已执行"
+        rlRun "tar -cf $TmpDir/attr.tar -C $TmpDir testdir --preserve-permissions" 0 "tar 保留权限"
+        rlRun "chmod 755 $TmpDir/testdir/file.txt && tar -cf $TmpDir/perm.tar -C $TmpDir testdir" 0 "tar 权限测试"
     rlPhaseEnd
 
 

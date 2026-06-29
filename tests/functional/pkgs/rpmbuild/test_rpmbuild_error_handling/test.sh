@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlPass "测试已执行"
+        rlRun "rpmbuild /nonexistent.spec 2>&1" 1 "rpmbuild 不存在spec应报错"
+        rlRun "rpmbuild --invalid 2>&1" 1 "rpmbuild 无效选项应报错"
     rlPhaseEnd
 
 

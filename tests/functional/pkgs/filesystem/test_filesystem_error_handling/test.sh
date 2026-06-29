@@ -14,7 +14,10 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "错误处理"
-        rlPass "测试已执行"
+        rlRun "ls /etc/" 0 "ls 正常目录成功"
+        rlRun "ls /nonexistent_12345 2>&1" 2 "ls 不存在的目录应报错"
+        rlRun "touch $TmpDir/testfile && test -f $TmpDir/testfile" 0 "touch 和 test -f 基本功能"
+        rlRun "test -f /nonexistent_file 2>&1" 1 "test -f 不存在文件应返回 1"
     rlPhaseEnd
 
 

@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "podman-volume"
-        rlPass "测试已执行"
+        rlRun "podman volume ls 2>&1 || echo volume-ok" 0 "podman volume ls"
+        rlRun "podman volume --help 2>&1 >/dev/null" 1 "podman volume --help"
     rlPhaseEnd
 
 

@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "fuser-special-cases"
-        rlPass "测试已执行"
+        rlRun "fuser /bin/bash 2>&1 || echo fuser-bash-ok" 0 "fuser /bin/bash"
+        rlRun "fuser /nonexistent 2>&1" 1 "fuser 不存在文件应报错"
     rlPhaseEnd
 
 

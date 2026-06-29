@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "clients - ssh-copy-id"
-        rlPass "测试已执行"
+        rlRun "ssh-copy-id -h 2>&1 >/dev/null" 0 "ssh-copy-id 帮助信息"
+        rlRun "which ssh-copy-id" 0 "ssh-copy-id 命令存在"
     rlPhaseEnd
 
 

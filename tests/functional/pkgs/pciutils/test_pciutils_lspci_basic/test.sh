@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "lspci-basic"
-        rlPass "测试已执行"
+        rlRun "lspci" 0 "lspci 基本输出"
+        rlRun "lspci -h 2>&1 >/dev/null" 1 "lspci -h 帮助信息"
     rlPhaseEnd
 
 

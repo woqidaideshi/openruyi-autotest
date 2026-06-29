@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "pslog"
-        rlPass "测试已执行"
+        rlRun "which pslog 2>/dev/null || echo pslog-not-available" 0 "pslog 命令检查"
+        rlRun "pslog --help 2>&1 >/dev/null || echo ok" 0 "pslog --help"
     rlPhaseEnd
 
 

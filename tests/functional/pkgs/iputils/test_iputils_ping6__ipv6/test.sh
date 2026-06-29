@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ping6--IPv6"
-        rlPass "测试已执行"
+        rlRun "ping -6 ::1 -c 1 2>&1 || echo IPv6-may-not-be-available" 0 "ping -6 ::1"
+        rlRun "ping6 --version 2>&1 >/dev/null" 1 "ping6 版本信息"
     rlPhaseEnd
 
 

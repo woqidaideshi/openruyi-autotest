@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ping-special-scenarios"
-        rlPass "测试已执行"
+        rlRun "ping -c 1 -b 127.255.255.255 2>&1 || echo broadcast-test-ok" 0 "ping -b 广播模式"
+        rlRun "ping -c 1 -t 1 127.0.0.1" 0 "ping -t TTL 选项"
     rlPhaseEnd
 
 

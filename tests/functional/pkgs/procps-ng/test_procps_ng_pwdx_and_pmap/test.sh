@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - pwdx-and-pmap"
-        rlPass "测试已执行"
+        rlRun "pwdx $$" 0 "pwdx 当前进程工作目录"
+        rlRun "pmap $$" 0 "pmap 当前进程内存映射"
     rlPhaseEnd
 
 

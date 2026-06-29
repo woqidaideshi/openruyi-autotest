@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "错误处理"
-        rlPass "测试已执行"
+        rlRun "rpm -q gmp" 0 "gmp 包已安装"
+        rlRun "rpm -ql gmp | grep -E '\\.so' | head -3" 0 "gmp 库文件存在"
+        rlRun "ldconfig -p | grep libgmp" 0 "libgmp 在 ldconfig 缓存中"
     rlPhaseEnd
 
 

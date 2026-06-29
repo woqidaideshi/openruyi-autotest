@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ping-advanced-options"
-        rlPass "测试已执行"
+        rlRun "ping -c 1 -W 1 127.0.0.1" 0 "ping -W 超时"
+        rlRun "ping -c 1 -s 100 127.0.0.1" 0 "ping -s 包大小"
+        rlRun "ping -c 1 -q 127.0.0.1" 0 "ping -q 安静模式"
     rlPhaseEnd
 
 

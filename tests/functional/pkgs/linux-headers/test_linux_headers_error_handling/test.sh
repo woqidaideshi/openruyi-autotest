@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "headers - 错误处理"
-        rlPass "测试已执行"
+        rlRun "rpm -q linux-headers 2>/dev/null || rpm -q kernel-headers" 0 "内核头文件包已安装"
+        rlRun "ls /usr/include/linux/version.h 2>/dev/null || ls /usr/include/asm/unistd.h 2>/dev/null" 0 "头文件存在"
     rlPhaseEnd
 
 

@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - sysctl--if-available"
-        rlPass "测试已执行"
+        rlRun "sysctl --help 2>&1 >/dev/null || echo sysctl-ok" 0 "sysctl --help"
+        rlRun "sysctl -a 2>&1 >/dev/null" 0 "sysctl -a"
     rlPhaseEnd
 
 

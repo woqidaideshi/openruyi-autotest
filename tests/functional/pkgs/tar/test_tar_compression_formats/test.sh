@@ -14,7 +14,10 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Compression-formats"
-        rlPass "测试已执行"
+        rlRun "tar -czf $TmpDir/test.tgz -C $TmpDir testdir" 0 "tar gzip 压缩"
+        rlRun "tar -cJf $TmpDir/test.xz -C $TmpDir testdir" 0 "tar xz 压缩"
+        rlRun "test -f $TmpDir/test.tgz" 0 "验证 tgz 文件"
+        rlRun "test -f $TmpDir/test.xz" 0 "验证 xz 文件"
     rlPhaseEnd
 
 

@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "lspci-verbose"
-        rlPass "测试已执行"
+        rlRun "lspci -v" 0 "lspci -v 详细模式"
+        rlRun "lspci -vv 2>&1 >/dev/null" 0 "lspci -vv 更详细模式"
+        rlRun "lspci -vvv 2>&1 >/dev/null" 0 "lspci -vvv 最详细模式"
     rlPhaseEnd
 
 

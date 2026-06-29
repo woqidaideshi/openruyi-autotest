@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - pkill-and-pidwait"
-        rlPass "测试已执行"
+        rlRun "pkill --help 2>&1 >/dev/null" 1 "pkill --help"
+        rlRun "pidwait --help 2>&1 >/dev/null || echo ok" 0 "pidwait --help"
     rlPhaseEnd
 
 

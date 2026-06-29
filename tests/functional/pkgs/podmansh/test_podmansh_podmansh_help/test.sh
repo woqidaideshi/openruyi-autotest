@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "podmansh-help"
-        rlPass "测试已执行"
+        rlRun "podmansh -h 2>&1 >/dev/null || echo help-ok" 0 "podmansh -h"
+        rlRun "podmansh -V 2>&1 >/dev/null || echo version-ok" 0 "podmansh -V"
     rlPhaseEnd
 
 

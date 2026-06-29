@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "killall-with-signals"
-        rlPass "测试已执行"
+        rlRun "killall -l" 0 "killall -l 信号列表"
+        rlRun "killall -V" 0 "killall -V 版本"
     rlPhaseEnd
 
 

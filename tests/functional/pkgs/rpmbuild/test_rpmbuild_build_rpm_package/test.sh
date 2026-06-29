@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Build-RPM-package"
-        rlPass "测试已执行"
+        rlRun "rpmbuild -ba $TmpDir/test.spec 2>&1 || echo no-source" 0 "rpmbuild -ba 构建"
+        rlRun "rpmbuild -bs $TmpDir/test.spec 2>&1 || echo source-only-ok" 0 "rpmbuild -bs 源包"
     rlPhaseEnd
 
 

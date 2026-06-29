@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - top-command"
-        rlPass "测试已执行"
+        rlRun "top --version" 0 "top --version"
+        rlRun "top --help 2>&1 >/dev/null" 1 "top --help"
     rlPhaseEnd
 
 

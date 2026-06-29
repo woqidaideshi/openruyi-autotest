@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "arping"
-        rlPass "测试已执行"
+        rlRun "arping -V" 0 "arping 版本信息"
+        rlRun "arping --help 2>&1 >/dev/null" 1 "arping --help"
     rlPhaseEnd
 
 

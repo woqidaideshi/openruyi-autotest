@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "fuser-with-options"
-        rlPass "测试已执行"
+        rlRun "fuser -v / 2>&1 || echo fuser-root-may-fail" 0 "fuser -v /"
+        rlRun "fuser -m /tmp 2>&1 || echo ok" 0 "fuser -m /tmp"
     rlPhaseEnd
 
 

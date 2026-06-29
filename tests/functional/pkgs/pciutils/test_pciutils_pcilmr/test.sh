@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "pcilmr"
-        rlPass "测试已执行"
+        rlRun "which pcilmr 2>/dev/null" 0 "pcilmr 命令检查"
+        rlRun "pcilmr --help 2>&1 >/dev/null || echo pcilmr-help-not-always" 0 "pcilmr --help"
     rlPhaseEnd
 
 

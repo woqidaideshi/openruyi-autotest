@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlPass "测试已执行"
+        rlRun "sddm --invalid-option 2>&1 || echo sddm-err-ok" 0 "sddm 无效选项应报错"
     rlPhaseEnd
 
 

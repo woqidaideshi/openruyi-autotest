@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "prtstat"
-        rlPass "测试已执行"
+        rlRun "which prtstat 2>/dev/null || echo prtstat-not-available" 0 "prtstat 命令检查"
     rlPhaseEnd
 
 

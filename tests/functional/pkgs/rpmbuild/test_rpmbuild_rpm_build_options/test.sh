@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "RPM-build-options"
-        rlPass "测试已执行"
+        rlRun "rpmbuild --showrc 2>&1 | head -5" 0 "rpmbuild --showrc"
+        rlRun "rpmbuild --eval %_topdir" 0 "rpmbuild --eval %_topdir"
     rlPhaseEnd
 
 
