@@ -14,9 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP dio - dio16"
-        rlRun "kirk -f dio -p dio16 2>&1 | tee /tmp/ltp_out_$$; exit ${PIPESTATUS[0]}" 0 "执行 LTP dio16"
-        rlRun "grep -qE 'Failed:[[:space:]]*0' /tmp/ltp_out_$$ && grep -qE 'Broken:[[:space:]]*0' /tmp/ltp_out_$$" 0 "验证用例结果（无失败/无损坏）"
-        rlRun "rm -f /tmp/ltp_out_$$" 0 "清理临时文件"
+        rlRun "_ltpRunCase dio dio16" 0 "执行 LTP dio16"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

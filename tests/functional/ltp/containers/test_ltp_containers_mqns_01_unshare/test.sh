@@ -14,9 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP containers - mqns_01_unshare"
-        rlRun "kirk -f containers -p mqns_01_unshare 2>&1 | tee /tmp/ltp_out_$$; exit ${PIPESTATUS[0]}" 0 "执行 LTP mqns_01_unshare"
-        rlRun "grep -qE 'Failed:[[:space:]]*0' /tmp/ltp_out_$$ && grep -qE 'Broken:[[:space:]]*0' /tmp/ltp_out_$$" 0 "验证用例结果（无失败/无损坏）"
-        rlRun "rm -f /tmp/ltp_out_$$" 0 "清理临时文件"
+        rlRun "_ltpRunCase containers mqns_01_unshare" 0 "执行 LTP mqns_01_unshare"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

@@ -14,9 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP containers - sem_nstest_clone"
-        rlRun "kirk -f containers -p sem_nstest_clone 2>&1 | tee /tmp/ltp_out_$$; exit ${PIPESTATUS[0]}" 0 "执行 LTP sem_nstest_clone"
-        rlRun "grep -qE 'Failed:[[:space:]]*0' /tmp/ltp_out_$$ && grep -qE 'Broken:[[:space:]]*0' /tmp/ltp_out_$$" 0 "验证用例结果（无失败/无损坏）"
-        rlRun "rm -f /tmp/ltp_out_$$" 0 "清理临时文件"
+        rlRun "_ltpRunCase containers sem_nstest_clone" 0 "执行 LTP sem_nstest_clone"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

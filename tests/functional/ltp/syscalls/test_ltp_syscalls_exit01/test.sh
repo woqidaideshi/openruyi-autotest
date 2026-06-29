@@ -14,9 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - exit01"
-        rlRun "kirk -f syscalls -p exit01 2>&1 | tee /tmp/ltp_out_$$; exit ${PIPESTATUS[0]}" 0 "执行 LTP exit01"
-        rlRun "grep -qE 'Failed:[[:space:]]*0' /tmp/ltp_out_$$ && grep -qE 'Broken:[[:space:]]*0' /tmp/ltp_out_$$" 0 "验证用例结果（无失败/无损坏）"
-        rlRun "rm -f /tmp/ltp_out_$$" 0 "清理临时文件"
+        rlRun "_ltpRunCase syscalls exit01" 0 "执行 LTP exit01"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"

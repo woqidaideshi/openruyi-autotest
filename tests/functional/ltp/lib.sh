@@ -20,6 +20,47 @@ _ltpSetupPath() {
     export PATH="$LTP_INSTALL_DIR:$PATH"
 }
 
+# Run a single LTP test case via kirk and report result to BeakerLib.
+# Pass / Fail / Skip are correctly mapped to tmt result states.
+# Usage: _ltpRunCase <suite> <case>
+_ltpRunCase() {
+    local suite="$1"
+    local case="$2"
+    local out="/tmp/ltp_out_$$"
+
+    kirk -f "$suite" -p "$case" 2>&1 | tee "$out"
+    local rc=${PIPESTATUS[0]}
+
+    if [ "$rc" -ne 0 ]; then
+        rlFail "LTP 用例执行失败 (kirk exit=$rc)"
+        rm -f "$out"
+        return 1
+    fi
+
+    # All skipped, nothing actually passed — map to tmt SKIP
+    if grep -qE 'Passed:[[:space:]]*0' "$out" && \
+       grep -qE 'Skipped:[[:space:]]*[1-9]' "$out" && \
+       grep -qE 'Failed:[[:space:]]*0' "$out" && \
+       grep -qE 'Broken:[[:space:]]*0' "$out"; then
+        rlTestSkip "LTP 用例被跳过（环境不支持）"
+        rm -f "$out"
+        return 0
+    fi
+
+    # Has failures or broken — map to tmt FAIL
+    if grep -qE 'Failed:[[:space:]]*[1-9]' "$out" || \
+       grep -qE 'Broken:[[:space:]]*[1-9]' "$out"; then
+        rlFail "LTP 用例存在失败或损坏"
+        rm -f "$out"
+        return 1
+    fi
+
+    # All good (pass, possibly with some skipped)
+    rlPass "LTP 用例通过"
+    rm -f "$out"
+    return 0
+}
+
 ltpSetup() {
     if [ ! -f "$LTP_FLAG" ]; then
         local method=""

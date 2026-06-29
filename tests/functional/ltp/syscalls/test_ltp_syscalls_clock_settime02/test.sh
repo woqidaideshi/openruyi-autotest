@@ -14,9 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP syscalls - clock_settime02"
-        rlRun "kirk -f syscalls -p clock_settime02 2>&1 | tee /tmp/ltp_out_$$; exit ${PIPESTATUS[0]}" 0 "执行 LTP clock_settime02"
-        rlRun "grep -qE 'Failed:[[:space:]]*0' /tmp/ltp_out_$$ && grep -qE 'Broken:[[:space:]]*0' /tmp/ltp_out_$$" 0 "验证用例结果（无失败/无损坏）"
-        rlRun "rm -f /tmp/ltp_out_$$" 0 "清理临时文件"
+        rlRun "_ltpRunCase syscalls clock_settime02" 0 "执行 LTP clock_settime02"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"
