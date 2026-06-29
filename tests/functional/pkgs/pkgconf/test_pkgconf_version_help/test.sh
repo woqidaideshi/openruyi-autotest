@@ -14,9 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "版本和帮助"
-        rlRun "pkgconf --version 2>&1 || true" 0 "pkgconf 版本信息"
+        rlRun "pkgconf --version 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "pkgconf 版本信息"
         rlRun "pkgconf --help 2>&1 | head -5 || true" 0 "pkgconf 帮助信息"
-        rlRun "bomtool --version 2>&1 || true" 0 "bomtool 版本信息"
+        rlRun "bomtool --version 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "bomtool 版本信息"
         rlRun "bomtool --help 2>&1 | head -5 || true" 0 "bomtool 帮助信息"
     rlPhaseEnd
 

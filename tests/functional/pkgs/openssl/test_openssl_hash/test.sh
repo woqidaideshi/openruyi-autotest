@@ -14,9 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "��ϣ����"
-        rlRun "TmpDir=$(mktemp -d)" 0 "������ʱĿ¼"
-        rlRun "cd $TmpDir" 0 "�������Ŀ¼"
-        rlRun "echo \"test data\" > testfile" 0 "���������ļ�"
+        rlRun "TmpDir=$(mktemp -d)" 0 "错误处理ʱĿ¼"
+        rlRun "cd $TmpDir" 0 "错误处理�Ŀ¼"
+        rlRun "echo \"test data\" > testfile" 0 "错误处理���ļ�"
         rlRun "openssl dgst -md5 testfile" 0 "MD5 ժҪ"
         rlRun "openssl dgst -sha256 testfile" 0 "SHA256 ժҪ"
         rlRun "openssl dgst -sha512 testfile" 0 "SHA512 ժҪ"

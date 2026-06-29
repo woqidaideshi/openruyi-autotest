@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: openssl - ��������
+# Functional test: openssl - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,11 +13,11 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
+    rlPhaseStartTest "错误处理��"
         rlRun "openssl version" 0 "�鿴�汾"
         rlRun "openssl help 2>&1 | head -20" 0 "�鿴����"
         rlRun "openssl list -standard-commands 2>&1 | head -10" 0 "�г���׼����"
-        rlRun "openssl list -cipher-commands 2>&1 | head -10" 0 "�г���������"
+        rlRun "openssl list -cipher-commands 2>&1 | head -10" 0 "�г错误处理���"
         rlRun "openssl list -digest-commands 2>&1 | head -10" 0 "�г�ժҪ����"
     rlPhaseEnd
 

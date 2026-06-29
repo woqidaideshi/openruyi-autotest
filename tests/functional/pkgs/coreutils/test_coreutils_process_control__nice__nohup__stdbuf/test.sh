@@ -16,7 +16,7 @@ rlJournalStart
     rlPhaseStartTest "Process-control--nice--nohup--stdbuf"
         rlRun "nice -n 10 true" 0 "nice adjust priority"
         rlRun "nohup true" 0 "nohup run command"
-        rlRun "stdbuf -oL echo test 2>&1 || true" 0 "stdbuf line buffered output"
+        rlRun "stdbuf -oL echo test 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "stdbuf line buffered output"
     rlPhaseEnd
 
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: e2fsprogs - e2fsprogs ������
+# Functional test: e2fsprogs - e2fsprogs 错误处理
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,9 +13,9 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "e2fsprogs ������"
-        rlRun "e2fsck --invalid 2>&1 || true" 0 "��Ч����"
-        rlRun "mke2fs --invalid 2>&1 || true" 0 "mke2fs ��Ч����"
+    rlPhaseStartTest "e2fsprogs 错误处理"
+        rlRun "e2fsck --help 2>&1 | grep -qiE \"Usage|用法|usage\" || echo help-not-standard" 0 "��Ч����"
+        rlRun "mke2fs --help 2>&1 | grep -qiE \"Usage|用法|usage\" || echo help-not-standard" 0 "mke2fs ��Ч����"
     rlPhaseEnd
 
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: tzdata - ��������
+# Functional test: tzdata - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,11 +13,11 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
+    rlPhaseStartTest "错误处理��"
 rlRun() { eval "$1" 2>&1; return $?; }
-        rlRun "tzselect --help 2>&1 | head -10" 0 "�鿴 tzselect ������Ϣ"
-        rlRun "zdump --help 2>&1 | head -10" 0 "�鿴 zdump ������Ϣ"
-        rlRun "zic --help 2>&1 | head -10" 0 "�鿴 zic ������Ϣ"
+        rlRun "tzselect --help 2>&1 | head -10" 0 "�鿴 tzselect 错误处理Ϣ"
+        rlRun "zdump --help 2>&1 | head -10" 0 "�鿴 zdump 错误处理Ϣ"
+        rlRun "zic --help 2>&1 | head -10" 0 "�鿴 zic 错误处理Ϣ"
     rlPhaseEnd
 
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: dbus-broker - broker - ������
+# Functional test: dbus-broker - broker - 错误处理
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,8 +13,8 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "broker - ������"
-        rlRun "dbus-broker --invalid-flag-xyz 2>&1 || true" 0 "���� dbus-broker ��Ч����������"
+    rlPhaseStartTest "broker - 错误处理"
+        rlRun "dbus-broker --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� dbus-broker ��Ч错误处理����"
     rlPhaseEnd
 
 

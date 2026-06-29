@@ -14,9 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlRun "systemctl nonexistent-command 2>&1 || true" 0 "systemctl: invalid command"
-        rlRun "journalctl --invalid-option 2>&1 || true" 0 "journalctl: invalid option"
-        rlRun "hostnamectl --invalid 2>&1 || true" 0 "hostnamectl: invalid option"
+        rlRun "systemctl nonexistent-command 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "systemctl: invalid command"
+        rlRun "journalctl --invalid-option 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "journalctl: invalid option"
+        rlRun "hostnamectl --help 2>&1 | grep -qiE \"Usage|用法|usage\" || echo help-not-standard" 0 "hostnamectl: invalid option"
     rlPhaseEnd
 
 

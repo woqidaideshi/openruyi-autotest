@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Copy-mode"
-        rlRun "tmux copy-mode -t testsess:win1 2>&1 || true" 0 "copy-mode: enter copy mode"
+        rlRun "tmux copy-mode -t testsess:win1 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "copy-mode: enter copy mode"
     rlPhaseEnd
 
 

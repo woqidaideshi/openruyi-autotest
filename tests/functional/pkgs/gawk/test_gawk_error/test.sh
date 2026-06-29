@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: gawk - ������
+# Functional test: gawk - 错误处理
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,9 +13,9 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "������"
-        rlRun "awk --invalid-flag-xyz 2>&1 || true" 0 "���� awk ��Ч����������"
-        rlRun "gawk --invalid-flag-xyz 2>&1 || true" 0 "���� gawk ��Ч����������"
+    rlPhaseStartTest "错误处理"
+        rlRun "awk --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� awk ��Ч错误处理����"
+        rlRun "gawk --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� gawk ��Ч错误处理����"
     rlPhaseEnd
 
 

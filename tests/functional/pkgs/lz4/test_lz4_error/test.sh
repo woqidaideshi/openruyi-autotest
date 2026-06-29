@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: lz4 - ������
+# Functional test: lz4 - 错误处理
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,11 +13,11 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "������"
-        rlRun "lz4 --invalid-flag-xyz 2>&1 || true" 0 "���� lz4 ��Ч����������"
-        rlRun "lz4c --invalid-flag-xyz 2>&1 || true" 0 "���� lz4c ��Ч����������"
-        rlRun "lz4cat --invalid-flag-xyz 2>&1 || true" 0 "���� lz4cat ��Ч����������"
-        rlRun "unlz4 --invalid-flag-xyz 2>&1 || true" 0 "���� unlz4 ��Ч����������"
+    rlPhaseStartTest "错误处理"
+        rlRun "lz4 --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� lz4 ��Ч错误处理����"
+        rlRun "lz4c --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� lz4c ��Ч错误处理����"
+        rlRun "lz4cat --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� lz4cat ��Ч错误处理����"
+        rlRun "unlz4 --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� unlz4 ��Ч错误处理����"
     rlPhaseEnd
 
 

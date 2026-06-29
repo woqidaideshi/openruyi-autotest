@@ -14,9 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "�ӽ���"
-        rlRun "TmpDir=$(mktemp -d)" 0 "������ʱĿ¼"
-        rlRun "cd $TmpDir" 0 "�������Ŀ¼"
-        rlRun "echo \"secret message\" > plain.txt" 0 "���������ļ�"
+        rlRun "TmpDir=$(mktemp -d)" 0 "错误处理ʱĿ¼"
+        rlRun "cd $TmpDir" 0 "错误处理�Ŀ¼"
+        rlRun "echo \"secret message\" > plain.txt" 0 "错误处理���ļ�"
         rlRun "openssl enc -aes-256-cbc -pbkdf2 -in plain.txt -out encrypted.bin -pass pass:test123" 0 "AES����"
         rlRun "test -f encrypted.bin" 0 "��֤�����ļ�����"
         rlRun "openssl enc -aes-256-cbc -d -pbkdf2 -in encrypted.bin -out decrypted.txt -pass pass:test123" 0 "AES����"

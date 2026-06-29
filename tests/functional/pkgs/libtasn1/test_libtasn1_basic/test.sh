@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: libtasn1 - ��������
+# Functional test: libtasn1 - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,11 +13,11 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
+    rlPhaseStartTest "错误处理��"
 rlRun() { eval "$1" 2>&1; return $?; }
-        rlRun "asn1Coding --help 2>&1 | head -10" 0 "�鿴 asn1Coding ������Ϣ"
-        rlRun "asn1Decoding --help 2>&1 | head -10" 0 "�鿴 asn1Decoding ������Ϣ"
-        rlRun "asn1Parser --help 2>&1 | head -10" 0 "�鿴 asn1Parser ������Ϣ"
+        rlRun "asn1Coding --help 2>&1 | head -10" 0 "�鿴 asn1Coding 错误处理Ϣ"
+        rlRun "asn1Decoding --help 2>&1 | head -10" 0 "�鿴 asn1Decoding 错误处理Ϣ"
+        rlRun "asn1Parser --help 2>&1 | head -10" 0 "�鿴 asn1Parser 错误处理Ϣ"
     rlPhaseEnd
 
 

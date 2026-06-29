@@ -26,7 +26,7 @@ rlJournalStart
         rlRun "setfacl -m u:root:rwx,g:root:rwx testfile" 0 "设置测试 ACL"
         rlRun "getfacl -R testdir > acl_backup.txt" 0 "导出 ACL 备份"
         rlRun "setfacl -b testfile" 0 "清除 ACL"
-        rlRun "setfacl --restore acl_backup.txt 2>&1 || true" 0 "尝试恢复 ACL"
+        rlRun "setfacl --restore acl_backup.txt 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "尝试恢复 ACL"
 
         rlRun "setfacl --test -m u:root:rwx testfile" 0 "使用 --test 模式不实际修改"
         rlRun "getfacl testfile" 0 "验证 --test 模式未修改 ACL"

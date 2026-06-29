@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: bc - ��������
+# Functional test: bc - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,13 +13,13 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
+    rlPhaseStartTest "错误处理��"
         rlRun "echo \"1+1\" | bc" 0 "�����ӷ�"
-        rlRun "echo \"10-3\" | bc" 0 "��������"
+        rlRun "echo \"10-3\" | bc" 0 "错误处理��"
         rlRun "echo \"6*7\" | bc" 0 "�����˷�"
-        rlRun "echo \"100/3\" | bc" 0 "��������"
+        rlRun "echo \"100/3\" | bc" 0 "错误处理��"
         rlRun "echo \"scale=4; 1/3\" | bc" 0 "���þ���"
-        rlRun "echo \"2^10\" | bc" 0 "������"
+        rlRun "echo \"2^10\" | bc" 0 "错误处理"
         rlRun "echo \"sqrt(16)\" | bc" 0 "ƽ����"
     rlPhaseEnd
 

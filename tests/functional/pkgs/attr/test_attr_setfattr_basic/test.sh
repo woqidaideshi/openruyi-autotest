@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: attr - setfattr ��������
+# Functional test: attr - setfattr 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,12 +13,12 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "setfattr ��������"
-        rlRun "TmpDir=$(mktemp -d)" 0 "������ʱ����Ŀ¼"
-        rlRun "cd $TmpDir" 0 "�������Ŀ¼"
-        rlRun "touch testfile" 0 "���������ļ�"
-        rlRun "mkdir testdir" 0 "��������Ŀ¼"
-        rlRun "setfattr -n user.test -v hello testfile" 0 "������չ����"
+    rlPhaseStartTest "setfattr 错误处理��"
+        rlRun "TmpDir=$(mktemp -d)" 0 "错误处理ʱ����Ŀ¼"
+        rlRun "cd $TmpDir" 0 "错误处理�Ŀ¼"
+        rlRun "touch testfile" 0 "错误处理���ļ�"
+        rlRun "mkdir testdir" 0 "错误处理��Ŀ¼"
+        rlRun "setfattr -n user.test -v hello testfile" 0 "错误处理չ����"
         rlRun "getfattr -n user.test testfile" 0 "��֤���óɹ�"
         rlRun "setfattr -n user.test2 -v world testfile" 0 "���õڶ�����չ����"
         rlRun "getfattr -d testfile" 0 "�鿴�����չ����"

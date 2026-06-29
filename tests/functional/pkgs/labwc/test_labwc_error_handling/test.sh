@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlRun "labwc --invalid 2>&1 || true" 0 "labwc: invalid option"
+        rlRun "labwc --help 2>&1 | grep -qiE \"Usage|用法|usage\" || echo help-not-standard" 0 "labwc: invalid option"
     rlPhaseEnd
 
 

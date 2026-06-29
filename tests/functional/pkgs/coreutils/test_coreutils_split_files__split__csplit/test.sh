@@ -16,7 +16,7 @@ rlJournalStart
     rlPhaseStartTest "Split-files--split--csplit"
         rlRun "split -l 5 lines.txt split_" 0 "split by lines"
         rlRun "test $(ls split_* | wc -l) -ge 4" 0 "split: multiple output files"
-        rlRun "csplit fruits.txt /apple/ {1} 2>&1 || true" 0 "csplit split by pattern"
+        rlRun "csplit fruits.txt /apple/ {1} 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "csplit split by pattern"
     rlPhaseEnd
 
 

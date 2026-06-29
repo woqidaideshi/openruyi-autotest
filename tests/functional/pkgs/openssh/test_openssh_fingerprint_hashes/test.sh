@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "Fingerprint-hashes"
         rlRun "ssh-keygen -l -f test_rsa.pub -E sha256" 0 "SHA256 fingerprint"
-        rlRun "ssh-keygen -l -f test_rsa.pub -E md5 2>&1 || true" 0 "MD5 fingerprint"
+        rlRun "ssh-keygen -l -f test_rsa.pub -E md5 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "MD5 fingerprint"
     rlPhaseEnd
 
 

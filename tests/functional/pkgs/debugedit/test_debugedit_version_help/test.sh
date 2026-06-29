@@ -14,9 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "版本和帮助"
-        rlRun "debugedit --version 2>&1 || true" 0 "debugedit 版本信息"
+        rlRun "debugedit --version 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "debugedit 版本信息"
         rlRun "debugedit --help 2>&1 | head -5 || true" 0 "debugedit 帮助信息"
-        rlRun "debugedit-classify-ar --version 2>&1 || true" 0 "debugedit-classify-ar 版本信息"
+        rlRun "debugedit-classify-ar --version 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "debugedit-classify-ar 版本信息"
         rlRun "debugedit-classify-ar --help 2>&1 | head -5 || true" 0 "debugedit-classify-ar 帮助信息"
     rlPhaseEnd
 

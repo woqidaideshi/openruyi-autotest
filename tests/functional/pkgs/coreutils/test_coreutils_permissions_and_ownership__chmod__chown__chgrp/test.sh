@@ -22,7 +22,7 @@ rlJournalStart
         rlRun "mkdir -p perm_dir && touch perm_dir/f1 perm_dir/f2" 0 "Setup recursive chmod"
         rlRun "chmod -R 755 perm_dir" 0 "chmod -R recursive"
         rlRun "chown --version" 0 "chown version check"
-        rlRun "chown $whoami_val perm_test.txt 2>&1 || true" 0 "chown to self"
+        rlRun "chown $whoami_val perm_test.txt 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "chown to self"
         rlRun "chgrp --version" 0 "chgrp version check"
     rlPhaseEnd
 

@@ -18,7 +18,7 @@ rlJournalStart
         rlRun "test \"$(sort fruits.txt | head -1)\" = \"apple\"" 0 "sort: first is apple"
         rlRun "sort -r fruits.txt" 0 "sort -r reverse"
         rlRun "sort -u fruits.txt" 0 "sort -u unique"
-        rlRun "sort -n fruits.txt 2>&1 || true" 0 "sort -n numeric"
+        rlRun "sort -n fruits.txt 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "sort -n numeric"
         rlRun "sort fruits.txt | uniq" 0 "uniq unique lines"
         rlRun "test $(sort fruits.txt | uniq | wc -l) -eq 4" 0 "uniq: 4 unique"
         rlRun "sort fruits.txt | uniq -c" 0 "uniq -c count occurrences"

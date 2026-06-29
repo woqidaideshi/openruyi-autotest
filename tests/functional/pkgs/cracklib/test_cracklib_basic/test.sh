@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: cracklib - ��������
+# Functional test: cracklib - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,10 +13,10 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
-        rlRun "echo \"password\" | cracklib-check" 0 "���������"
+    rlPhaseStartTest "错误处理��"
+        rlRun "echo \"password\" | cracklib-check" 0 "错误处理���"
         rlRun "echo \"Str0ng!Pass\" | cracklib-check" 0 "���ǿ����"
-        rlRun "echo \"abc\" | cracklib-check" 0 "��������"
+        rlRun "echo \"abc\" | cracklib-check" 0 "错误处理��"
     rlPhaseEnd
 
 

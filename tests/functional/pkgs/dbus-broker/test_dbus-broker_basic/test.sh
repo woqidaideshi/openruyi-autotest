@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: dbus-broker - broker - ��������
+# Functional test: dbus-broker - broker - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,9 +13,9 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "broker - ��������"
+    rlPhaseStartTest "broker - 错误处理��"
 rlRun() { eval "$1" 2>&1; return $?; }
-        rlRun "dbus-broker --help 2>&1 | head -10" 0 "�鿴 dbus-broker ������Ϣ"
+        rlRun "dbus-broker --help 2>&1 | head -10" 0 "�鿴 dbus-broker 错误处理Ϣ"
     rlPhaseEnd
 
 

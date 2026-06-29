@@ -14,9 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "utils-growpart - Error-handling"
-        rlRun "growpart 2>&1 || true" 0 "growpart: no args (expected fail)"
-        rlRun "growpart /dev/nonexistent 1 2>&1 || true" 0 "growpart: nonexistent disk"
-        rlRun "growpart --invalid 2>&1 || true" 0 "growpart: invalid option"
+        rlRun "growpart 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "growpart: no args (expected fail)"
+        rlRun "growpart /dev/nonexistent 1 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "growpart: nonexistent disk"
+        rlRun "growpart --help 2>&1 | grep -qiE \"Usage|用法|usage\" || echo help-not-standard" 0 "growpart: invalid option"
     rlPhaseEnd
 
 

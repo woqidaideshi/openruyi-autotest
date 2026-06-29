@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "utils-growpart - Dry-run--no-actual-resize"
-    rlRun "growpart -N /dev/$DISK 1 2>&1 || true" 0 "growpart -N: dry run"
+    rlRun "growpart -N /dev/$DISK 1 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "growpart -N: dry run"
     rlPhaseEnd
 
 

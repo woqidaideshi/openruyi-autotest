@@ -14,8 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "RSA"
-        rlRun "TmpDir=$(mktemp -d)" 0 "������ʱĿ¼"
-        rlRun "cd $TmpDir" 0 "�������Ŀ¼"
+        rlRun "TmpDir=$(mktemp -d)" 0 "错误处理ʱĿ¼"
+        rlRun "cd $TmpDir" 0 "错误处理�Ŀ¼"
         rlRun "openssl genrsa -out key.pem 2048" 0 "����RSA˽Կ"
         rlRun "test -f key.pem" 0 "��֤˽Կ�ļ�����"
         rlRun "openssl rsa -in key.pem -pubout -out pub.pem" 0 "��ȡ��Կ"

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: diffutils - ������
+# Functional test: diffutils - 错误处理
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,11 +13,11 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "������"
-        rlRun "cmp --invalid-flag-xyz 2>&1 || true" 0 "���� cmp ��Ч����������"
-        rlRun "diff --invalid-flag-xyz 2>&1 || true" 0 "���� diff ��Ч����������"
-        rlRun "diff3 --invalid-flag-xyz 2>&1 || true" 0 "���� diff3 ��Ч����������"
-        rlRun "sdiff --invalid-flag-xyz 2>&1 || true" 0 "���� sdiff ��Ч����������"
+    rlPhaseStartTest "错误处理"
+        rlRun "cmp --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� cmp ��Ч错误处理����"
+        rlRun "diff --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� diff ��Ч错误处理����"
+        rlRun "diff3 --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� diff3 ��Ч错误处理����"
+        rlRun "sdiff --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� sdiff ��Ч错误处理����"
     rlPhaseEnd
 
 

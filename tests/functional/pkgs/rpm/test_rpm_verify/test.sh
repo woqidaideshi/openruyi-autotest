@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "rpm ��֤"
-        rlRun "rpm -V rpm 2>&1 || true" 0 "��֤ rpm ��������"
+        rlRun "rpm -V rpm 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "��֤ rpm 错误处理��"
         rlRun "rpm --import 2>&1 | head -5 || true" 0 "rpm --import ����"
     rlPhaseEnd
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: less - ������
+# Functional test: less - 错误处理
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,10 +13,10 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "������"
-        rlRun "less --invalid-flag-xyz 2>&1 || true" 0 "���� less ��Ч����������"
-        rlRun "lessecho --invalid-flag-xyz 2>&1 || true" 0 "���� lessecho ��Ч����������"
-        rlRun "lesskey --invalid-flag-xyz 2>&1 || true" 0 "���� lesskey ��Ч����������"
+    rlPhaseStartTest "错误处理"
+        rlRun "less --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� less ��Ч错误处理����"
+        rlRun "lessecho --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� lessecho ��Ч错误处理����"
+        rlRun "lesskey --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� lesskey ��Ч错误处理����"
     rlPhaseEnd
 
 
