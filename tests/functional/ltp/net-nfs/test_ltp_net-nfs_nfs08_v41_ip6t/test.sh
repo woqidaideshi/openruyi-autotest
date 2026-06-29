@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "LTP net-nfs - nfs08_v41_ip6t"
-        rlRun "kirk -f net-nfs -p nfs08_v41_ip6t" 0 "执行 LTP nfs08_v41_ip6t"
+        rlRun "kirk -f net-nfs -p nfs08_v41_ip6t 2>&1 | tee /tmp/ltp_out_$$; exit ${PIPESTATUS[0]}" 0 "执行 LTP nfs08_v41_ip6t"
+        rlRun "grep -qE 'Failed:[[:space:]]*0' /tmp/ltp_out_$$ && grep -qE 'Broken:[[:space:]]*0' /tmp/ltp_out_$$" 0 "验证用例结果（无失败/无损坏）"
+        rlRun "rm -f /tmp/ltp_out_$$" 0 "清理临时文件"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"
