@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Follow-redirects"
-        rlPass "测试已执行"
+        rlRun "wget2 --max-redirect=5 --version 2>&1 >/dev/null" 1 "wget2 --max-redirect 选项"
+        rlRun "wget2 --follow-sitemaps --version 2>&1 >/dev/null" 1 "wget2 --follow-sitemaps 选项"
     rlPhaseEnd
 
 

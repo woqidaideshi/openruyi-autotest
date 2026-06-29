@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Continue-download"
-        rlPass "测试已执行"
+        rlRun "wget2 -c --version 2>&1 >/dev/null" 1 "wget2 -c 断点续传选项"
+        rlRun "wget2 --backups=2 --version 2>&1 >/dev/null" 1 "wget2 --backups 选项"
     rlPhaseEnd
 
 

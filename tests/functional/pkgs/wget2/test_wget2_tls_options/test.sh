@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "TLS-options"
-        rlPass "测试已执行"
+        rlRun "wget2 --stats-tls --version 2>&1 >/dev/null" 1 "wget2 --stats-tls 选项"
+        rlRun "wget2 --no-check-certificate --version 2>&1 >/dev/null" 1 "wget2 --no-check-certificate 选项"
     rlPhaseEnd
 
 

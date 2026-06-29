@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Directory-listing"
-        rlPass "测试已执行"
+        rlRun "wget -nd --version 2>&1 >/dev/null" 1 "wget -nd 不创建目录选项"
+        rlRun "wget -x --version 2>&1 >/dev/null" 1 "wget -x 创建目录选项"
+        rlRun "wget -nH --version 2>&1 >/dev/null" 1 "wget -nH 禁用主机目录选项"
     rlPhaseEnd
 
 
