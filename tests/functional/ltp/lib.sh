@@ -118,22 +118,27 @@ ltpSetup() {
                     sudo make install 2>&1 | tail -3 || true
                 fi
                 _ltpSetupPath
-                if command -v kirk >/dev/null 2>&1 || command -v runltp >/dev/null 2>&1; then
+                # Check for kirk first (required for LTP >= 2026).
+                # runltp may be a leftover stub from dnf, don't trust it alone.
+                if command -v kirk >/dev/null 2>&1; then
                     method="source"
                     echo "installed=2" > "$LTP_FLAG"
                 elif [ -x "$LTP_INSTALL_DIR/tools/kirk" ]; then
-                    # kirk was built but make install failed due to test binary
-                    # errors. Manually install kirk to LTP_INSTALL_DIR.
-                    cp -r "$LTP_INSTALL_DIR/tools/kirk" "$LTP_INSTALL_DIR/kirk" 2>/dev/null || true
+                    # kirk was built but make install failed — install manually
+                    cp -a "$LTP_INSTALL_DIR/tools/kirk" "$LTP_INSTALL_DIR/" 2>/dev/null || true
                     _ltpSetupPath
-                    if command -v kirk >/dev/null 2>&1 || command -v runltp >/dev/null 2>&1; then
+                    if command -v kirk >/dev/null 2>&1; then
                         method="source"
                         echo "installed=2" > "$LTP_FLAG"
                     else
-                        rlLogWarning "LTP 源码编译失败，测试可能无法执行"
+                        rlLogWarning "LTP 源码编译成功但 kirk 安装失败，测试可能无法执行"
                         method="failed"
                         echo "installed=3" > "$LTP_FLAG"
                     fi
+                elif command -v runltp >/dev/null 2>&1; then
+                    # Fallback: only rely on runltp (older LTP, pre-2026)
+                    method="source-legacy"
+                    echo "installed=2" > "$LTP_FLAG"
                 else
                     rlLogWarning "LTP 源码编译失败，测试可能无法执行"
                     method="failed"
