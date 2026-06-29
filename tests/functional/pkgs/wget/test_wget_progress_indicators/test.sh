@@ -14,8 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Progress-indicators"
-        rlRun "wget --progress=bar --version 2>&1 >/dev/null" 1 "wget --progress=bar 选项"
-        rlRun "wget --force-progress --version 2>&1 >/dev/null" 1 "wget --force-progress 选项"
+        rlRun "wget --progress=bar --version 2>&1 | grep -q Wget" 0 "wget --progress=bar 选项"
+        rlRun "wget --force-progress --version 2>&1 | grep -q Wget" 0 "wget --force-progress 选项"
     rlPhaseEnd
 
 

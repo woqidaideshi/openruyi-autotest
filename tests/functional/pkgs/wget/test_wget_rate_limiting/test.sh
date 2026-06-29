@@ -14,8 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Rate-limiting"
-        rlRun "wget --limit-rate=100k --version 2>&1 >/dev/null" 1 "wget --limit-rate 选项存在"
-        rlRun "wget --limit-rate=1M --version 2>&1 >/dev/null" 1 "wget --limit-rate 支持 M 单位"
+        rlRun "wget --limit-rate=100k --version 2>&1 | grep -q Wget" 0 "wget --limit-rate 选项存在"
+        rlRun "wget --limit-rate=1M --version 2>&1 | grep -q Wget" 0 "wget --limit-rate 支持 M 单位"
     rlPhaseEnd
 
 

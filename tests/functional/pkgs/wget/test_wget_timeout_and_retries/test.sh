@@ -14,10 +14,10 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Timeout-and-retries"
-        rlRun "wget --timeout=1 --version 2>&1 >/dev/null" 1 "wget --timeout 选项存在"
-        rlRun "wget --connect-timeout=1 --version 2>&1 >/dev/null" 1 "wget --connect-timeout 选项存在"
-        rlRun "wget --dns-timeout=1 --version 2>&1 >/dev/null" 1 "wget --dns-timeout 选项存在"
-        rlRun "wget --tries=1 --version 2>&1 >/dev/null" 1 "wget --tries 选项存在"
+        rlRun "wget --timeout=1 --version 2>&1 | grep -q Wget" 0 "wget --timeout 选项存在"
+        rlRun "wget --connect-timeout=1 --version 2>&1 | grep -q Wget" 0 "wget --connect-timeout 选项存在"
+        rlRun "wget --dns-timeout=1 --version 2>&1 | grep -q Wget" 0 "wget --dns-timeout 选项存在"
+        rlRun "wget --tries=1 --version 2>&1 | grep -q Wget" 0 "wget --tries 选项存在"
     rlPhaseEnd
 
 

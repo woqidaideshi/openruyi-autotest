@@ -14,9 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Continue-and-mirror"
-        rlRun "wget -c --version 2>&1 >/dev/null" 1 "wget -c 断点续传选项存在"
-        rlRun "wget -m --version 2>&1 >/dev/null" 1 "wget -m 镜像选项存在"
-        rlRun "wget -N --version 2>&1 >/dev/null" 1 "wget -N 时间戳选项存在"
+        rlRun "wget -c --version 2>&1 | grep -q Wget" 0 "wget -c 断点续传选项存在"
+        rlRun "wget -m --version 2>&1 | grep -q Wget" 0 "wget -m 镜像选项存在"
+        rlRun "wget -N --version 2>&1 | grep -q Wget" 0 "wget -N 时间戳选项存在"
     rlPhaseEnd
 
 

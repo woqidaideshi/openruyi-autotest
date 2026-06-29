@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "lspci-with-domain"
         rlRun "lspci -D" 0 "lspci -D 显示 PCI 域"
-        rlRun "lspci -Dn 2>&1 >/dev/null" 0 "lspci -Dn 数字+域"
+        rlRun "lspci -Dn 2>&1 | grep -qE \'[0-9a-f]{4}:\'" 0 "lspci -Dn 显示 PCI 域"
     rlPhaseEnd
 
 

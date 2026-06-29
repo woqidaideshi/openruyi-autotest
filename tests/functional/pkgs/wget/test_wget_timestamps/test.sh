@@ -14,9 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Timestamps"
-        rlRun "wget -N --version 2>&1 >/dev/null" 1 "wget -N 时间戳选项"
-        rlRun "wget --timestamping --version 2>&1 >/dev/null" 1 "wget --timestamping 选项"
-        rlRun "wget --if-modified-since --version 2>&1 >/dev/null" 1 "wget --if-modified-since 选项"
+        rlRun "wget -N --version 2>&1 | grep -q Wget" 0 "wget -N 时间戳选项"
+        rlRun "wget --timestamping --version 2>&1 | grep -q Wget" 0 "wget --timestamping 选项"
+        rlRun "wget --if-modified-since --version 2>&1 | grep -q Wget" 0 "wget --if-modified-since 选项"
     rlPhaseEnd
 
 

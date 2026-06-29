@@ -15,9 +15,9 @@ rlJournalStart
 
     rlPhaseStartTest "CMake-version-and-help"
         rlRun "cmake --version" 0 "检查 cmake 版本信息"
-        rlRun "cmake --help 2>&1 >/dev/null" 1 "cmake --help 返回帮助信息"
-        rlRun "cmake --help-full 2>&1 >/dev/null" 1 "cmake --help-full 返回完整帮助"
-        rlRun "cmake --help-command list 2>&1 >/dev/null" 1 "cmake --help-command list 返回命令帮助"
+        rlRun "cmake --help 2>&1 | grep -q Usage" 0 "cmake --help 显示用法"
+        rlRun "cmake --help-full 2>&1 | grep -q cmake" 0 "cmake --help-full 显示完整帮助"
+        rlRun "cmake --help-command list 2>&1 | grep -q list" 0 "cmake --help-command list 显示 list 命令帮助"
     rlPhaseEnd
 
 

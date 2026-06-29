@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "ng - vmstat-command"
         rlRun "vmstat" 0 "vmstat 基本输出"
-        rlRun "vmstat --help 2>&1 >/dev/null" 1 "vmstat --help"
+        rlRun "vmstat --help | grep -qE 'Usage|用法|Options'" 0 "vmstat --help 显示帮助"
     rlPhaseEnd
 
 

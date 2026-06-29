@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "tracepath"
-        rlRun "tracepath --help 2>&1 >/dev/null" 1 "tracepath --help"
+        rlRun "tracepath --help 2>&1 | grep -qE 'Usage|用法|Options'" 0 "tracepath --help 显示帮助"
         rlRun "which tracepath" 0 "tracepath 命令存在"
     rlPhaseEnd
 

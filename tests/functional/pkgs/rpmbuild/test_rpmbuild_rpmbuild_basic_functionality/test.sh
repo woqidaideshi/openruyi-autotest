@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "rpmbuild-basic-functionality"
         rlRun "rpmbuild --version" 0 "rpmbuild --version"
-        rlRun "rpmbuild --help 2>&1 >/dev/null" 1 "rpmbuild --help"
+        rlRun "rpmbuild --help 2>&1 | grep -q Usage" 0 "rpmbuild --help 显示用法"
     rlPhaseEnd
 
 

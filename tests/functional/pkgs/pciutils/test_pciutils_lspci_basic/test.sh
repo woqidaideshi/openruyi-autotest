@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "lspci-basic"
         rlRun "lspci" 0 "lspci 基本输出"
-        rlRun "lspci -h 2>&1 >/dev/null" 1 "lspci -h 帮助信息"
+        rlRun "lspci 2>&1 | grep -qE '[0-9a-f]{4}:'" 0 "lspci 输出包含 PCI 设备 ID"
     rlPhaseEnd
 
 

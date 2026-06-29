@@ -14,8 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Header-options"
-        rlRun "wget --header='Accept: text/html' --version 2>&1 >/dev/null" 1 "wget --header 选项存在"
-        rlRun "wget --header='X-Custom: value' --version 2>&1 >/dev/null" 1 "wget --header 自定义头"
+        rlRun "wget --header='Accept: text/html' --version 2>&1 | grep -q Wget" 0 "wget --header 选项存在"
+        rlRun "wget --header='X-Custom: value' --version 2>&1 | grep -q Wget" 0 "wget --header 自定义头"
     rlPhaseEnd
 
 

@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "Cleanup"
         rlRun "podman system df 2>&1 || echo df-ok" 0 "podman system df"
-        rlRun "podman system info 2>&1 >/dev/null || echo info-ok" 0 "podman system info"
+        rlRun "podman system info 2>&1 | head -5" 0 "podman system info"
     rlPhaseEnd
 
 

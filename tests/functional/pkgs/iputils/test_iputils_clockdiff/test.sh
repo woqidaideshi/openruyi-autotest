@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "clockdiff"
-        rlRun "clockdiff --help 2>&1 >/dev/null" 1 "clockdiff --help"
+        rlRun "clockdiff --help 2>&1 | grep -qE 'Usage|用法|Options'" 0 "clockdiff --help 显示帮助"
         rlRun "which clockdiff" 0 "clockdiff 命令存在"
     rlPhaseEnd
 

@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "pcilmr"
         rlRun "which pcilmr 2>/dev/null" 0 "pcilmr 命令检查"
-        rlRun "pcilmr --help 2>&1 >/dev/null || echo pcilmr-help-not-always" 0 "pcilmr --help"
+        rlRun "pcilmr --help 2>&1 | grep -qiE 'Usage|帮助' || echo pcilmr-help-not-available" 0 "pcilmr --help"
     rlPhaseEnd
 
 

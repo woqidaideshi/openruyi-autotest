@@ -14,8 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "User-agent"
-        rlRun "wget2 --user-agent='TestBot/2.0' --version 2>&1 >/dev/null" 1 "wget2 --user-agent 选项"
-        rlRun "wget2 -U 'TestBot/2.0' --version 2>&1 >/dev/null" 1 "wget2 -U 简写选项"
+        rlRun "wget2 --user-agent=TestBot/2.0 --version 2>&1 | grep -q Wget" 0 "wget2 --user-agent 选项可用"
+        rlRun "wget2 -U TestBot/2.0 --version 2>&1 | grep -q Wget" 0 "wget2 -U 简写选项可用"
     rlPhaseEnd
 
 

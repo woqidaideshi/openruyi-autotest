@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlRun "podman --invalid-option 2>&1" 125 "podman 无效选项应报错"
+        rlRun "podman --invalid-option 2>&1 | grep -qiE 'Error\|unrecognized\|unknown flag'" 125 "podman 无效选项报错"
         rlRun "podmansh --invalid 2>&1 || echo podmansh-err-ok" 0 "podmansh 无效选项应报错"
     rlPhaseEnd
 

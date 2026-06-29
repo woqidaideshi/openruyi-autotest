@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "traceroute6"
-        rlRun "traceroute6 --help 2>&1 >/dev/null" 1 "traceroute6 --help"
+        rlRun "traceroute6 --help 2>&1 | grep -qE 'Usage|用法|Options'" 0 "traceroute6 --help 显示帮助"
         rlRun "which traceroute6" 0 "traceroute6 命令存在"
     rlPhaseEnd
 

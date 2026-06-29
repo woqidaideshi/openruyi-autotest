@@ -14,8 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Content-disposition"
-        rlRun "wget2 --content-disposition --version 2>&1 >/dev/null" 1 "wget2 --content-disposition 选项"
-        rlRun "wget2 --content-on-error --version 2>&1 >/dev/null" 1 "wget2 --content-on-error 选项"
+        rlRun "wget2 --content-disposition --version 2>&1 | grep -q Wget" 0 "wget2 --content-disposition 选项可用"
+        rlRun "wget2 --content-on-error --version 2>&1 | grep -q Wget" 0 "wget2 --content-on-error 选项可用"
     rlPhaseEnd
 
 

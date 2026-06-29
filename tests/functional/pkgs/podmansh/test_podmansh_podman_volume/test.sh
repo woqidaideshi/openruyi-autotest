@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "podman-volume"
         rlRun "podman volume ls 2>&1 || echo volume-ok" 0 "podman volume ls"
-        rlRun "podman volume --help 2>&1 >/dev/null" 1 "podman volume --help"
+        rlRun "podman volume --help 2>&1 | grep -qiE \'Usage|用法\'" 0 "podman volume --help 显示用法"
     rlPhaseEnd
 
 

@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "podman-basic"
         rlRun "podman --version" 0 "podman --version"
-        rlRun "podman --help 2>&1 >/dev/null" 1 "podman --help"
+        rlRun "podman --help 2>&1 | grep -qiE 'Usage|用法'" 0 "podman --help 显示用法"
     rlPhaseEnd
 
 

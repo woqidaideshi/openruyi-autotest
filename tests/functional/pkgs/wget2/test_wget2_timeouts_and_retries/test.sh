@@ -14,9 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Timeouts-and-retries"
-        rlRun "wget2 --timeout=1 --version 2>&1 >/dev/null" 1 "wget2 --timeout 选项"
-        rlRun "wget2 --connect-timeout=1 --version 2>&1 >/dev/null" 1 "wget2 --connect-timeout 选项"
-        rlRun "wget2 --tries=1 --version 2>&1 >/dev/null" 1 "wget2 --tries 选项"
+        rlRun "wget2 --timeout=1 --version 2>&1 | grep -q Wget" 0 "wget2 --timeout 选项可用"
+        rlRun "wget2 --connect-timeout=1 --version 2>&1 | grep -q Wget" 0 "wget2 --connect-timeout 选项可用"
+        rlRun "wget2 --tries=1 --version 2>&1 | grep -q Wget" 0 "wget2 --tries 选项可用"
     rlPhaseEnd
 
 

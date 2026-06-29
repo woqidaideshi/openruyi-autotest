@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "D-Bus"
         rlRun "which sddm 2>/dev/null || echo sddm-not-installed" 0 "sddm 存在性"
-        rlRun "sddm --help 2>&1 >/dev/null || echo sddm-help-ok" 0 "sddm --help"
+        rlRun "sddm --help 2>&1 | grep -qiE 'Usage|sddm' || echo sddm-help-not-available" 0 "sddm --help"
     rlPhaseEnd
 
 

@@ -14,8 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - pkill-and-pidwait"
-        rlRun "pkill --help 2>&1 >/dev/null" 1 "pkill --help"
-        rlRun "pidwait --help 2>&1 >/dev/null || echo ok" 0 "pidwait --help"
+        rlRun "pkill --help | grep -qE 'Usage|用法|Options'" 0 "pkill --help 显示帮助"
+        rlRun "pidwait --help 2>&1 | grep -qiE \"Usage|用法|Options\" || echo pidwait-help-not-available" 0 "pidwait --help"
     rlPhaseEnd
 
 

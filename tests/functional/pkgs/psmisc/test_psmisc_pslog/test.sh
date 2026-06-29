@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "pslog"
         rlRun "which pslog 2>/dev/null || echo pslog-not-available" 0 "pslog 命令检查"
-        rlRun "pslog --help 2>&1 >/dev/null || echo ok" 0 "pslog --help"
+        rlRun "pslog --help 2>&1 | grep -qiE \"Usage|用法|Options\" || echo pslog-help-not-available" 0 "pslog --help"
     rlPhaseEnd
 
 

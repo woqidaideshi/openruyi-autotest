@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "RPM-verification"
         rlRun "rpm --version" 0 "rpm --version"
-        rlRun "rpm --help 2>&1 >/dev/null" 1 "rpm --help"
+        rlRun "rpm --help 2>&1 | grep -q Usage" 0 "rpm --help 显示用法"
     rlPhaseEnd
 
 

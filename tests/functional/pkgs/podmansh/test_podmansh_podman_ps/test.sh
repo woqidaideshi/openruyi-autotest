@@ -14,8 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "podman-ps"
-        rlRun "podman ps 2>&1 >/dev/null || echo podman-ps-ok" 0 "podman ps"
-        rlRun "podman ps -a 2>&1 >/dev/null || echo ok" 0 "podman ps -a"
+        rlRun "podman ps 2>&1 | head -5" 0 "podman ps"
+        rlRun "podman ps -a 2>&1 | head -5" 0 "podman ps -a"
     rlPhaseEnd
 
 

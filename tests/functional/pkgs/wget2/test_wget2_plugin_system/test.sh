@@ -14,9 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Plugin-system"
-        rlRun "wget2 --stats-dns --version 2>&1 >/dev/null" 1 "wget2 --stats-dns 选项"
-        rlRun "wget2 --stats-server --version 2>&1 >/dev/null" 1 "wget2 --stats-server 选项"
-        rlRun "wget2 --stats-site --version 2>&1 >/dev/null" 1 "wget2 --stats-site 选项"
+        rlRun "wget2 --stats-dns --version 2>&1 | grep -q Wget" 0 "wget2 --stats-dns 选项可用"
+        rlRun "wget2 --stats-server --version 2>&1 | grep -q Wget" 0 "wget2 --stats-server 选项可用"
+        rlRun "wget2 --stats-site --version 2>&1 | grep -q Wget" 0 "wget2 --stats-site 选项可用"
     rlPhaseEnd
 
 

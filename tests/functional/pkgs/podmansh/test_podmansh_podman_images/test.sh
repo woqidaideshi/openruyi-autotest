@@ -14,8 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "podman-images"
-        rlRun "podman images 2>&1 >/dev/null || echo podman-images-ok" 0 "podman images"
-        rlRun "podman image ls 2>&1 >/dev/null || echo ok" 0 "podman image ls"
+        rlRun "podman images 2>&1 | head -5" 0 "podman images"
+        rlRun "podman image ls 2>&1 | head -5" 0 "podman image ls"
     rlPhaseEnd
 
 

@@ -14,8 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "User-agent"
-        rlRun "wget --user-agent='TestAgent/1.0' --version 2>&1 >/dev/null" 1 "wget --user-agent 选项存在"
-        rlRun "wget -U 'TestAgent/1.0' --version 2>&1 >/dev/null" 1 "wget -U 选项（user-agent 简写）"
+        rlRun "wget --user-agent='TestAgent/1.0' --version 2>&1 | grep -q Wget" 0 "wget --user-agent 选项存在"
+        rlRun "wget -U 'TestAgent/1.0' --version 2>&1 | grep -q Wget" 0 "wget -U 选项（user-agent 简写）"
     rlPhaseEnd
 
 

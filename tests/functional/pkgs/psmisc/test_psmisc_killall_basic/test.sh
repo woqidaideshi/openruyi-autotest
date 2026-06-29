@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "killall-basic"
         rlRun "killall --version" 0 "killall --version"
-        rlRun "killall --help 2>&1 >/dev/null" 1 "killall --help"
+        rlRun "killall --help 2>&1 | grep -qE 'Usage|用法|Options'" 0 "killall --help 显示帮助"
     rlPhaseEnd
 
 

@@ -23,7 +23,7 @@ rlJournalStart
         rlRun "test -f $TmpDir/testdir/test2.txt" 0 "验证副本已创建"
         rlRun "cmake -E remove $TmpDir/testdir/test2.txt" 0 "cmake -E remove 删除文件"
         rlRun "cmake -E remove_directory $TmpDir/testdir" 0 "cmake -E remove_directory 删除目录"
-        rlRun "cmake -E environment 2>&1 >/dev/null" 1 "cmake -E environment 显示环境变量"
+        rlRun "cmake -E environment 2>&1 | grep -q PATH" 0 "cmake -E environment 显示环境变量"
     rlPhaseEnd
 
 

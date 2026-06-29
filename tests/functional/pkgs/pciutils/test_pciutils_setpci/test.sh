@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "setpci"
         rlRun "setpci --version" 0 "setpci --version"
-        rlRun "setpci --help 2>&1 >/dev/null" 1 "setpci --help"
+        rlRun "setpci --help 2>&1 | grep -qE 'Usage|用法|Options'" 0 "setpci --help 显示帮助"
     rlPhaseEnd
 
 

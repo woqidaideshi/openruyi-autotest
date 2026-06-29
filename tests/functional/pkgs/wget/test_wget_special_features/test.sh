@@ -14,9 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Special-features"
-        rlRun "wget --post-data='test' --version 2>&1 >/dev/null" 1 "wget --post-data 选项存在"
-        rlRun "wget --body-data='test' --version 2>&1 >/dev/null" 1 "wget --body-data 选项存在"
-        rlRun "wget --content-on-error --version 2>&1 >/dev/null" 1 "wget --content-on-error 选项"
+        rlRun "wget --post-data='test' --version 2>&1 | grep -q Wget" 0 "wget --post-data 选项存在"
+        rlRun "wget --body-data='test' --version 2>&1 | grep -q Wget" 0 "wget --body-data 选项存在"
+        rlRun "wget --content-on-error --version 2>&1 | grep -q Wget" 0 "wget --content-on-error 选项"
     rlPhaseEnd
 
 

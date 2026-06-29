@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Spider-mode"
-        rlRun "wget --spider --version 2>&1 >/dev/null" 1 "wget --spider 选项存在"
+        rlRun "wget --spider --version 2>&1 | grep -q Wget" 0 "wget --spider 选项存在"
         rlRun "echo '<html><body>test</body></html>' > $TmpDir/index.html" 0 "创建测试页面"
         rlRun "python3 -m http.server --bind 127.0.0.1 0 &> /dev/null &" 0 "启动本地 HTTP 服务器"
         HTTP_PID=$!
