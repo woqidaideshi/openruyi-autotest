@@ -8,7 +8,7 @@
 #   . "$(dirname "$0")/../lib.sh"    # from test_realtime_*/ subdirectories
 
 # Reuse LTP setup/cleanup from functional/ltp suite
-. "$(dirname "$0")/../../ltp/lib.sh"
+. "$(dirname "${BASH_SOURCE[0]}")/../../ltp/lib.sh"
 
 REALTIME_FLAG="/tmp/.beakerlib_realtime_suite"
 
