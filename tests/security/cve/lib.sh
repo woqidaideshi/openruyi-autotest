@@ -85,10 +85,19 @@ cveSetup() {
             method="system"
             echo "installed=0" > "$CVE_FLAG"
         elif [ -x "$LTP_INSTALL_DIR/runltp" ] || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
-            _cveSetupPath
-            method="source-cached"
-            echo "installed=0" > "$CVE_FLAG"
-        else
+            # Detect incomplete build: runltp is a stub (LTP >= 2026) and kirk is missing
+            if [ -x "$LTP_INSTALL_DIR/runltp" ] && grep -q "runltp was removed" "$LTP_INSTALL_DIR/runltp" 2>/dev/null && ! command -v kirk >/dev/null 2>&1 && [ ! -x "$LTP_INSTALL_DIR/kirk" ]; then
+                rlLogWarning "LTP 构建不完整（runltp 是存根且 kirk 未编译），强制重新安装"
+                rm -rf "$LTP_INSTALL_DIR"
+                # Fall through to fresh install path below
+            else
+                _cveSetupPath
+                method="source-cached"
+                echo "installed=0" > "$CVE_FLAG"
+            fi
+        fi
+        # If LTP_INSTALL_DIR was removed above, re-enter fresh install path
+        if [ ! -f "$CVE_FLAG" ] && [ ! -d "$LTP_INSTALL_DIR" ]; then
             rlLogInfo "安装 LTP（首次）..."
             # Try dnf first
             if echo openruyi | sudo -S dnf install -y ltp 2>/dev/null && command -v kirk >/dev/null 2>&1; then
