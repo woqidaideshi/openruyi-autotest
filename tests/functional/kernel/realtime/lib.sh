@@ -14,6 +14,15 @@ REALTIME_FLAG="/tmp/.beakerlib_realtime_suite"
 
 # Run a single LTP Realtime functional test via run.sh
 # Pass / Fail / Skip are mapped to tmt result states.
+#
+# Result determination (in order):
+#   1. Timeout (rc=137) → FAIL
+#   2. Non-zero exit code → FAIL
+#   3. "Result: FAIL" in output → FAIL
+#   4. Build errors (make: ***, Permission denied for ld/compiler) → FAIL
+#   5. "test appears to have completed" in output → PASS
+#   6. Otherwise → FAIL (unknown result)
+#
 # Usage: _realtimeRunCase <func_name>
 _realtimeRunCase() {
     local func="$1"
@@ -29,36 +38,45 @@ _realtimeRunCase() {
         ./testcases/realtime/run.sh -t "func/$func" 2>&1 | tee "$out"
     local rc=${PIPESTATUS[0]}
 
+    # 1. Timeout
     if [ "$rc" -eq 137 ]; then
         rlFail "LTP Realtime $func 执行超时（被 kill）"
         rm -f "$out"
         return 1
     fi
 
+    # 2. Non-zero exit code
     if [ "$rc" -ne 0 ]; then
         rlFail "LTP Realtime $func 执行失败 (exit=$rc)"
         rm -f "$out"
         return 1
     fi
 
-    # Check for failure markers in output
+    # 3. Explicit failure marker from LTP
     if grep -q "Result: FAIL" "$out"; then
         rlFail "LTP Realtime $func 测试失败 (Result: FAIL)"
         rm -f "$out"
         return 1
     fi
 
-    # Check for success marker
+    # 4. Build errors — test couldn't compile, results are invalid
+    if grep -qE 'make: \*\*\*|cannot open output file.*Permission denied' "$out"; then
+        rlFail "LTP Realtime $func 编译失败（权限不足或构建错误）"
+        rm -f "$out"
+        return 1
+    fi
+
+    # 5. Explicit success marker from LTP
     if grep -q "test appears to have completed" "$out"; then
         rlPass "LTP Realtime $func 测试通过"
         rm -f "$out"
         return 0
     fi
 
-    # No explicit pass/fail marker — treat as pass if exit code is 0
-    rlPass "LTP Realtime $func 测试完成 (exit=0)"
+    # 6. Unknown result — not safe to assume pass
+    rlFail "LTP Realtime $func 结果未知（缺少 pass/fail 标记）"
     rm -f "$out"
-    return 0
+    return 1
 }
 
 realtimeSetup() {
