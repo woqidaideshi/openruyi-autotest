@@ -58,7 +58,10 @@ _ltpRunCase() {
        grep -qE 'Skipped:[[:space:]]*[1-9]' "$out" && \
        grep -qE 'Failed:[[:space:]]*0' "$out" && \
        grep -qE 'Broken:[[:space:]]*0' "$out"; then
-        rlTestSkip "LTP 用例被跳过（环境不支持）"
+        rlLogWarning "LTP 用例被跳过（环境不支持）"
+        if type rlTestSkip >/dev/null 2>&1; then
+            rlTestSkip "LTP 用例被跳过（环境不支持）"
+        fi
         rm -f "$out"
         return 0
     fi
