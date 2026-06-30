@@ -108,6 +108,8 @@ ltpSetup() {
                     zlib-devel keyutils-libs-devel libtirpc-devel libmnl-devel libaio-devel \
                     libcap-devel openssl-devel numactl-devel 2>/dev/null || true
                 if [ ! -d "$LTP_INSTALL_DIR" ]; then
+                    echo openruyi | sudo -S mkdir -p "$LTP_INSTALL_DIR" 2>/dev/null
+                    echo openruyi | sudo -S chown openruyi:openruyi "$LTP_INSTALL_DIR" 2>/dev/null
                     git clone --depth 1 --branch "$LTP_TAG" https://github.com/linux-test-project/ltp.git "$LTP_INSTALL_DIR" 2>/dev/null || true
                 fi
                 if [ -f "$LTP_INSTALL_DIR/Makefile" ]; then
