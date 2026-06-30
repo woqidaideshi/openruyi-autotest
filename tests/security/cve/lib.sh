@@ -58,7 +58,10 @@ _ltpRunCase() {
        grep -qE 'Skipped:[[:space:]]*[1-9]' "$out" && \
        grep -qE 'Failed:[[:space:]]*0' "$out" && \
        grep -qE 'Broken:[[:space:]]*0' "$out"; then
-        rlTestSkip "LTP 用例被跳过（环境不支持）"
+        rlLogWarning "LTP 用例被跳过（环境不支持）"
+        if type rlTestSkip >/dev/null 2>&1; then
+            rlTestSkip "LTP 用例被跳过（环境不支持）"
+        fi
         rm -f "$out"
         return 0
     fi
@@ -85,22 +88,37 @@ cveSetup() {
             method="system"
             echo "installed=0" > "$CVE_FLAG"
         elif [ -x "$LTP_INSTALL_DIR/runltp" ] || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
-            _cveSetupPath
-            method="source-cached"
-            echo "installed=0" > "$CVE_FLAG"
-        else
-            rlLogInfo "安装 LTP（首次）..."
-            # Try dnf first
-            if echo openruyi | sudo -S dnf install -y ltp 2>/dev/null && command -v kirk >/dev/null 2>&1; then
-                method="dnf"
-                echo "installed=1" > "$CVE_FLAG"
+            # Detect incomplete build: runltp is a stub (LTP >= 2026) and kirk is missing
+            if [ -x "$LTP_INSTALL_DIR/runltp" ] && grep -q "runltp was removed" "$LTP_INSTALL_DIR/runltp" 2>/dev/null && ! command -v kirk >/dev/null 2>&1 && [ ! -x "$LTP_INSTALL_DIR/kirk" ]; then
+                rlLogWarning "LTP 构建不完整（runltp 是存根且 kirk 未编译），强制重新安装"
+                rm -rf "$LTP_INSTALL_DIR"
+                # Fall through to fresh install path below
             else
+                _cveSetupPath
+                method="source-cached"
+                echo "installed=0" > "$CVE_FLAG"
+            fi
+        fi
+        # If LTP_INSTALL_DIR was removed above, re-enter fresh install path
+        if [ ! -f "$CVE_FLAG" ] && [ ! -d "$LTP_INSTALL_DIR" ]; then
+            rlLogInfo "安装 LTP（首次）..."
+            # Try dnf first (fastest — LTP 20260130+ in repo includes kirk)
+            if echo openruyi | sudo -S dnf install -y ltp 2>/dev/null; then
+                _cveSetupPath
+                if command -v kirk >/dev/null 2>&1 || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
+                    method="dnf"
+                    echo "installed=1" > "$CVE_FLAG"
+                fi
+            fi
+            if [ ! -f "$CVE_FLAG" ]; then
                 # dnf failed or kirk not in PATH — compile from source
                 rlLogInfo "dnf 安装失败或无 kirk，从源码编译（tag: $LTP_TAG）..."
                 echo openruyi | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig \
                     zlib-devel keyutils-libs-devel libtirpc-devel libmnl-devel libaio-devel \
                     libcap-devel openssl-devel numactl-devel 2>/dev/null || true
                 if [ ! -d "$LTP_INSTALL_DIR" ]; then
+                    echo openruyi | sudo -S mkdir -p "$LTP_INSTALL_DIR" 2>/dev/null
+                    echo openruyi | sudo -S chown openruyi:openruyi "$LTP_INSTALL_DIR" 2>/dev/null
                     git clone --depth 1 --branch "$LTP_TAG" https://github.com/linux-test-project/ltp.git "$LTP_INSTALL_DIR" 2>/dev/null || true
                 fi
                 if [ -f "$LTP_INSTALL_DIR/Makefile" ]; then

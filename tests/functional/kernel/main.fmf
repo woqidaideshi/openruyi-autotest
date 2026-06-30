@@ -1,0 +1,9 @@
+summary: 功能测试 - 内核测试
+tag:
+  - functional
+  - kernel
+duration: 30m
+tier: 1
+path: /tests/functional/kernel
+require:
+  - beakerlib
