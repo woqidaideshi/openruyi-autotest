@@ -1,6 +1,6 @@
 # openruyi-autotest
 
-openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试、可靠性测试和特性测试七大类，共 604 个测试套、968 个测试用例。
+openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试、可靠性测试和特性测试七大类，共 636 个测试套、3375 个测试用例。
 
 ---
 
@@ -25,8 +25,11 @@ openruyi-autotest/
 │   ├── main.fmf                  # 全局共享配置
 │   ├── smoke/                    # 冒烟测试（100 个用例）
 │   ├── functional/               # 功能测试
+│   │   ├── ltp/                  # LTP 功能测试套件（32 个子模块, 2407 个用例）
 │   │   └── pkgs/                 # RPM 软件包功能测试（202 个包, 566 个用例）
 │   ├── security/                 # 安全测试（106 个用例）
+│   │   ├── cve/                  # CVE 漏洞测试（98 个用例, LTP 20260529）
+│   │   └── nmap/                 # 网络扫描测试（8 个用例）
 │   ├── compatibility/            # 兼容性测试（188 个用例）
 │   ├── performance/              # 性能测试
 │   ├── feature/                  # 特性测试
@@ -59,13 +62,14 @@ openruyi-autotest/
 | 测试类型 | 测试套数 | 用例数 | 状态 |
 |---------|:---:|:---:|:---:|
 | Smoke | 100 | 100 | ✅ 全部通过 |
-| Functional | 202 | 566 | ✅ 全部通过 |
-| Security | 106 | 106 | ✅ 全部通过 (CVE + nmap) |
+| Functional (pkgs) | 202 | 566 | ✅ 全部通过 |
+| Functional (LTP) | 32 | 2407 | ✅ 全部通过 |
+| Security | 106 | 106 | ✅ 全部通过 (98 CVE + 8 nmap) |
 | Compatibility | 188 | 188 | ✅ 通过 (LTP POSIX) |
 | Performance | 7 | 7 | ✅ 已执行 (UnixBench) |
 | Reliability | 1 | 1 | ✅ 通过 |
 | Feature | 0 | 0 | 🆕 |
-| **合计** | **604** | **968** | |
+| **合计** | **636** | **3375** | |
 
 详情文档：
 - [冒烟测试覆盖详情](docs/coverage/smoke-coverage.md)
