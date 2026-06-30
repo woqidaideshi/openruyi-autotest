@@ -97,11 +97,15 @@ ltpSetup() {
         # If LTP_INSTALL_DIR was removed above, re-enter fresh install path
         if [ ! -f "$LTP_FLAG" ] && [ ! -d "$LTP_INSTALL_DIR" ]; then
             rlLogInfo "安装 LTP（首次）..."
-            # Try dnf first
-            if echo openruyi | sudo -S dnf install -y ltp 2>/dev/null && command -v kirk >/dev/null 2>&1; then
-                method="dnf"
-                echo "installed=1" > "$LTP_FLAG"
-            else
+            # Try dnf first (fastest — LTP 20260130+ in repo includes kirk)
+            if echo openruyi | sudo -S dnf install -y ltp 2>/dev/null; then
+                _ltpSetupPath
+                if command -v kirk >/dev/null 2>&1 || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
+                    method="dnf"
+                    echo "installed=1" > "$LTP_FLAG"
+                fi
+            fi
+            if [ ! -f "$LTP_FLAG" ]; then
                 # dnf failed or kirk not in PATH — compile from source
                 rlLogInfo "dnf 安装失败或无 kirk，从源码编译（tag: $LTP_TAG）..."
                 echo openruyi | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig \
