@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - syscalls - futex_wait05
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - syscalls
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/syscalls/test_ltp_syscalls_futex_wait05
+require:
+  - ltp
+  - beakerlib

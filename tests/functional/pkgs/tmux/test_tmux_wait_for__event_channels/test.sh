@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Wait-for--event-channels"
-        rlRun "tmux wait-for -L mychannel 2>&1 || true" 0 "wait-for -L: lock channel"
+        rlRun "tmux wait-for -L mychannel 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "wait-for -L: lock channel"
     rlPhaseEnd
 
 

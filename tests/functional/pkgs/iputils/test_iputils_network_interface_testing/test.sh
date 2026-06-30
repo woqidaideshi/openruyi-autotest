@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Network-interface-testing"
-        rlPass "测试已执行"
+        rlRun "ip addr show" 0 "ip addr show"
+        rlRun "ip link show" 0 "ip link show"
+        rlRun "ifconfig -a 2>/dev/null || ip addr" 0 "网络接口信息"
     rlPhaseEnd
 
 

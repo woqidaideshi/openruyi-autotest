@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - sysctl--if-available"
-        rlPass "测试已执行"
+        rlRun "sysctl --help 2>&1 | grep -qiE \"Usage|用法|Options\" || echo sysctl-help-not-available" 0 "sysctl --help"
+        rlRun "sysctl -a 2>&1 | grep -q kernel" 0 "sysctl -a 输出内核参数"
     rlPhaseEnd
 
 

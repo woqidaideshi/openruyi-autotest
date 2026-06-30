@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: pcre2 - ��������
+# Functional test: pcre2 - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,10 +13,10 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
+    rlPhaseStartTest "错误处理��"
 rlRun() { eval "$1" 2>&1; return $?; }
-        rlRun "pcre2grep --help 2>&1 | head -10" 0 "�鿴 pcre2grep ������Ϣ"
-        rlRun "pcre2test --help 2>&1 | head -10" 0 "�鿴 pcre2test ������Ϣ"
+        rlRun "pcre2grep --help 2>&1 | head -10" 0 "�鿴 pcre2grep 错误处理Ϣ"
+        rlRun "pcre2test --help 2>&1 | head -10" 0 "�鿴 pcre2test 错误处理Ϣ"
     rlPhaseEnd
 
 

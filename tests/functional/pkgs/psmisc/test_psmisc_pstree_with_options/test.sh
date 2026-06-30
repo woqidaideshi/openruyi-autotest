@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "pstree-with-options"
-        rlPass "测试已执行"
+        rlRun "pstree -a" 0 "pstree -a 显示命令行参数"
+        rlRun "pstree -p" 0 "pstree -p 显示 PID"
     rlPhaseEnd
 
 

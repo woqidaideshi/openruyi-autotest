@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: unzip - ������
+# Functional test: unzip - 错误处理
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,11 +13,11 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "������"
-        rlRun "unzip --invalid-flag-xyz 2>&1 || true" 0 "���� unzip ��Ч����������"
-        rlRun "funzip --invalid-flag-xyz 2>&1 || true" 0 "���� funzip ��Ч����������"
-        rlRun "zipgrep --invalid-flag-xyz 2>&1 || true" 0 "���� zipgrep ��Ч����������"
-        rlRun "zipinfo --invalid-flag-xyz 2>&1 || true" 0 "���� zipinfo ��Ч����������"
+    rlPhaseStartTest "错误处理"
+        rlRun "unzip --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� unzip ��Ч错误处理����"
+        rlRun "funzip --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� funzip ��Ч错误处理����"
+        rlRun "zipgrep --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� zipgrep ��Ч错误处理����"
+        rlRun "zipinfo --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� zipinfo ��Ч错误处理����"
     rlPhaseEnd
 
 

@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "HTTP-2-support"
-        rlPass "测试已执行"
+        rlRun "wget2 --http2-request-window=10 --version 2>&1 | grep -q Wget" 0 "wget2 --http2-request-window 选项可用"
+        rlRun "wget2 --max-threads=3 --version 2>&1 | grep -q Wget" 0 "wget2 --max-threads 选项可用"
     rlPhaseEnd
 
 

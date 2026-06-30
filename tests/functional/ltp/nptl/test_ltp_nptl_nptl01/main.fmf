@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - nptl - nptl01
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - nptl
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/nptl/test_ltp_nptl_nptl01
+require:
+  - ltp
+  - beakerlib

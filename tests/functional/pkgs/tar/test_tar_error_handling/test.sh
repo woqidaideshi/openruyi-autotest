@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlPass "测试已执行"
+        rlRun "tar -xf /nonexistent.tar 2>&1" 2 "tar 解压不存在文件应报错"
+        rlRun "tar -cf /root/noperm.tar 2>&1" 1 "tar 创建到无权限目录应报错"
     rlPhaseEnd
 
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: chkconfig - ��������
+# Functional test: chkconfig - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,8 +13,8 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
-        rlRun "alternatives --list 2>&1 | head -5 || true" 0 "�г������"
+    rlPhaseStartTest "错误处理��"
+        rlRun "alternatives --list 2>&1 | head -5 || true" 0 "�г错误处理"
     rlPhaseEnd
 
 

@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - containers - pidns16
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - containers
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/containers/test_ltp_containers_pidns16
+require:
+  - ltp
+  - beakerlib

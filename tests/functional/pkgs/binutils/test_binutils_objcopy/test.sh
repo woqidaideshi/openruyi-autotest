@@ -14,12 +14,12 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "objcopy"
-        rlRun "TmpDir=$(mktemp -d)" 0 "������ʱĿ¼"
-        rlRun "cd $TmpDir" 0 "�������Ŀ¼"
+        rlRun "TmpDir=$(mktemp -d)" 0 "错误处理ʱĿ¼"
+        rlRun "cd $TmpDir" 0 "错误处理�Ŀ¼"
         rlRun "cp /usr/bin/ls ." 0 "���Ʋ����ļ�"
         rlRun "objcopy --help 2>&1 | head -10" 0 "objcopy ����"
         rlRun "strip --help 2>&1 | head -10" 0 "strip ����"
-        rlRun "strip ls 2>&1 || true" 0 "strip �ļ�"
+        rlRun "strip ls 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "strip �ļ�"
     rlPhaseEnd
 
 

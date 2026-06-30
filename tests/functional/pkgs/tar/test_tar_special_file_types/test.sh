@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Special-file-types"
-        rlPass "测试已执行"
+        rlRun "ln -s file.txt $TmpDir/testdir/link.txt" 0 "创建符号链接"
+        rlRun "tar -cf $TmpDir/symlink.tar -C $TmpDir testdir --dereference" 0 "tar --dereference"
     rlPhaseEnd
 
 

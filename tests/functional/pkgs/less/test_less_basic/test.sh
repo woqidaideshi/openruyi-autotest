@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: less - ��������
+# Functional test: less - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,11 +13,11 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
+    rlPhaseStartTest "错误处理��"
 rlRun() { eval "$1" 2>&1; return $?; }
-        rlRun "less --help 2>&1 | head -10" 0 "�鿴 less ������Ϣ"
-        rlRun "lessecho --help 2>&1 | head -10" 0 "�鿴 lessecho ������Ϣ"
-        rlRun "lesskey --help 2>&1 | head -10" 0 "�鿴 lesskey ������Ϣ"
+        rlRun "less --help 2>&1 | head -10" 0 "�鿴 less 错误处理Ϣ"
+        rlRun "lessecho --help 2>&1 | head -10" 0 "�鿴 lessecho 错误处理Ϣ"
+        rlRun "lesskey --help 2>&1 | head -10" 0 "�鿴 lesskey 错误处理Ϣ"
     rlPhaseEnd
 
 

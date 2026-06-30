@@ -14,7 +14,16 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Spider-mode"
-        rlPass "测试已执行"
+        rlRun "wget --spider --version 2>&1 | grep -q Wget" 0 "wget --spider 选项存在"
+        rlRun "echo '<html><body>test</body></html>' > $TmpDir/index.html" 0 "创建测试页面"
+        rlRun "python3 -m http.server --bind 127.0.0.1 0 &> /dev/null &" 0 "启动本地 HTTP 服务器"
+        HTTP_PID=$!
+        sleep 2
+        PORT=$(ss -tlpn 2>/dev/null | grep $HTTP_PID | grep -oP '127\.0\.0\.1:\K\d+' | head -1)
+        if [ -n "$PORT" ]; then
+            rlRun "wget --spider http://127.0.0.1:$PORT/index.html" 0 "wget --spider 检查页面存在"
+        fi
+        kill $HTTP_PID 2>/dev/null || true
     rlPhaseEnd
 
 

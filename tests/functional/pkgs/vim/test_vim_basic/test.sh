@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: vim - ��������
+# Functional test: vim - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,8 +13,8 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
-        rlRun "echo test | vim - -c \"wq! /tmp/vimtest\" 2>&1 || true" 0 "vim ������ģʽ"
+    rlPhaseStartTest "错误处理��"
+        rlRun "echo test | vim - -c \"wq! /tmp/vimtest\" 2>&1 || true" 0 "vim 错误处理ģʽ"
         rlRun "test -f /tmp/vimtest && rm -f /tmp/vimtest || true" 0 "��֤vim�����ļ�"
     rlPhaseEnd
 

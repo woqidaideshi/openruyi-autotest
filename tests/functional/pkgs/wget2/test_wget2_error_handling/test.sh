@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlPass "测试已执行"
+        rlRun "wget2 http://127.0.0.1:1/ 2>&1" 2 "wget2 连接拒绝端口应报错"
+        rlRun "wget2 http://nonexistent.invalid/ 2>&1" 4 "wget2 无法解析域名应报错"
+        rlRun "wget2 --invalid-option 2>&1" 1 "wget2 无效选项应报错"
     rlPhaseEnd
 
 

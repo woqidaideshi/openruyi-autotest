@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "错误处理"
-        rlPass "测试已执行"
+        rlRun "rpm -q mpdecimal" 0 "mpdecimal 包已安装"
+        rlRun "rpm -ql mpdecimal | grep -E '\\.so' | head -3" 0 "mpdecimal 库文件存在"
+        rlRun "ldconfig -p | grep libmpdec" 0 "libmpdec 在 ldconfig 缓存中"
     rlPhaseEnd
 
 

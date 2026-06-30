@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Rate-limiting"
-        rlPass "测试已执行"
+        rlRun "wget2 --limit-rate=100k --version 2>&1 | grep -q Wget" 0 "wget2 --limit-rate 选项可用"
+        rlRun "wget2 --limit-rate=1M --version 2>&1 | grep -q Wget" 0 "wget2 --limit-rate 支持 M 单位"
+        rlRun "wget2 --chunk-size=1M --version 2>&1 | grep -q Wget" 0 "wget2 --chunk-size 多线程下载选项"
     rlPhaseEnd
 
 

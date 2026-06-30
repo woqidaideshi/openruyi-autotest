@@ -19,7 +19,7 @@ rlRun() { eval "$1" 2>&1; return $?; }
         rlRun "rpm -qa 2>&1 | head -10" 0 "�г����а�"
         rlRun "rpm -qi rpm 2>&1 | head -10" 0 "��ѯ����Ϣ"
         rlRun "rpm -ql rpm 2>&1 | head -10" 0 "�г����ļ�"
-        rlRun "rpm -qc rpm 2>&1" 0 "�г������ļ�"
+        rlRun "rpm -qc rpm 2>&1" 0 "�г错误处理ļ�"
         rlRun "rpm -qd rpm 2>&1 | head -5" 0 "�г��ĵ�"
     rlPhaseEnd
 

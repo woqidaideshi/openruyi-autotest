@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: p11-kit - kit - ��������
+# Functional test: p11-kit - kit - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,7 +13,7 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "kit - ��������"
+    rlPhaseStartTest "kit - 错误处理��"
         rlRun "p11-kit list-modules 2>&1 | head -5 || true" 0 "�г�ģ��"
         rlRun "trust list 2>&1 | head -5 || true" 0 "�г�����ê"
     rlPhaseEnd

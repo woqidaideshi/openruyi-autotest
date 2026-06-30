@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: glib - ��������
+# Functional test: glib - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,7 +13,7 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
+    rlPhaseStartTest "错误处理��"
         rlRun "gsettings list-schemas 2>&1 | head -5 || true" 0 "�г� GSettings ģʽ"
     rlPhaseEnd
 

@@ -14,7 +14,12 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "CMake-configure"
-        rlPass "测试已执行"
+        rlRun "echo 'cmake_minimum_required(VERSION 3.10)' > $TmpDir/CMakeLists.txt" 0 "创建最小 CMakeLists.txt"
+        rlRun "echo 'project(ConfigTest)' >> $TmpDir/CMakeLists.txt" 0 "声明项目"
+        rlRun "cmake -S $TmpDir -B $TmpDir/build1 -D CMAKE_BUILD_TYPE=Release" 0 "cmake 配置 Release 构建"
+        rlRun "grep -q CMAKE_BUILD_TYPE:STRING=Release $TmpDir/build1/CMakeCache.txt" 0 "验证 Release 配置已设置"
+        rlRun "cmake -S $TmpDir -B $TmpDir/build2 -D CMAKE_C_COMPILER=$(which gcc)" 0 "cmake 指定 C 编译器"
+        rlRun "test -f $TmpDir/build2/CMakeCache.txt" 0 "验证第二次配置成功"
     rlPhaseEnd
 
 

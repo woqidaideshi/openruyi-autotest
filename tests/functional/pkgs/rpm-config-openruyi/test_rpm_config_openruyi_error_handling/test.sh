@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "config-openruyi - 错误处理"
-        rlPass "测试已执行"
+        rlRun "rpm -q rpm-config-openruyi 2>/dev/null || echo not-found" 0 "rpm-config-openruyi 包检查"
+        rlRun "ls /usr/lib/rpm/openruyi/ 2>/dev/null || ls /usr/lib/rpm/macros.d/ 2>/dev/null" 0 "RPM 宏目录存在"
     rlPhaseEnd
 
 

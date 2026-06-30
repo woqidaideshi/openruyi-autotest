@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ping-error-handling"
-        rlPass "测试已执行"
+        rlRun "ping -c 1 999.999.999.999 2>&1" 2 "ping 非法IP应报错"
+        rlRun "ping -c 1 nonexistent.host.invalid 2>&1" 2 "ping 无法解析域名应报错"
     rlPhaseEnd
 
 

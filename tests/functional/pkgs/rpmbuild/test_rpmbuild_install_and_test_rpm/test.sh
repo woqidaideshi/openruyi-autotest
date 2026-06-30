@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Install-and-test-RPM"
-        rlPass "测试已执行"
+        rlRun "rpm -i 2>&1 || rpm -e 2>&1" 0 "rpm 安装/卸载命令可用"
+        rlRun "rpm -K 2>&1 || rpm --checksig 2>&1" 0 "rpm 校验命令"
     rlPhaseEnd
 
 

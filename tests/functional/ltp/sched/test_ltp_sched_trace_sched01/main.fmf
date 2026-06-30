@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - sched - trace_sched01
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - sched
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/sched/test_ltp_sched_trace_sched01
+require:
+  - ltp
+  - beakerlib

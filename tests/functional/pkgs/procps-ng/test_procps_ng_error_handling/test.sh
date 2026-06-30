@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - Error-handling"
-        rlPass "测试已执行"
+        rlRun "ps --invalid-option 2>&1" 1 "ps 无效选项应报错"
+        rlRun "kill --invalid 2>&1" 1 "kill 无效选项应报错"
     rlPhaseEnd
 
 

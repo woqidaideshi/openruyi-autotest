@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Advanced-tar-options"
-        rlPass "测试已执行"
+        rlRun "tar --transform s/testdir/renamed/ -cf $TmpDir/xform.tar -C $TmpDir testdir" 0 "tar --transform 名称转换"
+        rlRun "tar -tf $TmpDir/xform.tar | head -3" 0 "验证转换结果"
     rlPhaseEnd
 
 

@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "lspci-tree-view"
-        rlPass "测试已执行"
+        rlRun "lspci -t" 0 "lspci -t 树形视图"
+        rlRun "lspci -tv" 0 "lspci -tv 详细树形视图"
     rlPhaseEnd
 
 

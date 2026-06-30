@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: diffutils - ��������
+# Functional test: diffutils - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,12 +13,12 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
+    rlPhaseStartTest "错误处理��"
 rlRun() { eval "$1" 2>&1; return $?; }
-        rlRun "cmp --help 2>&1 | head -10" 0 "�鿴 cmp ������Ϣ"
-        rlRun "diff --help 2>&1 | head -10" 0 "�鿴 diff ������Ϣ"
-        rlRun "diff3 --help 2>&1 | head -10" 0 "�鿴 diff3 ������Ϣ"
-        rlRun "sdiff --help 2>&1 | head -10" 0 "�鿴 sdiff ������Ϣ"
+        rlRun "cmp --help 2>&1 | head -10" 0 "�鿴 cmp 错误处理Ϣ"
+        rlRun "diff --help 2>&1 | head -10" 0 "�鿴 diff 错误处理Ϣ"
+        rlRun "diff3 --help 2>&1 | head -10" 0 "�鿴 diff3 错误处理Ϣ"
+        rlRun "sdiff --help 2>&1 | head -10" 0 "�鿴 sdiff 错误处理Ϣ"
     rlPhaseEnd
 
 

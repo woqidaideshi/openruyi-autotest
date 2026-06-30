@@ -14,7 +14,10 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Verbose-and-quiet-modes"
-        rlPass "测试已执行"
+        rlRun "wget --version -q 2>&1" 0 "wget -q 静默模式"
+        rlRun "wget --version -v 2>&1" 0 "wget -v 详细模式"
+        rlRun "wget --version -d 2>&1" 0 "wget -d 调试模式"
+        rlRun "wget --version --debug 2>&1" 0 "wget --debug 调试模式"
     rlPhaseEnd
 
 

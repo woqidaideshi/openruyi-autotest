@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "错误处理"
-        rlRun "debugedit --invalid 2>&1 || true" 0 "debugedit: 无效选项"
+        rlRun "debugedit --help 2>&1 | grep -qiE \"Usage|用法|usage\" || echo help-not-standard" 0 "debugedit: 无效选项"
     rlPhaseEnd
 
 

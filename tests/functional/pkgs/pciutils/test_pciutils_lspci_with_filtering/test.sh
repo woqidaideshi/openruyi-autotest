@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "lspci-with-filtering"
-        rlPass "测试已执行"
+        rlRun "lspci -d :::::" 0 "lspci -d 过滤"
+        rlRun "lspci -s 00:00.0" 0 "lspci -s 按槽位过滤"
     rlPhaseEnd
 
 

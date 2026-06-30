@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - numa - migrate_pages02
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - numa
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/numa/test_ltp_numa_migrate_pages02
+require:
+  - ltp
+  - beakerlib

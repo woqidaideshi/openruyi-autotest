@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - power-management-tests - high_freq_hwp_cap_cppc
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - power-management-tests
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/power-management-tests/test_ltp_power-management-tests_high_freq_hwp_cap_cppc
+require:
+  - ltp
+  - beakerlib

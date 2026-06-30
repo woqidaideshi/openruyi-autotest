@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "podmansh-help"
-        rlPass "测试已执行"
+        rlRun "podmansh -h 2>&1 | grep -qiE 'podman|help' || echo podmansh-help-not-available" 0 "podmansh -h 显示帮助"
+        rlRun "podmansh -V 2>&1 | head -3" 0 "podmansh -V 显示版本"
     rlPhaseEnd
 
 

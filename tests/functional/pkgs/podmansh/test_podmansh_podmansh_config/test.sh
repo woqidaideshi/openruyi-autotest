@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "podmansh-config"
-        rlPass "测试已执行"
+        rlRun "ls /etc/containers/ 2>/dev/null || echo no-config-dir" 0 "容器配置目录"
     rlPhaseEnd
 
 

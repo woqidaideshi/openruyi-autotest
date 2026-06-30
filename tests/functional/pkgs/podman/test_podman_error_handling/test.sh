@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlRun "podman nonexistent 2>&1 || true" 0 "podman: invalid command"
+        rlRun "podman nonexistent 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "podman: invalid command"
     rlPhaseEnd
 
 

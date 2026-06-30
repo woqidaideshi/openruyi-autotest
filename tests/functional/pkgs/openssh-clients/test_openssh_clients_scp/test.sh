@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "clients - scp"
-        rlRun "scp -V 2>&1 || true" 0 "scp version"
+        rlRun "scp -V 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "scp version"
     rlPhaseEnd
 
 

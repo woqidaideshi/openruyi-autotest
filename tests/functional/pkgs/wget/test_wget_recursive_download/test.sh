@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Recursive-download"
-        rlPass "测试已执行"
+        rlRun "wget -r --version 2>&1 | grep -q Wget" 0 "wget -r 递归选项存在"
+        rlRun "wget -l 2 --version 2>&1 | grep -q Wget" 0 "wget -l 递归深度选项"
+        rlRun "wget -p --version 2>&1 | grep -q Wget" 0 "wget -p 页面附件选项"
     rlPhaseEnd
 
 

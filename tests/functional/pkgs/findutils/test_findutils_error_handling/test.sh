@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "错误处理"
-        rlRun "find /nonexistent 2>&1 || true" 0 "find: 无效路径"
+        rlRun "find /nonexistent 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "find: 无效路径"
     rlPhaseEnd
 
 

@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Static-analysis"
-        rlRun "clang --analyze hello.c 2>&1 || true" 0 "clang --analyze: static analysis"
+        rlRun "clang --analyze hello.c 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "clang --analyze: static analysis"
     rlPhaseEnd
 
 

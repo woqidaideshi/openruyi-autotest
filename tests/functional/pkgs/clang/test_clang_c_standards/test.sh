@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: clang - C-standards
+# Functional test: clang - C 标准支持
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,7 +13,7 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "C-standards"
+    rlPhaseStartTest "C 标准支持"
     rlRun "clang -std=$std -c hello.c -o hello_$std.o" 0 "C standard: $std"
     rlPhaseEnd
 

@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "fuser-basic"
-        rlPass "测试已执行"
+        rlRun "fuser --version" 0 "fuser --version"
+        rlRun "fuser --help 2>&1 | grep -qE 'Usage|用法|Options'" 0 "fuser --help 显示帮助"
     rlPhaseEnd
 
 

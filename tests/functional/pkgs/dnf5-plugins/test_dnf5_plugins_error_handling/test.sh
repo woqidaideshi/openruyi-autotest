@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "plugins - Error-handling"
-        rlRun "dnf5 --invalid-option 2>&1 || true" 0 "dnf5: invalid option"
+        rlRun "dnf5 --invalid-option 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "dnf5: invalid option"
     rlPhaseEnd
 
 

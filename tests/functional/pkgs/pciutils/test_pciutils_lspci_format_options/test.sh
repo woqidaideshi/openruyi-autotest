@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "lspci-format-options"
-        rlPass "测试已执行"
+        rlRun "lspci -mm" 0 "lspci -mm 机器可读格式"
+        rlRun "lspci -mm -v 2>&1 | head -5" 0 "lspci -mm -v 组合输出"
     rlPhaseEnd
 
 

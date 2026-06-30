@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: lvm2 - lvm2 ��������
+# Functional test: lvm2 - lvm2 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,15 +13,15 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "lvm2 ��������"
-        rlRun "lvm version 2>&1 || true" 0 "LVM �汾"
+    rlPhaseStartTest "lvm2 错误处理��"
+        rlRun "lvm version 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "LVM �汾"
         rlRun "lvm help 2>&1 | head -10" 0 "LVM ����"
-        rlRun "pvs 2>&1 || true" 0 "��ʾ������"
-        rlRun "vgs 2>&1 || true" 0 "��ʾ����"
-        rlRun "lvs 2>&1 || true" 0 "��ʾ�߼���"
-        rlRun "pvdisplay 2>&1 || true" 0 "����������"
-        rlRun "vgdisplay 2>&1 || true" 0 "��������"
-        rlRun "lvdisplay 2>&1 || true" 0 "�߼�������"
+        rlRun "pvs 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "��ʾ错误处理"
+        rlRun "vgs 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "��ʾ����"
+        rlRun "lvs 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "��ʾ�߼���"
+        rlRun "pvdisplay 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "错误处理����"
+        rlRun "vgdisplay 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "错误处理��"
+        rlRun "lvdisplay 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "�߼错误处理�"
     rlPhaseEnd
 
 

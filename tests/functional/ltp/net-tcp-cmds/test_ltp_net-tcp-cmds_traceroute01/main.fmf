@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - net-tcp-cmds - traceroute01
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - net-tcp-cmds
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/net-tcp-cmds/test_ltp_net-tcp-cmds_traceroute01
+require:
+  - ltp
+  - beakerlib

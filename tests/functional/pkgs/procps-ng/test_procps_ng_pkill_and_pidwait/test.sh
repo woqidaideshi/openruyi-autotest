@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - pkill-and-pidwait"
-        rlPass "测试已执行"
+        rlRun "pkill --help | grep -qE 'Usage|用法|Options'" 0 "pkill --help 显示帮助"
+        rlRun "pidwait --help 2>&1 | grep -qiE \"Usage|用法|Options\" || echo pidwait-help-not-available" 0 "pidwait --help"
     rlPhaseEnd
 
 

@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlPass "测试已执行"
+        rlRun "lspci -s 99:99.99 2>&1" 1 "lspci 不存在的槽位应报错"
+        rlRun "lspci --nonexist 2>&1" 1 "lspci 无效选项应报错"
     rlPhaseEnd
 
 

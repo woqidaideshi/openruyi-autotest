@@ -14,8 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlRun "tmux has-session -t nonexistent 2>&1 || true" 0 "Error: nonexistent session"
-        rlRun "tmux set-option -g nonexistent_option 2>&1 || true" 0 "Error: invalid option"
+        rlRun "tmux has-session -t nonexistent 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "Error: nonexistent session"
+        rlRun "tmux set-option -g nonexistent_option 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "Error: invalid option"
     rlPhaseEnd
 
 

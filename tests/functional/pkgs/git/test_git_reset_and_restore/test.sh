@@ -16,7 +16,7 @@ rlJournalStart
     rlPhaseStartTest "Reset-and-restore"
         rlRun "git add temp.txt" 0 "git add: temp file"
         rlRun "git reset HEAD temp.txt" 0 "git reset: unstage"
-        rlRun "git restore --staged temp.txt 2>&1 || true" 0 "git restore --staged"
+        rlRun "git restore --staged temp.txt 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "git restore --staged"
         rlRun "rm -f temp.txt" 0 "Cleanup temp"
     rlPhaseEnd
 

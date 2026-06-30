@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Archive-verification"
-        rlPass "测试已执行"
+        rlRun "tar -tf $TmpDir/test.tar" 0 "tar -t 列出归档内容"
+        rlRun "ls -la $TmpDir/test.tar" 0 "验证归档文件存在"
     rlPhaseEnd
 
 

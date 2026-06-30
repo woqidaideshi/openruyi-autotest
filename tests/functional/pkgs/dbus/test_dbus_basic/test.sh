@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: dbus - ��������
+# Functional test: dbus - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,7 +13,7 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
+    rlPhaseStartTest "错误处理��"
         rlRun "dbus-launch --help 2>&1 | head -10" 0 "dbus-launch ����"
         rlRun "dbus-send --help 2>&1 | head -10" 0 "dbus-send ����"
     rlPhaseEnd

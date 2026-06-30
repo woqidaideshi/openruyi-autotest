@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "certificates-mozilla - 错误处理"
-        rlPass "测试已执行"
+        rlRun "rpm -q ca-certificates-mozilla 2>/dev/null || rpm -q ca-certificates" 0 "CA 证书包已安装"
+        rlRun "ls /etc/pki/ca-trust/ 2>/dev/null || ls /etc/ssl/certs/ 2>/dev/null" 0 "证书目录存在"
     rlPhaseEnd
 
 

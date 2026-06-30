@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: bzip2 - ѹ������
+# Functional test: bzip2 - ѹ错误处理
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,10 +13,10 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "ѹ������"
-        rlRun "TmpDir=$(mktemp -d)" 0 "������ʱĿ¼"
-        rlRun "cd $TmpDir" 0 "�������Ŀ¼"
-        rlRun "echo \"test data for bzip2\" > testfile" 0 "���������ļ�"
+    rlPhaseStartTest "ѹ错误处理"
+        rlRun "TmpDir=$(mktemp -d)" 0 "错误处理ʱĿ¼"
+        rlRun "cd $TmpDir" 0 "错误处理�Ŀ¼"
+        rlRun "echo \"test data for bzip2\" > testfile" 0 "错误处理���ļ�"
         rlRun "bzip2 -k testfile" 0 "ѹ���ļ�(����ԭ�ļ�)"
         rlRun "test -f testfile.bz2" 0 "��֤ѹ���ļ�����"
         rlRun "bunzip2 -k testfile.bz2" 0 "��ѹ�ļ�(����ѹ���ļ�)"

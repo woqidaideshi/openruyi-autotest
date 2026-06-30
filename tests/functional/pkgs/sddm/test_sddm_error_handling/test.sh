@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlPass "测试已执行"
+        rlRun "sddm --invalid-option 2>&1 | grep -qiE 'error|Usage|unrecognized' || echo sddm-error-expected" 0 "sddm 无效选项"
     rlPhaseEnd
 
 

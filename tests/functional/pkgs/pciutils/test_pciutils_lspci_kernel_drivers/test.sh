@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "lspci-kernel-drivers"
-        rlPass "测试已执行"
+        rlRun "lspci -k" 0 "lspci -k 内核驱动信息"
+        rlRun "lspci -kk 2>&1 | grep -qiE 'driver|Kernel'" 0 "lspci -kk 包含驱动信息"
     rlPhaseEnd
 
 

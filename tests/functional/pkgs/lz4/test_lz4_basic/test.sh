@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: lz4 - ��������
+# Functional test: lz4 - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,12 +13,12 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
+    rlPhaseStartTest "错误处理��"
 rlRun() { eval "$1" 2>&1; return $?; }
-        rlRun "lz4 --help 2>&1 | head -10" 0 "�鿴 lz4 ������Ϣ"
-        rlRun "lz4c --help 2>&1 | head -10" 0 "�鿴 lz4c ������Ϣ"
-        rlRun "lz4cat --help 2>&1 | head -10" 0 "�鿴 lz4cat ������Ϣ"
-        rlRun "unlz4 --help 2>&1 | head -10" 0 "�鿴 unlz4 ������Ϣ"
+        rlRun "lz4 --help 2>&1 | head -10" 0 "�鿴 lz4 错误处理Ϣ"
+        rlRun "lz4c --help 2>&1 | head -10" 0 "�鿴 lz4c 错误处理Ϣ"
+        rlRun "lz4cat --help 2>&1 | head -10" 0 "�鿴 lz4cat 错误处理Ϣ"
+        rlRun "unlz4 --help 2>&1 | head -10" 0 "�鿴 unlz4 错误处理Ϣ"
     rlPhaseEnd
 
 

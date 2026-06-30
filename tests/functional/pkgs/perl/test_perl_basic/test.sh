@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: perl - ��������
+# Functional test: perl - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,7 +13,7 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
+    rlPhaseStartTest "错误处理��"
         rlRun "perl -e \"print \\"hello\n\\"\"" 0 "ִ�м� Perl ����"
         rlRun "perl -v 2>&1 | head -5" 0 "�鿴�汾����"
     rlPhaseEnd

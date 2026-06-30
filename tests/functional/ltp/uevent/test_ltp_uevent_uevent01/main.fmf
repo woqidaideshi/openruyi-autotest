@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - uevent - uevent01
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - uevent
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/uevent/test_ltp_uevent_uevent01
+require:
+  - ltp
+  - beakerlib

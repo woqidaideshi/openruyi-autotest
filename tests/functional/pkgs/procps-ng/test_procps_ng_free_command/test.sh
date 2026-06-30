@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - free-command"
-        rlPass "测试已执行"
+        rlRun "free" 0 "free 基本输出"
+        rlRun "free -h" 0 "free -h 人类可读"
+        rlRun "free --version" 0 "free --version"
     rlPhaseEnd
 
 

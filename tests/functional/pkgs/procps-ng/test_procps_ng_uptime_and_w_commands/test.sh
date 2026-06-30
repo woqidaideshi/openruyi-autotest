@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - uptime-and-w-commands"
-        rlPass "测试已执行"
+        rlRun "uptime" 0 "uptime 系统运行时间"
+        rlRun "w" 0 "w 当前登录用户"
     rlPhaseEnd
 
 

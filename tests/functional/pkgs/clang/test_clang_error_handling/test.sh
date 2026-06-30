@@ -14,8 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlRun "clang bad.c -o bad 2>&1 || true" 0 "Compilation error"
-        rlRun "clang --invalid-option 2>&1 || true" 0 "Invalid option"
+        rlRun "clang bad.c -o bad 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "Compilation error"
+        rlRun "clang --invalid-option 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "Invalid option"
     rlPhaseEnd
 
 

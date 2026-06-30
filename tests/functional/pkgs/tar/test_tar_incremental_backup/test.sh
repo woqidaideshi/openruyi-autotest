@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Incremental-backup"
-        rlPass "测试已执行"
+        rlRun "tar -cf $TmpDir/full.tar -C $TmpDir testdir --listed-incremental=$TmpDir/snar" 0 "tar 增量备份"
+        rlRun "test -f $TmpDir/snar" 0 "验证快照文件已生成"
     rlPhaseEnd
 
 

@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Create-source-tarball"
-        rlPass "测试已执行"
+        rlRun "rpmbuild -bs --nodeps $TmpDir/test.spec 2>&1 || echo dep-ok" 0 "rpmbuild -bs --nodeps"
+        rlRun "rpmbuild -ts $TmpDir/test.tar 2>&1 || echo no-tarball" 0 "rpmbuild -ts"
     rlPhaseEnd
 
 

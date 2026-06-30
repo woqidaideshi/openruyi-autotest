@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Headers"
-        rlPass "测试已执行"
+        rlRun "wget2 --header=Accept: text/html --version 2>&1 | grep -q Wget" 0 "wget2 --header 选项可用"
+        rlRun "wget2 --header=Accept-Encoding: gzip --version 2>&1 | grep -q Wget" 0 "wget2 --header 自定义编码可用"
     rlPhaseEnd
 
 

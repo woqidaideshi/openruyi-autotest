@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ping-basic-functionality"
-        rlPass "测试已执行"
+        rlRun "ping -V" 0 "ping 版本信息"
+        rlRun "ping -c 1 127.0.0.1" 0 "ping 本地回环 1 次"
+        rlRun "ping -c 2 127.0.0.1 -i 0.2" 0 "ping 指定间隔"
     rlPhaseEnd
 
 

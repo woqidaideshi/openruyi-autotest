@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - top-command"
-        rlPass "测试已执行"
+        rlRun "top --version" 0 "top --version"
+        rlRun "top --help | grep -qE 'Usage|用法|Options'" 0 "top --help 显示帮助"
     rlPhaseEnd
 
 

@@ -14,7 +14,17 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Output-file-options"
-        rlPass "测试已执行"
+        rlRun "wget2 -O /dev/null --version 2>&1 | grep -q Wget" 0 "wget2 -O 选项可用"
+        rlRun "echo '<html><body>test</body></html>' > $TmpDir/index.html" 0 "创建测试页面"
+        rlRun "python3 -m http.server --bind 127.0.0.1 0 &> /dev/null &" 0 "启动本地 HTTP 服务器"
+        HTTP_PID=$!
+        sleep 2
+        PORT=$(ss -tlpn 2>/dev/null | grep $HTTP_PID | grep -oP '127\.0\.0\.1:\K\d+' | head -1)
+        if [ -n "$PORT" ]; then
+            rlRun "wget2 -q -O $TmpDir/wget2out.html http://127.0.0.1:$PORT/index.html" 0 "wget2 下载到指定文件"
+            rlRun "test -f $TmpDir/wget2out.html" 0 "验证输出文件已保存"
+        fi
+        kill $HTTP_PID 2>/dev/null || true
     rlPhaseEnd
 
 

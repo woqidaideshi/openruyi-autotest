@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - containers - netns_comm_ns_exec_ipv4_netlink
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - containers
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/containers/test_ltp_containers_netns_comm_ns_exec_ipv4_netlink
+require:
+  - ltp
+  - beakerlib

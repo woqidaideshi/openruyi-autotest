@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: iproute2 - iproute2 ��������
+# Functional test: iproute2 - iproute2 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,9 +13,9 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "iproute2 ��������"
+    rlPhaseStartTest "iproute2 错误处理��"
         rlRun "ip addr show 2>&1 | head -10" 0 "��ʾ�����ַ"
-        rlRun "ip link show 2>&1 | head -10" 0 "��ʾ��������"
+        rlRun "ip link show 2>&1 | head -10" 0 "��ʾ错误处理��"
         rlRun "ip route show 2>&1 | head -5" 0 "��ʾ·�ɱ�"
         rlRun "ss --help 2>&1 | head -10" 0 "ss ����"
         rlRun "ss -tln 2>&1 | head -10" 0 "��ʾ�����˿�"

@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "certificates - 版本和帮助"
-        rlRun "update-ca-trust --version 2>&1 || true" 0 "update-ca-trust 版本信息"
+        rlRun "update-ca-trust --version 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "update-ca-trust 版本信息"
         rlRun "update-ca-trust --help 2>&1 | head -5 || true" 0 "update-ca-trust 帮助信息"
     rlPhaseEnd
 

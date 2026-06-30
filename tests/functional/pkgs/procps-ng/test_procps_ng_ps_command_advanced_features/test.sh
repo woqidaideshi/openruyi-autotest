@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - ps-command-advanced-features"
-        rlPass "测试已执行"
+        rlRun "ps -eo pid,ppid,cmd" 0 "ps -eo 自定义输出"
+        rlRun "ps -C bash" 0 "ps -C 按命令过滤"
     rlPhaseEnd
 
 

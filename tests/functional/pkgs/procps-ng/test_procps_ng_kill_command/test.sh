@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - kill-command"
-        rlPass "测试已执行"
+        rlRun "kill -l" 0 "kill -l 信号列表"
+        rlRun "kill --help | grep -qE 'Usage|用法|Options'" 0 "kill --help 显示帮助"
     rlPhaseEnd
 
 

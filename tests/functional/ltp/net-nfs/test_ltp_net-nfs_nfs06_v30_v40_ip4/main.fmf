@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - net-nfs - nfs06_v30_v40_ip4
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - net-nfs
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/net-nfs/test_ltp_net-nfs_nfs06_v30_v40_ip4
+require:
+  - ltp
+  - beakerlib

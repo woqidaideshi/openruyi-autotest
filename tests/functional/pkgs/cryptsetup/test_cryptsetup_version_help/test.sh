@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "版本和帮助"
-        rlRun "cryptsetup --version 2>&1 || true" 0 "cryptsetup 版本信息"
+        rlRun "cryptsetup --version 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "cryptsetup 版本信息"
         rlRun "cryptsetup --help 2>&1 | head -5 || true" 0 "cryptsetup 帮助信息"
     rlPhaseEnd
 

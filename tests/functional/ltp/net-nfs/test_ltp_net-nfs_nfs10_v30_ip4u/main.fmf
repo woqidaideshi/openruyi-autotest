@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - net-nfs - nfs10_v30_ip4u
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - net-nfs
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/net-nfs/test_ltp_net-nfs_nfs10_v30_ip4u
+require:
+  - ltp
+  - beakerlib

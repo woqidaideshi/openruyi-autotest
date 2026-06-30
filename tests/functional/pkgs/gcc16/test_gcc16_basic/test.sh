@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: gcc16 - gcc16 ��������
+# Functional test: gcc16 - gcc16 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,10 +13,10 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "gcc16 ��������"
-        rlRun "TmpDir=$(mktemp -d)" 0 "������ʱĿ¼"
-        rlRun "cd $TmpDir" 0 "�������Ŀ¼"
-        rlRun "echo \"int main(){return 0;}\" > test.c" 0 "��������Դ��"
+    rlPhaseStartTest "gcc16 错误处理��"
+        rlRun "TmpDir=$(mktemp -d)" 0 "错误处理ʱĿ¼"
+        rlRun "cd $TmpDir" 0 "错误处理�Ŀ¼"
+        rlRun "echo \"int main(){return 0;}\" > test.c" 0 "错误处理��Դ��"
         rlRun "gcc-16 -o test test.c" 0 "���� C ����"
         rlRun "./test" 0 "���б����ĳ���"
     rlPhaseEnd

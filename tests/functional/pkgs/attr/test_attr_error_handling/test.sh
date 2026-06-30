@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: attr - ������
+# Functional test: attr - 错误处理
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,12 +13,12 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "������"
-        rlRun "TmpDir=$(mktemp -d)" 0 "������ʱ����Ŀ¼"
-        rlRun "cd $TmpDir" 0 "�������Ŀ¼"
-        rlRun "getfattr nonexistent_file" 1-255 "���Բ������ļ�����"
-        rlRun "setfattr -n user.test -v val nonexistent_file" 1-255 "���ԶԲ������ļ���������"
-        rlRun "getfattr --invalid-flag nonexistent" 1-255 "������Ч��������"
+    rlPhaseStartTest "错误处理"
+        rlRun "TmpDir=$(mktemp -d)" 0 "错误处理ʱ����Ŀ¼"
+        rlRun "cd $TmpDir" 0 "错误处理�Ŀ¼"
+        rlRun "getfattr nonexistent_file" 1-255 "���Բ错误处理ļ�����"
+        rlRun "setfattr -n user.test -v val nonexistent_file" 1-255 "���ԶԲ错误处理ļ错误处理���"
+        rlRun "getfattr --invalid-flag nonexistent" 1-255 "错误处理Ч错误处理��"
     rlPhaseEnd
 
 

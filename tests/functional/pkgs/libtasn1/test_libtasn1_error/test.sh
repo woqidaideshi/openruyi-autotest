@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: libtasn1 - ������
+# Functional test: libtasn1 - 错误处理
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,10 +13,10 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "������"
-        rlRun "asn1Coding --invalid-flag-xyz 2>&1 || true" 0 "���� asn1Coding ��Ч����������"
-        rlRun "asn1Decoding --invalid-flag-xyz 2>&1 || true" 0 "���� asn1Decoding ��Ч����������"
-        rlRun "asn1Parser --invalid-flag-xyz 2>&1 || true" 0 "���� asn1Parser ��Ч����������"
+    rlPhaseStartTest "错误处理"
+        rlRun "asn1Coding --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� asn1Coding ��Ч错误处理����"
+        rlRun "asn1Decoding --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� asn1Decoding ��Ч错误处理����"
+        rlRun "asn1Parser --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� asn1Parser ��Ч错误处理����"
     rlPhaseEnd
 
 

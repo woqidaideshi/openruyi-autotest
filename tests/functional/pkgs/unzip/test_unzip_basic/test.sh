@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: unzip - ��������
+# Functional test: unzip - 错误处理��
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,12 +13,12 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "��������"
+    rlPhaseStartTest "错误处理��"
 rlRun() { eval "$1" 2>&1; return $?; }
-        rlRun "unzip --help 2>&1 | head -10" 0 "�鿴 unzip ������Ϣ"
-        rlRun "funzip --help 2>&1 | head -10" 0 "�鿴 funzip ������Ϣ"
-        rlRun "zipgrep --help 2>&1 | head -10" 0 "�鿴 zipgrep ������Ϣ"
-        rlRun "zipinfo --help 2>&1 | head -10" 0 "�鿴 zipinfo ������Ϣ"
+        rlRun "unzip --help 2>&1 | head -10" 0 "�鿴 unzip 错误处理Ϣ"
+        rlRun "funzip --help 2>&1 | head -10" 0 "�鿴 funzip 错误处理Ϣ"
+        rlRun "zipgrep --help 2>&1 | head -10" 0 "�鿴 zipgrep 错误处理Ϣ"
+        rlRun "zipinfo --help 2>&1 | head -10" 0 "�鿴 zipinfo 错误处理Ϣ"
     rlPhaseEnd
 
 

@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "基本脚本执行"
-        rlRun "bash test.sh" 0 "bash 执行脚本"
+        rlRun "bash test.sh 2>&1" 0 "bash 执行脚本并显示输出"
     rlPhaseEnd
 
 

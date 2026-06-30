@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - Special-scenarios"
-        rlPass "测试已执行"
+        rlRun "ps -C nonexistent_12345 2>&1" 0 "ps -C 不存在的进程"
+        rlRun "kill -l 64 2>&1 || echo signal-out-of-range" 0 "kill -l 无效信号"
     rlPhaseEnd
 
 

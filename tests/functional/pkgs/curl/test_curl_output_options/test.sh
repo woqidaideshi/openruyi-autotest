@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "输出选项"
         rlRun "curl -s -o /tmp/curl_test.html http://example.com 2>&1 || echo \"输出测试\"" 0 "curl -o: 输出到文件"
-        rlRun "curl -s -O /dev/null 2>&1 || true" 0 "curl -O: 远程文件名"
+        rlRun "curl -s -O /dev/null 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "curl -O: 远程文件名"
     rlPhaseEnd
 
 

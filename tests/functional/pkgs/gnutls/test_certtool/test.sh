@@ -14,9 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "certtool"
-        rlRun "TmpDir=$(mktemp -d)" 0 "������ʱĿ¼"
-        rlRun "cd $TmpDir" 0 "�������Ŀ¼"
-        rlRun "certtool --generate-privkey --outfile key.pem 2>&1 || true" 0 "����˽Կ"
+        rlRun "TmpDir=$(mktemp -d)" 0 "错误处理ʱĿ¼"
+        rlRun "cd $TmpDir" 0 "错误处理�Ŀ¼"
+        rlRun "certtool --generate-privkey --outfile key.pem 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "����˽Կ"
     rlPhaseEnd
 
 

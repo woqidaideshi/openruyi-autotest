@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - syscalls - getresgid03_16
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - syscalls
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/syscalls/test_ltp_syscalls_getresgid03_16
+require:
+  - ltp
+  - beakerlib

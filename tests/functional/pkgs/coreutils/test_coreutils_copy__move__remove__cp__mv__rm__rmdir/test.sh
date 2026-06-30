@@ -22,7 +22,7 @@ rlJournalStart
         rlRun "mv file1_copy.txt file1_renamed.txt" 0 "mv rename file"
         rlRun "test ! -f file1_copy.txt" 0 "mv: old name gone"
         rlRun "test -f file1_renamed.txt" 0 "mv: new name exists"
-        rlRun "mv file1_renamed.txt subdir_move.txt 2>&1 || true" 0 "mv to subdirectory"
+        rlRun "mv file1_renamed.txt subdir_move.txt 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "mv to subdirectory"
         rlRun "touch temp_rm.txt" 0 "Create temp file"
         rlRun "rm temp_rm.txt" 0 "rm remove file"
         rlRun "test ! -f temp_rm.txt" 0 "rm: file removed"

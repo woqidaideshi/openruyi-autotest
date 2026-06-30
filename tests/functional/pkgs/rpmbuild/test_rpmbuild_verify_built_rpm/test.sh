@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Verify-built-RPM"
-        rlPass "测试已执行"
+        rlRun "rpm -qpl 2>&1 || rpm -qil 2>&1" 0 "rpm 查询命令可用"
+        rlRun "ls $HOME/rpmbuild/RPMS/ 2>/dev/null || echo no-rpms-yet" 0 "检查 RPM 输出目录"
     rlPhaseEnd
 
 

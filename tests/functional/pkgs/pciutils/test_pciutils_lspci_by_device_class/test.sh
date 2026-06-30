@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "lspci-by-device-class"
-        rlPass "测试已执行"
+        rlRun "lspci -x" 0 "lspci -x 十六进制配置空间"
+        rlRun "lspci -xxx 2>&1 | grep -qE \'[0-9a-f]{2}:\'" 0 "lspci -xxx 输出完整配置空间"
     rlPhaseEnd
 
 

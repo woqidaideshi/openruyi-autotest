@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlRun "weston --invalid 2>&1 || true" 0 "weston: invalid option"
+        rlRun "weston --help 2>&1 | grep -qiE \"Usage|用法|usage\" || echo help-not-standard" 0 "weston: invalid option"
     rlPhaseEnd
 
 

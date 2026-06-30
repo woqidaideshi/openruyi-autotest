@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: clang - Basic-C---compilation
+# Functional test: clang - C 基本编译
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,7 +13,7 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "Basic-C---compilation"
+    rlPhaseStartTest "C 基本编译"
         rlRun "clang++ -x c++ hello.c -o hello_cpp" 0 "Compile C++ from hello.c"
         rlRun "./hello_cpp" 0 "Run C++ binary"
     rlPhaseEnd

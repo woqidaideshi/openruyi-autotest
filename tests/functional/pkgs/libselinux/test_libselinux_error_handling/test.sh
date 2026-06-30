@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "错误处理"
-        rlPass "测试已执行"
+        rlRun "rpm -q libselinux" 0 "libselinux 包已安装"
+        rlRun "rpm -ql libselinux | grep -E '\\.so' | head -3" 0 "libselinux 库文件存在"
+        rlRun "ldconfig -p | grep libselinux" 0 "libselinux 在 ldconfig 缓存中"
     rlPhaseEnd
 
 

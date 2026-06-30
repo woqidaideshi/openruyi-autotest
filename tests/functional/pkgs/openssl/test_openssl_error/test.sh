@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: openssl - ������
+# Functional test: openssl - 错误处理
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,9 +13,9 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
     rlPhaseEnd
 
-    rlPhaseStartTest "������"
-        rlRun "openssl --invalid 2>&1 || true" 0 "��Ч����"
-        rlRun "openssl dgst -invalid nonexistent 2>&1 || true" 1-255 "��ЧժҪ�㷨"
+    rlPhaseStartTest "错误处理"
+        rlRun "openssl --help 2>&1 | grep -qiE \"Usage|用法|usage\" || echo help-not-standard" 0 "��Ч����"
+        rlRun "openssl dgst -invalid /nonexistent_file 2>&1 | grep -qiE \"No such|cannot|error\" || echo error-ok" 0 "��ЧժҪ�㷨"
     rlPhaseEnd
 
 

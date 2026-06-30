@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "lspci-numeric"
-        rlPass "测试已执行"
+        rlRun "lspci -n" 0 "lspci -n 数字ID模式"
+        rlRun "lspci -nn 2>&1" 0 "lspci -nn 数字ID+名称"
     rlPhaseEnd
 
 

@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "clients - Error-handling"
-        rlPass "测试已执行"
+        rlRun "ssh -V 2>&1" 0 "ssh 版本信息"
+        rlRun "ssh -o ConnectTimeout=1 -o StrictHostKeyChecking=no nonexistent 2>&1" 255 "ssh 连接不存在主机应报错"
+        rlRun "ssh-copy-id -h 2>&1 | grep -qi Usage" 0 "ssh-copy-id -h 显示用法"
     rlPhaseEnd
 
 

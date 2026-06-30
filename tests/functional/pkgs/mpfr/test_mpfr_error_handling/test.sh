@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "错误处理"
-        rlPass "测试已执行"
+        rlRun "rpm -q mpfr" 0 "mpfr 包已安装"
+        rlRun "rpm -ql mpfr | grep -E '\\.so' | head -3" 0 "mpfr 库文件存在"
+        rlRun "ldconfig -p | grep libmpfr" 0 "libmpfr 在 ldconfig 缓存中"
     rlPhaseEnd
 
 

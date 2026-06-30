@@ -14,8 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ar"
-        rlRun "TmpDir=$(mktemp -d)" 0 "������ʱĿ¼"
-        rlRun "cd $TmpDir" 0 "�������Ŀ¼"
+        rlRun "TmpDir=$(mktemp -d)" 0 "错误处理ʱĿ¼"
+        rlRun "cd $TmpDir" 0 "错误处理�Ŀ¼"
         rlRun "echo \"test\" > file1.txt" 0 "�����ļ�1"
         rlRun "echo \"data\" > file2.txt" 0 "�����ļ�2"
         rlRun "ar cr test.a file1.txt file2.txt" 0 "�����鵵"

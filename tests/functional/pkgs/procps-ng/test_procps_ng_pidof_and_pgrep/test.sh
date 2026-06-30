@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "ng - pidof-and-pgrep"
-        rlPass "测试已执行"
+        rlRun "pidof bash" 0 "pidof bash"
+        rlRun "pgrep bash" 0 "pgrep bash"
+        rlRun "pgrep --help | grep -qE 'Usage|用法|Options'" 0 "pgrep --help 显示帮助"
     rlPhaseEnd
 
 

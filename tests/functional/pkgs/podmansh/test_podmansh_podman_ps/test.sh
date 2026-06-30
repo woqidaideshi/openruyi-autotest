@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "podman-ps"
-        rlPass "测试已执行"
+        rlRun "podman ps 2>&1 | head -5" 0 "podman ps"
+        rlRun "podman ps -a 2>&1 | head -5" 0 "podman ps -a"
     rlPhaseEnd
 
 

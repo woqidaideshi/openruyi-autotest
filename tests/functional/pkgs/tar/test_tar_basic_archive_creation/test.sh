@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Basic-archive-creation"
-        rlPass "测试已执行"
+        rlRun "tar --version" 0 "tar 版本信息"
+        rlRun "mkdir $TmpDir/testdir && echo hello > $TmpDir/testdir/file.txt" 0 "创建测试数据"
+        rlRun "tar -cf $TmpDir/test.tar -C $TmpDir testdir" 0 "tar 创建归档"
     rlPhaseEnd
 
 

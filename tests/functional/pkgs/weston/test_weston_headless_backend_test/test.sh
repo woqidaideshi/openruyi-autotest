@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Headless-backend-test"
-        rlRun "timeout 5 weston --backend=headless 2>&1 || true" 0 "weston: headless backend"
+        rlRun "timeout 5 weston --backend=headless 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "weston: headless backend"
     rlPhaseEnd
 
 

@@ -1,0 +1,12 @@
+summary: 功能测试 - LTP - fs - gf30
+test: ./test.sh
+tag:
+  - functional
+  - ltp
+  - fs
+duration: 30m
+tier: 1
+path: /tests/functional/ltp/fs/test_ltp_fs_gf30
+require:
+  - ltp
+  - beakerlib

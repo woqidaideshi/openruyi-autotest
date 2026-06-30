@@ -14,7 +14,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "pstree-basic"
-        rlPass "测试已执行"
+        rlRun "pstree" 0 "pstree 基本输出"
+        rlRun "pstree --version" 0 "pstree --version"
     rlPhaseEnd
 
 

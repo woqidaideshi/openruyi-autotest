@@ -15,7 +15,7 @@ rlJournalStart
 
     rlPhaseStartTest "Remote-operations"
         rlRun "git remote" 0 "git remote: list remotes"
-        rlRun "git remote add origin /tmp/fake_remote 2>&1 || true" 0 "git remote add"
+        rlRun "git remote add origin /tmp/fake_remote 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "git remote add"
     rlPhaseEnd
 
 
