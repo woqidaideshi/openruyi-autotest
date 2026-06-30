@@ -62,7 +62,7 @@ openruyi-autotest/
 | 测试类型 | 测试套数 | 用例数 | 状态 |
 |---------|:---:|:---:|:---:|
 | Smoke | 100 | 100 | ✅ 全部通过 |
-| Functional | 234 | 2973 | ✅ 全部通过 (202 pkgs + 32 LTP) |
+| Functional | 234 | 2973 | ✅ 全部通过 (566 pkgs + 2407 LTP) |
 | Security | 106 | 106 | ✅ 全部通过 (98 CVE + 8 nmap) |
 | Compatibility | 188 | 188 | ✅ 通过 (LTP POSIX) |
 | Performance | 7 | 7 | ✅ 已执行 (UnixBench) |
