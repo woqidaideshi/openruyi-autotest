@@ -1,6 +1,6 @@
 # openruyi-autotest
 
-openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试、可靠性测试和特性测试七大类，共 637 个测试套、3391 个测试用例（其中功能测试 235 套 / 2989 用例：202 个 RPM 包 + 32 个 LTP 模块 + 16 个 kernel；性能测试 8 套 / 60 用例：UnixBench + MMTests）。
+openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试、可靠性测试和特性测试七大类，共 638 个测试套、3444 个测试用例（其中功能测试 235 套 / 2989 用例：202 个 RPM 包 + 32 个 LTP 模块 + 16 个 kernel；性能测试 8 套 / 60 用例：UnixBench + MMTests）。
 
 ---
 
@@ -72,7 +72,7 @@ openruyi-autotest/
 | Performance | 8 | 60 | ✅ 已执行 (UnixBench + mmtests) |
 | Reliability | 1 | 1 | ✅ 通过 |
 | Feature | 0 | 0 | 🆕 |
-| **合计** | **637** | **3391** | |
+| **合计** | **638** | **3444** | |
 
 详情文档：
 - [冒烟测试覆盖详情](docs/coverage/smoke-coverage.md)
