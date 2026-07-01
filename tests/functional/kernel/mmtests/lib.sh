@@ -34,8 +34,10 @@ _mmtestsRunCase() {
 
     cd "$MMTESTS_DIR" 2>/dev/null || true
     export AUTO_PACKAGE_INSTALL=yes
+    # MMTests uses sudo internally — pipe password through stdin
+    echo openruyi | sudo -S -p "" true 2>/dev/null
     timeout --signal=KILL --kill-after=10 1800 \
-        bash run-mmtests.sh --no-monitor --config "configs/$config" "$config" 2>&1 | tee "$out"
+        echo openruyi | sudo -S -p "" bash run-mmtests.sh --no-monitor --config "configs/$config" "$config" 2>&1 | tee "$out"
     local rc=${PIPESTATUS[0]}
 
     # 1. Timeout
@@ -95,6 +97,8 @@ mmtestsSetup() {
                 rlLogWarning "MMTests 安装失败，测试将被跳过"
                 echo "installed=0" > "$MMTESTS_FLAG"
             else
+                # Fix ownership so openruyi can write work/ and shellpacks/
+                echo openruyi | sudo -S chown -R openruyi:openruyi "$MMTESTS_DIR" 2>/dev/null
                 echo "installed=1" > "$MMTESTS_FLAG"
                 rlLogInfo "已安装 MMTests（首次）"
             fi
@@ -120,11 +124,9 @@ mmtestsCleanup() {
     ref=$(grep "^ref=" "$MMTESTS_FLAG" | cut -d= -f2)
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
-        if grep -q "^installed=1" "$MMTESTS_FLAG"; then
-            echo openruyi | sudo -S dnf remove -y mmtests 2>/dev/null || true
-            rlLogInfo "已卸载 MMTests"
-        fi
+        # Keep MMTests installed — reinstall is too expensive (~8min + system updates)
         rm -f "$MMTESTS_FLAG"
+        rlLogInfo "MMTests 测试套清理完成（保留安装）"
     else
         sed -i "s/^ref=.*/ref=$ref/" "$MMTESTS_FLAG"
         rlLogInfo "MMTests 保留（还有 $ref 个测试未完成）"
