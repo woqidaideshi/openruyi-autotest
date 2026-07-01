@@ -1,0 +1,7 @@
+summary: 功能测试 - dejagnu - 静态分析 (-fanalyzer)
+test: ./test.sh
+tag: [functional, compiler, dejagnu]
+duration: 5m
+tier: 2
+path: /tests/functional/compiler/dejagnu/test_dejagnu_static_analysis
+require: [dejagnu, gcc, beakerlib]

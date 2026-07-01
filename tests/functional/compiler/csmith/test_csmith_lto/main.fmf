@@ -1,0 +1,7 @@
+summary: 功能测试 - csmith - 链接时优化 (-flto)
+test: ./test.sh
+tag: [functional, compiler, csmith]
+duration: 5m
+tier: 2
+path: /tests/functional/compiler/csmith/test_csmith_lto
+require: [csmith, gcc, clang, beakerlib]

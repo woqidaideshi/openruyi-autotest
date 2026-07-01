@@ -1,6 +1,6 @@
 # openruyi-autotest
 
-openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试、可靠性测试和特性测试七大类，共 681 个测试套、3668 个测试用例（功能测试 271 套 / 3206 用例：566 pkgs + 2407 LTP + 211 kernel + 22 compiler；安全测试 113 套 / 113 用例：98 CVE + 8 nmap + 7 openscap）。
+openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试、可靠性测试和特性测试七大类，共 691 个测试套、3678 个测试用例（功能测试 281 套 / 3216 用例：566 pkgs + 2407 LTP + 211 kernel + 32 compiler；安全测试 113 套 / 113 用例：98 CVE + 8 nmap + 7 openscap）。
 
 ---
 
@@ -30,11 +30,11 @@ openruyi-autotest/
 │   │   │   └── realtime/         #   实时性测试（16 个用例）
 │   │   ├── ltp/                  # LTP 功能测试套件（32 个子模块, 2407 个用例）
 │   │   ├── pkgs/                 # RPM 软件包功能测试（202 个包, 566 个用例）
-│   │   └── compiler/             # 编译器与工具链测试（22 个用例）
-│   │       ├── dejagnu/          #   DejaGnu GCC 测试框架（7 个用例）
-│   │       ├── jotai/            #   Jotai 基准程序测试（5 个用例）
-│   │       ├── csmith/           #   Csmith 随机程序差分测试（5 个用例）
-│   │       └── yarpgen/          #   YARPGen 优化 Bug 检测（5 个用例）
+│   │   └── compiler/             # 编译器与工具链测试（32 个用例）
+│   │       ├── dejagnu/          #   DejaGnu GCC 测试框架（9 个用例）
+│   │       ├── jotai/            #   Jotai 基准程序测试（7 个用例）
+│   │       ├── csmith/           #   Csmith 随机程序差分测试（8 个用例）
+│   │       └── yarpgen/          #   YARPGen 优化 Bug 检测（8 个用例）
 │   ├── security/                 # 安全测试（113 个用例）
 │   │   ├── cve/                  # CVE 漏洞测试（98 个用例）
 │   │   ├── nmap/                 # 网络扫描测试（8 个用例）
@@ -75,13 +75,13 @@ openruyi-autotest/
 | 测试类型 | 测试套数 | 用例数 | 状态 |
 |---------|:---:|:---:|:---:|
 | Smoke | 100 | 100 | ✅ 全部通过 |
-| Functional | 271 | 3206 | ✅ 全部通过 (566 pkgs + 2407 LTP + 211 kernel + 22 compiler) |
+| Functional | 281 | 3216 | ✅ 全部通过 (566 pkgs + 2407 LTP + 211 kernel + 32 compiler) |
 | Security | 113 | 113 | ✅ 全部通过 (98 CVE + 8 nmap + 7 openscap) |
 | Compatibility | 188 | 188 | ✅ 通过 (LTP POSIX) |
 | Performance | 8 | 60 | ✅ 已执行 (7 UnixBench + 53 mmtests) |
 | Reliability | 1 | 1 | ✅ 通过 |
 | Feature | 0 | 0 | 🆕 |
-| **合计** | **681** | **3668** | |
+| **合计** | **691** | **3678** | |
 
 详情文档：
 - [冒烟测试覆盖详情](docs/coverage/smoke-coverage.md)
