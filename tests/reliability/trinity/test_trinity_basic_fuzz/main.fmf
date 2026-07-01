@@ -1,0 +1,7 @@
+summary: 可靠性测试 - trinity - 基础模糊测试 (60s)
+test: ./test.sh
+tag: [reliability, trinity]
+duration: 5m
+tier: 2
+path: /tests/reliability/trinity/test_trinity_basic_fuzz
+require: [trinity, beakerlib]

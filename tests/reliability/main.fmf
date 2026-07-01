@@ -1,8 +1,8 @@
-summary: 可靠性测试 - 验证系统稳定性和可靠性
-test: ./test.sh
+summary: 可靠性测试 - 验证系统稳定性与可靠性
 tag:
   - reliability
-duration: 10m
+duration: 30m
 tier: 2
+path: /tests/reliability
 require:
   - coreutils
