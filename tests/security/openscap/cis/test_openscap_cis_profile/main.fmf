@@ -1,0 +1,12 @@
+summary: 安全测试 - OpenSCAP CIS - profile 验证
+test: ./test.sh
+tag:
+  - security
+  - openscap
+  - cis
+duration: 2m
+tier: 2
+path: /tests/security/openscap/cis/test_openscap_cis_profile
+require:
+  - scap-security-guide
+  - beakerlib

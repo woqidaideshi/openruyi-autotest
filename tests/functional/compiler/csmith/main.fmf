@@ -1,0 +1,13 @@
+summary: 功能测试 - Csmith 随机程序差分测试
+tag:
+  - functional
+  - compiler
+  - csmith
+duration: 10m
+tier: 2
+path: /tests/functional/compiler/csmith
+require:
+  - beakerlib
+  - csmith
+  - gcc
+  - clang

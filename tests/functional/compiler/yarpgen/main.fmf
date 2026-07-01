@@ -1,0 +1,14 @@
+summary: 功能测试 - YARPGen 随机程序优化 Bug 检测
+tag:
+  - functional
+  - compiler
+  - yarpgen
+duration: 15m
+tier: 2
+path: /tests/functional/compiler/yarpgen
+require:
+  - beakerlib
+  - gcc-c++
+  - clang
+  - cmake
+  - git

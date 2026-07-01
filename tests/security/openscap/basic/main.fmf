@@ -1,0 +1,11 @@
+summary: 安全测试 - OpenSCAP 基础 CLI 操作
+tag:
+  - security
+  - openscap
+  - basic
+duration: 10m
+tier: 2
+path: /tests/security/openscap/basic
+require:
+  - beakerlib
+  - scap-security-guide

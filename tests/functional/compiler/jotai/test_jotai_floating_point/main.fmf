@@ -1,0 +1,7 @@
+summary: 功能测试 - jotai - 浮点精度 (-ffast-math/-frounding-math)
+test: ./test.sh
+tag: [functional, compiler, jotai]
+duration: 5m
+tier: 2
+path: /tests/functional/compiler/jotai/test_jotai_floating_point
+require: [gcc, clang, beakerlib]

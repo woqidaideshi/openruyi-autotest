@@ -1,0 +1,7 @@
+summary: 功能测试 - jotai - 预处理器 (-E/-D/-I)
+test: ./test.sh
+tag: [functional, compiler, jotai]
+duration: 3m
+tier: 2
+path: /tests/functional/compiler/jotai/test_jotai_preprocessor
+require: [gcc, clang, beakerlib]

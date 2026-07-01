@@ -1,0 +1,7 @@
+summary: 功能测试 - yarpgen - Sanitizer (-fsanitize=address/undefined)
+test: ./test.sh
+tag: [functional, compiler, yarpgen]
+duration: 5m
+tier: 2
+path: /tests/functional/compiler/yarpgen/test_yarpgen_sanitizer
+require: [gcc, clang, beakerlib]

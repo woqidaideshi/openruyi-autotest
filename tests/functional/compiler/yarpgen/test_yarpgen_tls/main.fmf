@@ -1,0 +1,7 @@
+summary: 功能测试 - yarpgen - 线程局部存储 (__thread/thread_local)
+test: ./test.sh
+tag: [functional, compiler, yarpgen]
+duration: 3m
+tier: 2
+path: /tests/functional/compiler/yarpgen/test_yarpgen_tls
+require: [gcc, gcc-c++, clang, beakerlib]

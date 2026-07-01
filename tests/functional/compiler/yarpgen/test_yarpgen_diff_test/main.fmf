@@ -1,0 +1,13 @@
+summary: 功能测试 - yarpgen - 差分测试（G++ vs Clang 输出对比）
+test: ./test.sh
+tag:
+  - functional
+  - compiler
+  - yarpgen
+duration: 5m
+tier: 2
+path: /tests/functional/compiler/yarpgen/test_yarpgen_diff_test
+require:
+  - gcc-c++
+  - clang
+  - beakerlib

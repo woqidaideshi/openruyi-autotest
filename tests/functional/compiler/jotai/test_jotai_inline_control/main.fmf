@@ -1,0 +1,7 @@
+summary: 功能测试 - jotai - 内联控制 (-finline-functions/-fno-inline)
+test: ./test.sh
+tag: [functional, compiler, jotai]
+duration: 3m
+tier: 2
+path: /tests/functional/compiler/jotai/test_jotai_inline_control
+require: [gcc, clang, beakerlib]
