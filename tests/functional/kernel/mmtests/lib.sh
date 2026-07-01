@@ -34,10 +34,10 @@ _mmtestsRunCase() {
 
     cd "$MMTESTS_DIR" 2>/dev/null || true
     export AUTO_PACKAGE_INSTALL=yes
-    # MMTests uses sudo internally — pipe password through stdin
-    echo openruyi | sudo -S -p "" true 2>/dev/null
+    # MMTests uses sudo internally and may prompt for package installation
+    # Pipe sudo password + yes to auto-answer all prompts
     timeout --signal=KILL --kill-after=10 1800 \
-        echo openruyi | sudo -S -p "" bash run-mmtests.sh --no-monitor --config "configs/$config" "$config" 2>&1 | tee "$out"
+        bash -c '(echo openruyi; yes) | sudo -S -p "" bash run-mmtests.sh --no-monitor --config "configs/$config" "$config"' 2>&1 | tee "$out"
     local rc=${PIPESTATUS[0]}
 
     # 1. Timeout
