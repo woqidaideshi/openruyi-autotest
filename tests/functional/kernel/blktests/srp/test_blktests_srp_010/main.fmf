@@ -1,0 +1,12 @@
+﻿summary: 鍔熻兘娴嬭瘯 - 鍐呮牳 - blktests - srp/010
+test: ./test.sh
+tag:
+  - functional
+  - kernel
+  - blktests
+duration: 5m
+tier: 2
+path: /tests/functional/kernel/blktests/srp/test_blktests_srp_010
+require:
+  - blktests
+  - beakerlib
