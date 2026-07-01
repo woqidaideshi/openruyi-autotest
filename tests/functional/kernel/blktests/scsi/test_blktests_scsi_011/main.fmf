@@ -1,0 +1,12 @@
+﻿summary: 鍔熻兘娴嬭瘯 - 鍐呮牳 - blktests - scsi/011
+test: ./test.sh
+tag:
+  - functional
+  - kernel
+  - blktests
+duration: 5m
+tier: 2
+path: /tests/functional/kernel/blktests/scsi/test_blktests_scsi_011
+require:
+  - blktests
+  - beakerlib

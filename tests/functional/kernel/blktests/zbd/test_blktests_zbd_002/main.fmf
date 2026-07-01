@@ -1,0 +1,12 @@
+﻿summary: 鍔熻兘娴嬭瘯 - 鍐呮牳 - blktests - zbd/002
+test: ./test.sh
+tag:
+  - functional
+  - kernel
+  - blktests
+duration: 5m
+tier: 2
+path: /tests/functional/kernel/blktests/zbd/test_blktests_zbd_002
+require:
+  - blktests
+  - beakerlib

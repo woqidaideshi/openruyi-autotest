@@ -16,10 +16,12 @@
 BLKTESTS_DIR="/usr/lib/blktests"
 BLKTESTS_FLAG="/tmp/.beakerlib_blktests_suite"
 
-# Run blktests for a specific test group.
-# Usage: _blktestsRunCase <group>
+# Run a single blktests test case.
+# Usage: _blktestsRunCase <group> <test>
 _blktestsRunCase() {
     local group="$1"
+    local test="$2"
+    local test_name="${group}/${test}"
     local out="/tmp/blktests_out_$$"
 
     if [ ! -x "$BLKTESTS_DIR/check" ]; then
@@ -27,8 +29,8 @@ _blktestsRunCase() {
         return 1
     fi
 
-    if [ ! -d "$BLKTESTS_DIR/tests/$group" ]; then
-        rlFail "blktests group not found ($BLKTESTS_DIR/tests/$group)"
+    if [ ! -f "$BLKTESTS_DIR/tests/$group/$test" ]; then
+        rlFail "blktests test not found ($BLKTESTS_DIR/tests/$group/$test)"
         return 1
     fi
 
@@ -45,19 +47,19 @@ EOF" 2>/dev/null || true
     fi
 
     timeout --signal=KILL --kill-after=10 600 \
-        bash ./check "$group" 2>&1 | tee "$out"
+        bash ./check "$test_name" 2>&1 | tee "$out"
     local rc=${PIPESTATUS[0]}
 
     # 1. Timeout
     if [ "$rc" -eq 137 ]; then
-        rlFail "blktests $group 执行超时"
+        rlFail "blktests $test_name 执行超时"
         rm -f "$out"
         return 1
     fi
 
     # 2. Non-zero exit code
     if [ "$rc" -ne 0 ]; then
-        rlFail "blktests $group 执行失败 (exit=$rc)"
+        rlFail "blktests $test_name 执行失败 (exit=$rc)"
         rm -f "$out"
         return 1
     fi
@@ -65,17 +67,16 @@ EOF" 2>/dev/null || true
     # 3. Check for explicit failure markers
     if grep -qE '\[failed\]' "$out"; then
         local failed
-        failed=$(grep -E '\[failed\]' "$out" | head -5 | tr '\n' ' ')
-        rlFail "blktests $group 存在失败的测试: $failed"
+        failed=$(grep -E '\[failed\]' "$out" | head -3 | tr '\n' ' ')
+        rlFail "blktests $test_name 失败: $failed"
         rm -f "$out"
         return 1
     fi
 
-    # 4. No failures found — count results
-    local passed skipped
-    passed=$(grep -cE '\[passed\]' "$out" 2>/dev/null || echo 0)
-    skipped=$(grep -cE '\[not run\]' "$out" 2>/dev/null || echo 0)
-    rlPass "blktests $group 通过 (passed=$passed, skipped=$skipped)"
+    # 4. No failures found
+    local status
+    status=$(grep "$test_name" "$out" | grep -oE '\[(passed|not run|skipped)\]')
+    rlPass "blktests $test_name $status"
     rm -f "$out"
     return 0
 }
