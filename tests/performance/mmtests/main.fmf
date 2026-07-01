@@ -1,0 +1,11 @@
+﻿summary: 性能测试 - MMTests 内核性能基准测试
+tag:
+  - performance
+  - kernel
+  - mmtests
+duration: 30m
+tier: 1
+path: /tests/performance/mmtests
+require:
+  - beakerlib
+  - mmtests

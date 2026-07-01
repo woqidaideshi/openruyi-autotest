@@ -1,0 +1,12 @@
+﻿summary: 性能测试 - mmtests - memdb-redis-benchmark-small
+test: ./test.sh
+tag:
+  - performance
+  - kernel
+  - mmtests
+duration: 30m
+tier: 1
+path: /tests/performance/mmtests/test_mmtests_memdb_redis_benchmark_small
+require:
+  - mmtests
+  - beakerlib

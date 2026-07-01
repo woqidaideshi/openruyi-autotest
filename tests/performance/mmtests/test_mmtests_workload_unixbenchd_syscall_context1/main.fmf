@@ -1,0 +1,12 @@
+﻿summary: 性能测试 - mmtests - workload-unixbenchd-syscall-context1
+test: ./test.sh
+tag:
+  - performance
+  - kernel
+  - mmtests
+duration: 30m
+tier: 1
+path: /tests/performance/mmtests/test_mmtests_workload_unixbenchd_syscall_context1
+require:
+  - mmtests
+  - beakerlib

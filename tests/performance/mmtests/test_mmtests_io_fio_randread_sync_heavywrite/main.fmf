@@ -1,0 +1,12 @@
+﻿summary: 性能测试 - mmtests - io-fio-randread-sync-heavywrite
+test: ./test.sh
+tag:
+  - performance
+  - kernel
+  - mmtests
+duration: 30m
+tier: 1
+path: /tests/performance/mmtests/test_mmtests_io_fio_randread_sync_heavywrite
+require:
+  - mmtests
+  - beakerlib

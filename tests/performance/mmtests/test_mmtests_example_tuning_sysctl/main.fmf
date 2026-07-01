@@ -1,0 +1,12 @@
+﻿summary: 性能测试 - mmtests - example-tuning-sysctl
+test: ./test.sh
+tag:
+  - performance
+  - kernel
+  - mmtests
+duration: 30m
+tier: 1
+path: /tests/performance/mmtests/test_mmtests_example_tuning_sysctl
+require:
+  - mmtests
+  - beakerlib
