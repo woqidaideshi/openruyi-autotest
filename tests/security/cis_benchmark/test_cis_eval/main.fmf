@@ -1,0 +1,11 @@
+summary: 安全测试 - CIS Benchmark - eval
+test: ./test.sh
+tag:
+  - security
+  - cis_benchmark
+duration: 10m
+tier: 2
+path: /tests/security/cis_benchmark/test_cis_eval
+require:
+  - scap-security-guide
+  - beakerlib

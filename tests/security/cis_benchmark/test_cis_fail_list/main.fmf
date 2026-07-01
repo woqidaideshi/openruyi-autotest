@@ -1,0 +1,11 @@
+summary: 安全测试 - CIS Benchmark - fail_list
+test: ./test.sh
+tag:
+  - security
+  - cis_benchmark
+duration: 10m
+tier: 2
+path: /tests/security/cis_benchmark/test_cis_fail_list
+require:
+  - scap-security-guide
+  - beakerlib

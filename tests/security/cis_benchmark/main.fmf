@@ -1,0 +1,10 @@
+summary: 安全测试 - CIS Benchmark 安全基线测试
+tag:
+  - security
+  - cis_benchmark
+duration: 10m
+tier: 2
+path: /tests/security/cis_benchmark
+require:
+  - beakerlib
+  - scap-security-guide
