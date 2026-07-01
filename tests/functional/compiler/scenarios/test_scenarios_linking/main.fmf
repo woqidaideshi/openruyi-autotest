@@ -1,0 +1,13 @@
+summary: 功能测试 - compiler scenarios - 链接场景（静态库/动态库/多文件）
+test: ./test.sh
+tag:
+  - functional
+  - compiler
+  - scenarios
+duration: 5m
+tier: 2
+path: /tests/functional/compiler/scenarios/test_scenarios_linking
+require:
+  - gcc
+  - clang
+  - beakerlib

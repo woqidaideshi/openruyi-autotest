@@ -1,0 +1,13 @@
+summary: 功能测试 - compiler scenarios - Sanitizer (-fsanitize)
+test: ./test.sh
+tag:
+  - functional
+  - compiler
+  - scenarios
+duration: 5m
+tier: 2
+path: /tests/functional/compiler/scenarios/test_scenarios_sanitizer
+require:
+  - gcc
+  - clang
+  - beakerlib

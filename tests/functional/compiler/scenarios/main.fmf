@@ -1,0 +1,13 @@
+summary: 功能测试 - 编译器编译场景全覆盖测试
+tag:
+  - functional
+  - compiler
+  - scenarios
+duration: 20m
+tier: 2
+path: /tests/functional/compiler/scenarios
+require:
+  - beakerlib
+  - gcc
+  - gcc-c++
+  - clang
