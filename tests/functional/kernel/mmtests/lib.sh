@@ -34,10 +34,11 @@ _mmtestsRunCase() {
 
     cd "$MMTESTS_DIR" 2>/dev/null || true
     export AUTO_PACKAGE_INSTALL=yes
-    # MMTests uses sudo internally and may prompt for package installation
-    # Pipe sudo password + yes to auto-answer all prompts
-    timeout --signal=KILL --kill-after=10 1800 \
-        bash -c '(echo openruyi; yes) | sudo -S -p "" bash run-mmtests.sh --no-monitor --config "configs/$config" "$config"' 2>&1 | tee "$out"
+    # Pre-install common MMTests dependencies to avoid interactive prompts
+    echo openruyi | sudo -S dnf install -y procps-ng wget2 2>/dev/null || true
+    # MMTests runs with sudo; pipe password for sudo, AUTO_PACKAGE_INSTALL handles dnf prompts
+    echo openruyi | timeout --signal=KILL --kill-after=10 1800 \
+        sudo -S -p "" bash run-mmtests.sh --no-monitor --config "configs/$config" "$config" 2>&1 | tee "$out"
     local rc=${PIPESTATUS[0]}
 
     # 1. Timeout
