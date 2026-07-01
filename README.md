@@ -1,6 +1,6 @@
 # openruyi-autotest
 
-openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试、可靠性测试和特性测试七大类，共 659 个测试套、3646 个测试用例（安全测试 113 套 / 113 用例：98 CVE + 8 nmap + 7 openscap）。
+openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试、可靠性测试和特性测试七大类，共 671 个测试套、3658 个测试用例（功能测试 261 套 / 3196 用例：566 pkgs + 2407 LTP + 211 kernel + 12 compiler；安全测试 113 套 / 113 用例：98 CVE + 8 nmap + 7 openscap）。
 
 ---
 
@@ -29,11 +29,18 @@ openruyi-autotest/
 │   │   │   ├── blktests/         #   块设备测试（195 个用例）
 │   │   │   └── realtime/         #   实时性测试（16 个用例）
 │   │   ├── ltp/                  # LTP 功能测试套件（32 个子模块, 2407 个用例）
-│   │   └── pkgs/                 # RPM 软件包功能测试（202 个包, 566 个用例）
+│   │   ├── pkgs/                 # RPM 软件包功能测试（202 个包, 566 个用例）
+│   │   └── compiler/             # 编译器与工具链测试（12 个用例）
+│   │       ├── dejagnu/          #   DejaGnu GCC 测试框架（3 个用例）
+│   │       ├── jotai/            #   Jotai 基准程序测试（3 个用例）
+│   │       ├── csmith/           #   Csmith 随机程序差分测试（3 个用例）
+│   │       └── yarpgen/          #   YARPGen 优化 Bug 检测（3 个用例）
 │   ├── security/                 # 安全测试（113 个用例）
 │   │   ├── cve/                  # CVE 漏洞测试（98 个用例）
 │   │   ├── nmap/                 # 网络扫描测试（8 个用例）
-│   │   ├── openscap/             # 安全合规性测试（7 个用例：4 基础 + 3 CIS）│   │   │   ├── basic/             #   基础 CLI 操作（4 个用例）│   │   │   └── cis/              #   CIS Benchmark（3 个用例）
+│   │   ├── openscap/             # 安全合规性测试（7 个用例：4 基础 + 3 CIS）
+│   │   │   ├── basic/             #   基础 CLI 操作（4 个用例）
+│   │   │   └── cis/               #   CIS Benchmark（3 个用例）
 │   ├── compatibility/            # 兼容性测试（188 个用例）
 │   ├── performance/              # 性能测试
 │   │   ├── mmtests/              #   MMTests 基准测试（53 个用例）
@@ -68,13 +75,13 @@ openruyi-autotest/
 | 测试类型 | 测试套数 | 用例数 | 状态 |
 |---------|:---:|:---:|:---:|
 | Smoke | 100 | 100 | ✅ 全部通过 |
-| Functional | 249 | 3184 | ✅ 全部通过 (566 pkgs + 2407 LTP + 211 kernel) |
+| Functional | 261 | 3196 | ✅ 全部通过 (566 pkgs + 2407 LTP + 211 kernel + 12 compiler) |
 | Security | 113 | 113 | ✅ 全部通过 (98 CVE + 8 nmap + 7 openscap) |
 | Compatibility | 188 | 188 | ✅ 通过 (LTP POSIX) |
 | Performance | 8 | 60 | ✅ 已执行 (7 UnixBench + 53 mmtests) |
 | Reliability | 1 | 1 | ✅ 通过 |
 | Feature | 0 | 0 | 🆕 |
-| **合计** | **659** | **3646** | |
+| **合计** | **671** | **3658** | |
 
 详情文档：
 - [冒烟测试覆盖详情](docs/coverage/smoke-coverage.md)

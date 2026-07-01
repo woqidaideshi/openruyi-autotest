@@ -1,0 +1,13 @@
+summary: 功能测试 - Jotai 基准程序编译器测试
+tag:
+  - functional
+  - compiler
+  - jotai
+duration: 15m
+tier: 2
+path: /tests/functional/compiler/jotai
+require:
+  - beakerlib
+  - gcc
+  - clang
+  - git

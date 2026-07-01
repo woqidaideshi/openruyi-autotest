@@ -1,0 +1,12 @@
+summary: 功能测试 - jotai - Clang 多优化级别编译运行
+test: ./test.sh
+tag:
+  - functional
+  - compiler
+  - jotai
+duration: 10m
+tier: 2
+path: /tests/functional/compiler/jotai/test_jotai_clang_compile_run
+require:
+  - clang
+  - beakerlib

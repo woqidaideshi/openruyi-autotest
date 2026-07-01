@@ -1,0 +1,13 @@
+summary: 功能测试 - DejaGnu GCC 测试框架
+tag:
+  - functional
+  - compiler
+  - dejagnu
+duration: 15m
+tier: 2
+path: /tests/functional/compiler/dejagnu
+require:
+  - beakerlib
+  - dejagnu
+  - gcc
+  - gcc-c++

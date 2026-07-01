@@ -1,0 +1,12 @@
+summary: 功能测试 - csmith - 安装与可用性检查
+test: ./test.sh
+tag:
+  - functional
+  - compiler
+  - csmith
+duration: 3m
+tier: 2
+path: /tests/functional/compiler/csmith/test_csmith_install
+require:
+  - csmith
+  - beakerlib
