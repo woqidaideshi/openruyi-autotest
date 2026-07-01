@@ -1,10 +1,10 @@
 #!/bin/bash
-# Security test: openscap - eval
-# OpenSCAP: 执行合规性评估扫描
+# Security test: openscap - info
+# OpenSCAP: 验证数据流文件有效性
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
-. "$(dirname $0)/../lib.sh"
+. "$(dirname $0)/../../lib.sh"
 
 rlJournalStart
     rlPhaseStartSetup "Environment Setup"
@@ -13,8 +13,8 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "Enter tmp dir"
     rlPhaseEnd
 
-    rlPhaseStartTest "openscap - eval"
-        rlRun "_openscapEval" 0 "Run 执行合规性评估扫描"
+    rlPhaseStartTest "openscap - info"
+        rlRun "_openscapInfo" 0 "Run 验证数据流文件有效性"
     rlPhaseEnd
 
     rlPhaseStartCleanup "Cleanup"

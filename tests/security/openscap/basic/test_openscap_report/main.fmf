@@ -5,7 +5,7 @@ tag:
   - openscap
 duration: 5m
 tier: 2
-path: /tests/security/openscap/test_openscap_report
+path: /tests/security/openscap/basic/test_openscap_report
 require:
   - scap-security-guide
   - beakerlib

@@ -1,11 +1,11 @@
-summary: 安全测试 - openscap - eval
+summary: 安全测试 - openscap - generate_fix
 test: ./test.sh
 tag:
   - security
   - openscap
 duration: 5m
 tier: 2
-path: /tests/security/openscap/test_openscap_eval
+path: /tests/security/openscap/basic/test_openscap_generate_fix
 require:
   - scap-security-guide
   - beakerlib

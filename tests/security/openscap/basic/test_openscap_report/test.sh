@@ -1,10 +1,10 @@
 #!/bin/bash
-# Security test: openscap - generate_fix
-# OpenSCAP: 生成修复脚本
+# Security test: openscap - report
+# OpenSCAP: 验证 HTML 报告生成
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
-. "$(dirname $0)/../lib.sh"
+. "$(dirname $0)/../../lib.sh"
 
 rlJournalStart
     rlPhaseStartSetup "Environment Setup"
@@ -13,8 +13,8 @@ rlJournalStart
         rlRun "cd $TmpDir" 0 "Enter tmp dir"
     rlPhaseEnd
 
-    rlPhaseStartTest "openscap - generate_fix"
-        rlRun "_openscapGenerateFix" 0 "Run 生成修复脚本"
+    rlPhaseStartTest "openscap - report"
+        rlRun "_openscapEval" 0 "Run 验证 HTML 报告生成"
     rlPhaseEnd
 
     rlPhaseStartCleanup "Cleanup"

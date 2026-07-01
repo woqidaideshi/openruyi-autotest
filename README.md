@@ -33,8 +33,7 @@ openruyi-autotest/
 │   ├── security/                 # 安全测试（113 个用例）
 │   │   ├── cve/                  # CVE 漏洞测试（98 个用例）
 │   │   ├── nmap/                 # 网络扫描测试（8 个用例）
-│   │   ├── openscap/             # 安全合规性测试（7 个用例：4 基础 + 3 CIS）
-│   │   │   └── cis/              #   CIS Benchmark（3 个用例）
+│   │   ├── openscap/             # 安全合规性测试（7 个用例：4 基础 + 3 CIS）│   │   │   ├── basic/             #   基础 CLI 操作（4 个用例）│   │   │   └── cis/              #   CIS Benchmark（3 个用例）
 │   ├── compatibility/            # 兼容性测试（188 个用例）
 │   ├── performance/              # 性能测试
 │   │   ├── mmtests/              #   MMTests 基准测试（53 个用例）
