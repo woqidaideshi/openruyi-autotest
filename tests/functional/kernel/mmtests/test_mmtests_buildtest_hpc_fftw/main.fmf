@@ -1,0 +1,12 @@
+﻿summary: 功能测试 - 内核 - mmtests - buildtest-hpc-fftw
+test: ./test.sh
+tag:
+  - functional
+  - kernel
+  - mmtests
+duration: 30m
+tier: 1
+path: /tests/functional/kernel/mmtests/test_mmtests_buildtest_hpc_fftw
+require:
+  - mmtests
+  - beakerlib

@@ -1,0 +1,12 @@
+﻿summary: 功能测试 - 内核 - mmtests - workload-futexbench
+test: ./test.sh
+tag:
+  - functional
+  - kernel
+  - mmtests
+duration: 30m
+tier: 1
+path: /tests/functional/kernel/mmtests/test_mmtests_workload_futexbench
+require:
+  - mmtests
+  - beakerlib
