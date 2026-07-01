@@ -1,0 +1,12 @@
+﻿summary: 性能测试 - mmtests - workload-will-it-scale-io-processes
+test: ./test.sh
+tag:
+  - performance
+  - kernel
+  - mmtests
+duration: 30m
+tier: 1
+path: /tests/performance/mmtests/test_mmtests_workload_will_it_scale_io_processes
+require:
+  - mmtests
+  - beakerlib

@@ -1,0 +1,12 @@
+﻿summary: 性能测试 - mmtests - buildtest-hpc-revocap
+test: ./test.sh
+tag:
+  - performance
+  - kernel
+  - mmtests
+duration: 30m
+tier: 1
+path: /tests/performance/mmtests/test_mmtests_buildtest_hpc_revocap
+require:
+  - mmtests
+  - beakerlib

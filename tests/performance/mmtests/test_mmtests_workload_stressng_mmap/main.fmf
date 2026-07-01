@@ -1,0 +1,12 @@
+﻿summary: 性能测试 - mmtests - workload-stressng-mmap
+test: ./test.sh
+tag:
+  - performance
+  - kernel
+  - mmtests
+duration: 30m
+tier: 1
+path: /tests/performance/mmtests/test_mmtests_workload_stressng_mmap
+require:
+  - mmtests
+  - beakerlib

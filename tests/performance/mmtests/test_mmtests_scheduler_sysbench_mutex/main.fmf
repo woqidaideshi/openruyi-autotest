@@ -1,0 +1,12 @@
+﻿summary: 性能测试 - mmtests - scheduler-sysbench-mutex
+test: ./test.sh
+tag:
+  - performance
+  - kernel
+  - mmtests
+duration: 30m
+tier: 1
+path: /tests/performance/mmtests/test_mmtests_scheduler_sysbench_mutex
+require:
+  - mmtests
+  - beakerlib
