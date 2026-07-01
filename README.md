@@ -30,12 +30,11 @@ openruyi-autotest/
 │   │   │   └── realtime/         #   实时性测试（16 个用例）
 │   │   ├── ltp/                  # LTP 功能测试套件（32 个子模块, 2407 个用例）
 │   │   ├── pkgs/                 # RPM 软件包功能测试（202 个包, 566 个用例）
-│   │   └── compiler/             # 编译器与工具链测试（12 个用例）
-│   │       ├── dejagnu/          #   DejaGnu GCC 测试框架（3 个用例）
-│   │       ├── jotai/            #   Jotai 基准程序测试（3 个用例）
-│   │       ├── csmith/           #   Csmith 随机程序差分测试（3 个用例）
-│   │       ├── yarpgen/          #   YARPGen 优化 Bug 检测（3 个用例）
-│   │       └── scenarios/        #   编译场景全覆盖（10 个用例）
+│   │   └── compiler/             # 编译器与工具链测试（22 个用例）
+│   │       ├── dejagnu/          #   DejaGnu GCC 测试框架（7 个用例）
+│   │       ├── jotai/            #   Jotai 基准程序测试（5 个用例）
+│   │       ├── csmith/           #   Csmith 随机程序差分测试（5 个用例）
+│   │       └── yarpgen/          #   YARPGen 优化 Bug 检测（5 个用例）
 │   ├── security/                 # 安全测试（113 个用例）
 │   │   ├── cve/                  # CVE 漏洞测试（98 个用例）
 │   │   ├── nmap/                 # 网络扫描测试（8 个用例）

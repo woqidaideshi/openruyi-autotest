@@ -1,0 +1,7 @@
+summary: 功能测试 - csmith - 链接场景（静态库/动态库/跨编译器）
+test: ./test.sh
+tag: [functional, compiler, csmith]
+duration: 5m
+tier: 2
+path: /tests/functional/compiler/csmith/test_csmith_linking
+require: [csmith, gcc, clang, beakerlib]
