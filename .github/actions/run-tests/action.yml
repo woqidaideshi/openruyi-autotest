@@ -1,0 +1,84 @@
+name: Run TMT Tests
+description: SSH to target, clone repo, install deps, run tmt, collect results
+
+inputs:
+  ssh_host:
+    description: 'SSH target host'
+    required: true
+  ssh_port:
+    description: 'SSH port'
+    required: true
+  ssh_user:
+    description: 'SSH user'
+    required: true
+  ssh_pass:
+    description: 'SSH password'
+    required: true
+  result_dir:
+    description: 'Local directory for results'
+    required: true
+  test_plan:
+    description: 'tmt plan name'
+    required: false
+    default: '/plans/smoke'
+  test_filter:
+    description: 'tmt test --name filter'
+    required: false
+    default: ''
+  github_repo:
+    description: 'GitHub repository (owner/name)'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Wait for SSH
+      shell: bash
+      run: |
+        echo "Connecting to ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}:${{ inputs.ssh_port }} ..."
+        for i in $(seq 1 60); do
+          if sshpass -p '${{ inputs.ssh_pass }}' ssh -o StrictHostKeyChecking=no -o ConnectTimeout=5 \
+            -p ${{ inputs.ssh_port }} ${{ inputs.ssh_user }}@${{ inputs.ssh_host }} "echo OK" 2>/dev/null; then
+            echo "SSH ready ($i/60)"
+            exit 0
+          fi
+          sleep 10
+        done
+        echo "ERROR: SSH timeout"
+        exit 1
+
+    - name: Run tests on target
+      shell: bash
+      run: |
+        CMD="sshpass -p '${{ inputs.ssh_pass }}' ssh -o StrictHostKeyChecking=no \
+          -p ${{ inputs.ssh_port }} ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}"
+
+        $CMD "uname -a && free -h && df -lh"
+        $CMD "dnf install -y git tmt beakerlib rsync 2>&1 | tail -5"
+        $CMD "tmt --version || echo 'tmt not installed'"
+        $CMD "rm -rf /root/openruyi-autotest && git clone https://github.com/${{ inputs.github_repo }}.git /root/openruyi-autotest"
+        $CMD "mkdir -p ${{ inputs.result_dir }}"
+
+        echo "Plan: ${{ inputs.test_plan }}  Filter: ${{ inputs.test_filter || 'none' }}"
+
+        TMT="cd /root/openruyi-autotest && tmt run -i ${{ inputs.result_dir }} --all --verbose plan --name ${{ inputs.test_plan }}"
+        [ -n "${{ inputs.test_filter }}" ] && TMT="$TMT test --name ${{ inputs.test_filter }}"
+        TMT="$TMT provision --feeling-safe 2>&1"
+
+        echo "Executing: $TMT"
+        $CMD "$TMT" | tee "${{ inputs.result_dir }}/tmt-output.txt"
+
+    - name: Collect results
+      if: always()
+      shell: bash
+      run: |
+        rsync -avz \
+          -e "sshpass -p '${{ inputs.ssh_pass }}' ssh -o StrictHostKeyChecking=no -p ${{ inputs.ssh_port }}" \
+          ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}:${{ inputs.result_dir }}/ "${{ inputs.result_dir }}/"
+
+    - name: Summary
+      if: always()
+      shell: bash
+      run: |
+        echo "=== Test Summary ==="
+        grep -E "pass|fail|error|skip|total|summary" "${{ inputs.result_dir }}/tmt-output.txt" 2>/dev/null | tail -20 || true

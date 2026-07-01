@@ -1,8 +1,10 @@
 ﻿# Trellis 工具类目录（本地使用，不提交）
 .trellis/
 
-# GitHub 配置目录（本地使用，不提交）
-.github/
+# GitHub 配置目录（仅保留 workflows 和 actions）
+.github/*
+!.github/workflows/
+!.github/actions/
 
 # Qoder 工具类目录（已废弃）
 .qoder/

@@ -1,0 +1,93 @@
+name: QEMU RISC-V Test
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: '0 18 * * *'
+
+jobs:
+  qemu-test:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install tools
+        run: |
+          sudo apt update -qq
+          sudo apt install -y sshpass curl xz-utils
+
+      - name: Download image and firmware
+        timeout-minutes: 30
+        run: |
+          set -x
+          IMG_URL="${{ secrets.QEMU_IMAGE_URL }}"
+          FW_URL="${{ secrets.QEMU_FIRMWARE_URL || '' }}"
+          USER="${{ secrets.USER }}"
+          PASS="${{ secrets.PASSWD }}"
+          PLAN="${{ vars.TEST_PLAN || '/plans/smoke' }}"
+          FILTER="${{ vars.TEST_FILTER || '' }}"
+          RUN_DIR="/opt/openruyi-autotest/${{ github.run_number }}"
+          QEMU_DIR="$RUN_DIR/qemu"
+          RESULT_DIR="$RUN_DIR/results"
+
+          mkdir -p "$QEMU_DIR" "$RESULT_DIR"
+
+          # Download image
+          echo "Downloading image: $IMG_URL"
+          if [[ "$IMG_URL" == *.xz ]]; then
+            curl -L "$IMG_URL" -o "$QEMU_DIR/openruyi-virt_riscv64.qcow2.xz"
+            xz -d "$QEMU_DIR/openruyi-virt_riscv64.qcow2.xz"
+          else
+            curl -L "$IMG_URL" -o "$QEMU_DIR/openruyi-virt_riscv64.qcow2"
+          fi
+          echo "Image size: $(du -h "$QEMU_DIR/openruyi-virt_riscv64.qcow2" | cut -f1)"
+
+          # Download firmware from URL or use local files
+          if [ -n "$FW_URL" ]; then
+            echo "Downloading firmware: $FW_URL"
+            curl -L "$FW_URL/RISCV_VIRT_CODE.fd" -o "$QEMU_DIR/RISCV_VIRT_CODE.fd"
+            curl -L "$FW_URL/RISCV_VIRT_VARS.fd" -o "$QEMU_DIR/RISCV_VIRT_VARS.fd"
+          else
+            echo "Using local firmware"
+            cp ${{ github.workspace }}/.github/workflows/scripts/RISCV_VIRT_CODE.fd "$QEMU_DIR/"
+            cp ${{ github.workspace }}/.github/workflows/scripts/RISCV_VIRT_VARS.fd "$QEMU_DIR/"
+          fi
+
+          # Export params for subsequent steps
+          echo "USER=$USER" >> $GITHUB_ENV
+          echo "PASSWD=$PASS" >> $GITHUB_ENV
+          echo "TEST_PLAN=$PLAN" >> $GITHUB_ENV
+          echo "TEST_FILTER=$FILTER" >> $GITHUB_ENV
+          echo "QEMU_DIR=$QEMU_DIR" >> $GITHUB_ENV
+          echo "RESULT_DIR=$RESULT_DIR" >> $GITHUB_ENV
+
+      - name: Start QEMU
+        timeout-minutes: 15
+        run: |
+          bash ${{ github.workspace }}/.github/workflows/scripts/qemu.sh \
+            "$QEMU_DIR/openruyi-virt_riscv64.qcow2" \
+            "$QEMU_DIR" 2>&1 | tee "$QEMU_DIR/qemu-sh.log"
+          SSH_PORT=$(grep -oP 'SSH_PORT=\K\d+' "$QEMU_DIR/qemu-sh.log")
+          echo "SSH_PORT=$SSH_PORT" >> $GITHUB_ENV
+
+      - name: Run tests
+        timeout-minutes: 4320
+        uses: ./.github/actions/run-tests
+        with:
+          ssh_host: localhost
+          ssh_port: ${{ env.SSH_PORT }}
+          ssh_user: ${{ env.USER }}
+          ssh_pass: ${{ env.PASSWD }}
+          result_dir: ${{ env.RESULT_DIR }}
+          test_plan: ${{ env.TEST_PLAN }}
+          test_filter: ${{ env.TEST_FILTER }}
+          github_repo: ${{ github.repository }}
+
+      - name: Cleanup
+        if: always()
+        run: |
+          [ -f /tmp/qemu.pid ] && { kill $(cat /tmp/qemu.pid) 2>/dev/null; sleep 2; kill -9 $(cat /tmp/qemu.pid) 2>/dev/null; }
+          rm -rf "$QEMU_DIR" "$RESULT_DIR"
