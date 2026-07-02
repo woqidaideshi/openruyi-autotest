@@ -1,0 +1,7 @@
+summary: 可靠性测试 - stress-ng - 组合压力 (多 stressor 并行)
+test: ./test.sh
+tag: [reliability, stress-ng]
+duration: 5m
+tier: 2
+path: /tests/reliability/stress-ng/test_stress_ng_combined
+require: [stress-ng, beakerlib]

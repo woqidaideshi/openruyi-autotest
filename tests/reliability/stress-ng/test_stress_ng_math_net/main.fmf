@@ -1,0 +1,7 @@
+summary: 可靠性测试 - stress-ng - 数学/网络压力 (matrix/netdev)
+test: ./test.sh
+tag: [reliability, stress-ng]
+duration: 5m
+tier: 2
+path: /tests/reliability/stress-ng/test_stress_ng_math_net
+require: [stress-ng, beakerlib]

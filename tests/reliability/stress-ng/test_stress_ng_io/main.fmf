@@ -1,0 +1,7 @@
+summary: 可靠性测试 - stress-ng - IO 压力 (hdd/aio)
+test: ./test.sh
+tag: [reliability, stress-ng]
+duration: 5m
+tier: 2
+path: /tests/reliability/stress-ng/test_stress_ng_io
+require: [stress-ng, beakerlib]
