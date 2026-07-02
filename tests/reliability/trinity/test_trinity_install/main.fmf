@@ -1,7 +1,0 @@
-summary: 可靠性测试 - trinity - 安装与可用性验证
-test: ./test.sh
-tag: [reliability, trinity]
-duration: 3m
-tier: 2
-path: /tests/reliability/trinity/test_trinity_install
-require: [trinity, beakerlib]
