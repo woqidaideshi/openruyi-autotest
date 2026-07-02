@@ -1,0 +1,10 @@
+summary: 可靠性测试 - Trinity 系统调用模糊测试
+tag:
+  - reliability
+  - trinity
+duration: 30m
+tier: 2
+path: /tests/reliability/trinity
+require:
+  - beakerlib
+  - trinity

@@ -1,0 +1,7 @@
+summary: 可靠性测试 - trinity - 多进程并行测试 (-C)
+test: ./test.sh
+tag: [reliability, trinity]
+duration: 5m
+tier: 2
+path: /tests/reliability/trinity/test_trinity_multi_process
+require: [trinity, beakerlib]
