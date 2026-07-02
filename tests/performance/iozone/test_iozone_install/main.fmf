@@ -1,7 +1,0 @@
-summary: 性能测试 - iozone - 安装与可用性验证
-test: ./test.sh
-tag: [performance, iozone]
-duration: 3m
-tier: 2
-path: /tests/performance/iozone/test_iozone_install
-require: [iozone, beakerlib]
