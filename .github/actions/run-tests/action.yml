@@ -35,9 +35,10 @@ runs:
     - name: Wait for SSH
       shell: bash
       run: |
+        export SSHPASS="${{ inputs.ssh_pass }}"
         echo "Connecting to ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}:${{ inputs.ssh_port }} ..."
         for i in $(seq 1 60); do
-          if sshpass -p '${{ inputs.ssh_pass }}' ssh -o StrictHostKeyChecking=no -o ConnectTimeout=5 \
+          if sshpass -e ssh -o StrictHostKeyChecking=no -o ConnectTimeout=5 \
             -p ${{ inputs.ssh_port }} ${{ inputs.ssh_user }}@${{ inputs.ssh_host }} "echo OK" 2>/dev/null; then
             echo "SSH ready ($i/60)"
             exit 0
@@ -51,33 +52,36 @@ runs:
       shell: bash
       run: |
         set -o pipefail
-        CMD="sshpass -p '${{ inputs.ssh_pass }}' ssh -o StrictHostKeyChecking=no \
-          -p ${{ inputs.ssh_port }} ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}"
+        export SSHPASS="${{ inputs.ssh_pass }}"
+        SSHO="sshpass -e ssh -o StrictHostKeyChecking=no -p ${{ inputs.ssh_port }} ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}"
 
-        $CMD "uname -a && free -h && df -lh"
-        $CMD "dnf install -y git tmt beakerlib rsync 2>&1 | tail -5"
-        $CMD "tmt --version || echo 'tmt not installed'"
-        $CMD "rm -rf /root/openruyi-autotest && git clone https://github.com/${{ inputs.github_repo }}.git /root/openruyi-autotest"
-        $CMD "mkdir -p ${{ inputs.result_dir }}"
+        $SSHO "uname -a && free -h && df -lh"
+        # Configure passwordless sudo (using SSH password, assuming same as sudo password)
+        $SSHO "echo '${{ inputs.ssh_pass }}' | sudo -S sh -c 'echo \"${{ inputs.ssh_user }} ALL=(ALL) NOPASSWD: ALL\" > /etc/sudoers.d/${{ inputs.ssh_user }} && chmod 440 /etc/sudoers.d/${{ inputs.ssh_user }}'"
+        $SSHO "sudo dnf install -y --refresh git tmt beakerlib rsync 2>&1"
+        $SSHO "tmt --version || echo 'tmt not installed'"
+        $SSHO "rm -rf ~/openruyi-autotest ~/results && git clone https://github.com/${{ inputs.github_repo }}.git ~/openruyi-autotest"
+        $SSHO "mkdir -p ~/results"
 
         echo "Plan: ${{ inputs.test_plan }}  Filter: ${{ inputs.test_filter || 'none' }}"
 
-        TMT="cd /root/openruyi-autotest && tmt run -i ${{ inputs.result_dir }} --all --verbose plan --name ${{ inputs.test_plan }}"
+        TMT="cd ~/openruyi-autotest && tmt run -i ~/results --all --verbose plan --name ${{ inputs.test_plan }}"
         [ -n "${{ inputs.test_filter }}" ] && TMT="$TMT test --name ${{ inputs.test_filter }}"
         TMT="$TMT provision --feeling-safe 2>&1"
 
         echo "Executing: $TMT"
-        $CMD "$TMT" | tee "${{ inputs.result_dir }}/tmt-output.txt"
+        $SSHO "$TMT" | tee "${{ inputs.result_dir }}/tmt-output.txt"
 
     - name: Collect results
       shell: bash
       run: |
+        export SSHPASS="${{ inputs.ssh_pass }}"
         rsync -avz \
-          -e "sshpass -p '${{ inputs.ssh_pass }}' ssh -o StrictHostKeyChecking=no -p ${{ inputs.ssh_port }}" \
-          ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}:${{ inputs.result_dir }}/ "${{ inputs.result_dir }}/"
+          -e "sshpass -e ssh -o StrictHostKeyChecking=no -p ${{ inputs.ssh_port }}" \
+          ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}:~/results/ "${{ inputs.result_dir }}/"
 
     - name: Summary
       shell: bash
       run: |
         echo "=== Test Summary ==="
-        grep -E "pass|fail|error|skip|total|summary" "${{ inputs.result_dir }}/tmt-output.txt" 2>/dev/null | tail -20 || true
+        grep -E "pass|fail|error|skip|total|summary" "${{ inputs.result_dir }}/tmt-output.txt" || true

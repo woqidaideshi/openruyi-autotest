@@ -17,7 +17,7 @@ jobs:
       - name: Install tools
         run: |
           sudo apt update -qq
-          sudo apt install -y sshpass curl xz-utils
+          sudo apt install -y sshpass rsync curl xz-utils
 
       - name: Download image and firmware
         timeout-minutes: 30

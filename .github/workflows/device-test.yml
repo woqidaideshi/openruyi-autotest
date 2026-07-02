@@ -17,7 +17,7 @@ jobs:
       - name: Install tools
         run: |
           sudo apt update -qq
-          sudo apt install -y sshpass
+          sudo apt install -y sshpass rsync
 
       - name: Parse params
         run: |
@@ -34,7 +34,8 @@ jobs:
             exit 1
           fi
 
-          mkdir -p "$RESULT_DIR"
+          sudo mkdir -p "$RESULT_DIR"
+          sudo chown -R $(whoami):$(whoami) "/opt/openruyi-autotest/${{ github.run_number }}"
 
           echo "DEVICE_IP=$IP" >> $GITHUB_ENV
           echo "USER=$USER" >> $GITHUB_ENV
