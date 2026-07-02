@@ -33,7 +33,8 @@ jobs:
           QEMU_DIR="$RUN_DIR/qemu"
           RESULT_DIR="$RUN_DIR/results"
 
-          mkdir -p "$QEMU_DIR" "$RESULT_DIR"
+          sudo mkdir -p "$QEMU_DIR" "$RESULT_DIR"
+          sudo chown -R $(whoami):$(whoami) "$RUN_DIR"
 
           # Download image
           echo "Downloading image: $IMG_URL"
@@ -89,5 +90,5 @@ jobs:
       - name: Cleanup
         if: always()
         run: |
-          [ -f /tmp/qemu.pid ] && { kill $(cat /tmp/qemu.pid) 2>/dev/null; sleep 2; kill -9 $(cat /tmp/qemu.pid) 2>/dev/null; }
-          rm -rf "$QEMU_DIR" "$RESULT_DIR"
+          [ -f /tmp/qemu.pid ] && { sudo kill $(cat /tmp/qemu.pid) 2>/dev/null; sleep 2; sudo kill -9 $(cat /tmp/qemu.pid) 2>/dev/null; }
+          sudo rm -rf "$RUN_DIR"
