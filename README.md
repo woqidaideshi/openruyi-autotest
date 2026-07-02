@@ -1,6 +1,6 @@
 # openruyi-autotest
 
-openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试、可靠性测试和特性测试七大类，共 698 个测试套、3685 个测试用例（功能测试 281 套 / 3216 用例：566 pkgs + 2407 LTP + 211 kernel + 32 compiler；安全测试 113 套 / 113 用例：98 CVE + 8 nmap + 7 openscap；可靠性测试 8 套 / 8 用例：1 基础 + 7 trinity）。
+openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试、可靠性测试和特性测试七大类，共 697 个测试套、3684 个测试用例（功能测试 281 套 / 3216 用例：566 pkgs + 2407 LTP + 211 kernel + 32 compiler；安全测试 113 套 / 113 用例：98 CVE + 8 nmap + 7 openscap；可靠性测试 7 套 / 7 用例：7 trinity）。
 
 ---
 
@@ -46,8 +46,9 @@ openruyi-autotest/
 │   │   ├── mmtests/              #   MMTests 基准测试（53 个用例）
 │   │   └── unixbench/            #   UnixBench 基准测试
 │   ├── feature/                  # 特性测试
-│   └── reliability/              # 可靠性测试│   │   ├── trinity/              #   Trinity 系统调用 Fuzzer（7 个用例）
-│   │   └── test.sh               #   基础可靠性检查├── docs/                        # 文档
+│   └── reliability/              # 可靠性测试
+│       └── trinity/              #   Trinity 系统调用 Fuzzer（7 个用例）
+├── docs/                        # 文档
 └── README.md
 ```
 
@@ -79,9 +80,9 @@ openruyi-autotest/
 | Security | 113 | 113 | ✅ 全部通过 (98 CVE + 8 nmap + 7 openscap) |
 | Compatibility | 188 | 188 | ✅ 通过 (LTP POSIX) |
 | Performance | 8 | 60 | ✅ 已执行 (7 UnixBench + 53 mmtests) |
-| Reliability | 8 | 8 | ✅ 通过 (1 基础 + 7 trinity) |
+| Reliability | 7 | 7 | ✅ 已执行 (7 trinity) |
 | Feature | 0 | 0 | 🆕 |
-| **合计** | **698** | **3685** | |
+| **合计** | **697** | **3684** | |
 
 详情文档：
 - [冒烟测试覆盖详情](docs/coverage/smoke-coverage.md)
