@@ -23,15 +23,20 @@ VM_ARGS="-nographic -machine virt,pflash0=pflash0,pflash1=pflash1 \
   -blockdev node-name=pflash1,driver=file,filename=${FW_DIR}/RISCV_VIRT_VARS.fd \
   -drive file=${IMAGE},format=qcow2,id=hd0,if=none \
   -object rng-random,filename=/dev/urandom,id=rng0 \
-  -device virtio-vga \
   -device virtio-rng-device,rng=rng0 \
   -device virtio-blk-device,drive=hd0 \
   -device virtio-net-device,netdev=usernet \
-  -netdev user,id=usernet,hostfwd=tcp::${PORT}-:22 \
-  -device qemu-xhci -usb -device usb-kbd -device usb-tablet"
+  -netdev user,id=usernet,hostfwd=tcp::${PORT}-:22"
 
 echo "Starting: $QEMU_CMD $VM_ARGS"
 $QEMU_CMD $VM_ARGS &
 QEMU_PID=$!
 echo $QEMU_PID > /tmp/qemu.pid
+
+# Verify QEMU process is still running
+sleep 3
+if ! kill -0 $QEMU_PID 2>/dev/null; then
+  echo "ERROR: QEMU process died immediately"
+  exit 1
+fi
 echo "QEMU started (PID=$QEMU_PID, port=$PORT)"
