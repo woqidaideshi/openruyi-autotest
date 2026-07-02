@@ -68,6 +68,7 @@ jobs:
       - name: Start QEMU
         timeout-minutes: 15
         run: |
+          set -o pipefail
           bash ${{ github.workspace }}/.github/workflows/scripts/qemu.sh \
             "$QEMU_DIR/openruyi-virt_riscv64.qcow2" \
             "$QEMU_DIR" 2>&1 | tee "$QEMU_DIR/qemu-sh.log"

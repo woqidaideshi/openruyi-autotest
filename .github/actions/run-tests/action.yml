@@ -50,6 +50,7 @@ runs:
     - name: Run tests on target
       shell: bash
       run: |
+        set -o pipefail
         CMD="sshpass -p '${{ inputs.ssh_pass }}' ssh -o StrictHostKeyChecking=no \
           -p ${{ inputs.ssh_port }} ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}"
 
@@ -69,7 +70,6 @@ runs:
         $CMD "$TMT" | tee "${{ inputs.result_dir }}/tmt-output.txt"
 
     - name: Collect results
-      if: always()
       shell: bash
       run: |
         rsync -avz \
@@ -77,7 +77,6 @@ runs:
           ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}:${{ inputs.result_dir }}/ "${{ inputs.result_dir }}/"
 
     - name: Summary
-      if: always()
       shell: bash
       run: |
         echo "=== Test Summary ==="
