@@ -28,6 +28,9 @@ inputs:
   github_repo:
     description: 'GitHub repository (owner/name)'
     required: true
+  github_token:
+    description: 'GitHub token for repo clone and API'
+    required: true
 
 runs:
   using: composite
@@ -48,7 +51,7 @@ runs:
         echo "ERROR: SSH timeout"
         exit 1
 
-    - name: Run tests on target
+    - name: Setup target
       shell: bash
       run: |
         set -o pipefail
@@ -60,8 +63,23 @@ runs:
         $SSHO "echo '${{ inputs.ssh_pass }}' | sudo -S sh -c 'echo \"${{ inputs.ssh_user }} ALL=(ALL) NOPASSWD: ALL\" > /etc/sudoers.d/${{ inputs.ssh_user }} && chmod 440 /etc/sudoers.d/${{ inputs.ssh_user }}'"
         $SSHO "sudo dnf install -y --refresh git tmt beakerlib rsync 2>&1"
         $SSHO "tmt --version || echo 'tmt not installed'"
-        $SSHO "rm -rf ~/openruyi-autotest ~/results && git clone https://github.com/${{ inputs.github_repo }}.git ~/openruyi-autotest"
-        $SSHO "mkdir -p ~/results"
+        $SSHO "rm -rf ~/openruyi-autotest ~/results"
+
+    - name: Sync repo to target
+      shell: bash
+      run: |
+        export SSHPASS="${{ inputs.ssh_pass }}"
+        SSHO="sshpass -e ssh -o StrictHostKeyChecking=no -p ${{ inputs.ssh_port }} ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}"
+        # Copy the already-checked-out repo from runner to target via tar+ssh,
+        $SSHO "mkdir -p ~/openruyi-autotest ~/results"
+        tar czf - -C "$GITHUB_WORKSPACE" --exclude='.git' . | $SSHO "tar xzf - -C ~/openruyi-autotest"
+
+    - name: Run tests on target
+      shell: bash
+      run: |
+        set -o pipefail
+        export SSHPASS="${{ inputs.ssh_pass }}"
+        SSHO="sshpass -e ssh -o StrictHostKeyChecking=no -p ${{ inputs.ssh_port }} ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}"
 
         echo "Plan: ${{ inputs.test_plan }}  Filter: ${{ inputs.test_filter || 'none' }}"
 

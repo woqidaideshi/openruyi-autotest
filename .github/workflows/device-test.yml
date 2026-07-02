@@ -56,3 +56,4 @@ jobs:
           test_plan: ${{ env.TEST_PLAN }}
           test_filter: ${{ env.TEST_FILTER }}
           github_repo: ${{ github.repository }}
+          github_token: ${{ secrets.TOKEN }}
