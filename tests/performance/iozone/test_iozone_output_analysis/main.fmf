@@ -1,0 +1,7 @@
+summary: 性能测试 - iozone - 输出解析与分析
+test: ./test.sh
+tag: [performance, iozone]
+duration: 5m
+tier: 2
+path: /tests/performance/iozone/test_iozone_output_analysis
+require: [iozone, beakerlib]
