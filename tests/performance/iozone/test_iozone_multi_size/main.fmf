@@ -1,0 +1,7 @@
+summary: 性能测试 - iozone - 多文件大小测试
+test: ./test.sh
+tag: [performance, iozone]
+duration: 10m
+tier: 2
+path: /tests/performance/iozone/test_iozone_multi_size
+require: [iozone, beakerlib]
