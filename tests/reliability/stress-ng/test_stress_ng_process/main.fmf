@@ -1,0 +1,7 @@
+summary: 可靠性测试 - stress-ng - 进程压力 (fork/context/zombie)
+test: ./test.sh
+tag: [reliability, stress-ng]
+duration: 5m
+tier: 2
+path: /tests/reliability/stress-ng/test_stress_ng_process
+require: [stress-ng, beakerlib]
