@@ -1,0 +1,7 @@
+summary: 性能测试 - stream - 单核内存带宽
+test: ./test.sh
+tag: [performance, stream]
+duration: 5m
+tier: 2
+path: /tests/performance/stream/test_stream_single_core
+require: [gcc, beakerlib]
