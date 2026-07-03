@@ -72,6 +72,7 @@ jobs:
           bash ${{ github.workspace }}/.github/workflows/scripts/qemu.sh \
             "$QEMU_DIR/openruyi-virt_riscv64.qcow2" \
             "$QEMU_DIR" 2>&1 | tee "$QEMU_DIR/qemu-sh.log"
+          cat "$QEMU_DIR/qemu-boot.log"
           SSH_PORT=$(grep -oP 'SSH_PORT=\K\d+' "$QEMU_DIR/qemu-sh.log")
           echo "SSH_PORT=$SSH_PORT" >> $GITHUB_ENV
 

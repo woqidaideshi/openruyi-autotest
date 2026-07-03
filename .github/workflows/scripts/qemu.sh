@@ -29,7 +29,7 @@ VM_ARGS="-nographic -machine virt,pflash0=pflash0,pflash1=pflash1 \
   -netdev user,id=usernet,hostfwd=tcp::${PORT}-:22"
 
 echo "Starting: $QEMU_CMD $VM_ARGS"
-$QEMU_CMD $VM_ARGS &
+$QEMU_CMD $VM_ARGS &> "${FW_DIR}/qemu-boot.log" &
 QEMU_PID=$!
 echo $QEMU_PID > /tmp/qemu.pid
 
