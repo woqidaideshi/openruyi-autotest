@@ -1,6 +1,6 @@
 # openruyi-autotest
 
-openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试、可靠性测试和特性测试七大类，共 721 个测试套、3703 个测试用例（功能测试 281 套 / 3216 用例：566 pkgs + 2407 LTP + 211 kernel + 32 compiler；安全测试 113 套 / 113 用例：98 CVE + 8 nmap + 7 openscap；可靠性测试 12 套 / 12 用例：6 trinity + 6 stress-ng）。
+openruyi-autotest 是基于 [tmt (Test Management Tool)](https://tmt.readthedocs.io/) 框架的自动化测试项目，使用 [BeakerLib](https://github.com/beakerlib/beakerlib) 编写测试脚本，通过 [FMF](https://fmf.readthedocs.io/) 管理元数据。涵盖冒烟测试、功能测试、安全测试、兼容性测试、性能测试、可靠性测试和特性测试七大类，共 726 个测试套、3708 个测试用例（功能测试 281 套 / 3216 用例：566 pkgs + 2407 LTP + 211 kernel + 32 compiler；安全测试 113 套 / 113 用例：98 CVE + 8 nmap + 7 openscap；可靠性测试 12 套 / 12 用例：6 trinity + 6 stress-ng）。
 
 ---
 
@@ -48,7 +48,8 @@ openruyi-autotest/
 │   │   ├── iozone/               #   IOzone 文件系统 I/O 基准（5 个用例）
 │   │   ├── fio/                  #   fio 存储 I/O 性能测试（6 个用例）
 │   │   ├── stream/               #   STREAM 内存带宽基准（4 个用例）
-│   │   └── lmbench/              #   LMbench 微基准测试（4 个用例）
+│   │   ├── lmbench/              #   LMbench 微基准测试（4 个用例）
+│   │   └── sysbench/             #   sysbench 多线程基准（5 个用例）
 │   ├── feature/                  # 特性测试
 │   └── reliability/              # 可靠性测试
 │       ├── trinity/              #   Trinity 系统调用 Fuzzer（6 个用例）
@@ -84,10 +85,10 @@ openruyi-autotest/
 | Functional | 281 | 3216 | ✅ 全部通过 (566 pkgs + 2407 LTP + 211 kernel + 32 compiler) |
 | Security | 113 | 113 | ✅ 全部通过 (98 CVE + 8 nmap + 7 openscap) |
 | Compatibility | 188 | 188 | ✅ 通过 (LTP POSIX) |
-| Performance | 27 | 79 | 已执行 (11 unixbench + 53 mmtests + 5 iozone + 6 fio + 4 stream + 4 lmbench) |
+| Performance | 32 | 84 | 已执行 (11 unixbench + 53 mmtests + 5 iozone + 6 fio + 4 stream + 4 lmbench + 5 sysbench) |
 | Reliability | 12 | 12 | 已执行 (6 trinity + 6 stress-ng) |
 | Feature | 0 | 0 | 🆕 |
-| **合计** | **721** | **3703** | |
+| **合计** | **726** | **3708** | |
 
 详情文档：
 - [冒烟测试覆盖详情](docs/coverage/smoke-coverage.md)

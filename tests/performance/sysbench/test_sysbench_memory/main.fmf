@@ -1,0 +1,7 @@
+summary: 性能测试 - sysbench - 内存带宽
+test: ./test.sh
+tag: [performance, sysbench]
+duration: 5m
+tier: 2
+path: /tests/performance/sysbench/test_sysbench_memory
+require: [sysbench, beakerlib]

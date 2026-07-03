@@ -1,0 +1,7 @@
+summary: 性能测试 - sysbench - CPU 计算性能
+test: ./test.sh
+tag: [performance, sysbench]
+duration: 5m
+tier: 2
+path: /tests/performance/sysbench/test_sysbench_cpu
+require: [sysbench, beakerlib]
