@@ -1,0 +1,7 @@
+summary: 性能测试 - fio - 延迟分析 (队列深度 vs 块大小)
+test: ./test.sh
+tag: [performance, fio]
+duration: 5m
+tier: 2
+path: /tests/performance/fio/test_fio_latency_profile
+require: [fio, beakerlib]
