@@ -1,7 +1,6 @@
 #!/bin/bash
-# QEMU startup script for CI (background mode)
+# QEMU startup script for CI (runs in screen session)
 # Usage: qemu.sh <image_path> [firmware_dir]
-#   Starts QEMU in background, writes PID, outputs SSH_PORT=<port>
 
 IMAGE="${1:-openruyi-virt_riscv64.qcow2}"
 FW_DIR="${2:-.}"
@@ -13,7 +12,8 @@ while ss -tln 2>/dev/null | grep -qE ":${PORT}\b" || \
     ((PORT++))
 done
 
-echo "SSH_PORT=$PORT"
+# Write port to file so CI can discover it
+echo "$PORT" > "${FW_DIR}/ssh_port.txt"
 
 QEMU_CMD="qemu-system-riscv64"
 VM_ARGS="-nographic -machine virt,pflash0=pflash0,pflash1=pflash1 \
@@ -29,14 +29,4 @@ VM_ARGS="-nographic -machine virt,pflash0=pflash0,pflash1=pflash1 \
   -netdev user,id=usernet,hostfwd=tcp::${PORT}-:22"
 
 echo "Starting: $QEMU_CMD $VM_ARGS"
-$QEMU_CMD $VM_ARGS &> "${FW_DIR}/qemu-boot.log" &
-QEMU_PID=$!
-echo $QEMU_PID > /tmp/qemu.pid
-
-# Verify QEMU process is still running
-sleep 3
-if ! kill -0 $QEMU_PID 2>/dev/null; then
-  echo "ERROR: QEMU process died immediately"
-  exit 1
-fi
-echo "QEMU started (PID=$QEMU_PID, port=$PORT)"
+exec $QEMU_CMD $VM_ARGS

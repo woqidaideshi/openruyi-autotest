@@ -17,7 +17,7 @@ jobs:
       - name: Install tools
         run: |
           sudo apt update -qq
-          sudo apt install -y sshpass rsync curl xz-utils
+          sudo apt install -y sshpass rsync curl xz-utils screen
 
       - name: Download image and firmware
         timeout-minutes: 30
@@ -68,13 +68,23 @@ jobs:
       - name: Start QEMU
         timeout-minutes: 15
         run: |
-          set -o pipefail
-          bash ${{ github.workspace }}/.github/workflows/scripts/qemu.sh \
+          # Start QEMU in a detached screen session (no pipe issues)
+          screen -dmS qemu-vm bash ${{ github.workspace }}/.github/workflows/scripts/qemu.sh \
             "$QEMU_DIR/openruyi-virt_riscv64.qcow2" \
-            "$QEMU_DIR" 2>&1 | tee "$QEMU_DIR/qemu-sh.log"
-          cat "$QEMU_DIR/qemu-boot.log"
-          SSH_PORT=$(grep -oP 'SSH_PORT=\K\d+' "$QEMU_DIR/qemu-sh.log")
-          echo "SSH_PORT=$SSH_PORT" >> $GITHUB_ENV
+            "$QEMU_DIR"
+
+          # Wait for SSH port to be written
+          for i in $(seq 1 30); do
+            if [ -f "$QEMU_DIR/ssh_port.txt" ]; then
+              SSH_PORT=$(cat "$QEMU_DIR/ssh_port.txt")
+              echo "SSH_PORT=$SSH_PORT"
+              echo "SSH_PORT=$SSH_PORT" >> $GITHUB_ENV
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "ERROR: ssh_port.txt not found"
+          exit 1
 
       - name: Run tests
         timeout-minutes: 4320
@@ -93,5 +103,4 @@ jobs:
       - name: Cleanup
         if: always()
         run: |
-          [ -f /tmp/qemu.pid ] && { sudo kill $(cat /tmp/qemu.pid) 2>/dev/null; sleep 2; sudo kill -9 $(cat /tmp/qemu.pid) 2>/dev/null; }
-          sudo rm -rf "$RUN_DIR"
+          screen -S qemu-vm -X quit 2>/dev/null || true
