@@ -1,0 +1,7 @@
+summary: 性能测试 - lmbench - 文件系统与虚拟内存
+test: ./test.sh
+tag: [performance, lmbench]
+duration: 5m
+tier: 2
+path: /tests/performance/lmbench/test_lmbench_filesystem
+require: [gcc, beakerlib]

@@ -1,0 +1,7 @@
+summary: 性能测试 - sysbench - 文件 I/O 性能
+test: ./test.sh
+tag: [performance, sysbench]
+duration: 10m
+tier: 2
+path: /tests/performance/sysbench/test_sysbench_fileio
+require: [sysbench, beakerlib]

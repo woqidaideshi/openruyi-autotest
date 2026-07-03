@@ -1,0 +1,7 @@
+summary: 性能测试 - lmbench - 网络通信延迟
+test: ./test.sh
+tag: [performance, lmbench]
+duration: 5m
+tier: 2
+path: /tests/performance/lmbench/test_lmbench_communication
+require: [gcc, beakerlib]

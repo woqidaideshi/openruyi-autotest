@@ -1,0 +1,10 @@
+summary: 性能测试 - sysbench 多线程基准测试
+tag:
+  - performance
+  - sysbench
+duration: 20m
+tier: 2
+path: /tests/performance/sysbench
+require:
+  - beakerlib
+  - sysbench
