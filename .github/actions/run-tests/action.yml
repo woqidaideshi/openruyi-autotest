@@ -83,7 +83,8 @@ runs:
 
         echo "Plan: ${{ inputs.test_plan }}  Filter: ${{ inputs.test_filter || 'none' }}"
 
-        TMT="cd ~/openruyi-autotest && tmt run -i ~/results --all --verbose plan --name ${{ inputs.test_plan }}"
+        TMT="cd ~/openruyi-autotest && tmt run -i ~/results --all --verbose"
+        [ -n "${{ inputs.test_plan }}" ] && TMT="$TMT plan --name ${{ inputs.test_plan }}"
         [ -n "${{ inputs.test_filter }}" ] && TMT="$TMT test --name ${{ inputs.test_filter }}"
         TMT="$TMT provision --feeling-safe 2>&1"
 
