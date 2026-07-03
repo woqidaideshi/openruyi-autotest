@@ -1,0 +1,7 @@
+summary: 性能测试 - fio - 随机 I/O IOPS
+test: ./test.sh
+tag: [performance, fio]
+duration: 5m
+tier: 2
+path: /tests/performance/fio/test_fio_random_iops
+require: [fio, beakerlib]

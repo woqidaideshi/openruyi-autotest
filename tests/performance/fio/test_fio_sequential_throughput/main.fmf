@@ -1,0 +1,7 @@
+summary: 性能测试 - fio - 顺序读写吞吐量
+test: ./test.sh
+tag: [performance, fio]
+duration: 5m
+tier: 2
+path: /tests/performance/fio/test_fio_sequential_throughput
+require: [fio, beakerlib]
