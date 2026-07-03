@@ -17,7 +17,7 @@ echo "SSH_PORT=$PORT"
 
 QEMU_CMD="qemu-system-riscv64"
 VM_ARGS="-nographic -machine virt,pflash0=pflash0,pflash1=pflash1 \
-  -smp 8 -m 12G \
+  -smp 4 -m 8G \
   -cpu rva23s64 \
   -blockdev node-name=pflash0,driver=file,read-only=on,filename=${FW_DIR}/RISCV_VIRT_CODE.fd \
   -blockdev node-name=pflash1,driver=file,filename=${FW_DIR}/RISCV_VIRT_VARS.fd \
