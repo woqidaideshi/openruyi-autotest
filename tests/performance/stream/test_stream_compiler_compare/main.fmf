@@ -1,0 +1,7 @@
+summary: 性能测试 - stream - 编译器优化对比 (GCC vs Clang)
+test: ./test.sh
+tag: [performance, stream]
+duration: 5m
+tier: 2
+path: /tests/performance/stream/test_stream_compiler_compare
+require: [gcc, clang, beakerlib]

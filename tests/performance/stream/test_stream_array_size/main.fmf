@@ -1,0 +1,7 @@
+summary: 性能测试 - stream - 数组大小对带宽的影响
+test: ./test.sh
+tag: [performance, stream]
+duration: 10m
+tier: 2
+path: /tests/performance/stream/test_stream_array_size
+require: [gcc, beakerlib]
