@@ -46,6 +46,15 @@ jobs:
           fi
           echo "Image size: $(du -h "$QEMU_DIR/openruyi-virt_riscv64.qcow2" | cut -f1)"
 
+          # Resize image if QEMU image is smaller than 2G
+          VIRT_SIZE=$(qemu-img info --output=json "$QEMU_DIR/openruyi-virt_riscv64.qcow2" | awk -F': ' '/"virtual-size"/ {size=$2} END {gsub(/[^0-9]/,"",size); print size}')
+          if [ -n "$VIRT_SIZE" ] && [ "$VIRT_SIZE" -lt 2147483648 ]; then
+            echo "Image virtual size ($VIRT_SIZE bytes) < 2G, resizing +20G..."
+            qemu-img resize "$QEMU_DIR/openruyi-virt_riscv64.qcow2" +20G
+            NEW_SIZE=$(qemu-img info --output=json "$QEMU_DIR/openruyi-virt_riscv64.qcow2" | awk -F': ' '/"virtual-size"/ {size=$2} END {gsub(/[^0-9]/,"",size); print size}')
+            echo "After resize: $NEW_SIZE"
+          fi
+
           # Download firmware from URL or use local files
           if [ -n "$FW_URL" ]; then
             echo "Downloading firmware: $FW_URL"
