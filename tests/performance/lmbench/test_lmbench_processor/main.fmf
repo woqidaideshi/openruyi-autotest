@@ -1,0 +1,7 @@
+summary: 性能测试 - lmbench - 处理器与内存延迟
+test: ./test.sh
+tag: [performance, lmbench]
+duration: 5m
+tier: 2
+path: /tests/performance/lmbench/test_lmbench_processor
+require: [gcc, beakerlib]

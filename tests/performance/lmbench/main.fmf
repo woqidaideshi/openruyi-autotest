@@ -1,0 +1,11 @@
+summary: 性能测试 - LMbench 微基准测试
+tag:
+  - performance
+  - lmbench
+duration: 30m
+tier: 2
+path: /tests/performance/lmbench
+require:
+  - beakerlib
+  - gcc
+  - make
