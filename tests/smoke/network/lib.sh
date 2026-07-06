@@ -3,7 +3,7 @@
 # Smoke network suite-level shared library
 # Uses flag-file + reference counting to ensure the category's
 # dependency packages are verified only ONCE across all test cases.
-# Most smoke dependencies (iputils curl wget openssh-clients iproute) are always present on the system;
+# Most smoke dependencies (iputils curl wget openssh-clients iproute2) are always present on the system;
 # this lib verifies their existence rather than installing.
 #
 # Usage in each test file:

@@ -11,4 +11,4 @@ require:
   - curl
   - wget
   - openssh-clients
-  - iproute
+  - iproute2
