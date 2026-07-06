@@ -9,6 +9,7 @@ on:
 jobs:
   qemu-test:
     runs-on: self-hosted
+    timeout-minutes: 4320
 
     steps:
       - name: Checkout
