@@ -30,6 +30,9 @@ sudo dnf install -y tmt
 # 安装 beakerlib 测试框架
 sudo dnf install -y beakerlib
 
+# beakerlib 运行时依赖
+sudo dnf install -y python-six
+
 # 验证安装
 tmt --version
 rpm -q beakerlib
