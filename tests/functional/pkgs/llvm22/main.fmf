@@ -1,0 +1,16 @@
+summary: Functional test - llvm22-devel cmake devel package verification
+tag:
+  - functional
+  - llvm22
+duration: 10m
+tier: 1
+path: /tests/functional/pkgs/llvm22
+require:
+  - llvm22-devel
+  - llvm-devel
+  - cmake
+  - gcc
+  - gcc-c++
+  - make
+  - coreutils
+  - beakerlib
