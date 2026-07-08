@@ -387,7 +387,7 @@ class QemuVMManager:
         cfg = self.cfg
         work_dir = "/opt/openruyi_qemu"
 
-        # 1. 配置 YUM 仓库
+        # 1. 配置 YUM 仓库（替换官方源为国内镜像，加速 dnf）
         log.info(f"[{self.kvm_ip}] 配置 YUM 仓库 ...")
         if cfg["delete_default_yum_repos"]:
             self._ssh.exec(
@@ -395,6 +395,35 @@ class QemuVMManager:
                 "mv /etc/yum.repos.d/*.repo /etc/yum.repos.d/backup/ 2>/dev/null; "
                 "echo done"
             )
+        # 写入国内镜像的 openEuler 源（中科大）
+        self._ssh.exec(
+            f"cat > /etc/yum.repos.d/openEuler-mirror.repo << 'EOF'\n"
+            f"[OS]\n"
+            f"name=OS\n"
+            f"baseurl=https://mirrors.ustc.edu.cn/openeuler/openEuler-24.03-LTS-SP2/OS/\\$basearch/\n"
+            f"enabled=1\n"
+            f"gpgcheck=0\n"
+            f"\n"
+            f"[everything]\n"
+            f"name=everything\n"
+            f"baseurl=https://mirrors.ustc.edu.cn/openeuler/openEuler-24.03-LTS-SP2/everything/\\$basearch/\n"
+            f"enabled=1\n"
+            f"gpgcheck=0\n"
+            f"\n"
+            f"[EPOL]\n"
+            f"name=EPOL\n"
+            f"baseurl=https://mirrors.ustc.edu.cn/openeuler/openEuler-24.03-LTS-SP2/EPOL/main/\\$basearch/\n"
+            f"enabled=1\n"
+            f"gpgcheck=0\n"
+            f"\n"
+            f"[update]\n"
+            f"name=update\n"
+            f"baseurl=https://mirrors.ustc.edu.cn/openeuler/openEuler-24.03-LTS-SP2/update/\\$basearch/\n"
+            f"enabled=1\n"
+            f"gpgcheck=0\n"
+            f"EOF"
+        )
+        # 写入 openRuyi riscv64 专用源
         self._ssh.exec(
             f"cat > /etc/yum.repos.d/openruyi.repo << 'EOF'\n"
             f"[openruyi]\n"
@@ -943,7 +972,7 @@ if __name__ == "__main__":
         "qemu_ssh_port":            12055,
 
         # YUM 仓库
-        "delete_default_yum_repos": False,
+        "delete_default_yum_repos": True,
         "yum_repo_baseurl":         "https://diamond.oerv.ac.cn/openruyi/riscv64/",
 
         # 超时设置（秒）
