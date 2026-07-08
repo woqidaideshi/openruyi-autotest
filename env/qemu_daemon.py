@@ -114,8 +114,8 @@ class CloudPods:
         }
         try:
             rs = session.post(url=url, json=data, verify=False, timeout=600)
-            if rs.status_code != 201:
-                raise RuntimeError(f"获取 token 失败: {rs.status_code}")
+            if rs.status_code not in (200, 201):
+                raise RuntimeError(f"获取 token 失败: {rs.status_code} {rs.text[:200]}")
             token = rs.headers.get("X-Subject-Token", "")
             if not token:
                 raise RuntimeError("未找到 X-Subject-Token")
@@ -222,20 +222,17 @@ class CloudPods:
             return []
         data = rs.json()
         server_ids = []
-        for s in data.get("servers", data.get("data", [])):
-            sid = s.get("id", "")
+        # 多种可能的响应格式：server/servers/data
+        server_data = data.get("server") or data.get("servers") or data.get("data")
+        if isinstance(server_data, dict):
+            sid = server_data.get("id")
             if sid:
                 server_ids.append(sid)
-        if not server_ids and isinstance(data, dict):
-            for key in data:
-                if isinstance(data[key], list):
-                    for item in data[key]:
-                        if isinstance(item, dict) and "id" in item:
-                            server_ids.append(item["id"])
-        if not server_ids:
-            sid = data.get("id", "")
-            if sid:
-                server_ids.append(sid)
+        elif isinstance(server_data, list):
+            for s in server_data:
+                sid = s.get("id", "") if isinstance(s, dict) else str(s)
+                if sid:
+                    server_ids.append(sid)
         log.info(f"创建成功, IDs: {server_ids}")
         return server_ids
 
@@ -880,10 +877,10 @@ if __name__ == "__main__":
     # ========== 默认配置（所有值均可通过同名大写环境变量覆盖）==========
     DEFAULTS: dict = {
         # 目标虚拟机数量（始终保持该数量的 QEMU VM 可 SSH）
-        "target_vm_count":          2,
+        "target_vm_count":          10,
 
         # 虚拟机命名
-        "vm_name_prefix":           "openruyi-autotest",
+        "vm_name_prefix":           "openruyi-redrose2100",
 
         # CloudPods 平台连接
         "cloudpods_keystone_url":   "https://10.20.40.101:30500/v3",
@@ -893,7 +890,7 @@ if __name__ == "__main__":
         # CloudPods KVM 虚拟机规格
         "guest_image_id":           "6f59c2c8-73f8-449b-8546-b6cf2b5564a0",
         "disk_image_id":            "40fb8262-0566-4877-8eb0-d991903e9be7",
-        "instance_type":            "ecs.g1.c4m12",
+        "instance_type":            "ecs.g1.c8m16",
         "bios_mode":                "BIOS",
         "cpu_arch":                 "riscv64",
         "system_disk_size_mb":      204800,
