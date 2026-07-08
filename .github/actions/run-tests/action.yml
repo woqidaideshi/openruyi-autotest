@@ -63,7 +63,7 @@ runs:
         $SSHO "echo '${{ inputs.ssh_pass }}' | sudo -S sh -c 'echo \"${{ inputs.ssh_user }} ALL=(ALL) NOPASSWD: ALL\" > /etc/sudoers.d/${{ inputs.ssh_user }} && chmod 440 /etc/sudoers.d/${{ inputs.ssh_user }}'"
         $SSHO "sudo dnf install -y --refresh git tmt beakerlib rsync 2>&1"
         $SSHO "tmt --version || echo 'tmt not installed'"
-        $SSHO "rm -rf ~/openruyi-autotest ~/results"
+        $SSHO "rm -rf ~/openruyi-autotest ~/results/${{ github.run_number }}"
 
     - name: Sync repo to target
       shell: bash
@@ -71,7 +71,7 @@ runs:
         export SSHPASS="${{ inputs.ssh_pass }}"
         SSHO="sshpass -e ssh -o StrictHostKeyChecking=no -p ${{ inputs.ssh_port }} ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}"
         # Copy the already-checked-out repo from runner to target via tar+ssh,
-        $SSHO "mkdir -p ~/openruyi-autotest ~/results"
+        $SSHO "mkdir -p ~/openruyi-autotest ~/results/${{ github.run_number }}"
         tar czf - -C "$GITHUB_WORKSPACE" --exclude='.git' . | $SSHO "tar xzf - -C ~/openruyi-autotest"
 
     - name: Run tests on target
@@ -83,7 +83,7 @@ runs:
 
         echo "Plan: ${{ inputs.test_plan }}  Filter: ${{ inputs.test_filter || 'none' }}"
 
-        TMT="cd ~/openruyi-autotest && tmt run -i ~/results --all --verbose"
+        TMT="cd ~/openruyi-autotest && tmt run -i ~/results/${{ github.run_number }} --all --verbose"
         [ -n "${{ inputs.test_plan }}" ] && TMT="$TMT plan --name ${{ inputs.test_plan }}"
         [ -n "${{ inputs.test_filter }}" ] && TMT="$TMT test --name ${{ inputs.test_filter }}"
         TMT="$TMT provision --feeling-safe 2>&1"
@@ -97,7 +97,7 @@ runs:
         export SSHPASS="${{ inputs.ssh_pass }}"
         rsync -avz \
           -e "sshpass -e ssh -o StrictHostKeyChecking=no -p ${{ inputs.ssh_port }}" \
-          ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}:~/results/ "${{ inputs.result_dir }}/"
+          ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}:~/results/${{ github.run_number }}/ "${{ inputs.result_dir }}/"
 
     - name: Summary
       shell: bash
