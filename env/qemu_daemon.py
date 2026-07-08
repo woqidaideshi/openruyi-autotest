@@ -828,8 +828,13 @@ class QemuDaemon:
 # ============================================================
 # 主函数
 # ============================================================
-def main(cfg: dict):
-    """主入口"""
+def main(defaults: dict):
+    """主入口 - defaults 为默认配置字典，实际值可通过同名大写环境变量覆盖"""
+
+    # 用环境变量覆盖默认值
+    cfg = {}
+    for key, default_val in defaults.items():
+        cfg[key] = _env(key.upper(), default_val)
 
     # ========== 命令行参数 ==========
     parser = argparse.ArgumentParser(
@@ -872,78 +877,68 @@ def main(cfg: dict):
 
 
 if __name__ == "__main__":
-    # ========== 配置区（所有默认值均可通过同名大写环境变量覆盖）==========
-    CONFIG = {
-        # ---- 目标虚拟机数量（始终保持该数量的 QEMU VM 可 SSH）----
-        "target_vm_count":          _env("TARGET_VM_COUNT", 2),
+    # ========== 默认配置（所有值均可通过同名大写环境变量覆盖）==========
+    DEFAULTS: dict = {
+        # 目标虚拟机数量（始终保持该数量的 QEMU VM 可 SSH）
+        "target_vm_count":          2,
 
-        # ---- 虚拟机命名 ----
-        "vm_name_prefix":           _env("VM_NAME_PREFIX", "openruyi-autotest"),
+        # 虚拟机命名
+        "vm_name_prefix":           "openruyi-autotest",
 
-        # ---- CloudPods 平台连接 ----
-        "cloudpods_keystone_url":   _env("CLOUDPODS_KEYSTONE_URL",
-                                         "https://10.20.40.101:30500/v3"),
-        "cloudpods_admin_user":     _env("CLOUDPODS_ADMIN_USER", "admin"),
-        "cloudpods_admin_password": _env("CLOUDPODS_ADMIN_PASSWORD", "jSj@2008"),
+        # CloudPods 平台连接
+        "cloudpods_keystone_url":   "https://10.20.40.101:30500/v3",
+        "cloudpods_admin_user":     "admin",
+        "cloudpods_admin_password": "jSj@2008",
 
-        # ---- CloudPods KVM 虚拟机规格 ----
-        "guest_image_id":           _env("GUEST_IMAGE_ID",
-                                         "6f59c2c8-73f8-449b-8546-b6cf2b5564a0"),
-        "disk_image_id":            _env("DISK_IMAGE_ID",
-                                         "40fb8262-0566-4877-8eb0-d991903e9be7"),
-        "instance_type":            _env("INSTANCE_TYPE", "ecs.g1.c4m12"),
-        "bios_mode":                _env("BIOS_MODE", "BIOS"),
-        "cpu_arch":                 _env("CPU_ARCH", "riscv64"),
-        "system_disk_size_mb":      _env("SYSTEM_DISK_SIZE_MB", 204800),
-        "data_disk_sizes_gb":       _env("DATA_DISK_SIZES_GB", [20]),
-        "network_ids":              _env("NETWORK_IDS", [
-                                        "efdb73ac-d785-47a1-82bf-65c2229eacca",
-                                        "3e0ac273-6da8-4188-821b-d97a84cb7754",
-                                        "04bc4008-f5a6-40a0-84aa-5fcd76e3f2ef",
-                                        "0f71d7ea-6e7a-42bc-81c3-290e396581a7",
-                                        "b7272573-29ea-4e46-8c27-22b81503aee6",
-                                    ]),
-        "network_count":            _env("NETWORK_COUNT", 1),
+        # CloudPods KVM 虚拟机规格
+        "guest_image_id":           "6f59c2c8-73f8-449b-8546-b6cf2b5564a0",
+        "disk_image_id":            "40fb8262-0566-4877-8eb0-d991903e9be7",
+        "instance_type":            "ecs.g1.c4m12",
+        "bios_mode":                "BIOS",
+        "cpu_arch":                 "riscv64",
+        "system_disk_size_mb":      204800,
+        "data_disk_sizes_gb":       [20],
+        "network_ids": [
+            "efdb73ac-d785-47a1-82bf-65c2229eacca",
+            "3e0ac273-6da8-4188-821b-d97a84cb7754",
+            "04bc4008-f5a6-40a0-84aa-5fcd76e3f2ef",
+            "0f71d7ea-6e7a-42bc-81c3-290e396581a7",
+            "b7272573-29ea-4e46-8c27-22b81503aee6",
+        ],
+        "network_count":            1,
 
-        # ---- KVM 宿主机 SSH 登录 ----
-        "kvm_ssh_user":             _env("KVM_SSH_USER", "root"),
-        "kvm_ssh_password":         _env("KVM_SSH_PASSWORD", "ISRCpassword@123"),
-        "kvm_ssh_port":             _env("KVM_SSH_PORT", 22),
+        # KVM 宿主机 SSH 登录
+        "kvm_ssh_user":             "root",
+        "kvm_ssh_password":         "ISRCpassword@123",
+        "kvm_ssh_port":             22,
 
-        # ---- QEMU 镜像下载地址 ----
-        "qemu_system_image_url":    _env("QEMU_SYSTEM_IMAGE_URL",
-                                         "https://s3.develop.oepkgs.net/demo/"
-                                         "openruyi-virt_riscv64.qcow2.xz"),
-        "qemu_uefi_code_url":       _env("QEMU_UEFI_CODE_URL",
-                                         "https://s3.develop.oepkgs.net/demo/"
-                                         "RISCV_VIRT_CODE.fd"),
-        "qemu_uefi_vars_url":       _env("QEMU_UEFI_VARS_URL",
-                                         "https://s3.develop.oepkgs.net/demo/"
-                                         "RISCV_VIRT_VARS.fd"),
+        # QEMU 镜像下载地址
+        "qemu_system_image_url":    "https://s3.develop.oepkgs.net/demo/openruyi-virt_riscv64.qcow2.xz",
+        "qemu_uefi_code_url":       "https://s3.develop.oepkgs.net/demo/RISCV_VIRT_CODE.fd",
+        "qemu_uefi_vars_url":       "https://s3.develop.oepkgs.net/demo/RISCV_VIRT_VARS.fd",
 
-        # ---- QEMU 虚拟机规格 ----
-        "qemu_cpu_cores":           _env("QEMU_CPU_CORES", 8),
-        "qemu_memory":              _env("QEMU_MEMORY", "8G"),
+        # QEMU 虚拟机规格
+        "qemu_cpu_cores":           8,
+        "qemu_memory":              "8G",
 
-        # ---- QEMU 虚拟机 SSH 登录 ----
-        "qemu_ssh_user":            _env("QEMU_SSH_USER", "root"),
-        "qemu_ssh_password":        _env("QEMU_SSH_PASSWORD", "openruyi"),
-        "qemu_ssh_port":            _env("QEMU_SSH_PORT", 12055),
+        # QEMU 虚拟机 SSH 登录
+        "qemu_ssh_user":            "root",
+        "qemu_ssh_password":        "openruyi",
+        "qemu_ssh_port":            12055,
 
-        # ---- YUM 仓库 ----
-        "delete_default_yum_repos": _env("DELETE_DEFAULT_YUM_REPOS", False),
-        "yum_repo_baseurl":         _env("YUM_REPO_BASEURL",
-                                         "https://diamond.oerv.ac.cn/openruyi/riscv64/"),
+        # YUM 仓库
+        "delete_default_yum_repos": False,
+        "yum_repo_baseurl":         "https://diamond.oerv.ac.cn/openruyi/riscv64/",
 
-        # ---- 超时设置（秒）----
-        "cloudpods_server_create_timeout": _env("CLOUDPODS_SERVER_CREATE_TIMEOUT", 1800),
-        "qemu_boot_timeout":               _env("QEMU_BOOT_TIMEOUT", 1800),
+        # 超时设置（秒）
+        "cloudpods_server_create_timeout": 1800,
+        "qemu_boot_timeout":               1800,
 
-        # ---- 守护进程设置 ----
-        "health_check_interval":    _env("HEALTH_CHECK_INTERVAL", 60),
-        "unhealthy_retry_wait":     _env("UNHEALTHY_RETRY_WAIT", 60),
-        "env_json_path":            _env("ENV_JSON_PATH", "env.json"),
-        "max_parallel_provision":   _env("MAX_PARALLEL_PROVISION", 5),
+        # 守护进程设置
+        "health_check_interval":    60,
+        "unhealthy_retry_wait":     60,
+        "env_json_path":            "env.json",
+        "max_parallel_provision":   5,
     }
 
-    main(CONFIG)
+    main(DEFAULTS)
