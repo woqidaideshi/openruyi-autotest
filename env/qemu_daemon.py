@@ -705,14 +705,20 @@ class QemuDaemon:
         cloudpods_entries = [e for e in entries if e.get("provider") == "cloudpods"]
         other_entries = [e for e in entries if e.get("provider") != "cloudpods"]
 
-        # 对 CloudPods 条目做健康检查，不健康则删除
+        # 对 CloudPods 条目做健康检查，不健康则重试后删除
         healthy = []
         for e in cloudpods_entries:
             if check_vm_healthy(e):
                 healthy.append(e)
             else:
-                log.warning(f"初始检查: {e.get('ip')}:{e.get('port')} 不可达，删除 CloudPods 资源")
-                cloudpods.delete_server(e.get("id", ""))
+                log.warning(f"初始检查: {e.get('ip')}:{e.get('port')} 不可达，等待 {self.cfg['unhealthy_retry_wait']}s 后重试 ...")
+                time.sleep(self.cfg["unhealthy_retry_wait"])
+                if check_vm_healthy(e):
+                    healthy.append(e)
+                    log.info(f"{e.get('ip')}:{e.get('port')} 重试后恢复")
+                else:
+                    log.warning(f"确认不可达，删除 CloudPods 资源: {e.get('id')}")
+                    cloudpods.delete_server(e.get("id", ""))
 
         self._save_env(healthy + other_entries)
         missing = self.target_count - len(healthy)
