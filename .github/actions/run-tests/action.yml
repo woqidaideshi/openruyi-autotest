@@ -61,7 +61,7 @@ runs:
         $SSHO "uname -a && free -h && df -lh"
         # Configure passwordless sudo (using SSH password, assuming same as sudo password)
         $SSHO "echo '${{ inputs.ssh_pass }}' | sudo -S sh -c 'echo \"${{ inputs.ssh_user }} ALL=(ALL) NOPASSWD: ALL\" > /etc/sudoers.d/${{ inputs.ssh_user }} && chmod 440 /etc/sudoers.d/${{ inputs.ssh_user }}'"
-        $SSHO "sudo dnf install -y --refresh git tmt beakerlib rsync 2>&1"
+        $SSHO "sudo dnf install -y --refresh git tmt beakerlib rsync python-six 2>&1"
         $SSHO "tmt --version || echo 'tmt not installed'"
         $SSHO "rm -rf ~/openruyi-autotest ~/results/${{ github.run_number }}"
 
@@ -77,7 +77,6 @@ runs:
     - name: Run tests on target
       shell: bash
       run: |
-        set -o pipefail
         export SSHPASS="${{ inputs.ssh_pass }}"
         SSHO="sshpass -e ssh -o StrictHostKeyChecking=no -p ${{ inputs.ssh_port }} ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}"
 
@@ -89,7 +88,19 @@ runs:
         TMT="$TMT provision --feeling-safe 2>&1"
 
         echo "Executing: $TMT"
-        $SSHO "$TMT" | tee "${{ inputs.result_dir }}/tmt-output.txt"
+        # tee gives real-time output; PIPESTATUS[0] captures ssh exit code (not tee's)
+        # Disable set -e temporarily: tmt exit code 1/2 is normal, handled below
+        set +e
+        $SSHO "$TMT" 2>&1 | tee "${{ inputs.result_dir }}/tmt-output.txt"
+        TMT_EXIT=${PIPESTATUS[0]}
+        set -e
+
+        # Exit code 0 = all passed, 1 = failures, 2 = errors, 3+ = infrastructure error
+        if [ $TMT_EXIT -gt 2 ]; then
+          echo "ERROR: tmt infrastructure failure (exit $TMT_EXIT)"
+          exit $TMT_EXIT
+        fi
+        echo "tmt completed (exit $TMT_EXIT), proceeding to collect results"
 
     - name: Collect results
       shell: bash
