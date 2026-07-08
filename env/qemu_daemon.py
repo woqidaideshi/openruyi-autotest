@@ -198,6 +198,7 @@ class CloudPods:
             "bios": kvm_config["bios_mode"].upper(),
             "guest_image_id": kvm_config["guest_image_id"],
             "sku": kvm_config["instance_type"],
+            "password": kvm_config["kvm_ssh_password"],
             "disks": [{
                 "disk_type": "sys",
                 "index": 0,
