@@ -3,9 +3,6 @@ name: Device Test (Physical)
 on:
   workflow_dispatch:
 
-  schedule:
-    - cron: '0 18 * * *'
-
 jobs:
   device-test:
     runs-on: self-hosted

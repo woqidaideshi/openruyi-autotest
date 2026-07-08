@@ -3,9 +3,6 @@ name: QEMU RISC-V Test
 on:
   workflow_dispatch:
 
-  schedule:
-    - cron: '0 18 * * *'
-
 jobs:
   qemu-test:
     runs-on: self-hosted
