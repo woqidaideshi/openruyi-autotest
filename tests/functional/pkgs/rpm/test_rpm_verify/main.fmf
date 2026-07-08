@@ -5,7 +5,7 @@ tag:
   - rpm
 duration: 2m
 tier: 1
-path: /tests/functional/pkgs/test_rpm_verify
+path: /tests/functional/pkgs/rpm/test_rpm_verify
 
 require:
   - beakerlib
