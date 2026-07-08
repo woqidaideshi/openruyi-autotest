@@ -590,8 +590,8 @@ def provision_one(cloudpods: CloudPods, index: int, cfg: dict) -> Optional[dict]
 # ============================================================
 # 虚拟机健康检查
 # ============================================================
-def check_vm_healthy(entry: dict) -> bool:
-    """检查 env.json 中的虚拟机是否可通过 SSH 连接"""
+def check_vm_healthy(entry: dict, retries: int = 3, retry_delay: int = 10) -> bool:
+    """检查 env.json 中的虚拟机是否可通过 SSH 连接，支持内部重试"""
     host = entry.get("ip", "")
     port = int(entry.get("port", 22))
     user = entry.get("user", "root")
@@ -600,21 +600,33 @@ def check_vm_healthy(entry: dict) -> bool:
     if not host:
         return False
 
-    # 先用端口检测快速判断
-    if not SSHClient.check_port(host, port, timeout=5):
-        log.warning(f"[{host}:{port}] 端口不可达")
-        return False
+    for attempt in range(retries):
+        # 先用端口检测快速判断
+        if not SSHClient.check_port(host, port, timeout=5):
+            if attempt < retries - 1:
+                log.debug(f"[{host}:{port}] 端口不可达，{retry_delay}s 后重试 ({attempt+1}/{retries})")
+                time.sleep(retry_delay)
+                continue
+            log.warning(f"[{host}:{port}] 端口不可达（{retries}次尝试）")
+            return False
 
-    # 再用 SSH 连接验证
-    try:
-        ssh = SSHClient(host, port=port, username=user, password=password,
-                        connect_timeout=10)
-        out, err, rc = ssh.exec("echo ALIVE", timeout=10)
-        ssh.close()
-        return rc == 0 and "ALIVE" in out
-    except Exception as e:
-        log.warning(f"[{host}:{port}] SSH 检查失败: {e}")
-        return False
+        # 再用 SSH 连接验证
+        try:
+            ssh = SSHClient(host, port=port, username=user, password=password,
+                            connect_timeout=10)
+            out, err, rc = ssh.exec("echo ALIVE", timeout=10)
+            ssh.close()
+            if rc == 0 and "ALIVE" in out:
+                return True
+        except Exception as e:
+            pass  # 重试
+
+        if attempt < retries - 1:
+            log.debug(f"[{host}:{port}] SSH 检查失败，{retry_delay}s 后重试 ({attempt+1}/{retries})")
+            time.sleep(retry_delay)
+
+    log.warning(f"[{host}:{port}] SSH 检查失败（{retries}次尝试）")
+    return False
 
 
 # ============================================================
