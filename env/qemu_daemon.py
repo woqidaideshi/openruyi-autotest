@@ -526,6 +526,7 @@ def make_env_entry(server_id, kvm_ip, cfg) -> dict:
         "user": cfg["qemu_ssh_user"],
         "password": cfg["qemu_ssh_password"],
         "type": "kvm",
+        "provider": "cloudpods",
         "sshable": True,
         "os_version": "openRuyi",
         "arch": cfg["cpu_arch"],
@@ -699,44 +700,51 @@ class QemuDaemon:
             self._running.wait(self.cfg["health_check_interval"])
 
     def _fill_to_target(self, cloudpods: CloudPods):
-        """确保 env.json 有 target_count 个健康的虚拟机"""
+        """确保 env.json 有 target_count 个健康的虚拟机（仅管理 cloudpods 条目）"""
         entries = self._load_env()
 
-        # 先过滤出健康的
+        # 区分 CloudPods 条目和其他条目
+        cloudpods_entries = [e for e in entries if e.get("provider") == "cloudpods"]
+        other_entries = [e for e in entries if e.get("provider") != "cloudpods"]
+
+        # 对 CloudPods 条目做健康检查，不健康则删除
         healthy = []
-        for e in entries:
+        for e in cloudpods_entries:
             if check_vm_healthy(e):
                 healthy.append(e)
             else:
                 log.warning(f"初始检查: {e.get('ip')}:{e.get('port')} 不可达，删除 CloudPods 资源")
                 cloudpods.delete_server(e.get("id", ""))
 
-        self._save_env(healthy)
+        self._save_env(healthy + other_entries)
         missing = self.target_count - len(healthy)
         if missing <= 0:
-            log.info(f"已有 {len(healthy)} 台健康虚拟机，无需补充")
+            log.info(f"已有 {len(healthy)} 台健康 CloudPods 虚拟机，无需补充")
             return
 
-        log.info(f"需要补充 {missing} 台虚拟机")
+        log.info(f"需要补充 {missing} 台 CloudPods 虚拟机")
         self._provision_vms(cloudpods, missing)
 
     def _health_check_cycle(self, cloudpods: CloudPods):
-        """执行一轮健康检查并修复"""
+        """执行一轮健康检查并修复（仅管理 cloudpods 条目）"""
         entries = self._load_env()
+        cloudpods_entries = [e for e in entries if e.get("provider") == "cloudpods"]
+        other_entries = [e for e in entries if e.get("provider") != "cloudpods"]
+
         dead = []
         alive = []
 
-        for e in entries:
+        for e in cloudpods_entries:
             if check_vm_healthy(e):
                 alive.append(e)
             else:
                 dead.append(e)
 
         if not dead:
-            log.info(f"所有 {len(alive)} 台虚拟机健康")
+            log.info(f"所有 {len(alive)} 台 CloudPods 虚拟机健康")
             return
 
-        log.warning(f"发现 {len(dead)} 台虚拟机不可达，等待 {self.cfg['unhealthy_retry_wait']}s 后重试 ...")
+        log.warning(f"发现 {len(dead)} 台 CloudPods 虚拟机不可达，等待 {self.cfg['unhealthy_retry_wait']}s 后重试 ...")
         time.sleep(self.cfg["unhealthy_retry_wait"])
 
         # 重试
@@ -749,16 +757,16 @@ class QemuDaemon:
                 still_dead.append(e)
 
         if still_dead:
-            log.warning(f"确认 {len(still_dead)} 台虚拟机不可达，开始删除并重建 ...")
+            log.warning(f"确认 {len(still_dead)} 台 CloudPods 虚拟机不可达，开始删除并重建 ...")
             for e in still_dead:
                 log.info(f"删除 CloudPods 服务器: {e.get('id')}")
                 cloudpods.delete_server(e.get("id", ""))
 
-            self._save_env(alive)
+            self._save_env(alive + other_entries)
             missing = self.target_count - len(alive)
             self._provision_vms(cloudpods, missing)
         else:
-            self._save_env(alive)
+            self._save_env(alive + other_entries)
 
     def _provision_vms(self, cloudpods: CloudPods, count: int):
         """并行创建 count 台虚拟机"""
@@ -785,29 +793,36 @@ class QemuDaemon:
                     log.error(f"[{idx}] 异常: {e}")
 
     def shutdown(self):
-        """优雅关闭 - 删除所有通过 CloudPods 创建的虚拟机"""
+        """优雅关闭 - 删除所有通过 CloudPods 创建的虚拟机，保留其他条目"""
         log.info("收到关闭信号，退出守护循环 ...")
         self._running.clear()
 
-        # 读取 env.json 中所有虚拟机并逐一删除
+        # 读取 env.json 中所有虚拟机
         entries = self._load_env()
         if not entries:
             log.info("env.json 中无虚拟机记录，跳过清理")
             return
 
-        log.info(f"开始清理 CloudPods 上的 {len(entries)} 台虚拟机 ...")
+        # 区分 CloudPods 创建的和其他的
+        cloudpods_entries = [e for e in entries if e.get("provider") == "cloudpods"]
+        other_entries = [e for e in entries if e.get("provider") != "cloudpods"]
+
+        if not cloudpods_entries:
+            log.info("env.json 中无 CloudPods 创建的虚拟机，跳过清理")
+            return
+
+        log.info(f"开始清理 CloudPods 上的 {len(cloudpods_entries)} 台虚拟机 ...")
         cloudpods = self._cloudpods or self._init_cloudpods()
 
-        for e in entries:
+        for e in cloudpods_entries:
             sid = e.get("id", "")
-            name = e.get("name", "?")
             ip = e.get("ip", "?")
-            log.info(f"删除: {name} (id={sid}, ip={ip})")
+            log.info(f"删除 CloudPods 服务器: id={sid}, ip={ip}")
             cloudpods.delete_server(sid)
 
-        # 清空 env.json
-        self._save_env([])
-        log.info("所有 CloudPods 虚拟机已清理完毕")
+        # 只保留非 CloudPods 条目
+        self._save_env(other_entries)
+        log.info(f"CloudPods 虚拟机已清理完毕，保留 {len(other_entries)} 条其他记录")
 
 
 # ============================================================
