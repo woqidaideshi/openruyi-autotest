@@ -3,6 +3,9 @@
 
 summary: 性能测试 - 验证系统性能指标
 
+environment-file:
+  - topology.env
+
 discover:
   how: fmf
   filter: "tag:performance"

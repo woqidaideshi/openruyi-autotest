@@ -3,6 +3,9 @@
 
 summary: 兼容性测试 - 验证系统兼容性
 
+environment-file:
+  - topology.env
+
 discover:
   how: fmf
   filter: "tag:compatibility"

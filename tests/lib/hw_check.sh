@@ -217,6 +217,25 @@ hwDiskCheck() {
     return 0
 }
 
+# ── hwNetCheck：检查网卡数量 ────────────────────────────────
+hwNetCheck() {
+    local need
+    need=$(_hwFmfGet "hardware-require" "net" "${1:-main.fmf}")
+    [ -z "$need" ] && return 0
+
+    # 统计物理网卡数量（排除 lo 环回接口）
+    local have=$(ip -o link show 2>/dev/null | grep -v 'lo' | grep -c 'state UP')
+    [ -z "$have" ] && have=0
+
+    if ! _hwCompare "$have" "$need" int; then
+        echo "SKIP: need net count $need, have $have interfaces"
+        rlLogWarning "环境不满足: 网卡需要 $need 个, 实际 $have 个"
+        exit 0
+    fi
+    rlLogInfo "hw: Net OK ($have >= $need)"
+    return 0
+}
+
 # ── hwVerify：综合检查所有 hardware-require 字段 ───────────
 # 建议在 rlPhaseStartTest 开头调用
 hwVerify() {
@@ -232,6 +251,7 @@ hwVerify() {
     hwCpuCheck "$fmf"
     hwMemCheck "$fmf"
     hwDiskCheck "$fmf"
+    hwNetCheck "$fmf"
     rlLogInfo "===== 硬件环境检查通过 ====="
     return 0
 }

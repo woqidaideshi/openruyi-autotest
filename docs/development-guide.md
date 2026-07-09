@@ -583,6 +583,7 @@ hardware-require:
 | `hwCpuCheck` | 仅检查 CPU 核心数 |
 | `hwMemCheck` | 仅检查内存大小 |
 | `hwDiskCheck` | 仅检查磁盘数量 |
+| `hwNetCheck` | 仅检查网卡数量（UP 状态） |
 | `hwRunOnServer <idx> <cmd>` | 在指定索引的服务器上远程执行命令 |
 | `hwGetServerInfo <idx> <field>` | 获取服务器连接信息 (`host`/`port`/`user`/`password`) |
 

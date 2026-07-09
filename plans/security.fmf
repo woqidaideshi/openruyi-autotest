@@ -3,6 +3,9 @@
 
 summary: 安全测试 - 验证系统安全特性
 
+environment-file:
+  - topology.env
+
 discover:
   how: fmf
   filter: "tag:security"

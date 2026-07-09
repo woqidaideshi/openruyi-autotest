@@ -1,6 +1,9 @@
 summary: 冒烟测试 - 快速验证系统基本功能（100个用例，17个套件）
 tier: 0
 
+environment-file:
+  - topology.env
+
 discover:
   how: fmf
   filter: "tag:smoke"

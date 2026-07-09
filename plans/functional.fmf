@@ -3,6 +3,9 @@
 
 summary: 功能测试 - 验证所有功能测试用例
 
+environment-file:
+  - topology.env
+
 discover:
   how: fmf
   # 发现所有标记为 functional 的测试
