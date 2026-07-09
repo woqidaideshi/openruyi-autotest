@@ -564,14 +564,48 @@ environment-file:
 
 #### 测试用例声明 (`hardware-require`)
 
-在测试用例的 `main.fmf` 中声明硬件需求：
+**支持的字段**：
+
+| 字段 | 含义 | 检查方式 | 示例值 |
+|------|------|----------|--------|
+| `server` | 需要的服务器数量 | 对比 `TEST_SERVER_COUNT` | `2` |
+| `cpu` | 每台 CPU 核心数 | `nproc` | `">= 4"` |
+| `memory` | 每台可用内存 | `free -g` | `">= 8 GiB"` |
+| `disk` | 每台磁盘数量 | `lsblk -nd` | `">= 1"` |
+| `net` | 每台 UP 状态网卡数 | `ip -o link show` | `">= 1"` |
+
+**层级继承模式**：
+
+利用 FMF 的层级继承机制，在测试分类父级统一声明默认值，子套件无需重复：
+
+```
+tests/functional/main.fmf          ← hardware-require (默认值)
+  └─ pkgs/acl/main.fmf              ← 无 hardware-require → 继承父级
+  │    ├─ test_acl_getfacl_basic/    → 获得默认约束 ✅
+  │    └─ test_acl_setfacl/          → 获得默认约束 ✅
+  └─ kernel/realtime/main.fmf       ← cpu: ">= 16" → 覆盖 cpu
+       └─ test_rt_latency/           → cpu>=16, 其余继承默认 ✅
+```
+
+**当前项目默认值**（所有测试分类的 `tests/*/main.fmf`）：
 
 ```yaml
 hardware-require:
-  server: 2           # 需要 2 台服务器
-  cpu: ">= 4"         # 每台 ≥ 4 核 CPU
-  memory: ">= 8"      # 每台 ≥ 8 GB 内存
-  disk: ">= 2"        # 每台 ≥ 2 块磁盘
+  server: 1
+  cpu: ">= 4"
+  memory: ">= 8 GiB"
+  disk: ">= 1"
+  net: ">= 1"
+```
+
+**按需覆盖**：当某个子套件需要更高硬件要求时，在其自身的 `main.fmf` 中覆盖对应字段即可：
+
+```yaml
+# tests/functional/kernel/realtime/main.fmf
+hardware-require:
+  cpu: ">= 16"       # 覆盖父级的 ">= 4"
+  memory: ">= 16 GiB" # 覆盖父级的 ">= 8 GiB"
+  # server/disk/net 未写，自动继承父级默认值
 ```
 
 #### 公共库函数 (`tests/lib/hw_check.sh`)
