@@ -208,7 +208,328 @@ execute:
 
 ---
 
-## 5. 命名规范
+## 5. 硬件环境约束
+
+当测试用例对服务器数量、CPU、内存、磁盘或网卡有特殊要求时，通过 Plan 的 `provision` 步骤声明硬件需求。tmt 提供一套通用的 `hardware` 键来描述约束，参见 [tmt Hardware 官方规范](https://tmt.readthedocs.io/en/stable/spec/hardware.html)。
+
+### 5.1 核心概念
+
+| 概念 | 说明 |
+|------|------|
+| **`hardware` 键** | 在 `provision` 下声明，描述对 guest（测试机）的硬件需求 |
+| **`multihost`** | 在 `provision` 下定义多个节点，每个节点有独立的角色和硬件需求 |
+| **比较运算符** | `=` `!=` `>` `>=` `<` `<=`（数值）；`=` `!=` `~` `!~`（字符串） |
+| **逻辑运算符** | `and` / `or` 组合多重约束 |
+| **单位** | 基于 [pint](https://pint.readthedocs.io/) 库，支持十进制 (MB/GB) 和二进制 (MiB/GiB) 前缀 |
+
+### 5.2 单一节点硬件约束
+
+在 Plan 的 `provision` 步骤下使用 `hardware` 键：
+
+```yaml
+provision:
+    how: virtual              # 或其他 provision 插件
+    image: fedora
+    hardware:
+        cpu:
+            processors: ">= 16"    # 至少 16 个逻辑 CPU
+            cores: ">= 8"          # 至少 8 个物理核心
+        memory: ">= 32 GiB"        # 至少 32 GiB 内存
+        disk:
+          - size: ">= 100 GB"      # 第一块磁盘 ≥ 100 GB
+          - size: ">= 500 GB"      # 第二块磁盘 ≥ 500 GB
+```
+
+#### 5.2.1 CPU 约束
+
+```yaml
+hardware:
+    cpu:
+        processors: ">= 16"           # 逻辑 CPU 数量（lscpu 看到的 "CPU(s)"）
+        cores: ">= 8"                 # 物理核心数
+        cores-per-socket: 4           # 每路核心数
+        threads-per-core: 2           # 每核线程数
+        hyper-threading: true         # 是否开启超线程
+        model-name: "~ Intel.*"       # CPU 型号名（支持正则）
+        family: 6                     # CPU family
+        flag:                         # 需要特定 CPU 特性
+          - avx
+          - avx2
+```
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `processors` | int / string | 逻辑 CPU 总数（与操作系统看到的 "CPU(s)" 一致） |
+| `cores` | int / string | 物理 CPU 核心数 |
+| `sockets` | int / string | CPU 插槽数 |
+| `threads` | int / string | CPU 线程数 |
+| `cores-per-socket` | int / string | 每个插槽的核心数 |
+| `threads-per-core` | int / string | 每个核心的线程数 |
+| `hyper-threading` | bool | 是否需要超线程 |
+| `family` | int / string | CPU family 编号 |
+| `model` | int / string | CPU model 编号 |
+| `model-name` | string | CPU 型号名称（支持 `~` 正则） |
+| `vendor-name` | string | CPU 厂商名，如 `GenuineIntel` |
+| `flag` | list | 要求 CPU 支持的 flag 列表（隐式 and） |
+
+#### 5.2.2 内存约束
+
+```yaml
+hardware:
+    memory: ">= 16 GiB"         # 至少 16 GiB 内存
+    # 等效写法: memory: ">= 16 GB"
+    # 不需单位时默认 MiB: memory: ">= 16384"
+```
+
+支持的运算符：`=` `!=` `>=` `<=` `>` `<`
+
+#### 5.2.3 磁盘约束
+
+`disk` 是**列表**，每个元素代表**一块独立磁盘**：
+
+```yaml
+hardware:
+    disk:
+      - size: ">= 40 GB"              # 第 1 块：系统盘 ≥ 40 GB
+      - size: ">= 500 GB"             # 第 2 块：数据盘 ≥ 500 GB
+        model-name: 'PERC H310'       # 特定磁盘型号
+        driver: megaraid_sas          # 特定驱动
+      - size: ">= 1 TB"               # 第 3 块：大容量存储
+        driver: "~ sas.*"             # 要求 SAS 驱动（正则）
+```
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `size` | string | 磁盘容量，默认单位 Byte |
+| `model-name` | string | 磁盘型号名称 |
+| `driver` | string | 内核驱动模块名 |
+| `logical-sector-size` | string | 逻辑扇区大小 |
+| `physical-sector-size` | string | 物理扇区大小 |
+
+#### 5.2.4 网络设备约束
+
+```yaml
+hardware:
+    network:
+      - type: eth                    # 第一张网卡：以太网
+      - type: eth                    # 第二张网卡：以太网
+        vendor-name: "~ ^Broadcom"   # 指定厂商（正则）
+      - type: eth                    # 第三张网卡
+```
+
+`network` 同样是列表，每个元素代表一张网卡。用列表长度来控制网卡数量。
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `type` | string | 网络设备类型（如 `eth`、`bridge`） |
+| `device-name` | string | 设备名称 |
+| `vendor-name` | string | 厂商名称 |
+| `driver` | string | 驱动模块名 |
+
+#### 5.2.5 高级：逻辑组合
+
+```yaml
+hardware:
+    and:                          # 所有条件必须同时满足
+      - cpu:
+            family: 15
+      - or:                       # 以下任一条件满足即可
+          - cpu:
+                model: 65
+          - cpu:
+                model: 67
+      - memory: ">= 16 GiB"
+```
+
+> **注意**：`and` / `or` 不能与普通 `key: value` 混合在同一层级。如需组合，将所有约束放入 `and` 下。
+
+### 5.3 多机（Multihost）约束
+
+当测试需要**多台服务器**协同工作时（如 C/S 架构、主备切换、分布式测试），在 `provision` 下定义**多个节点**：
+
+```yaml
+provision:
+  - name: server                   # 节点 1：服务器
+    role: primary                  # 角色标签
+    how: virtual
+    image: fedora
+    hardware:
+        cpu:
+            processors: ">= 8"
+        memory: ">= 16 GB"
+        disk:
+          - size: ">= 40 GB"
+
+  - name: client-1                 # 节点 2：客户端 1
+    role: client
+    how: virtual
+    hardware:
+        cpu:
+            processors: ">= 4"
+        memory: ">= 8 GiB"
+
+  - name: client-2                 # 节点 3：客户端 2
+    role: client                   # 可与 client-1 共享角色
+    how: virtual
+```
+
+#### 5.3.1 关键字段
+
+| 字段 | 说明 |
+|------|------|
+| `name` | 节点唯一标识，区分不同 guest |
+| `role` | 节点角色，用于 `where` 定向执行和拓扑暴露 |
+| `where` | 在 prepare/discover/execute 步骤中指定仅在特定角色/节点上运行 |
+
+#### 5.3.2 按角色定向执行
+
+```yaml
+prepare:
+  - how: shell
+    name: setup-server
+    script: |
+        dnf install -y httpd
+        systemctl start httpd
+    where: primary                 # 仅在 primary 角色上执行
+
+  - how: shell
+    name: setup-client
+    script: dnf install -y curl
+    where: client                  # 在所有 client 角色上执行
+
+discover:
+  - how: fmf
+    filter: tag:server-tests
+    where: primary                 # Server 测试只在 primary 上收集
+
+  - how: fmf
+    filter: tag:client-tests
+    where: client                  # Client 测试只在 client 上收集
+```
+
+#### 5.3.3 拓扑信息暴露
+
+tmt 自动将多机拓扑信息注入环境变量，测试脚本可按需读取：
+
+| 环境变量 | 说明 |
+|----------|------|
+| `TMT_TOPOLOGY_YAML` | 完整拓扑信息（YAML 格式）路径 |
+| `TMT_TOPOLOGY_BASH` | 可 source 的拓扑信息（bash 格式）路径 |
+| `TMT_GUEST_NAME` | 当前 guest 的名称 |
+| `TMT_GUEST_ROLE` | 当前 guest 的角色 |
+| `TMT_GUEST_HOSTNAME` | 当前 guest 的主机名 |
+
+在测试脚本中使用：
+
+```bash
+# 读取拓扑信息
+. "$TMT_TOPOLOGY_BASH"
+
+# 获取所有 guest 名称（空格分隔）
+echo "All guests: $TMT_GUEST_NAMES"
+
+# 获取每个角色的 guest 列表
+echo "Primary nodes: ${TMT_ROLES[primary]}"
+echo "Client nodes:  ${TMT_ROLES[client]}"
+
+# 获取特定 guest 的属性
+for guest in $TMT_GUEST_NAMES; do
+    echo "  $guest: role=${TMT_GUEST_${guest}[role]}, hostname=${TMT_GUEST_${guest}[hostname]}"
+done
+```
+
+### 5.4 Provision 插件支持矩阵
+
+不同 provision 插件对 `hardware` 的支持程度不同，实际使用时需选择适合的插件：
+
+| 需求 | artemis | beaker | virtual.testcloud | container / local / connect |
+|------|:-------:|:------:|:-----------------:|:---------------------------:|
+| `cpu.processors` | ✅ | ✅ | ✅ | ❌ |
+| `cpu.cores` | ✅ | ✅ | ❌ | ❌ |
+| `cpu.model-name` | ✅ | ✅ | ❌ | ❌ |
+| `memory` | ✅ | ✅ | ✅ (仅 `=` `>=` `<=`) | ❌ |
+| `disk.size` | ✅ | ✅ | ✅ (仅 `=` `>=` `<=`) | ❌ |
+| `disk.model-name` | ✅ | ✅ | ❌ | ❌ |
+| `network` | ✅ (仅 `eth`) | ❌ | ❌ | ❌ |
+| `boot.method` | ✅ | ❌ | ✅ | ❌ |
+| Multihost | ✅ | ✅ | ✅ | ✅ |
+
+> **建议**：对于不需要特殊硬件的测试用例，使用默认的 `how: local` 即可。当需要精确控制硬件环境时，优先选择 `virtual.testcloud`（本地虚拟化）或 `artemis`（云端资源池）。
+
+### 5.5 完整示例
+
+#### 单节点 16 核 + 64G 内存 + 双磁盘
+
+```yaml
+# plans/performance.fmf
+summary: 性能测试 - 需要高规格硬件
+discover:
+  how: fmf
+  test:
+    - /tests/performance
+provision:
+  how: virtual
+  image: fedora
+  hardware:
+    cpu:
+        processors: ">= 16"
+        cores: ">= 8"
+    memory: ">= 64 GiB"
+    disk:
+      - size: ">= 100 GB"
+      - size: ">= 1 TB"
+prepare:
+  - how: shell
+    script: dnf install -y fio
+execute:
+  how: tmt
+```
+
+#### 多机主备切换测试
+
+```yaml
+# plans/reliability.fmf
+summary: 可靠性测试 - 主备切换
+discover:
+  how: fmf
+  test:
+    - /tests/reliability
+provision:
+  - name: primary-node
+    role: master
+    how: virtual
+    hardware:
+        cpu:
+            processors: ">= 4"
+        memory: ">= 8 GB"
+
+  - name: backup-node
+    role: standby
+    how: virtual
+    hardware:
+        cpu:
+            processors: ">= 4"
+        memory: ">= 8 GB"
+
+prepare:
+  - how: shell
+    where: master
+    script: |
+        dnf install -y keepalived
+        systemctl start keepalived
+  - how: shell
+    where: standby
+    script: |
+        dnf install -y keepalived
+        systemctl start keepalived
+
+execute:
+  how: tmt
+```
+
+---
+
+## 6. 命名规范
 
 | 规则 | 示例 |
 |------|------|
@@ -220,7 +541,7 @@ execute:
 
 ---
 
-## 6. 执行和验证
+## 7. 执行和验证
 
 ### 本地验证
 
@@ -244,7 +565,7 @@ tmt run --last report -fvvv
 
 ---
 
-## 7. 常见问题
+## 8. 常见问题
 
 ### Q: test.sh 需要可执行权限吗？
 
