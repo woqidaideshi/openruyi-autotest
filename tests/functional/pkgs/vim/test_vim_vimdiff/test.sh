@@ -11,10 +11,14 @@ rlJournalStart
         vimSetup
         TmpDir=$(mktemp -d)
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
+        echo "hello world" > file1.txt
+        echo "hello ruyi" > file2.txt
+        rlAssertExists "file1.txt"
+        rlAssertExists "file2.txt"
     rlPhaseEnd
 
     rlPhaseStartTest "Vimdiff"
-        rlRun "vimdiff -c \"q\" file1.txt file2.txt 2>&1 || true" 0 "vimdiff: compare files"
+        rlRun "vimdiff -c 'qa!' file1.txt file2.txt 2>&1" 0 "vimdiff: compare files"
     rlPhaseEnd
 
 
