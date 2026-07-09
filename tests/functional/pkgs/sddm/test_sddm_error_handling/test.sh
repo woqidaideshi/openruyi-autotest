@@ -14,7 +14,9 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "Error-handling"
-        rlRun "sddm --invalid-option 2>&1 | grep -qiE 'error|Usage|unrecognized' || echo sddm-error-expected" 0 "sddm 无效选项"
+        # SDDM intentionally ignores unknown arguments and starts the daemon.
+        # Verify it doesn't crash: timeout kills it, exit 124 = still running.
+        rlRun "timeout 3 sddm --invalid-option >/dev/null 2>&1; [ \$? -eq 124 ]" 0 "SDDM 忽略未知参数，正常启动不崩溃"
     rlPhaseEnd
 
 
