@@ -527,6 +527,140 @@ execute:
   how: tmt
 ```
 
+### 5.6 Local 模式下的硬件约束（`hardware-require` + `topology.env`）
+
+当 Plan 使用 `how: local` 时，`provision.hardware` 不被支持（见 [5.4 矩阵](#54-provision-插件支持矩阵)）。本项目提供一套轻量级机制来实现 `local` 模式下的硬件环境自检与多机远程执行：
+
+| 组件 | 文件 | 作用 |
+|------|------|------|
+| 拓扑配置模板 | `topology.env.example` | 仓库级模板，提交到版本控制 |
+| 拓扑配置实例 | `topology.env` | 实际服务器信息，已 `.gitignore`，不提交 |
+| 测试用例声明 | `main.fmf` 中的 `hardware-require` | 每个用例声明自己的硬件需求 |
+| 公共检查库 | `tests/lib/hw_check.sh` | 解析声明、对比环境、远程执行 |
+
+#### 拓扑配置 (`topology.env`)
+
+从 `topology.env.example` 复制为 `topology.env`，按实际环境修改：
+
+```bash
+TEST_SERVER_COUNT=2
+TEST_SERVER_1_HOST=10.20.237.192
+TEST_SERVER_1_PORT=12055
+TEST_SERVER_1_USER=openruyi
+TEST_SERVER_1_PASSWORD=openruyi
+TEST_SERVER_2_HOST=10.20.238.100
+TEST_SERVER_2_PORT=22
+TEST_SERVER_2_USER=openruyi
+TEST_SERVER_2_PASSWORD=openruyi
+```
+
+通过 Plan 的 `environment-file` 加载：
+
+```yaml
+# plans/functional.fmf
+environment-file:
+  - topology.env
+```
+
+#### 测试用例声明 (`hardware-require`)
+
+在测试用例的 `main.fmf` 中声明硬件需求：
+
+```yaml
+hardware-require:
+  server: 2           # 需要 2 台服务器
+  cpu: ">= 4"         # 每台 ≥ 4 核 CPU
+  memory: ">= 8"      # 每台 ≥ 8 GB 内存
+  disk: ">= 2"        # 每台 ≥ 2 块磁盘
+```
+
+#### 公共库函数 (`tests/lib/hw_check.sh`)
+
+| 函数 | 用途 |
+|------|------|
+| `hwVerify` | 综合检查 `hardware-require` 所有字段，不满足则 `exit 0`（tmt 视为 skip） |
+| `hwServerVerify` | 仅检查服务器数量 |
+| `hwCpuCheck` | 仅检查 CPU 核心数 |
+| `hwMemCheck` | 仅检查内存大小 |
+| `hwDiskCheck` | 仅检查磁盘数量 |
+| `hwRunOnServer <idx> <cmd>` | 在指定索引的服务器上远程执行命令 |
+| `hwGetServerInfo <idx> <field>` | 获取服务器连接信息 (`host`/`port`/`user`/`password`) |
+
+#### 完整用例示例
+
+**`main.fmf`**：
+
+```yaml
+summary: 功能测试 - my_pkg - 多机主备切换
+test: ./test.sh
+tag:
+  - functional
+  - my_pkg
+duration: 5m
+tier: 2
+hardware-require:
+  server: 2
+```
+
+**`test.sh`**：
+
+```bash
+#!/bin/bash
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../../lib/hw_check.sh"   # ← 引入公共库
+
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        rlRun "dnf install -y my-pkg" 0 "安装 my-pkg"
+    rlPhaseEnd
+
+    rlPhaseStartTest "主备切换测试"
+        # 环境自检，不满足自动 SKIP
+        hwVerify
+
+        # 本机启动主服务
+        rlRun "my-server --start --role=master" 0 "启动主节点"
+
+        # server-2 启动备服务
+        hwRunOnServer 2 "my-server --start --role=standby"
+
+        # 从 server-2 连接 server-1 验证
+        local s1_host=$(hwGetServerInfo 1 host)
+        hwRunOnServer 2 "my-client --connect $s1_host --check-status"
+    rlPhaseEnd
+
+    rlPhaseStartCleanup "清理环境"
+        rlRun "my-server --stop" 0 "停止主节点"
+        hwRunOnServer 2 "my-server --stop"
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd
+```
+
+#### 工作机制
+
+```
+tmt run plan --name /plans/functional
+  │
+  ├─ environment-file 加载 topology.env → 环境变量就绪
+  │
+  ├─ discover: 发现所有包含 tag:functional 的测试
+  │
+  ├─ execute:
+  │   ├─ test_xxx: 未声明 hardware-require → 直接执行
+  │   ├─ test_multi_host:
+  │   │   ├─ hwVerify()
+  │   │   │   ├─ TEST_SERVER_COUNT=1, need=2 → "SKIP: need 2 servers"
+  │   │   │   └─ exit 0（tmt 记录为 skip）
+  │   │   └─ （不满足时不执行后续测试逻辑）
+  │   └─ ...
+  │
+  └─ report: 汇总所有 skip 状态及原因
+```
+
+> **设计原则**：`local` 模式下 tmt 不管理硬件，但通过 FMF 元数据声明 + 环境变量注入 + 公共库自检，实现了与 `virtual`/`artemis` 等插件一致的"不满足即跳过"语义。
+
 ---
 
 ## 6. 命名规范
