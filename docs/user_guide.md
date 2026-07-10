@@ -44,6 +44,50 @@ rpm -q beakerlib
 > sudo pip3 install --break-system-packages tmt
 > ```
 
+### 1.4 配置测试拓扑（可选）
+
+测试计划会自动检测当前机器硬件资源（CPU/内存/磁盘/网卡）是否满足测试用例的硬件需求。如需在多台服务器上执行测试，或者自定义服务器连接信息，可配置 `topology.env`：
+
+```bash
+# 复制模板
+cp topology.env.example topology.env
+
+# 按实际环境修改
+vim topology.env
+```
+
+**配置变量说明：**
+
+| 变量 | 说明 | 默认值 |
+|------|------|--------|
+| `TEST_SERVER_COUNT` | 可用服务器数量 | 1 |
+| `TEST_SERVER_1_HOST` | 第 1 台服务器 IP/主机名 | (无) |
+| `TEST_SERVER_1_PORT` | 第 1 台服务器 SSH 端口 | 22 |
+| `TEST_SERVER_1_USER` | 第 1 台服务器登录用户名 | root |
+| `TEST_SERVER_1_PASSWORD` | 第 1 台服务器登录密码 | (无) |
+
+多服务器示例（3 台）：
+
+```ini
+TEST_SERVER_COUNT=3
+
+TEST_SERVER_1_HOST=192.168.1.10
+TEST_SERVER_1_PORT=22
+TEST_SERVER_1_USER=root
+TEST_SERVER_1_PASSWORD=mypassword
+
+TEST_SERVER_2_HOST=192.168.1.11
+TEST_SERVER_2_PORT=12055
+TEST_SERVER_2_USER=openruyi
+TEST_SERVER_2_PASSWORD=mypassword
+
+TEST_SERVER_3_HOST=192.168.1.12
+TEST_SERVER_3_USER=root
+# 端口/密码未设置时使用默认值 22 / 无密码
+```
+
+> **未配置 `topology.env` 不影响单机测试**。系统将当前机器视为唯一服务器（`TEST_SERVER_COUNT` 默认为 1），硬件资源通过系统命令自动获取。
+
 ---
 
 ## 2. 执行单个测试用例
