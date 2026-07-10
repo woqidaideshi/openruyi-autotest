@@ -230,13 +230,6 @@ tests/functional/pkgs/acl/
 ```bash
 git add tests/functional/pkgs/acl/test_acl_getfacl_basic/
 git commit -m "feat(acl): add getfacl basic test covering 7 CLI options"
-
-# 如果功能点较多，可以加 body 说明：
-git commit -m "feat(acl): add getfacl basic test covering 7 CLI options
-
-Covers: -a (access ACL), -d (default ACL), -c (no comments),
--n (numeric IDs), -t (tabular output), plus default behavior
-for files and directories."
 ```
 
 **Commit 要点解析**：
@@ -261,13 +254,7 @@ for files and directories."
 
 ```bash
 git add tests/functional/pkgs/acl/test_acl_error_handling/test.sh
-git commit -m "feat(acl): add invalid mask and permission-denied error cases
-
-Add two new error-path tests:
-- setfacl with invalid mask value (expect failure)
-- getfacl on file with no read permission (expect failure)
-
-These cover edge cases that were not previously tested."
+git commit -m "feat(acl): add invalid mask and permission-denied error cases"
 ```
 
 **Commit 要点解析**：
@@ -276,7 +263,6 @@ These cover edge cases that were not previously tested."
 |------|-----|------|
 | type | `feat` | 增加了新功能点（错误路径覆盖面扩大） |
 | scope | `acl` | 影响 acl 测试套 |
-| body | 列出具体新增的 2 个测试点 | 让 reviewer 一目了然 |
 
 > **注意**：如果只是修改测试描述文案、注释或格式，用 `style` 或 `refactor` 而非 `feat`。
 
@@ -294,17 +280,7 @@ These cover edge cases that were not previously tested."
 
 ```bash
 git add tests/functional/pkgs/acl/test_acl_setfacl_basic/test.sh
-git commit -m "fix(acl): correct exit code check in setfacl_basic negative tests
-
-The rlRun '! cmd' pattern does not work as expected because rlRun
-evaluates the raw exit code of cmd, not the negated result.
-Replace with grep -v to properly verify ACL entries were removed.
-
-Before (false PASS):
-  rlRun \"! getfacl testfile | grep -q 'group:root:'\" 0
-
-After (correct):
-  rlRun \"getfacl testfile | grep -v 'group:root:'\" 0"
+git commit -m "fix(acl): correct exit code check in setfacl_basic negative tests"
 ```
 
 **Commit 要点解析**：
@@ -313,7 +289,6 @@ After (correct):
 |------|-----|------|
 | type | `fix` | 修复 bug |
 | scope | `acl` | 影响 acl 测试套 |
-| body | 展示修复前后的代码对比 | 帮助 reviewer 理解修复逻辑 |
 
 ### 5.4 场景四：重构
 
@@ -331,37 +306,7 @@ After (correct):
 
 ```bash
 git add tests/functional/pkgs/acl/
-git commit -m "refactor(acl): split into per-case dirs with shared lib.sh
-
-Split the monolithic ACL test into 11 independent test cases,
-each with its own main.fmf and test.sh. Extract shared package
-install/uninstall logic into lib.sh with reference counting.
-
-Before:
-  tests/functional/pkgs/acl/
-  ├── setup.sh
-  ├── teardown.sh
-  └── test.sh           # single huge file, ~500 lines
-
-After:
-  tests/functional/pkgs/acl/
-  ├── main.fmf          # suite-level metadata
-  ├── lib.sh            # shared install/cleanup (ref-counted)
-  ├── test_acl_getfacl_basic/
-  │   ├── main.fmf
-  │   └── test.sh
-  ├── test_acl_setfacl_basic/
-  │   ├── main.fmf
-  │   └── test.sh
-  ├── ... (9 more cases)
-  └── test_acl_special_cases/
-      ├── main.fmf
-      └── test.sh
-
-Benefits:
-- Each case runs independently via tmt
-- Granular pass/fail reporting per feature
-- lib.sh ensures acl is installed only once across all cases"
+git commit -m "refactor(acl): split into per-case dirs with shared lib.sh"
 ```
 
 **Commit 要点解析**：
@@ -370,7 +315,6 @@ Benefits:
 |------|-----|------|
 | type | `refactor` | 重构，不改变测试逻辑 |
 | scope | `acl` | 影响 acl 测试套 |
-| body | 树形对比 Before/After + Benefits | 大型重构必须清晰说明变更范围和收益 |
 
 ### 5.5 场景五：文档更新
 
@@ -380,14 +324,7 @@ Benefits:
 
 ```bash
 git add docs/development-guide.md
-git commit -m "docs: add ACL development walkthrough to developer guide
-
-Add Section 9 demonstrating the complete flow of developing an
-ACL test suite from scratch, including:
-- Directory structure setup
-- Shared lib.sh with reference counting
-- Three full test case implementations
-- 11-case inventory table and development checklist"
+git commit -m "docs: add ACL development walkthrough to developer guide"
 ```
 
 **Commit 要点解析**：
@@ -396,7 +333,6 @@ ACL test suite from scratch, including:
 |------|-----|------|
 | type | `docs` | 文档变更 |
 | scope | _(省略)_ | 跨模块文档，无需 scope |
-| body | 列出新增内容的 4 个要点 | 文档变更也建议写 body |
 
 ---
 
