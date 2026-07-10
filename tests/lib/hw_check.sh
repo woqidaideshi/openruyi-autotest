@@ -36,8 +36,8 @@ _hwFmfGet() {
     #     cpu: ">= 4"
     awk -v sec="$section" -v k="$key" '
         $0 ~ "^"sec":" { in_section=1; next }
-        in_section && /^[a-z]/ { if ($1 == k":") { gsub(/"/, "", $2); print $2; exit } }
-        in_section && /^[^ ]/ { exit }
+        in_section && /^[[:space:]]+[a-z]/ { if ($1 == k":") { gsub(/"/, "", $2); print $2; exit } }
+        in_section && /^[^[:space:]]/ { exit }
     ' "$file"
 }
 
