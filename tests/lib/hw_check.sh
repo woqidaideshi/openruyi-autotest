@@ -36,7 +36,16 @@ _hwFmfGet() {
     #     cpu: ">= 4"
     awk -v sec="$section" -v k="$key" '
         $0 ~ "^"sec":" { in_section=1; next }
-        in_section && /^[[:space:]]+[a-z]/ { if ($1 == k":") { gsub(/"/, "", $2); print $2; exit } }
+        in_section && /^[[:space:]]+[a-z]/ {
+            if ($1 == k":") {
+                # 输出 key 之后的全部值（如 ">= 4" "8 GiB"）
+                $1 = ""
+                sub(/^[[:space:]]+/, "")
+                gsub(/"/, "")
+                print
+                exit
+            }
+        }
         in_section && /^[^[:space:]]/ { exit }
     ' "$file"
 }
