@@ -70,6 +70,7 @@ mkdir -p tests/functional/pkgs/acl/test_acl_my_feature
 cat > tests/functional/pkgs/acl/test_acl_my_feature/main.fmf << 'EOF'
 summary: 功能测试 - acl - 我的功能
 test: ./test.sh
+framework: shell
 tag:
   - functional
   - acl
@@ -78,9 +79,12 @@ tier: 1
 path: /tests/functional/pkgs/acl/test_acl_my_feature
 require:
   - acl
+  - coreutils
   - beakerlib
 EOF
 ```
+
+> **字段说明**：`framework: shell` 声明使用 Shell 测试框架；`tag: [functional, acl]` 确保被 functional plan 发现；`duration` 可覆盖父级默认值；`require` 除被测包外还需 `coreutils`（创建文件/目录等基础操作）和 `beakerlib`（测试框架）。
 
 ### 3.2 编写测试脚本
 
@@ -89,6 +93,7 @@ cat > tests/functional/pkgs/acl/test_acl_my_feature/test.sh << 'TESTEOF'
 #!/bin/bash
 # Functional test: acl - my feature
 # Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
@@ -99,6 +104,7 @@ rlJournalStart
         TmpDir=$(mktemp -d)
         rlRun "cd $TmpDir" 0 "进入临时测试目录"
         rlRun "touch testfile" 0 "创建测试文件"
+        rlRun "mkdir testdir" 0 "创建测试目录"
     rlPhaseEnd
 
     rlPhaseStartTest "我的功能测试"
@@ -107,7 +113,7 @@ rlJournalStart
 
         # 功能点 2: 设置 ACL
         rlRun "setfacl -m u:root:rwx testfile" 0 "设置用户 ACL"
-        rlAssertGrep "user:root:rwx" "$(getfacl testfile 2>&1)" "确认 ACL 已设置"
+        rlRun "getfacl testfile 2>&1 | grep -q 'user:root:rwx'" 0 "确认 ACL 已设置"
     rlPhaseEnd
 
     rlPhaseStartCleanup "清理测试环境"
@@ -115,6 +121,7 @@ rlJournalStart
         if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
             rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
         fi
+        # acl 软件包由 lib.sh 的引用计数机制自动管理卸载
     rlPhaseEnd
 
     rlJournalPrintText
@@ -122,50 +129,99 @@ rlJournalEnd
 TESTEOF
 ```
 
+> **`rlRun` 退出码规则**：第二个参数 `0` 表示期望命令成功（退出码 0），`1` 表示期望命令失败（用于负向测试）。如果实际退出码与期望不符，rlRun 会报告 FAIL 并阻止后续 Phase 执行。
+
 ### 3.3 BeakerLib 生命周期
 
 每个测试脚本遵循标准的三阶段结构：
 
 | 阶段 | 函数 | 用途 |
 |------|------|------|
-| **Setup** | `rlPhaseStartSetup` | 环境准备：安装软件包、创建临时目录 |
-| **Test** | `rlPhaseStartTest` | 执行测试：调用被测试命令、断言结果 |
-| **Cleanup** | `rlPhaseStartCleanup` | 清理环境：删除临时文件、卸载软件包 |
+| **Setup** | `rlPhaseStartSetup` | 环境准备：安装软件包、创建临时目录、调用 `*Setup()` 共享库函数 |
+| **Test** | `rlPhaseStartTest` | 执行测试：调用被测试命令、断言结果。可包含多个 Phase，每个测试一个功能点 |
+| **Cleanup** | `rlPhaseStartCleanup` | 清理环境：删除临时文件、返回原目录、共享库自动管理软件包卸载 |
+
+> **注意**：`rlPhaseStartSetup` 中调用的 `aclSetup()` 通过 `rlCleanupAppend` 向 BeakerLib 注册了清理回调，所以 Cleanup 阶段**不需要**手动卸载软件包。
+
+### 3.3.1 测试如何被 tmt 发现？
+
+tmt 的执行流程是：Plan 的 `discover` 阶段遍历 `tests/` 目录树，通过 FMF 的 `tag` 匹配找到所有符合条件的测试用例。
+
+```
+tmt run plan --name /plans/functional
+  │
+  ├─ [discover] plans/functional.fmf → filter: "tag:functional"
+  │   │
+  │   ├─ 遍历 tests/ 树，匹配 tag 含 "functional" 的所有 main.fmf
+  │   │  ✓ tests/functional/pkgs/acl/test_acl_getfacl_basic/main.fmf
+  │   │  ✓ tests/functional/pkgs/acl/test_acl_setfacl_basic/main.fmf
+  │   │  ✗ tests/smoke/archive/main.fmf              (tag: smoke)
+  │   │  ✗ tests/security/cve/main.fmf               (tag: security)
+  │   │
+  │   └─ 输出: 202 个测试被发现
+  │
+  ├─ [execute] 按顺序执行每个 test.sh
+  │
+  └─ [report] 汇总结果
+```
+
+**要点**：
+- `main.fmf` 中必须包含 `tag: [functional]`（或其他对应的计划标签）才能被对应 Plan 发现
+- Plan 文件（如 `plans/functional.fmf`）通过 `filter: "tag:functional"` 声明匹配条件
+- 不同 Plan 可以运行同一组测试（只需在 tag 中添加多个标签即可）
+- 标签名来源于测试分类名：`smoke`、`functional`、`security`、`compatibility`、`performance`、`reliability`、`feature`
 
 ### 3.4 共享库（lib.sh）
 
-当同一个软件包下多个测试用例需要共享安装/卸载逻辑时，使用 `lib.sh`：
+当同一个软件包下多个测试用例需要共享安装/卸载逻辑时，使用 `lib.sh`。
+
+**设计要点**：
+
+- **`library-prefix` 注解**：文件头 `# library-prefix = acl` 声明函数前缀，所有公共函数以 `acl` 开头。
+- **引用计数机制**：使用标志文件（如 `/tmp/.beakerlib_acl_suite`）跟踪有多少个测试用例正在使用该套件。第一个测试安装软件包，最后一个测试卸载。
+- **`rlCleanupAppend`**：在 Setup 阶段注册 cleanup 函数，无论测试成功/失败，BeakerLib 都会在 `rlJournalEnd` 时自动调用。
+- **`sudo` 处理**：项目使用 `echo <password> | sudo -S <cmd>` 模式注入 sudo 密码，`lib.sh` 中的安装/卸载命令需要适配。
+
+**`lib.sh` 示例**：
 
 ```bash
-# lib.sh 示例 — 引用计数机制确保软件包只安装/卸载一次
-PKG_FLAG="/tmp/.beakerlib_my_pkg_suite"
+# library-prefix = acl
+#
+# ACL suite-level shared library
+# Usage in each test file:
+#   . "$(dirname "$0")/../lib.sh"    # from test_acl_xxx/ subdirectories
+#
+# Then call:  aclSetup   in rlPhaseStartSetup
+# The cleanup is auto-registered via rlCleanupAppend.
 
-myPkgSetup() {
-    if [ ! -f "$PKG_FLAG" ]; then
-        if ! rpm -q my-pkg 2>/dev/null; then
-            sudo dnf install -y my-pkg 2>/dev/null
-            echo "installed=1" > "$PKG_FLAG"
+ACL_FLAG="/tmp/.beakerlib_acl_suite"
+
+aclSetup() {
+    if [ ! -f "$ACL_FLAG" ]; then
+        if ! rpm -q acl 2>/dev/null; then
+            echo openruyi | sudo -S dnf install -y acl 2>/dev/null
+            echo "installed=1" > "$ACL_FLAG"
         else
-            echo "installed=0" > "$PKG_FLAG"
+            echo "installed=0" > "$ACL_FLAG"
         fi
-        echo "ref=1" >> "$PKG_FLAG"
+        echo "ref=1" >> "$ACL_FLAG"
     else
-        local ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+        local ref=$(grep "^ref=" "$ACL_FLAG" | cut -d= -f2)
         ref=$((ref + 1))
-        sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+        sed -i "s/^ref=.*/ref=$ref/" "$ACL_FLAG"
     fi
-    rlCleanupAppend "myPkgCleanup"
+    rlCleanupAppend "aclCleanup"
 }
 
-myPkgCleanup() {
-    [ ! -f "$PKG_FLAG" ] && return 0
-    local ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+aclCleanup() {
+    [ ! -f "$ACL_FLAG" ] && return 0
+    local ref=$(grep "^ref=" "$ACL_FLAG" | cut -d= -f2)
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
-        grep -q "^installed=1" "$PKG_FLAG" && sudo dnf remove -y my-pkg 2>/dev/null || true
-        rm -f "$PKG_FLAG"
+        grep -q "^installed=1" "$ACL_FLAG" && echo openruyi | sudo -S dnf remove -y acl 2>/dev/null || true
+        rm -f "$ACL_FLAG"
     else
-        sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+        sed -i "s/^ref=.*/ref=$ref/" "$ACL_FLAG"
     fi
 }
 ```
@@ -180,13 +236,15 @@ myPkgCleanup() {
 |------|------|:---:|------|
 | `summary` | string | ✅ | 测试简短描述，格式：`测试类型 - 软件包 - 功能` |
 | `test` | string | ✅ | 测试脚本路径，通常 `./test.sh` |
-| `tag` | list | ✅ | 标签列表，如 `[functional, acl]` |
-| `duration` | string | ✅ | 预估执行时间，如 `2m`、`5m` |
-| `tier` | int | ✅ | 优先级：0=核心，1=功能，2=扩展 |
+| `framework` | string | | 测试框架，`shell` 表示 Shell 脚本（继承自 `tests/main.fmf`） |
+| `tag` | list | ✅ | 标签列表，如 `[functional, acl]`。Plan 通过 `filter: "tag:functional"` 匹配 |
+| `duration` | string | ✅ | 预估执行时间，如 `2m`、`5m`。可覆盖父级默认值 |
+| `tier` | int | ✅ | 优先级：0=冒烟(每次提交)，1=核心功能(每日)，2=扩展(发布前) |
 | `path` | string | ✅ | 测试路径，格式 `/tests/<type>/pkgs/<pkg>/<test>` |
-| `require` | list | ✅ | 依赖的 RPM 软件包 |
+| `require` | list | ✅ | 依赖的 RPM 软件包（需含被测包 + `coreutils` + `beakerlib`） |
 | `contact` | string | | 测试负责人 |
-| `environment` | dict | | 环境变量 |
+| `environment` | dict | | 自定义环境变量，如 `{VAR1: val1, VAR2: val2}`，注入到测试执行环境 |
+| `hardware-require` | dict | | 硬件需求声明（详见图 5.3），如 `{cpu: ">= 4", memory: ">= 8 GiB"}` |
 
 ### 测试计划 (plans/*.fmf)
 
@@ -350,7 +408,8 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "主备切换测试"
-        # 环境自检，不满足自动 SKIP
+        # ⚠️ hwVerify 必须放在 Test Phase 第一行
+        #   放在 Setup 中会导致 Cleanup 被跳过（exit 0 绕过 rlJournalEnd）
         hwVerify
 
         # 本机启动主服务
@@ -426,11 +485,14 @@ tmt run --last report -fvvv
 
 ### 验证清单
 
-- [ ] `main.fmf` 包含所有必填字段
-- [ ] `test.sh` 有可执行权限 (`chmod +x`)
-- [ ] 本地执行通过
+- [ ] `main.fmf` 包含所有必填字段（summary, test, tag, duration, tier, path, require）
+- [ ] `tag` 包含正确的计划标签（如 `functional`），确保能被 Plan 发现
+- [ ] `require` 包含被测包 + `coreutils` + `beakerlib`
+- [ ] `test.sh` 首行 `#!/bin/bash`，sources beakerlib 和 lib.sh
+- [ ] 手动执行可通过 (`bash test.sh`)
 - [ ] 无硬编码路径，使用相对路径和 `$TmpDir`
-- [ ] Cleanup 阶段正确清理临时文件
+- [ ] Cleanup 阶段正确清理临时文件，共享库自动管理软件包卸载
+- [ ] 如有多机需求，调用 `hwVerify` 进行环境自检（放在 Test Phase 第一行）
 
 ---
 
@@ -444,12 +506,362 @@ tmt 通过 `bash test.sh` 执行，不强制要求，但建议 `chmod +x`。
 
 使用 `lib.sh` 共享库 + 引用计数机制（参见 3.4 节）。
 
+### Q: 我写了 main.fmf 但 tmt 执行时提示 0 tests discovered？
+
+1. 确认 `tag` 字段与 Plan 的 `filter` 匹配（如 `filter: "tag:functional"`）
+2. 确认 `main.fmf` 文件在正确路径下
+3. 运行 `tmt test ls` 查看 tmt 发现了哪些测试：
+   ```bash
+   cd openruyi-autotest
+   tmt test ls | grep <your_test_name>
+   ```
+
+### Q: rlRun 执行失败但命令本身是正确的？
+
+可能是 rlRun 的 `expect` 参数不匹配。rlRun 第二个参数是期望退出码：
+- `rlRun "cmd" 0`：期望命令成功（退出码 0）
+- `rlRun "cmd should fail" 1`：期望命令失败（退出码 1）
+- 如果实际退出码与期望不符，rlRun 报告失败
+
+### Q: hwVerify 放在 Setup 还是 Test 阶段？
+
+**必须在 Test Phase 第一行**。`hwVerify` 不满足时会 `exit 0`，如果放在 Setup 阶段，`exit 0` 会绕过 `rlJournalEnd`，导致 Cleanup 不执行、临时文件残留。
+
 ### Q: 如何调试失败的测试？
 
 ```bash
 # 查看完整输出
-cat /var/tmp/tmt/run-*/plan/execute/data/tests/.../output.txt
+cat /var/tmp/tmt/run-*/plans/functional/execute/data/guest/default-0/tests/.../output.txt
 
-# 手动执行脚本
+# 手动执行脚本（可直接调试）
 bash tests/functional/pkgs/acl/test_acl_my_feature/test.sh
 ```
+
+---
+
+## 9. 实战示例：开发 ACL 测试套
+
+本节完整演示如何从零开始为一个新的软件包开发测试套，以 `acl` 为例。
+
+### 9.1 总体流程
+
+```
+需求分析 → 创建套件目录 → 编写 lib.sh → 编写 main.fmf → 编写 test.sh → 验证执行
+```
+
+ACL 测试套共 **11 个测试用例**，覆盖 getfacl、setfacl、chacl 三大命令的所有主要功能点。
+
+### 9.2 第 1 步：创建套件目录结构
+
+```bash
+# 创建软件包级目录
+mkdir -p tests/functional/pkgs/acl
+
+# 创建包级元数据
+cat > tests/functional/pkgs/acl/main.fmf << 'EOF'
+summary: 功能测试 - acl 软件包功能验证
+tag:
+  - functional
+  - acl
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/acl
+require:
+  - acl
+  - coreutils
+  - beakerlib
+EOF
+```
+
+### 9.3 第 2 步：编写共享库 `lib.sh`
+
+11 个测试用例都需要 `acl` 软件包，使用共享库 + 引用计数避免每个用例重复安装/卸载：
+
+```bash
+cat > tests/functional/pkgs/acl/lib.sh << 'EOF'
+# library-prefix = acl
+#
+# ACL suite-level shared library
+# Uses flag-file + reference counting to ensure the acl package
+# is installed only ONCE and uninstalled only ONCE across all
+# test cases.
+
+ACL_FLAG="/tmp/.beakerlib_acl_suite"
+
+aclSetup() {
+    if [ ! -f "$ACL_FLAG" ]; then
+        if ! rpm -q acl 2>/dev/null; then
+            echo openruyi | sudo -S dnf install -y acl 2>/dev/null
+            echo "installed=1" > "$ACL_FLAG"
+            rlLogInfo "已安装 acl 软件包（首次）"
+        else
+            echo "installed=0" > "$ACL_FLAG"
+            rlLogInfo "acl 软件包已存在"
+        fi
+        echo "ref=1" >> "$ACL_FLAG"
+    else
+        local ref=$(grep "^ref=" "$ACL_FLAG" | cut -d= -f2)
+        ref=$((ref + 1))
+        sed -i "s/^ref=.*/ref=$ref/" "$ACL_FLAG"
+        rlLogInfo "acl 已由其他测试安装，引用计数: $ref"
+    fi
+    rlCleanupAppend "aclCleanup"
+}
+
+aclCleanup() {
+    if [ ! -f "$ACL_FLAG" ]; then
+        return 0
+    fi
+    local ref=$(grep "^ref=" "$ACL_FLAG" | cut -d= -f2)
+    ref=$((ref - 1))
+    if [ "$ref" -le 0 ]; then
+        if grep -q "^installed=1" "$ACL_FLAG"; then
+            echo openruyi | sudo -S dnf remove -y acl 2>/dev/null || true
+            rlLogInfo "已卸载 acl 软件包（最后一个测试）"
+        fi
+        rm -f "$ACL_FLAG"
+    else
+        sed -i "s/^ref=.*/ref=$ref/" "$ACL_FLAG"
+        rlLogInfo "acl 保留（还有 $ref 个测试未完成）"
+    fi
+}
+EOF
+```
+
+### 9.4 第 3 步：逐功能点开发测试用例
+
+以下按功能点分别创建目录、main.fmf 和 test.sh。
+
+#### 9.4.1 用例 1: getfacl 基本功能
+
+```bash
+mkdir -p tests/functional/pkgs/acl/test_acl_getfacl_basic
+```
+
+**`main.fmf`**：
+
+```yaml
+summary: 功能测试 - acl - getfacl 基本功能
+test: ./test.sh
+tag:
+  - functional
+  - acl
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/acl/test_acl_getfacl_basic
+require:
+  - acl
+  - beakerlib
+```
+
+**`test.sh`** — 覆盖 7 个功能点，每个功能点至少一个 `rlRun`：
+
+```bash
+#!/bin/bash
+# Functional test: acl - getfacl basic
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
+
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        aclSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+        rlRun "touch testfile" 0 "创建测试文件"
+        rlRun "mkdir testdir" 0 "创建测试目录"
+    rlPhaseEnd
+
+    rlPhaseStartTest "getfacl 基本功能"
+        # 功能点 1: 查看文件默认 ACL（含基本权限条目）
+        rlRun "getfacl testfile 2>&1 | grep -qE \"user::|group::|other::\"" 0 \
+            "查看文件默认 ACL 含权限条目"
+
+        # 功能点 2: 查看目录默认 ACL
+        rlRun "getfacl testdir 2>&1 | grep -qE \"user::|group::|other::\"" 0 \
+            "查看目录默认 ACL 含权限条目"
+
+        # 功能点 3: -a 参数只显示 access ACL
+        rlRun "getfacl -a testfile 2>&1 | grep -qE \"user::|group::\"" 0 \
+            "使用 -a 参数查看 access ACL"
+
+        # 功能点 4: -d 参数只显示 default ACL
+        rlRun "getfacl -d testfile 2>&1 | grep -qE \"user::|default\"" 0 \
+            "使用 -d 参数查看 default ACL 含 default 条目"
+
+        # 功能点 5: -c 参数不显示注释头
+        rlRun "getfacl -c testfile 2>&1" 0 "使用 -c 参数不显示注释头"
+        rlAssertNotGrep "^# file:" "$(getfacl -c testfile 2>&1)" \
+            "-c 输出不包含注释头"
+
+        # 功能点 6: -n 参数显示数字用户/组 ID
+        rlRun "getfacl -n testfile 2>&1 | grep -qE \"[0-9]+\"" 0 \
+            "使用 -n 参数显示数字 ID"
+
+        # 功能点 7: -t 参数使用表格输出格式
+        rlRun "getfacl -t testfile 2>&1 | grep -qE \"[r-][w-][x-]\"" 0 \
+            "使用 -t 参数表格输出含权限位"
+    rlPhaseEnd
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+        fi
+    rlPhaseEnd
+    rlJournalPrintText
+rlJournalEnd
+```
+
+#### 9.4.2 用例 2: setfacl 基本功能
+
+```bash
+mkdir -p tests/functional/pkgs/acl/test_acl_setfacl_basic
+```
+
+**`test.sh`** — 侧重 setfacl 的基础增删改查：
+
+```bash
+#!/bin/bash
+# Functional test: acl - setfacl basic
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
+
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        aclSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+        rlRun "touch testfile" 0 "创建测试文件"
+        rlRun "mkdir testdir" 0 "创建测试目录"
+    rlPhaseEnd
+
+    rlPhaseStartTest "setfacl 基本功能"
+        # 功能点 1: -m 设置 user ACL
+        rlRun "setfacl -m u:root:rwx testfile" 0 "设置用户 ACL"
+        rlRun "getfacl testfile 2>&1 | grep -q 'user:root:rwx'" 0 "确认 user ACL 已设置"
+
+        # 功能点 2: -m 设置 group ACL
+        rlRun "setfacl -m g:root:r-- testfile" 0 "设置用户组 ACL"
+
+        # 功能点 3: -m 设置 mask
+        rlRun "setfacl -m m::rwx testfile" 0 "设置 mask"
+        rlRun "getfacl testfile 2>&1 | grep -q 'mask::rwx'" 0 "确认 mask 已设置"
+
+        # 功能点 4: -x 删除指定 ACL
+        rlRun "setfacl -x g:root testfile" 0 "删除组 ACL 条目"
+        rlRun "! getfacl testfile 2>&1 | grep -q 'group:root:'" 0 "确认组 ACL 已删除"
+
+        # 功能点 5: -b 删除所有扩展 ACL
+        rlRun "setfacl -b testfile" 0 "删除所有扩展 ACL"
+        rlRun "! getfacl testfile 2>&1 | grep -qE '(user:|group:)(?!:[:space:]|::)'" 0 \
+            "确认所有命名 ACL 已清除"
+    rlPhaseEnd
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+    rlPhaseEnd
+    rlJournalPrintText
+rlJournalEnd
+```
+
+#### 9.4.3 用例 3: 错误处理
+
+```bash
+mkdir -p tests/functional/pkgs/acl/test_acl_error_handling
+```
+
+**`test.sh`** — 使用 `rlRun` 的 `expect=1` 模式验证错误路径：
+
+```bash
+#!/bin/bash
+# Functional test: acl - error handling
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
+
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        aclSetup
+        TmpDir=$(mktemp -d)
+        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+        rlRun "touch testfile" 0 "创建测试文件"
+    rlPhaseEnd
+
+    rlPhaseStartTest "错误处理"
+        # 功能点 1: 不存在的文件 — 期望失败 (exit 1)
+        rlRun "getfacl /nonexistent 2>&1 | grep -qiE \"error|Error|No such|无法|not found\" || echo expected-error" 1 \
+            "查看不存在的文件"
+
+        # 功能点 2: 不存在的用户 — 期望失败
+        rlRun "setfacl -m u:nobody_xxx:rwx testfile 2>&1 | grep -qiE \"error|Error|Invalid|无效\" || echo expected-error" 1 \
+            "设置不存在的用户"
+
+        # 功能点 3: 无效权限 — 期望失败
+        rlRun "setfacl -m u:root:abc testfile 2>&1 | grep -qiE \"error|Error|Invalid|无效\" || echo expected-error" 1 \
+            "设置无效权限字符串"
+    rlPhaseEnd
+
+    rlPhaseStartCleanup "清理测试环境"
+        rlRun "cd /" 0 "离开测试目录"
+        [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
+    rlPhaseEnd
+    rlJournalPrintText
+rlJournalEnd
+```
+
+### 9.5 第 4 步：本地验证
+
+```bash
+cd ~/openruyi-autotest
+
+# 1. 确认 tmt 能发现新测试
+tmt test ls | grep acl
+
+# 预期输出:
+# /tests/functional/pkgs/acl/test_acl_getfacl_basic
+# /tests/functional/pkgs/acl/test_acl_setfacl_basic
+# /tests/functional/pkgs/acl/test_acl_error_handling
+
+# 2. 先手动执行验证语法
+bash tests/functional/pkgs/acl/test_acl_getfacl_basic/test.sh
+
+# 3. 通过 tmt 执行
+tmt run --all plan --name /plans/functional \
+    test --name /tests/functional/pkgs/acl \
+    provision --feeling-safe
+
+# 4. 查看汇总结果
+tmt run --last report
+```
+
+### 9.6 ACL 测试套完整清单
+
+| # | 用例 | 功能点 | 覆盖命令 |
+|---|------|--------|----------|
+| 1 | `test_acl_acl_inheritance` | 默认 ACL 继承、目录下新建文件继承 | getfacl |
+| 2 | `test_acl_acl_permission_verify` | ACL 权限实际生效（读/写/执行） | setfacl, getfacl |
+| 3 | `test_acl_chacl_command` | chacl 命令基本操作 | chacl |
+| 4 | `test_acl_error_handling` | 不存在的文件/用户、无效权限 | getfacl, setfacl |
+| 5 | `test_acl_getfacl_basic` | 7 个 getfacl 参数 (-a/-d/-c/-n/-t) | getfacl |
+| 6 | `test_acl_setfacl_advanced` | default ACL、--set、-M 从文件读取 | setfacl |
+| 7 | `test_acl_setfacl_basic` | -m/-x/-b 增删改查 | setfacl |
+| 8 | `test_acl_setfacl_recursive` | -R 递归设置 | setfacl |
+| 9 | `test_acl_setfacl_remove` | -x 按条目删除、-X 文件批量删除 | setfacl |
+| 10 | `test_acl_setfacl_symlink` | -L/-P 符号链接处理 | setfacl |
+| 11 | `test_acl_special_cases` | 多用户多组、--test 试运行、备份恢复 | setfacl, getfacl |
+
+> **关键设计决策**：每个用例只测试一个明确的主题（如 "getfacl 基本功能"），避免一个巨长脚本涵盖所有功能。这样单独执行/调试更方便，tmt 报告也更精确。
+
+### 9.7 开发检查清单
+
+对照第 7 节的验证清单，逐项确认：
+
+- [x] 每个 `main.fmf` 包含 summary, test, tag, duration, tier, path, require
+- [x] `tag` 包含 `functional` (Plan filter) 和 `acl` (软件包标签)
+- [x] `require` 包含 `acl` + `coreutils` + `beakerlib`
+- [x] 每个 `test.sh` 首行 `#!/bin/bash`，sources beakerlib.sh 和 ../lib.sh
+- [x] Setup: 调用 `aclSetup` → 创建 `$TmpDir` → `cd $TmpDir`
+- [x] Test: 每个功能点至少一个 `rlRun` 或 `rlAssertGrep`
+- [x] Cleanup: `cd /` → `rm -rf $TmpDir` → 共享库自动卸载
+- [x] 错误路径用例使用 `rlRun "cmd" 1`（期望失败）
+- [x] 所有用例独立可运行（依赖共享库但不需要其他用例的输出）
