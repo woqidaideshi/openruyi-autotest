@@ -188,3 +188,277 @@ git push origin dev
 - [开发指南](development-guide.md) — 测试用例开发完整流程
 - [用户指南](user_guide.md) — 测试执行和使用说明
 - [Conventional Commits 规范](https://www.conventionalcommits.org/en/v1.0.0/)
+
+---
+
+## 5. 实战演示：以 ACL 测试套为例
+
+以下以 `tests/functional/pkgs/acl/` 测试套为例，展示从新增、修改、修复到重构的完整 Commit 和 MR 写法。
+
+ACL 测试套结构：
+
+```
+tests/functional/pkgs/acl/
+├── main.fmf                     # 套件级元数据
+├── lib.sh                       # 共享库（引用计数安装/卸载）
+├── test_acl_getfacl_basic/      # getfacl 基本功能（7 个参数）
+├── test_acl_setfacl_basic/      # setfacl 增删改查
+├── test_acl_setfacl_advanced/   # default ACL、--set、-M
+├── test_acl_setfacl_recursive/  # -R 递归设置
+├── test_acl_setfacl_remove/     # -x/-X 批量删除
+├── test_acl_setfacl_symlink/    # -L/-P 符号链接处理
+├── test_acl_chacl_command/      # chacl 命令
+├── test_acl_acl_inheritance/    # 默认 ACL 继承
+├── test_acl_acl_permission_verify/  # ACL 权限实际生效验证
+├── test_acl_error_handling/     # 错误路径（不存在文件/用户/无效权限）
+└── test_acl_special_cases/      # 多用户多组、--test 试运行、备份恢复
+```
+
+### 5.1 场景一：新增测试用例
+
+**场景**：为 ACL 套件新增 `getfacl` 基本功能测试，覆盖 7 个命令行参数。
+
+**涉及文件**：
+
+| 操作 | 文件 |
+|------|------|
+| 新增 | `tests/functional/pkgs/acl/test_acl_getfacl_basic/main.fmf` |
+| 新增 | `tests/functional/pkgs/acl/test_acl_getfacl_basic/test.sh` |
+
+**Commit**：
+
+```bash
+git add tests/functional/pkgs/acl/test_acl_getfacl_basic/
+git commit -m "feat(acl): add getfacl basic test covering 7 CLI options"
+
+# 如果功能点较多，可以加 body 说明：
+git commit -m "feat(acl): add getfacl basic test covering 7 CLI options
+
+Covers: -a (access ACL), -d (default ACL), -c (no comments),
+-n (numeric IDs), -t (tabular output), plus default behavior
+for files and directories."
+```
+
+**Commit 要点解析**：
+
+| 要素 | 值 | 说明 |
+|------|-----|------|
+| type | `feat` | 新增功能（新测试用例 = 新功能） |
+| scope | `acl` | 影响 acl 测试套 |
+| summary | `add getfacl basic test covering 7 CLI options` | 47 字符，祈使语气，说明覆盖面 |
+
+### 5.2 场景二：修改/更新现有测试
+
+**场景**：在 `test_acl_error_handling` 中增加两个新的错误路径：`setfacl` 设置无效 mask 值、`getfacl` 对无权限文件的处理。
+
+**涉及文件**：
+
+| 操作 | 文件 |
+|------|------|
+| 修改 | `tests/functional/pkgs/acl/test_acl_error_handling/test.sh` |
+
+**Commit**：
+
+```bash
+git add tests/functional/pkgs/acl/test_acl_error_handling/test.sh
+git commit -m "feat(acl): add invalid mask and permission-denied error cases
+
+Add two new error-path tests:
+- setfacl with invalid mask value (expect failure)
+- getfacl on file with no read permission (expect failure)
+
+These cover edge cases that were not previously tested."
+```
+
+**Commit 要点解析**：
+
+| 要素 | 值 | 说明 |
+|------|-----|------|
+| type | `feat` | 增加了新功能点（错误路径覆盖面扩大） |
+| scope | `acl` | 影响 acl 测试套 |
+| body | 列出具体新增的 2 个测试点 | 让 reviewer 一目了然 |
+
+> **注意**：如果只是修改测试描述文案、注释或格式，用 `style` 或 `refactor` 而非 `feat`。
+
+### 5.3 场景三：Bug 修复
+
+**场景**：发现 `test_acl_setfacl_basic` 中 `rlRun "! getfacl ... | grep ..."` 的退出码逻辑错误 —— 反引号 `!` 在 `rlRun` 中不会如预期工作，导致用例误报 PASS。
+
+**涉及文件**：
+
+| 操作 | 文件 |
+|------|------|
+| 修改 | `tests/functional/pkgs/acl/test_acl_setfacl_basic/test.sh` |
+
+**Commit**：
+
+```bash
+git add tests/functional/pkgs/acl/test_acl_setfacl_basic/test.sh
+git commit -m "fix(acl): correct exit code check in setfacl_basic negative tests
+
+The rlRun '! cmd' pattern does not work as expected because rlRun
+evaluates the raw exit code of cmd, not the negated result.
+Replace with grep -v to properly verify ACL entries were removed.
+
+Before (false PASS):
+  rlRun \"! getfacl testfile | grep -q 'group:root:'\" 0
+
+After (correct):
+  rlRun \"getfacl testfile | grep -v 'group:root:'\" 0"
+```
+
+**Commit 要点解析**：
+
+| 要素 | 值 | 说明 |
+|------|-----|------|
+| type | `fix` | 修复 bug |
+| scope | `acl` | 影响 acl 测试套 |
+| body | 展示修复前后的代码对比 | 帮助 reviewer 理解修复逻辑 |
+
+### 5.4 场景四：重构
+
+**场景**：将 ACL 测试套从单一巨大脚本拆分为 11 个独立用例目录，每个用例拥有自己的 `main.fmf` 和 `test.sh`。同时提取共享安装/卸载逻辑到 `lib.sh`。
+
+**涉及文件**：
+
+| 操作 | 数量 | 说明 |
+|------|------|------|
+| 删除 | ~5 | 旧的 `setup.sh`、`teardown.sh`、`test.sh` |
+| 新增 | 12 | `lib.sh` + 11 个 `test_acl_*/main.fmf` |
+| 修改 | 12 | 11 个 `test_acl_*/test.sh` + `main.fmf` |
+
+**Commit**：
+
+```bash
+git add tests/functional/pkgs/acl/
+git commit -m "refactor(acl): split into per-case dirs with shared lib.sh
+
+Split the monolithic ACL test into 11 independent test cases,
+each with its own main.fmf and test.sh. Extract shared package
+install/uninstall logic into lib.sh with reference counting.
+
+Before:
+  tests/functional/pkgs/acl/
+  ├── setup.sh
+  ├── teardown.sh
+  └── test.sh           # single huge file, ~500 lines
+
+After:
+  tests/functional/pkgs/acl/
+  ├── main.fmf          # suite-level metadata
+  ├── lib.sh            # shared install/cleanup (ref-counted)
+  ├── test_acl_getfacl_basic/
+  │   ├── main.fmf
+  │   └── test.sh
+  ├── test_acl_setfacl_basic/
+  │   ├── main.fmf
+  │   └── test.sh
+  ├── ... (9 more cases)
+  └── test_acl_special_cases/
+      ├── main.fmf
+      └── test.sh
+
+Benefits:
+- Each case runs independently via tmt
+- Granular pass/fail reporting per feature
+- lib.sh ensures acl is installed only once across all cases"
+```
+
+**Commit 要点解析**：
+
+| 要素 | 值 | 说明 |
+|------|-----|------|
+| type | `refactor` | 重构，不改变测试逻辑 |
+| scope | `acl` | 影响 acl 测试套 |
+| body | 树形对比 Before/After + Benefits | 大型重构必须清晰说明变更范围和收益 |
+
+### 5.5 场景五：文档更新
+
+**场景**：在开发指南中新增 ACL 开发实战示例章节。
+
+**Commit**：
+
+```bash
+git add docs/development-guide.md
+git commit -m "docs: add ACL development walkthrough to developer guide
+
+Add Section 9 demonstrating the complete flow of developing an
+ACL test suite from scratch, including:
+- Directory structure setup
+- Shared lib.sh with reference counting
+- Three full test case implementations
+- 11-case inventory table and development checklist"
+```
+
+**Commit 要点解析**：
+
+| 要素 | 值 | 说明 |
+|------|-----|------|
+| type | `docs` | 文档变更 |
+| scope | _(省略)_ | 跨模块文档，无需 scope |
+| body | 列出新增内容的 4 个要点 | 文档变更也建议写 body |
+
+---
+
+### 5.6 场景六：ACL 套件的完整 MR
+
+以上 5 个 Commit 合在一起，创建一个 `dev → main` 的 MR：
+
+**MR 标题**：
+
+```
+feat(acl): add getfacl and error-handling tests, fix exit code bug, refactor to per-case dirs
+```
+
+**MR 描述**：
+
+```markdown
+## Summary
+
+This MR enhances the ACL test suite with new test cases, bug fixes,
+and a structural refactoring for better maintainability.
+
+Related commits in this MR:
+- feat(acl): add getfacl basic test covering 7 CLI options
+- feat(acl): add invalid mask and permission-denied error cases
+- fix(acl): correct exit code check in setfacl_basic negative tests
+- refactor(acl): split into per-case dirs with shared lib.sh
+- docs: add ACL development walkthrough to developer guide
+
+## Changes
+
+### New Tests
+- getfacl basic: covers -a, -d, -c, -n, -t options (7 features)
+- error handling: added invalid mask and permission-denied edge cases
+
+### Bug Fixes
+- Fixed rlRun exit code logic in setfacl_basic negative tests
+  (the ! negation operator does not work inside rlRun)
+
+### Refactoring
+- Split monolithic ACL test into 11 independent per-case directories
+- Extracted shared package install/uninstall into lib.sh
+- Each test case now has its own main.fmf with granular duration/tier
+
+### Documentation
+- Added Section 9 to development-guide.md with ACL walkthrough
+
+## Verification
+
+- [x] All 11 ACL test cases pass: tmt run plan --name /plans/functional test --name /tests/functional/pkgs/acl
+- [x] Each case runs independently without side effects
+- [x] lib.sh reference counting works correctly (acl installed once, uninstalled once)
+- [x] No regressions in other functional test suites
+- [x] getfacl basic covers all 7 CLI options
+- [x] Error cases correctly report FAIL for invalid input
+```
+
+**MR 要点解析**：
+
+| 要素 | 说明 |
+|------|------|
+| 标题 | 概括 MR 主题，用逗号分隔各子主题 |
+| Summary | 一句话概述 + 关联的 commit 列表 |
+| Changes | 按类别分组（New / Fix / Refactor / Docs），每项具体说明 |
+| Verification | 列出验证步骤和结果，每个 check 都具体可复现 |
+
