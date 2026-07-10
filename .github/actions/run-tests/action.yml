@@ -58,12 +58,21 @@ runs:
         export SSHPASS="${{ inputs.ssh_pass }}"
         SSHO="sshpass -e ssh -o StrictHostKeyChecking=no -p ${{ inputs.ssh_port }} ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}"
 
-        $SSHO "uname -a && free -h && df -lh"
-        # Configure passwordless sudo (using SSH password, assuming same as sudo password)
-        $SSHO "echo '${{ inputs.ssh_pass }}' | sudo -S sh -c 'echo \"${{ inputs.ssh_user }} ALL=(ALL) NOPASSWD: ALL\" > /etc/sudoers.d/${{ inputs.ssh_user }} && chmod 440 /etc/sudoers.d/${{ inputs.ssh_user }}'"
-        $SSHO "sudo dnf install -y --refresh git tmt beakerlib rsync python-six 2>&1"
-        $SSHO "tmt --version || echo 'tmt not installed'"
-        $SSHO "rm -rf ~/openruyi-autotest ~/results/${{ github.run_number }}"
+        run_as_root() {
+          local cmd="$1"
+          $SSHO "echo '${{ inputs.ssh_pass }}' | sudo -S -i bash -lc \"$cmd\""
+        }
+
+        REPO_NAME="${{ inputs.github_repo }}"
+        REPO_NAME="${REPO_NAME##*/}"
+        USER_HOME="/home/${{ inputs.ssh_user }}"
+        echo "REPO_NAME=${REPO_NAME}" >> "$GITHUB_ENV"
+        echo "USER_HOME=${USER_HOME}" >> "$GITHUB_ENV"
+
+        run_as_root "whoami && uname -a && free -h && df -lh"
+        run_as_root "dnf install -y --refresh git tmt beakerlib rsync python-six 2>&1"
+        run_as_root "tmt --version || echo 'tmt not installed'"
+        run_as_root "rm -rf '$USER_HOME/$REPO_NAME' '$USER_HOME/results/${{ github.run_number }}'"
 
     - name: Sync repo to target
       shell: bash
@@ -71,8 +80,15 @@ runs:
         export SSHPASS="${{ inputs.ssh_pass }}"
         SSHO="sshpass -e ssh -o StrictHostKeyChecking=no -p ${{ inputs.ssh_port }} ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}"
         # Copy the already-checked-out repo from runner to target via tar+ssh,
-        $SSHO "mkdir -p ~/openruyi-autotest ~/results/${{ github.run_number }}"
-        tar czf - -C "$GITHUB_WORKSPACE" --exclude='.git' . | $SSHO "tar xzf - -C ~/openruyi-autotest"
+        $SSHO "mkdir -p ~/$REPO_NAME ~/results/${{ github.run_number }}"
+        tar czf - -C "$GITHUB_WORKSPACE" --exclude='.git' . | $SSHO "tar xzf - -C ~/$REPO_NAME"
+        $SSHO "cat > ~/$REPO_NAME/topology.env <<'EOF'
+TEST_SERVER_COUNT=1
+TEST_SERVER_1_HOST=127.0.0.1
+TEST_SERVER_1_PORT=22
+TEST_SERVER_1_USER=${{ inputs.ssh_user }}
+TEST_SERVER_1_PASSWORD=${{ inputs.ssh_pass }}
+EOF"
 
     - name: Run tests on target
       shell: bash
@@ -80,18 +96,23 @@ runs:
         export SSHPASS="${{ inputs.ssh_pass }}"
         SSHO="sshpass -e ssh -o StrictHostKeyChecking=no -p ${{ inputs.ssh_port }} ${{ inputs.ssh_user }}@${{ inputs.ssh_host }}"
 
-        echo "Plan: ${{ inputs.test_plan }}  Filter: ${{ inputs.test_filter || 'none' }}"
+        run_as_root() {
+          local cmd="$1"
+          $SSHO "echo '${{ inputs.ssh_pass }}' | sudo -S -i bash -lc \"$cmd\""
+        }
 
-        TMT="cd ~/openruyi-autotest && tmt run -i ~/results/${{ github.run_number }} --all --verbose"
+        echo "Plan: ${{ inputs.test_plan }}  Filter: ${{ inputs.test_filter || 'none' }}"
+        TMT="cd /root/$REPO_NAME && tmt run -i '$USER_HOME/results/${{ github.run_number }}' --all --verbose"
         [ -n "${{ inputs.test_plan }}" ] && TMT="$TMT plan --name ${{ inputs.test_plan }}"
         [ -n "${{ inputs.test_filter }}" ] && TMT="$TMT test --name ${{ inputs.test_filter }}"
         TMT="$TMT provision --feeling-safe 2>&1"
 
         echo "Executing: $TMT"
+        run_as_root "ln -sfn '$USER_HOME/$REPO_NAME' /root/$REPO_NAME"
         # tee gives real-time output; PIPESTATUS[0] captures ssh exit code (not tee's)
         # Disable set -e temporarily: tmt exit code 1/2 is normal, handled below
         set +e
-        $SSHO "$TMT" 2>&1 | tee "${{ inputs.result_dir }}/tmt-output.txt"
+        run_as_root "$TMT" 2>&1 | tee "${{ inputs.result_dir }}/tmt-output.txt"
         TMT_EXIT=${PIPESTATUS[0]}
         set -e
 
