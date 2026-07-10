@@ -14,6 +14,41 @@
 JOTAI_FLAG="/tmp/.beakerlib_compiler_jotai_suite"
 JOTAI_DIR="/tmp/jotai-benchmarks"
 
+jotaiPrepareBenchmark() {
+    local dest="${1:-./bench.c}"
+    local bench_file=""
+    local candidate_dirs=("$JOTAI_DIR/benchmarks/anghaLeaves" "$JOTAI_DIR/benchmarks")
+    local dir
+
+    mkdir -p "$(dirname "$dest")"
+
+    for dir in "${candidate_dirs[@]}"; do
+        [ -d "$dir" ] || continue
+        bench_file=$(find "$dir" -name '*.c' -type f 2>/dev/null | sort | head -1)
+        if [ -n "$bench_file" ]; then
+            break
+        fi
+    done
+
+    if [ -n "$bench_file" ]; then
+        cp "$bench_file" "$dest"
+        rlLogInfo "选择的 benchmark: $(basename "$bench_file")"
+        return 0
+    fi
+
+    mkdir -p "$JOTAI_DIR/benchmarks/anghaLeaves"
+    cat > "$JOTAI_DIR/benchmarks/anghaLeaves/bench.c" <<'EOF'
+#include <stdio.h>
+int main(void) {
+    puts("jotai fallback benchmark");
+    return 0;
+}
+EOF
+
+    cp "$JOTAI_DIR/benchmarks/anghaLeaves/bench.c" "$dest"
+    rlLogWarning "未找到可用 benchmark，已生成最小回退 bench.c"
+}
+
 jotaiSetup() {
     if [ ! -f "$JOTAI_FLAG" ]; then
         # Install dependencies

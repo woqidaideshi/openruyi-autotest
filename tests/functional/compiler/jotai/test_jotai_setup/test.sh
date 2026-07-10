@@ -28,7 +28,6 @@ rlJournalStart
                 rlRun "find /tmp/jotai-benchmarks/benchmarks -name '*.c' -type f | head -20" 0 "列出前 20 个 C benchmark 文件"
                 
                 # 验证有至少一个 C 文件
-                local count
                 count=$(find /tmp/jotai-benchmarks/benchmarks -name '*.c' -type f 2>/dev/null | wc -l)
                 if [ "$count" -gt 0 ]; then
                     rlPass "仓库包含 $count 个 C benchmark 文件"
@@ -38,7 +37,6 @@ rlJournalStart
                 
                 # 检查 anghaLeaves 目录
                 if [ -d "$BENCH_DIR" ]; then
-                    local angha_count
                     angha_count=$(find "$BENCH_DIR" -name '*.c' -type f 2>/dev/null | wc -l)
                     rlPass "anghaLeaves 目录包含 $angha_count 个 benchmark 文件"
                 fi

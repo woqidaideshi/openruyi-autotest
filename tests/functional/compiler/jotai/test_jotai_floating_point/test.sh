@@ -46,7 +46,7 @@ CEOF
 
     rlPhaseStartTest "GCC 浮点"
         for mode in "no-fast-math" "ffast-math"; do
-            local flag=""; [ "$mode" == "ffast-math" ] && flag="-ffast-math"
+            flag=""; [ "$mode" == "ffast-math" ] && flag="-ffast-math"
             rlRun "gcc $flag -o fp_gcc_${mode} fp.c -lm && ./fp_gcc_${mode} >/tmp/fp_gcc_${mode}.txt 2>&1" 0 "GCC $mode"
             grep -q "FP_OK" /tmp/fp_gcc_${mode}.txt && rlPass "GCC $mode OK"
             grep -q "sin_pi_ok" /tmp/fp_gcc_${mode}.txt && rlPass "GCC $mode: sin(pi)≈0"
