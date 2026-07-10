@@ -3,6 +3,9 @@
 
 summary: 全量测试 - 执行所有测试用例
 
+environment-file:
+  - topology.env
+
 discover:
   how: fmf
 

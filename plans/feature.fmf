@@ -1,6 +1,9 @@
 summary: 特性测试计划
 tier: 1
 
+environment-file:
+  - topology.env
+
 discover:
   how: fmf
   filter: "tag:feature"

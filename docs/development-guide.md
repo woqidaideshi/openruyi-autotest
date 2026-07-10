@@ -208,7 +208,197 @@ execute:
 
 ---
 
-## 5. 命名规范
+## 5. 硬件环境约束
+
+本项目所有 Plan 使用 `how: local` 模式，通过 **FMF 元数据声明 + 环境变量注入 + 公共库自检** 实现硬件环境约束。当环境不满足声明时，测试自动 SKIP（`exit 0`），不阻塞其他用例。
+
+### 5.1 组件总览
+
+| 组件 | 文件 | 作用 |
+|------|------|------|
+| 拓扑配置模板 | `topology.env.example` | 仓库级模板，提交到版本控制 |
+| 拓扑配置实例 | `topology.env` | 实际服务器信息，已 `.gitignore`，不提交 |
+| 测试用例声明 | `main.fmf` 中的 `hardware-require` | 每个用例声明自己的硬件需求 |
+| Plan 加载 | `plans/*.fmf` 中的 `environment-file` | 将 `topology.env` 注入为环境变量 |
+| 公共检查库 | `tests/lib/hw_check.sh` | 解析声明、对比环境、远程执行 |
+
+### 5.2 拓扑配置 (`topology.env`)
+
+从 `topology.env.example` 复制为 `topology.env`，按实际环境修改：
+
+```bash
+TEST_SERVER_COUNT=2
+TEST_SERVER_1_HOST=10.20.237.192
+TEST_SERVER_1_PORT=12055
+TEST_SERVER_1_USER=openruyi
+TEST_SERVER_1_PASSWORD=openruyi
+TEST_SERVER_2_HOST=10.20.238.100
+TEST_SERVER_2_PORT=22
+TEST_SERVER_2_USER=openruyi
+TEST_SERVER_2_PASSWORD=openruyi
+```
+
+### 5.3 测试用例声明 (`hardware-require`)
+
+#### 支持的字段
+
+| 字段 | 含义 | 检查方式 | 示例值 |
+|------|------|----------|--------|
+| `server` | 需要的服务器数量 | 对比 `TEST_SERVER_COUNT` | `2` |
+| `cpu` | 每台 CPU 核心数 | `nproc` | `">= 4"` |
+| `memory` | 每台可用内存 | `free -g` | `">= 8 GiB"` |
+| `disk` | 每台磁盘数量 | `lsblk -nd` | `">= 1"` |
+| `net` | 每台 UP 状态网卡数 | `ip -o link show` | `">= 1"` |
+
+支持的比较运算符：`=` `!=` `>=` `<=` `>` `<`
+
+#### 层级继承
+
+利用 FMF 的层级继承机制，在测试分类父级统一声明默认值，子套件无需重复：
+
+```
+tests/functional/main.fmf          ← hardware-require (默认值)
+  └─ pkgs/acl/main.fmf              ← 无 hardware-require → 继承父级
+  │    ├─ test_acl_getfacl_basic/    → 获得默认约束 ✅
+  │    └─ test_acl_setfacl/          → 获得默认约束 ✅
+  └─ kernel/realtime/main.fmf       ← cpu: ">= 16" → 覆盖 cpu
+       └─ test_rt_latency/           → cpu>=16, 其余继承默认 ✅
+```
+
+#### 当前默认值
+
+所有测试分类父级 `tests/*/main.fmf` 已统一声明：
+
+```yaml
+hardware-require:
+  server: 1
+  cpu: ">= 4"
+  memory: ">= 8 GiB"
+  disk: ">= 1"
+  net: ">= 1"
+```
+
+#### 按需覆盖
+
+子套件只需覆盖需要提升的字段，其余自动继承：
+
+```yaml
+# tests/functional/kernel/realtime/main.fmf
+hardware-require:
+  cpu: ">= 16"        # 覆盖父级的 ">= 4"
+  memory: ">= 16 GiB"  # 覆盖父级的 ">= 8 GiB"
+  # server/disk/net 未写，自动继承父级默认值
+```
+
+### 5.4 公共库函数 (`tests/lib/hw_check.sh`)
+
+测试脚本中引入公共库后调用：
+
+```bash
+. "$(dirname "$0")/../../lib/hw_check.sh"
+```
+
+| 函数 | 用途 |
+|------|------|
+| `hwVerify [fmf]` | 综合检查所有字段，不满足则 `exit 0`（tmt 视为 skip） |
+| `hwServerVerify [fmf]` | 仅检查服务器数量 |
+| `hwCpuCheck [fmf]` | 仅检查 CPU 核心数 |
+| `hwMemCheck [fmf]` | 仅检查内存大小 |
+| `hwDiskCheck [fmf]` | 仅检查磁盘数量 |
+| `hwNetCheck [fmf]` | 仅检查网卡数量（UP 状态，排除 lo） |
+| `hwRunOnServer <idx> <cmd>` | 在指定索引的服务器上远程执行命令 |
+| `hwGetServerInfo <idx> <field>` | 获取服务器连接信息 (`host`/`port`/`user`/`password`) |
+
+### 5.5 Plan 配置
+
+所有 `how: local` 的 Plan 需添加 `environment-file` 以加载拓扑环境变量：
+
+```yaml
+# plans/functional.fmf
+environment-file:
+  - topology.env
+```
+
+当前项目所有 Plan 文件已统一配置：`functional`、`smoke`、`security`、`performance`、`reliability`、`compatibility`、`feature`、`all`。
+
+### 5.6 完整用例示例
+
+**`main.fmf`**：
+
+```yaml
+summary: 功能测试 - my_pkg - 多机主备切换
+test: ./test.sh
+tag:
+  - functional
+  - my_pkg
+duration: 5m
+tier: 2
+hardware-require:
+  server: 2
+```
+
+**`test.sh`**：
+
+```bash
+#!/bin/bash
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../../lib/hw_check.sh"   # ← 引入公共库
+
+rlJournalStart
+    rlPhaseStartSetup "环境准备"
+        rlRun "dnf install -y my-pkg" 0 "安装 my-pkg"
+    rlPhaseEnd
+
+    rlPhaseStartTest "主备切换测试"
+        # 环境自检，不满足自动 SKIP
+        hwVerify
+
+        # 本机启动主服务
+        rlRun "my-server --start --role=master" 0 "启动主节点"
+
+        # server-2 启动备服务
+        hwRunOnServer 2 "my-server --start --role=standby"
+
+        # 从 server-2 连接 server-1 验证
+        local s1_host=$(hwGetServerInfo 1 host)
+        hwRunOnServer 2 "my-client --connect $s1_host --check-status"
+    rlPhaseEnd
+
+    rlPhaseStartCleanup "清理环境"
+        rlRun "my-server --stop" 0 "停止主节点"
+        hwRunOnServer 2 "my-server --stop"
+    rlPhaseEnd
+
+    rlJournalPrintText
+rlJournalEnd
+```
+
+### 5.7 工作机制
+
+```
+tmt run plan --name /plans/functional
+  │
+  ├─ environment-file 加载 topology.env → 环境变量就绪
+  │
+  ├─ discover: 发现所有包含 tag:functional 的测试
+  │
+  ├─ execute:
+  │   ├─ test_acl_basic: 继承默认 hardware-require → hwVerify() 自动检查
+  │   ├─ test_multi_host:
+  │   │   ├─ hwVerify()
+  │   │   │   ├─ TEST_SERVER_COUNT=1, need=2 → "SKIP: need 2 servers"
+  │   │   │   └─ exit 0（tmt 记录为 skip）
+  │   │   └─ （不满足时不执行后续测试逻辑）
+  │   └─ ...
+  │
+  └─ report: 汇总所有 skip 状态及原因
+```
+
+> **设计原则**：利用 FMF 层级继承 + 环境变量注入 + 公共库自检，实现与上层 provision 插件一致的"不满足即跳过"语义，且避免在每个套件重复声明硬件需求。
+
+---
+
+## 6. 命名规范
 
 | 规则 | 示例 |
 |------|------|
@@ -220,7 +410,7 @@ execute:
 
 ---
 
-## 6. 执行和验证
+## 7. 执行和验证
 
 ### 本地验证
 
@@ -244,7 +434,7 @@ tmt run --last report -fvvv
 
 ---
 
-## 7. 常见问题
+## 8. 常见问题
 
 ### Q: test.sh 需要可执行权限吗？
 

@@ -12,3 +12,6 @@ AGENTS.md
 
 # 测试结果（本地存放）
 .test_results_server/
+
+# 测试服务器拓扑配置（本地敏感信息）
+topology.env

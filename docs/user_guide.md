@@ -44,6 +44,50 @@ rpm -q beakerlib
 > sudo pip3 install --break-system-packages tmt
 > ```
 
+### 1.4 配置测试拓扑（可选）
+
+测试计划会自动检测当前机器硬件资源（CPU/内存/磁盘/网卡）是否满足测试用例的硬件需求。如需在多台服务器上执行测试，或者自定义服务器连接信息，可配置 `topology.env`：
+
+```bash
+# 复制模板
+cp topology.env.example topology.env
+
+# 按实际环境修改
+vim topology.env
+```
+
+**配置变量说明：**
+
+| 变量 | 说明 | 默认值 |
+|------|------|--------|
+| `TEST_SERVER_COUNT` | 可用服务器数量 | 1 |
+| `TEST_SERVER_1_HOST` | 第 1 台服务器 IP/主机名 | (无) |
+| `TEST_SERVER_1_PORT` | 第 1 台服务器 SSH 端口 | 22 |
+| `TEST_SERVER_1_USER` | 第 1 台服务器登录用户名 | root |
+| `TEST_SERVER_1_PASSWORD` | 第 1 台服务器登录密码 | (无) |
+
+多服务器示例（3 台）：
+
+```ini
+TEST_SERVER_COUNT=3
+
+TEST_SERVER_1_HOST=192.168.1.10
+TEST_SERVER_1_PORT=22
+TEST_SERVER_1_USER=root
+TEST_SERVER_1_PASSWORD=mypassword
+
+TEST_SERVER_2_HOST=192.168.1.11
+TEST_SERVER_2_PORT=12055
+TEST_SERVER_2_USER=openruyi
+TEST_SERVER_2_PASSWORD=mypassword
+
+TEST_SERVER_3_HOST=192.168.1.12
+TEST_SERVER_3_USER=root
+# 端口/密码未设置时使用默认值 22 / 无密码
+```
+
+> **未配置 `topology.env` 不影响单机测试**。系统将当前机器视为唯一服务器（`TEST_SERVER_COUNT` 默认为 1），硬件资源通过系统命令自动获取。
+
 ---
 
 ## 2. 执行单个测试用例
@@ -57,6 +101,8 @@ tmt run --all --verbose plan --name /plans/functional \
     test --name /tests/functional/pkgs/acl/test_acl_getfacl_basic \
     provision --feeling-safe
 ```
+
+> **关于 `--feeling-safe`**：tmt 默认会询问用户确认后才执行，加上此参数跳过交互式确认，适合自动化/无人值守场景。
 
 ---
 
@@ -112,16 +158,19 @@ cd $(ls -dt /var/tmp/tmt/run-* | head -1)
 
 ```
 /var/tmp/tmt/run-XXX/
-├── plan/
-│   └── execute/
-│       └── data/
-│           └── tests/functional/pkgs/acl/
-│               ├── test_acl_getfacl_basic/
-│               │   └── output.txt    # 该用例的完整输出
-│               ├── test_acl_setfacl_basic/
-│               │   └── output.txt
-│               └── ...
-└── run.yaml                         # 运行元数据
+├── plans/
+│   └── {plan-name}/            # 如 functional
+│       └── execute/
+│           └── data/
+│               └── guest/      # 本地执行时为 guest
+│                   └── default-0/
+│                       └── tests/functional/pkgs/acl/
+│                           ├── test_acl_getfacl_basic-1/
+│                           │   └── output.txt    # 该用例的完整输出
+│                           ├── test_acl_setfacl_basic-2/
+│                           │   └── output.txt
+│                           └── ...
+└── run.yaml                    # 运行元数据
 ```
 
 ### 5.2 查看单个用例日志
@@ -130,8 +179,11 @@ cd $(ls -dt /var/tmp/tmt/run-* | head -1)
 # 进入最近一次运行目录
 RUN_DIR=$(ls -dt /var/tmp/tmt/run-* | head -1)
 
+# 路径包含 plans/ 和 guest/default-0/ 层级
+BASE="$RUN_DIR/plans/functional/execute/data/guest/default-0"
+
 # 查看某个测试用例的完整输出
-cat $RUN_DIR/plan/execute/data/tests/functional/pkgs/acl/test_acl_getfacl_basic/output.txt
+cat "$BASE/tests/functional/pkgs/acl/test_acl_getfacl_basic-1/output.txt"
 ```
 
 ### 5.3 查看汇总报告
@@ -148,9 +200,10 @@ tmt run --last report -fvvv
 
 ```bash
 RUN_DIR=$(ls -dt /var/tmp/tmt/run-* | head -1)
+BASE="$RUN_DIR/plans/functional/execute/data/guest/default-0"
 
 # 列出所有用例的 output.txt 并显示最后几行（通常包含 PASS/FAIL）
-find $RUN_DIR -name "output.txt" | while read f; do
+find "$BASE" -name "output.txt" | sort | while read f; do
     dir=$(dirname "$f")
     echo "=== $(basename "$dir") ==="
     tail -5 "$f"
@@ -254,3 +307,153 @@ tmt test ls /tests/functional/pkgs/acl
 ```bash
 tmt run --last report -fvvv
 ```
+
+> **注意**：`tmt run --last report` 有时会因 tmt 内部轮询历史数据而较慢。如果只是查看结果摘要，可以直接读取 `run.yaml` 或查看各用例的 `output.txt`。
+
+### Q: 执行 tmt run 时报 `Synchronization lock ... is stale`
+
+```bash
+# 清理旧的 tmt 锁文件（通常由 root 拥有的旧运行残留）
+sudo rm -f /var/tmp/tmt-test.pid.lock
+```
+
+---
+
+## 9. 实战示例：ACL 测试套
+
+本节以 `acl` 测试套为例，完整展示从环境准备到查看结果的全流程。
+
+### 9.1 前提条件
+
+- 一台干净的 openRuyi 服务器（本示例：10.20.237.192:12055）
+- 已安装 git、tmt、beakerlib（参考第 1 节）
+
+### 9.2 克隆仓库并安装依赖
+
+```bash
+git clone https://git.openruyi.cn/woqidaideshi/openruyi-autotest.git
+cd openruyi-autotest
+
+# 安装 tmt 和测试依赖
+sudo dnf install -y tmt beakerlib python-six
+sudo dnf install -y acl         # ACL 测试目标软件包
+```
+
+### 9.3 （可选）配置 topology.env
+
+```bash
+cp topology.env.example topology.env
+vim topology.env
+```
+
+写入内容：
+
+```ini
+TEST_SERVER_COUNT=1
+TEST_SERVER_1_HOST=10.20.237.192
+TEST_SERVER_1_PORT=12055
+TEST_SERVER_1_USER=openruyi
+TEST_SERVER_1_PASSWORD=openruyi
+```
+
+> 如果当前用户就是 `openruyi` 且在本机执行，可以不配置 `topology.env`，tmt 会自动检测。
+
+### 9.4 清理锁文件（重要）
+
+如果之前执行过 tmt 但异常中断，锁文件可能残留：
+
+```bash
+sudo rm -f /var/tmp/tmt-test.pid.lock
+```
+
+### 9.5 执行 ACL 测试套
+
+```bash
+cd ~/openruyi-autotest
+
+tmt run --all plan --name /plans/functional \
+    test --name /tests/functional/pkgs/acl \
+    provision --feeling-safe
+```
+
+**命令解析：**
+
+| 参数 | 含义 |
+|------|------|
+| `--all` | 跳过交互确认（和 `--feeling-safe` 配合使用） |
+| `plan --name /plans/functional` | 使用功能测试计划（定义在 `plans/functional.fmf`） |
+| `test --name /tests/functional/pkgs/acl` | 只执行 `tests/functional/pkgs/acl/` 下的用例 |
+| `provision --feeling-safe` | 本地执行，跳过确认 |
+
+**预期输出关键行：**
+
+```
+Found 1 plan.
+summary: 功能测试 - 验证所有功能测试用例
+discover
+    how: fmf
+    directory: /home/openruyi/openruyi-autotest/tests/functional/pkgs/acl
+    filter: tag:functional
+    tests:
+        /tests/functional/pkgs/acl/test_acl_acl_inheritance
+        /tests/functional/pkgs/acl/test_acl_acl_permission_verify
+        ...
+total: 11 tests
+```
+
+执行过程大约需要 **20~30 分钟**（取决于服务器性能）。每个测试用例的输出会实时显示在终端中。
+
+### 9.6 查看结果
+
+#### 方式一：查看汇总报告
+
+```bash
+cd ~/openruyi-autotest
+tmt run --last report
+```
+
+输出示例：
+
+```
+total: 11 tests passed
+```
+
+#### 方式二：遍历所有 output.txt
+
+```bash
+RUN_DIR=$(ls -dt /var/tmp/tmt/run-* | head -1)
+BASE="$RUN_DIR/plans/functional/execute/data/guest/default-0"
+
+find "$BASE" -name "output.txt" | sort | while read f; do
+    echo "=== $(basename $(dirname "$f")) ==="
+    tail -3 "$f"
+    echo ""
+done
+```
+
+预期每个用例最后一行都是 `EXIT_CODE=0` 和 `TESTS_RESULT=PASS`。
+
+#### 方式三：查看单个用例的输出
+
+```bash
+BASE="/var/tmp/tmt/run-*/plans/functional/execute/data/guest/default-0"
+cat "$BASE/tests/functional/pkgs/acl/test_acl_getfacl_basic-1/output.txt"
+```
+
+### 9.7 ACL 测试套包含的用例
+
+| 序号 | 用例名 | 说明 |
+|------|--------|------|
+| 1 | `test_acl_acl_inheritance` | ACL 权限继承验证 |
+| 2 | `test_acl_acl_permission_verify` | ACL 权限正确性验证 |
+| 3 | `test_acl_chacl_command` | chacl 命令功能测试 |
+| 4 | `test_acl_error_handling` | 错误处理与边界情况 |
+| 5 | `test_acl_getfacl_basic` | getfacl 基本功能 |
+| 6 | `test_acl_getfacl_command` | getfacl 命令行选项 |
+| 7 | `test_acl_setfacl_basic` | setfacl 基本功能 |
+| 8 | `test_acl_setfacl_default_acl` | setfacl 默认 ACL |
+| 9 | `test_acl_setfacl_modify_acl` | setfacl 修改已有 ACL |
+| 10 | `test_acl_setfacl_recursive` | setfacl 递归操作 |
+| 11 | `test_acl_tool_installation` | ACL 工具安装检查 |
+
+> 共 11 个用例，全部通过即为 ACL 功能正常。此套件可作为其他软件包测试的参考模板。其他 `tests/functional/pkgs/<包名>/` 下的测试套执行方式与此完全相同，只需将 `test --name` 中的 `acl` 替换为目标包名即可。

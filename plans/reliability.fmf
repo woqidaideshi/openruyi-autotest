@@ -3,6 +3,9 @@
 
 summary: 可靠性测试 - 验证系统稳定性和可靠性
 
+environment-file:
+  - topology.env
+
 discover:
   how: fmf
   filter: "tag:reliability"
