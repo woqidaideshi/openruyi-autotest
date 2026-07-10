@@ -1,6 +1,8 @@
 # openruyi-autotest 开发指南
 
 > 如何为 openruyi-autotest 贡献新的测试用例。
+>
+> **相关文档**：[Commit & MR 规范](commit_guide.md) · [用户指南](user_guide.md)
 
 ---
 
