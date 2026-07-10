@@ -14,16 +14,9 @@ rlJournalStart
         TmpDir=$(mktemp -d)
         rlRun "cd $TmpDir" 0 "进入临时目录"
         
-        BENCH_FILE=$(find "$BENCH_DIR" -name '*.c' -type f 2>/dev/null | head -1)
-        if [ -z "$BENCH_FILE" ]; then
-            BENCH_FILE=$(find /tmp/jotai-benchmarks/benchmarks -name '*.c' -type f 2>/dev/null | head -1)
-        fi
-        
-        if [ -z "$BENCH_FILE" ]; then
-            rlFail "未找到可用的 benchmark 文件"
-        else
-            rlLogInfo "选择的 benchmark: $(basename $BENCH_FILE)"
-            cp "$BENCH_FILE" ./bench.c
+        jotaiPrepareBenchmark ./bench.c
+        if [ ! -f ./bench.c ]; then
+            rlFail "bench.c 创建失败"
         fi
     rlPhaseEnd
 
@@ -31,11 +24,11 @@ rlJournalStart
         if [ ! -f ./bench.c ]; then
             rlFail "bench.c 不存在，跳过测试"
         else
-            local outputs=()
+            outputs=()
             
             for opt in O0 O1 O2 O3; do
-                local bin="bench_clang_$opt"
-                local out="output_clang_$opt.txt"
+                bin="bench_clang_$opt"
+                out="output_clang_$opt.txt"
                 
                 rlRun "clang -$opt bench.c -o $bin -lm 2>&1" 0 "Clang -$opt 编译"
                 
@@ -81,8 +74,8 @@ rlJournalStart
             
             # 验证 Clang 内部各优化级别一致性
             if [ ${#outputs[@]} -ge 2 ]; then
-                local first="${outputs[0]}"
-                local all_match=1
+                first="${outputs[0]}"
+                all_match=1
                 for ((i=1; i<${#outputs[@]}; i++)); do
                     if [ "${outputs[$i]}" != "$first" ]; then
                         all_match=0
