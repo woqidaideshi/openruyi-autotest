@@ -68,7 +68,8 @@ runs:
         USER_HOME="/home/${{ inputs.ssh_user }}"
         echo "REPO_NAME=${REPO_NAME}" >> "$GITHUB_ENV"
         echo "USER_HOME=${USER_HOME}" >> "$GITHUB_ENV"
-
+        echo "SSH_USER=${{ inputs.ssh_user }}" >> "$GITHUB_ENV"
+        echo "SSH_PASS=${{ inputs.ssh_pass }}" >> "$GITHUB_ENV"
         run_as_root "whoami && uname -a && free -h && df -lh"
         run_as_root "dnf install -y --refresh git tmt beakerlib rsync python-six 2>&1"
         run_as_root "tmt --version || echo 'tmt not installed'"
@@ -82,12 +83,12 @@ runs:
         # Copy the already-checked-out repo from runner to target via tar+ssh,
         $SSHO "mkdir -p ~/$REPO_NAME ~/results/${{ github.run_number }}"
         tar czf - -C "$GITHUB_WORKSPACE" --exclude='.git' . | $SSHO "tar xzf - -C ~/$REPO_NAME"
-        $SSHO "cat > ~/$REPO_NAME/topology.env <<'EOF'
+        $SSHO "cat > ~/$REPO_NAME/topology.env <<EOF
 TEST_SERVER_COUNT=1
 TEST_SERVER_1_HOST=127.0.0.1
 TEST_SERVER_1_PORT=22
-TEST_SERVER_1_USER=${{ inputs.ssh_user }}
-TEST_SERVER_1_PASSWORD=${{ inputs.ssh_pass }}
+TEST_SERVER_1_USER=$SSH_USER
+TEST_SERVER_1_PASSWORD=$SSH_PASS
 EOF"
 
     - name: Run tests on target
