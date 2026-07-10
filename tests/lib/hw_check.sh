@@ -178,7 +178,7 @@ hwCpuCheck() {
         rlLogWarning "环境不满足: CPU 需要 $need, 实际 $(nproc) 核"
         exit 0
     fi
-    rlLogInfo "hw: CPU OK ($have $need)"
+    rlLogInfo "hw: CPU OK (have $have, need $need)"
     return 0
 }
 
@@ -205,7 +205,7 @@ hwMemCheck() {
         rlLogWarning "环境不满足: 内存需要 $need, 实际 ${have}G"
         exit 0
     fi
-    rlLogInfo "hw: Memory OK (${have}G >= $need)"
+    rlLogInfo "hw: Memory OK (have ${have}G, need $need)"
     return 0
 }
 
@@ -222,7 +222,7 @@ hwDiskCheck() {
         rlLogWarning "环境不满足: 磁盘需要 $need 块, 实际 $have 块"
         exit 0
     fi
-    rlLogInfo "hw: Disk OK ($have >= $need)"
+    rlLogInfo "hw: Disk OK (have $have, need $need)"
     return 0
 }
 
@@ -241,7 +241,7 @@ hwNetCheck() {
         rlLogWarning "环境不满足: 网卡需要 $need 个, 实际 $have 个"
         exit 0
     fi
-    rlLogInfo "hw: Net OK ($have >= $need)"
+    rlLogInfo "hw: Net OK (have $have, need $need)"
     return 0
 }
 
