@@ -248,7 +248,7 @@ aclCleanup() {
 | `require` | list | ✅ | Dependent RPM packages (must include package under test + `coreutils` + `beakerlib`) |
 | `contact` | string | | Test owner/maintainer |
 | `environment` | dict | | Custom environment variables, e.g. `{VAR1: val1, VAR2: val2}`, injected into test environment |
-| `hardware-require` | dict | | Hardware requirement declaration (see Section 5.3), e.g. `{cpu: ">= 4", memory: ">= 8 GiB"}` |
+| `extra-hardware-require` | dict | | Hardware requirement declaration (see Section 5.3), e.g. `{cpu: ">= 4", memory: ">= 8 GiB"}` |
 
 ### Test Plan (plans/*.fmf)
 
@@ -280,7 +280,7 @@ All plans in this project use `how: local` mode, implementing hardware environme
 |-----------|------|---------|
 | Topology config template | `topology.env.example` | Repo-level template, committed to version control |
 | Topology config instance | `topology.env` | Actual server info, `.gitignore`'d, not committed |
-| Test case declaration | `hardware-require` in `main.fmf` | Each case declares its hardware requirements |
+| Test case declaration | `extra-hardware-require` in `main.fmf` | Each case declares its hardware requirements |
 | Plan loading | `environment-file` in `plans/*.fmf` | Injects `topology.env` as environment variables |
 | Shared check library | `tests/lib/hw_check.sh` | Parses declarations, compares environment, remote execution |
 
@@ -300,7 +300,7 @@ TEST_SERVER_2_USER=openruyi
 TEST_SERVER_2_PASSWORD=openruyi
 ```
 
-### 5.3 Test Case Declaration (`hardware-require`)
+### 5.3 Test Case Declaration (`extra-hardware-require`)
 
 #### Supported Fields
 
@@ -319,8 +319,8 @@ Supported comparison operators: `=` `!=` `>=` `<=` `>` `<`
 Use FMF's hierarchical inheritance to declare defaults at the test type parent level; child suites don't need to repeat:
 
 ```
-tests/functional/main.fmf          ← hardware-require (defaults)
-  └─ pkgs/acl/main.fmf              ← No hardware-require → inherits parent
+tests/functional/main.fmf          ← extra-hardware-require (defaults)
+  └─ pkgs/acl/main.fmf              ← No extra-hardware-require → inherits parent
   │    ├─ test_acl_getfacl_basic/    → Gets defaults ✅
   │    └─ test_acl_setfacl/          → Gets defaults ✅
   └─ kernel/realtime/main.fmf       ← cpu: ">= 16" → overrides cpu
@@ -332,7 +332,7 @@ tests/functional/main.fmf          ← hardware-require (defaults)
 All test type parents `tests/*/main.fmf` have unified declarations:
 
 ```yaml
-hardware-require:
+extra-hardware-require:
   server: 1
   cpu: ">= 4"
   memory: ">= 8 GiB"
@@ -346,7 +346,7 @@ Child suites only override fields that need elevation; the rest are automaticall
 
 ```yaml
 # tests/functional/kernel/realtime/main.fmf
-hardware-require:
+extra-hardware-require:
   cpu: ">= 16"        # Overrides parent's ">= 4"
   memory: ">= 16 GiB"  # Overrides parent's ">= 8 GiB"
   # server/disk/net not written, auto-inherited from parent defaults
@@ -395,7 +395,7 @@ tag:
   - my_pkg
 duration: 5m
 tier: 2
-hardware-require:
+extra-hardware-require:
   server: 2
 ```
 

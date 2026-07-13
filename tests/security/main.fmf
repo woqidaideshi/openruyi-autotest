@@ -1,14 +1,28 @@
 summary: Security test - systemsecurityverify
+
 tag:
+
  - security
+
 duration: 5m
+
 tier: 1
+
 path: /tests/security
+
 require:
+
  - beakerlib
-hardware-require:
+
+extra-hardware-require:
+
  server: 1
+
  cpu: ">= 4"
+
  memory: ">= 8 GiB"
+
  disk: ">= 1"
+
  net: ">= 1"
+

@@ -1,12 +1,36 @@
-# Functional test - Shared configuration
-# allsubdirectoryPackage testsall willinheritconfiguration
-framework: shell
-duration: 5m
-tier: 1
-contact: QA Team
-hardware-require:
- server: 1
- cpu: ">= 4"
- memory: ">= 8 GiB"
- disk: ">= 1"
- net: ">= 1"
+# Functional test - Shared configuration
+
+
+# allsubdirectoryPackage testsall willinheritconfiguration
+
+
+framework: shell
+
+
+duration: 5m
+
+
+tier: 1
+
+
+contact: QA Team
+
+
+extra-hardware-require:
+
+
+ server: 1
+
+
+ cpu: ">= 4"
+
+
+ memory: ">= 8 GiB"
+
+
+ disk: ">= 1"
+
+
+ net: ">= 1"
+
+

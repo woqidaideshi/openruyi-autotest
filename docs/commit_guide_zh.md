@@ -29,7 +29,7 @@
 
 | Type | 说明 | 示例 |
 |------|------|------|
-| `feat` | 新功能 | `feat: add default hardware-require to all test suites` |
+| `feat` | 新功能 | `feat: add default extra-hardware-require to all test suites` |
 | `fix` | Bug 修复 | `fix: hw_check.sh awk pattern to match indented YAML keys` |
 | `docs` | 文档变更 | `docs: enhance development guide with ACL walkthrough` |
 | `style` | 代码格式（不影响逻辑） | `style: fix shellcheck warnings in lib.sh` |
@@ -97,7 +97,7 @@ All existing topology.env files must be migrated.
 示例：
 
 ```
-docs: enhance development guide - hardware-require, test discovery, ACL walkthrough
+docs: enhance development guide - extra-hardware-require, test discovery, ACL walkthrough
 feat(ltp): add 65 functional test suites with kirk runner
 fix(hw_check): correct awk field parsing for indented YAML
 ```
@@ -140,7 +140,7 @@ verification checklist expansion, and an ACL development walkthrough.
 
 - Section 3.3.1: New test discovery mechanism diagram
 - Section 3.4: lib.sh design patterns with reference counting
-- Section 4: FMF field table now includes framework, hardware-require, environment
+- Section 4: FMF field table now includes framework, extra-hardware-require, environment
 - Section 5.6: hwVerify placement documented (must be first line in Test Phase)
 - Section 7: Verification checklist expanded from 5 to 8 items
 - Section 8: FAQ expanded from 3 to 6 questions

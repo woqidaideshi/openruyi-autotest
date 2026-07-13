@@ -248,7 +248,7 @@ aclCleanup() {
 | `require` | list | ✅ | 依赖的 RPM 软件包（需含被测包 + `coreutils` + `beakerlib`） |
 | `contact` | string | | 测试负责人 |
 | `environment` | dict | | 自定义环境变量，如 `{VAR1: val1, VAR2: val2}`，注入到测试执行环境 |
-| `hardware-require` | dict | | 硬件需求声明（详见图 5.3），如 `{cpu: ">= 4", memory: ">= 8 GiB"}` |
+| `extra-hardware-require` | dict | | 硬件需求声明（详见图 5.3），如 `{cpu: ">= 4", memory: ">= 8 GiB"}` |
 
 ### 测试计划 (plans/*.fmf)
 
@@ -280,7 +280,7 @@ execute:
 |------|------|------|
 | 拓扑配置模板 | `topology.env.example` | 仓库级模板，提交到版本控制 |
 | 拓扑配置实例 | `topology.env` | 实际服务器信息，已 `.gitignore`，不提交 |
-| 测试用例声明 | `main.fmf` 中的 `hardware-require` | 每个用例声明自己的硬件需求 |
+| 测试用例声明 | `main.fmf` 中的 `extra-hardware-require` | 每个用例声明自己的硬件需求 |
 | Plan 加载 | `plans/*.fmf` 中的 `environment-file` | 将 `topology.env` 注入为环境变量 |
 | 公共检查库 | `tests/lib/hw_check.sh` | 解析声明、对比环境、远程执行 |
 
@@ -300,7 +300,7 @@ TEST_SERVER_2_USER=openruyi
 TEST_SERVER_2_PASSWORD=openruyi
 ```
 
-### 5.3 测试用例声明 (`hardware-require`)
+### 5.3 测试用例声明 (`extra-hardware-require`)
 
 #### 支持的字段
 
@@ -319,8 +319,8 @@ TEST_SERVER_2_PASSWORD=openruyi
 利用 FMF 的层级继承机制，在测试分类父级统一声明默认值，子套件无需重复：
 
 ```
-tests/functional/main.fmf          ← hardware-require (默认值)
-  └─ pkgs/acl/main.fmf              ← 无 hardware-require → 继承父级
+tests/functional/main.fmf          ← extra-hardware-require (默认值)
+  └─ pkgs/acl/main.fmf              ← 无 extra-hardware-require → 继承父级
   │    ├─ test_acl_getfacl_basic/    → 获得默认约束 ✅
   │    └─ test_acl_setfacl/          → 获得默认约束 ✅
   └─ kernel/realtime/main.fmf       ← cpu: ">= 16" → 覆盖 cpu
@@ -332,7 +332,7 @@ tests/functional/main.fmf          ← hardware-require (默认值)
 所有测试分类父级 `tests/*/main.fmf` 已统一声明：
 
 ```yaml
-hardware-require:
+extra-hardware-require:
   server: 1
   cpu: ">= 4"
   memory: ">= 8 GiB"
@@ -346,7 +346,7 @@ hardware-require:
 
 ```yaml
 # tests/functional/kernel/realtime/main.fmf
-hardware-require:
+extra-hardware-require:
   cpu: ">= 16"        # 覆盖父级的 ">= 4"
   memory: ">= 16 GiB"  # 覆盖父级的 ">= 8 GiB"
   # server/disk/net 未写，自动继承父级默认值
@@ -395,7 +395,7 @@ tag:
   - my_pkg
 duration: 5m
 tier: 2
-hardware-require:
+extra-hardware-require:
   server: 2
 ```
 
@@ -446,7 +446,7 @@ tmt run plan --name /plans/functional
   ├─ discover: 发现所有包含 tag:functional 的测试
   │
   ├─ execute:
-  │   ├─ test_acl_basic: 继承默认 hardware-require → hwVerify() 自动检查
+  │   ├─ test_acl_basic: 继承默认 extra-hardware-require → hwVerify() 自动检查
   │   ├─ test_multi_host:
   │   │   ├─ hwVerify()
   │   │   │   ├─ TEST_SERVER_COUNT=1, need=2 → "SKIP: need 2 servers"
