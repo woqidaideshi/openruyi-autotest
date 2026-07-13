@@ -2,7 +2,7 @@
 
 openruyi-autotest is an automated testing project based on the [tmt (Test Management Tool)](https://tmt.readthedocs.io/) framework, using [BeakerLib](https://github.com/beakerlib/beakerlib) for test scripts and [FMF](https://fmf.readthedocs.io/) for metadata management. It covers seven categories: Smoke, Functional, Security, Compatibility, Performance, Reliability, and Feature tests, totaling 726 test suites and 3,708 test cases (Functional: 281 suites / 3,216 cases — 566 pkgs + 2,407 LTP + 211 kernel + 32 compiler; Security: 113 suites / 113 cases — 98 CVE + 8 nmap + 7 openscap; Reliability: 12 suites / 12 cases — 6 trinity + 6 stress-ng).
 
-> :cn: [中文版 (Chinese Version)](README.zh.md)
+> :cn: [中文版 (Chinese Version)](README_CN.md)
 
 ---
 
