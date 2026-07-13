@@ -1,7 +1,7 @@
-# 可靠性测试计划
-# 验证系统稳定性和可靠性
+# Reliability Test Plan
+# Verify system stability and reliability
 
-summary: 可靠性测试 - 验证系统稳定性和可靠性
+summary: Reliability Test - Verify system stability and reliability
 
 environment-file:
   - topology.env

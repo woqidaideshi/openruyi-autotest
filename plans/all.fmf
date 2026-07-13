@@ -1,7 +1,7 @@
-# 全量测试计划
-# 执行所有测试用例
+# Full Test Plan
+# Execute all test cases
 
-summary: 全量测试 - 执行所有测试用例
+summary: Full Test - Execute all test cases
 
 environment-file:
   - topology.env

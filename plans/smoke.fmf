@@ -1,4 +1,4 @@
-summary: 冒烟测试 - 快速验证系统基本功能（100个用例，17个套件）
+summary: Smoke Test - Quick verification of basic system functionality (100 cases, 17 suites)
 tier: 0
 
 environment-file:
