@@ -53,10 +53,10 @@ jotaiSetup() {
     if [ ! -f "$JOTAI_FLAG" ]; then
         # Install dependencies
         if ! rpm -q gcc 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y gcc 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y gcc 2>/dev/null
         fi
         if ! rpm -q clang 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y clang 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y clang 2>/dev/null
         fi
         
         # Clone jotai-benchmarks if not present

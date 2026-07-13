@@ -20,7 +20,7 @@ STRESS_FLAG="/tmp/.beakerlib_stress_ng_suite"
 stressNgSetup() {
     if [ ! -f "$STRESS_FLAG" ]; then
         if ! rpm -q stress-ng 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y stress-ng 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y stress-ng 2>/dev/null
             if ! rpm -q stress-ng 2>/dev/null; then
                 rlLogWarning "stress-ng 安装失败"
                 echo "installed=0" > "$STRESS_FLAG"
@@ -50,7 +50,7 @@ stressNgCleanup() {
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
         if grep -q "^installed=1" "$STRESS_FLAG"; then
-            echo openruyi | sudo -S dnf remove -y stress-ng 2>/dev/null || true
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y stress-ng 2>/dev/null || true
         fi
         rm -f "$STRESS_FLAG"
     else

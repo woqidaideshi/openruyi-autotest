@@ -103,7 +103,7 @@ cveSetup() {
         if [ ! -f "$CVE_FLAG" ] && [ ! -d "$LTP_INSTALL_DIR" ]; then
             rlLogInfo "安装 LTP（首次）..."
             # Try dnf first (fastest — LTP 20260130+ in repo includes kirk)
-            if echo openruyi | sudo -S dnf install -y ltp 2>/dev/null; then
+            if echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y ltp 2>/dev/null; then
                 _cveSetupPath
                 if command -v kirk >/dev/null 2>&1 || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
                     method="dnf"
@@ -113,12 +113,12 @@ cveSetup() {
             if [ ! -f "$CVE_FLAG" ]; then
                 # dnf failed or kirk not in PATH — compile from source
                 rlLogInfo "dnf 安装失败或无 kirk，从源码编译（tag: $LTP_TAG）..."
-                echo openruyi | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig \
+                echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig \
                     zlib-devel keyutils-libs-devel libtirpc-devel libmnl-devel libaio-devel \
                     libcap-devel openssl-devel numactl-devel 2>/dev/null || true
                 if [ ! -d "$LTP_INSTALL_DIR" ]; then
-                    echo openruyi | sudo -S mkdir -p "$LTP_INSTALL_DIR" 2>/dev/null
-                    echo openruyi | sudo -S chown openruyi:openruyi "$LTP_INSTALL_DIR" 2>/dev/null
+                    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S mkdir -p "$LTP_INSTALL_DIR" 2>/dev/null
+                    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S chown openruyi:openruyi "$LTP_INSTALL_DIR" 2>/dev/null
                     git clone --depth 1 --branch "$LTP_TAG" https://github.com/linux-test-project/ltp.git "$LTP_INSTALL_DIR" 2>/dev/null || true
                 fi
                 if [ -f "$LTP_INSTALL_DIR/Makefile" ]; then
@@ -192,7 +192,7 @@ cveCleanup() {
         local installed
         installed=$(grep "^installed=" "$CVE_FLAG" | cut -d= -f2)
         case "$installed" in
-            1) echo openruyi | sudo -S dnf remove -y ltp 2>/dev/null || true
+            1) echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y ltp 2>/dev/null || true
                rlLogInfo "已卸载 LTP（dnf 安装）" ;;
             2) rm -rf "$LTP_INSTALL_DIR"
                rlLogInfo "已删除 LTP 源码目录" ;;

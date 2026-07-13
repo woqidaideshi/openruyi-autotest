@@ -35,9 +35,9 @@ _mmtestsRunCase() {
     cd "$MMTESTS_DIR" 2>/dev/null || true
     export AUTO_PACKAGE_INSTALL=yes
     # Pre-install common MMTests dependencies to avoid interactive prompts
-    echo openruyi | sudo -S dnf install -y procps-ng wget2 2>/dev/null || true
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y procps-ng wget2 2>/dev/null || true
     # MMTests runs with sudo; pipe password for sudo, AUTO_PACKAGE_INSTALL handles dnf prompts
-    echo openruyi | timeout --signal=KILL --kill-after=10 1800 \
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | timeout --signal=KILL --kill-after=10 1800 \
         sudo -S -p "" bash run-mmtests.sh --no-monitor --config "configs/$config" "$config" 2>&1 | tee "$out"
     local rc=${PIPESTATUS[0]}
 
@@ -93,13 +93,13 @@ _mmtestsRunCase() {
 mmtestsSetup() {
     if [ ! -f "$MMTESTS_FLAG" ]; then
         if [ ! -x "$MMTESTS_DIR/run-mmtests.sh" ]; then
-            echo openruyi | sudo -S dnf install -y mmtests 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y mmtests 2>/dev/null
             if [ ! -x "$MMTESTS_DIR/run-mmtests.sh" ]; then
                 rlLogWarning "MMTests 安装失败，测试将被跳过"
                 echo "installed=0" > "$MMTESTS_FLAG"
             else
                 # Fix ownership so openruyi can write work/ and shellpacks/
-                echo openruyi | sudo -S chown -R openruyi:openruyi "$MMTESTS_DIR" 2>/dev/null
+                echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S chown -R openruyi:openruyi "$MMTESTS_DIR" 2>/dev/null
                 echo "installed=1" > "$MMTESTS_FLAG"
                 rlLogInfo "已安装 MMTests（首次）"
             fi

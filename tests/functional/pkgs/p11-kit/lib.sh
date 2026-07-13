@@ -10,7 +10,7 @@ PKG_FLAG="/tmp/.beakerlib_p11_kit_suite"
 p11KitSetup() {
     if [ ! -f "$PKG_FLAG" ]; then
         if ! rpm -q p11-kit 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y p11-kit 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y p11-kit 2>/dev/null
             echo "installed=1" > "$PKG_FLAG"
             rlLogInfo "已安装 p11-kit 软件包（首次）"
         else
@@ -37,7 +37,7 @@ p11KitCleanup() {
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
         if grep -q "^installed=1" "$PKG_FLAG"; then
-            echo openruyi | sudo -S dnf remove -y p11-kit 2>/dev/null || true
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y p11-kit 2>/dev/null || true
             rlLogInfo "已卸载 p11-kit 软件包（最后一个测试）"
         fi
         rm -f "$PKG_FLAG"

@@ -10,7 +10,7 @@ PKG_FLAG="/tmp/.beakerlib_perl_rpm_packaging_suite"
 perlRpmPackagingSetup() {
     if [ ! -f "$PKG_FLAG" ]; then
         if ! rpm -q perl-rpm-packaging 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y perl-rpm-packaging 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y perl-rpm-packaging 2>/dev/null
             echo "installed=1" > "$PKG_FLAG"
             rlLogInfo "已安装 perl-rpm-packaging 软件包（首次）"
         else
@@ -37,7 +37,7 @@ perlRpmPackagingCleanup() {
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
         if grep -q "^installed=1" "$PKG_FLAG"; then
-            echo openruyi | sudo -S dnf remove -y perl-rpm-packaging 2>/dev/null || true
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y perl-rpm-packaging 2>/dev/null || true
             rlLogInfo "已卸载 perl-rpm-packaging 软件包（最后一个测试）"
         fi
         rm -f "$PKG_FLAG"

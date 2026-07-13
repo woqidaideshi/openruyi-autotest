@@ -10,7 +10,7 @@ PKG_FLAG="/tmp/.beakerlib_python_srpm_macros_suite"
 pythonSrpmMacrosSetup() {
     if [ ! -f "$PKG_FLAG" ]; then
         if ! rpm -q python-srpm-macros 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y python-srpm-macros 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y python-srpm-macros 2>/dev/null
             echo "installed=1" > "$PKG_FLAG"
             rlLogInfo "已安装 python-srpm-macros 软件包（首次）"
         else
@@ -37,7 +37,7 @@ pythonSrpmMacrosCleanup() {
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
         if grep -q "^installed=1" "$PKG_FLAG"; then
-            echo openruyi | sudo -S dnf remove -y python-srpm-macros 2>/dev/null || true
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y python-srpm-macros 2>/dev/null || true
             rlLogInfo "已卸载 python-srpm-macros 软件包（最后一个测试）"
         fi
         rm -f "$PKG_FLAG"

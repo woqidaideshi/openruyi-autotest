@@ -18,7 +18,7 @@ aclSetup() {
     if [ ! -f "$ACL_FLAG" ]; then
         # First test to arrive: install if needed
         if ! rpm -q acl 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y acl 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y acl 2>/dev/null
             echo "installed=1" > "$ACL_FLAG"
             rlLogInfo "已安装 acl 软件包（首次）"
         else
@@ -52,7 +52,7 @@ aclCleanup() {
     if [ "$ref" -le 0 ]; then
         # Last test to leave: uninstall if we installed
         if grep -q "^installed=1" "$ACL_FLAG"; then
-            echo openruyi | sudo -S dnf remove -y acl 2>/dev/null || true
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y acl 2>/dev/null || true
             rlLogInfo "已卸载 acl 软件包（最后一个测试）"
         fi
         rm -f "$ACL_FLAG"

@@ -21,7 +21,7 @@ trinitySetup() {
     if [ ! -f "$TRINITY_FLAG" ]; then
         # Install trinity
         if ! rpm -q trinity 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y trinity 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y trinity 2>/dev/null
             if ! rpm -q trinity 2>/dev/null; then
                 rlLogWarning "trinity 安装失败"
                 echo "installed=0" > "$TRINITY_FLAG"
@@ -36,7 +36,7 @@ trinitySetup() {
 
         # Create non-root user for trinity (MUST NOT run as root)
         if ! id "$TRINITY_USER" >/dev/null 2>&1; then
-            echo openruyi | sudo -S useradd -m "$TRINITY_USER" 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S useradd -m "$TRINITY_USER" 2>/dev/null
             echo "${TRINITY_USER}:trinity123" | sudo -S chpasswd 2>/dev/null
             rlLogInfo "已创建 Trinity 专用用户: $TRINITY_USER"
         else
@@ -61,7 +61,7 @@ trinityCleanup() {
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
         if grep -q "^installed=1" "$TRINITY_FLAG"; then
-            echo openruyi | sudo -S dnf remove -y trinity 2>/dev/null || true
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y trinity 2>/dev/null || true
             rlLogInfo "已卸载 trinity"
         fi
         rm -f "$TRINITY_FLAG"

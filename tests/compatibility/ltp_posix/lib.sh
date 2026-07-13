@@ -10,7 +10,7 @@
 LTP_FLAG="/tmp/.beakerlib_ltp_posix_suite"
 LTP_DIR="/tmp/ltp-posix"
 LTP_BUILD_DIR="$LTP_DIR/testcases/open_posix_testsuite"
-SUDO_PASSWORD="openruyi"
+SUDO_PASSWORD="${TEST_SERVER_1_PASSWORD:-openruyi}"
 
 # ── 引用计数 Setup ──
 

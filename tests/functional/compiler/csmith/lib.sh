@@ -13,7 +13,7 @@ CSMITH_FLAG="/tmp/.beakerlib_compiler_csmith_suite"
 csmithSetup() {
     if [ ! -f "$CSMITH_FLAG" ]; then
         if ! rpm -q csmith 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y csmith 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y csmith 2>/dev/null
             if ! rpm -q csmith 2>/dev/null; then
                 rlLogWarning "csmith 安装失败"
                 echo "installed=0" > "$CSMITH_FLAG"
@@ -43,7 +43,7 @@ csmithCleanup() {
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
         if grep -q "^installed=1" "$CSMITH_FLAG"; then
-            echo openruyi | sudo -S dnf remove -y csmith 2>/dev/null || true
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y csmith 2>/dev/null || true
             rlLogInfo "已卸载 csmith"
         fi
         rm -f "$CSMITH_FLAG"

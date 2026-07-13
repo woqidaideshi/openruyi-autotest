@@ -23,7 +23,7 @@ IOZONE_FLAG="/tmp/.beakerlib_iozone_suite"
 iozoneSetup() {
     if [ ! -f "$IOZONE_FLAG" ]; then
         if ! rpm -q iozone 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y iozone 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y iozone 2>/dev/null
             if ! rpm -q iozone 2>/dev/null; then
                 rlLogWarning "iozone 安装失败"
                 echo "installed=0" > "$IOZONE_FLAG"
@@ -53,7 +53,7 @@ iozoneCleanup() {
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
         if grep -q "^installed=1" "$IOZONE_FLAG"; then
-            echo openruyi | sudo -S dnf remove -y iozone 2>/dev/null || true
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y iozone 2>/dev/null || true
         fi
         rm -f "$IOZONE_FLAG"
     else

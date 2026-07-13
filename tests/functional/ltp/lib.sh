@@ -89,13 +89,13 @@ ltpSetup() {
         else
             rlLogInfo "安装 LTP（首次）..."
             # Try dnf first
-            if echo openruyi | sudo -S dnf install -y ltp 2>/dev/null && command -v kirk >/dev/null 2>&1; then
+            if echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y ltp 2>/dev/null && command -v kirk >/dev/null 2>&1; then
                 method="dnf"
                 echo "installed=1" > "$LTP_FLAG"
             else
                 # dnf failed or kirk not in PATH — compile from source
                 rlLogInfo "dnf 安装失败或无 kirk，从源码编译（tag: $LTP_TAG）..."
-                echo openruyi | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig \
+                echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig \
                     zlib-devel keyutils-libs-devel libtirpc-devel libmnl-devel libaio-devel \
                     libcap-devel openssl-devel numactl-devel 2>/dev/null || true
                 if [ ! -d "$LTP_INSTALL_DIR" ]; then
@@ -172,7 +172,7 @@ ltpCleanup() {
         local installed
         installed=$(grep "^installed=" "$LTP_FLAG" | cut -d= -f2)
         case "$installed" in
-            1) echo openruyi | sudo -S dnf remove -y ltp 2>/dev/null || true
+            1) echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y ltp 2>/dev/null || true
                rlLogInfo "已卸载 LTP（dnf 安装）" ;;
             2) rm -rf "$LTP_INSTALL_DIR"
                rlLogInfo "已删除 LTP 源码目录" ;;

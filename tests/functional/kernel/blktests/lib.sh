@@ -39,11 +39,11 @@ _blktestsRunCase() {
     # blktests requires TEST_DEVS config; without devices, most tests will be [not run]
     # Create minimal config if it doesn't exist
     if [ ! -f "$BLKTESTS_DIR/config" ]; then
-        echo openruyi | sudo -S bash -c "cat > $BLKTESTS_DIR/config << 'EOF'
+        echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S bash -c "cat > $BLKTESTS_DIR/config << 'EOF'
 TIMEOUT=30
 QUICK_RUN=1
 EOF" 2>/dev/null || true
-        echo openruyi | sudo -S chown openruyi:openruyi "$BLKTESTS_DIR/config" 2>/dev/null || true
+        echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S chown openruyi:openruyi "$BLKTESTS_DIR/config" 2>/dev/null || true
     fi
 
     timeout --signal=KILL --kill-after=10 600 \
@@ -84,7 +84,7 @@ EOF" 2>/dev/null || true
 blktestsSetup() {
     if [ ! -f "$BLKTESTS_FLAG" ]; then
         if [ ! -x "$BLKTESTS_DIR/check" ]; then
-            echo openruyi | sudo -S dnf install -y blktests 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y blktests 2>/dev/null
             if [ ! -x "$BLKTESTS_DIR/check" ]; then
                 rlLogWarning "blktests 安装失败，测试将被跳过"
                 echo "installed=0" > "$BLKTESTS_FLAG"

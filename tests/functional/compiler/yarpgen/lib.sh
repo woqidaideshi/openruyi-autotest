@@ -17,10 +17,10 @@ yarpgenSetup() {
     if [ ! -f "$YARPGEN_FLAG" ]; then
         # Install build dependencies
         if ! rpm -q cmake 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y cmake 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y cmake 2>/dev/null
         fi
         if ! rpm -q gcc-c++ 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y gcc-c++ 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y gcc-c++ 2>/dev/null
         fi
         
         # Clone and build yarpgen if not present

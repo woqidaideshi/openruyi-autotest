@@ -17,7 +17,7 @@ DEJAGNU_FLAG="/tmp/.beakerlib_compiler_dejagnu_suite"
 dejagnuSetup() {
     if [ ! -f "$DEJAGNU_FLAG" ]; then
         if ! rpm -q dejagnu 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y dejagnu 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y dejagnu 2>/dev/null
             if ! rpm -q dejagnu 2>/dev/null; then
                 rlLogWarning "dejagnu 安装失败"
                 echo "installed=0" > "$DEJAGNU_FLAG"
@@ -47,7 +47,7 @@ dejagnuCleanup() {
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
         if grep -q "^installed=1" "$DEJAGNU_FLAG"; then
-            echo openruyi | sudo -S dnf remove -y dejagnu 2>/dev/null || true
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y dejagnu 2>/dev/null || true
             rlLogInfo "已卸载 dejagnu"
         fi
         rm -f "$DEJAGNU_FLAG"
