@@ -13,7 +13,7 @@ rlJournalStart
         fi
         # 安装 clang
         if ! command -v clang >/dev/null 2>&1; then
-            echo openruyi | sudo -S dnf install -y clang 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y clang 2>/dev/null
         fi
         local elems
         elems=$(grep "^array_size=" "$STREAM_FLAG" 2>/dev/null | cut -d= -f2)

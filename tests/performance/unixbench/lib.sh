@@ -22,7 +22,7 @@
 
 UNIXBENCH_FLAG="/tmp/.beakerlib_unixbench_suite"
 UNIXBENCH_DIR="/tmp/unixbench"
-SUDO_PASSWORD="openruyi"
+SUDO_PASSWORD="${TEST_SERVER_1_PASSWORD:-openruyi}"
 
 unixbenchSetup() {
     if [ ! -f "$UNIXBENCH_FLAG" ]; then

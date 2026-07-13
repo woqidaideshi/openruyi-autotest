@@ -10,7 +10,7 @@ PKG_FLAG="/tmp/.beakerlib_gmp_suite"
 gmpSetup() {
     if [ ! -f "$PKG_FLAG" ]; then
         if ! rpm -q gmp 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y gmp 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y gmp 2>/dev/null
             echo "installed=1" > "$PKG_FLAG"
             rlLogInfo "已安装 gmp 软件包（首次）"
         else
@@ -37,7 +37,7 @@ gmpCleanup() {
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
         if grep -q "^installed=1" "$PKG_FLAG"; then
-            echo openruyi | sudo -S dnf remove -y gmp 2>/dev/null || true
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y gmp 2>/dev/null || true
             rlLogInfo "已卸载 gmp 软件包（最后一个测试）"
         fi
         rm -f "$PKG_FLAG"

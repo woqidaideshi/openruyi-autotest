@@ -28,7 +28,7 @@ streamSetup() {
         # Install build deps
         for dep in gcc wget; do
             if ! rpm -q "$dep" 2>/dev/null; then
-                echo openruyi | sudo -S dnf install -y "$dep" 2>/dev/null
+                echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y "$dep" 2>/dev/null
             fi
         done
 

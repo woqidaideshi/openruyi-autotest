@@ -7,7 +7,7 @@
 rlJournalStart
     rlPhaseStartSetup "环境准备"
         dejagnuSetup
-        if ! rpm -q clang 2>/dev/null; then echo openruyi | sudo -S dnf install -y clang 2>/dev/null; fi
+        if ! rpm -q clang 2>/dev/null; then echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y clang 2>/dev/null; fi
         TmpDir=$(mktemp -d)
         rlRun "cd $TmpDir" 0 "进入临时目录"
 

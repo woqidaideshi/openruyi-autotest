@@ -24,7 +24,7 @@ FIO_FLAG="/tmp/.beakerlib_fio_suite"
 fioSetup() {
     if [ ! -f "$FIO_FLAG" ]; then
         if ! rpm -q fio 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y fio 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y fio 2>/dev/null
             echo "installed=1" > "$FIO_FLAG"
             rlLogInfo "已安装 fio"
         else
@@ -47,7 +47,7 @@ fioCleanup() {
     ref=$(grep "^ref=" "$FIO_FLAG" | cut -d= -f2)
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
-        grep -q "^installed=1" "$FIO_FLAG" && echo openruyi | sudo -S dnf remove -y fio 2>/dev/null || true
+        grep -q "^installed=1" "$FIO_FLAG" && echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y fio 2>/dev/null || true
         rm -f "$FIO_FLAG"
     else
         sed -i "s/^ref=.*/ref=$ref/" "$FIO_FLAG"

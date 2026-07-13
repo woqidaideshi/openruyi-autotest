@@ -10,7 +10,7 @@ PKG_FLAG="/tmp/.beakerlib_meson_suite"
 mesonSetup() {
     if [ ! -f "$PKG_FLAG" ]; then
         if ! rpm -q meson 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y meson 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y meson 2>/dev/null
             echo "installed=1" > "$PKG_FLAG"
             rlLogInfo "已安装 meson 软件包（首次）"
         else
@@ -37,7 +37,7 @@ mesonCleanup() {
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
         if grep -q "^installed=1" "$PKG_FLAG"; then
-            echo openruyi | sudo -S dnf remove -y meson 2>/dev/null || true
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y meson 2>/dev/null || true
             rlLogInfo "已卸载 meson 软件包（最后一个测试）"
         fi
         rm -f "$PKG_FLAG"

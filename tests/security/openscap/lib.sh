@@ -171,7 +171,7 @@ _openscapGenerateFix() {
 openscapSetup() {
     if [ ! -f "$OPENSCAP_FLAG" ]; then
         if [ ! -f "$OPENSCAP_DS" ]; then
-            echo openruyi | sudo -S dnf install -y scap-security-guide 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y scap-security-guide 2>/dev/null
             if [ ! -f "$OPENSCAP_DS" ]; then
                 rlLogWarning "scap-security-guide 安装失败，测试将被跳过"
                 echo "installed=0" > "$OPENSCAP_FLAG"

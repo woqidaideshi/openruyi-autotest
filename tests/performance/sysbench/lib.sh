@@ -17,7 +17,7 @@ SYSBENCH_FLAG="/tmp/.beakerlib_sysbench_suite"
 sysbenchSetup() {
     if [ ! -f "$SYSBENCH_FLAG" ]; then
         if ! rpm -q sysbench 2>/dev/null; then
-            echo openruyi | sudo -S dnf install -y sysbench 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y sysbench 2>/dev/null
             echo "installed=1" > "$SYSBENCH_FLAG"
             rlLogInfo "已安装 sysbench"
         else
@@ -39,7 +39,7 @@ sysbenchCleanup() {
     ref=$(grep "^ref=" "$SYSBENCH_FLAG" | cut -d= -f2)
     ref=$((ref - 1))
     if [ "$ref" -le 0 ]; then
-        grep -q "^installed=1" "$SYSBENCH_FLAG" && echo openruyi | sudo -S dnf remove -y sysbench 2>/dev/null || true
+        grep -q "^installed=1" "$SYSBENCH_FLAG" && echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y sysbench 2>/dev/null || true
         rm -f "$SYSBENCH_FLAG"
     else
         sed -i "s/^ref=.*/ref=$ref/" "$SYSBENCH_FLAG"

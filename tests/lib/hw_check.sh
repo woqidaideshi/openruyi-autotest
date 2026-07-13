@@ -133,14 +133,30 @@ hwRunOnServer() {
         return $?
     fi
 
-    # 远程执行
-    rlLogInfo "[$user@$host:$port] $*"
-    if [ -n "$pass" ] && command -v sshpass >/dev/null 2>&1; then
-        sshpass -p "$pass" ssh -o StrictHostKeyChecking=no \
-            -o ConnectTimeout=10 -p "$port" "${user}@${host}" "$@"
+    # 如果用户不是 root，通过 sudo 提权
+    if [ "$user" != "root" ]; then
+        rlLogInfo "[$user@$host:$port] (sudo) $*"
+        # 将命令参数安全转义后通过 sudo 执行
+        local remote_cmd
+        remote_cmd=$(printf '%q ' "$@")
+        if [ -n "$pass" ] && command -v sshpass >/dev/null 2>&1; then
+            sshpass -p "$pass" ssh -o StrictHostKeyChecking=no \
+                -o ConnectTimeout=10 -p "$port" "${user}@${host}" \
+                "echo '$pass' | sudo -S -- sh -c $remote_cmd"
+        else
+            ssh -o StrictHostKeyChecking=no \
+                -o ConnectTimeout=10 -p "$port" "${user}@${host}" \
+                "sudo -- sh -c $remote_cmd"
+        fi
     else
-        ssh -o StrictHostKeyChecking=no \
-            -o ConnectTimeout=10 -p "$port" "${user}@${host}" "$@"
+        rlLogInfo "[$user@$host:$port] $*"
+        if [ -n "$pass" ] && command -v sshpass >/dev/null 2>&1; then
+            sshpass -p "$pass" ssh -o StrictHostKeyChecking=no \
+                -o ConnectTimeout=10 -p "$port" "${user}@${host}" "$@"
+        else
+            ssh -o StrictHostKeyChecking=no \
+                -o ConnectTimeout=10 -p "$port" "${user}@${host}" "$@"
+        fi
     fi
 }
 

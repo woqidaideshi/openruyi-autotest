@@ -23,7 +23,7 @@ lmbenchSetup() {
         # Install build dependencies
         for dep in gcc make wget tar patch libtirpc-devel automake; do
             if ! rpm -q "$dep" 2>/dev/null; then
-                echo openruyi | sudo -S dnf install -y "$dep" 2>/dev/null
+                echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y "$dep" 2>/dev/null
             fi
         done
 

@@ -15,7 +15,7 @@ CIS_FLAG="/tmp/.beakerlib_openscap_cis_suite"
 cisSetup() {
     if [ ! -f "$CIS_FLAG" ]; then
         if [ ! -f "$CIS_DS" ]; then
-            echo openruyi | sudo -S dnf install -y scap-security-guide 2>/dev/null
+            echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y scap-security-guide 2>/dev/null
             if [ ! -f "$CIS_DS" ]; then
                 rlLogWarning "scap-security-guide 安装失败"
                 echo "installed=0" > "$CIS_FLAG"
