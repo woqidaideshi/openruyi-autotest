@@ -1,5 +1,5 @@
 summary: Functional test - pciutils - lspci format-ize option handling
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - pciutils

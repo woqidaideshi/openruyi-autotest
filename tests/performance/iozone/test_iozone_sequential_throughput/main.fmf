@@ -1,5 +1,5 @@
 summary: Performance test - iozone - sequential readwrite
-test:./test.sh
+test: ./test.sh
 tag: [performance, iozone]
 duration: 5m
 tier: 2

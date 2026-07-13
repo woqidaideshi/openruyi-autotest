@@ -1,5 +1,5 @@
 summary: Functional test - pciutils - lspci with 
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - pciutils

@@ -1,5 +1,5 @@
 summary: Performance test - UnixBench integertest
-test:./test.sh
+test: ./test.sh
 tag:
  - performance
  - unixbench

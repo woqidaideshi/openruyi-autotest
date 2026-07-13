@@ -1,5 +1,5 @@
 summary: Functional test - openssh-clients - SCP
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - openssh-clients

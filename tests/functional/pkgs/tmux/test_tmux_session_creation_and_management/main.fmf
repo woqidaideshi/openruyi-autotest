@@ -1,5 +1,5 @@
 summary: Functional test - tmux - willcreateand
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - tmux

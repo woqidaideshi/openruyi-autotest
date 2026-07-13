@@ -1,5 +1,5 @@
 summary: Functional test - coreutils - and condition true false test
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - coreutils

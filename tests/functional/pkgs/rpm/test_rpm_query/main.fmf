@@ -1,5 +1,5 @@
 summary: Functional test - rpm - 
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - rpm

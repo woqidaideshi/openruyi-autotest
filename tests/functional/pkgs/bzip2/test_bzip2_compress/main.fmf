@@ -1,5 +1,5 @@
 summary: Functional test - bzip2 - compress
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - bzip2

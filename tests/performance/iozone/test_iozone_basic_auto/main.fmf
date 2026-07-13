@@ -1,5 +1,5 @@
 summary: Performance test - iozone - mode (-a)
-test:./test.sh
+test: ./test.sh
 tag: [performance, iozone]
 duration: 5m
 tier: 2

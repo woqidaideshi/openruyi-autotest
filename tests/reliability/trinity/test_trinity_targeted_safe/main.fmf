@@ -1,5 +1,5 @@
 summary: Reliability test - trinity - vssecurity syscall test (-c)
-test:./test.sh
+test: ./test.sh
 tag: [reliability, trinity]
 duration: 3m
 tier: 2

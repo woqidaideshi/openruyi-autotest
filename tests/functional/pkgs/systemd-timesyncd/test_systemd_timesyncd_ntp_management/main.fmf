@@ -1,5 +1,5 @@
 summary: Functional test - systemd-timesyncd - NTP
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - systemd-timesyncd

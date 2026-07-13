@@ -1,5 +1,5 @@
 summary: Smoke test - ls listexportfileanddirectory
-test:./test.sh
+test: ./test.sh
 tag:
  - smoke
  - filesystem

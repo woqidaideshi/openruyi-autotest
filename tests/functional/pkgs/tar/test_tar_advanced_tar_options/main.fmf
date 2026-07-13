@@ -1,5 +1,5 @@
 summary: Functional test - tar - option
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - tar

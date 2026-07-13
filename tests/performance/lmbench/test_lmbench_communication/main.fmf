@@ -1,5 +1,5 @@
 summary: Performance test - lmbench - networklatency
-test:./test.sh
+test: ./test.sh
 tag: [performance, lmbench]
 duration: 5m
 tier: 2

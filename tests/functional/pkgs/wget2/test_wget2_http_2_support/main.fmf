@@ -1,5 +1,5 @@
 summary: Functional test - wget2 - HTTPPlease 2 support
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - wget2

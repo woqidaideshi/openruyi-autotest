@@ -1,5 +1,5 @@
 summary: Reliability test - trinity - test (60s)
-test:./test.sh
+test: ./test.sh
 tag: [reliability, trinity]
 duration: 5m
 tier: 2

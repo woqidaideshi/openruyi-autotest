@@ -1,5 +1,5 @@
 summary: Performance test - stream - countgroupsizevsbandwidth
-test:./test.sh
+test: ./test.sh
 tag: [performance, stream]
 duration: 10m
 tier: 2

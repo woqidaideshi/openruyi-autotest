@@ -1,5 +1,5 @@
 summary: Functional test - rpmbuild - buildRPM
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - rpmbuild

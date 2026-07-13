@@ -1,5 +1,5 @@
 summary: Functional test - cloud-utils-growpart partition expansion - retryrun(noactual)
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - cloud-utils-growpart

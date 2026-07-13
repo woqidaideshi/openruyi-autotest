@@ -1,5 +1,5 @@
 summary: Security test - nmap /IDS 
-test:./test.sh
+test: ./test.sh
 tag:
  - security
  - nmap

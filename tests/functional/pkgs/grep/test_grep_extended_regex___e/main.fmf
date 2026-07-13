@@ -1,5 +1,5 @@
 summary: Functional test - grep - extended e
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - grep

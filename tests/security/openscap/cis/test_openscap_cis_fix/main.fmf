@@ -1,5 +1,5 @@
 summary: Security test - OpenSCAP CIS - scriptGenerate
-test:./test.sh
+test: ./test.sh
 tag:
  - security
  - openscap

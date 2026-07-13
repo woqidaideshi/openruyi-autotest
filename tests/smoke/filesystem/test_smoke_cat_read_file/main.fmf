@@ -1,5 +1,5 @@
 summary: Smoke test - cat readandfile
-test:./test.sh
+test: ./test.sh
 tag:
  - smoke
  - filesystem

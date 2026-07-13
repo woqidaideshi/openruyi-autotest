@@ -1,5 +1,5 @@
 summary: Functional test - jotai - inline (-finline-functions/-fno-inline)
-test:./test.sh
+test: ./test.sh
 tag: [functional, compiler, jotai]
 duration: 3m
 tier: 2

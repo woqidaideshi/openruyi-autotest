@@ -1,5 +1,5 @@
 summary: Functional test - cmake - basicCMakeitems
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - cmake

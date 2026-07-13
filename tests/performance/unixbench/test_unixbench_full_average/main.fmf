@@ -1,5 +1,5 @@
 summary: Performance test - UnixBench multithreadfullbenchmark (3independent runs)
-test:./test.sh
+test: ./test.sh
 tag:
  - performance
  - unixbench

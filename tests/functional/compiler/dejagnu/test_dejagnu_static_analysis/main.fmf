@@ -1,5 +1,5 @@
 summary: Functional test - dejagnu - analysis (-fanalyzer)
-test:./test.sh
+test: ./test.sh
 tag: [functional, compiler, dejagnu]
 duration: 5m
 tier: 2

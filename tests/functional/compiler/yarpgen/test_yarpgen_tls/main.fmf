@@ -1,5 +1,5 @@
 summary: Functional test - yarpgen - thread (__thread/thread_local)
-test:./test.sh
+test: ./test.sh
 tag: [functional, compiler, yarpgen]
 duration: 3m
 tier: 2

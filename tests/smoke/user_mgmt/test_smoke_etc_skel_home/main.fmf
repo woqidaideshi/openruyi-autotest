@@ -1,5 +1,5 @@
 summary: Smoke test - /etc/skel directory exists
-test:./test.sh
+test: ./test.sh
 tag:
  - smoke
  - user_mgmt
