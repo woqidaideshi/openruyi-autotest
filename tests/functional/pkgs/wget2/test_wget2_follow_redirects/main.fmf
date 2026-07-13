@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - wget2 - Follow redirects
+summary: Functional test - wget2 - follow redirects
 test: ./test.sh
 tag:
-  - functional
-  - wget2
+ - functional
+ - wget2
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/wget2/test_wget2_follow_redirects
 require:
-  - wget2
-  - beakerlib
+ - wget2
+ - beakerlib

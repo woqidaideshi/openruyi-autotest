@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - procps-ng - pwdx and pmap
+summary: Functional test - procps-ng - pwdxandpmap
 test: ./test.sh
 tag:
-  - functional
-  - procps-ng
+ - functional
+ - procps-ng
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/procps-ng/test_procps_ng_pwdx_and_pmap
 require:
-  - procps-ng
-  - beakerlib
+ - procps-ng
+ - beakerlib

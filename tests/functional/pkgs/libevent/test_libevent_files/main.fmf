@@ -1,11 +1,11 @@
-summary: libevent - �ļ���֤
+summary: Functional test - libevent - file verification
 test: ./test.sh
 tag:
-  - functional
-  - libevent
+ - functional
+ - libevent
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libevent/test_libevent_files
 
 require:
-  - beakerlib
+ - beakerlib

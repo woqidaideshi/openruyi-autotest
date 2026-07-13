@@ -1,11 +1,11 @@
-summary: unzip - ��������
+summary: Functional test - unzip - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - unzip
+ - functional
+ - unzip
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/unzip/test_unzip_basic
 
 require:
-  - beakerlib
+ - beakerlib

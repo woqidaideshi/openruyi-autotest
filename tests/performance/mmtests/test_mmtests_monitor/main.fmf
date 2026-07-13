@@ -1,12 +1,12 @@
-﻿summary: 性能测试 - mmtests - monitor
+﻿summary: Performance test - mmtests - monitor
 test: ./test.sh
 tag:
-  - performance
-  - kernel
-  - mmtests
+ - performance
+ - kernel
+ - mmtests
 duration: 30m
 tier: 1
 path: /tests/performance/mmtests/test_mmtests_monitor
 require:
-  - mmtests
-  - beakerlib
+ - mmtests
+ - beakerlib

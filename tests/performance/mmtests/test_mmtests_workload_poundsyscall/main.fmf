@@ -1,12 +1,12 @@
-﻿summary: 性能测试 - mmtests - workload-poundsyscall
+﻿summary: Performance test - mmtests - workload-poundsyscall
 test: ./test.sh
 tag:
-  - performance
-  - kernel
-  - mmtests
+ - performance
+ - kernel
+ - mmtests
 duration: 30m
 tier: 1
 path: /tests/performance/mmtests/test_mmtests_workload_poundsyscall
 require:
-  - mmtests
-  - beakerlib
+ - mmtests
+ - beakerlib

@@ -7,29 +7,29 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        gitSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ gitSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlPhaseEnd
 
-    rlPhaseStartTest "Branch-operations"
-        rlRun "git branch feature" 0 "git branch: create branch"
-        rlRun "git branch" 0 "git branch: list branches"
-        rlRun "git branch -a" 0 "git branch -a: all branches"
-        rlRun "git switch feature" 0 "git switch: switch branch"
-        rlRun "git switch -" 0 "git switch -: previous branch"
-        rlRun "git branch -d feature" 0 "git branch -d: delete branch"
-    rlPhaseEnd
+ rlPhaseStartTest "Branch-operations"
+ rlRun "git branch feature" 0 "git branch: create branch"
+ rlRun "git branch" 0 "git branch: list branches"
+ rlRun "git branch -a" 0 "git branch -a: all branches"
+ rlRun "git switch feature" 0 "git switch: switch branch"
+ rlRun "git switch -" 0 "git switch -: previous branch"
+ rlRun "git branch -d feature" 0 "git branch -d: delete branch"
+ rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # git 软件包由 lib.sh 的引用计数机制自动管理卸载
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+ rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+ fi
+ # git Package managed by lib.sh 's reference counting auto-uninstall
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

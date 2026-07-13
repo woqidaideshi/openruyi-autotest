@@ -1,11 +1,11 @@
-summary: icu4c - ��������
+summary: Functional test - icu4c - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - icu4c
+ - functional
+ - icu4c
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/icu4c/test_icu4c_basic
 
 require:
-  - beakerlib
+ - beakerlib

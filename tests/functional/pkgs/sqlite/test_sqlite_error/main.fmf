@@ -1,11 +1,11 @@
-summary: sqlite - ������
+summary: Functional test - sqlite - error handling
 test: ./test.sh
 tag:
-  - functional
-  - sqlite
+ - functional
+ - sqlite
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/sqlite/test_sqlite_error
 
 require:
-  - beakerlib
+ - beakerlib

@@ -1,12 +1,12 @@
-summary: 冒烟测试 - 管道 | 连接命令
+summary: Smoke test - pipe | connectioncommand
 test: ./test.sh
 tag:
-  - smoke
-  - shell_basics
+ - smoke
+ - shell_basics
 duration: 1m
 tier: 0
 path: /tests/smoke/shell_basics/test_smoke_pipe_redirect
 require:
-  - beakerlib
-  - bash
-  - coreutils
+ - beakerlib
+ - bash
+ - coreutils

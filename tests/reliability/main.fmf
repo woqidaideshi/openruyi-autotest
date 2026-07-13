@@ -1,14 +1,14 @@
-summary: 可靠性测试 - 验证系统稳定性与可靠性
-tag:
-  - reliability
-duration: 30m
-tier: 2
-path: /tests/reliability
-require:
-  - coreutils
-hardware-require:
-  server: 1
-  cpu: ">= 4"
-  memory: ">= 8 GiB"
-  disk: ">= 1"
-  net: ">= 1"
+summary: Reliability test - verifysystemandreliability
+tag:
+ - reliability
+duration: 30m
+tier: 2
+path: /tests/reliability
+require:
+ - coreutils
+hardware-require:
+ server: 1
+ cpu: ">= 4"
+ memory: ">= 8 GiB"
+ disk: ">= 1"
+ net: ">= 1"

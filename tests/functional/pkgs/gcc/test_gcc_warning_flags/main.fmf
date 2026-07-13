@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - gcc - Warning flags
+summary: Functional test - gcc - warning flag options
 test: ./test.sh
 tag:
-  - functional
-  - gcc
+ - functional
+ - gcc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/gcc/test_gcc_warning_flags
 require:
-  - gcc
-  - beakerlib
+ - gcc
+ - beakerlib

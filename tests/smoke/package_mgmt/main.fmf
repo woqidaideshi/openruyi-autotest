@@ -1,11 +1,11 @@
-summary: 冒烟测试 - package_mgmt 功能验证
+summary: Smoke test - package_mgmt functionality verification
 tag:
-  - smoke
-  - package_mgmt
+ - smoke
+ - package_mgmt
 duration: 2m
 tier: 0
 path: /tests/smoke/package_mgmt
 require:
-  - beakerlib
-  - dnf
-  - rpm
+ - beakerlib
+ - dnf
+ - rpm

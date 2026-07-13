@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        opensshClientsSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ opensshClientsSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlPhaseEnd
 
-    rlPhaseStartTest "clients - ssh-connection--dry-run"
-        rlRun "ssh -G localhost 2>&1 | head -10" 0 "ssh -G: print config"
-        rlRun "ssh -T -o ConnectTimeout=5 localhost 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "ssh -T: disable PTY"
-        rlRun "ssh -v localhost 2>&1 | head -10 || true" 0 "ssh -v: verbose"
-    rlPhaseEnd
+ rlPhaseStartTest "clients - ssh-connection--dry-run"
+ rlRun "ssh -G localhost 2>&1 | head -10" 0 "ssh -G: print config"
+ rlRun "ssh -T -o ConnectTimeout=5 localhost 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "ssh -T: disable PTY"
+ rlRun "ssh -v localhost 2>&1 | head -10 || true" 0 "ssh -v: verbose"
+ rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # openssh-clients 软件包由 lib.sh 的引用计数机制自动管理卸载
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+ rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+ fi
+ # openssh-clients Package managed by lib.sh 's reference counting auto-uninstall
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

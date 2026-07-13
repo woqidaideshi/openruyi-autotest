@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - iputils - ping6 (IPv6)
+summary: Functional test - iputils - ping6 IPv6
 test: ./test.sh
 tag:
-  - functional
-  - iputils
+ - functional
+ - iputils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/iputils/test_iputils_ping6__ipv6
 require:
-  - iputils
-  - beakerlib
+ - iputils
+ - beakerlib

@@ -1,13 +1,13 @@
-summary: 安全测试 - CVE 漏洞测试 (LTP 20260529)
+summary: Security test - CVE vulnerability test (LTP 20260529)
 tag:
-  - security
-  - cve
-  - ltp
+ - security
+ - cve
+ - ltp
 duration: 5m
 tier: 2
 path: /tests/security/cve
 require:
-  - beakerlib
-  - git
-  - make
-  - gcc
+ - beakerlib
+ - git
+ - make
+ - gcc

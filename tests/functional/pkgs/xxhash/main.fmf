@@ -1,10 +1,10 @@
-summary: 功能测试 - xxhash 软件包功能验证
+summary: Functional test - xxhash package functionality verification
 tag:
-  - functional
-  - xxhash
+ - functional
+ - xxhash
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/xxhash
 require:
-  - xxhash
-  - beakerlib
+ - xxhash
+ - beakerlib

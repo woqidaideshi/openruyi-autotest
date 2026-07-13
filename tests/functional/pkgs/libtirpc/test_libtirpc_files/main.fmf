@@ -1,11 +1,11 @@
-summary: libtirpc - �ļ���֤
+summary: Functional test - libtirpc - file verification
 test: ./test.sh
 tag:
-  - functional
-  - libtirpc
+ - functional
+ - libtirpc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libtirpc/test_libtirpc_files
 
 require:
-  - beakerlib
+ - beakerlib

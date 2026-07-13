@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - sddm - Service check
+summary: Functional test - sddm - servicecheck
 test: ./test.sh
 tag:
-  - functional
-  - sddm
+ - functional
+ - sddm
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/sddm/test_sddm_service_check
 require:
-  - sddm
-  - beakerlib
+ - sddm
+ - beakerlib

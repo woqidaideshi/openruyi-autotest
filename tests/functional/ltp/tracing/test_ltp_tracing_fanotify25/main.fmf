@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - tracing - fanotify25
+summary: Functional test - LTP - tracing - fanotify25
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - tracing
+ - functional
+ - ltp
+ - tracing
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/tracing/test_ltp_tracing_fanotify25
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

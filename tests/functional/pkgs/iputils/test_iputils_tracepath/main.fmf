@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - iputils - tracepath
+summary: Functional test - iputils - tracepath
 test: ./test.sh
 tag:
-  - functional
-  - iputils
+ - functional
+ - iputils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/iputils/test_iputils_tracepath
 require:
-  - iputils
-  - beakerlib
+ - iputils
+ - beakerlib

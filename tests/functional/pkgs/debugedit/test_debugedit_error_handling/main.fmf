@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - debugedit - 閿欒澶勭悊
+summary: Functional test - debugedit - error handling
 test: ./test.sh
 tag:
-  - functional
-  - debugedit
+ - functional
+ - debugedit
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/debugedit/test_debugedit_error_handling
 require:
-  - debugedit
-  - beakerlib
+ - debugedit
+ - beakerlib

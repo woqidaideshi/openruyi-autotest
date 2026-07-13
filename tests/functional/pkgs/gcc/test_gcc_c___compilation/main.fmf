@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - gcc - C++ compilation
+summary: Functional test - gcc - c compile
 test: ./test.sh
 tag:
-  - functional
-  - gcc
+ - functional
+ - gcc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/gcc/test_gcc_c___compilation
 require:
-  - gcc
-  - beakerlib
+ - gcc
+ - beakerlib

@@ -1,10 +1,10 @@
-summary: 功能测试 - coreutils 软件包功能验证
+summary: Functional test - coreutils package functionality verification
 tag:
-  - functional
-  - coreutils
+ - functional
+ - coreutils
 duration: 8m
 tier: 1
 path: /tests/functional/pkgs/coreutils
 require:
-  - beakerlib
-  - coreutils
+ - beakerlib
+ - coreutils

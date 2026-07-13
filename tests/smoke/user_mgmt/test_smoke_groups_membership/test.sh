@@ -1,24 +1,24 @@
 #!/bin/bash
-# Smoke test: user_mgmt - groups 当前用户组
+# Smoke test: user_mgmt - groups currentusergroup
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeUserMgmtSetup
+ rlPhaseStartSetup "Environment setup"
+ smokeUserMgmtSetup
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "groups 当前用户组"
-        rlRun 'groups' 0 "groups 当前用户组"
-        rlRun 'groups root' 0 "groups root用户组"
-    rlPhaseEnd
+ rlPhaseStartTest "groups currentusergroup"
+ rlRun 'groups' 0 "groups currentusergroup"
+ rlRun 'groups root' 0 "groups rootusergroup"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+ rlPhaseStartCleanup "Clean up test environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

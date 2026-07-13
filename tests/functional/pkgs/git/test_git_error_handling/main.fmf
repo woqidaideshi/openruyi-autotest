@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - git - Error handling
+summary: Functional test - git - error handling
 test: ./test.sh
 tag:
-  - functional
-  - git
+ - functional
+ - git
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/git/test_git_error_handling
 require:
-  - git
-  - beakerlib
+ - git
+ - beakerlib

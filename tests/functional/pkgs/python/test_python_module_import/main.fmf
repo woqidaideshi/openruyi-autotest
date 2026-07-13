@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - python - 妯″潡瀵煎叆
-test: ./test.sh
-tag:
-  - functional
-  - python
-duration: 2m
-tier: 1
-path: /tests/functional/pkgs/python/test_python_module_import
-require:
-  - python
-  - beakerlib
+summary: Functional test - python - module
+test:./test.sh
+tag:
+ - functional
+ - python
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/python/test_python_module_import
+require:
+ - python
+ - beakerlib

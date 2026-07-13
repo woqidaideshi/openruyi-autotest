@@ -1,24 +1,24 @@
 #!/bin/bash
-# Smoke test: disk_fs - /etc/fstab 存在
+# Smoke test: disk_fs - /etc/fstab exists
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeDiskFsSetup
+ rlPhaseStartSetup "Environment setup"
+ smokeDiskFsSetup
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "/etc/fstab 存在"
-        rlRun 'test -f /etc/fstab' 0 "/etc/fstab 存在"
-        rlRun 'cat /etc/fstab | head -5' 0 "/etc/fstab 可读"
-    rlPhaseEnd
+ rlPhaseStartTest "/etc/fstab exists"
+ rlRun 'test -f /etc/fstab' 0 "/etc/fstab exists"
+ rlRun 'cat /etc/fstab | head -5' 0 "/etc/fstab readable"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+ rlPhaseStartCleanup "Clean up test environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

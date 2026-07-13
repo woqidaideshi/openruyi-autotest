@@ -1,7 +1,7 @@
-summary: ���ܲ��� - libcap-ng �����֤
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/libcap-ng
 require:
-  - libcap-ng
-  - beakerlib
+ - libcap-ng
+ - beakerlib

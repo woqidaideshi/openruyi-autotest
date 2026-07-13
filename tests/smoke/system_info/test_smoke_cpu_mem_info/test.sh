@@ -1,24 +1,24 @@
 #!/bin/bash
-# Smoke test: system_info - /proc/cpuinfo CPU 信息
+# Smoke test: system_info - /proc/cpuinfo CPU info
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeSystemInfoSetup
+ rlPhaseStartSetup "Environment setup"
+ smokeSystemInfoSetup
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "/proc/cpuinfo CPU 信息"
-        rlRun 'cat /proc/cpuinfo | head -5' 0 "/proc/cpuinfo CPU 信息"
-        rlRun 'cat /proc/meminfo | head -5' 0 "/proc/meminfo 内存信息"
-    rlPhaseEnd
+ rlPhaseStartTest "/proc/cpuinfo CPU info"
+ rlRun 'cat /proc/cpuinfo | head -5' 0 "/proc/cpuinfo CPU info"
+ rlRun 'cat /proc/meminfo | head -5' 0 "/proc/meminfo memoryinfo"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+ rlPhaseStartCleanup "Clean up test environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

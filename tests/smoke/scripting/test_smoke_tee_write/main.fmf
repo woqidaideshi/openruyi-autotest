@@ -1,11 +1,11 @@
-summary: 冒烟测试 - tee 写入文件
+summary: Smoke test - tee writefile
 test: ./test.sh
 tag:
-  - smoke
-  - scripting
+ - smoke
+ - scripting
 duration: 1m
 tier: 0
 path: /tests/smoke/scripting/test_smoke_tee_write
 require:
-  - beakerlib
-  - coreutils
+ - beakerlib
+ - coreutils

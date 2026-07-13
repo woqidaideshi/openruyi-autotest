@@ -1,14 +1,14 @@
-summary: 兼容性测试 - LTP POSIX 及系统兼容性验证
+summary: Compatibility test - LTP POSIX and system compatibility verification
 tag:
-  - compatibility
+ - compatibility
 duration: 120m
 tier: 2
 path: /tests/compatibility
 require:
-  - beakerlib
+ - beakerlib
 hardware-require:
-  server: 1
-  cpu: ">= 4"
-  memory: ">= 8 GiB"
-  disk: ">= 1"
-  net: ">= 1"
+ server: 1
+ cpu: ">= 4"
+ memory: ">= 8 GiB"
+ disk: ">= 1"
+ net: ">= 1"

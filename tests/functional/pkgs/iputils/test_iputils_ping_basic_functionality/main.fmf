@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - iputils - ping basic functionality
+summary: Functional test - iputils - pingtest basic functionality functionality
 test: ./test.sh
 tag:
-  - functional
-  - iputils
+ - functional
+ - iputils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/iputils/test_iputils_ping_basic_functionality
 require:
-  - iputils
-  - beakerlib
+ - iputils
+ - beakerlib

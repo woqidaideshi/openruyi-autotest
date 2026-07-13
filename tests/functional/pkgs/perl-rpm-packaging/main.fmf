@@ -1,10 +1,10 @@
-summary: 功能测试 - perl-rpm-packaging 软件包功能验证
+summary: Functional test - perl-rpm-packaging package functionality verification
 tag:
-  - functional
-  - perl-rpm-packaging
+ - functional
+ - perl-rpm-packaging
 duration: 3m
 tier: 1
 path: /tests/functional/pkgs/perl-rpm-packaging
 require:
-  - perl-rpm-packaging
-  - beakerlib
+ - perl-rpm-packaging
+ - beakerlib

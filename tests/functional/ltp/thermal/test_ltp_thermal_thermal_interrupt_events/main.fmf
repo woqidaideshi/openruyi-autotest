@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - thermal - thermal_interrupt_events
+summary: Functional test - LTP - thermal - thermal_interrupt_events
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - thermal
+ - functional
+ - ltp
+ - thermal
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/thermal/test_ltp_thermal_thermal_interrupt_events
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

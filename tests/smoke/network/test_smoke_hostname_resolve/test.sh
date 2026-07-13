@@ -1,25 +1,25 @@
 #!/bin/bash
-# Smoke test: network - getent 解析 localhost
+# Smoke test: network - getent resolve localhost
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeNetworkSetup
+ rlPhaseStartSetup "Environment setup"
+ smokeNetworkSetup
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "getent 解析 localhost"
-        rlRun 'getent hosts localhost' 0 "getent 解析 localhost"
-        rlRun 'cat /etc/resolv.conf' 0 "/etc/resolv.conf DNS配置"
-        rlRun 'cat /etc/hosts' 0 "/etc/hosts 本地解析"
-    rlPhaseEnd
+ rlPhaseStartTest "getent resolve localhost"
+ rlRun 'getent hosts localhost' 0 "getent resolve localhost"
+ rlRun 'cat /etc/resolv.conf' 0 "/etc/resolv.conf DNSconfiguration"
+ rlRun 'cat /etc/hosts' 0 "/etc/hosts localresolve"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+ rlPhaseStartCleanup "Clean up test environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

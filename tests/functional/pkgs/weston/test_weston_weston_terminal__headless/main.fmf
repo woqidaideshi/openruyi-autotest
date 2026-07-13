@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - weston - Weston terminal (headless)
+summary: Functional test - weston - weston terminal headless
 test: ./test.sh
 tag:
-  - functional
-  - weston
+ - functional
+ - weston
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/weston/test_weston_weston_terminal__headless
 require:
-  - weston
-  - beakerlib
+ - weston
+ - beakerlib

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - make - Directory change
+summary: Functional test - make - directory change
 test: ./test.sh
 tag:
-  - functional
-  - make
+ - functional
+ - make
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/make/test_make_directory_change
 require:
-  - make
-  - beakerlib
+ - make
+ - beakerlib

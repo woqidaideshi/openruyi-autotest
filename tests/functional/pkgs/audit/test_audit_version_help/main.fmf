@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - audit - 鐗堟湰鍜屽府鍔?
+summary: Functional test - audit - version and help
 test: ./test.sh
 tag:
-  - functional
-  - audit
+ - functional
+ - audit
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/audit/test_audit_version_help
 require:
-  - audit
-  - beakerlib
+ - audit
+ - beakerlib

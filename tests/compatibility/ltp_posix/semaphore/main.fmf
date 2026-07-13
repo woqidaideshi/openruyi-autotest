@@ -1,12 +1,12 @@
-summary: 兼容性测试 - LTP POSIX - semaphore
+summary: Compatibility test - LTP POSIX - semaphore
 tag:
-  - compatibility
-  - posix
-  - semaphore
+ - compatibility
+ - posix
+ - semaphore
 duration: 15m
 tier: 2
 path: /tests/compatibility/ltp_posix/semaphore
 require:
-  - beakerlib
-  - gcc
-  - make
+ - beakerlib
+ - gcc
+ - make

@@ -1,11 +1,11 @@
-summary: perl - ��������
+summary: Functional test - perl - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - perl
+ - functional
+ - perl
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/perl/test_perl_basic
 
 require:
-  - beakerlib
+ - beakerlib

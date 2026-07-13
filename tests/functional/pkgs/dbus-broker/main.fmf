@@ -1,7 +1,7 @@
-summary: ���ܲ��� - dbus-broker ������������֤
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/dbus-broker
 require:
-  - dbus-broker
-  - beakerlib
+ - dbus-broker
+ - beakerlib

@@ -1,11 +1,11 @@
-summary: keyutils - ��������
+summary: Functional test - keyutils - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - keyutils
+ - functional
+ - keyutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/keyutils/test_keyutils_basic
 
 require:
-  - beakerlib
+ - beakerlib

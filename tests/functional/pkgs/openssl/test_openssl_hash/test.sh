@@ -7,29 +7,29 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        opensslSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ opensslSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlPhaseEnd
 
-    rlPhaseStartTest "��ϣ����"
-        rlRun "TmpDir=$(mktemp -d)" 0 "错误处理ʱĿ¼"
-        rlRun "cd $TmpDir" 0 "错误处理�Ŀ¼"
-        rlRun "echo \"test data\" > testfile" 0 "错误处理���ļ�"
-        rlRun "openssl dgst -md5 testfile" 0 "MD5 ժҪ"
-        rlRun "openssl dgst -sha256 testfile" 0 "SHA256 ժҪ"
-        rlRun "openssl dgst -sha512 testfile" 0 "SHA512 ժҪ"
-    rlPhaseEnd
+ rlPhaseStartTest "��ϣ����"
+ rlRun "TmpDir=$(mktemp -d)" 0 "error handlingʱĿ¼"
+ rlRun "cd $TmpDir" 0 "error handlingdirectory"
+ rlRun "echo \"test data\" > testfile" 0 "error handling���ļ�"
+ rlRun "openssl dgst -md5 testfile" 0 "MD5 ժҪ"
+ rlRun "openssl dgst -sha256 testfile" 0 "SHA256 ժҪ"
+ rlRun "openssl dgst -sha512 testfile" 0 "SHA512 ժҪ"
+ rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # openssl 软件包由 lib.sh 的引用计数机制自动管理卸载
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+ rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+ fi
+ # openssl Package managed by lib.sh 's reference counting auto-uninstall
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

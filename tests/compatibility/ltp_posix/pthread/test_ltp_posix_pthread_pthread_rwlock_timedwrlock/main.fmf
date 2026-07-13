@@ -1,13 +1,13 @@
-summary: 兼容性测试 - LTP POSIX - pthread/pthread_rwlock_timedwrlock
+summary: Compatibility test - LTP POSIX - pthread/pthread_rwlock_timedwrlock
 test: ./test.sh
 tag:
-  - compatibility
-  - posix
-  - pthread
+ - compatibility
+ - posix
+ - pthread
 duration: 3m
 tier: 2
 path: /tests/compatibility/ltp_posix/pthread/test_ltp_posix_pthread_pthread_rwlock_timedwrlock
 require:
-  - beakerlib
-  - gcc
-  - make
+ - beakerlib
+ - gcc
+ - make

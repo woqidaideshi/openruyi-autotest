@@ -1,11 +1,11 @@
-summary: libaio - �ļ���֤
+summary: Functional test - libaio - file verification
 test: ./test.sh
 tag:
-  - functional
-  - libaio
+ - functional
+ - libaio
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libaio/test_libaio_files
 
 require:
-  - beakerlib
+ - beakerlib

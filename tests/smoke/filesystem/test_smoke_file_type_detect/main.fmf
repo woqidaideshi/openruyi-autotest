@@ -1,13 +1,13 @@
-summary: 冒烟测试 - file 检测文件类型
+summary: Smoke test - file detectfiletype
 test: ./test.sh
 tag:
-  - smoke
-  - filesystem
+ - smoke
+ - filesystem
 duration: 1m
 tier: 0
 path: /tests/smoke/filesystem/test_smoke_file_type_detect
 require:
-  - beakerlib
-  - coreutils
-  - file
-  - diffutils
+ - beakerlib
+ - coreutils
+ - file
+ - diffutils

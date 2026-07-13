@@ -1,10 +1,10 @@
-summary: 功能测试 - re2c 软件包功能验证
+summary: Functional test - re2c package functionality verification
 tag:
-  - functional
-  - re2c
+ - functional
+ - re2c
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/re2c
 require:
-  - re2c
-  - beakerlib
+ - re2c
+ - beakerlib

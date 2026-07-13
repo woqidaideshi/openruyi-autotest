@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - sddm - Configuration
+summary: Functional test - sddm - configuration management
 test: ./test.sh
 tag:
-  - functional
-  - sddm
+ - functional
+ - sddm
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/sddm/test_sddm_configuration
 require:
-  - sddm
-  - beakerlib
+ - sddm
+ - beakerlib

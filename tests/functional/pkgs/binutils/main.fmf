@@ -1,10 +1,10 @@
-summary: ���ܲ��� - binutils ������������֤
+summary: Functional test
 tag:
-  - functional
-  - binutils
+ - functional
+ - binutils
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/binutils
 require:
-  - binutils
-  - beakerlib
+ - binutils
+ - beakerlib

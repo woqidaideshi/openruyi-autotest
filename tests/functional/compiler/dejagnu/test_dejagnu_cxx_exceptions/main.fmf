@@ -1,4 +1,4 @@
-summary: 功能测试 - dejagnu - C++ 异常处理 (try/catch/noexcept)
+summary: Functional test - dejagnu - C++ Exceptionhandle (try/catch/noexcept)
 test: ./test.sh
 tag: [functional, compiler, dejagnu]
 duration: 5m

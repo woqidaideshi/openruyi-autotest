@@ -1,10 +1,10 @@
-summary: 功能测试 - kyua 软件包功能验证
+summary: Functional test - kyua package functionality verification
 tag:
-  - functional
-  - kyua
+ - functional
+ - kyua
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/kyua
 require:
-  - kyua
-  - beakerlib
+ - kyua
+ - beakerlib

@@ -1,24 +1,24 @@
 #!/bin/bash
-# Smoke test: kernel - lsmod 列出模块
+# Smoke test: kernel - lsmod list modules
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeKernelSetup
+ rlPhaseStartSetup "Environment setup"
+ smokeKernelSetup
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "lsmod 列出模块"
-        rlRun 'lsmod | head -10' 0 "lsmod 列出模块"
-        rlRun 'lsmod | wc -l' 0 "lsmod 模块数量"
-    rlPhaseEnd
+ rlPhaseStartTest "lsmod list modules"
+ rlRun 'lsmod | head -10' 0 "lsmod list modules"
+ rlRun 'lsmod | wc -l' 0 "lsmod modulecount"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+ rlPhaseStartCleanup "Clean up test environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

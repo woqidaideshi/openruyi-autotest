@@ -1,10 +1,10 @@
-summary: 可靠性测试 - Trinity 系统调用模糊测试
+summary: Reliability test - Trinity system callstest
 tag:
-  - reliability
-  - trinity
+ - reliability
+ - trinity
 duration: 30m
 tier: 2
 path: /tests/reliability/trinity
 require:
-  - beakerlib
-  - trinity
+ - beakerlib
+ - trinity

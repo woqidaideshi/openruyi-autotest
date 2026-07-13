@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - openssh - Fingerprint hashes
+summary: Functional test - openssh - fingerprint hashes
 test: ./test.sh
 tag:
-  - functional
-  - openssh
+ - functional
+ - openssh
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssh/test_openssh_fingerprint_hashes
 require:
-  - openssh
-  - beakerlib
+ - openssh
+ - beakerlib

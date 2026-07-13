@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - capability - check_keepcaps03
+summary: Functional test - LTP - capability - check_keepcaps03
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - capability
+ - functional
+ - ltp
+ - capability
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/capability/test_ltp_capability_check_keepcaps03
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

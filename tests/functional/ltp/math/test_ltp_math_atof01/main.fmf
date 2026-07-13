@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - math - atof01
+summary: Functional test - LTP - math - atof01
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - math
+ - functional
+ - ltp
+ - math
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/math/test_ltp_math_atof01
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

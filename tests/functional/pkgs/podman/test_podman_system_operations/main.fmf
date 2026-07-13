@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - podman - System operations
+summary: Functional test - podman - system info operations
 test: ./test.sh
 tag:
-  - functional
-  - podman
+ - functional
+ - podman
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/podman/test_podman_system_operations
 require:
-  - podman
-  - beakerlib
+ - podman
+ - beakerlib

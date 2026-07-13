@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - openssh-clients - scp
-test: ./test.sh
+summary: Functional test - openssh-clients - SCP
+test:./test.sh
 tag:
-  - functional
-  - openssh-clients
+ - functional
+ - openssh-clients
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssh-clients/test_openssh_clients_scp
 require:
-  - openssh-clients
-  - beakerlib
+ - openssh-clients
+ - beakerlib

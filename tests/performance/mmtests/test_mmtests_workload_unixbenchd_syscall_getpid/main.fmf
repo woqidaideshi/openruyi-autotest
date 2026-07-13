@@ -1,12 +1,12 @@
-﻿summary: 性能测试 - mmtests - workload-unixbenchd-syscall-getpid
+﻿summary: Performance test - mmtests - workload-unixbenchd-syscall-getpid
 test: ./test.sh
 tag:
-  - performance
-  - kernel
-  - mmtests
+ - performance
+ - kernel
+ - mmtests
 duration: 30m
 tier: 1
 path: /tests/performance/mmtests/test_mmtests_workload_unixbenchd_syscall_getpid
 require:
-  - mmtests
-  - beakerlib
+ - mmtests
+ - beakerlib

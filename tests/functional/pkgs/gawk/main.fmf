@@ -1,7 +1,7 @@
-summary: ���ܲ��� - gawk ������������֤
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/gawk
 require:
-  - gawk
-  - beakerlib
+ - gawk
+ - beakerlib

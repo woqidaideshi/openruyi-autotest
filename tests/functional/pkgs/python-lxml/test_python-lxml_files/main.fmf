@@ -1,11 +1,11 @@
-summary: python-lxml - �ļ���֤
+summary: Functional test - python-lxml - Python lxml file verification
 test: ./test.sh
 tag:
-  - functional
-  - python-lxml
+ - functional
+ - python-lxml
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/python-lxml/test_python-lxml_files
 
 require:
-  - beakerlib
+ - beakerlib

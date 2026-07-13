@@ -1,32 +1,32 @@
-#!/bin/bash
-# Functional test: wget - Continue-and-mirror
-# Beakerlib-based test with lifecycle management
-# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
-
-. /usr/share/beakerlib/beakerlib.sh || exit 1
-. "$(dirname "$0")/../lib.sh"
-
-rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        wgetSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
-
-    rlPhaseStartTest "Continue-and-mirror"
-        rlRun "wget -c --version 2>&1 | grep -q Wget" 0 "wget -c 断点续传选项存在"
-        rlRun "wget -m --version 2>&1 | grep -q Wget" 0 "wget -m 镜像选项存在"
-        rlRun "wget -N --version 2>&1 | grep -q Wget" 0 "wget -N 时间戳选项存在"
-    rlPhaseEnd
-
-
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # wget 软件包由 lib.sh 的引用计数机制自动管理卸载
-    rlPhaseEnd
-
-    rlJournalPrintText
-rlJournalEnd
+#!/bin/bash
+# Functional test: wget - Continue-and-mirror
+# Beakerlib-based test with lifecycle management
+# Shared suite setup/cleanup via../lib.sh (install once, uninstall once)
+
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+. "$(dirname "$0")/../lib.sh"
+
+rlJournalStart
+ rlPhaseStartSetup "Environment setup"
+ wgetSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlPhaseEnd
+
+ rlPhaseStartTest "Continue-and-mirror"
+ rlRun "wget -c --version 2>&1 | grep -q Wget" 0 "wget -c breakpointOption exists"
+ rlRun "wget -m --version 2>&1 | grep -q Wget" 0 "wget -m Option exists"
+ rlRun "wget -N --version 2>&1 | grep -q Wget" 0 "wget -N timestampOption exists"
+ rlPhaseEnd
+
+
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+ rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+ fi
+ # wget Package managed by lib.sh's reference counting auto-uninstall
+ rlPhaseEnd
+
+ rlJournalPrintText
+rlJournalEnd

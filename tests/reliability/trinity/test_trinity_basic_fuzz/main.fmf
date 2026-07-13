@@ -1,5 +1,5 @@
-summary: 可靠性测试 - trinity - 基础模糊测试 (60s)
-test: ./test.sh
+summary: Reliability test - trinity - test (60s)
+test:./test.sh
 tag: [reliability, trinity]
 duration: 5m
 tier: 2

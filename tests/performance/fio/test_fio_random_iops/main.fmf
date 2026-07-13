@@ -1,4 +1,4 @@
-summary: 性能测试 - fio - 随机 I/O IOPS
+summary: Performance test - fio - random I/O IOPS
 test: ./test.sh
 tag: [performance, fio]
 duration: 5m

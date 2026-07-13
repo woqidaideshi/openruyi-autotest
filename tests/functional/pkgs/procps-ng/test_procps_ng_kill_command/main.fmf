@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - procps-ng - kill command
+summary: Functional test - procps-ng - killcommand
 test: ./test.sh
 tag:
-  - functional
-  - procps-ng
+ - functional
+ - procps-ng
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/procps-ng/test_procps_ng_kill_command
 require:
-  - procps-ng
-  - beakerlib
+ - procps-ng
+ - beakerlib

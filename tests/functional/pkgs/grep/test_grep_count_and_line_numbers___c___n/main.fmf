@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - grep - Count and line numbers (-c, -n)
+summary: Functional test - grep - count and line numbers c n
 test: ./test.sh
 tag:
-  - functional
-  - grep
+ - functional
+ - grep
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/grep/test_grep_count_and_line_numbers___c___n
 require:
-  - grep
-  - beakerlib
+ - grep
+ - beakerlib

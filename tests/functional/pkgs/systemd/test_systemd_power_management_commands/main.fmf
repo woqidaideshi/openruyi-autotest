@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - systemd - Power management commands
+summary: Functional test - systemd - power managementcommand
 test: ./test.sh
 tag:
-  - functional
-  - systemd
+ - functional
+ - systemd
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_power_management_commands
 require:
-  - systemd
-  - beakerlib
+ - systemd
+ - beakerlib

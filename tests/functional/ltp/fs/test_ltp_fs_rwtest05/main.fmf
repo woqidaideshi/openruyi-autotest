@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - fs - rwtest05
+summary: Functional test - LTP - fs - rwtest05
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - fs
+ - functional
+ - ltp
+ - fs
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/fs/test_ltp_fs_rwtest05
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

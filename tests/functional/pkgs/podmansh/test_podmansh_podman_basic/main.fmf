@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - podmansh - podman basic
+summary: Functional test - podmansh - Podman basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - podmansh
+ - functional
+ - podmansh
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/podmansh/test_podmansh_podman_basic
 require:
-  - podmansh
-  - beakerlib
+ - podmansh
+ - beakerlib

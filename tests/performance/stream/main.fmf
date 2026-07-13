@@ -1,10 +1,10 @@
-summary: 性能测试 - STREAM 内存带宽基准测试
+summary: Performance test - STREAM memorybandwidthbenchmark
 tag:
-  - performance
-  - stream
+ - performance
+ - stream
 duration: 20m
 tier: 2
 path: /tests/performance/stream
 require:
-  - beakerlib
-  - gcc
+ - beakerlib
+ - gcc

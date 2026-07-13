@@ -1,13 +1,13 @@
-summary: 功能测试 - yarpgen - 生成程序并用 G++/Clang 编译
+summary: Functional test - yarpgen - Generateprogramandwith G++/Clang compile
 test: ./test.sh
 tag:
-  - functional
-  - compiler
-  - yarpgen
+ - functional
+ - compiler
+ - yarpgen
 duration: 5m
 tier: 2
 path: /tests/functional/compiler/yarpgen/test_yarpgen_generate_compile
 require:
-  - gcc-c++
-  - clang
-  - beakerlib
+ - gcc-c++
+ - clang
+ - beakerlib

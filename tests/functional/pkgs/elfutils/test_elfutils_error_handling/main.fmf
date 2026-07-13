@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - elfutils - 閿欒澶勭悊
+summary: Functional test - elfutils - error handling
 test: ./test.sh
 tag:
-  - functional
-  - elfutils
+ - functional
+ - elfutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/elfutils/test_elfutils_error_handling
 require:
-  - elfutils
-  - beakerlib
+ - elfutils
+ - beakerlib

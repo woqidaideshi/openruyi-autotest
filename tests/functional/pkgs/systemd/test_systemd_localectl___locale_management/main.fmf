@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - systemd - localectl - Locale management
-test: ./test.sh
+summary: Functional test - systemd - localectl - 
+test:./test.sh
 tag:
-  - functional
-  - systemd
+ - functional
+ - systemd
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_localectl___locale_management
 require:
-  - systemd
-  - beakerlib
+ - systemd
+ - beakerlib

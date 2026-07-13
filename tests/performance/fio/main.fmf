@@ -1,10 +1,10 @@
-summary: 性能测试 - fio 存储 I/O 基准测试
+summary: Performance test - fio I/O benchmark
 tag:
-  - performance
-  - fio
+ - performance
+ - fio
 duration: 30m
 tier: 2
 path: /tests/performance/fio
 require:
-  - beakerlib
-  - fio
+ - beakerlib
+ - fio

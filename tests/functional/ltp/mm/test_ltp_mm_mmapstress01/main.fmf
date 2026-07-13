@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - mm - mmapstress01
+summary: Functional test - LTP - mm - mmapstress01
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - mm
+ - functional
+ - ltp
+ - mm
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/mm/test_ltp_mm_mmapstress01
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

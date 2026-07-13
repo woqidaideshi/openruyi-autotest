@@ -1,11 +1,11 @@
-summary: 安全测试 - nmap 操作系统指纹识别
+summary: Security test - nmap OS fingerprint
 test: ./test.sh
 tag:
-  - security
-  - nmap
+ - security
+ - nmap
 duration: 2m
 tier: 1
 path: /tests/security/nmap/test_nmap_os_fingerprinting
 require:
-  - beakerlib
-  - nmap
+ - beakerlib
+ - nmap

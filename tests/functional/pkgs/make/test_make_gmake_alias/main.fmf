@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - make - gmake alias
-test: ./test.sh
+summary: Functional test - make - gmake alias
+test:./test.sh
 tag:
-  - functional
-  - make
+ - functional
+ - make
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/make/test_make_gmake_alias
 require:
-  - make
-  - beakerlib
+ - make
+ - beakerlib

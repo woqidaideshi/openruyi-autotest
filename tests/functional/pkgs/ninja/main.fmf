@@ -1,10 +1,10 @@
-summary: 功能测试 - ninja 软件包功能验证
+summary: Functional test - ninja package functionality verification
 tag:
-  - functional
-  - ninja
+ - functional
+ - ninja
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/ninja
 require:
-  - ninja
-  - beakerlib
+ - ninja
+ - beakerlib

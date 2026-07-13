@@ -1,11 +1,11 @@
-summary: libpwquality - ��������
+summary: Functional test - libpwquality - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - libpwquality
+ - functional
+ - libpwquality
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libpwquality/test_libpwquality_basic
 
 require:
-  - beakerlib
+ - beakerlib

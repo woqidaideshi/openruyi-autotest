@@ -1,11 +1,11 @@
-summary: 功能测试 - acl - chacl 命令功能
+summary: Functional test - acl - chacl command functionality
 test: ./test.sh
 tag:
-  - functional
-  - acl
+ - functional
+ - acl
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/acl/test_acl_chacl_command
 require:
-  - acl
-  - beakerlib
+ - acl
+ - beakerlib

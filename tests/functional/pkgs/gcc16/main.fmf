@@ -1,10 +1,10 @@
-summary: ���ܲ��� - gcc16 ������������֤
+summary: Functional test
 tag:
-  - functional
-  - gcc16
+ - functional
+ - gcc16
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/gcc16
 require:
-  - gcc16
-  - beakerlib
+ - gcc16
+ - beakerlib

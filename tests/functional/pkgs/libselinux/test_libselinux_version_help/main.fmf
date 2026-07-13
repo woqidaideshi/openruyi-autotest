@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - libselinux - 鐗堟湰鍜屽府鍔?
+summary: Functional test - libselinux - version and help
 test: ./test.sh
 tag:
-  - functional
-  - libselinux
+ - functional
+ - libselinux
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libselinux/test_libselinux_version_help
 require:
-  - libselinux
-  - beakerlib
+ - libselinux
+ - beakerlib

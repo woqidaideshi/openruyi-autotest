@@ -1,10 +1,10 @@
-summary: 功能测试 - rsync 软件包功能验证
+summary: Functional test - rsync package functionality verification
 tag:
-  - functional
-  - rsync
+ - functional
+ - rsync
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/rsync
 require:
-  - rsync
-  - beakerlib
+ - rsync
+ - beakerlib

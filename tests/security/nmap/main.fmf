@@ -1,10 +1,10 @@
-summary: 安全测试 - nmap 网络扫描工具
+summary: Security test - nmap network
 tag:
-  - security
-  - nmap
+ - security
+ - nmap
 duration: 15m
 tier: 1
 path: /tests/security/nmap
 require:
-  - nmap
-  - beakerlib
+ - nmap
+ - beakerlib

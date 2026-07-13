@@ -1,10 +1,10 @@
-summary: 冒烟测试 - service_mgmt 功能验证
+summary: Smoke test - service_mgmt functionality verification
 tag:
-  - smoke
-  - service_mgmt
+ - smoke
+ - service_mgmt
 duration: 2m
 tier: 0
 path: /tests/smoke/service_mgmt
 require:
-  - beakerlib
-  - systemd
+ - beakerlib
+ - systemd

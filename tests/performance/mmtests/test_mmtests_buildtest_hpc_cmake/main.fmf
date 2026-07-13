@@ -1,12 +1,12 @@
-﻿summary: 性能测试 - mmtests - buildtest-hpc-cmake
+﻿summary: Performance test - mmtests - buildtest-hpc-cmake
 test: ./test.sh
 tag:
-  - performance
-  - kernel
-  - mmtests
+ - performance
+ - kernel
+ - mmtests
 duration: 30m
 tier: 1
 path: /tests/performance/mmtests/test_mmtests_buildtest_hpc_cmake
 require:
-  - mmtests
-  - beakerlib
+ - mmtests
+ - beakerlib

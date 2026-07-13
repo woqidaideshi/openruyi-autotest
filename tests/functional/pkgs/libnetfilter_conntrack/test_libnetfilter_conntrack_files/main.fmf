@@ -1,11 +1,11 @@
-summary: libnetfilter_conntrack - �ļ���֤
+summary: Functional test - libnetfilter_conntrack - file verification
 test: ./test.sh
 tag:
-  - functional
-  - libnetfilter_conntrack
+ - functional
+ - libnetfilter_conntrack
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libnetfilter_conntrack/test_libnetfilter_conntrack_files
 
 require:
-  - beakerlib
+ - beakerlib

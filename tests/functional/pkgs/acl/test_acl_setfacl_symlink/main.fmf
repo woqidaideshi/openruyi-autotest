@@ -1,11 +1,11 @@
-summary: 功能测试 - acl - setfacl 符号链接处理
+summary: Functional test - acl - setfacl symbollinkhandle
 test: ./test.sh
 tag:
-  - functional
-  - acl
+ - functional
+ - acl
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/acl/test_acl_setfacl_symlink
 require:
-  - acl
-  - beakerlib
+ - acl
+ - beakerlib

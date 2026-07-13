@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - findutils - find 鎵ц鎿嶄綔
+summary: Functional test - findutils - findsearch line operations
 test: ./test.sh
 tag:
-  - functional
-  - findutils
+ - functional
+ - findutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/findutils/test_findutils_find_line_operations
 require:
-  - findutils
-  - beakerlib
+ - findutils
+ - beakerlib

@@ -1,5 +1,5 @@
-summary: 功能测试 - dejagnu - 静态分析 (-fanalyzer)
-test: ./test.sh
+summary: Functional test - dejagnu - analysis (-fanalyzer)
+test:./test.sh
 tag: [functional, compiler, dejagnu]
 duration: 5m
 tier: 2

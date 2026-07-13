@@ -1,7 +1,7 @@
-summary: ���ܲ��� - p11-kit
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/p11-kit
 require:
-  - p11-kit
-  - beakerlib
+ - p11-kit
+ - beakerlib

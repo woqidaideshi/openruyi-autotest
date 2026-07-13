@@ -1,4 +1,4 @@
-summary: 功能测试 - csmith - 汇编输出 (-S)
+summary: Functional test - csmith - assembly output (-S)
 test: ./test.sh
 tag: [functional, compiler, csmith]
 duration: 3m

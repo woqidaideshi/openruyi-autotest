@@ -1,13 +1,13 @@
-summary: 兼容性测试 - LTP POSIX - mmap/mmap
+summary: Compatibility test - LTP POSIX - mmap/mmap
 test: ./test.sh
 tag:
-  - compatibility
-  - posix
-  - mmap
+ - compatibility
+ - posix
+ - mmap
 duration: 3m
 tier: 2
 path: /tests/compatibility/ltp_posix/mmap/test_ltp_posix_mmap_mmap
 require:
-  - beakerlib
-  - gcc
-  - make
+ - beakerlib
+ - gcc
+ - make

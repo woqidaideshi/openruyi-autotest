@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - numa - numa_testcases
+summary: Functional test - LTP - numa - numa_testcases
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - numa
+ - functional
+ - ltp
+ - numa
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/numa/test_ltp_numa_numa_testcases
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

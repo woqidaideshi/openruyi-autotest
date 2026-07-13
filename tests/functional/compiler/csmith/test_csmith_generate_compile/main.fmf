@@ -1,14 +1,14 @@
-summary: 功能测试 - csmith - 生成程序并用 GCC/Clang 编译
+summary: Functional test - csmith - Generateprogramandwith GCC/Clang compile
 test: ./test.sh
 tag:
-  - functional
-  - compiler
-  - csmith
+ - functional
+ - compiler
+ - csmith
 duration: 5m
 tier: 2
 path: /tests/functional/compiler/csmith/test_csmith_generate_compile
 require:
-  - csmith
-  - gcc
-  - clang
-  - beakerlib
+ - csmith
+ - gcc
+ - clang
+ - beakerlib

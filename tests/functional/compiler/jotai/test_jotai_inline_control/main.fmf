@@ -1,5 +1,5 @@
-summary: 功能测试 - jotai - 内联控制 (-finline-functions/-fno-inline)
-test: ./test.sh
+summary: Functional test - jotai - inline (-finline-functions/-fno-inline)
+test:./test.sh
 tag: [functional, compiler, jotai]
 duration: 3m
 tier: 2

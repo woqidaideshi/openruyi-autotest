@@ -1,10 +1,10 @@
-summary: 功能测试 - gdb 软件包功能验证
+summary: Functional test - gdb package functionality verification
 tag:
-  - functional
-  - gdb
+ - functional
+ - gdb
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/gdb
 require:
-  - gdb
-  - beakerlib
+ - gdb
+ - beakerlib

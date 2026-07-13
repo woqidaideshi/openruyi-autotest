@@ -1,11 +1,11 @@
-summary: 冒烟测试 - kernel 功能验证
+summary: Smoke test - kernel functionality verification
 tag:
-  - smoke
-  - kernel
+ - smoke
+ - kernel
 duration: 2m
 tier: 0
 path: /tests/smoke/kernel
 require:
-  - beakerlib
-  - kmod
-  - procps-ng
+ - beakerlib
+ - kmod
+ - procps-ng

@@ -1,11 +1,11 @@
-summary: bc/dc - ������
+summary: Functional test - bc - error handling
 test: ./test.sh
 tag:
-  - functional
-  - bc
+ - functional
+ - bc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/bc/test_bc_error
 
 require:
-  - beakerlib
+ - beakerlib

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - libselinux - 閿欒澶勭悊
+summary: Functional test - libselinux - error handling
 test: ./test.sh
 tag:
-  - functional
-  - libselinux
+ - functional
+ - libselinux
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libselinux/test_libselinux_error_handling
 require:
-  - libselinux
-  - beakerlib
+ - libselinux
+ - beakerlib

@@ -1,13 +1,13 @@
-summary: 冒烟测试 - stat 查看文件信息
+summary: Smoke test - stat viewfileinfo
 test: ./test.sh
 tag:
-  - smoke
-  - filesystem
+ - smoke
+ - filesystem
 duration: 1m
 tier: 0
 path: /tests/smoke/filesystem/test_smoke_stat_file_info
 require:
-  - beakerlib
-  - coreutils
-  - file
-  - diffutils
+ - beakerlib
+ - coreutils
+ - file
+ - diffutils

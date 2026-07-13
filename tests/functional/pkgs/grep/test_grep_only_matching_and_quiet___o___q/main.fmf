@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - grep - Only matching and quiet (-o, -q)
+summary: Functional test - grep - only matching functionality and quiet o q
 test: ./test.sh
 tag:
-  - functional
-  - grep
+ - functional
+ - grep
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/grep/test_grep_only_matching_and_quiet___o___q
 require:
-  - grep
-  - beakerlib
+ - grep
+ - beakerlib

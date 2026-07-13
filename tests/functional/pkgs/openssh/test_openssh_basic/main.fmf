@@ -1,11 +1,11 @@
-summary: openssh - ��������
+summary: Functional test - openssh - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - openssh
+ - functional
+ - openssh
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssh/test_openssh_basic
 
 require:
-  - beakerlib
+ - beakerlib

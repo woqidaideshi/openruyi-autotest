@@ -1,12 +1,12 @@
-﻿summary: 性能测试 - mmtests - db-sqlite-insert-small
+﻿summary: Performance test - mmtests - db-sqlite-insert-small
 test: ./test.sh
 tag:
-  - performance
-  - kernel
-  - mmtests
+ - performance
+ - kernel
+ - mmtests
 duration: 30m
 tier: 1
 path: /tests/performance/mmtests/test_mmtests_db_sqlite_insert_small
 require:
-  - mmtests
-  - beakerlib
+ - mmtests
+ - beakerlib

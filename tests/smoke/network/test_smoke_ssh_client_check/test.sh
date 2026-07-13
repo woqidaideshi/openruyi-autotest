@@ -1,25 +1,25 @@
 #!/bin/bash
-# Smoke test: network - ssh 版本
+# Smoke test: network - ssh version
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeNetworkSetup
+ rlPhaseStartSetup "Environment setup"
+ smokeNetworkSetup
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "ssh 版本"
-        rlRun 'ssh -V 2>&1' 0 "ssh 版本"
-        rlRun 'which scp' 0 "scp 存在"
-        rlRun 'which sftp' 0 "sftp 存在"
-    rlPhaseEnd
+ rlPhaseStartTest "ssh version"
+ rlRun 'ssh -V 2>&1' 0 "ssh version"
+ rlRun 'which scp' 0 "scp exists"
+ rlRun 'which sftp' 0 "sftp exists"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+ rlPhaseStartCleanup "Clean up test environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

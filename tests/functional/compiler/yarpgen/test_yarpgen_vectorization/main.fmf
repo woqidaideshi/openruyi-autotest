@@ -1,5 +1,5 @@
-summary: 功能测试 - yarpgen - 自动向量化 (-ftree-vectorize)
-test: ./test.sh
+summary: Functional test - yarpgen - vectorization (-ftree-vectorize)
+test:./test.sh
 tag: [functional, compiler, yarpgen]
 duration: 5m
 tier: 2

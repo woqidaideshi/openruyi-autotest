@@ -1,7 +1,7 @@
-summary: ���ܲ��� - libgpg-error �����֤
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/libgpg-error
 require:
-  - libgpg-error
-  - beakerlib
+ - libgpg-error
+ - beakerlib

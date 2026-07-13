@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - audit - 閿欒澶勭悊
+summary: Functional test - audit - error handling
 test: ./test.sh
 tag:
-  - functional
-  - audit
+ - functional
+ - audit
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/audit/test_audit_error_handling
 require:
-  - audit
-  - beakerlib
+ - audit
+ - beakerlib

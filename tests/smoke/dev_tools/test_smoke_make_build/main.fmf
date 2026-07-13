@@ -1,13 +1,13 @@
-summary: 冒烟测试 - make 版本
+summary: Smoke test - make version
 test: ./test.sh
 tag:
-  - smoke
-  - dev_tools
+ - smoke
+ - dev_tools
 duration: 1m
 tier: 0
 path: /tests/smoke/dev_tools/test_smoke_make_build
 require:
-  - beakerlib
-  - gcc
-  - make
-  - python
+ - beakerlib
+ - gcc
+ - make
+ - python

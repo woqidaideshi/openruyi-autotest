@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - commands - mkfs01_ext2_sh
+summary: Functional test - LTP - commands - mkfs01_ext2_sh
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - commands
+ - functional
+ - ltp
+ - commands
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/commands/test_ltp_commands_mkfs01_ext2_sh
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

@@ -1,5 +1,5 @@
-summary: 功能测试 - csmith - 链接时优化 (-flto)
-test: ./test.sh
+summary: Functional test - csmith - linktime optimization (-flto)
+test:./test.sh
 tag: [functional, compiler, csmith]
 duration: 5m
 tier: 2

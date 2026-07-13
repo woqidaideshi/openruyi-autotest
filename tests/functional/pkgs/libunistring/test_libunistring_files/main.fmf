@@ -1,11 +1,11 @@
-summary: libunistring - �ļ���֤
+summary: Functional test - libunistring - file verification
 test: ./test.sh
 tag:
-  - functional
-  - libunistring
+ - functional
+ - libunistring
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libunistring/test_libunistring_files
 
 require:
-  - beakerlib
+ - beakerlib

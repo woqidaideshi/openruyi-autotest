@@ -1,11 +1,11 @@
-summary: jitterentropy - �ļ���֤
+summary: Functional test - jitterentropy - file verification
 test: ./test.sh
 tag:
-  - functional
-  - jitterentropy
+ - functional
+ - jitterentropy
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/jitterentropy/test_jitterentropy_files
 
 require:
-  - beakerlib
+ - beakerlib

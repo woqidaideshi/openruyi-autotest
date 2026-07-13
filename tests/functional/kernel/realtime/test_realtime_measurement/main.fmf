@@ -1,13 +1,13 @@
-﻿summary: 功能测试 - 内核 - realtime - measurement
+﻿summary: Functional test - kernel - realtime - measurement
 test: ./test.sh
 tag:
-  - functional
-  - kernel
-  - realtime
-  - ltp
+ - functional
+ - kernel
+ - realtime
+ - ltp
 duration: 10m
 tier: 1
 path: /tests/functional/kernel/realtime/test_realtime_measurement
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

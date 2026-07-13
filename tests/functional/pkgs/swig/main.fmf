@@ -1,10 +1,10 @@
-summary: 功能测试 - swig 软件包功能验证
+summary: Functional test - swig package functionality verification
 tag:
-  - functional
-  - swig
+ - functional
+ - swig
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/swig
 require:
-  - swig
-  - beakerlib
+ - swig
+ - beakerlib

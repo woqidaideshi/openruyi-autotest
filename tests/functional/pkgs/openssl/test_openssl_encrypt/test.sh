@@ -7,30 +7,30 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        opensslSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ opensslSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlPhaseEnd
 
-    rlPhaseStartTest "�ӽ���"
-        rlRun "TmpDir=$(mktemp -d)" 0 "错误处理ʱĿ¼"
-        rlRun "cd $TmpDir" 0 "错误处理�Ŀ¼"
-        rlRun "echo \"secret message\" > plain.txt" 0 "错误处理���ļ�"
-        rlRun "openssl enc -aes-256-cbc -pbkdf2 -in plain.txt -out encrypted.bin -pass pass:test123" 0 "AES����"
-        rlRun "test -f encrypted.bin" 0 "��֤�����ļ�����"
-        rlRun "openssl enc -aes-256-cbc -d -pbkdf2 -in encrypted.bin -out decrypted.txt -pass pass:test123" 0 "AES����"
-        rlRun "diff plain.txt decrypted.txt" 0 "��֤���ܽ��һ��"
-    rlPhaseEnd
+ rlPhaseStartTest "�ӽ���"
+ rlRun "TmpDir=$(mktemp -d)" 0 "error handlingʱĿ¼"
+ rlRun "cd $TmpDir" 0 "error handlingdirectory"
+ rlRun "echo \"secret message\" > plain.txt" 0 "error handling���ļ�"
+ rlRun "openssl enc -aes-256-cbc -pbkdf2 -in plain.txt -out encrypted.bin -pass pass:test123" 0 "AES����"
+ rlRun "test -f encrypted.bin" 0 "��֤�����fileattribute"
+ rlRun "openssl enc -aes-256-cbc -d -pbkdf2 -in encrypted.bin -out decrypted.txt -pass pass:test123" 0 "AES����"
+ rlRun "diff plain.txt decrypted.txt" 0 "��֤���ܽ��һ��"
+ rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # openssl 软件包由 lib.sh 的引用计数机制自动管理卸载
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+ rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+ fi
+ # openssl Package managed by lib.sh 's reference counting auto-uninstall
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

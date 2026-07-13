@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - ima - ima_keys
+summary: Functional test - LTP - ima - ima_keys
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - ima
+ - functional
+ - ltp
+ - ima
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/ima/test_ltp_ima_ima_keys
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

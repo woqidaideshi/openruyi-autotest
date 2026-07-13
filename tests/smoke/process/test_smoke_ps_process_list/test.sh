@@ -1,25 +1,25 @@
 #!/bin/bash
-# Smoke test: process - ps 当前进程
+# Smoke test: process - ps currentprocess
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeProcessSetup
+ rlPhaseStartSetup "Environment setup"
+ smokeProcessSetup
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "ps 当前进程"
-        rlRun 'ps' 0 "ps 当前进程"
-        rlRun 'ps aux | head -5' 0 "ps aux 全部进程"
-        rlRun 'ps -p 1' 0 "ps 查看PID 1"
-    rlPhaseEnd
+ rlPhaseStartTest "ps currentprocess"
+ rlRun 'ps' 0 "ps currentprocess"
+ rlRun 'ps aux | head -5' 0 "ps aux allprocess"
+ rlRun 'ps -p 1' 0 "ps viewPID 1"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+ rlPhaseStartCleanup "Clean up test environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

@@ -1,13 +1,13 @@
-summary: 兼容性测试 - LTP POSIX - semaphore/sem_close
+summary: Compatibility test - LTP POSIX - semaphore/sem_close
 test: ./test.sh
 tag:
-  - compatibility
-  - posix
-  - semaphore
+ - compatibility
+ - posix
+ - semaphore
 duration: 3m
 tier: 2
 path: /tests/compatibility/ltp_posix/semaphore/test_ltp_posix_semaphore_sem_close
 require:
-  - beakerlib
-  - gcc
-  - make
+ - beakerlib
+ - gcc
+ - make

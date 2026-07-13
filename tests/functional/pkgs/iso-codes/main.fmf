@@ -1,7 +1,7 @@
-summary: ���ܲ��� - iso-codes ������֤
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/iso-codes
 require:
-  - iso-codes
-  - beakerlib
+ - iso-codes
+ - beakerlib

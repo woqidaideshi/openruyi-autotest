@@ -1,11 +1,11 @@
-summary: 冒烟测试 - whoami 当前用户
+summary: Smoke test - whoami currentuser
 test: ./test.sh
 tag:
-  - smoke
-  - user_mgmt
+ - smoke
+ - user_mgmt
 duration: 1m
 tier: 0
 path: /tests/smoke/user_mgmt/test_smoke_whoami_id
 require:
-  - beakerlib
-  - coreutils
+ - beakerlib
+ - coreutils

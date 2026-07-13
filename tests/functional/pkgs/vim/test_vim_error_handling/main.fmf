@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - vim - Error handling
+summary: Functional test - vim - error handling
 test: ./test.sh
 tag:
-  - functional
-  - vim
+ - functional
+ - vim
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/vim/test_vim_error_handling
 require:
-  - vim
-  - beakerlib
+ - vim
+ - beakerlib

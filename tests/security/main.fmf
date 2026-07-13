@@ -1,14 +1,14 @@
-summary: 安全测试 - 系统安全验证
+summary: Security test - systemsecurityverify
 tag:
-  - security
+ - security
 duration: 5m
 tier: 1
 path: /tests/security
 require:
-  - beakerlib
+ - beakerlib
 hardware-require:
-  server: 1
-  cpu: ">= 4"
-  memory: ">= 8 GiB"
-  disk: ">= 1"
-  net: ">= 1"
+ server: 1
+ cpu: ">= 4"
+ memory: ">= 8 GiB"
+ disk: ">= 1"
+ net: ">= 1"

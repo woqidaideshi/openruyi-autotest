@@ -1,13 +1,13 @@
-﻿summary: 功能测试 - 内核 - realtime - matrix_mult
+﻿summary: Functional test - kernel - realtime - matrix_mult
 test: ./test.sh
 tag:
-  - functional
-  - kernel
-  - realtime
-  - ltp
+ - functional
+ - kernel
+ - realtime
+ - ltp
 duration: 10m
 tier: 1
 path: /tests/functional/kernel/realtime/test_realtime_matrix_mult
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

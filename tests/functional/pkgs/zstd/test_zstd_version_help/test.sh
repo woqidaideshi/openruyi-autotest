@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: zstd - 版本和帮助
+# Functional test: zstd - version and help
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -7,35 +7,35 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        zstdSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ zstdSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlPhaseEnd
 
-    rlPhaseStartTest "版本和帮助"
-        rlRun "zstd --version 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "zstd 版本信息"
-        rlRun "zstd --help 2>&1 | head -5 || true" 0 "zstd 帮助信息"
-        rlRun "unzstd --version 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "unzstd 版本信息"
-        rlRun "unzstd --help 2>&1 | head -5 || true" 0 "unzstd 帮助信息"
-        rlRun "zstdcat --version 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "zstdcat 版本信息"
-        rlRun "zstdcat --help 2>&1 | head -5 || true" 0 "zstdcat 帮助信息"
-        rlRun "zstdgrep --version 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "zstdgrep 版本信息"
-        rlRun "zstdgrep --help 2>&1 | head -5 || true" 0 "zstdgrep 帮助信息"
-        rlRun "zstdless --version 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "zstdless 版本信息"
-        rlRun "zstdless --help 2>&1 | head -5 || true" 0 "zstdless 帮助信息"
-        rlRun "zstdmt --version 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "zstdmt 版本信息"
-        rlRun "zstdmt --help 2>&1 | head -5 || true" 0 "zstdmt 帮助信息"
-    rlPhaseEnd
+ rlPhaseStartTest "version and help"
+ rlRun "zstd --version 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "zstd version info"
+ rlRun "zstd --help 2>&1 | head -5 || true" 0 "zstd help info"
+ rlRun "unzstd --version 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "unzstd version info"
+ rlRun "unzstd --help 2>&1 | head -5 || true" 0 "unzstd help info"
+ rlRun "zstdcat --version 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "zstdcat version info"
+ rlRun "zstdcat --help 2>&1 | head -5 || true" 0 "zstdcat help info"
+ rlRun "zstdgrep --version 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "zstdgrep version info"
+ rlRun "zstdgrep --help 2>&1 | head -5 || true" 0 "zstdgrep help info"
+ rlRun "zstdless --version 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "zstdless version info"
+ rlRun "zstdless --help 2>&1 | head -5 || true" 0 "zstdless help info"
+ rlRun "zstdmt --version 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "zstdmt version info"
+ rlRun "zstdmt --help 2>&1 | head -5 || true" 0 "zstdmt help info"
+ rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # zstd 软件包由 lib.sh 的引用计数机制自动管理卸载
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+ rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+ fi
+ # zstd Package managed by lib.sh 's reference counting auto-uninstall
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

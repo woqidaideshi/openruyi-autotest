@@ -1,11 +1,11 @@
-summary: slang - ��������
+summary: Functional test - slang - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - slang
+ - functional
+ - slang
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/slang/test_slang_basic
 
 require:
-  - beakerlib
+ - beakerlib

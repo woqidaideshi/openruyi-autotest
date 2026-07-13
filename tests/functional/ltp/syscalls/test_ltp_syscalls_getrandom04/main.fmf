@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - syscalls - getrandom04
+summary: Functional test - LTP - syscalls - getrandom04
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - syscalls
+ - functional
+ - ltp
+ - syscalls
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/syscalls/test_ltp_syscalls_getrandom04
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

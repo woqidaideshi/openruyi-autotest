@@ -1,11 +1,11 @@
-summary: 冒烟测试 - groups 当前用户组
+summary: Smoke test - groups currentusergroup
 test: ./test.sh
 tag:
-  - smoke
-  - user_mgmt
+ - smoke
+ - user_mgmt
 duration: 1m
 tier: 0
 path: /tests/smoke/user_mgmt/test_smoke_groups_membership
 require:
-  - beakerlib
-  - coreutils
+ - beakerlib
+ - coreutils

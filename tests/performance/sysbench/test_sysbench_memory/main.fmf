@@ -1,4 +1,4 @@
-summary: 性能测试 - sysbench - 内存带宽
+summary: Performance test - sysbench - memorybandwidth
 test: ./test.sh
 tag: [performance, sysbench]
 duration: 5m

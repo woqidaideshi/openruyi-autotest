@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - findutils - 閿欒澶勭悊
+summary: Functional test - findutils - error handling
 test: ./test.sh
 tag:
-  - functional
-  - findutils
+ - functional
+ - findutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/findutils/test_findutils_error_handling
 require:
-  - findutils
-  - beakerlib
+ - findutils
+ - beakerlib

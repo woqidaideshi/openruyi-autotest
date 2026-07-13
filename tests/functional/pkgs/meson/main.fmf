@@ -1,10 +1,10 @@
-summary: 功能测试 - meson 软件包功能验证
+summary: Functional test - meson package functionality verification
 tag:
-  - functional
-  - meson
+ - functional
+ - meson
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/meson
 require:
-  - meson
-  - beakerlib
+ - meson
+ - beakerlib

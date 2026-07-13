@@ -1,15 +1,15 @@
-summary: 冒烟测试 - curl 版本
+summary: Smoke test - curl version
 test: ./test.sh
 tag:
-  - smoke
-  - network
+ - smoke
+ - network
 duration: 1m
 tier: 0
 path: /tests/smoke/network/test_smoke_curl_http
 require:
-  - beakerlib
-  - iputils
-  - curl
-  - wget
-  - openssh-clients
-  - iproute2
+ - beakerlib
+ - iputils
+ - curl
+ - wget
+ - openssh-clients
+ - iproute2

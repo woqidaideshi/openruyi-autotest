@@ -1,11 +1,11 @@
-summary: libarchive - �ļ���֤
+summary: Functional test - libarchive - file verification
 test: ./test.sh
 tag:
-  - functional
-  - libarchive
+ - functional
+ - libarchive
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libarchive/test_libarchive_files
 
 require:
-  - beakerlib
+ - beakerlib

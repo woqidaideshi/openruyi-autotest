@@ -1,22 +1,22 @@
-# 所有测试用例的共享配置
-# 子测试目录会自动继承这些配置
+# Shared configuration for all test cases
+# Sub-test directories inherit these automatically
 
-# 默认测试框架
+# Default test framework
 framework: shell
 
-# 默认测试超时时间
+# Default test duration
 duration: 5m
 
-# 默认联系人
+# Default contact
 contact: QA Team <qa@example.com>
 
-# 默认启用
+# Default enabled
 enabled: true
 
-# 默认测试执行路径
+# Default test execution path
 path: /
 
-# tier 分级说明:
-#   tier: 0 = 冒烟测试 (每次提交必跑)
-#   tier: 1 = 核心功能/安全测试 (每日构建)
-#   tier: 2 = 兼容性/性能/可靠性测试 (发布前)
+# tier Tier explanation:
+# tier: 0 = Smoke test (run on every commit)
+# tier: 1 = core/Security test (daily build)
+# tier: 2 = compatibility/performance/Reliability test (before release)

@@ -1,11 +1,11 @@
-summary: gawk - ������
+summary: Functional test - gawk - error handling
 test: ./test.sh
 tag:
-  - functional
-  - gawk
+ - functional
+ - gawk
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/gawk/test_gawk_error
 
 require:
-  - beakerlib
+ - beakerlib

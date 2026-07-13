@@ -1,11 +1,11 @@
-summary: libgpg-error - �ļ���֤
+summary: Functional test - libgpg-error - libgpg error handling file verification
 test: ./test.sh
 tag:
-  - functional
-  - libgpg-error
+ - functional
+ - libgpg-error
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libgpg-error/test_libgpg-error_files
 
 require:
-  - beakerlib
+ - beakerlib

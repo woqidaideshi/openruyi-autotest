@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - smack - smack_set_cipso
+summary: Functional test - LTP - smack - smack_set_cipso
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - smack
+ - functional
+ - ltp
+ - smack
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/smack/test_ltp_smack_smack_set_cipso
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

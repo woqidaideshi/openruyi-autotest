@@ -1,11 +1,11 @@
-summary: kmod - ��������
+summary: Functional test - kmod - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - kmod
+ - functional
+ - kmod
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/kmod/test_kmod_basic
 
 require:
-  - beakerlib
+ - beakerlib

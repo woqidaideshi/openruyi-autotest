@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - systemd - systemctl service operations
+summary: Functional test - systemd - systemctlserviceoperation
 test: ./test.sh
 tag:
-  - functional
-  - systemd
+ - functional
+ - systemd
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_systemctl_service_operations
 require:
-  - systemd
-  - beakerlib
+ - systemd
+ - beakerlib

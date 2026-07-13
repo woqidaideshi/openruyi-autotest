@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - pam - 閿欒澶勭悊
+summary: Functional test - pam - error handling
 test: ./test.sh
 tag:
-  - functional
-  - pam
+ - functional
+ - pam
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pam/test_pam_error_handling
 require:
-  - pam
-  - beakerlib
+ - pam
+ - beakerlib

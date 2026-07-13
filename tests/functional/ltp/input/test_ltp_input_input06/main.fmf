@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - input - input06
+summary: Functional test - LTP - input - input06
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - input
+ - functional
+ - ltp
+ - input
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/input/test_ltp_input_input06
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

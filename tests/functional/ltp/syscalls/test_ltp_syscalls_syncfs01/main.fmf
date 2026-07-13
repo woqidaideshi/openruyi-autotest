@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - syscalls - syncfs01
+summary: Functional test - LTP - syscalls - syncfs01
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - syscalls
+ - functional
+ - ltp
+ - syscalls
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/syscalls/test_ltp_syscalls_syncfs01
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

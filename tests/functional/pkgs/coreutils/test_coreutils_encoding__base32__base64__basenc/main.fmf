@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - coreutils - Encoding (base32, base64, basenc)
-test: ./test.sh
+summary: Functional test - coreutils - encoding base32 base64 basenc
+test:./test.sh
 tag:
-  - functional
-  - coreutils
+ - functional
+ - coreutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/coreutils/test_coreutils_encoding__base32__base64__basenc
 require:
-  - coreutils
-  - beakerlib
+ - coreutils
+ - beakerlib

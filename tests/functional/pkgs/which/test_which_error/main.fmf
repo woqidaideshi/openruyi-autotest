@@ -1,11 +1,11 @@
-summary: which - ������
+summary: Functional test - which - error handling
 test: ./test.sh
 tag:
-  - functional
-  - which
+ - functional
+ - which
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/which/test_which_error
 
 require:
-  - beakerlib
+ - beakerlib

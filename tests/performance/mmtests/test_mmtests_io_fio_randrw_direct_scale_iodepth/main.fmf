@@ -1,12 +1,12 @@
-﻿summary: 性能测试 - mmtests - io-fio-randrw-direct-scale-iodepth
+﻿summary: Performance test - mmtests - io-fio-randrw-direct-scale-iodepth
 test: ./test.sh
 tag:
-  - performance
-  - kernel
-  - mmtests
+ - performance
+ - kernel
+ - mmtests
 duration: 30m
 tier: 1
 path: /tests/performance/mmtests/test_mmtests_io_fio_randrw_direct_scale_iodepth
 require:
-  - mmtests
-  - beakerlib
+ - mmtests
+ - beakerlib

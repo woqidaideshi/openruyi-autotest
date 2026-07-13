@@ -1,13 +1,13 @@
-summary: 冒烟测试 - rm 删除文件和目录
+summary: Smoke test - rm deletefileanddirectory
 test: ./test.sh
 tag:
-  - smoke
-  - filesystem
+ - smoke
+ - filesystem
 duration: 1m
 tier: 0
 path: /tests/smoke/filesystem/test_smoke_rm_delete_file
 require:
-  - beakerlib
-  - coreutils
-  - file
-  - diffutils
+ - beakerlib
+ - coreutils
+ - file
+ - diffutils

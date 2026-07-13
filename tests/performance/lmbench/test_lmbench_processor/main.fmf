@@ -1,4 +1,4 @@
-summary: 性能测试 - lmbench - 处理器与内存延迟
+summary: Performance test - lmbench - handleandmemorylatency
 test: ./test.sh
 tag: [performance, lmbench]
 duration: 5m

@@ -1,24 +1,24 @@
 #!/bin/bash
-# Smoke test: kernel - modprobe 版本
+# Smoke test: kernel - modprobe version
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeKernelSetup
+ rlPhaseStartSetup "Environment setup"
+ smokeKernelSetup
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "modprobe 版本"
-        rlRun 'modprobe --version 2>&1 || true' 0 "modprobe 版本"
-        rlRun 'ls /lib/modules/$(uname -r) 2>&1 | head -5 || true' 0 "模块目录存在"
-    rlPhaseEnd
+ rlPhaseStartTest "modprobe version"
+ rlRun 'modprobe --version 2>&1 || true' 0 "modprobe version"
+ rlRun 'ls /lib/modules/$(uname -r) 2>&1 | head -5 || true' 0 "moduledirectory exists"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+ rlPhaseStartCleanup "Clean up test environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd
