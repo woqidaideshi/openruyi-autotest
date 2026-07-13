@@ -1,31 +1,33 @@
-# 测试报告
+# Test Reports
 
-> 测试执行时间：YYYY-MM-DD HH:MM
-> 测试环境：openRuyi Creek, kernel xxx, riscv64
+> Test execution time: YYYY-MM-DD HH:MM
+> Test environment: openRuyi Creek, kernel xxx, riscv64
+
+> :cn: [中文版 (Chinese Version)](test_reports_zh.md)
 
 ---
 
-## 概述
+## Overview
 
-### 测试概要
+### Summary
 
-本次测试覆盖冒烟测试、功能测试、安全测试、性能测试、兼容性测试、可靠性测试和特性测试七大类，基于 tmt 框架 + BeakerLib 脚本执行。
+This test run covers seven categories — Smoke, Functional, Security, Performance, Compatibility, Reliability, and Feature tests — executed via the tmt framework with BeakerLib scripts.
 
-### 测试环境
+### Test Environment
 
-| 项目 | 描述 |
-|------|------|
-| **被测系统** | openRuyi Creek |
-| **内核版本** | xxx |
-| **架构** | riscv64 |
-| **测试框架** | tmt x.x.x |
-| **测试工具** | BeakerLib |
-| **执行方式** | `tmt run --all provision --how local --feeling-safe` |
+| Item | Description |
+|------|-------------|
+| **System Under Test** | openRuyi Creek |
+| **Kernel Version** | xxx |
+| **Architecture** | riscv64 |
+| **Test Framework** | tmt x.x.x |
+| **Test Tool** | BeakerLib |
+| **Execution Mode** | `tmt run --all provision --how local --feeling-safe` |
 
-### 测试总体结果
+### Overall Results
 
-| 测试类型 | 测试套数 | 用例数 | 通过 | 失败 | 跳过 | 通过率 |
-|---------|:---:|:---:|:---:|:---:|:---:|:---:|
+| Test Type | Suites | Cases | Pass | Fail | Skip | Pass Rate |
+|-----------|:---:|:---:|:---:|:---:|:---:|:---:|
 | Smoke | 100 | 100 | - | - | - | - |
 | Functional | 202 | 566 | - | - | - | - |
 | Security | 106 | 106 | - | - | - | - |
@@ -33,14 +35,14 @@
 | Compatibility | 188 | 188 | - | - | - | - |
 | Reliability | 1 | 1 | - | - | - | - |
 | Feature | 0 | 0 | - | - | - | - |
-| **合计** | **604** | **968** | - | - | - | - |
+| **Total** | **604** | **968** | - | - | - | - |
 
 ---
 
-## 冒烟测试
+## Smoke Tests
 
-| 测试套 | 用例数 | 通过 | 失败 | 跳过 | 状态 |
-|-------|:---:|:---:|:---:|:---:|:---:|
+| Test Suite | Cases | Pass | Fail | Skip | Status |
+|------------|:---:|:---:|:---:|:---:|:---:|
 | archive | 5 | - | - | - | - |
 | dev_tools | 6 | - | - | - | - |
 | disk_fs | 6 | - | - | - | - |
@@ -58,56 +60,56 @@
 | system_info | 6 | - | - | - | - |
 | text_processing | 7 | - | - | - | - |
 | user_mgmt | 6 | - | - | - | - |
-| **合计** | **100** | - | - | - | - |
+| **Total** | **100** | - | - | - | - |
 
 ---
 
-## 功能测试
+## Functional Tests
 
-| 分类 | 软件包数 | 用例数 | 通过 | 失败 | 跳过 | 状态 |
-|------|:---:|:---:|:---:|:---:|:---:|:---:|
+| Category | Packages | Cases | Pass | Fail | Skip | Status |
+|----------|:---:|:---:|:---:|:---:|:---:|:---:|
 | pkgs | 202 | 566 | - | - | - | - |
-| **合计** | **202** | **566** | - | - | - | - |
+| **Total** | **202** | **566** | - | - | - | - |
 
 ---
 
-## 安全测试
+## Security Tests
 
-| 测试套 | 用例数 | 通过 | 失败 | 跳过 | 状态 |
-|-------|:---:|:---:|:---:|:---:|:---:|
+| Test Suite | Cases | Pass | Fail | Skip | Status |
+|------------|:---:|:---:|:---:|:---:|:---:|
 | CVE | - | - | - | - | - |
 | Nmap | - | - | - | - | - |
-| **合计** | **106** | - | - | - | - |
+| **Total** | **106** | - | - | - | - |
 
 ---
 
-## 性能测试
+## Performance Tests
 
-| 测试套 | 用例数 | 通过 | 失败 | 跳过 | 状态 |
-|-------|:---:|:---:|:---:|:---:|:---:|
+| Test Suite | Cases | Pass | Fail | Skip | Status |
+|------------|:---:|:---:|:---:|:---:|:---:|
 | UnixBench | 7 | - | - | - | - |
-| **合计** | **7** | - | - | - | - |
+| **Total** | **7** | - | - | - | - |
 
 ---
 
-## 兼容性测试
+## Compatibility Tests
 
-| 测试套 | 用例数 | 通过 | 失败 | 跳过 | 状态 |
-|-------|:---:|:---:|:---:|:---:|:---:|
+| Test Suite | Cases | Pass | Fail | Skip | Status |
+|------------|:---:|:---:|:---:|:---:|:---:|
 | LTP POSIX | 188 | - | - | - | - |
-| **合计** | **188** | - | - | - | - |
+| **Total** | **188** | - | - | - | - |
 
 ---
 
-## 可靠性测试
+## Reliability Tests
 
-| 测试套 | 用例数 | 通过 | 失败 | 跳过 | 状态 |
-|-------|:---:|:---:|:---:|:---:|:---:|
-| 可靠性测试 | 1 | - | - | - | - |
-| **合计** | **1** | - | - | - | - |
+| Test Suite | Cases | Pass | Fail | Skip | Status |
+|------------|:---:|:---:|:---:|:---:|:---:|
+| Reliability | 1 | - | - | - | - |
+| **Total** | **1** | - | - | - | - |
 
 ---
 
-## 特性测试
+## Feature Tests
 
-待补充。
+TBD.
