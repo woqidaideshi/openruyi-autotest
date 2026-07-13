@@ -1,4 +1,4 @@
-summary: Functional test - csmith - linking scenarios（static library/shared library/cross-compiler）
+summary: Functional test - csmith - linking scenarios (static library/shared library/cross-compiler)
 test: ./test.sh
 tag: [functional, compiler, csmith]
 duration: 5m

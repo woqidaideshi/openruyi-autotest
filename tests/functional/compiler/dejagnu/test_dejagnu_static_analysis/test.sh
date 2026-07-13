@@ -9,7 +9,7 @@ rlJournalStart
  TmpDir=$(mktemp -d)
  rlRun "cd $TmpDir" 0 ""
 
- # normal code（analyzer noshould error）
+ # normal code (analyzer noshould error)
  cat > clean.c << 'CEOF'
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,7 +20,7 @@ int main(void){int*p=alloc_and_fill(10);if(!p)return 1;int s=sum(p,10);
 printf("sum=%d\n",s);free(p);if(s!=45)abort();return 0;}
 CEOF
 
- # hasinissue（double-free, use-after-free）
+ # hasinissue (double-free, use-after-free)
  cat > bug.c << 'CEOF'
 #include <stdlib.h>
 int* bug_double_free(void){int*p=malloc(100);free(p);free(p);return p;}
@@ -47,7 +47,7 @@ CEOF
  if grep -qi "double.*free\|use.after.*free\|leak" /tmp/analyzer_bug.txt; then
  rlPass "fanalyzer successexportmemoryissue"
  else
- rlLogWarning "fanalyzer notexportprememoryissue（possibleversionnot supported）"
+ rlLogWarning "fanalyzer notexportprememoryissue (possibleversionnot supported)"
  fi
  rlPhaseEnd
 

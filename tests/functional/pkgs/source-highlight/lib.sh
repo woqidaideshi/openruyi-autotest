@@ -12,7 +12,7 @@ sourceHighlightSetup() {
  if ! rpm -q source-highlight 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y source-highlight 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already source-highlight soft（）"
+ rlLogInfo "already source-highlight soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "source-highlight softalready exists"
@@ -23,7 +23,7 @@ sourceHighlightSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "source-highlight alreadybyothertest，reference count: $ref"
+ rlLogInfo "source-highlight alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "sourceHighlightCleanup"
 }
@@ -38,11 +38,11 @@ sourceHighlightCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y source-highlight 2>/dev/null || true
- rlLogInfo "already source-highlight soft（posttest）"
+ rlLogInfo "already source-highlight soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "source-highlight Retain（still have $ref test(s) not completed）"
+ rlLogInfo "source-highlight Retain (still have $ref test(s) not completed)"
  fi
 }

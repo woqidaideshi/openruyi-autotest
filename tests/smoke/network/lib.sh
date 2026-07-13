@@ -21,7 +21,7 @@ smokeNetworkSetup() {
  ref=$(grep "^ref=" "$SMOKE_NETWORK_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_NETWORK_FLAG"
- rlLogInfo "smoke-network already initialized by other tests，reference count: $ref"
+ rlLogInfo "smoke-network already initialized by other tests, reference count: $ref"
  fi
  rlCleanupAppend "smokeNetworkCleanup"
 }
@@ -35,9 +35,9 @@ smokeNetworkCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  rm -f "$SMOKE_NETWORK_FLAG"
- rlLogInfo "smoke-network: Cleanup complete（posttest）"
+ rlLogInfo "smoke-network: Cleanup complete (posttest)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_NETWORK_FLAG"
- rlLogInfo "smoke-network: Retain（still have $ref test(s) not completed）"
+ rlLogInfo "smoke-network: Retain (still have $ref test(s) not completed)"
  fi
 }

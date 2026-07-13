@@ -12,7 +12,7 @@ expectSetup() {
  if ! rpm -q expect 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y expect 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already expect soft（）"
+ rlLogInfo "already expect soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "expect softalready exists"
@@ -23,7 +23,7 @@ expectSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "expect alreadybyothertest，reference count: $ref"
+ rlLogInfo "expect alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "expectCleanup"
 }
@@ -38,11 +38,11 @@ expectCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y expect 2>/dev/null || true
- rlLogInfo "already expect soft（posttest）"
+ rlLogInfo "already expect soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "expect Retain（still have $ref test(s) not completed）"
+ rlLogInfo "expect Retain (still have $ref test(s) not completed)"
  fi
 }

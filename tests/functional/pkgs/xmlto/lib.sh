@@ -12,7 +12,7 @@ xmltoSetup() {
  if ! rpm -q xmlto 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y xmlto 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already xmlto soft（）"
+ rlLogInfo "already xmlto soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "xmlto softalready exists"
@@ -23,7 +23,7 @@ xmltoSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "xmlto alreadybyothertest，reference count: $ref"
+ rlLogInfo "xmlto alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "xmltoCleanup"
 }
@@ -38,11 +38,11 @@ xmltoCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y xmlto 2>/dev/null || true
- rlLogInfo "already xmlto soft（posttest）"
+ rlLogInfo "already xmlto soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "xmlto Retain（still have $ref test(s) not completed）"
+ rlLogInfo "xmlto Retain (still have $ref test(s) not completed)"
  fi
 }

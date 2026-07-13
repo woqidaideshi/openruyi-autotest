@@ -12,7 +12,7 @@ libunistringSetup() {
  if ! rpm -q libunistring 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libunistring 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libunistring soft（）"
+ rlLogInfo "already libunistring soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libunistring softalready exists"
@@ -23,7 +23,7 @@ libunistringSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libunistring alreadybyothertest，reference count: $ref"
+ rlLogInfo "libunistring alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libunistringCleanup"
 }
@@ -38,11 +38,11 @@ libunistringCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libunistring 2>/dev/null || true
- rlLogInfo "already libunistring soft（posttest）"
+ rlLogInfo "already libunistring soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libunistring Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libunistring Retain (still have $ref test(s) not completed)"
  fi
 }

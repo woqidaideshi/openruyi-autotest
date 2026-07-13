@@ -1,5 +1,5 @@
 #!/bin/bash
-# Reliability: trinity - syscall: listexport、typeavailable syscall
+# Reliability: trinity - syscall: listexport, typeavailable syscall
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 

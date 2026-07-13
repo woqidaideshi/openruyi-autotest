@@ -37,7 +37,7 @@ _openscapInfo() {
 
  # Verify expected content
  if ! grep -q "Document type: Source Data Stream" "$out"; then
- rlFail "oscap info outputnofull（missing Document type）"
+ rlFail "oscap info outputnofull (missing Document type)"
  rm -f "$out"
  return 1
  fi
@@ -128,7 +128,7 @@ _openscapGenerateFix() {
  local rc=${PIPESTATUS[0]}
 
  if [ "$rc" -ne 0 ] || [ ! -f "$result_xml" ]; then
- rlFail "oscap eval failed，Unable toGeneratescript"
+ rlFail "oscap eval failed, Unable toGeneratescript"
  rm -f "$out" "$result_xml"
  return 1
  fi
@@ -156,12 +156,12 @@ _openscapGenerateFix() {
  fi
 
  if [ ! -f "$fix_sh" ] || [ ! -s "$fix_sh" ]; then
- rlLogWarning "oscap generate fix Generatescriptis（systemalready）"
- rlPass "oscap generate fix Complete（noneed）"
+ rlLogWarning "oscap generate fix Generatescriptis (systemalready)"
+ rlPass "oscap generate fix Complete (noneed)"
  else
  local lines
  lines=$(wc -l < "$fix_sh")
- rlPass "oscap generate fix Complete（Generate $lines linesscript）"
+ rlPass "oscap generate fix Complete (Generate $lines linesscript)"
  fi
 
  rm -f "$out" "$result_xml" "$fix_sh"
@@ -173,11 +173,11 @@ openscapSetup() {
  if [ ! -f "$OPENSCAP_DS" ]; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y scap-security-guide 2>/dev/null
  if [ ! -f "$OPENSCAP_DS" ]; then
- rlLogWarning "scap-security-guide failed，test will be skipped"
+ rlLogWarning "scap-security-guide failed, test will be skipped"
  echo "installed=0" > "$OPENSCAP_FLAG"
  else
  echo "installed=1" > "$OPENSCAP_FLAG"
- rlLogInfo "already scap-security-guide（）"
+ rlLogInfo "already scap-security-guide ()"
  fi
  else
  echo "installed=0" > "$OPENSCAP_FLAG"
@@ -189,7 +189,7 @@ openscapSetup() {
  ref=$(grep "^ref=" "$OPENSCAP_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$OPENSCAP_FLAG"
- rlLogInfo "openscap already，reference count: $ref"
+ rlLogInfo "openscap already, reference count: $ref"
  fi
 
  rlCleanupAppend "openscapCleanup"
@@ -205,6 +205,6 @@ openscapCleanup() {
  rlLogInfo "openscap testCleanup complete"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$OPENSCAP_FLAG"
- rlLogInfo "openscap Retain（still have $ref test(s) not completed）"
+ rlLogInfo "openscap Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -12,7 +12,7 @@ setupSetup() {
  if ! rpm -q setup 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y setup 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already setup soft（）"
+ rlLogInfo "already setup soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "setup softalready exists"
@@ -23,7 +23,7 @@ setupSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "setup alreadybyothertest，reference count: $ref"
+ rlLogInfo "setup alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "setupCleanup"
 }
@@ -38,11 +38,11 @@ setupCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y setup 2>/dev/null || true
- rlLogInfo "already setup soft（posttest）"
+ rlLogInfo "already setup soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "setup Retain（still have $ref test(s) not completed）"
+ rlLogInfo "setup Retain (still have $ref test(s) not completed)"
  fi
 }

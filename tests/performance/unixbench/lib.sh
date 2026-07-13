@@ -98,10 +98,10 @@ unixbenchCleanup() {
 }
 
 # ============================================================
-# run_unixbench_3x — Run UnixBench 3 times and average scores
+# run_unixbench_3x -- Run UnixBench 3 times and average scores
 # ============================================================
 #
-# Per Testing-Guide.md: "testExecute three times，Average of all runs used as final score"
+# Per Testing-Guide.md: "testExecute three times, Average of all runs used as final score"
 #
 # Usage: run_unixbench_3x <test_name> [run_args...]
 # test_name - Unique test identifier (e.g. "single_thread")

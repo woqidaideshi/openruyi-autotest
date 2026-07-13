@@ -12,7 +12,7 @@ readlineSetup() {
  if ! rpm -q readline 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y readline 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already readline soft（）"
+ rlLogInfo "already readline soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "readline softalready exists"
@@ -23,7 +23,7 @@ readlineSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "readline alreadybyothertest，reference count: $ref"
+ rlLogInfo "readline alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "readlineCleanup"
 }
@@ -38,11 +38,11 @@ readlineCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y readline 2>/dev/null || true
- rlLogInfo "already readline soft（posttest）"
+ rlLogInfo "already readline soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "readline Retain（still have $ref test(s) not completed）"
+ rlLogInfo "readline Retain (still have $ref test(s) not completed)"
  fi
 }

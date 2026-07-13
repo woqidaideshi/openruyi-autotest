@@ -12,7 +12,7 @@ islSetup() {
  if ! rpm -q isl 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y isl 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already isl soft（）"
+ rlLogInfo "already isl soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "isl softalready exists"
@@ -23,7 +23,7 @@ islSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "isl alreadybyothertest，reference count: $ref"
+ rlLogInfo "isl alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "islCleanup"
 }
@@ -38,11 +38,11 @@ islCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y isl 2>/dev/null || true
- rlLogInfo "already isl soft（posttest）"
+ rlLogInfo "already isl soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "isl Retain（still have $ref test(s) not completed）"
+ rlLogInfo "isl Retain (still have $ref test(s) not completed)"
  fi
 }

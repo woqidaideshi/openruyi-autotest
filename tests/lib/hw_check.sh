@@ -1,17 +1,17 @@
 #!/bin/bash
 # ============================================================
-# hw_check.sh — Hardware environment check & multi-server remote execution library
+# hw_check.sh -- Hardware environment check & multi-server remote execution library
 # ============================================================
 #
-# within local provision mode：
+# within local provision mode:
 # 1. Check if current environment meets hardware requirements declared in test cases
 # 2. Execute commands remotely on multiple servers
 #
-# Dependencies：
-# - topology.env（repolibraryrootdirectory），by Plan environment-file loaded
-# - sshpass（canoptional，withfor password-auth remoteExecute）
+# Dependencies:
+# - topology.env (repository root directory), by Plan environment-file loaded
+# - sshpass (can be optional, for password-auth remote execution)
 #
-# Usage：
+# Usage:
 #. "$(dirname "$0")/../../lib/hw_check.sh"
 #
 # hwVerify # Comprehensive check hardware-require all fields
@@ -23,14 +23,14 @@
 # hwGetServerInfo 1 host
 # ============================================================
 
-# ── Internal：from main.fmf Read field value ──────────────────────────
+# ── Internal:from main.fmf Read field value ──────────────────────────
 _hwFmfGet() {
  local section="$1" # e.g. "hardware-require"
  local key="$2" # e.g. "server"
  local file="${3:-main.fmf}"
 
  # resolve hardware-require key: value
- # Supported format：
+ # Supported format:
  # hardware-require:
  # server: 2
  # cpu: ">= 4"
@@ -38,7 +38,7 @@ _hwFmfGet() {
  $0 ~ "^"sec":" { in_section=1; next }
  in_section && /^[[:space:]]+[a-z]/ {
  if ($1 == k":") {
- # output key postallvalue（e.g. ">= 4" "8 GiB"）
+ # output key post all value (e.g. ">= 4" "8 GiB")
  $1 = ""
  sub(/^[[:space:]]+/, "")
  gsub(/"/, "")
@@ -50,8 +50,8 @@ _hwFmfGet() {
  ' "$file"
 }
 
-# ── Internal：Parse comparison operator ──────────────────────────────────
-# return: op（operator）actual（countvalue）
+# ── Internal:Parse comparison operator ──────────────────────────────────
+# return: op (operator)actual (actual value)
 _hwParseOp() {
  local raw="$1"
  if [[ "$raw" =~ ^(\>=|\<=|!=|>|<|=) ]]; then
@@ -66,10 +66,10 @@ _hwParseOp() {
  echo "$op|$actual"
 }
 
-# ── Internal：Generic comparison function ────────────────────────────────────
+# ── Internal:Generic comparison function ────────────────────────────────────
 _hwCompare() {
  local have="$1" # actual value
- local need_raw="$2" # raw requirement string（e.g. ">= 4"）
+ local need_raw="$2" # raw requirement string (e.g. ">= 4")
  local type="${3:-int}" # int or str
 
  local parsed=$(_hwParseOp "$need_raw")
@@ -102,7 +102,7 @@ _hwCompare() {
 # Public functions
 # ════════════════════════════════════════════════════════════
 
-# ── hwGetServerInfo：Get server connection info ─────────────────────
+# ── hwGetServerInfo:Get server connection info ─────────────────────
 # parameter: <index: 1~N> <field: host|port|user|password>
 # Example: host=$(hwGetServerInfo 1 host)
 hwGetServerInfo() {
@@ -112,7 +112,7 @@ hwGetServerInfo() {
  echo "${!var}"
 }
 
-# ── hwRunOnServer：Execute command on specified server ──────────────────
+# ── hwRunOnServer:Execute command on specified server ──────────────────
 # parameter: <index: 1~N> <command>
 # return: commandexit code
 # Example: hwRunOnServer 2 "df -h"
@@ -126,14 +126,14 @@ hwRunOnServer() {
  port="${port:-22}"
  user="${user:-root}"
 
- # e.g.if localhost，Execute
+ # e.g.if localhost, Execute
  if [ "$host" = "localhost" ] || [ "$host" = "127.0.0.1" ] || [ "$host" = "$(hostname -I 2>/dev/null | awk '{print $1}')" ]; then
  rlLogInfo "[local@$idx] $*"
  eval "$@"
  return $?
  fi
 
- # e.g.ifusernois root，passed sudo escalate privileges
+ # e.g.ifusernois root, passed sudo escalate privileges
  if [ "$user" != "root" ]; then
  rlLogInfo "[$user@$host:$port] (sudo) $*"
  # willcommandparametersecurityescapepostpassed sudo Execute
@@ -160,10 +160,10 @@ hwRunOnServer() {
  fi
 }
 
-# ── hwServerVerify：Check if server count meets requirements ──────────────
+# ── hwServerVerify:Check if server count meets requirements ──────────────
 # read main.fmf in hardware-require.server
 # and topology.env in TEST_SERVER_COUNT compare
-# noif metexit code 0（tmt treated asis skip）
+# noif metexit code 0 (tmt treated asis skip)
 hwServerVerify() {
  local have=${TEST_SERVER_COUNT:-1}
  local need
@@ -181,7 +181,7 @@ hwServerVerify() {
  return 0
 }
 
-# ── hwCpuCheck：check CPU corecount ────────────────────────────
+# ── hwCpuCheck:check CPU corecount ────────────────────────────
 hwCpuCheck() {
  local need
  need=$(_hwFmfGet "hardware-require" "cpu" "${1:-main.fmf}")
@@ -198,21 +198,21 @@ hwCpuCheck() {
  return 0
 }
 
-# ── hwMemCheck：checkmemorysize（GB）───────────────────────────
+# ── hwMemCheck:checkmemorysize (GB)───────────────────────────
 hwMemCheck() {
  local need
  need=$(_hwFmfGet "hardware-require" "memory" "${1:-main.fmf}")
  [ -z "$need" ] && return 0
 
- # getavailablememory（GB），with free command
+ # getavailablememory (GB), with free command
  local have=$(free -g | awk '/^Mem:/{print $7}')
  [ -z "$have" ] && have=$(free -g | awk '/^Mem:/{print $2}')
 
- # e.g.if need incontains GiB/GB single，extractnumber
+ # e.g.if need incontains GiB/GB single, extractnumber
  local need_num=$(echo "$need" | grep -oP '[\d.]+' | head -1)
 
  if [ -z "$need_num" ]; then
- rlLogWarning "hw: Unable toresolvememoryneed '$need'，skipcheck"
+ rlLogWarning "hw: Unable toresolvememoryneed '$need', skipcheck"
  return 0
  fi
 
@@ -225,7 +225,7 @@ hwMemCheck() {
  return 0
 }
 
-# ── hwDiskCheck：checkdisk count ───────────────────────────────
+# ── hwDiskCheck:checkdisk count ───────────────────────────────
 hwDiskCheck() {
  local need
  need=$(_hwFmfGet "hardware-require" "disk" "${1:-main.fmf}")
@@ -242,13 +242,13 @@ hwDiskCheck() {
  return 0
 }
 
-# ── hwNetCheck：checkcount ────────────────────────────────
+# ── hwNetCheck:checkcount ────────────────────────────────
 hwNetCheck() {
  local need
  need=$(_hwFmfGet "hardware-require" "net" "${1:-main.fmf}")
  [ -z "$need" ] && return 0
 
- # countphysical NICscount（exclude lo loopbackInterface）
+ # countphysical NICscount (exclude lo loopbackInterface)
  local have=$(ip -o link show 2>/dev/null | grep -v 'lo' | grep -c'state UP')
  [ -z "$have" ] && have=0
 
@@ -261,14 +261,14 @@ hwNetCheck() {
  return 0
 }
 
-# ── hwVerify：Comprehensive checkall hardware-require field ───────────
+# ── hwVerify:Comprehensive checkall hardware-require field ───────────
 # recommendedin rlPhaseStartTest at beginheadercallwith
 hwVerify() {
  local fmf="${1:-main.fmf}"
 
  # checkwhetherdeclared hardware-require
  if ! grep -q "^hardware-require:" "$fmf" 2>/dev/null; then
- return 0 # notdeclared，noneedcheck
+ return 0 # notdeclared, noneedcheck
  fi
 
  rlLogInfo "===== Hardware environment check ====="

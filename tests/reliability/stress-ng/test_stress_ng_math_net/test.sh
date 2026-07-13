@@ -15,7 +15,7 @@ rlJournalStart
  local log="$TmpDir/matrix.log"
  rlRun "stress-ng --matrix 2 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--matrix 2"
  _stressNgValidate "$log" "matrix"
- # usr time，verify usr > sys
+ # usr time, verify usr > sys
  if grep -q "matrix" "$log"; then
  local usr sys
  usr=$(grep "matrix" "$log" | awk '{for(i=1;i<=NF;i++){if($i~/^[0-9.]+$/&&$(i-1)~/secs/)print $i}}' | head -1)
@@ -29,7 +29,7 @@ rlJournalStart
  if grep -q "successful run completed" "$log" 2>/dev/null; then
  _stressNgValidate "$log" "af-alg"
  else
- rlLogInfo "AF-ALG stressor no by supports（nokernelcryptomodule），skip"
+ rlLogInfo "AF-ALG stressor no by supports (nokernelcryptomodule), skip"
  rlPass "AF-ALG: skip"
  fi
  rlPhaseEnd
@@ -40,17 +40,17 @@ rlJournalStart
  if grep -q "successful run completed" "$log" 2>/dev/null; then
  _stressNgValidate "$log" "vm-splice"
  else
- rlLogInfo "vm-splice noavailable，skip"
+ rlLogInfo "vm-splice noavailable, skip"
  rlPass "VM-SPLICE: skip"
  fi
  rlPhaseEnd
 
  rlPhaseStartTest "BAD-ALTSTACK stress (Exceptionsignalstack)"
- #: itemswillExceptionsignalhandlepath，possiblehaspreerror
+ #: itemswillExceptionsignalhandlepath, possiblehaspreerror
  local log="$TmpDir/bad_altstack.log"
  rlRun "stress-ng --bad-altstack 1 --timeout 10s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--bad-altstack 1"
- # bad-altstack possiblehas skipped，this isnormal
- rlLogInfo "bad-altstack Complete（has skipped orwarning）"
+ # bad-altstack possiblehas skipped, this isnormal
+ rlLogInfo "bad-altstack Complete (has skipped orwarning)"
  rlPass "BAD-ALTSTACK: ExecuteComplete"
  rlPhaseEnd
 

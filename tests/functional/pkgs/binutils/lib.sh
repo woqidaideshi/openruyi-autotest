@@ -12,7 +12,7 @@ binutilsSetup() {
  if ! rpm -q binutils 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y binutils 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already binutils soft（）"
+ rlLogInfo "already binutils soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "binutils softalready exists"
@@ -23,7 +23,7 @@ binutilsSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "binutils alreadybyothertest，reference count: $ref"
+ rlLogInfo "binutils alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "binutilsCleanup"
 }
@@ -38,11 +38,11 @@ binutilsCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y binutils 2>/dev/null || true
- rlLogInfo "already binutils soft（posttest）"
+ rlLogInfo "already binutils soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "binutils Retain（still have $ref test(s) not completed）"
+ rlLogInfo "binutils Retain (still have $ref test(s) not completed)"
  fi
 }

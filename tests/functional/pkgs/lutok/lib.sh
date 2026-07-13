@@ -12,7 +12,7 @@ lutokSetup() {
  if ! rpm -q lutok 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y lutok 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already lutok soft（）"
+ rlLogInfo "already lutok soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "lutok softalready exists"
@@ -23,7 +23,7 @@ lutokSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "lutok alreadybyothertest，reference count: $ref"
+ rlLogInfo "lutok alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "lutokCleanup"
 }
@@ -38,11 +38,11 @@ lutokCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y lutok 2>/dev/null || true
- rlLogInfo "already lutok soft（posttest）"
+ rlLogInfo "already lutok soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "lutok Retain（still have $ref test(s) not completed）"
+ rlLogInfo "lutok Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -1,4 +1,4 @@
-summary: Functional test - yarpgen - differential testing（G++ vs Clang output comparison）
+summary: Functional test - yarpgen - differential testing (G++ vs Clang output comparison)
 test: ./test.sh
 tag:
  - functional

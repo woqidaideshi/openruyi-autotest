@@ -12,7 +12,7 @@ pamSetup() {
  if ! rpm -q pam 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y pam 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already pam soft（）"
+ rlLogInfo "already pam soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "pam softalready exists"
@@ -23,7 +23,7 @@ pamSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "pam alreadybyothertest，reference count: $ref"
+ rlLogInfo "pam alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "pamCleanup"
 }
@@ -38,11 +38,11 @@ pamCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y pam 2>/dev/null || true
- rlLogInfo "already pam soft（posttest）"
+ rlLogInfo "already pam soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "pam Retain（still have $ref test(s) not completed）"
+ rlLogInfo "pam Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Functional test: compiler - csmith - installation and availability check
-# verify csmith commandavailable、version infocorrect、canGenerate random C program
+# verify Csmith commandavailable, version infocorrect, canGenerate random C program
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
@@ -14,7 +14,7 @@ rlJournalStart
 
  rlPhaseStartTest "Csmith installation verification"
  # checkcommandwhetherexists
- rlRun "which csmith" 0 "csmith Command exists"
+ rlRun "which Csmith" 0 "Csmith Command exists"
  
  # checkversion info
  csmith --version 2>&1 | tee /tmp/csmith_version.txt

@@ -12,7 +12,7 @@ libseccompSetup() {
  if ! rpm -q libseccomp 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libseccomp 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libseccomp soft（）"
+ rlLogInfo "already libseccomp soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libseccomp softalready exists"
@@ -23,7 +23,7 @@ libseccompSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libseccomp alreadybyothertest，reference count: $ref"
+ rlLogInfo "libseccomp alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libseccompCleanup"
 }
@@ -38,11 +38,11 @@ libseccompCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libseccomp 2>/dev/null || true
- rlLogInfo "already libseccomp soft（posttest）"
+ rlLogInfo "already libseccomp soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libseccomp Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libseccomp Retain (still have $ref test(s) not completed)"
  fi
 }

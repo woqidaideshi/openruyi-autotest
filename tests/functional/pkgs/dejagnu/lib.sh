@@ -12,7 +12,7 @@ dejagnuSetup() {
  if ! rpm -q dejagnu 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y dejagnu 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already dejagnu soft（）"
+ rlLogInfo "already dejagnu soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "dejagnu softalready exists"
@@ -23,7 +23,7 @@ dejagnuSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "dejagnu alreadybyothertest，reference count: $ref"
+ rlLogInfo "dejagnu alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "dejagnuCleanup"
 }
@@ -38,11 +38,11 @@ dejagnuCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y dejagnu 2>/dev/null || true
- rlLogInfo "already dejagnu soft（posttest）"
+ rlLogInfo "already dejagnu soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "dejagnu Retain（still have $ref test(s) not completed）"
+ rlLogInfo "dejagnu Retain (still have $ref test(s) not completed)"
  fi
 }

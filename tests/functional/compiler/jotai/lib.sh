@@ -46,7 +46,7 @@ int main(void) {
 EOF
 
  cp "$JOTAI_DIR/benchmarks/anghaLeaves/bench.c" "$dest"
- rlLogWarning "notavailable benchmark，alreadyGenerate bench.c"
+ rlLogWarning "notavailable benchmark, alreadyGenerate bench.c"
 }
 
 jotaiSetup() {
@@ -91,9 +91,9 @@ jotaiCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  rm -f "$JOTAI_FLAG"
- rlLogInfo "jotai testCleanup complete（Retain repo with）"
+ rlLogInfo "jotai testCleanup complete (Retain repo with)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$JOTAI_FLAG"
- rlLogInfo "jotai Retain（still have $ref test）"
+ rlLogInfo "jotai Retain (still have $ref test)"
  fi
 }

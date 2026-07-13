@@ -12,13 +12,13 @@ rlJournalStart
  cat > inline.c << 'CEOF'
 #include <stdio.h>
 #include <stdlib.h>
-// __attribute__((always_inline)) — inline
+// __attribute__((always_inline)) -- inline
 static __attribute__((always_inline)) int force_inline(int x){return x*x;}
-// __attribute__((noinline)) — disableinline
+// __attribute__((noinline)) -- disableinline
 static __attribute__((noinline)) int no_inline(int x){return x*x*x;}
-// function（compilewillinline）
+// function (compilewillinline)
 static int small_func(int x){return x+1;}
-// recursivefunction（noshouldinline）
+// recursivefunction (noshouldinline)
 static int recursive(int n){if(n<=1)return 1;return n*recursive(n-1);}
 int main(void){
  int a=force_inline(5); if(a!=25)abort();

@@ -39,7 +39,7 @@ CEOF
  # verify stack protector: compileshouldcontains __stack_chk symbol
  rlRun "nm stack_gcc_stack-protector | grep -q '__stack_chk'" 0 "GCC stack-protector: __stack_chk_fail symbolexists"
 
- # exportprogram + stack protector（shoulddetect to andterminate）
+ # exportprogram + stack protector (shoulddetect to andterminate)
  gcc -fstack-protector-all -o overflow_gcc overflow.c 2>/dev/null
  if [ -x./overflow_gcc ]; then
  timeout 5./overflow_gcc >/tmp/overflow_gcc.txt 2>&1
@@ -50,7 +50,7 @@ CEOF
  elif [ "$rc" -ne 0 ]; then
  rlPass "GCC stack protector Exceptionterminateexportprogram (exit=$rc)"
  else
- rlLogWarning "stack protector notexport（possibleisoptimization）"
+ rlLogWarning "stack protector notexport (possibleisoptimization)"
  fi
  fi
  rlPhaseEnd

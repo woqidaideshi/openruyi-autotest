@@ -12,7 +12,7 @@ chrpathSetup() {
  if ! rpm -q chrpath 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y chrpath 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already chrpath soft（）"
+ rlLogInfo "already chrpath soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "chrpath softalready exists"
@@ -23,7 +23,7 @@ chrpathSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "chrpath alreadybyothertest，reference count: $ref"
+ rlLogInfo "chrpath alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "chrpathCleanup"
 }
@@ -38,11 +38,11 @@ chrpathCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y chrpath 2>/dev/null || true
- rlLogInfo "already chrpath soft（posttest）"
+ rlLogInfo "already chrpath soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "chrpath Retain（still have $ref test(s) not completed）"
+ rlLogInfo "chrpath Retain (still have $ref test(s) not completed)"
  fi
 }

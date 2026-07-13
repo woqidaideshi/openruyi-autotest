@@ -12,7 +12,7 @@ sddmSetup() {
  if ! rpm -q sddm 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y sddm 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already sddm soft（）"
+ rlLogInfo "already sddm soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "sddm softalready exists"
@@ -23,7 +23,7 @@ sddmSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "sddm alreadybyothertest，reference count: $ref"
+ rlLogInfo "sddm alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "sddmCleanup"
 }
@@ -38,11 +38,11 @@ sddmCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y sddm 2>/dev/null || true
- rlLogInfo "already sddm soft（posttest）"
+ rlLogInfo "already sddm soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "sddm Retain（still have $ref test(s) not completed）"
+ rlLogInfo "sddm Retain (still have $ref test(s) not completed)"
  fi
 }

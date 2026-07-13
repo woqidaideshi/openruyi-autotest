@@ -12,7 +12,7 @@ ncursesSetup() {
  if ! rpm -q ncurses 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y ncurses 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already ncurses soft（）"
+ rlLogInfo "already ncurses soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "ncurses softalready exists"
@@ -23,7 +23,7 @@ ncursesSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "ncurses alreadybyothertest，reference count: $ref"
+ rlLogInfo "ncurses alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "ncursesCleanup"
 }
@@ -38,11 +38,11 @@ ncursesCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y ncurses 2>/dev/null || true
- rlLogInfo "already ncurses soft（posttest）"
+ rlLogInfo "already ncurses soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "ncurses Retain（still have $ref test(s) not completed）"
+ rlLogInfo "ncurses Retain (still have $ref test(s) not completed)"
  fi
 }

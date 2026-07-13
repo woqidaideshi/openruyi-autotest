@@ -36,7 +36,7 @@ CEOF
  rlRun "gcc -flto -O2 -c mod2.c -o mod2_lto.o" 0 "GCC -flto compile mod2"
  rlRun "gcc -flto -O2 -o lto_gcc lto_main.c mod1_lto.o mod2_lto.o &&./lto_gcc | grep LTO_OK" 0 "GCC -flto link+run"
 
- # comparisonnon- LTO compile（Ensureconsistent）
+ # comparisonnon- LTO compile (Ensureconsistent)
  rlRun "gcc -O2 -o no_lto_gcc lto_main.c mod1.c mod2.c &&./no_lto_gcc | grep LTO_OK" 0 "GCC no LTO"
 ./lto_gcc >/tmp/lto_gcc.txt 2>&1;./no_lto_gcc >/tmp/nolto_gcc.txt 2>&1
  diff /tmp/lto_gcc.txt /tmp/nolto_gcc.txt >/dev/null 2>&1 && rlPass "GCC LTO/non-LTO output consistent" || rlLogInfo "output differs"

@@ -12,7 +12,7 @@ ninjaSetup() {
  if ! rpm -q ninja 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y ninja 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already ninja soft（）"
+ rlLogInfo "already ninja soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "ninja softalready exists"
@@ -23,7 +23,7 @@ ninjaSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "ninja alreadybyothertest，reference count: $ref"
+ rlLogInfo "ninja alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "ninjaCleanup"
 }
@@ -38,11 +38,11 @@ ninjaCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y ninja 2>/dev/null || true
- rlLogInfo "already ninja soft（posttest）"
+ rlLogInfo "already ninja soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "ninja Retain（still have $ref test(s) not completed）"
+ rlLogInfo "ninja Retain (still have $ref test(s) not completed)"
  fi
 }

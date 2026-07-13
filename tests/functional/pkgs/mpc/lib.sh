@@ -12,7 +12,7 @@ mpcSetup() {
  if ! rpm -q mpc 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y mpc 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already mpc soft（）"
+ rlLogInfo "already mpc soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "mpc softalready exists"
@@ -23,7 +23,7 @@ mpcSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "mpc alreadybyothertest，reference count: $ref"
+ rlLogInfo "mpc alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "mpcCleanup"
 }
@@ -38,11 +38,11 @@ mpcCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y mpc 2>/dev/null || true
- rlLogInfo "already mpc soft（posttest）"
+ rlLogInfo "already mpc soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "mpc Retain（still have $ref test(s) not completed）"
+ rlLogInfo "mpc Retain (still have $ref test(s) not completed)"
  fi
 }

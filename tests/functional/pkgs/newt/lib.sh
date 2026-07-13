@@ -12,7 +12,7 @@ newtSetup() {
  if ! rpm -q newt 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y newt 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already newt soft（）"
+ rlLogInfo "already newt soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "newt softalready exists"
@@ -23,7 +23,7 @@ newtSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "newt alreadybyothertest，reference count: $ref"
+ rlLogInfo "newt alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "newtCleanup"
 }
@@ -38,11 +38,11 @@ newtCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y newt 2>/dev/null || true
- rlLogInfo "already newt soft（posttest）"
+ rlLogInfo "already newt soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "newt Retain（still have $ref test(s) not completed）"
+ rlLogInfo "newt Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -12,7 +12,7 @@ keyutilsSetup() {
  if ! rpm -q keyutils 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y keyutils 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already keyutils soft（）"
+ rlLogInfo "already keyutils soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "keyutils softalready exists"
@@ -23,7 +23,7 @@ keyutilsSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "keyutils alreadybyothertest，reference count: $ref"
+ rlLogInfo "keyutils alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "keyutilsCleanup"
 }
@@ -38,11 +38,11 @@ keyutilsCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y keyutils 2>/dev/null || true
- rlLogInfo "already keyutils soft（posttest）"
+ rlLogInfo "already keyutils soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "keyutils Retain（still have $ref test(s) not completed）"
+ rlLogInfo "keyutils Retain (still have $ref test(s) not completed)"
  fi
 }

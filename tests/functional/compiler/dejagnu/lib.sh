@@ -23,7 +23,7 @@ dejagnuSetup() {
  echo "installed=0" > "$DEJAGNU_FLAG"
  else
  echo "installed=1" > "$DEJAGNU_FLAG"
- rlLogInfo "already dejagnu（）"
+ rlLogInfo "already dejagnu ()"
  fi
  else
  echo "installed=0" > "$DEJAGNU_FLAG"
@@ -53,6 +53,6 @@ dejagnuCleanup() {
  rm -f "$DEJAGNU_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$DEJAGNU_FLAG"
- rlLogInfo "dejagnu Retain（still have $ref test）"
+ rlLogInfo "dejagnu Retain (still have $ref test)"
  fi
 }

@@ -12,7 +12,7 @@ chkconfigSetup() {
  if ! rpm -q chkconfig 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y chkconfig 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already chkconfig soft（）"
+ rlLogInfo "already chkconfig soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "chkconfig softalready exists"
@@ -23,7 +23,7 @@ chkconfigSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "chkconfig alreadybyothertest，reference count: $ref"
+ rlLogInfo "chkconfig alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "chkconfigCleanup"
 }
@@ -38,11 +38,11 @@ chkconfigCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y chkconfig 2>/dev/null || true
- rlLogInfo "already chkconfig soft（posttest）"
+ rlLogInfo "already chkconfig soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "chkconfig Retain（still have $ref test(s) not completed）"
+ rlLogInfo "chkconfig Retain (still have $ref test(s) not completed)"
  fi
 }

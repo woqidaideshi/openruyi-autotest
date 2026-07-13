@@ -12,7 +12,7 @@ cryptsetupSetup() {
  if ! rpm -q cryptsetup 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y cryptsetup 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already cryptsetup soft（）"
+ rlLogInfo "already cryptsetup soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "cryptsetup softalready exists"
@@ -23,7 +23,7 @@ cryptsetupSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "cryptsetup alreadybyothertest，reference count: $ref"
+ rlLogInfo "cryptsetup alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "cryptsetupCleanup"
 }
@@ -38,11 +38,11 @@ cryptsetupCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y cryptsetup 2>/dev/null || true
- rlLogInfo "already cryptsetup soft（posttest）"
+ rlLogInfo "already cryptsetup soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "cryptsetup Retain（still have $ref test(s) not completed）"
+ rlLogInfo "cryptsetup Retain (still have $ref test(s) not completed)"
  fi
 }

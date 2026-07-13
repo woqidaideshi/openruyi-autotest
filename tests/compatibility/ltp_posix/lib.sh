@@ -1,8 +1,8 @@
 # library-prefix = ltp_posix
 #
-# LTP POSIX Compatibility test — sharedlibrary
-# and setup.sh + helper.sh，use flag-file + reference count
-# Ensure LTP only clone/build once，All tests share the same build artifact。
+# LTP POSIX Compatibility test -- sharedlibrary
+# and setup.sh + helper.sh, use flag-file + reference count
+# Ensure LTP only clone/build once, All tests share the same build artifact.
 #
 # Usage in each test file:
 #. "$(dirname "$0")/../../lib.sh" # from test_ltp_posix_xxx/ subdirectories
@@ -45,7 +45,7 @@ ltpPosixSetup() {
  rlLogInfo "LTP POSIX Compilation complete"
  else
  echo "installed_ltp=0" >> "$LTP_FLAG"
- rlLogWarning "LTP clone failed，test will be skipped"
+ rlLogWarning "LTP clone failed, test will be skipped"
  fi
  else
  echo "installed_ltp=0" >> "$LTP_FLAG"
@@ -57,7 +57,7 @@ ltpPosixSetup() {
  ref=$(grep "^ref=" "$LTP_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
- rlLogInfo "LTP POSIX already initialized by other tests，reference count: $ref"
+ rlLogInfo "LTP POSIX already initialized by other tests, reference count: $ref"
  fi
  rlCleanupAppend "ltpPosixCleanup"
 }
@@ -78,7 +78,7 @@ ltpPosixCleanup() {
  rlLogInfo "LTP POSIX Cleanup complete"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
- rlLogInfo "LTP POSIX Retain（still have $ref test(s) not completed）"
+ rlLogInfo "LTP POSIX Retain (still have $ref test(s) not completed)"
  fi
 }
 
@@ -108,7 +108,7 @@ run_posix_iface_test() {
  fi
  done
 
- # 2. compile.c file and run（Max per interface 3 samples）
+ # 2. compile.c file and run (Max per interface 3 samples)
  local c_count=0
  for src in $(find. -maxdepth 1 -type f -name "*.c" 2>/dev/null | sort); do
  local test_name="${iface}/$(basename "$src".c)"

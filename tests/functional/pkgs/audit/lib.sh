@@ -12,7 +12,7 @@ auditSetup() {
  if ! rpm -q audit 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y audit 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already audit soft（）"
+ rlLogInfo "already audit soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "audit softalready exists"
@@ -23,7 +23,7 @@ auditSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "audit alreadybyothertest，reference count: $ref"
+ rlLogInfo "audit alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "auditCleanup"
 }
@@ -38,11 +38,11 @@ auditCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y audit 2>/dev/null || true
- rlLogInfo "already audit soft（posttest）"
+ rlLogInfo "already audit soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "audit Retain（still have $ref test(s) not completed）"
+ rlLogInfo "audit Retain (still have $ref test(s) not completed)"
  fi
 }

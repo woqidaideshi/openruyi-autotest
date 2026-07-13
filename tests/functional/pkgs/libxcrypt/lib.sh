@@ -12,7 +12,7 @@ libxcryptSetup() {
  if ! rpm -q libxcrypt 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libxcrypt 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libxcrypt soft（）"
+ rlLogInfo "already libxcrypt soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libxcrypt softalready exists"
@@ -23,7 +23,7 @@ libxcryptSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libxcrypt alreadybyothertest，reference count: $ref"
+ rlLogInfo "libxcrypt alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libxcryptCleanup"
 }
@@ -38,11 +38,11 @@ libxcryptCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libxcrypt 2>/dev/null || true
- rlLogInfo "already libxcrypt soft（posttest）"
+ rlLogInfo "already libxcrypt soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libxcrypt Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libxcrypt Retain (still have $ref test(s) not completed)"
  fi
 }

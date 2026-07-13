@@ -12,7 +12,7 @@ grepSetup() {
  if ! rpm -q grep 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y grep 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already grep soft（）"
+ rlLogInfo "already grep soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "grep softalready exists"
@@ -23,7 +23,7 @@ grepSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "grep alreadybyothertest，reference count: $ref"
+ rlLogInfo "grep alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "grepCleanup"
 }
@@ -38,11 +38,11 @@ grepCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y grep 2>/dev/null || true
- rlLogInfo "already grep soft（posttest）"
+ rlLogInfo "already grep soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "grep Retain（still have $ref test(s) not completed）"
+ rlLogInfo "grep Retain (still have $ref test(s) not completed)"
  fi
 }

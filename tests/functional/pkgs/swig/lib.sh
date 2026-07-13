@@ -12,7 +12,7 @@ swigSetup() {
  if ! rpm -q swig 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y swig 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already swig soft（）"
+ rlLogInfo "already swig soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "swig softalready exists"
@@ -23,7 +23,7 @@ swigSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "swig alreadybyothertest，reference count: $ref"
+ rlLogInfo "swig alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "swigCleanup"
 }
@@ -38,11 +38,11 @@ swigCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y swig 2>/dev/null || true
- rlLogInfo "already swig soft（posttest）"
+ rlLogInfo "already swig soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "swig Retain（still have $ref test(s) not completed）"
+ rlLogInfo "swig Retain (still have $ref test(s) not completed)"
  fi
 }

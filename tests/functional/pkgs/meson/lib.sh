@@ -12,7 +12,7 @@ mesonSetup() {
  if ! rpm -q meson 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y meson 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already meson soft（）"
+ rlLogInfo "already meson soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "meson softalready exists"
@@ -23,7 +23,7 @@ mesonSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "meson alreadybyothertest，reference count: $ref"
+ rlLogInfo "meson alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "mesonCleanup"
 }
@@ -38,11 +38,11 @@ mesonCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y meson 2>/dev/null || true
- rlLogInfo "already meson soft（posttest）"
+ rlLogInfo "already meson soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "meson Retain（still have $ref test(s) not completed）"
+ rlLogInfo "meson Retain (still have $ref test(s) not completed)"
  fi
 }

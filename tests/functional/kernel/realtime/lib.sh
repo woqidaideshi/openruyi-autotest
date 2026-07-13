@@ -40,7 +40,7 @@ _realtimeRunCase() {
 
  # 1. Timeout
  if [ "$rc" -eq 137 ]; then
- rlFail "LTP Realtime $func Executetimeout（ by kill）"
+ rlFail "LTP Realtime $func Executetimeout (by kill)"
  rm -f "$out"
  return 1
  fi
@@ -54,14 +54,14 @@ _realtimeRunCase() {
 
  # 3. Explicit failure marker from LTP
  if grep -q "Result: FAIL" "$out"; then
- rlFail "LTP Realtime $func testfailed (Result: FAIL)"
+ rlFail "LTP Realtime $func test failed (Result: FAIL)"
  rm -f "$out"
  return 1
  fi
 
- # 4. Build errors — test couldn't compile, results are invalid
+ # 4. Build errors -- test couldn't compile, results are invalid
  if grep -qE 'make: \*\*\*|cannot open output file.*Permission denied' "$out"; then
- rlFail "LTP Realtime $func Compile failed（permissionnoorbuilderror）"
+ rlFail "LTP Realtime $func Compile failed (permissionnoorbuilderror)"
  rm -f "$out"
  return 1
  fi
@@ -73,8 +73,8 @@ _realtimeRunCase() {
  return 0
  fi
 
- # 6. Unknown result — not safe to assume pass
- rlFail "LTP Realtime $func resultnot（missing pass/fail ）"
+ # 6. Unknown result -- not safe to assume pass
+ rlFail "LTP Realtime $func resultnot (missing pass/fail)"
  rm -f "$out"
  return 1
 }
@@ -105,6 +105,6 @@ realtimeCleanup() {
  rlLogInfo "Realtime testCleanup complete"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$REALTIME_FLAG"
- rlLogInfo "Realtime Retain（still have $ref test(s) not completed）"
+ rlLogInfo "Realtime Retain (still have $ref test(s) not completed)"
  fi
 }

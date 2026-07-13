@@ -12,7 +12,7 @@ gmpSetup() {
  if ! rpm -q gmp 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y gmp 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already gmp soft（）"
+ rlLogInfo "already gmp soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "gmp softalready exists"
@@ -23,7 +23,7 @@ gmpSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "gmp alreadybyothertest，reference count: $ref"
+ rlLogInfo "gmp alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "gmpCleanup"
 }
@@ -38,11 +38,11 @@ gmpCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y gmp 2>/dev/null || true
- rlLogInfo "already gmp soft（posttest）"
+ rlLogInfo "already gmp soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "gmp Retain（still have $ref test(s) not completed）"
+ rlLogInfo "gmp Retain (still have $ref test(s) not completed)"
  fi
 }

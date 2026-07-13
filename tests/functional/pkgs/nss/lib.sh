@@ -12,7 +12,7 @@ nssSetup() {
  if ! rpm -q nss 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y nss 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already nss soft（）"
+ rlLogInfo "already nss soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "nss softalready exists"
@@ -23,7 +23,7 @@ nssSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "nss alreadybyothertest，reference count: $ref"
+ rlLogInfo "nss alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "nssCleanup"
 }
@@ -38,11 +38,11 @@ nssCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y nss 2>/dev/null || true
- rlLogInfo "already nss soft（posttest）"
+ rlLogInfo "already nss soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "nss Retain（still have $ref test(s) not completed）"
+ rlLogInfo "nss Retain (still have $ref test(s) not completed)"
  fi
 }

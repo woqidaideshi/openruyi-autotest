@@ -12,7 +12,7 @@ opensshClientsSetup() {
  if ! rpm -q openssh-clients 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y openssh-clients 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already openssh-clients soft（）"
+ rlLogInfo "already openssh-clients soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "openssh-clients softalready exists"
@@ -23,7 +23,7 @@ opensshClientsSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "openssh-clients alreadybyothertest，reference count: $ref"
+ rlLogInfo "openssh-clients alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "opensshClientsCleanup"
 }
@@ -38,11 +38,11 @@ opensshClientsCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y openssh-clients 2>/dev/null || true
- rlLogInfo "already openssh-clients soft（posttest）"
+ rlLogInfo "already openssh-clients soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "openssh-clients Retain（still have $ref test(s) not completed）"
+ rlLogInfo "openssh-clients Retain (still have $ref test(s) not completed)"
  fi
 }

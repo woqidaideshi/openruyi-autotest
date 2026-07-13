@@ -12,7 +12,7 @@ iproute2Setup() {
  if ! rpm -q iproute2 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y iproute2 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already iproute2 soft（）"
+ rlLogInfo "already iproute2 soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "iproute2 softalready exists"
@@ -23,7 +23,7 @@ iproute2Setup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "iproute2 alreadybyothertest，reference count: $ref"
+ rlLogInfo "iproute2 alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "iproute2Cleanup"
 }
@@ -38,11 +38,11 @@ iproute2Cleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y iproute2 2>/dev/null || true
- rlLogInfo "already iproute2 soft（posttest）"
+ rlLogInfo "already iproute2 soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "iproute2 Retain（still have $ref test(s) not completed）"
+ rlLogInfo "iproute2 Retain (still have $ref test(s) not completed)"
  fi
 }

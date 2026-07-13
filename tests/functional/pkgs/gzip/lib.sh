@@ -12,7 +12,7 @@ gzipSetup() {
  if ! rpm -q gzip 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y gzip 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already gzip soft（）"
+ rlLogInfo "already gzip soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "gzip softalready exists"
@@ -23,7 +23,7 @@ gzipSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "gzip alreadybyothertest，reference count: $ref"
+ rlLogInfo "gzip alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "gzipCleanup"
 }
@@ -38,11 +38,11 @@ gzipCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y gzip 2>/dev/null || true
- rlLogInfo "already gzip soft（posttest）"
+ rlLogInfo "already gzip soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "gzip Retain（still have $ref test(s) not completed）"
+ rlLogInfo "gzip Retain (still have $ref test(s) not completed)"
  fi
 }

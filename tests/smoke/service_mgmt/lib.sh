@@ -21,7 +21,7 @@ smokeServiceMgmtSetup() {
  ref=$(grep "^ref=" "$SMOKE_SERVICE_MGMT_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SERVICE_MGMT_FLAG"
- rlLogInfo "smoke-service_mgmt already initialized by other tests，reference count: $ref"
+ rlLogInfo "smoke-service_mgmt already initialized by other tests, reference count: $ref"
  fi
  rlCleanupAppend "smokeServiceMgmtCleanup"
 }
@@ -35,9 +35,9 @@ smokeServiceMgmtCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  rm -f "$SMOKE_SERVICE_MGMT_FLAG"
- rlLogInfo "smoke-service_mgmt: Cleanup complete（posttest）"
+ rlLogInfo "smoke-service_mgmt: Cleanup complete (posttest)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SERVICE_MGMT_FLAG"
- rlLogInfo "smoke-service_mgmt: Retain（still have $ref test(s) not completed）"
+ rlLogInfo "smoke-service_mgmt: Retain (still have $ref test(s) not completed)"
  fi
 }

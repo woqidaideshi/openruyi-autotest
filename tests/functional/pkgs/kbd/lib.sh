@@ -12,7 +12,7 @@ kbdSetup() {
  if ! rpm -q kbd 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y kbd 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already kbd soft（）"
+ rlLogInfo "already kbd soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "kbd softalready exists"
@@ -23,7 +23,7 @@ kbdSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "kbd alreadybyothertest，reference count: $ref"
+ rlLogInfo "kbd alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "kbdCleanup"
 }
@@ -38,11 +38,11 @@ kbdCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y kbd 2>/dev/null || true
- rlLogInfo "already kbd soft（posttest）"
+ rlLogInfo "already kbd soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "kbd Retain（still have $ref test(s) not completed）"
+ rlLogInfo "kbd Retain (still have $ref test(s) not completed)"
  fi
 }

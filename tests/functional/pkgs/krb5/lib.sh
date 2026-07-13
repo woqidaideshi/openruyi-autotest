@@ -12,7 +12,7 @@ krb5Setup() {
  if ! rpm -q krb5 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y krb5 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already krb5 soft（）"
+ rlLogInfo "already krb5 soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "krb5 softalready exists"
@@ -23,7 +23,7 @@ krb5Setup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "krb5 alreadybyothertest，reference count: $ref"
+ rlLogInfo "krb5 alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "krb5Cleanup"
 }
@@ -38,11 +38,11 @@ krb5Cleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y krb5 2>/dev/null || true
- rlLogInfo "already krb5 soft（posttest）"
+ rlLogInfo "already krb5 soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "krb5 Retain（still have $ref test(s) not completed）"
+ rlLogInfo "krb5 Retain (still have $ref test(s) not completed)"
  fi
 }

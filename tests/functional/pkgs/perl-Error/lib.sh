@@ -12,7 +12,7 @@ perlErrorSetup() {
  if ! rpm -q perl-Error 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y perl-Error 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already perl-Error soft（）"
+ rlLogInfo "already perl-Error soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "perl-Error softalready exists"
@@ -23,7 +23,7 @@ perlErrorSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "perl-Error alreadybyothertest，reference count: $ref"
+ rlLogInfo "perl-Error alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "perlErrorCleanup"
 }
@@ -38,11 +38,11 @@ perlErrorCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y perl-Error 2>/dev/null || true
- rlLogInfo "already perl-Error soft（posttest）"
+ rlLogInfo "already perl-Error soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "perl-Error Retain（still have $ref test(s) not completed）"
+ rlLogInfo "perl-Error Retain (still have $ref test(s) not completed)"
  fi
 }

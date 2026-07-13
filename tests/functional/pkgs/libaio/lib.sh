@@ -12,7 +12,7 @@ libaioSetup() {
  if ! rpm -q libaio 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libaio 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libaio soft（）"
+ rlLogInfo "already libaio soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libaio softalready exists"
@@ -23,7 +23,7 @@ libaioSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libaio alreadybyothertest，reference count: $ref"
+ rlLogInfo "libaio alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libaioCleanup"
 }
@@ -38,11 +38,11 @@ libaioCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libaio 2>/dev/null || true
- rlLogInfo "already libaio soft（posttest）"
+ rlLogInfo "already libaio soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libaio Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libaio Retain (still have $ref test(s) not completed)"
  fi
 }

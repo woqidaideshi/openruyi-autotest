@@ -21,7 +21,7 @@ smokePackageMgmtSetup() {
  ref=$(grep "^ref=" "$SMOKE_PACKAGE_MGMT_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_PACKAGE_MGMT_FLAG"
- rlLogInfo "smoke-package_mgmt already initialized by other tests，reference count: $ref"
+ rlLogInfo "smoke-package_mgmt already initialized by other tests, reference count: $ref"
  fi
  rlCleanupAppend "smokePackageMgmtCleanup"
 }
@@ -35,9 +35,9 @@ smokePackageMgmtCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  rm -f "$SMOKE_PACKAGE_MGMT_FLAG"
- rlLogInfo "smoke-package_mgmt: Cleanup complete（posttest）"
+ rlLogInfo "smoke-package_mgmt: Cleanup complete (posttest)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_PACKAGE_MGMT_FLAG"
- rlLogInfo "smoke-package_mgmt: Retain（still have $ref test(s) not completed）"
+ rlLogInfo "smoke-package_mgmt: Retain (still have $ref test(s) not completed)"
  fi
 }

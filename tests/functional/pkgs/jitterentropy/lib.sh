@@ -12,7 +12,7 @@ jitterentropySetup() {
  if ! rpm -q jitterentropy 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y jitterentropy 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already jitterentropy soft（）"
+ rlLogInfo "already jitterentropy soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "jitterentropy softalready exists"
@@ -23,7 +23,7 @@ jitterentropySetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "jitterentropy alreadybyothertest，reference count: $ref"
+ rlLogInfo "jitterentropy alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "jitterentropyCleanup"
 }
@@ -38,11 +38,11 @@ jitterentropyCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y jitterentropy 2>/dev/null || true
- rlLogInfo "already jitterentropy soft（posttest）"
+ rlLogInfo "already jitterentropy soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "jitterentropy Retain（still have $ref test(s) not completed）"
+ rlLogInfo "jitterentropy Retain (still have $ref test(s) not completed)"
  fi
 }

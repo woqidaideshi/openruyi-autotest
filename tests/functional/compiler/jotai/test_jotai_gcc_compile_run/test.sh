@@ -1,7 +1,7 @@
 #!/bin/bash
 # Functional test: compiler - jotai - GCC multioptimizationlevelcompilerun
-# Select Jotai benchmark，with gcc -O0/-O1/-O2/-O3 compileandrun
-# verify: All optimization levels compile successfully、Runs without crash、outputcontentconsistent
+# Select Jotai benchmark, with gcc -O0/-O1/-O2/-O3 compileandrun
+# verify: All optimization levels compile successfully, Runs without crash, outputcontentconsistent
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
@@ -22,7 +22,7 @@ rlJournalStart
 
  rlPhaseStartTest "GCC compile and run"
  if [ ! -f./bench.c ]; then
- rlFail "bench.c does not exist，skiptest"
+ rlFail "bench.c does not exist, skiptest"
  else
  outputs=()
  exit_codes=()
@@ -35,7 +35,7 @@ rlJournalStart
  rlRun "gcc -std=c99 -$opt bench.c -o $bin -lm 2>&1" 0 "GCC -$opt compile"
  
  if [ -x "./$bin" ]; then
- # run（input: 0=big-arr, 1=big-arr-10x）
+ # run (input: 0=big-arr, 1=big-arr-10x)
  rlRun "./$bin 0 > $out 2>&1; echo \"exit=\$?\" >> $out" 0 "GCC -$opt run (input=0)"
  
  # checkwhetherhasoutput
@@ -65,8 +65,8 @@ rlJournalStart
  if [ "$all_match" -eq 1 ]; then
  rlPass "GCC alloptimizationopt level output consistent"
  else
- # output mismatchnofailed（differentoptimizationpossiblehasdifferentlinesis），recordwarning
- rlLogWarning "GCC differentoptimizationleveloutputexistsdiff（possiblebyoptimizationcauses）"
+ # output mismatchnofailed (differentoptimizationpossiblehasdifferentlinesis), recordwarning
+ rlLogWarning "GCC differentoptimizationleveloutputexistsdiff (possiblebyoptimizationcauses)"
  rlPass "GCC alloptimizationlevelcompilerunsuccess"
  fi
  fi

@@ -1,14 +1,28 @@
-summary: Functional test - YARPGen randomprogramoptimization Bug detect
+summary: Functional test - YARPGen random program optimization bug detection
+
 tag:
+
  - functional
+
  - compiler
+
  - yarpgen
+
 duration: 15m
+
 tier: 2
+
 path: /tests/functional/compiler/yarpgen
+
 require:
+
  - beakerlib
+
  - gcc-c++
+
  - clang
+
  - cmake
+
  - git
+

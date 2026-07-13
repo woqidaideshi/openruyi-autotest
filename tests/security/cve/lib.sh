@@ -53,20 +53,20 @@ _ltpRunCase() {
  return 1
  fi
 
- # All skipped, nothing actually passed — map to tmt SKIP
+ # All skipped, nothing actually passed -- map to tmt SKIP
  if grep -qE 'Passed:[[:space:]]*0' "$out" && \
  grep -qE 'Skipped:[[:space:]]*[1-9]' "$out" && \
  grep -qE 'Failed:[[:space:]]*0' "$out" && \
  grep -qE 'Broken:[[:space:]]*0' "$out"; then
- rlLogWarning "LTP withskip（Environmentnot supported）"
+ rlLogWarning "LTP withskip (Environmentnot supported)"
  if type rlTestSkip >/dev/null 2>&1; then
- rlTestSkip "LTP withskip（Environmentnot supported）"
+ rlTestSkip "LTP withskip (Environmentnot supported)"
  fi
  rm -f "$out"
  return 0
  fi
 
- # Has failures or broken — map to tmt FAIL
+ # Has failures or broken -- map to tmt FAIL
  if grep -qE 'Failed:[[:space:]]*[1-9]' "$out" || \
  grep -qE 'Broken:[[:space:]]*[1-9]' "$out"; then
  rlFail "LTP withexistsfailedor"
@@ -90,7 +90,7 @@ cveSetup() {
  elif [ -x "$LTP_INSTALL_DIR/runltp" ] || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
  # Detect incomplete build: runltp is a stub (LTP >= 2026) and kirk is missing
  if [ -x "$LTP_INSTALL_DIR/runltp" ] && grep -q "runltp was removed" "$LTP_INSTALL_DIR/runltp" 2>/dev/null && ! command -v kirk >/dev/null 2>&1 && [ ! -x "$LTP_INSTALL_DIR/kirk" ]; then
- rlLogWarning "LTP buildnofull（runltp isrootand kirk notcompile），new"
+ rlLogWarning "LTP buildnofull (runltp isrootand kirk notcompile), new"
  rm -rf "$LTP_INSTALL_DIR"
  # Fall through to fresh install path below
  else
@@ -101,8 +101,8 @@ cveSetup() {
  fi
  # If LTP_INSTALL_DIR was removed above, re-enter fresh install path
  if [ ! -f "$CVE_FLAG" ] && [ ! -d "$LTP_INSTALL_DIR" ]; then
- rlLogInfo " LTP（）..."
- # Try dnf first (fastest — LTP 20260130+ in repo includes kirk)
+ rlLogInfo " LTP ()..."
+ # Try dnf first (fastest -- LTP 20260130+ in repo includes kirk)
  if echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y ltp 2>/dev/null; then
  _cveSetupPath
  if command -v kirk >/dev/null 2>&1 || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
@@ -111,8 +111,8 @@ cveSetup() {
  fi
  fi
  if [ ! -f "$CVE_FLAG" ]; then
- # dnf failed or kirk not in PATH — compile from source
- rlLogInfo "dnf failedorno kirk，fromsource codecompile（tag: $LTP_TAG）..."
+ # dnf failed or kirk not in PATH -- compile from source
+ rlLogInfo "dnf failedorno kirk, fromsource codecompile (tag: $LTP_TAG)..."
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig \
  zlib-devel keyutils-libs-devel libtirpc-devel libmnl-devel libaio-devel \
  libcap-devel openssl-devel numactl-devel 2>/dev/null || true
@@ -144,14 +144,14 @@ cveSetup() {
  method="source"
  echo "installed=2" > "$CVE_FLAG"
  elif [ -x "$LTP_INSTALL_DIR/tools/kirk" ]; then
- # kirk was built but make install failed — install manually
+ # kirk was built but make install failed -- install manually
  cp -a "$LTP_INSTALL_DIR/tools/kirk" "$LTP_INSTALL_DIR/" 2>/dev/null || true
  _cveSetupPath
  if command -v kirk >/dev/null 2>&1; then
  method="source"
  echo "installed=2" > "$CVE_FLAG"
  else
- rlLogWarning "LTP source codeCompile succeededbut kirk failed，testpossibleUnable toExecute"
+ rlLogWarning "LTP source codeCompile succeededbut kirk failed, testpossibleUnable toExecute"
  method="failed"
  echo "installed=3" > "$CVE_FLAG"
  fi
@@ -160,7 +160,7 @@ cveSetup() {
  method="source-legacy"
  echo "installed=2" > "$CVE_FLAG"
  else
- rlLogWarning "LTP source codeCompile failed，testpossibleUnable toExecute"
+ rlLogWarning "LTP source codeCompile failed, testpossibleUnable toExecute"
  method="failed"
  echo "installed=3" > "$CVE_FLAG"
  fi
@@ -173,7 +173,7 @@ cveSetup() {
  ref=$(grep "^ref=" "$CVE_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$CVE_FLAG"
- rlLogInfo "LTP already，reference count: $ref"
+ rlLogInfo "LTP already, reference count: $ref"
  # Restore PATH if source install
  if [ -x "$LTP_INSTALL_DIR/runltp" ] || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
  _cveSetupPath
@@ -193,13 +193,13 @@ cveCleanup() {
  installed=$(grep "^installed=" "$CVE_FLAG" | cut -d= -f2)
  case "$installed" in
  1) echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y ltp 2>/dev/null || true
- rlLogInfo "already LTP（dnf ）";;
+ rlLogInfo "already LTP (dnf)";;
  2) rm -rf "$LTP_INSTALL_DIR"
  rlLogInfo "alreadydelete LTP source codedirectory";;
  esac
  rm -f "$CVE_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$CVE_FLAG"
- rlLogInfo "LTP Retain（still have $ref test(s) not completed）"
+ rlLogInfo "LTP Retain (still have $ref test(s) not completed)"
  fi
 }

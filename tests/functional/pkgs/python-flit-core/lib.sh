@@ -12,7 +12,7 @@ pythonFlitCoreSetup() {
  if ! rpm -q python-flit-core 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y python-flit-core 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already python-flit-core soft（）"
+ rlLogInfo "already python-flit-core soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "python-flit-core softalready exists"
@@ -23,7 +23,7 @@ pythonFlitCoreSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "python-flit-core alreadybyothertest，reference count: $ref"
+ rlLogInfo "python-flit-core alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "pythonFlitCoreCleanup"
 }
@@ -38,11 +38,11 @@ pythonFlitCoreCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y python-flit-core 2>/dev/null || true
- rlLogInfo "already python-flit-core soft（posttest）"
+ rlLogInfo "already python-flit-core soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "python-flit-core Retain（still have $ref test(s) not completed）"
+ rlLogInfo "python-flit-core Retain (still have $ref test(s) not completed)"
  fi
 }

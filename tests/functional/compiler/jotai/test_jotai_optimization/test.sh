@@ -1,6 +1,6 @@
 #!/bin/bash
 # Functional test: compiler - jotai - optimizationlevel
-# O0/O1/O2/O3/Os/Ofast allcompilerun，verifyoutput consistent
+# O0/O1/O2/O3/Os/Ofast allcompilerun, verifyoutput consistent
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 

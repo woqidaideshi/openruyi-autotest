@@ -12,7 +12,7 @@ timeSetup() {
  if ! rpm -q time 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y time 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already time soft（）"
+ rlLogInfo "already time soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "time softalready exists"
@@ -23,7 +23,7 @@ timeSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "time alreadybyothertest，reference count: $ref"
+ rlLogInfo "time alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "timeCleanup"
 }
@@ -38,11 +38,11 @@ timeCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y time 2>/dev/null || true
- rlLogInfo "already time soft（posttest）"
+ rlLogInfo "already time soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "time Retain（still have $ref test(s) not completed）"
+ rlLogInfo "time Retain (still have $ref test(s) not completed)"
  fi
 }

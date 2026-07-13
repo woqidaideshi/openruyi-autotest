@@ -12,7 +12,7 @@ libsshSetup() {
  if ! rpm -q libssh 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libssh 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libssh soft（）"
+ rlLogInfo "already libssh soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libssh softalready exists"
@@ -23,7 +23,7 @@ libsshSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libssh alreadybyothertest，reference count: $ref"
+ rlLogInfo "libssh alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libsshCleanup"
 }
@@ -38,11 +38,11 @@ libsshCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libssh 2>/dev/null || true
- rlLogInfo "already libssh soft（posttest）"
+ rlLogInfo "already libssh soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libssh Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libssh Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -12,7 +12,7 @@ isoCodesSetup() {
  if ! rpm -q iso-codes 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y iso-codes 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already iso-codes soft（）"
+ rlLogInfo "already iso-codes soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "iso-codes softalready exists"
@@ -23,7 +23,7 @@ isoCodesSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "iso-codes alreadybyothertest，reference count: $ref"
+ rlLogInfo "iso-codes alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "isoCodesCleanup"
 }
@@ -38,11 +38,11 @@ isoCodesCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y iso-codes 2>/dev/null || true
- rlLogInfo "already iso-codes soft（posttest）"
+ rlLogInfo "already iso-codes soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "iso-codes Retain（still have $ref test(s) not completed）"
+ rlLogInfo "iso-codes Retain (still have $ref test(s) not completed)"
  fi
 }

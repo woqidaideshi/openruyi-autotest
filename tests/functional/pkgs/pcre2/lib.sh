@@ -12,7 +12,7 @@ pcre2Setup() {
  if ! rpm -q pcre2 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y pcre2 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already pcre2 soft（）"
+ rlLogInfo "already pcre2 soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "pcre2 softalready exists"
@@ -23,7 +23,7 @@ pcre2Setup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "pcre2 alreadybyothertest，reference count: $ref"
+ rlLogInfo "pcre2 alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "pcre2Cleanup"
 }
@@ -38,11 +38,11 @@ pcre2Cleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y pcre2 2>/dev/null || true
- rlLogInfo "already pcre2 soft（posttest）"
+ rlLogInfo "already pcre2 soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "pcre2 Retain（still have $ref test(s) not completed）"
+ rlLogInfo "pcre2 Retain (still have $ref test(s) not completed)"
  fi
 }

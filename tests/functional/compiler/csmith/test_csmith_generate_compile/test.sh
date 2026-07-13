@@ -1,7 +1,7 @@
 #!/bin/bash
 # Functional test: compiler - csmith - Generateprogramandwith GCC/Clang compile
-# Generate Csmith randomprogram，Using respectively gcc and clang compile
-# verify: compilewarning count、Compile succeeded、Output is ELF executable
+# Generate Csmith random program, Using respectively gcc and clang compile
+# verify: compilewarning count, Compile succeeded, Output is ELF executable
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
@@ -19,7 +19,7 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "GCC compile"
- # GCC compile（record stderr viewwarning count）
+ # GCC compile (record stderr viewwarning count)
  gcc -O2 csmith_test.c -o csmith_gcc -w 2>/tmp/csmith_gcc_err.txt
  local gcc_rc=$?
  rlRun "echo \"GCC exit: $gcc_rc\"" 0 "GCC compileexit code: $gcc_rc"

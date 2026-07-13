@@ -12,7 +12,7 @@ tmuxSetup() {
  if ! rpm -q tmux 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y tmux 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already tmux soft（）"
+ rlLogInfo "already tmux soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "tmux softalready exists"
@@ -23,7 +23,7 @@ tmuxSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "tmux alreadybyothertest，reference count: $ref"
+ rlLogInfo "tmux alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "tmuxCleanup"
 }
@@ -38,11 +38,11 @@ tmuxCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y tmux 2>/dev/null || true
- rlLogInfo "already tmux soft（posttest）"
+ rlLogInfo "already tmux soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "tmux Retain（still have $ref test(s) not completed）"
+ rlLogInfo "tmux Retain (still have $ref test(s) not completed)"
  fi
 }

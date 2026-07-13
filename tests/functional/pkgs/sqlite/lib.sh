@@ -12,7 +12,7 @@ sqliteSetup() {
  if ! rpm -q sqlite 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y sqlite 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already sqlite soft（）"
+ rlLogInfo "already sqlite soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "sqlite softalready exists"
@@ -23,7 +23,7 @@ sqliteSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "sqlite alreadybyothertest，reference count: $ref"
+ rlLogInfo "sqlite alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "sqliteCleanup"
 }
@@ -38,11 +38,11 @@ sqliteCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y sqlite 2>/dev/null || true
- rlLogInfo "already sqlite soft（posttest）"
+ rlLogInfo "already sqlite soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "sqlite Retain（still have $ref test(s) not completed）"
+ rlLogInfo "sqlite Retain (still have $ref test(s) not completed)"
  fi
 }

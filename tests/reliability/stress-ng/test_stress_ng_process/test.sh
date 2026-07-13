@@ -26,7 +26,7 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "ZOMBIE stress"
- # zombie willproducedprocesspost，possiblehaspreerror
+ # zombie willproducedprocesspost, possiblehaspreerror
  local log="$TmpDir/zombie.log"
  rlRun "stress-ng --zombie 2 --timeout 15s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--zombie 2"
  _stressNgValidate "$log" "zombie"

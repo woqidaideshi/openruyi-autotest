@@ -50,7 +50,7 @@ CEOF
  rlPass "GCC vectorizationreport: detect to vectorizationloop"
  rlRun "grep -i 'vectorized\|VECTORIZED' /tmp/vec_report.txt | head -5" 0 "vectorizationlooplist"
  else
- rlLogInfo "GCC notreportvectorization（possibleorformatdifferent）"
+ rlLogInfo "GCC notreportvectorization (possibleorformatdifferent)"
  fi
  rlPhaseEnd
 

@@ -12,7 +12,7 @@ sedSetup() {
  if ! rpm -q sed 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y sed 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already sed soft（）"
+ rlLogInfo "already sed soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "sed softalready exists"
@@ -23,7 +23,7 @@ sedSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "sed alreadybyothertest，reference count: $ref"
+ rlLogInfo "sed alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "sedCleanup"
 }
@@ -38,11 +38,11 @@ sedCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y sed 2>/dev/null || true
- rlLogInfo "already sed soft（posttest）"
+ rlLogInfo "already sed soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "sed Retain（still have $ref test(s) not completed）"
+ rlLogInfo "sed Retain (still have $ref test(s) not completed)"
  fi
 }

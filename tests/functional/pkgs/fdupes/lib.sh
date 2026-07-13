@@ -12,7 +12,7 @@ fdupesSetup() {
  if ! rpm -q fdupes 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y fdupes 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already fdupes soft（）"
+ rlLogInfo "already fdupes soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "fdupes softalready exists"
@@ -23,7 +23,7 @@ fdupesSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "fdupes alreadybyothertest，reference count: $ref"
+ rlLogInfo "fdupes alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "fdupesCleanup"
 }
@@ -38,11 +38,11 @@ fdupesCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y fdupes 2>/dev/null || true
- rlLogInfo "already fdupes soft（posttest）"
+ rlLogInfo "already fdupes soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "fdupes Retain（still have $ref test(s) not completed）"
+ rlLogInfo "fdupes Retain (still have $ref test(s) not completed)"
  fi
 }

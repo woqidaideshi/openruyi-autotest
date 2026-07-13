@@ -4,8 +4,8 @@
 # Uses flag-file + reference counting for suite-level setup/cleanup.
 #
 # MMTests result determination (per documentation):
-# - "test exit:: <item> 0" → individual test item PASS
-# - "test exit:: <item> N" (N>0) → individual test item FAIL
+# - "test exit: <item> 0" → individual test item PASS
+# - "test exit: <item> N" (N>0) → individual test item FAIL
 # - No "test exit" markers + non-zero exit → FAIL
 # - All "test exit" lines end with 0 → PASS
 #
@@ -43,7 +43,7 @@ _mmtestsRunCase() {
 
  # 1. Timeout
  if [ "$rc" -eq 137 ]; then
- rlFail "MMTests $config Executetimeout（ by kill）"
+ rlFail "MMTests $config Executetimeout (by kill)"
  rm -f "$out"
  return 1
  fi
@@ -57,14 +57,14 @@ _mmtestsRunCase() {
 
  # 3. Check for test exit markers
  local exit_lines
- exit_lines=$(grep "test exit::" "$out" 2>/dev/null)
+ exit_lines=$(grep "test exit:" "$out" 2>/dev/null)
  if [ -z "$exit_lines" ]; then
- rlFail "MMTests $config resultnot（missing test exit ）"
+ rlFail "MMTests $config resultnot (missing test exit)"
  rm -f "$out"
  return 1
  fi
 
- # 4. Check each test exit line — all must end with 0
+ # 4. Check each test exit line -- all must end with 0
  local failed_items=""
  while IFS= read -r line; do
  local code
@@ -95,13 +95,13 @@ mmtestsSetup() {
  if [ ! -x "$MMTESTS_DIR/run-mmtests.sh" ]; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y mmtests 2>/dev/null
  if [ ! -x "$MMTESTS_DIR/run-mmtests.sh" ]; then
- rlLogWarning "MMTests failed，test will be skipped"
+ rlLogWarning "MMTests failed, test will be skipped"
  echo "installed=0" > "$MMTESTS_FLAG"
  else
  # Fix ownership so openruyi can write work/ and shellpacks/
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S chown -R openruyi:openruyi "$MMTESTS_DIR" 2>/dev/null
  echo "installed=1" > "$MMTESTS_FLAG"
- rlLogInfo "already MMTests（）"
+ rlLogInfo "already MMTests ()"
  fi
  else
  echo "installed=0" > "$MMTESTS_FLAG"
@@ -113,7 +113,7 @@ mmtestsSetup() {
  ref=$(grep "^ref=" "$MMTESTS_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$MMTESTS_FLAG"
- rlLogInfo "MMTests already，reference count: $ref"
+ rlLogInfo "MMTests already, reference count: $ref"
  fi
 
  rlCleanupAppend "mmtestsCleanup"
@@ -125,11 +125,11 @@ mmtestsCleanup() {
  ref=$(grep "^ref=" "$MMTESTS_FLAG" | cut -d= -f2)
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
- # Keep MMTests installed — reinstall is too expensive (~8min + system updates)
+ # Keep MMTests installed -- reinstall is too expensive (~8min + system updates)
  rm -f "$MMTESTS_FLAG"
- rlLogInfo "MMTests testCleanup complete（Retain）"
+ rlLogInfo "MMTests testCleanup complete (Retain)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$MMTESTS_FLAG"
- rlLogInfo "MMTests Retain（still have $ref test(s) not completed）"
+ rlLogInfo "MMTests Retain (still have $ref test(s) not completed)"
  fi
 }

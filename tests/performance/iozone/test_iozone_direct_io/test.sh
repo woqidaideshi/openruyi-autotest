@@ -43,13 +43,13 @@ rlJournalStart
  rlLogInfo "Direct I/O Write: ${direct_write} KB/s"
 
  if [ -n "$normal_write" ] && [ -n "$direct_write" ]; then
- # Direct I/O more（bypass）, but noshouldis 0
+ # Direct I/O more (bypass), but noshouldis 0
  if [ "$direct_write" != "0" ] && [ "$direct_write" != "" ]; then
  rlPass "Direct I/O producedhas: ${direct_write} KB/s"
  else
- rlLogWarning "Direct I/O is 0（possible -I not supportedcurrentfilesystem）"
+ rlLogWarning "Direct I/O is 0 (possible -I not supportedcurrentfilesystem)"
  fi
- # Standard I/O should Direct I/O （has）
+ # Standard I/O should Direct I/O (has)
  rlLogInfo ": $(awk "BEGIN {printf \"%.1f\", ${normal_write}/${direct_write}}" 2>/dev/null || echo N/A)x"
  fi
  rlPhaseEnd

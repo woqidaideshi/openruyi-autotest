@@ -12,7 +12,7 @@ cmockaSetup() {
  if ! rpm -q cmocka 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y cmocka 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already cmocka soft（）"
+ rlLogInfo "already cmocka soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "cmocka softalready exists"
@@ -23,7 +23,7 @@ cmockaSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "cmocka alreadybyothertest，reference count: $ref"
+ rlLogInfo "cmocka alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "cmockaCleanup"
 }
@@ -38,11 +38,11 @@ cmockaCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y cmocka 2>/dev/null || true
- rlLogInfo "already cmocka soft（posttest）"
+ rlLogInfo "already cmocka soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "cmocka Retain（still have $ref test(s) not completed）"
+ rlLogInfo "cmocka Retain (still have $ref test(s) not completed)"
  fi
 }

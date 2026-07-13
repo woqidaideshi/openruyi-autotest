@@ -21,7 +21,7 @@ smokeSystemInfoSetup() {
  ref=$(grep "^ref=" "$SMOKE_SYSTEM_INFO_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SYSTEM_INFO_FLAG"
- rlLogInfo "smoke-system_info already initialized by other tests，reference count: $ref"
+ rlLogInfo "smoke-system_info already initialized by other tests, reference count: $ref"
  fi
  rlCleanupAppend "smokeSystemInfoCleanup"
 }
@@ -35,9 +35,9 @@ smokeSystemInfoCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  rm -f "$SMOKE_SYSTEM_INFO_FLAG"
- rlLogInfo "smoke-system_info: Cleanup complete（posttest）"
+ rlLogInfo "smoke-system_info: Cleanup complete (posttest)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SYSTEM_INFO_FLAG"
- rlLogInfo "smoke-system_info: Retain（still have $ref test(s) not completed）"
+ rlLogInfo "smoke-system_info: Retain (still have $ref test(s) not completed)"
  fi
 }

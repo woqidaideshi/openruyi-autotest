@@ -12,7 +12,7 @@ rsyncSetup() {
  if ! rpm -q rsync 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y rsync 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already rsync soft（）"
+ rlLogInfo "already rsync soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "rsync softalready exists"
@@ -23,7 +23,7 @@ rsyncSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "rsync alreadybyothertest，reference count: $ref"
+ rlLogInfo "rsync alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "rsyncCleanup"
 }
@@ -38,11 +38,11 @@ rsyncCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y rsync 2>/dev/null || true
- rlLogInfo "already rsync soft（posttest）"
+ rlLogInfo "already rsync soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "rsync Retain（still have $ref test(s) not completed）"
+ rlLogInfo "rsync Retain (still have $ref test(s) not completed)"
  fi
 }

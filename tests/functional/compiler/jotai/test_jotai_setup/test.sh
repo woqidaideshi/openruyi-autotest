@@ -1,6 +1,6 @@
 #!/bin/bash
 # Functional test: compiler - jotai - Environmentandrepolibrary
-# Clone jotai-benchmarks repolibrary，verify benchmark fileavailable
+# Clone jotai-benchmarks repolibrary, verify benchmark fileavailable
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"

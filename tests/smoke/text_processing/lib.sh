@@ -21,7 +21,7 @@ smokeTextProcessingSetup() {
  ref=$(grep "^ref=" "$SMOKE_TEXT_PROCESSING_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_TEXT_PROCESSING_FLAG"
- rlLogInfo "smoke-text_processing already initialized by other tests，reference count: $ref"
+ rlLogInfo "smoke-text_processing already initialized by other tests, reference count: $ref"
  fi
  rlCleanupAppend "smokeTextProcessingCleanup"
 }
@@ -35,9 +35,9 @@ smokeTextProcessingCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  rm -f "$SMOKE_TEXT_PROCESSING_FLAG"
- rlLogInfo "smoke-text_processing: Cleanup complete（posttest）"
+ rlLogInfo "smoke-text_processing: Cleanup complete (posttest)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_TEXT_PROCESSING_FLAG"
- rlLogInfo "smoke-text_processing: Retain（still have $ref test(s) not completed）"
+ rlLogInfo "smoke-text_processing: Retain (still have $ref test(s) not completed)"
  fi
 }

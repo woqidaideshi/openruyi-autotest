@@ -12,7 +12,7 @@ libmicrohttpdSetup() {
  if ! rpm -q libmicrohttpd 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libmicrohttpd 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libmicrohttpd soft（）"
+ rlLogInfo "already libmicrohttpd soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libmicrohttpd softalready exists"
@@ -23,7 +23,7 @@ libmicrohttpdSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libmicrohttpd alreadybyothertest，reference count: $ref"
+ rlLogInfo "libmicrohttpd alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libmicrohttpdCleanup"
 }
@@ -38,11 +38,11 @@ libmicrohttpdCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libmicrohttpd 2>/dev/null || true
- rlLogInfo "already libmicrohttpd soft（posttest）"
+ rlLogInfo "already libmicrohttpd soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libmicrohttpd Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libmicrohttpd Retain (still have $ref test(s) not completed)"
  fi
 }

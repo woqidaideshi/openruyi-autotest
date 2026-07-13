@@ -12,7 +12,7 @@ curlSetup() {
  if ! rpm -q curl 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y curl 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already curl soft（）"
+ rlLogInfo "already curl soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "curl softalready exists"
@@ -23,7 +23,7 @@ curlSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "curl alreadybyothertest，reference count: $ref"
+ rlLogInfo "curl alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "curlCleanup"
 }
@@ -38,11 +38,11 @@ curlCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y curl 2>/dev/null || true
- rlLogInfo "already curl soft（posttest）"
+ rlLogInfo "already curl soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "curl Retain（still have $ref test(s) not completed）"
+ rlLogInfo "curl Retain (still have $ref test(s) not completed)"
  fi
 }

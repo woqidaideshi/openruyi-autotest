@@ -12,7 +12,7 @@ vimSetup() {
  if ! rpm -q vim 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y vim 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already vim soft（）"
+ rlLogInfo "already vim soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "vim softalready exists"
@@ -23,7 +23,7 @@ vimSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "vim alreadybyothertest，reference count: $ref"
+ rlLogInfo "vim alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "vimCleanup"
 }
@@ -38,11 +38,11 @@ vimCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y vim 2>/dev/null || true
- rlLogInfo "already vim soft（posttest）"
+ rlLogInfo "already vim soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "vim Retain（still have $ref test(s) not completed）"
+ rlLogInfo "vim Retain (still have $ref test(s) not completed)"
  fi
 }

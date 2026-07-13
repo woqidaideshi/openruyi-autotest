@@ -12,7 +12,7 @@ mpfrSetup() {
  if ! rpm -q mpfr 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y mpfr 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already mpfr soft（）"
+ rlLogInfo "already mpfr soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "mpfr softalready exists"
@@ -23,7 +23,7 @@ mpfrSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "mpfr alreadybyothertest，reference count: $ref"
+ rlLogInfo "mpfr alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "mpfrCleanup"
 }
@@ -38,11 +38,11 @@ mpfrCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y mpfr 2>/dev/null || true
- rlLogInfo "already mpfr soft（posttest）"
+ rlLogInfo "already mpfr soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "mpfr Retain（still have $ref test(s) not completed）"
+ rlLogInfo "mpfr Retain (still have $ref test(s) not completed)"
  fi
 }

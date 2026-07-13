@@ -1,6 +1,6 @@
 #!/bin/bash
 # Functional test: compiler - dejagnu - GCC compiletestwith
-# Create minimal GCC test program，with DejaGnu runtest framework executes and validates results
+# Create minimal GCC test program, with DejaGnu runtest framework executes and validates results
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
@@ -73,7 +73,7 @@ EEOF
  if [ -f gcc.sum ]; then
  rlRun "cat gcc.sum" 0 "display.sum content"
  
- # checkwhetherhas PASS 
+ # check whether there is PASS 
  if grep -q "^PASS:" gcc.sum; then
  local pass_count
  pass_count=$(grep -c "^PASS:" gcc.sum)

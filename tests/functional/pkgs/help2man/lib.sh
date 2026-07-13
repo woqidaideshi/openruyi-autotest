@@ -12,7 +12,7 @@ help2manSetup() {
  if ! rpm -q help2man 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y help2man 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already help2man soft（）"
+ rlLogInfo "already help2man soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "help2man softalready exists"
@@ -23,7 +23,7 @@ help2manSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "help2man alreadybyothertest，reference count: $ref"
+ rlLogInfo "help2man alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "help2manCleanup"
 }
@@ -38,11 +38,11 @@ help2manCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y help2man 2>/dev/null || true
- rlLogInfo "already help2man soft（posttest）"
+ rlLogInfo "already help2man soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "help2man Retain（still have $ref test(s) not completed）"
+ rlLogInfo "help2man Retain (still have $ref test(s) not completed)"
  fi
 }

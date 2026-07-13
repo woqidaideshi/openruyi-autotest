@@ -12,18 +12,18 @@ CSMITH_FLAG="/tmp/.beakerlib_compiler_csmith_suite"
 
 csmithSetup() {
  if [ ! -f "$CSMITH_FLAG" ]; then
- if ! rpm -q csmith 2>/dev/null; then
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y csmith 2>/dev/null
- if ! rpm -q csmith 2>/dev/null; then
- rlLogWarning "csmith failed"
+ if ! rpm -q Csmith 2>/dev/null; then
+ echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y Csmith 2>/dev/null
+ if ! rpm -q Csmith 2>/dev/null; then
+ rlLogWarning "Csmith failed"
  echo "installed=0" > "$CSMITH_FLAG"
  else
  echo "installed=1" > "$CSMITH_FLAG"
- rlLogInfo "already csmith（）"
+ rlLogInfo "already Csmith ()"
  fi
  else
  echo "installed=0" > "$CSMITH_FLAG"
- rlLogInfo "csmith already exists"
+ rlLogInfo "Csmith already exists"
  fi
  echo "ref=1" >> "$CSMITH_FLAG"
  else
@@ -31,7 +31,7 @@ csmithSetup() {
  ref=$(grep "^ref=" "$CSMITH_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$CSMITH_FLAG"
- rlLogInfo "csmith reference count: $ref"
+ rlLogInfo "Csmith reference count: $ref"
  fi
  rlCleanupAppend "csmithCleanup"
 }
@@ -43,12 +43,12 @@ csmithCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$CSMITH_FLAG"; then
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y csmith 2>/dev/null || true
- rlLogInfo "already csmith"
+ echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y Csmith 2>/dev/null || true
+ rlLogInfo "already Csmith"
  fi
  rm -f "$CSMITH_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$CSMITH_FLAG"
- rlLogInfo "csmith Retain（still have $ref test）"
+ rlLogInfo "Csmith Retain (still have $ref test)"
  fi
 }

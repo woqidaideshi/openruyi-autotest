@@ -1,6 +1,6 @@
 #!/bin/bash
 # Functional test: compiler - dejagnu - runtest availablecheck
-# verify runtest commandavailable、version infonormal、basicoutput
+# verify runtest commandavailable, version infonormal, basicoutput
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
@@ -32,7 +32,7 @@ rlJournalStart
  rlFail "runtest --help missing --tool option"
  fi
  
- # verifycanby noparameterrun（willerrorbut noshould segfault）
+ # verifycanby noparameterrun (willerrorbut noshould segfault)
  runtest 2>&1 | tee /tmp/dejagnu_noargs.txt
  local rc=$?
  if [ "$rc" -ne 0 ]; then

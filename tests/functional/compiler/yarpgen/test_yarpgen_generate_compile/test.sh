@@ -1,7 +1,7 @@
 #!/bin/bash
 # Functional test: compiler - yarpgen - Generateprogramandwith G++/Clang compile
-# with yarpgen Generate random C++ program，Using respectively g++ and clang compile
-# verify: Compile succeeded、Output is ELF、Check compile warnings/error
+# with yarpgen Generate random C++ program, Using respectively g++ and clang compile
+# verify: Compile succeeded, Output is ELF, Check compile warnings/error
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
@@ -30,7 +30,7 @@ rlJournalStart
 
  rlPhaseStartTest "G++ compile"
  if [ ! -f "func.cpp" ]; then
- rlFail "filedoes not exist，skip"
+ rlFail "filedoes not exist, skip"
  else
  # G++ -O0
  rlRun "g++ -fPIC func.cpp driver.cpp -o yarpgen_gxx_O0 -O0 2>/tmp/yarpgen_gxx_O0_err.txt" 0 "G++ -O0 compile"
@@ -66,7 +66,7 @@ rlJournalStart
 
  rlPhaseStartTest "Clang compile"
  if [ ! -f "func.cpp" ]; then
- rlFail "filedoes not exist，skip"
+ rlFail "filedoes not exist, skip"
  else
  # Clang -O0
  rlRun "clang++ -fPIC func.cpp driver.cpp -o yarpgen_clang_O0 -O0 2>/tmp/yarpgen_clang_O0_err.txt" 0 "Clang -O0 compile"

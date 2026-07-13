@@ -16,7 +16,7 @@ rlJournalStart
  rlPhaseStartTest "Error-handling"
  # SDDM intentionally ignores unknown arguments and starts the daemon.
  # Verify it doesn't crash: timeout kills it, exit 124 = still running.
- rlRun "timeout 3 sddm --invalid-option >/dev/null 2>&1; [ \$? -eq 124 ]" 0 "SDDM notparameter，normalno"
+ rlRun "timeout 3 sddm --invalid-option >/dev/null 2>&1; [ \$? -eq 124 ]" 0 "SDDM notparameter, normalno"
  rlPhaseEnd
 
 

@@ -12,7 +12,7 @@ labwcSetup() {
  if ! rpm -q labwc 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y labwc 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already labwc soft（）"
+ rlLogInfo "already labwc soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "labwc softalready exists"
@@ -23,7 +23,7 @@ labwcSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "labwc alreadybyothertest，reference count: $ref"
+ rlLogInfo "labwc alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "labwcCleanup"
 }
@@ -38,11 +38,11 @@ labwcCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y labwc 2>/dev/null || true
- rlLogInfo "already labwc soft（posttest）"
+ rlLogInfo "already labwc soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "labwc Retain（still have $ref test(s) not completed）"
+ rlLogInfo "labwc Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Functional test: compiler - jotai - Clang multioptimizationlevelcompilerun
-# Select Jotai benchmark（and gcc testwithfile），with clang compilerun
-# verify: All optimization levels compile successfully、Runs without crash、outputand gcc consistent（differential testing）
+# Select Jotai benchmark (and gcc testwithfile), with clang compilerun
+# verify: All optimization levels compile successfully, Runs without crash, outputand gcc consistent (differential testing)
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
@@ -22,7 +22,7 @@ rlJournalStart
 
  rlPhaseStartTest "Clang compile and run"
  if [ ! -f./bench.c ]; then
- rlFail "bench.c does not exist，skiptest"
+ rlFail "bench.c does not exist, skiptest"
  else
  outputs=()
  
@@ -54,18 +54,18 @@ rlJournalStart
  
  # simultaneouslywith gcc compileiscomparison
  if command -v gcc >/dev/null 2>&1; then
- rlRun "gcc -std=c99 -O2 bench.c -o bench_gcc_O2 -lm 2>&1" 0 "GCC -O2 compile（comparison）"
+ rlRun "gcc -std=c99 -O2 bench.c -o bench_gcc_O2 -lm 2>&1" 0 "GCC -O2 compile (comparison)"
  if [ -x "./bench_gcc_O2" ]; then
 ./bench_gcc_O2 0 > output_gcc_ref.txt 2>&1
  
  # comparison clang -O2 and gcc -O2 output
  if [ -f "output_clang_O2.txt" ]; then
  if diff -q output_gcc_ref.txt output_clang_O2.txt >/dev/null 2>&1; then
- rlPass "GCC and Clang -O2 output consistent（differential testingpassed）"
+ rlPass "GCC and Clang -O2 output consistent (differential testingpassed)"
  else
- rlLogWarning "GCC and Clang -O2 output mismatch（possiblebycompilediffcauses）"
+ rlLogWarning "GCC and Clang -O2 output mismatch (possiblebycompilediffcauses)"
  rlRun "diff output_gcc_ref.txt output_clang_O2.txt" 0 "displayoutput diff"
- # noconsistentno bug，but needs
+ # noconsistentno bug, but needs
  rlPass "GCC and Clang correctcompilerun"
  fi
  fi

@@ -12,7 +12,7 @@ bisonSetup() {
  if ! rpm -q bison 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y bison 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already bison soft（）"
+ rlLogInfo "already bison soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "bison softalready exists"
@@ -23,7 +23,7 @@ bisonSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "bison alreadybyothertest，reference count: $ref"
+ rlLogInfo "bison alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "bisonCleanup"
 }
@@ -38,11 +38,11 @@ bisonCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y bison 2>/dev/null || true
- rlLogInfo "already bison soft（posttest）"
+ rlLogInfo "already bison soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "bison Retain（still have $ref test(s) not completed）"
+ rlLogInfo "bison Retain (still have $ref test(s) not completed)"
  fi
 }

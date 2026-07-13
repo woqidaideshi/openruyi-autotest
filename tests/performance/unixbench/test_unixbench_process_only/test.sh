@@ -1,6 +1,6 @@
 #!/bin/bash
 # Performance test: UnixBench - UnixBench process/context switch (execl/pipe/context1/spawn)
-# According to Testing-Guide.md Requirements：Execute three times，Average of all runs used as final score
+# According to Testing-Guide.md Requirements:Execute three times, Average of all runs used as final score
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
@@ -14,7 +14,7 @@ rlJournalStart
 
  rlPhaseStartTest "UnixBench process/context switch (execl/pipe/context1/spawn, 3independent runs)"
  if [ ! -f "$UNIXBENCH_DIR/UnixBench/Run" ]; then
- rlLogWarning "UnixBench not installed，skiptest"
+ rlLogWarning "UnixBench not installed, skiptest"
  rlPhaseEnd
  rlJournalPrintText
  rlJournalEnd

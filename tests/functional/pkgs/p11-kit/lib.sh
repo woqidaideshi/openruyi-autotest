@@ -12,7 +12,7 @@ p11KitSetup() {
  if ! rpm -q p11-kit 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y p11-kit 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already p11-kit soft（）"
+ rlLogInfo "already p11-kit soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "p11-kit softalready exists"
@@ -23,7 +23,7 @@ p11KitSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "p11-kit alreadybyothertest，reference count: $ref"
+ rlLogInfo "p11-kit alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "p11KitCleanup"
 }
@@ -38,11 +38,11 @@ p11KitCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y p11-kit 2>/dev/null || true
- rlLogInfo "already p11-kit soft（posttest）"
+ rlLogInfo "already p11-kit soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "p11-kit Retain（still have $ref test(s) not completed）"
+ rlLogInfo "p11-kit Retain (still have $ref test(s) not completed)"
  fi
 }

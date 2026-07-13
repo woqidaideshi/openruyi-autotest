@@ -12,7 +12,7 @@ libarchiveSetup() {
  if ! rpm -q libarchive 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libarchive 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libarchive soft（）"
+ rlLogInfo "already libarchive soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libarchive softalready exists"
@@ -23,7 +23,7 @@ libarchiveSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libarchive alreadybyothertest，reference count: $ref"
+ rlLogInfo "libarchive alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libarchiveCleanup"
 }
@@ -38,11 +38,11 @@ libarchiveCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libarchive 2>/dev/null || true
- rlLogInfo "already libarchive soft（posttest）"
+ rlLogInfo "already libarchive soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libarchive Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libarchive Retain (still have $ref test(s) not completed)"
  fi
 }

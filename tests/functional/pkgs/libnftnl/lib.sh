@@ -12,7 +12,7 @@ libnftnlSetup() {
  if ! rpm -q libnftnl 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libnftnl 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libnftnl soft（）"
+ rlLogInfo "already libnftnl soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libnftnl softalready exists"
@@ -23,7 +23,7 @@ libnftnlSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libnftnl alreadybyothertest，reference count: $ref"
+ rlLogInfo "libnftnl alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libnftnlCleanup"
 }
@@ -38,11 +38,11 @@ libnftnlCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libnftnl 2>/dev/null || true
- rlLogInfo "already libnftnl soft（posttest）"
+ rlLogInfo "already libnftnl soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libnftnl Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libnftnl Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -15,7 +15,7 @@ rlJournalStart
 
  rlPhaseStartTest "User-agent"
  rlRun "wget --user-agent='TestAgent/1.0' --version 2>&1 | grep -q Wget" 0 "wget --user-agent Option exists"
- rlRun "wget -U 'TestAgent/1.0' --version 2>&1 | grep -q Wget" 0 "wget -U option（user-agent write）"
+ rlRun "wget -U 'TestAgent/1.0' --version 2>&1 | grep -q Wget" 0 "wget -U option (user-agent write)"
  rlPhaseEnd
 
 

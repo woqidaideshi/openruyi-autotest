@@ -27,7 +27,7 @@ trinitySetup() {
  echo "installed=0" > "$TRINITY_FLAG"
  else
  echo "installed=1" > "$TRINITY_FLAG"
- rlLogInfo "already trinity（）"
+ rlLogInfo "already trinity ()"
  fi
  else
  echo "installed=0" > "$TRINITY_FLAG"
@@ -68,7 +68,7 @@ trinityCleanup() {
  rlLogInfo "trinity testCleanup complete"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$TRINITY_FLAG"
- rlLogInfo "trinity Retain（still have $ref test）"
+ rlLogInfo "trinity Retain (still have $ref test)"
  fi
 }
 
@@ -93,7 +93,7 @@ _trinityTaintCheck() {
  after="0"
  fi
  if [ "$before" != "$after" ]; then
- rlFail "kernel tainted Status: $before → $after（kernel！）"
+ rlFail "kernel tainted Status: $before → $after (kernel!)"
  rlLogWarning "Tainted: P=proprietary, F=forced, S=out-of-spec, R=user-forced, B=bad-page, U=user, D=die, A=ACPI, W=warning, C=driver, I=workaround, O=out-of-tree, E=unsigned, L=soft-lockup, K=kernel-livepatch"
  else
  rlPass "kernel tainted Statusno: $before"
@@ -124,7 +124,7 @@ _trinityCheckOutput() {
  local segfaults
  segfaults=$(grep -c "segfault\|Segmentation fault\|core dumped" "$log" 2>/dev/null || echo 0)
  if [ "$segfaults" -gt 0 ]; then
- rlLogWarning "subprocessproduced $segfaults segfault（fuzzer normallinesis）"
+ rlLogWarning "subprocessproduced $segfaults segfault (fuzzer normallinesis)"
  fi
 
  rlPass "Trinity outputnokernel BUG/Oops"

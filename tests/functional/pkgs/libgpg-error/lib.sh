@@ -12,7 +12,7 @@ libgpgErrorSetup() {
  if ! rpm -q libgpg-error 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libgpg-error 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libgpg-error soft（）"
+ rlLogInfo "already libgpg-error soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libgpg-error softalready exists"
@@ -23,7 +23,7 @@ libgpgErrorSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libgpg-error alreadybyothertest，reference count: $ref"
+ rlLogInfo "libgpg-error alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libgpgErrorCleanup"
 }
@@ -38,11 +38,11 @@ libgpgErrorCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libgpg-error 2>/dev/null || true
- rlLogInfo "already libgpg-error soft（posttest）"
+ rlLogInfo "already libgpg-error soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libgpg-error Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libgpg-error Retain (still have $ref test(s) not completed)"
  fi
 }

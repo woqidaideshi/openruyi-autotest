@@ -12,7 +12,7 @@ makeSetup() {
  if ! rpm -q make 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y make 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already make soft（）"
+ rlLogInfo "already make soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "make softalready exists"
@@ -23,7 +23,7 @@ makeSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "make alreadybyothertest，reference count: $ref"
+ rlLogInfo "make alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "makeCleanup"
 }
@@ -38,11 +38,11 @@ makeCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y make 2>/dev/null || true
- rlLogInfo "already make soft（posttest）"
+ rlLogInfo "already make soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "make Retain（still have $ref test(s) not completed）"
+ rlLogInfo "make Retain (still have $ref test(s) not completed)"
  fi
 }

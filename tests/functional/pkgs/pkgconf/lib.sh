@@ -12,7 +12,7 @@ pkgconfSetup() {
  if ! rpm -q pkgconf 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y pkgconf 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already pkgconf soft（）"
+ rlLogInfo "already pkgconf soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "pkgconf softalready exists"
@@ -23,7 +23,7 @@ pkgconfSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "pkgconf alreadybyothertest，reference count: $ref"
+ rlLogInfo "pkgconf alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "pkgconfCleanup"
 }
@@ -38,11 +38,11 @@ pkgconfCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y pkgconf 2>/dev/null || true
- rlLogInfo "already pkgconf soft（posttest）"
+ rlLogInfo "already pkgconf soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "pkgconf Retain（still have $ref test(s) not completed）"
+ rlLogInfo "pkgconf Retain (still have $ref test(s) not completed)"
  fi
 }

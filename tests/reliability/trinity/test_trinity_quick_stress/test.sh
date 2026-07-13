@@ -1,7 +1,7 @@
 #!/bin/bash
 # Reliability: trinity - full-speed stresstest
 # Documentation recommends: trinity -qq -l off -C$(nproc)
-# logandremainingoutput，run
+# logandremainingoutput, run
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 

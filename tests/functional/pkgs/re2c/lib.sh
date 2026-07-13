@@ -12,7 +12,7 @@ re2cSetup() {
  if ! rpm -q re2c 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y re2c 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already re2c soft（）"
+ rlLogInfo "already re2c soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "re2c softalready exists"
@@ -23,7 +23,7 @@ re2cSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "re2c alreadybyothertest，reference count: $ref"
+ rlLogInfo "re2c alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "re2cCleanup"
 }
@@ -38,11 +38,11 @@ re2cCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y re2c 2>/dev/null || true
- rlLogInfo "already re2c soft（posttest）"
+ rlLogInfo "already re2c soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "re2c Retain（still have $ref test(s) not completed）"
+ rlLogInfo "re2c Retain (still have $ref test(s) not completed)"
  fi
 }

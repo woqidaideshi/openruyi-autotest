@@ -12,7 +12,7 @@ pciutilsSetup() {
  if ! rpm -q pciutils 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y pciutils 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already pciutils soft（）"
+ rlLogInfo "already pciutils soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "pciutils softalready exists"
@@ -23,7 +23,7 @@ pciutilsSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "pciutils alreadybyothertest，reference count: $ref"
+ rlLogInfo "pciutils alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "pciutilsCleanup"
 }
@@ -38,11 +38,11 @@ pciutilsCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y pciutils 2>/dev/null || true
- rlLogInfo "already pciutils soft（posttest）"
+ rlLogInfo "already pciutils soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "pciutils Retain（still have $ref test(s) not completed）"
+ rlLogInfo "pciutils Retain (still have $ref test(s) not completed)"
  fi
 }

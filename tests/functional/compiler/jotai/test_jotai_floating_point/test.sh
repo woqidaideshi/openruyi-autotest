@@ -55,7 +55,7 @@ CEOF
  # comparisonmodeoutput diff
  diff /tmp/fp_gcc_no-fast-math.txt /tmp/fp_gcc_ffast-math.txt >/tmp/fp_diff.txt 2>&1
  if [ -s /tmp/fp_diff.txt ]; then
- rlLogInfo "GCC -ffast-math vs no-fast-math output differs（prelinesis）"
+ rlLogInfo "GCC -ffast-math vs no-fast-math output differs (prelinesis)"
  rlRun "cat /tmp/fp_diff.txt | head -10" 0 "floating-pointdiff"
  else
  rlPass "GCC floating-pointmodeoutputconsistent"

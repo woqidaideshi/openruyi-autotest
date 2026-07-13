@@ -12,7 +12,7 @@ libnlSetup() {
  if ! rpm -q libnl 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libnl 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libnl soft（）"
+ rlLogInfo "already libnl soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libnl softalready exists"
@@ -23,7 +23,7 @@ libnlSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libnl alreadybyothertest，reference count: $ref"
+ rlLogInfo "libnl alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libnlCleanup"
 }
@@ -38,11 +38,11 @@ libnlCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libnl 2>/dev/null || true
- rlLogInfo "already libnl soft（posttest）"
+ rlLogInfo "already libnl soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libnl Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libnl Retain (still have $ref test(s) not completed)"
  fi
 }

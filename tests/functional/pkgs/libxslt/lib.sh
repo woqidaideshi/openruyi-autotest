@@ -12,7 +12,7 @@ libxsltSetup() {
  if ! rpm -q libxslt 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libxslt 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libxslt soft（）"
+ rlLogInfo "already libxslt soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libxslt softalready exists"
@@ -23,7 +23,7 @@ libxsltSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libxslt alreadybyothertest，reference count: $ref"
+ rlLogInfo "libxslt alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libxsltCleanup"
 }
@@ -38,11 +38,11 @@ libxsltCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libxslt 2>/dev/null || true
- rlLogInfo "already libxslt soft（posttest）"
+ rlLogInfo "already libxslt soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libxslt Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libxslt Retain (still have $ref test(s) not completed)"
  fi
 }

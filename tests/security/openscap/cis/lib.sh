@@ -48,6 +48,6 @@ cisCleanup() {
  rlLogInfo "CIS testCleanup complete"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$CIS_FLAG"
- rlLogInfo "CIS Retain（still have $ref test）"
+ rlLogInfo "CIS Retain (still have $ref test)"
  fi
 }

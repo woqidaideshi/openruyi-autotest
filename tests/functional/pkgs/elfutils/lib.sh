@@ -12,7 +12,7 @@ elfutilsSetup() {
  if ! rpm -q elfutils 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y elfutils 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already elfutils soft（）"
+ rlLogInfo "already elfutils soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "elfutils softalready exists"
@@ -23,7 +23,7 @@ elfutilsSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "elfutils alreadybyothertest，reference count: $ref"
+ rlLogInfo "elfutils alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "elfutilsCleanup"
 }
@@ -38,11 +38,11 @@ elfutilsCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y elfutils 2>/dev/null || true
- rlLogInfo "already elfutils soft（posttest）"
+ rlLogInfo "already elfutils soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "elfutils Retain（still have $ref test(s) not completed）"
+ rlLogInfo "elfutils Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -21,7 +21,7 @@ smokeUserMgmtSetup() {
  ref=$(grep "^ref=" "$SMOKE_USER_MGMT_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_USER_MGMT_FLAG"
- rlLogInfo "smoke-user_mgmt already initialized by other tests，reference count: $ref"
+ rlLogInfo "smoke-user_mgmt already initialized by other tests, reference count: $ref"
  fi
  rlCleanupAppend "smokeUserMgmtCleanup"
 }
@@ -35,9 +35,9 @@ smokeUserMgmtCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  rm -f "$SMOKE_USER_MGMT_FLAG"
- rlLogInfo "smoke-user_mgmt: Cleanup complete（posttest）"
+ rlLogInfo "smoke-user_mgmt: Cleanup complete (posttest)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_USER_MGMT_FLAG"
- rlLogInfo "smoke-user_mgmt: Retain（still have $ref test(s) not completed）"
+ rlLogInfo "smoke-user_mgmt: Retain (still have $ref test(s) not completed)"
  fi
 }

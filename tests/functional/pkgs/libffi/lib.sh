@@ -12,7 +12,7 @@ libffiSetup() {
  if ! rpm -q libffi 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libffi 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libffi soft（）"
+ rlLogInfo "already libffi soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libffi softalready exists"
@@ -23,7 +23,7 @@ libffiSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libffi alreadybyothertest，reference count: $ref"
+ rlLogInfo "libffi alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libffiCleanup"
 }
@@ -38,11 +38,11 @@ libffiCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libffi 2>/dev/null || true
- rlLogInfo "already libffi soft（posttest）"
+ rlLogInfo "already libffi soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libffi Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libffi Retain (still have $ref test(s) not completed)"
  fi
 }

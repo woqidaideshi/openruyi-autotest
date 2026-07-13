@@ -21,7 +21,7 @@ smokeArchiveSetup() {
  ref=$(grep "^ref=" "$SMOKE_ARCHIVE_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_ARCHIVE_FLAG"
- rlLogInfo "smoke-archive already initialized by other tests，reference count: $ref"
+ rlLogInfo "smoke-archive already initialized by other tests, reference count: $ref"
  fi
  rlCleanupAppend "smokeArchiveCleanup"
 }
@@ -35,9 +35,9 @@ smokeArchiveCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  rm -f "$SMOKE_ARCHIVE_FLAG"
- rlLogInfo "smoke-archive: Cleanup complete（posttest）"
+ rlLogInfo "smoke-archive: Cleanup complete (posttest)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_ARCHIVE_FLAG"
- rlLogInfo "smoke-archive: Retain（still have $ref test(s) not completed）"
+ rlLogInfo "smoke-archive: Retain (still have $ref test(s) not completed)"
  fi
 }

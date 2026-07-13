@@ -12,7 +12,7 @@ slangSetup() {
  if ! rpm -q slang 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y slang 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already slang soft（）"
+ rlLogInfo "already slang soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "slang softalready exists"
@@ -23,7 +23,7 @@ slangSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "slang alreadybyothertest，reference count: $ref"
+ rlLogInfo "slang alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "slangCleanup"
 }
@@ -38,11 +38,11 @@ slangCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y slang 2>/dev/null || true
- rlLogInfo "already slang soft（posttest）"
+ rlLogInfo "already slang soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "slang Retain（still have $ref test(s) not completed）"
+ rlLogInfo "slang Retain (still have $ref test(s) not completed)"
  fi
 }

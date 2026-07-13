@@ -21,7 +21,7 @@ smokeShellBasicsSetup() {
  ref=$(grep "^ref=" "$SMOKE_SHELL_BASICS_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SHELL_BASICS_FLAG"
- rlLogInfo "smoke-shell_basics already initialized by other tests，reference count: $ref"
+ rlLogInfo "smoke-shell_basics already initialized by other tests, reference count: $ref"
  fi
  rlCleanupAppend "smokeShellBasicsCleanup"
 }
@@ -35,9 +35,9 @@ smokeShellBasicsCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  rm -f "$SMOKE_SHELL_BASICS_FLAG"
- rlLogInfo "smoke-shell_basics: Cleanup complete（posttest）"
+ rlLogInfo "smoke-shell_basics: Cleanup complete (posttest)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SHELL_BASICS_FLAG"
- rlLogInfo "smoke-shell_basics: Retain（still have $ref test(s) not completed）"
+ rlLogInfo "smoke-shell_basics: Retain (still have $ref test(s) not completed)"
  fi
 }

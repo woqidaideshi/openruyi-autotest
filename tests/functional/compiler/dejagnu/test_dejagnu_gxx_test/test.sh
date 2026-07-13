@@ -1,6 +1,6 @@
 #!/bin/bash
 # Functional test: compiler - dejagnu - G++ compiletestwith
-# Create minimal C++ test program，with DejaGnu runtest framework executes and validates results
+# Create minimal C++ test program, with DejaGnu runtest framework executes and validates results
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
@@ -27,29 +27,29 @@ rlJournalStart
 
 int main() {
  // test
- std::vector<int> vec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+ std:vector<int> vec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
  
  // STL test
- int sum = std::accumulate(vec.begin(), vec.end(), 0);
+ int sum = std:accumulate(vec.begin(), vec.end(), 0);
  if (sum != 55) abort();
  
  // Lambda test
  auto square = [](int x) { return x * x; };
- std::vector<int> squares;
- std::transform(vec.begin(), vec.end(), std::back_inserter(squares), square);
+ std:vector<int> squares;
+ std:transform(vec.begin(), vec.end(), std:back_inserter(squares), square);
  if (squares[0] != 1 || squares[9] != 100) abort();
  
  // test
- std::string s = "g++";
+ std:string s = "g++";
  s += " dejagnu";
  s += " test passed";
- if (s.find("passed") == std::string::npos) abort();
+ if (s.find("passed") == std:string:npos) abort();
  
  // floating-pointtest
- double d = std::sqrt(144.0);
- if (std::abs(d - 12.0) > 0.0001) abort();
+ double d = std:sqrt(144.0);
+ if (std:abs(d - 12.0) > 0.0001) abort();
  
- std::cout << "GXX_DG_TEST_PASSED" << std::endl;
+ std:cout << "GXX_DG_TEST_PASSED" << std:endl;
  return 0;
 }
 CEOF

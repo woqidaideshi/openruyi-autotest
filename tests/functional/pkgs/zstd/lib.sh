@@ -12,7 +12,7 @@ zstdSetup() {
  if ! rpm -q zstd 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y zstd 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already zstd soft（）"
+ rlLogInfo "already zstd soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "zstd softalready exists"
@@ -23,7 +23,7 @@ zstdSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "zstd alreadybyothertest，reference count: $ref"
+ rlLogInfo "zstd alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "zstdCleanup"
 }
@@ -38,11 +38,11 @@ zstdCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y zstd 2>/dev/null || true
- rlLogInfo "already zstd soft（posttest）"
+ rlLogInfo "already zstd soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "zstd Retain（still have $ref test(s) not completed）"
+ rlLogInfo "zstd Retain (still have $ref test(s) not completed)"
  fi
 }

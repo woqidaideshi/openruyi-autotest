@@ -12,7 +12,7 @@ pythonRpmGeneratorsSetup() {
  if ! rpm -q python-rpm-generators 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y python-rpm-generators 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already python-rpm-generators soft（）"
+ rlLogInfo "already python-rpm-generators soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "python-rpm-generators softalready exists"
@@ -23,7 +23,7 @@ pythonRpmGeneratorsSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "python-rpm-generators alreadybyothertest，reference count: $ref"
+ rlLogInfo "python-rpm-generators alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "pythonRpmGeneratorsCleanup"
 }
@@ -38,11 +38,11 @@ pythonRpmGeneratorsCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y python-rpm-generators 2>/dev/null || true
- rlLogInfo "already python-rpm-generators soft（posttest）"
+ rlLogInfo "already python-rpm-generators soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "python-rpm-generators Retain（still have $ref test(s) not completed）"
+ rlLogInfo "python-rpm-generators Retain (still have $ref test(s) not completed)"
  fi
 }

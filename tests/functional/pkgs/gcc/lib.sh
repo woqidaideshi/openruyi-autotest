@@ -12,7 +12,7 @@ gccSetup() {
  if ! rpm -q gcc 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y gcc 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already gcc soft（）"
+ rlLogInfo "already gcc soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "gcc softalready exists"
@@ -23,7 +23,7 @@ gccSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "gcc alreadybyothertest，reference count: $ref"
+ rlLogInfo "gcc alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "gccCleanup"
 }
@@ -38,11 +38,11 @@ gccCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y gcc 2>/dev/null || true
- rlLogInfo "already gcc soft（posttest）"
+ rlLogInfo "already gcc soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "gcc Retain（still have $ref test(s) not completed）"
+ rlLogInfo "gcc Retain (still have $ref test(s) not completed)"
  fi
 }

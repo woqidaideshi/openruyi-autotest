@@ -21,7 +21,7 @@ smokeLoggingSetup() {
  ref=$(grep "^ref=" "$SMOKE_LOGGING_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_LOGGING_FLAG"
- rlLogInfo "smoke-logging already initialized by other tests，reference count: $ref"
+ rlLogInfo "smoke-logging already initialized by other tests, reference count: $ref"
  fi
  rlCleanupAppend "smokeLoggingCleanup"
 }
@@ -35,9 +35,9 @@ smokeLoggingCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  rm -f "$SMOKE_LOGGING_FLAG"
- rlLogInfo "smoke-logging: Cleanup complete（posttest）"
+ rlLogInfo "smoke-logging: Cleanup complete (posttest)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_LOGGING_FLAG"
- rlLogInfo "smoke-logging: Retain（still have $ref test(s) not completed）"
+ rlLogInfo "smoke-logging: Retain (still have $ref test(s) not completed)"
  fi
 }

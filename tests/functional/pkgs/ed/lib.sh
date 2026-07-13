@@ -12,7 +12,7 @@ edSetup() {
  if ! rpm -q ed 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y ed 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already ed soft（）"
+ rlLogInfo "already ed soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "ed softalready exists"
@@ -23,7 +23,7 @@ edSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "ed alreadybyothertest，reference count: $ref"
+ rlLogInfo "ed alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "edCleanup"
 }
@@ -38,11 +38,11 @@ edCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y ed 2>/dev/null || true
- rlLogInfo "already ed soft（posttest）"
+ rlLogInfo "already ed soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "ed Retain（still have $ref test(s) not completed）"
+ rlLogInfo "ed Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Functional test: compiler - yarpgen - source codebuildand
-# Clone yarpgen repolibrary，cmake build，verifyexecutableGenerate
+# Clone yarpgen repolibrary, cmake build, verifyexecutableGenerate
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"

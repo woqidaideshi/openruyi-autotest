@@ -12,7 +12,7 @@ nettleSetup() {
  if ! rpm -q nettle 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y nettle 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already nettle soft（）"
+ rlLogInfo "already nettle soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "nettle softalready exists"
@@ -23,7 +23,7 @@ nettleSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "nettle alreadybyothertest，reference count: $ref"
+ rlLogInfo "nettle alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "nettleCleanup"
 }
@@ -38,11 +38,11 @@ nettleCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y nettle 2>/dev/null || true
- rlLogInfo "already nettle soft（posttest）"
+ rlLogInfo "already nettle soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "nettle Retain（still have $ref test(s) not completed）"
+ rlLogInfo "nettle Retain (still have $ref test(s) not completed)"
  fi
 }

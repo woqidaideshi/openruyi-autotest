@@ -12,7 +12,7 @@ dbusBrokerSetup() {
  if ! rpm -q dbus-broker 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y dbus-broker 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already dbus-broker soft（）"
+ rlLogInfo "already dbus-broker soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "dbus-broker softalready exists"
@@ -23,7 +23,7 @@ dbusBrokerSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "dbus-broker alreadybyothertest，reference count: $ref"
+ rlLogInfo "dbus-broker alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "dbusBrokerCleanup"
 }
@@ -38,11 +38,11 @@ dbusBrokerCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y dbus-broker 2>/dev/null || true
- rlLogInfo "already dbus-broker soft（posttest）"
+ rlLogInfo "already dbus-broker soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "dbus-broker Retain（still have $ref test(s) not completed）"
+ rlLogInfo "dbus-broker Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -12,7 +12,7 @@ nghttp2Setup() {
  if ! rpm -q nghttp2 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y nghttp2 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already nghttp2 soft（）"
+ rlLogInfo "already nghttp2 soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "nghttp2 softalready exists"
@@ -23,7 +23,7 @@ nghttp2Setup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "nghttp2 alreadybyothertest，reference count: $ref"
+ rlLogInfo "nghttp2 alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "nghttp2Cleanup"
 }
@@ -38,11 +38,11 @@ nghttp2Cleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y nghttp2 2>/dev/null || true
- rlLogInfo "already nghttp2 soft（posttest）"
+ rlLogInfo "already nghttp2 soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "nghttp2 Retain（still have $ref test(s) not completed）"
+ rlLogInfo "nghttp2 Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -12,7 +12,7 @@ pyprojectRpmMacrosSetup() {
  if ! rpm -q pyproject-rpm-macros 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y pyproject-rpm-macros 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already pyproject-rpm-macros soft（）"
+ rlLogInfo "already pyproject-rpm-macros soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "pyproject-rpm-macros softalready exists"
@@ -23,7 +23,7 @@ pyprojectRpmMacrosSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "pyproject-rpm-macros alreadybyothertest，reference count: $ref"
+ rlLogInfo "pyproject-rpm-macros alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "pyprojectRpmMacrosCleanup"
 }
@@ -38,11 +38,11 @@ pyprojectRpmMacrosCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y pyproject-rpm-macros 2>/dev/null || true
- rlLogInfo "already pyproject-rpm-macros soft（posttest）"
+ rlLogInfo "already pyproject-rpm-macros soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "pyproject-rpm-macros Retain（still have $ref test(s) not completed）"
+ rlLogInfo "pyproject-rpm-macros Retain (still have $ref test(s) not completed)"
  fi
 }

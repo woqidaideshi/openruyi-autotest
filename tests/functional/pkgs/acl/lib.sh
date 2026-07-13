@@ -20,7 +20,7 @@ aclSetup() {
  if ! rpm -q acl 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y acl 2>/dev/null
  echo "installed=1" > "$ACL_FLAG"
- rlLogInfo "already acl soft（）"
+ rlLogInfo "already acl soft ()"
  else
  echo "installed=0" > "$ACL_FLAG"
  rlLogInfo "acl softalready exists"
@@ -32,10 +32,10 @@ aclSetup() {
  ref=$(grep "^ref=" "$ACL_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$ACL_FLAG"
- rlLogInfo "acl alreadybyothertest，reference count: $ref"
+ rlLogInfo "acl alreadybyothertest, reference count: $ref"
  fi
 
- # Register cleanup — runs at rlJournalEnd regardless of test failure
+ # Register cleanup -- runs at rlJournalEnd regardless of test failure
  # Ref-counting ensures only the LAST test actually uninstalls
  rlCleanupAppend "aclCleanup"
 }
@@ -53,11 +53,11 @@ aclCleanup() {
  # Last test to leave: uninstall if we installed
  if grep -q "^installed=1" "$ACL_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y acl 2>/dev/null || true
- rlLogInfo "already acl soft（posttest）"
+ rlLogInfo "already acl soft (posttest)"
  fi
  rm -f "$ACL_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$ACL_FLAG"
- rlLogInfo "acl Retain（still have $ref test(s) not completed）"
+ rlLogInfo "acl Retain (still have $ref test(s) not completed)"
  fi
 }

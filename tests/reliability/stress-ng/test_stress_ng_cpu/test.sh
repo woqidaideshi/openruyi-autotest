@@ -25,7 +25,7 @@ rlJournalStart
  bogo_vals+=("$bogo")
  rlLogInfo "CPU ${t}thread bogo ops/s: $bogo"
  done
- # verifymultithreadshouldhasmore（nodesc）
+ # verifymultithreadshouldhasmore (nodesc)
  if [ "${#bogo_vals[@]}" -ge 2 ]; then
  rlLogInfo "CPU bogo: 1t=${bogo_vals[0]} 2t=${bogo_vals[1]} 4t=${bogo_vals[2]}"
  rlPass "CPU ramptestComplete"

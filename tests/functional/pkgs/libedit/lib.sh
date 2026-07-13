@@ -12,7 +12,7 @@ libeditSetup() {
  if ! rpm -q libedit 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libedit 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libedit soft（）"
+ rlLogInfo "already libedit soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libedit softalready exists"
@@ -23,7 +23,7 @@ libeditSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libedit alreadybyothertest，reference count: $ref"
+ rlLogInfo "libedit alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libeditCleanup"
 }
@@ -38,11 +38,11 @@ libeditCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libedit 2>/dev/null || true
- rlLogInfo "already libedit soft（posttest）"
+ rlLogInfo "already libedit soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libedit Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libedit Retain (still have $ref test(s) not completed)"
  fi
 }

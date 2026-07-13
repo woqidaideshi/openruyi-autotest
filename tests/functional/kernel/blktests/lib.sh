@@ -86,11 +86,11 @@ blktestsSetup() {
  if [ ! -x "$BLKTESTS_DIR/check" ]; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y blktests 2>/dev/null
  if [ ! -x "$BLKTESTS_DIR/check" ]; then
- rlLogWarning "blktests failed，test will be skipped"
+ rlLogWarning "blktests failed, test will be skipped"
  echo "installed=0" > "$BLKTESTS_FLAG"
  else
  echo "installed=1" > "$BLKTESTS_FLAG"
- rlLogInfo "already blktests（）"
+ rlLogInfo "already blktests ()"
  fi
  else
  echo "installed=0" > "$BLKTESTS_FLAG"
@@ -102,7 +102,7 @@ blktestsSetup() {
  ref=$(grep "^ref=" "$BLKTESTS_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$BLKTESTS_FLAG"
- rlLogInfo "blktests already，reference count: $ref"
+ rlLogInfo "blktests already, reference count: $ref"
  fi
 
  rlCleanupAppend "blktestsCleanup"
@@ -118,6 +118,6 @@ blktestsCleanup() {
  rlLogInfo "blktests testCleanup complete"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$BLKTESTS_FLAG"
- rlLogInfo "blktests Retain（still have $ref test(s) not completed）"
+ rlLogInfo "blktests Retain (still have $ref test(s) not completed)"
  fi
 }

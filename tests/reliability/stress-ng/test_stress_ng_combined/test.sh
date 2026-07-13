@@ -1,6 +1,6 @@
 #!/bin/bash
 # Reliability: stress-ng - combinedstress: multistressorandlines + metricsanalysis
-# Documentation recommendsrampand，testsimultaneouslyrunmulti stressor actuallyload
+# Documentation recommendsrampand, testsimultaneouslyrunmulti stressor actuallyload
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
@@ -27,7 +27,7 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "combined stress: Documentation recommends workload"
- # useDocumentation recommends 13 workload（time）
+ # useDocumentation recommends 13 workload (time)
  local log="$TmpDir/combo2.log"
  local workloads="cpu context fork get mmap vm-splice wait zombie"
  local args=""

@@ -12,7 +12,7 @@ libtirpcSetup() {
  if ! rpm -q libtirpc 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libtirpc 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libtirpc soft（）"
+ rlLogInfo "already libtirpc soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libtirpc softalready exists"
@@ -23,7 +23,7 @@ libtirpcSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libtirpc alreadybyothertest，reference count: $ref"
+ rlLogInfo "libtirpc alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libtirpcCleanup"
 }
@@ -38,11 +38,11 @@ libtirpcCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libtirpc 2>/dev/null || true
- rlLogInfo "already libtirpc soft（posttest）"
+ rlLogInfo "already libtirpc soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libtirpc Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libtirpc Retain (still have $ref test(s) not completed)"
  fi
 }

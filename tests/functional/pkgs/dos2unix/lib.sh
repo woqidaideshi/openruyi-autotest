@@ -12,7 +12,7 @@ dos2unixSetup() {
  if ! rpm -q dos2unix 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y dos2unix 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already dos2unix soft（）"
+ rlLogInfo "already dos2unix soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "dos2unix softalready exists"
@@ -23,7 +23,7 @@ dos2unixSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "dos2unix alreadybyothertest，reference count: $ref"
+ rlLogInfo "dos2unix alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "dos2unixCleanup"
 }
@@ -38,11 +38,11 @@ dos2unixCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y dos2unix 2>/dev/null || true
- rlLogInfo "already dos2unix soft（posttest）"
+ rlLogInfo "already dos2unix soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "dos2unix Retain（still have $ref test(s) not completed）"
+ rlLogInfo "dos2unix Retain (still have $ref test(s) not completed)"
  fi
 }

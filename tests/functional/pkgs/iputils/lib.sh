@@ -12,7 +12,7 @@ iputilsSetup() {
  if ! rpm -q iputils 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y iputils 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already iputils soft（）"
+ rlLogInfo "already iputils soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "iputils softalready exists"
@@ -23,7 +23,7 @@ iputilsSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "iputils alreadybyothertest，reference count: $ref"
+ rlLogInfo "iputils alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "iputilsCleanup"
 }
@@ -38,11 +38,11 @@ iputilsCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y iputils 2>/dev/null || true
- rlLogInfo "already iputils soft（posttest）"
+ rlLogInfo "already iputils soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "iputils Retain（still have $ref test(s) not completed）"
+ rlLogInfo "iputils Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -12,7 +12,7 @@ xzSetup() {
  if ! rpm -q xz 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y xz 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already xz soft（）"
+ rlLogInfo "already xz soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "xz softalready exists"
@@ -23,7 +23,7 @@ xzSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "xz alreadybyothertest，reference count: $ref"
+ rlLogInfo "xz alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "xzCleanup"
 }
@@ -38,11 +38,11 @@ xzCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y xz 2>/dev/null || true
- rlLogInfo "already xz soft（posttest）"
+ rlLogInfo "already xz soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "xz Retain（still have $ref test(s) not completed）"
+ rlLogInfo "xz Retain (still have $ref test(s) not completed)"
  fi
 }

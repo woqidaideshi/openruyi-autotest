@@ -12,7 +12,7 @@ jsonCSetup() {
  if ! rpm -q json-c 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y json-c 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already json-c soft（）"
+ rlLogInfo "already json-c soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "json-c softalready exists"
@@ -23,7 +23,7 @@ jsonCSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "json-c alreadybyothertest，reference count: $ref"
+ rlLogInfo "json-c alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "jsonCCleanup"
 }
@@ -38,11 +38,11 @@ jsonCCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y json-c 2>/dev/null || true
- rlLogInfo "already json-c soft（posttest）"
+ rlLogInfo "already json-c soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "json-c Retain（still have $ref test(s) not completed）"
+ rlLogInfo "json-c Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -12,7 +12,7 @@ libtasn1Setup() {
  if ! rpm -q libtasn1 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libtasn1 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libtasn1 soft（）"
+ rlLogInfo "already libtasn1 soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libtasn1 softalready exists"
@@ -23,7 +23,7 @@ libtasn1Setup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libtasn1 alreadybyothertest，reference count: $ref"
+ rlLogInfo "libtasn1 alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libtasn1Cleanup"
 }
@@ -38,11 +38,11 @@ libtasn1Cleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libtasn1 2>/dev/null || true
- rlLogInfo "already libtasn1 soft（posttest）"
+ rlLogInfo "already libtasn1 soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libtasn1 Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libtasn1 Retain (still have $ref test(s) not completed)"
  fi
 }

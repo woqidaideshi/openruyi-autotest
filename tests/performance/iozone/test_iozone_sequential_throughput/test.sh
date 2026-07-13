@@ -16,7 +16,7 @@ rlJournalStart
  local testfile="$TmpDir/seq_write.dat"
  local log="$TmpDir/seq_write.log"
 
- # onlywithwriteoperation (-i 0)，recordsize，testfilesequential write
+ # onlywithwriteoperation (-i 0), recordsize, testfilesequential write
  iozone -c -s 256m -r 64k -i 0 -f "$testfile" 2>&1 | tee "$log"
 
  echo ""
@@ -37,7 +37,7 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "sequential read throughput"
- # writefile，sequential read
+ # writefile, sequential read
  local testfile="$TmpDir/seq_read.dat"
  local log="$TmpDir/seq_read.log"
 
@@ -66,7 +66,7 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "read/write ratioanalysis"
- # simultaneouslyreadwrite，readwrite
+ # simultaneouslyreadwrite, readwrite
  local testfile="$TmpDir/rw_ratio.dat"
  local log="$TmpDir/rw_ratio.log"
 

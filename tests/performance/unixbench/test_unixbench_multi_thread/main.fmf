@@ -1,4 +1,4 @@
-summary: Performance test - UnixBench multithreadbenchmark（full core）
+summary: Performance test - UnixBench multithreadbenchmark (full core)
 test:./test.sh
 tag:
  - performance

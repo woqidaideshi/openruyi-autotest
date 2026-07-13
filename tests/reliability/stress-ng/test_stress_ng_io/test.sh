@@ -19,13 +19,13 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "AIO stress (IO)"
- # aio needs libaio supports，possiblesystemnot supported
+ # aio needs libaio supports, possiblesystemnot supported
  local log="$TmpDir/aio.log"
  stress-ng --aio 2 --timeout 20s --metrics-brief --log-file "$log" 2>&1 | tail -5
  if grep -q "successful run completed" "$log" 2>/dev/null; then
  _stressNgValidate "$log" "aio"
  else
- rlLogInfo "AIO stressor no by supports，skip（normal）"
+ rlLogInfo "AIO stressor no by supports, skip (normal)"
  rlPass "AIO: skip (not supported)"
  fi
  rlPhaseEnd

@@ -12,7 +12,7 @@ libpngSetup() {
  if ! rpm -q libpng 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libpng 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libpng soft（）"
+ rlLogInfo "already libpng soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libpng softalready exists"
@@ -23,7 +23,7 @@ libpngSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libpng alreadybyothertest，reference count: $ref"
+ rlLogInfo "libpng alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libpngCleanup"
 }
@@ -38,11 +38,11 @@ libpngCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libpng 2>/dev/null || true
- rlLogInfo "already libpng soft（posttest）"
+ rlLogInfo "already libpng soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libpng Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libpng Retain (still have $ref test(s) not completed)"
  fi
 }

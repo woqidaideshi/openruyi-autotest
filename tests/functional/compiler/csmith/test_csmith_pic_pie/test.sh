@@ -18,7 +18,7 @@ int public_func(int x){return x*2;}
 __attribute__((visibility("hidden"))) int hidden_func(int x){return x*3;}
 // symbol
 __attribute__((weak)) int weak_func(int x){return x+1;}
-// symbol（default）
+// symbol (default)
 int strong_func(int x){return x+2;}
 const char* get_info(void){return "PIC_PIE_OK";}
 CEOF

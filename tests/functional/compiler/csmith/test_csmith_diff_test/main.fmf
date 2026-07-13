@@ -1,4 +1,4 @@
-summary: Functional test - csmith - differential testing（GCC vs Clang output comparison）
+summary: Functional test - csmith - differential testing (GCC vs Clang output comparison)
 test: ./test.sh
 tag:
  - functional

@@ -12,7 +12,7 @@ unboundSetup() {
  if ! rpm -q unbound 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y unbound 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already unbound soft（）"
+ rlLogInfo "already unbound soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "unbound softalready exists"
@@ -23,7 +23,7 @@ unboundSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "unbound alreadybyothertest，reference count: $ref"
+ rlLogInfo "unbound alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "unboundCleanup"
 }
@@ -38,11 +38,11 @@ unboundCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y unbound 2>/dev/null || true
- rlLogInfo "already unbound soft（posttest）"
+ rlLogInfo "already unbound soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "unbound Retain（still have $ref test(s) not completed）"
+ rlLogInfo "unbound Retain (still have $ref test(s) not completed)"
  fi
 }

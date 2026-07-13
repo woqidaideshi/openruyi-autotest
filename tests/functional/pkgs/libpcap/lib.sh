@@ -12,7 +12,7 @@ libpcapSetup() {
  if ! rpm -q libpcap 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libpcap 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already libpcap soft（）"
+ rlLogInfo "already libpcap soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "libpcap softalready exists"
@@ -23,7 +23,7 @@ libpcapSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libpcap alreadybyothertest，reference count: $ref"
+ rlLogInfo "libpcap alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "libpcapCleanup"
 }
@@ -38,11 +38,11 @@ libpcapCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libpcap 2>/dev/null || true
- rlLogInfo "already libpcap soft（posttest）"
+ rlLogInfo "already libpcap soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "libpcap Retain（still have $ref test(s) not completed）"
+ rlLogInfo "libpcap Retain (still have $ref test(s) not completed)"
  fi
 }

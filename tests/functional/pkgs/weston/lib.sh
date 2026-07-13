@@ -12,7 +12,7 @@ westonSetup() {
  if ! rpm -q weston 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y weston 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already weston soft（）"
+ rlLogInfo "already weston soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "weston softalready exists"
@@ -23,7 +23,7 @@ westonSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "weston alreadybyothertest，reference count: $ref"
+ rlLogInfo "weston alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "westonCleanup"
 }
@@ -38,11 +38,11 @@ westonCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y weston 2>/dev/null || true
- rlLogInfo "already weston soft（posttest）"
+ rlLogInfo "already weston soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "weston Retain（still have $ref test(s) not completed）"
+ rlLogInfo "weston Retain (still have $ref test(s) not completed)"
  fi
 }

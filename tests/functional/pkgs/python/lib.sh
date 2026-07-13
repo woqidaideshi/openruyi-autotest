@@ -12,7 +12,7 @@ pythonSetup() {
  if ! rpm -q python 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y python 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already python soft（）"
+ rlLogInfo "already python soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "python softalready exists"
@@ -23,7 +23,7 @@ pythonSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "python alreadybyothertest，reference count: $ref"
+ rlLogInfo "python alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "pythonCleanup"
 }
@@ -38,11 +38,11 @@ pythonCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y python 2>/dev/null || true
- rlLogInfo "already python soft（posttest）"
+ rlLogInfo "already python soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "python Retain（still have $ref test(s) not completed）"
+ rlLogInfo "python Retain (still have $ref test(s) not completed)"
  fi
 }

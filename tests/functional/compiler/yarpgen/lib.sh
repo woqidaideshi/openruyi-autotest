@@ -61,9 +61,9 @@ yarpgenCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  rm -f "$YARPGEN_FLAG"
- rlLogInfo "yarpgen testCleanup complete（Retainbuildwith）"
+ rlLogInfo "yarpgen testCleanup complete (Retainbuildwith)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$YARPGEN_FLAG"
- rlLogInfo "yarpgen Retain（still have $ref test）"
+ rlLogInfo "yarpgen Retain (still have $ref test)"
  fi
 }

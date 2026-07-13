@@ -21,7 +21,7 @@ smokePermissionsSetup() {
  ref=$(grep "^ref=" "$SMOKE_PERMISSIONS_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_PERMISSIONS_FLAG"
- rlLogInfo "smoke-permissions already initialized by other tests，reference count: $ref"
+ rlLogInfo "smoke-permissions already initialized by other tests, reference count: $ref"
  fi
  rlCleanupAppend "smokePermissionsCleanup"
 }
@@ -35,9 +35,9 @@ smokePermissionsCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  rm -f "$SMOKE_PERMISSIONS_FLAG"
- rlLogInfo "smoke-permissions: Cleanup complete（posttest）"
+ rlLogInfo "smoke-permissions: Cleanup complete (posttest)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_PERMISSIONS_FLAG"
- rlLogInfo "smoke-permissions: Retain（still have $ref test(s) not completed）"
+ rlLogInfo "smoke-permissions: Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -12,7 +12,7 @@ debugeditSetup() {
  if ! rpm -q debugedit 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y debugedit 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already debugedit soft（）"
+ rlLogInfo "already debugedit soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "debugedit softalready exists"
@@ -23,7 +23,7 @@ debugeditSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "debugedit alreadybyothertest，reference count: $ref"
+ rlLogInfo "debugedit alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "debugeditCleanup"
 }
@@ -38,11 +38,11 @@ debugeditCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y debugedit 2>/dev/null || true
- rlLogInfo "already debugedit soft（posttest）"
+ rlLogInfo "already debugedit soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "debugedit Retain（still have $ref test(s) not completed）"
+ rlLogInfo "debugedit Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -51,17 +51,17 @@ _ltpRunCase() {
  return 1
  fi
 
- # All skipped, nothing actually passed — map to tmt SKIP
+ # All skipped, nothing actually passed -- map to tmt SKIP
  if grep -qE 'Passed:[[:space:]]*0' "$out" && \
  grep -qE 'Skipped:[[:space:]]*[1-9]' "$out" && \
  grep -qE 'Failed:[[:space:]]*0' "$out" && \
  grep -qE 'Broken:[[:space:]]*0' "$out"; then
- rlTestSkip "LTP withskip（Environmentnot supported）"
+ rlTestSkip "LTP withskip (Environmentnot supported)"
  rm -f "$out"
  return 0
  fi
 
- # Has failures or broken — map to tmt FAIL
+ # Has failures or broken -- map to tmt FAIL
  if grep -qE 'Failed:[[:space:]]*[1-9]' "$out" || \
  grep -qE 'Broken:[[:space:]]*[1-9]' "$out"; then
  rlFail "LTP withexistsfailedor"
@@ -87,14 +87,14 @@ ltpSetup() {
  method="source-cached"
  echo "installed=0" > "$LTP_FLAG"
  else
- rlLogInfo " LTP（）..."
+ rlLogInfo " LTP ()..."
  # Try dnf first
  if echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y ltp 2>/dev/null && command -v kirk >/dev/null 2>&1; then
  method="dnf"
  echo "installed=1" > "$LTP_FLAG"
  else
- # dnf failed or kirk not in PATH — compile from source
- rlLogInfo "dnf failedorno kirk，fromsource codecompile（tag: $LTP_TAG）..."
+ # dnf failed or kirk not in PATH -- compile from source
+ rlLogInfo "dnf failedorno kirk, fromsource codecompile (tag: $LTP_TAG)..."
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig \
  zlib-devel keyutils-libs-devel libtirpc-devel libmnl-devel libaio-devel \
  libcap-devel openssl-devel numactl-devel 2>/dev/null || true
@@ -124,14 +124,14 @@ ltpSetup() {
  method="source"
  echo "installed=2" > "$LTP_FLAG"
  elif [ -x "$LTP_INSTALL_DIR/tools/kirk" ]; then
- # kirk was built but make install failed — install manually
+ # kirk was built but make install failed -- install manually
  cp -a "$LTP_INSTALL_DIR/tools/kirk" "$LTP_INSTALL_DIR/" 2>/dev/null || true
  _ltpSetupPath
  if command -v kirk >/dev/null 2>&1; then
  method="source"
  echo "installed=2" > "$LTP_FLAG"
  else
- rlLogWarning "LTP source codeCompile succeededbut kirk failed，testpossibleUnable toExecute"
+ rlLogWarning "LTP source codeCompile succeededbut kirk failed, testpossibleUnable toExecute"
  method="failed"
  echo "installed=3" > "$LTP_FLAG"
  fi
@@ -140,7 +140,7 @@ ltpSetup() {
  method="source-legacy"
  echo "installed=2" > "$LTP_FLAG"
  else
- rlLogWarning "LTP source codeCompile failed，testpossibleUnable toExecute"
+ rlLogWarning "LTP source codeCompile failed, testpossibleUnable toExecute"
  method="failed"
  echo "installed=3" > "$LTP_FLAG"
  fi
@@ -153,7 +153,7 @@ ltpSetup() {
  ref=$(grep "^ref=" "$LTP_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
- rlLogInfo "LTP already，reference count: $ref"
+ rlLogInfo "LTP already, reference count: $ref"
  # Restore PATH if source install
  if [ -x "$LTP_INSTALL_DIR/runltp" ] || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
  _ltpSetupPath
@@ -173,13 +173,13 @@ ltpCleanup() {
  installed=$(grep "^installed=" "$LTP_FLAG" | cut -d= -f2)
  case "$installed" in
  1) echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y ltp 2>/dev/null || true
- rlLogInfo "already LTP（dnf ）";;
+ rlLogInfo "already LTP (dnf)";;
  2) rm -rf "$LTP_INSTALL_DIR"
  rlLogInfo "alreadydelete LTP source codedirectory";;
  esac
  rm -f "$LTP_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
- rlLogInfo "LTP Retain（still have $ref test(s) not completed）"
+ rlLogInfo "LTP Retain (still have $ref test(s) not completed)"
  fi
 }

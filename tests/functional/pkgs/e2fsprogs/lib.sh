@@ -12,7 +12,7 @@ e2fsprogsSetup() {
  if ! rpm -q e2fsprogs 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y e2fsprogs 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already e2fsprogs soft（）"
+ rlLogInfo "already e2fsprogs soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "e2fsprogs softalready exists"
@@ -23,7 +23,7 @@ e2fsprogsSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "e2fsprogs alreadybyothertest，reference count: $ref"
+ rlLogInfo "e2fsprogs alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "e2fsprogsCleanup"
 }
@@ -38,11 +38,11 @@ e2fsprogsCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y e2fsprogs 2>/dev/null || true
- rlLogInfo "already e2fsprogs soft（posttest）"
+ rlLogInfo "already e2fsprogs soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "e2fsprogs Retain（still have $ref test(s) not completed）"
+ rlLogInfo "e2fsprogs Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -12,7 +12,7 @@ beakerlibSetup() {
  if ! rpm -q beakerlib 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y beakerlib 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already beakerlib soft（）"
+ rlLogInfo "already beakerlib soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "beakerlib softalready exists"
@@ -23,7 +23,7 @@ beakerlibSetup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "beakerlib alreadybyothertest，reference count: $ref"
+ rlLogInfo "beakerlib alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "beakerlibCleanup"
 }
@@ -38,11 +38,11 @@ beakerlibCleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y beakerlib 2>/dev/null || true
- rlLogInfo "already beakerlib soft（posttest）"
+ rlLogInfo "already beakerlib soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "beakerlib Retain（still have $ref test(s) not completed）"
+ rlLogInfo "beakerlib Retain (still have $ref test(s) not completed)"
  fi
 }

@@ -12,7 +12,7 @@ wget2Setup() {
  if ! rpm -q wget2 2>/dev/null; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y wget2 2>/dev/null
  echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already wget2 soft（）"
+ rlLogInfo "already wget2 soft ()"
  else
  echo "installed=0" > "$PKG_FLAG"
  rlLogInfo "wget2 softalready exists"
@@ -23,7 +23,7 @@ wget2Setup() {
  ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "wget2 alreadybyothertest，reference count: $ref"
+ rlLogInfo "wget2 alreadybyothertest, reference count: $ref"
  fi
  rlCleanupAppend "wget2Cleanup"
 }
@@ -38,11 +38,11 @@ wget2Cleanup() {
  if [ "$ref" -le 0 ]; then
  if grep -q "^installed=1" "$PKG_FLAG"; then
  echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y wget2 2>/dev/null || true
- rlLogInfo "already wget2 soft（posttest）"
+ rlLogInfo "already wget2 soft (posttest)"
  fi
  rm -f "$PKG_FLAG"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "wget2 Retain（still have $ref test(s) not completed）"
+ rlLogInfo "wget2 Retain (still have $ref test(s) not completed)"
  fi
 }

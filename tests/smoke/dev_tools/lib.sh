@@ -21,7 +21,7 @@ smokeDevToolsSetup() {
  ref=$(grep "^ref=" "$SMOKE_DEV_TOOLS_FLAG" | cut -d= -f2)
  ref=$((ref + 1))
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_DEV_TOOLS_FLAG"
- rlLogInfo "smoke-dev_tools already initialized by other tests，reference count: $ref"
+ rlLogInfo "smoke-dev_tools already initialized by other tests, reference count: $ref"
  fi
  rlCleanupAppend "smokeDevToolsCleanup"
 }
@@ -35,9 +35,9 @@ smokeDevToolsCleanup() {
  ref=$((ref - 1))
  if [ "$ref" -le 0 ]; then
  rm -f "$SMOKE_DEV_TOOLS_FLAG"
- rlLogInfo "smoke-dev_tools: Cleanup complete（posttest）"
+ rlLogInfo "smoke-dev_tools: Cleanup complete (posttest)"
  else
  sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_DEV_TOOLS_FLAG"
- rlLogInfo "smoke-dev_tools: Retain（still have $ref test(s) not completed）"
+ rlLogInfo "smoke-dev_tools: Retain (still have $ref test(s) not completed)"
  fi
 }

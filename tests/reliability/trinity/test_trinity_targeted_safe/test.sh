@@ -39,7 +39,7 @@ rlJournalStart
  rlLogWarning "syscall $call: exit code $rc"
  fi
  else
- rlLogInfo "syscall $call noavailable，skip"
+ rlLogInfo "syscall $call noavailable, skip"
  fi
  done
 
