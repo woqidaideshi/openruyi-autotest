@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - mpfr - 閿欒澶勭悊
+summary: Functional test - mpfr - error handling
 test: ./test.sh
 tag:
-  - functional
-  - mpfr
+ - functional
+ - mpfr
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/mpfr/test_mpfr_error_handling
 require:
-  - mpfr
-  - beakerlib
+ - mpfr
+ - beakerlib

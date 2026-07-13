@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - gcc - GCC toolchain utilities
+summary: Functional test - gcc - GCCcompile toolchain utilities
 test: ./test.sh
 tag:
-  - functional
-  - gcc
+ - functional
+ - gcc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/gcc/test_gcc_gcc_toolchain_utilities
 require:
-  - gcc
-  - beakerlib
+ - gcc
+ - beakerlib

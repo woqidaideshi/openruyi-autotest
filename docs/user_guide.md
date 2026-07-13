@@ -1,72 +1,74 @@
-# 用户指南
+# User Guide
 
-> 适用于**干净服务器**环境，从零开始执行测试。
+> For **clean server** environments, getting started from scratch.
+
+> :cn: [中文版 (Chinese Version)](user_guide_zh.md)
 
 ---
 
-## 1. 环境准备
+## 1. Environment Setup
 
-### 1.1 安装 git
+### 1.1 Install git
 
 ```bash
 sudo dnf install -y git
 ```
 
-### 1.2 克隆代码仓库
+### 1.2 Clone the Repository
 
 ```bash
 git clone https://git.openruyi.cn/woqidaideshi/openruyi-autotest.git
 cd openruyi-autotest
 ```
 
-### 1.3 安装 tmt 和 beakerlib
+### 1.3 Install tmt and beakerlib
 
-测试用例使用 tmt (Test Management Tool) 框架管理和执行：
+Test cases are managed and executed using the tmt (Test Management Tool) framework:
 
 ```bash
-# 安装 tmt（基础版，支持本地执行）
+# Install tmt (basic version, supports local execution)
 sudo dnf install -y tmt
 
-# 安装 beakerlib 测试框架
+# Install beakerlib test framework
 sudo dnf install -y beakerlib
 
-# beakerlib 运行时依赖
+# beakerlib runtime dependencies
 sudo dnf install -y python-six
 
-# 验证安装
+# Verify installation
 tmt --version
 rpm -q beakerlib
 ```
 
-> **riscv64 架构**：`tmt` 可能不在 dnf 仓库中，可通过 pip 安装：
+> **riscv64 architecture**: `tmt` may not be in the dnf repo; install via pip:
 > ```bash
 > sudo dnf install -y python3 python3-pip rust gcc gcc-c++ beakerlib
 > sudo pip3 install --break-system-packages tmt
 > ```
 
-### 1.4 配置测试拓扑（可选）
+### 1.4 Configure Test Topology (Optional)
 
-测试计划会自动检测当前机器硬件资源（CPU/内存/磁盘/网卡）是否满足测试用例的硬件需求。如需在多台服务器上执行测试，或者自定义服务器连接信息，可配置 `topology.env`：
+Test plans automatically detect whether the current machine's hardware (CPU/memory/disk/NICs) meets test case hardware requirements. To run tests across multiple servers, or customize server connection info, configure `topology.env`:
 
 ```bash
-# 复制模板
+# Copy template
 cp topology.env.example topology.env
 
-# 按实际环境修改
+# Modify for your environment
 vim topology.env
 ```
 
-**配置变量说明：**
+**Configuration variables:**
 
-| 变量 | 说明 | 默认值 |
-|------|------|--------|
-| `TEST_SERVER_COUNT` | 可用服务器数量 | 1 |
-| `TEST_SERVER_1_HOST` | 第 1 台服务器 IP/主机名 | (无) |
-| `TEST_SERVER_1_PORT` | 第 1 台服务器 SSH 端口 | 22 |
-| `TEST_SERVER_1_USER` | 第 1 台服务器登录用户名 | root |
-| `TEST_SERVER_1_PASSWORD` | 第 1 台服务器登录密码 | (无) |
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `TEST_SERVER_COUNT` | Number of available servers | 1 |
+| `TEST_SERVER_1_HOST` | Server 1 IP/hostname | (none) |
+| `TEST_SERVER_1_PORT` | Server 1 SSH port | 22 |
+| `TEST_SERVER_1_USER` | Server 1 login username | root |
+| `TEST_SERVER_1_PASSWORD` | Server 1 login password | (none) |
 
-多服务器示例（3 台）：
+Multi-server example (3 servers):
 
 ```ini
 TEST_SERVER_COUNT=3
@@ -83,16 +85,16 @@ TEST_SERVER_2_PASSWORD=mypassword
 
 TEST_SERVER_3_HOST=192.168.1.12
 TEST_SERVER_3_USER=root
-# 端口/密码未设置时使用默认值 22 / 无密码
+# Port/password use defaults (22 / no password) when not set
 ```
 
-> **未配置 `topology.env` 不影响单机测试**。系统将当前机器视为唯一服务器（`TEST_SERVER_COUNT` 默认为 1），硬件资源通过系统命令自动获取。
+> **Not configuring `topology.env` does not affect single-machine testing**. The system treats the current machine as the only server (`TEST_SERVER_COUNT` defaults to 1), and hardware resources are auto-detected via system commands.
 
 ---
 
-## 2. 执行单个测试用例
+## 2. Running a Single Test Case
 
-比如 acl 测试套中的 `test_acl_getfacl_basic`：
+Example: `test_acl_getfacl_basic` in the acl test suite:
 
 ```bash
 cd openruyi-autotest
@@ -102,13 +104,13 @@ tmt run --all --verbose plan --name /plans/functional \
     provision --feeling-safe
 ```
 
-> **关于 `--feeling-safe`**：tmt 默认会询问用户确认后才执行，加上此参数跳过交互式确认，适合自动化/无人值守场景。
+> **About `--feeling-safe`**: tmt asks for user confirmation before execution by default; this flag skips interactive confirmation, suitable for automation/unattended scenarios.
 
 ---
 
-## 3. 执行单个测试套
+## 3. Running a Single Test Suite
 
-比如 acl：
+Example: acl:
 
 ```bash
 cd openruyi-autotest
@@ -120,9 +122,9 @@ tmt run --all plan --name /plans/functional \
 
 ---
 
-## 4. 执行测试类型全量用例
+## 4. Running All Cases of a Test Type
 
-比如功能测试（functional），包含 202 个软件包，共 566 个测试用例：
+Example: functional tests, covering 202 packages with 566 test cases:
 
 ```bash
 cd openruyi-autotest
@@ -131,7 +133,7 @@ tmt run --all plan --name /plans/functional \
     provision --feeling-safe
 ```
 
-比如特性测试（feature）：
+Example: feature tests:
 
 ```bash
 tmt run --all plan --name /plans/feature \
@@ -140,69 +142,69 @@ tmt run --all plan --name /plans/feature \
 
 ---
 
-## 5. 查看测试结果和日志
+## 5. Viewing Test Results and Logs
 
-### 5.1 tmt 结果目录
+### 5.1 tmt Results Directory
 
-tmt 每次执行都会在 `/var/tmp/tmt/run-*` 下生成一个运行目录，包含所有测试用例的详细日志：
+Each tmt run creates a run directory under `/var/tmp/tmt/run-*` containing detailed logs for all test cases:
 
 ```bash
-# 列出所有历史运行
+# List all historical runs
 ls -lt /var/tmp/tmt/
 
-# 进入最近一次运行目录
+# Enter the most recent run directory
 cd $(ls -dt /var/tmp/tmt/run-* | head -1)
 ```
 
-运行目录结构：
+Run directory structure:
 
 ```
 /var/tmp/tmt/run-XXX/
 ├── plans/
-│   └── {plan-name}/            # 如 functional
+│   └── {plan-name}/            # e.g. functional
 │       └── execute/
 │           └── data/
-│               └── guest/      # 本地执行时为 guest
+│               └── guest/      # local execution shows as guest
 │                   └── default-0/
 │                       └── tests/functional/pkgs/acl/
 │                           ├── test_acl_getfacl_basic-1/
-│                           │   └── output.txt    # 该用例的完整输出
+│                           │   └── output.txt    # Full output of this case
 │                           ├── test_acl_setfacl_basic-2/
 │                           │   └── output.txt
 │                           └── ...
-└── run.yaml                    # 运行元数据
+└── run.yaml                    # Run metadata
 ```
 
-### 5.2 查看单个用例日志
+### 5.2 Viewing a Single Case Log
 
 ```bash
-# 进入最近一次运行目录
+# Enter the most recent run directory
 RUN_DIR=$(ls -dt /var/tmp/tmt/run-* | head -1)
 
-# 路径包含 plans/ 和 guest/default-0/ 层级
+# Path includes plans/ and guest/default-0/ levels
 BASE="$RUN_DIR/plans/functional/execute/data/guest/default-0"
 
-# 查看某个测试用例的完整输出
+# View full output of a specific test case
 cat "$BASE/tests/functional/pkgs/acl/test_acl_getfacl_basic-1/output.txt"
 ```
 
-### 5.3 查看汇总报告
+### 5.3 Viewing Summary Report
 
 ```bash
-# 简要报告
+# Brief report
 tmt run --last report
 
-# 详细报告（含每个用例的 stdout/stderr）
+# Detailed report (with stdout/stderr for each case)
 tmt run --last report -fvvv
 ```
 
-### 5.4 查看所有用例的执行状态
+### 5.4 Viewing Execution Status of All Cases
 
 ```bash
 RUN_DIR=$(ls -dt /var/tmp/tmt/run-* | head -1)
 BASE="$RUN_DIR/plans/functional/execute/data/guest/default-0"
 
-# 列出所有用例的 output.txt 并显示最后几行（通常包含 PASS/FAIL）
+# List all output.txt files and show last few lines (usually contains PASS/FAIL)
 find "$BASE" -name "output.txt" | sort | while read f; do
     dir=$(dirname "$f")
     echo "=== $(basename "$dir") ==="
@@ -213,9 +215,9 @@ done
 
 ---
 
-## 6. 执行所有测试脚本
+## 6. Running All Tests
 
-从项目根目录执行全部测试（所有计划）：
+Run all tests (all plans) from the project root:
 
 ```bash
 cd openruyi-autotest
@@ -225,128 +227,128 @@ tmt run --all provision --how local --feeling-safe
 
 ---
 
-## 7. 目录结构速查
+## 7. Directory Structure Quick Reference
 
 ```
 tests/
-├── smoke/             # 冒烟测试（100 个用例）
-│   ├── archive/       # 归档工具（tar, gzip, xz）
-│   ├── dev_tools/     # 开发工具
-│   ├── disk_fs/       # 磁盘/文件系统
-│   ├── filesystem/    # 文件系统操作
-│   ├── kernel/        # 内核功能
-│   ├── logging/       # 日志系统
-│   ├── network/       # 网络工具
-│   ├── package_mgmt/  # 包管理
-│   ├── permissions/   # 权限管理
-│   ├── process/       # 进程管理
-│   ├── scripting/     # 脚本语言
-│   ├── security/      # 安全相关
-│   ├── service_mgmt/  # 服务管理
-│   ├── shell_basics/  # Shell 基础
-│   ├── system_info/   # 系统信息
-│   ├── text_processing/# 文本处理
-│   └── user_mgmt/     # 用户管理
-├── functional/pkgs/   # 功能测试（202 个包, 566 用例）
-│   ├── acl/           # ACL 权限管理（参考标准）
-│   ├── attr/          # 扩展属性
+├── smoke/             # Smoke tests (100 cases)
+│   ├── archive/       # Archive tools (tar, gzip, xz)
+│   ├── dev_tools/     # Development tools
+│   ├── disk_fs/       # Disk/filesystem
+│   ├── filesystem/    # Filesystem operations
+│   ├── kernel/        # Kernel functions
+│   ├── logging/       # Logging system
+│   ├── network/       # Network tools
+│   ├── package_mgmt/  # Package management
+│   ├── permissions/   # Permission management
+│   ├── process/       # Process management
+│   ├── scripting/     # Scripting languages
+│   ├── security/      # Security-related
+│   ├── service_mgmt/  # Service management
+│   ├── shell_basics/  # Shell basics
+│   ├── system_info/   # System information
+│   ├── text_processing/# Text processing
+│   └── user_mgmt/     # User management
+├── functional/pkgs/   # Functional tests (202 packages, 566 cases)
+│   ├── acl/           # ACL permission management (reference standard)
+│   ├── attr/          # Extended attributes
 │   ├── bash/          # Bash shell
-│   ├── coreutils/     # 核心工具集
-│   ├── ...            # 更多软件包
-├── security/          # 安全测试（106 个用例）
-│   ├── cve/           # CVE 漏洞验证
-│   └── nmap/          # Nmap 端口扫描
-├── compatibility/     # 兼容性测试（188 个用例）
-│   └── ltp_posix/     # LTP POSIX 接口兼容性
-├── performance/       # 性能测试
-│   └── unixbench/     # UnixBench 基准测试
-├── feature/           # 特性测试
-│   └── <xxx>/         # 特性名称
-└── reliability/       # 可靠性测试
+│   ├── coreutils/     # Core utilities
+│   ├── ...            # More packages
+├── security/          # Security tests (106 cases)
+│   ├── cve/           # CVE vulnerability verification
+│   └── nmap/          # Nmap port scanning
+├── compatibility/     # Compatibility tests (188 cases)
+│   └── ltp_posix/     # LTP POSIX interface compatibility
+├── performance/       # Performance tests
+│   └── unixbench/     # UnixBench benchmarks
+├── feature/           # Feature tests
+│   └── <xxx>/         # Feature name
+└── reliability/       # Reliability tests
     └── test.sh
 ```
 
 ---
 
-## 8. 常见问题
+## 8. FAQ
 
-### Q: 执行报错 `beakerlib.sh: No such file or directory`
+### Q: Error `beakerlib.sh: No such file or directory`
 
 ```bash
 sudo dnf install -y beakerlib
 ```
 
-### Q: tmt 命令找不到
+### Q: tmt command not found
 
 ```bash
-# dnf 安装
+# dnf install
 sudo dnf install -y tmt
 
-# 或 pip 安装（riscv64）
+# Or pip install (riscv64)
 sudo pip3 install --break-system-packages tmt
 ```
 
-### Q: 测试因权限不足失败
+### Q: Tests fail due to insufficient permissions
 
-部分测试脚本使用 `sudo` 执行特权操作，需确保当前用户有 sudo 权限：
+Some test scripts use `sudo` for privileged operations; ensure the current user has sudo access:
 
 ```bash
-# 验证 sudo 可用
+# Verify sudo works
 sudo whoami
 ```
 
-### Q: 只想查看某个计划包含哪些测试（不执行）
+### Q: How to see which tests a plan includes (without executing)?
 
 ```bash
 tmt plan show /plans/functional
 tmt test ls /tests/functional/pkgs/acl
 ```
 
-### Q: 查看上次执行的详细信息
+### Q: View detailed results of the last run
 
 ```bash
 tmt run --last report -fvvv
 ```
 
-> **注意**：`tmt run --last report` 有时会因 tmt 内部轮询历史数据而较慢。如果只是查看结果摘要，可以直接读取 `run.yaml` 或查看各用例的 `output.txt`。
+> **Note**: `tmt run --last report` can sometimes be slow due to tmt internally polling historical data. If you just want a summary, read `run.yaml` directly or check each case's `output.txt`.
 
-### Q: 执行 tmt run 时报 `Synchronization lock ... is stale`
+### Q: Error `Synchronization lock ... is stale` when running tmt
 
 ```bash
-# 清理旧的 tmt 锁文件（通常由 root 拥有的旧运行残留）
+# Clean up stale tmt lock files (usually left by root-owned runs)
 sudo rm -f /var/tmp/tmt-test.pid.lock
 ```
 
 ---
 
-## 9. 实战示例：ACL 测试套
+## 9. Practical Example: ACL Test Suite
 
-本节以 `acl` 测试套为例，完整展示从环境准备到查看结果的全流程。
+This section uses the `acl` test suite as a complete walkthrough from environment setup to viewing results.
 
-### 9.1 前提条件
+### 9.1 Prerequisites
 
-- 一台干净的 openRuyi 服务器（本示例：10.20.237.192:12055）
-- 已安装 git、tmt、beakerlib（参考第 1 节）
+- A clean openRuyi server (this example: 10.20.237.192:12055)
+- git, tmt, beakerlib installed (see Section 1)
 
-### 9.2 克隆仓库并安装依赖
+### 9.2 Clone Repository and Install Dependencies
 
 ```bash
 git clone https://git.openruyi.cn/woqidaideshi/openruyi-autotest.git
 cd openruyi-autotest
 
-# 安装 tmt 和测试依赖
+# Install tmt and test dependencies
 sudo dnf install -y tmt beakerlib python-six
-sudo dnf install -y acl         # ACL 测试目标软件包
+sudo dnf install -y acl         # ACL test target package
 ```
 
-### 9.3 （可选）配置 topology.env
+### 9.3 (Optional) Configure topology.env
 
 ```bash
 cp topology.env.example topology.env
 vim topology.env
 ```
 
-写入内容：
+Write:
 
 ```ini
 TEST_SERVER_COUNT=1
@@ -356,17 +358,17 @@ TEST_SERVER_1_USER=openruyi
 TEST_SERVER_1_PASSWORD=openruyi
 ```
 
-> 如果当前用户就是 `openruyi` 且在本机执行，可以不配置 `topology.env`，tmt 会自动检测。
+> If the current user is already `openruyi` and running locally, you can skip configuring `topology.env`; tmt will auto-detect.
 
-### 9.4 清理锁文件（重要）
+### 9.4 Clean Up Lock Files (Important)
 
-如果之前执行过 tmt 但异常中断，锁文件可能残留：
+If tmt was previously run but interrupted abnormally, lock files may remain:
 
 ```bash
 sudo rm -f /var/tmp/tmt-test.pid.lock
 ```
 
-### 9.5 执行 ACL 测试套
+### 9.5 Execute ACL Test Suite
 
 ```bash
 cd ~/openruyi-autotest
@@ -376,20 +378,20 @@ tmt run --all plan --name /plans/functional \
     provision --feeling-safe
 ```
 
-**命令解析：**
+**Command breakdown:**
 
-| 参数 | 含义 |
-|------|------|
-| `--all` | 跳过交互确认（和 `--feeling-safe` 配合使用） |
-| `plan --name /plans/functional` | 使用功能测试计划（定义在 `plans/functional.fmf`） |
-| `test --name /tests/functional/pkgs/acl` | 只执行 `tests/functional/pkgs/acl/` 下的用例 |
-| `provision --feeling-safe` | 本地执行，跳过确认 |
+| Parameter | Meaning |
+|-----------|---------|
+| `--all` | Skip interactive confirmation (use with `--feeling-safe`) |
+| `plan --name /plans/functional` | Use the functional test plan (defined in `plans/functional.fmf`) |
+| `test --name /tests/functional/pkgs/acl` | Only run cases under `tests/functional/pkgs/acl/` |
+| `provision --feeling-safe` | Local execution, skip confirmation |
 
-**预期输出关键行：**
+**Expected output key lines:**
 
 ```
 Found 1 plan.
-summary: 功能测试 - 验证所有功能测试用例
+summary: Functional Test - Verify all functional test cases
 discover
     how: fmf
     directory: /home/openruyi/openruyi-autotest/tests/functional/pkgs/acl
@@ -398,62 +400,30 @@ discover
         /tests/functional/pkgs/acl/test_acl_acl_inheritance
         /tests/functional/pkgs/acl/test_acl_acl_permission_verify
         ...
-total: 11 tests
 ```
 
-执行过程大约需要 **20~30 分钟**（取决于服务器性能）。每个测试用例的输出会实时显示在终端中。
-
-### 9.6 查看结果
-
-#### 方式一：查看汇总报告
+### 9.6 View Results
 
 ```bash
-cd ~/openruyi-autotest
-tmt run --last report
+# Enter the most recent run directory
+cd $(ls -dt /var/tmp/tmt/run-* | head -1)
+
+# View results for a specific case
+cat plans/functional/execute/data/guest/default-0/tests/functional/pkgs/acl/test_acl_getfacl_basic-1/output.txt
 ```
 
-输出示例：
+**Expected result**: All cases show `PASS` at the end of the output.
 
-```
-total: 11 tests passed
-```
+### 9.7 FAQ
 
-#### 方式二：遍历所有 output.txt
+**Q: `acl` package not found?**
 
 ```bash
-RUN_DIR=$(ls -dt /var/tmp/tmt/run-* | head -1)
-BASE="$RUN_DIR/plans/functional/execute/data/guest/default-0"
-
-find "$BASE" -name "output.txt" | sort | while read f; do
-    echo "=== $(basename $(dirname "$f")) ==="
-    tail -3 "$f"
-    echo ""
-done
+sudo dnf install -y acl
 ```
 
-预期每个用例最后一行都是 `EXIT_CODE=0` 和 `TESTS_RESULT=PASS`。
-
-#### 方式三：查看单个用例的输出
+**Q: Which cases are available under the acl suite?**
 
 ```bash
-BASE="/var/tmp/tmt/run-*/plans/functional/execute/data/guest/default-0"
-cat "$BASE/tests/functional/pkgs/acl/test_acl_getfacl_basic-1/output.txt"
+tmt test ls /tests/functional/pkgs/acl
 ```
-
-### 9.7 ACL 测试套包含的用例
-
-| 序号 | 用例名 | 说明 |
-|------|--------|------|
-| 1 | `test_acl_acl_inheritance` | ACL 权限继承验证 |
-| 2 | `test_acl_acl_permission_verify` | ACL 权限正确性验证 |
-| 3 | `test_acl_chacl_command` | chacl 命令功能测试 |
-| 4 | `test_acl_error_handling` | 错误处理与边界情况 |
-| 5 | `test_acl_getfacl_basic` | getfacl 基本功能 |
-| 6 | `test_acl_getfacl_command` | getfacl 命令行选项 |
-| 7 | `test_acl_setfacl_basic` | setfacl 基本功能 |
-| 8 | `test_acl_setfacl_default_acl` | setfacl 默认 ACL |
-| 9 | `test_acl_setfacl_modify_acl` | setfacl 修改已有 ACL |
-| 10 | `test_acl_setfacl_recursive` | setfacl 递归操作 |
-| 11 | `test_acl_tool_installation` | ACL 工具安装检查 |
-
-> 共 11 个用例，全部通过即为 ACL 功能正常。此套件可作为其他软件包测试的参考模板。其他 `tests/functional/pkgs/<包名>/` 下的测试套执行方式与此完全相同，只需将 `test --name` 中的 `acl` 替换为目标包名即可。

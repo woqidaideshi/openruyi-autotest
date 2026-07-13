@@ -1,4 +1,4 @@
-summary: 性能测试 - iozone - Direct I/O 模式 (-I)
+summary: Performance test - iozone - Direct I/O mode (-I)
 test: ./test.sh
 tag: [performance, iozone]
 duration: 5m

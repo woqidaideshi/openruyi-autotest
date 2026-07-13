@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - vim - Syntax check
-test: ./test.sh
+summary: Functional test - vim - check
+test:./test.sh
 tag:
-  - functional
-  - vim
+ - functional
+ - vim
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/vim/test_vim_syntax_check
 require:
-  - vim
-  - beakerlib
+ - vim
+ - beakerlib

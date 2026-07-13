@@ -1,13 +1,13 @@
-summary: 性能测试 - UnixBench 快速模式测试
+summary: Performance test - UnixBench quick modetest
 test: ./test.sh
 tag:
-  - performance
-  - unixbench
+ - performance
+ - unixbench
 duration: 10m
 tier: 2
 path: /tests/performance/unixbench/test_unixbench_quick_mode
 require:
-  - beakerlib
-  - gcc
-  - make
-  - perl
+ - beakerlib
+ - gcc
+ - make
+ - perl

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - wget2 - Timeouts and retries
+summary: Functional test - wget2 - timeouts and retries
 test: ./test.sh
 tag:
-  - functional
-  - wget2
+ - functional
+ - wget2
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/wget2/test_wget2_timeouts_and_retries
 require:
-  - wget2
-  - beakerlib
+ - wget2
+ - beakerlib

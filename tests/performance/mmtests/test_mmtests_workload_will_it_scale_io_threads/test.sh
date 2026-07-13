@@ -7,20 +7,20 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        mmtestsSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ mmtestsSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlPhaseEnd
 
-    rlPhaseStartTest "MMTests - workload_will_it_scale_io_threads"
-        rlRun "_mmtestsRunCase config-workload-will-it-scale-io-threads" 0 "执行 MMTests config-workload-will-it-scale-io-threads"
-    rlPhaseEnd
+ rlPhaseStartTest "MMTests - workload_will_it_scale_io_threads"
+ rlRun "_mmtestsRunCase config-workload-will-it-scale-io-threads" 0 "Execute MMTests config-workload-will-it-scale-io-threads"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "清理"
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Cleanup"
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

@@ -1,11 +1,11 @@
-summary: 冒烟测试 - systemctl 版本
+summary: Smoke test - systemctl version
 test: ./test.sh
 tag:
-  - smoke
-  - service_mgmt
+ - smoke
+ - service_mgmt
 duration: 1m
 tier: 0
 path: /tests/smoke/service_mgmt/test_smoke_systemctl_status
 require:
-  - beakerlib
-  - systemd
+ - beakerlib
+ - systemd

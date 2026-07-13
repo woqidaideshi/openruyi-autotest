@@ -1,11 +1,11 @@
-summary: libnftnl - �ļ���֤
+summary: Functional test - libnftnl - file verification
 test: ./test.sh
 tag:
-  - functional
-  - libnftnl
+ - functional
+ - libnftnl
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libnftnl/test_libnftnl_files
 
 require:
-  - beakerlib
+ - beakerlib

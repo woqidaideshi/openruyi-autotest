@@ -1,11 +1,11 @@
-summary: time - ������
+summary: Functional test - time - error handling
 test: ./test.sh
 tag:
-  - functional
-  - time
+ - functional
+ - time
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/time/test_time_error
 
 require:
-  - beakerlib
+ - beakerlib

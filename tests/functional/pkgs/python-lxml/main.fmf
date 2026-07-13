@@ -1,7 +1,7 @@
-summary: ���ܲ��� - python-lxml �����֤
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/python-lxml
 require:
-  - python-lxml
-  - beakerlib
+ - python-lxml
+ - beakerlib

@@ -1,10 +1,10 @@
-summary: 冒烟测试 - disk_fs 功能验证
+summary: Smoke test - disk_fs functionality verification
 tag:
-  - smoke
-  - disk_fs
+ - smoke
+ - disk_fs
 duration: 2m
 tier: 0
 path: /tests/smoke/disk_fs
 require:
-  - beakerlib
-  - util-linux
+ - beakerlib
+ - util-linux

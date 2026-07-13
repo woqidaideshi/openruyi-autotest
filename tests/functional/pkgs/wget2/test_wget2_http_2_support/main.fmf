@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - wget2 - HTTP/2 support
-test: ./test.sh
+summary: Functional test - wget2 - HTTPPlease 2 support
+test:./test.sh
 tag:
-  - functional
-  - wget2
+ - functional
+ - wget2
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/wget2/test_wget2_http_2_support
 require:
-  - wget2
-  - beakerlib
+ - wget2
+ - beakerlib

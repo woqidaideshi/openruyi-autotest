@@ -1,11 +1,11 @@
-summary: rpm - ��ѯ����
-test: ./test.sh
+summary: Functional test - rpm - 
+test:./test.sh
 tag:
-  - functional
-  - rpm
+ - functional
+ - rpm
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/rpm/test_rpm_query
 
 require:
-  - beakerlib
+ - beakerlib

@@ -6,28 +6,28 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeFSSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-        rlRun "echo 'link test' > target.txt" 0 "创建目标文件"
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ smokeFSSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlRun "echo 'link test' > target.txt" 0 "createtargetfile"
+ rlPhaseEnd
 
-    rlPhaseStartTest "ln 创建硬链接和符号链接"
-        rlRun "ln target.txt hardlink.txt" 0 "ln 创建硬链接"
-        rlRun "ln -s target.txt symlink.txt" 0 "ln -s 创建符号链接"
-        rlRun "test -f hardlink.txt" 0 "硬链接存在"
-        rlRun "test -L symlink.txt" 0 "符号链接存在"
-        rlRun "cat hardlink.txt" 0 "硬链接可读"
-        rlRun "cat symlink.txt" 0 "符号链接可读"
-    rlPhaseEnd
+ rlPhaseStartTest "ln createhardlinkandsymbollink"
+ rlRun "ln target.txt hardlink.txt" 0 "ln createhardlink"
+ rlRun "ln -s target.txt symlink.txt" 0 "ln -s createsymbollink"
+ rlRun "test -f hardlink.txt" 0 "hardlinkexists"
+ rlRun "test -L symlink.txt" 0 "symbollinkexists"
+ rlRun "cat hardlink.txt" 0 "hardlinkreadable"
+ rlRun "cat symlink.txt" 0 "symbollinkreadable"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+ rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+ fi
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

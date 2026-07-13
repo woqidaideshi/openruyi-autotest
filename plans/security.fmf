@@ -1,7 +1,7 @@
-# 安全测试计划
-# 验证系统安全特性
+# Security Test Plan
+# Verify system security features
 
-summary: 安全测试 - 验证系统安全特性
+summary: Security Test - Verify system security features
 
 environment-file:
   - topology.env

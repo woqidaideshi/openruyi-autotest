@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - hugetlb - hugemmap34
+summary: Functional test - LTP - hugetlb - hugemmap34
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - hugetlb
+ - functional
+ - ltp
+ - hugetlb
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/hugetlb/test_ltp_hugetlb_hugemmap34
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

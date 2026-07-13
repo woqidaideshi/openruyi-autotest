@@ -1,11 +1,11 @@
-summary: krb5 - ��������
+summary: Functional test - krb5 - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - krb5
+ - functional
+ - krb5
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/krb5/test_krb5_basic
 
 require:
-  - beakerlib
+ - beakerlib

@@ -1,10 +1,10 @@
-summary: 功能测试 - pkgconf 包配置工具
+summary: Functional test - pkgconf configuration
 tag:
-  - functional
-  - pkgconf
+ - functional
+ - pkgconf
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/pkgconf
 require:
-  - pkgconf
-  - beakerlib
+ - pkgconf
+ - beakerlib

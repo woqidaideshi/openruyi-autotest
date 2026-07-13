@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        gitSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ gitSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlPhaseEnd
 
-    rlPhaseStartTest "git-shell"
-        rlRun "git --version" 0 "检查 git 版本"
-        rlRun "which git-shell 2>/dev/null || echo 'git-shell is part of git'" 0 "检查 git-shell 存在性"
-        rlRun "git help" 0 "git help 可用"
-    rlPhaseEnd
+ rlPhaseStartTest "git-shell"
+ rlRun "git --version" 0 "check git version"
+ rlRun "which git-shell 2>/dev/null || echo 'git-shell is part of git'" 0 "check git-shell exists"
+ rlRun "git help" 0 "git help available"
+ rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # git 软件包由 lib.sh 的引用计数机制自动管理卸载
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+ rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+ fi
+ # git Package managed by lib.sh 's reference counting auto-uninstall
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

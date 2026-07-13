@@ -1,24 +1,24 @@
 #!/bin/bash
-# Smoke test: disk_fs - lsblk 块设备
+# Smoke test: disk_fs - lsblk blockdevice
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeDiskFsSetup
+ rlPhaseStartSetup "Environment setup"
+ smokeDiskFsSetup
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "lsblk 块设备"
-        rlRun 'lsblk' 0 "lsblk 块设备"
-        rlRun 'lsblk -f 2>&1 || true' 0 "lsblk -f 文件系统"
-    rlPhaseEnd
+ rlPhaseStartTest "lsblk blockdevice"
+ rlRun 'lsblk' 0 "lsblk blockdevice"
+ rlRun 'lsblk -f 2>&1 || true' 0 "lsblk -f filesystem"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+ rlPhaseStartCleanup "Clean up test environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

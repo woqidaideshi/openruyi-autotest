@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - wget - Timestamps
+summary: Functional test - wget - timestamps
 test: ./test.sh
 tag:
-  - functional
-  - wget
+ - functional
+ - wget
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/wget/test_wget_timestamps
 require:
-  - wget
-  - beakerlib
+ - wget
+ - beakerlib

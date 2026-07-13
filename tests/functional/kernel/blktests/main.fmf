@@ -1,11 +1,11 @@
-summary: 功能测试 - 内核 - blktests 块设备测试
+summary: Functional test - kernel - blktests blockdevicetest
 tag:
-  - functional
-  - kernel
-  - blktests
+ - functional
+ - kernel
+ - blktests
 duration: 10m
 tier: 2
 path: /tests/functional/kernel/blktests
 require:
-  - beakerlib
-  - blktests
+ - beakerlib
+ - blktests

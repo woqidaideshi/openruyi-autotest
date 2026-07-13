@@ -1,13 +1,13 @@
-summary: 冒烟测试 - touch 创建空文件
-test: ./test.sh
+summary: Smoke test - touch createfile
+test:./test.sh
 tag:
-  - smoke
-  - filesystem
+ - smoke
+ - filesystem
 duration: 1m
 tier: 0
 path: /tests/smoke/filesystem/test_smoke_touch_create_file
 require:
-  - beakerlib
-  - coreutils
-  - file
-  - diffutils
+ - beakerlib
+ - coreutils
+ - file
+ - diffutils

@@ -1,4 +1,4 @@
-summary: 功能测试 - dejagnu - C++ 语言标准 (C++11/14/17)
+summary: Functional test - dejagnu - C++ language standard (C++11/14/17)
 test: ./test.sh
 tag: [functional, compiler, dejagnu]
 duration: 5m

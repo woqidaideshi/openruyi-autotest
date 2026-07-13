@@ -1,11 +1,11 @@
-summary: libpsl - �ļ���֤
+summary: Functional test - libpsl - file verification
 test: ./test.sh
 tag:
-  - functional
-  - libpsl
+ - functional
+ - libpsl
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libpsl/test_libpsl_files
 
 require:
-  - beakerlib
+ - beakerlib

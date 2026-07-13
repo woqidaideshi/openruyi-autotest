@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - dwz - 鐗堟湰鍜屽府鍔?
+summary: Functional test - dwz - version and help
 test: ./test.sh
 tag:
-  - functional
-  - dwz
+ - functional
+ - dwz
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/dwz/test_dwz_version_help
 require:
-  - dwz
-  - beakerlib
+ - dwz
+ - beakerlib

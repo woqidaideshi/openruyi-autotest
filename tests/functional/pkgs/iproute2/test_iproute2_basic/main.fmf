@@ -1,11 +1,11 @@
-summary: iproute2 - ��������
+summary: Functional test - iproute2 - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - iproute2
+ - functional
+ - iproute2
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/iproute2/test_iproute2_basic
 
 require:
-  - beakerlib
+ - beakerlib

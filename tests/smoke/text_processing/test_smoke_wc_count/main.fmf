@@ -1,15 +1,15 @@
-summary: 冒烟测试 - wc -l 统计行数
+summary: Smoke test - wc -l countlinescount
 test: ./test.sh
 tag:
-  - smoke
-  - text_processing
+ - smoke
+ - text_processing
 duration: 1m
 tier: 0
 path: /tests/smoke/text_processing/test_smoke_wc_count
 require:
-  - beakerlib
-  - gawk
-  - coreutils
-  - findutils
-  - grep
-  - sed
+ - beakerlib
+ - gawk
+ - coreutils
+ - findutils
+ - grep
+ - sed

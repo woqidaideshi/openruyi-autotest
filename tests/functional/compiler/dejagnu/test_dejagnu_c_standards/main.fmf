@@ -1,14 +1,14 @@
-summary: 功能测试 - dejagnu - C 语言标准 (C99/C11/C17)
+summary: Functional test - dejagnu - C language standard (C99/C11/C17)
 test: ./test.sh
 tag:
-  - functional
-  - compiler
-  - dejagnu
+ - functional
+ - compiler
+ - dejagnu
 duration: 5m
 tier: 2
 path: /tests/functional/compiler/dejagnu/test_dejagnu_c_standards
 require:
-  - dejagnu
-  - gcc
-  - clang
-  - beakerlib
+ - dejagnu
+ - gcc
+ - clang
+ - beakerlib

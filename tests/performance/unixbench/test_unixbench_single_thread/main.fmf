@@ -1,13 +1,13 @@
-summary: 性能测试 - UnixBench 单线程基准测试
+summary: Performance test - UnixBench singlethreadbenchmark
 test: ./test.sh
 tag:
-  - performance
-  - unixbench
+ - performance
+ - unixbench
 duration: 10m
 tier: 2
 path: /tests/performance/unixbench/test_unixbench_single_thread
 require:
-  - beakerlib
-  - gcc
-  - make
-  - perl
+ - beakerlib
+ - gcc
+ - make
+ - perl

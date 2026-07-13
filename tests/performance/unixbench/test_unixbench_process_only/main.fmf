@@ -1,13 +1,13 @@
-summary: 性能测试 - UnixBench 进程/上下文切换测试
+summary: Performance test - UnixBench process/context switchtest
 test: ./test.sh
 tag:
-  - performance
-  - unixbench
+ - performance
+ - unixbench
 duration: 10m
 tier: 2
 path: /tests/performance/unixbench/test_unixbench_process_only
 require:
-  - beakerlib
-  - gcc
-  - make
-  - perl
+ - beakerlib
+ - gcc
+ - make
+ - perl

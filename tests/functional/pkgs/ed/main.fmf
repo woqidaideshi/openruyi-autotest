@@ -1,10 +1,10 @@
-summary: 功能测试 - ed 软件包功能验证
+summary: Functional test - ed package functionality verification
 tag:
-  - functional
-  - ed
+ - functional
+ - ed
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/ed
 require:
-  - ed
-  - beakerlib
+ - ed
+ - beakerlib

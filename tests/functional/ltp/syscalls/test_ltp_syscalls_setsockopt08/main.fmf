@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - syscalls - setsockopt08
+summary: Functional test - LTP - syscalls - setsockopt08
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - syscalls
+ - functional
+ - ltp
+ - syscalls
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/syscalls/test_ltp_syscalls_setsockopt08
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

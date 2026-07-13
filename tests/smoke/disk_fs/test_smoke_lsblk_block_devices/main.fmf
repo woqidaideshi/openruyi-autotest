@@ -1,11 +1,11 @@
-summary: 冒烟测试 - lsblk 块设备
+summary: Smoke test - lsblk blockdevice
 test: ./test.sh
 tag:
-  - smoke
-  - disk_fs
+ - smoke
+ - disk_fs
 duration: 1m
 tier: 0
 path: /tests/smoke/disk_fs/test_smoke_lsblk_block_devices
 require:
-  - beakerlib
-  - util-linux
+ - beakerlib
+ - util-linux

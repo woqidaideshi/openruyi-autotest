@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - zstd - 閿欒澶勭悊
+summary: Functional test - zstd - error handling
 test: ./test.sh
 tag:
-  - functional
-  - zstd
+ - functional
+ - zstd
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/zstd/test_zstd_error_handling
 require:
-  - zstd
-  - beakerlib
+ - zstd
+ - beakerlib

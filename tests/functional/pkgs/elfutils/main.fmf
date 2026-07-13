@@ -1,10 +1,10 @@
-summary: 功能测试 - elfutils ELF工具集
+summary: Functional test - elfutils ELF
 tag:
-  - functional
-  - elfutils
+ - functional
+ - elfutils
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/elfutils
 require:
-  - elfutils
-  - beakerlib
+ - elfutils
+ - beakerlib

@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - sched - pth_str01
+summary: Functional test - LTP - sched - pth_str01
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - sched
+ - functional
+ - ltp
+ - sched
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/sched/test_ltp_sched_pth_str01
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

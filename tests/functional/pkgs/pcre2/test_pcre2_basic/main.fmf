@@ -1,11 +1,11 @@
-summary: pcre2 - ��������
+summary: Functional test - pcre2 - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - pcre2
+ - functional
+ - pcre2
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pcre2/test_pcre2_basic
 
 require:
-  - beakerlib
+ - beakerlib

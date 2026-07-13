@@ -1,11 +1,11 @@
-summary: nghttp2 - �ļ���֤
+summary: Functional test - nghttp2 - file verification
 test: ./test.sh
 tag:
-  - functional
-  - nghttp2
+ - functional
+ - nghttp2
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/nghttp2/test_nghttp2_files
 
 require:
-  - beakerlib
+ - beakerlib

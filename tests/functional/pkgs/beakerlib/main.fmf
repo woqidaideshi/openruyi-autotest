@@ -1,9 +1,9 @@
-summary: ���ܲ��� - beakerlib ������������֤
+summary: Functional test
 tag:
-  - functional
-  - beakerlib
+ - functional
+ - beakerlib
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/beakerlib
 require:
-  - beakerlib
+ - beakerlib

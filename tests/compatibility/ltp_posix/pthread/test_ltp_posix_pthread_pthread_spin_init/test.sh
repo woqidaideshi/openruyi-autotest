@@ -8,17 +8,17 @@
 IFACE_DIR="$LTP_BUILD_DIR/conformance/interfaces"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        ltpPosixSetup
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ ltpPosixSetup
+ rlPhaseEnd
 
-    rlPhaseStartTest "POSIX 接口: pthread / pthread_spin_init"
-        rlRun "run_posix_iface_test 'pthread_spin_init'" 0 "pthread/pthread_spin_init 接口一致性测试"
-    rlPhaseEnd
+ rlPhaseStartTest "POSIX Interface: pthread / pthread_spin_init"
+ rlRun "run_posix_iface_test 'pthread_spin_init'" 0 "pthread/pthread_spin_init Interface conformance test"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - rpmbuild - rpmbuild basic functionality
+summary: Functional test - rpmbuild - rpmbuild basic functionality functionality
 test: ./test.sh
 tag:
-  - functional
-  - rpmbuild
+ - functional
+ - rpmbuild
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/rpmbuild/test_rpmbuild_rpmbuild_basic_functionality
 require:
-  - rpmbuild
-  - beakerlib
+ - rpmbuild
+ - beakerlib

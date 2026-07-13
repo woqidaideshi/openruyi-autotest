@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - weston - wcap-decode
+summary: Functional test - weston - wcap decode
 test: ./test.sh
 tag:
-  - functional
-  - weston
+ - functional
+ - weston
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/weston/test_weston_wcap_decode
 require:
-  - weston
-  - beakerlib
+ - weston
+ - beakerlib

@@ -1,13 +1,13 @@
-summary: 冒烟测试 - /var/log 目录存在
+summary: Smoke test - /var/log directory exists
 test: ./test.sh
 tag:
-  - smoke
-  - logging
+ - smoke
+ - logging
 duration: 1m
 tier: 0
 path: /tests/smoke/logging/test_smoke_var_log_check
 require:
-  - beakerlib
-  - util-linux
-  - logrotate
-  - rsyslog
+ - beakerlib
+ - util-linux
+ - logrotate
+ - rsyslog

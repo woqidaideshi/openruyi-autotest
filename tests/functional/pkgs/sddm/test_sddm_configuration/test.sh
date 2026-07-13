@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        sddmSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ sddmSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlPhaseEnd
 
-    rlPhaseStartTest "Configuration"
-        rlRun "sddm --example-config 2>&1 | head -20" 0 "sddm: example config"
-        rlRun "ls /etc/sddm.conf.d/ 2>&1 || echo \"No config dir\"" 0 "Config directory"
-        rlRun "ls /usr/lib/sddm/sddm.conf.d/ 2>&1 || echo \"No default config dir\"" 0 "Default config dir"
-    rlPhaseEnd
+ rlPhaseStartTest "Configuration"
+ rlRun "sddm --example-config 2>&1 | head -20" 0 "sddm: example config"
+ rlRun "ls /etc/sddm.conf.d/ 2>&1 || echo \"No config dir\"" 0 "Config directory"
+ rlRun "ls /usr/lib/sddm/sddm.conf.d/ 2>&1 || echo \"No default config dir\"" 0 "Default config dir"
+ rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # sddm 软件包由 lib.sh 的引用计数机制自动管理卸载
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+ rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+ fi
+ # sddm Package managed by lib.sh 's reference counting auto-uninstall
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

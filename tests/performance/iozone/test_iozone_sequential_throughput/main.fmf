@@ -1,7 +1,7 @@
-summary: 性能测试 - iozone - 顺序读写吞吐量基准
-test: ./test.sh
-tag: [performance, iozone]
-duration: 5m
-tier: 2
-path: /tests/performance/iozone/test_iozone_sequential_throughput
-require: [iozone, beakerlib]
+summary: Performance test - iozone - sequential readwrite
+test:./test.sh
+tag: [performance, iozone]
+duration: 5m
+tier: 2
+path: /tests/performance/iozone/test_iozone_sequential_throughput
+require: [iozone, beakerlib]

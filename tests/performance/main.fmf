@@ -1,14 +1,14 @@
-summary: 性能测试 - 系统性能基准验证
-tag:
-  - performance
-duration: 60m
-tier: 2
-path: /tests/performance
-require:
-  - beakerlib
-hardware-require:
-  server: 1
-  cpu: ">= 4"
-  memory: ">= 8 GiB"
-  disk: ">= 1"
-  net: ">= 1"
+summary: Performance test - systemperformanceverify
+tag:
+ - performance
+duration: 60m
+tier: 2
+path: /tests/performance
+require:
+ - beakerlib
+hardware-require:
+ server: 1
+ cpu: ">= 4"
+ memory: ">= 8 GiB"
+ disk: ">= 1"
+ net: ">= 1"

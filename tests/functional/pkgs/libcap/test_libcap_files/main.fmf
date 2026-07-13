@@ -1,11 +1,11 @@
-summary: libcap - �ļ���֤
+summary: Functional test - libcap - file verification
 test: ./test.sh
 tag:
-  - functional
-  - libcap
+ - functional
+ - libcap
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libcap/test_libcap_files
 
 require:
-  - beakerlib
+ - beakerlib

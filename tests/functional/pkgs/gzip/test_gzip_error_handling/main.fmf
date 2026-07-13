@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - gzip - 閿欒澶勭悊
+summary: Functional test - gzip - error handling
 test: ./test.sh
 tag:
-  - functional
-  - gzip
+ - functional
+ - gzip
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/gzip/test_gzip_error_handling
 require:
-  - gzip
-  - beakerlib
+ - gzip
+ - beakerlib

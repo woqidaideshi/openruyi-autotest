@@ -1,14 +1,14 @@
-summary: 冒烟测试 - network 功能验证
+summary: Smoke test - network functionality verification
 tag:
-  - smoke
-  - network
+ - smoke
+ - network
 duration: 2m
 tier: 0
 path: /tests/smoke/network
 require:
-  - beakerlib
-  - iputils
-  - curl
-  - wget
-  - openssh-clients
-  - iproute2
+ - beakerlib
+ - iputils
+ - curl
+ - wget
+ - openssh-clients
+ - iproute2

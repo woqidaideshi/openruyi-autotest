@@ -1,13 +1,13 @@
-summary: 兼容性测试 - LTP POSIX - filesystem/strlen
+summary: Compatibility test - LTP POSIX - filesystem/strlen
 test: ./test.sh
 tag:
-  - compatibility
-  - posix
-  - filesystem
+ - compatibility
+ - posix
+ - filesystem
 duration: 3m
 tier: 2
 path: /tests/compatibility/ltp_posix/filesystem/test_ltp_posix_filesystem_strlen
 require:
-  - beakerlib
-  - gcc
-  - make
+ - beakerlib
+ - gcc
+ - make

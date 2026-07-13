@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - sched - hackbench02
+summary: Functional test - LTP - sched - hackbench02
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - sched
+ - functional
+ - ltp
+ - sched
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/sched/test_ltp_sched_hackbench02
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

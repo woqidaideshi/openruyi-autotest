@@ -1,12 +1,12 @@
-﻿summary: 性能测试 - mmtests - workload-sembench-futex
+﻿summary: Performance test - mmtests - workload-sembench-futex
 test: ./test.sh
 tag:
-  - performance
-  - kernel
-  - mmtests
+ - performance
+ - kernel
+ - mmtests
 duration: 30m
 tier: 1
 path: /tests/performance/mmtests/test_mmtests_workload_sembench_futex
 require:
-  - mmtests
-  - beakerlib
+ - mmtests
+ - beakerlib

@@ -1,11 +1,11 @@
-summary: libedit - �ļ���֤
+summary: Functional test - libedit - file verification
 test: ./test.sh
 tag:
-  - functional
-  - libedit
+ - functional
+ - libedit
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libedit/test_libedit_files
 
 require:
-  - beakerlib
+ - beakerlib

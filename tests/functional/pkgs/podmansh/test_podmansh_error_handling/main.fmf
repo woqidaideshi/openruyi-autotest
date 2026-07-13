@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - podmansh - Error handling
+summary: Functional test - podmansh - error handling
 test: ./test.sh
 tag:
-  - functional
-  - podmansh
+ - functional
+ - podmansh
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/podmansh/test_podmansh_error_handling
 require:
-  - podmansh
-  - beakerlib
+ - podmansh
+ - beakerlib

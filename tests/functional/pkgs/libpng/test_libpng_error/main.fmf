@@ -1,11 +1,11 @@
-summary: libpng - ������
+summary: Functional test - libpng - error handling
 test: ./test.sh
 tag:
-  - functional
-  - libpng
+ - functional
+ - libpng
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libpng/test_libpng_error
 
 require:
-  - beakerlib
+ - beakerlib

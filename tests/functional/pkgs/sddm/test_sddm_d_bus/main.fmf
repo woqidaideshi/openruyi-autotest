@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - sddm - D-Bus
+summary: Functional test - sddm - D-Bus
 test: ./test.sh
 tag:
-  - functional
-  - sddm
+ - functional
+ - sddm
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/sddm/test_sddm_d_bus
 require:
-  - sddm
-  - beakerlib
+ - sddm
+ - beakerlib

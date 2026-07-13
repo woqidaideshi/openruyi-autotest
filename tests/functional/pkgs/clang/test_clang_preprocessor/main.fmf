@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - clang - Preprocessor
+summary: Functional test - clang - preprocessor
 test: ./test.sh
 tag:
-  - functional
-  - clang
+ - functional
+ - clang
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/clang/test_clang_preprocessor
 require:
-  - clang
-  - beakerlib
+ - clang
+ - beakerlib

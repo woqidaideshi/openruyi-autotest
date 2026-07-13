@@ -1,11 +1,11 @@
-summary: 冒烟测试 - sleep 1秒
+summary: Smoke test - sleep 1seconds
 test: ./test.sh
 tag:
-  - smoke
-  - scripting
+ - smoke
+ - scripting
 duration: 1m
 tier: 0
 path: /tests/smoke/scripting/test_smoke_sleep_timeout
 require:
-  - beakerlib
-  - coreutils
+ - beakerlib
+ - coreutils

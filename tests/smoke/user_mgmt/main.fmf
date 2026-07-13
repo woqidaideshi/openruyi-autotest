@@ -1,10 +1,10 @@
-summary: 冒烟测试 - user_mgmt 功能验证
+summary: Smoke test - user_mgmt functionality verification
 tag:
-  - smoke
-  - user_mgmt
+ - smoke
+ - user_mgmt
 duration: 2m
 tier: 0
 path: /tests/smoke/user_mgmt
 require:
-  - beakerlib
-  - coreutils
+ - beakerlib
+ - coreutils

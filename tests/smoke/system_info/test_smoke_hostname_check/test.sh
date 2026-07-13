@@ -1,24 +1,24 @@
 #!/bin/bash
-# Smoke test: system_info - hostname 显示主机名
+# Smoke test: system_info - hostname displayhostname
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeSystemInfoSetup
+ rlPhaseStartSetup "Environment setup"
+ smokeSystemInfoSetup
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "hostname 显示主机名"
-        rlRun 'hostname' 0 "hostname 显示主机名"
-        rlRun 'cat /etc/hostname' 0 "hostname 文件可读"
-    rlPhaseEnd
+ rlPhaseStartTest "hostname displayhostname"
+ rlRun 'hostname' 0 "hostname displayhostname"
+ rlRun 'cat /etc/hostname' 0 "hostname filereadable"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+ rlPhaseStartCleanup "Clean up test environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

@@ -1,13 +1,13 @@
-summary: 性能测试 - UnixBench Shell脚本性能 (shell1+shell8)
+summary: Performance test - UnixBench Shellscriptperformance (shell1+shell8)
 test: ./test.sh
 tag:
-  - performance
-  - unixbench
+ - performance
+ - unixbench
 duration: 10m
 tier: 2
 path: /tests/performance/unixbench/test_unixbench_shell_scripts
 require:
-  - beakerlib
-  - gcc
-  - make
-  - perl
+ - beakerlib
+ - gcc
+ - make
+ - perl

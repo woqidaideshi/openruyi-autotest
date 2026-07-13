@@ -1,24 +1,24 @@
 #!/bin/bash
-# Smoke test: user_mgmt - sudo 命令存在
+# Smoke test: user_mgmt - sudo Command exists
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeUserMgmtSetup
+ rlPhaseStartSetup "Environment setup"
+ smokeUserMgmtSetup
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "sudo 命令存在"
-        rlRun 'which sudo' 0 "sudo 命令存在"
-        rlRun 'sudo -V 2>&1 | head -1' 0 "sudo 版本"
-    rlPhaseEnd
+ rlPhaseStartTest "sudo Command exists"
+ rlRun 'which sudo' 0 "sudo Command exists"
+ rlRun 'sudo -V 2>&1 | head -1' 0 "sudo version"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+ rlPhaseStartCleanup "Clean up test environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

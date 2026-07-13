@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - mpfr - 鐗堟湰鍜屽府鍔?
+summary: Functional test - mpfr - version and help
 test: ./test.sh
 tag:
-  - functional
-  - mpfr
+ - functional
+ - mpfr
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/mpfr/test_mpfr_version_help
 require:
-  - mpfr
-  - beakerlib
+ - mpfr
+ - beakerlib

@@ -1,11 +1,11 @@
-summary: libxml2 - ��������
+summary: Functional test - libxml2 - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - libxml2
+ - functional
+ - libxml2
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libxml2/test_libxml2_basic
 
 require:
-  - beakerlib
+ - beakerlib

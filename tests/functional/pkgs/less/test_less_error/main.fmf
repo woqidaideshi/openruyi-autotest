@@ -1,11 +1,11 @@
-summary: less - ������
+summary: Functional test - less - error handling
 test: ./test.sh
 tag:
-  - functional
-  - less
+ - functional
+ - less
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/less/test_less_error
 
 require:
-  - beakerlib
+ - beakerlib

@@ -1,11 +1,11 @@
-summary: 冒烟测试 - nproc CPU 核心数
+summary: Smoke test - nproc CPU corecount
 test: ./test.sh
 tag:
-  - smoke
-  - process
+ - smoke
+ - process
 duration: 1m
 tier: 0
 path: /tests/smoke/process/test_smoke_nproc_cpu_count
 require:
-  - beakerlib
-  - procps-ng
+ - beakerlib
+ - procps-ng

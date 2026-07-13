@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - labwc - Check for display (no DISPLAY)
+summary: Functional test - labwc - check for display no display
 test: ./test.sh
 tag:
-  - functional
-  - labwc
+ - functional
+ - labwc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/labwc/test_labwc_check_for_display__no_display
 require:
-  - labwc
-  - beakerlib
+ - labwc
+ - beakerlib

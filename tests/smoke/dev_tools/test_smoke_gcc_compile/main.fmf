@@ -1,13 +1,13 @@
-summary: 冒烟测试 - gcc 可用
+summary: Smoke test - gcc available
 test: ./test.sh
 tag:
-  - smoke
-  - dev_tools
+ - smoke
+ - dev_tools
 duration: 1m
 tier: 0
 path: /tests/smoke/dev_tools/test_smoke_gcc_compile
 require:
-  - beakerlib
-  - gcc
-  - make
-  - python
+ - beakerlib
+ - gcc
+ - make
+ - python

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - sed - 澶氳〃杈惧紡
+summary: Functional test - sed - multi-expression
 test: ./test.sh
 tag:
-  - functional
-  - sed
+ - functional
+ - sed
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/sed/test_sed_multi_expression
 require:
-  - sed
-  - beakerlib
+ - sed
+ - beakerlib

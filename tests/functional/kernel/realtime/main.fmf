@@ -1,11 +1,11 @@
-summary: 功能测试 - 内核 - LTP 实时性测试
-tag:
-  - functional
-  - kernel
-  - realtime
-  - ltp
-duration: 30m
-tier: 1
-path: /tests/functional/kernel/realtime
-require:
-  - beakerlib
+summary: Functional test - kernel - LTP test
+tag:
+ - functional
+ - kernel
+ - realtime
+ - ltp
+duration: 30m
+tier: 1
+path: /tests/functional/kernel/realtime
+require:
+ - beakerlib

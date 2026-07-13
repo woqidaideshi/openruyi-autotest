@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - curl - 鍏朵粬閫夐」
+summary: Functional test - curl - other option handling
 test: ./test.sh
 tag:
-  - functional
-  - curl
+ - functional
+ - curl
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/curl/test_curl_other_options
 require:
-  - curl
-  - beakerlib
+ - curl
+ - beakerlib

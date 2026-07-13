@@ -1,25 +1,25 @@
 #!/bin/bash
-# Smoke test: process - jobs 列出后台任务
+# Smoke test: process - jobs list background jobs
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeProcessSetup
-        rlRun "sleep 1 &" 0 "准备环境"
-        rlRun "wait" 0 "准备环境"
+ rlPhaseStartSetup "Environment setup"
+ smokeProcessSetup
+ rlRun "sleep 1 &" 0 "Prepare environment"
+ rlRun "wait" 0 "Prepare environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "jobs 列出后台任务"
-        rlRun 'jobs' 0 "jobs 列出后台任务"
-    rlPhaseEnd
+ rlPhaseStartTest "jobs list background jobs"
+ rlRun 'jobs' 0 "jobs list background jobs"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+ rlPhaseStartCleanup "Clean up test environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

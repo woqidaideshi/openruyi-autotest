@@ -1,12 +1,12 @@
-summary: 兼容性测试 - LTP POSIX (open_posix_testsuite)
+summary: Compatibility test - LTP POSIX (open_posix_testsuite)
 tag:
-  - compatibility
-  - posix
-  - ltp
+ - compatibility
+ - posix
+ - ltp
 duration: 120m
 tier: 2
 path: /tests/compatibility/ltp_posix
 require:
-  - beakerlib
-  - gcc
-  - make
+ - beakerlib
+ - gcc
+ - make

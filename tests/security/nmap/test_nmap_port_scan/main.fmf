@@ -1,11 +1,11 @@
-summary: 安全测试 - nmap TCP/UDP 端口扫描
+summary: Security test - nmap TCP/UDP port scan
 test: ./test.sh
 tag:
-  - security
-  - nmap
+ - security
+ - nmap
 duration: 2m
 tier: 1
 path: /tests/security/nmap/test_nmap_port_scan
 require:
-  - beakerlib
-  - nmap
+ - beakerlib
+ - nmap

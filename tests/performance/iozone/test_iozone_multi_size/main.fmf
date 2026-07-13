@@ -1,4 +1,4 @@
-summary: 性能测试 - iozone - 多文件大小测试
+summary: Performance test - iozone - multifilesizetest
 test: ./test.sh
 tag: [performance, iozone]
 duration: 10m

@@ -1,4 +1,4 @@
-summary: 功能测试 - yarpgen - Sanitizer (-fsanitize=address/undefined)
+summary: Functional test - yarpgen - Sanitizer (-fsanitize=address/undefined)
 test: ./test.sh
 tag: [functional, compiler, yarpgen]
 duration: 5m

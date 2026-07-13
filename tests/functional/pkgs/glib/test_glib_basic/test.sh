@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: glib - 错误处理��
+# Functional test: glib - error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -7,24 +7,24 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        glibSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ glibSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlPhaseEnd
 
-    rlPhaseStartTest "错误处理��"
-        rlRun "gsettings list-schemas 2>&1 | head -5 || true" 0 "�г� GSettings ģʽ"
-    rlPhaseEnd
+ rlPhaseStartTest "error handling"
+ rlRun "gsettings list-schemas 2>&1 | head -5 || true" 0 "Display first lines"
+ rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # glib 软件包由 lib.sh 的引用计数机制自动管理卸载
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+ rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+ fi
+ # glib Package managed by lib.sh 's reference counting auto-uninstall
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

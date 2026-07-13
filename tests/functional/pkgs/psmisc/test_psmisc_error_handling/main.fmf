@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - psmisc - Error handling
+summary: Functional test - psmisc - error handling
 test: ./test.sh
 tag:
-  - functional
-  - psmisc
+ - functional
+ - psmisc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/psmisc/test_psmisc_error_handling
 require:
-  - psmisc
-  - beakerlib
+ - psmisc
+ - beakerlib

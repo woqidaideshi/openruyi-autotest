@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - pciutils - lspci by device class
+summary: Functional test - pciutils - lspci by device class
 test: ./test.sh
 tag:
-  - functional
-  - pciutils
+ - functional
+ - pciutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pciutils/test_pciutils_lspci_by_device_class
 require:
-  - pciutils
-  - beakerlib
+ - pciutils
+ - beakerlib

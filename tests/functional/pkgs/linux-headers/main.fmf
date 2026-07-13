@@ -1,10 +1,10 @@
-summary: 功能测试 - Linux内核头文件
+summary: Functional test - Linuxkernelheaderfile
 tag:
-  - functional
-  - linux-headers
+ - functional
+ - linux-headers
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/linux-headers
 require:
-  - linux-headers
-  - beakerlib
+ - linux-headers
+ - beakerlib

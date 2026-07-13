@@ -1,10 +1,10 @@
-summary: 功能测试 - libpcap 软件包功能验证
+summary: Functional test - libpcap package functionality verification
 tag:
-  - functional
-  - libpcap
+ - functional
+ - libpcap
 duration: 3m
 tier: 1
 path: /tests/functional/pkgs/libpcap
 require:
-  - libpcap
-  - beakerlib
+ - libpcap
+ - beakerlib

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - git - Stash
+summary: Functional test - git - stash
 test: ./test.sh
 tag:
-  - functional
-  - git
+ - functional
+ - git
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/git/test_git_stash
 require:
-  - git
-  - beakerlib
+ - git
+ - beakerlib

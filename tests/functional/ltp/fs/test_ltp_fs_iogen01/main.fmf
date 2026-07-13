@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - fs - iogen01
+summary: Functional test - LTP - fs - iogen01
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - fs
+ - functional
+ - ltp
+ - fs
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/fs/test_ltp_fs_iogen01
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

@@ -1,10 +1,10 @@
-summary: 功能测试 - python-flit-core 软件包功能验证
+summary: Functional test - python-flit-core package functionality verification
 tag:
-  - functional
-  - python-flit-core
+ - functional
+ - python-flit-core
 duration: 3m
 tier: 1
 path: /tests/functional/pkgs/python-flit-core
 require:
-  - python-flit-core
-  - beakerlib
+ - python-flit-core
+ - beakerlib

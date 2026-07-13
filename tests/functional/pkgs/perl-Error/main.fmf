@@ -1,10 +1,10 @@
-summary: 功能测试 - perl-Error 软件包功能验证
+summary: Functional test - perl-Error package functionality verification
 tag:
-  - functional
-  - perl-Error
+ - functional
+ - perl-Error
 duration: 3m
 tier: 1
 path: /tests/functional/pkgs/perl-Error
 require:
-  - perl-Error
-  - beakerlib
+ - perl-Error
+ - beakerlib

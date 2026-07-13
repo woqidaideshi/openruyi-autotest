@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - glibc - 鐗堟湰鍜屽府鍔?
+summary: Functional test - glibc - version and help
 test: ./test.sh
 tag:
-  - functional
-  - glibc
+ - functional
+ - glibc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/glibc/test_glibc_version_help
 require:
-  - glibc
-  - beakerlib
+ - glibc
+ - beakerlib

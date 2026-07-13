@@ -1,11 +1,11 @@
-summary: 冒烟测试 - /proc/partitions 分区列表
+summary: Smoke test - /proc/partitions partitionlist
 test: ./test.sh
 tag:
-  - smoke
-  - disk_fs
+ - smoke
+ - disk_fs
 duration: 1m
 tier: 0
 path: /tests/smoke/disk_fs/test_smoke_proc_partitions
 require:
-  - beakerlib
-  - util-linux
+ - beakerlib
+ - util-linux

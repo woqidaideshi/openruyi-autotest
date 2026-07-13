@@ -1,13 +1,13 @@
-﻿summary: 功能测试 - 内核 - realtime - rt-migrate
+﻿summary: Functional test - kernel - realtime - rt-migrate
 test: ./test.sh
 tag:
-  - functional
-  - kernel
-  - realtime
-  - ltp
+ - functional
+ - kernel
+ - realtime
+ - ltp
 duration: 10m
 tier: 1
 path: /tests/functional/kernel/realtime/test_realtime_rt_migrate
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

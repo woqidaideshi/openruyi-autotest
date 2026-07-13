@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - rpmbuild - Error handling
+summary: Functional test - rpmbuild - error handling
 test: ./test.sh
 tag:
-  - functional
-  - rpmbuild
+ - functional
+ - rpmbuild
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/rpmbuild/test_rpmbuild_error_handling
 require:
-  - rpmbuild
-  - beakerlib
+ - rpmbuild
+ - beakerlib

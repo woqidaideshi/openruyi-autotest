@@ -1,24 +1,24 @@
 #!/bin/bash
-# Smoke test: network - lo 回环接口存在
+# Smoke test: network - lo loopbackInterfaceexists
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeNetworkSetup
+ rlPhaseStartSetup "Environment setup"
+ smokeNetworkSetup
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "lo 回环接口存在"
-        rlRun 'ip addr show lo | grep -q LOOPBACK' 0 "lo 回环接口存在"
-        rlRun 'ping -c 1 127.0.0.1' 0 "127.0.0.1 可ping"
-    rlPhaseEnd
+ rlPhaseStartTest "lo loopbackInterfaceexists"
+ rlRun 'ip addr show lo | grep -q LOOPBACK' 0 "lo loopbackInterfaceexists"
+ rlRun 'ping -c 1 127.0.0.1' 0 "127.0.0.1 canping"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+ rlPhaseStartCleanup "Clean up test environment"
 
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

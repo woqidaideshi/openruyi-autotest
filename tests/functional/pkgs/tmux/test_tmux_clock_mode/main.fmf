@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - tmux - Clock mode
-test: ./test.sh
-tag:
-  - functional
-  - tmux
-duration: 2m
-tier: 1
-path: /tests/functional/pkgs/tmux/test_tmux_clock_mode
-require:
-  - tmux
-  - beakerlib
+summary: Functional test - tmux - mode
+test:./test.sh
+tag:
+ - functional
+ - tmux
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/tmux/test_tmux_clock_mode
+require:
+ - tmux
+ - beakerlib

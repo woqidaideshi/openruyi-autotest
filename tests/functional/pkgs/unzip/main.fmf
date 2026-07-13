@@ -1,7 +1,7 @@
-summary: ���ܲ��� - unzip ������������֤
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/unzip
 require:
-  - unzip
-  - beakerlib
+ - unzip
+ - beakerlib

@@ -1,12 +1,12 @@
-summary: 冒烟测试 - /etc/os-release 存在
+summary: Smoke test - /etc/os-release exists
 test: ./test.sh
 tag:
-  - smoke
-  - package_mgmt
+ - smoke
+ - package_mgmt
 duration: 1m
 tier: 0
 path: /tests/smoke/package_mgmt/test_smoke_os_release_check
 require:
-  - beakerlib
-  - dnf
-  - rpm
+ - beakerlib
+ - dnf
+ - rpm

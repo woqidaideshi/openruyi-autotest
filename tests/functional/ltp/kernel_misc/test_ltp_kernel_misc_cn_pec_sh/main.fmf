@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - kernel_misc - cn_pec_sh
+summary: Functional test - LTP - kernel_misc - cn_pec_sh
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - kernel_misc
+ - functional
+ - ltp
+ - kernel_misc
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/kernel_misc/test_ltp_kernel_misc_cn_pec_sh
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

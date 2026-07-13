@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - cryptsetup - 閿欒澶勭悊
+summary: Functional test - cryptsetup - error handling
 test: ./test.sh
 tag:
-  - functional
-  - cryptsetup
+ - functional
+ - cryptsetup
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/cryptsetup/test_cryptsetup_error_handling
 require:
-  - cryptsetup
-  - beakerlib
+ - cryptsetup
+ - beakerlib

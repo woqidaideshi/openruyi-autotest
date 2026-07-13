@@ -1,11 +1,11 @@
-summary: less - ��������
+summary: Functional test - less - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - less
+ - functional
+ - less
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/less/test_less_basic
 
 require:
-  - beakerlib
+ - beakerlib

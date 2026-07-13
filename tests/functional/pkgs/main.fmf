@@ -1,4 +1,4 @@
-﻿# RPM 软件包功能测试 - 共享配置
+﻿# RPM Package functional tests - Shared configuration
 framework: shell
 duration: 5m
 tier: 1

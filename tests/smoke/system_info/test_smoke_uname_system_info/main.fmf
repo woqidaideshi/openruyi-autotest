@@ -1,13 +1,13 @@
-summary: 冒烟测试 - uname 内核名称
+summary: Smoke test - uname kernelname
 test: ./test.sh
 tag:
-  - smoke
-  - system_info
+ - smoke
+ - system_info
 duration: 1m
 tier: 0
 path: /tests/smoke/system_info/test_smoke_uname_system_info
 require:
-  - beakerlib
-  - coreutils
-  - procps-ng
-  - util-linux
+ - beakerlib
+ - coreutils
+ - procps-ng
+ - util-linux

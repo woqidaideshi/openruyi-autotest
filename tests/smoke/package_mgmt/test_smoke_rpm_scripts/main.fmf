@@ -1,12 +1,12 @@
-summary: 冒烟测试 - rpm 脚本内容
+summary: Smoke test - rpm script content
 test: ./test.sh
 tag:
-  - smoke
-  - package_mgmt
+ - smoke
+ - package_mgmt
 duration: 1m
 tier: 0
 path: /tests/smoke/package_mgmt/test_smoke_rpm_scripts
 require:
-  - beakerlib
-  - dnf
-  - rpm
+ - beakerlib
+ - dnf
+ - rpm

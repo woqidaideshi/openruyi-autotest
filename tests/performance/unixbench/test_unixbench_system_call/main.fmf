@@ -1,13 +1,13 @@
-summary: 性能测试 - UnixBench 系统调用开销 (syscall)
+summary: Performance test - UnixBench system callsoverhead (syscall)
 test: ./test.sh
 tag:
-  - performance
-  - unixbench
+ - performance
+ - unixbench
 duration: 10m
 tier: 2
 path: /tests/performance/unixbench/test_unixbench_system_call
 require:
-  - beakerlib
-  - gcc
-  - make
-  - perl
+ - beakerlib
+ - gcc
+ - make
+ - perl

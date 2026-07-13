@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - iputils - traceroute6
+summary: Functional test - iputils - traceroute6
 test: ./test.sh
 tag:
-  - functional
-  - iputils
+ - functional
+ - iputils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/iputils/test_iputils_traceroute6
 require:
-  - iputils
-  - beakerlib
+ - iputils
+ - beakerlib

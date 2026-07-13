@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - weston - Error handling
+summary: Functional test - weston - error handling
 test: ./test.sh
 tag:
-  - functional
-  - weston
+ - functional
+ - weston
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/weston/test_weston_error_handling
 require:
-  - weston
-  - beakerlib
+ - weston
+ - beakerlib

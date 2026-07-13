@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: newt - 错误处理
+# Functional test: newt - error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -7,24 +7,24 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        newtSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ newtSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlPhaseEnd
 
-    rlPhaseStartTest "错误处理"
-        rlRun "whiptail --help 2>&1 | grep -qiE \"Usage|用法|usage\" || echo help-not-standard" 0 "whiptail: 无效选项"
-    rlPhaseEnd
+ rlPhaseStartTest "error handling"
+ rlRun "whiptail --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "whiptail: Invalid option"
+ rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # newt 软件包由 lib.sh 的引用计数机制自动管理卸载
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+ rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+ fi
+ # newt Package managed by lib.sh 's reference counting auto-uninstall
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

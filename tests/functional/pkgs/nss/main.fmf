@@ -1,10 +1,10 @@
-summary: 功能测试 - nss 软件包功能验证
+summary: Functional test - nss package functionality verification
 tag:
-  - functional
-  - nss
+ - functional
+ - nss
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/nss
 require:
-  - nss
-  - beakerlib
+ - nss
+ - beakerlib

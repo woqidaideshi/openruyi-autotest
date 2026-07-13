@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - net-features - vxlan_multi_03
+summary: Functional test - LTP - net-features - vxlan_multi_03
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - net-features
+ - functional
+ - ltp
+ - net-features
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/net-features/test_ltp_net-features_vxlan_multi_03
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

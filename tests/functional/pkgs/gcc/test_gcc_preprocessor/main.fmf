@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - gcc - Preprocessor
+summary: Functional test - gcc - preprocessor
 test: ./test.sh
 tag:
-  - functional
-  - gcc
+ - functional
+ - gcc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/gcc/test_gcc_preprocessor
 require:
-  - gcc
-  - beakerlib
+ - gcc
+ - beakerlib

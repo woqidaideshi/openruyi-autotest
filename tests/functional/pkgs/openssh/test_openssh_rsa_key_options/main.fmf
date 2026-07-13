@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - openssh - RSA key options
+summary: Functional test - openssh - rsa key option handling
 test: ./test.sh
 tag:
-  - functional
-  - openssh
+ - functional
+ - openssh
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssh/test_openssh_rsa_key_options
 require:
-  - openssh
-  - beakerlib
+ - openssh
+ - beakerlib

@@ -1,10 +1,10 @@
-summary: 功能测试 - socket_wrapper 软件包功能验证
+summary: Functional test - socket_wrapper package functionality verification
 tag:
-  - functional
-  - socket_wrapper
+ - functional
+ - socket_wrapper
 duration: 3m
 tier: 1
 path: /tests/functional/pkgs/socket_wrapper
 require:
-  - socket_wrapper
-  - beakerlib
+ - socket_wrapper
+ - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - csmith - 链接场景（静态库/动态库/跨编译器）
+summary: Functional test - csmith - linking scenarios (static library/shared library/cross-compiler)
 test: ./test.sh
 tag: [functional, compiler, csmith]
 duration: 5m

@@ -1,4 +1,4 @@
-summary: 性能测试 - stream - 单核内存带宽
+summary: Performance test - stream - single-corememorybandwidth
 test: ./test.sh
 tag: [performance, stream]
 duration: 5m

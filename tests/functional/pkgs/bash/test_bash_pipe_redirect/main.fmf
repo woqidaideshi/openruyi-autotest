@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - bash - 绠￠亾鍜岄噸瀹氬悜
+summary: Functional test - bash - pipe redirect
 test: ./test.sh
 tag:
-  - functional
-  - bash
+ - functional
+ - bash
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/bash/test_bash_pipe_redirect
 require:
-  - bash
-  - beakerlib
+ - bash
+ - beakerlib

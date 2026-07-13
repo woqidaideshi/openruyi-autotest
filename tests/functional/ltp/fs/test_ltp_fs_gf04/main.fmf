@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - fs - gf04
+summary: Functional test - LTP - fs - gf04
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - fs
+ - functional
+ - ltp
+ - fs
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/fs/test_ltp_fs_gf04
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

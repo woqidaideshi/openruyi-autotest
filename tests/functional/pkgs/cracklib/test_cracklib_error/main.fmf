@@ -1,11 +1,11 @@
-summary: cracklib - ������
+summary: Functional test - cracklib - error handling
 test: ./test.sh
 tag:
-  - functional
-  - cracklib
+ - functional
+ - cracklib
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/cracklib/test_cracklib_error
 
 require:
-  - beakerlib
+ - beakerlib

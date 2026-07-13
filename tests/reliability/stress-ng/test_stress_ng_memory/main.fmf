@@ -1,4 +1,4 @@
-summary: 可靠性测试 - stress-ng - 内存压力 (vm/mmap/madvise)
+summary: Reliability test - stress-ng - memorystress (vm/mmap/madvise)
 test: ./test.sh
 tag: [reliability, stress-ng]
 duration: 5m

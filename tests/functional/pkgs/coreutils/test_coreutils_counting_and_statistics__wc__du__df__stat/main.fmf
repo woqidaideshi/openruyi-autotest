@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - coreutils - Counting and statistics (wc, du, df, stat)
-test: ./test.sh
+summary: Functional test - coreutils - counting and statistics wc dudisk usage df stat
+test:./test.sh
 tag:
-  - functional
-  - coreutils
+ - functional
+ - coreutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/coreutils/test_coreutils_counting_and_statistics__wc__du__df__stat
 require:
-  - coreutils
-  - beakerlib
+ - coreutils
+ - beakerlib

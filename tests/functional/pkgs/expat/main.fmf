@@ -1,7 +1,7 @@
-summary: ���ܲ��� - expat ������������֤
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/expat
 require:
-  - expat
-  - beakerlib
+ - expat
+ - beakerlib

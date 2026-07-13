@@ -1,11 +1,11 @@
-summary: tzdata - ��������
+summary: Functional test - tzdata - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - tzdata
+ - functional
+ - tzdata
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/tzdata/test_tzdata_basic
 
 require:
-  - beakerlib
+ - beakerlib

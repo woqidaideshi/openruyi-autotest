@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - net-tirpc-tests - tirpc_rpcb_getaddr
+summary: Functional test - LTP - net-tirpc-tests - tirpc_rpcb_getaddr
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - net-tirpc-tests
+ - functional
+ - ltp
+ - net-tirpc-tests
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/net-tirpc-tests/test_ltp_net-tirpc-tests_tirpc_rpcb_getaddr
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

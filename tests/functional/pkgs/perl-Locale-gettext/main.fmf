@@ -1,10 +1,10 @@
-summary: 功能测试 - perl-Locale-gettext 软件包功能验证
+summary: Functional test - perl-Locale-gettext package functionality verification
 tag:
-  - functional
-  - perl-Locale-gettext
+ - functional
+ - perl-Locale-gettext
 duration: 3m
 tier: 1
 path: /tests/functional/pkgs/perl-Locale-gettext
 require:
-  - perl-Locale-gettext
-  - beakerlib
+ - perl-Locale-gettext
+ - beakerlib

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - labwc - Library check
+summary: Functional test - labwc - library check
 test: ./test.sh
 tag:
-  - functional
-  - labwc
+ - functional
+ - labwc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/labwc/test_labwc_library_check
 require:
-  - labwc
-  - beakerlib
+ - labwc
+ - beakerlib

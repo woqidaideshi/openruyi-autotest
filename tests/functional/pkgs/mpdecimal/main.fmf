@@ -1,10 +1,10 @@
-summary: 功能测试 - mpdecimal 十进制库
+summary: Functional test - mpdecimal library
 tag:
-  - functional
-  - mpdecimal
+ - functional
+ - mpdecimal
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/mpdecimal
 require:
-  - mpdecimal
-  - beakerlib
+ - mpdecimal
+ - beakerlib

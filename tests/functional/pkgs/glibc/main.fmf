@@ -1,10 +1,10 @@
-summary: 功能测试 - glibc C运行库工具
+summary: Functional test - glibc Crunlibrary
 tag:
-  - functional
-  - glibc
+ - functional
+ - glibc
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/glibc
 require:
-  - glibc
-  - beakerlib
+ - glibc
+ - beakerlib

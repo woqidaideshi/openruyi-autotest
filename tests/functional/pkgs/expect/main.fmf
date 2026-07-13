@@ -1,10 +1,10 @@
-summary: 功能测试 - expect 软件包功能验证
+summary: Functional test - expect package functionality verification
 tag:
-  - functional
-  - expect
+ - functional
+ - expect
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/expect
 require:
-  - expect
-  - beakerlib
+ - expect
+ - beakerlib

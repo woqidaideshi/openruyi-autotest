@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - python - 閿欒澶勭悊
+summary: Functional test - python - error handling
 test: ./test.sh
 tag:
-  - functional
-  - python
+ - functional
+ - python
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/python/test_python_error_handling
 require:
-  - python
-  - beakerlib
+ - python
+ - beakerlib

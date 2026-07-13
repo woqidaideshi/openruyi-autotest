@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: diffutils - 错误处理
+# Functional test: diffutils - error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -7,27 +7,27 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        diffutilsSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ diffutilsSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlPhaseEnd
 
-    rlPhaseStartTest "错误处理"
-        rlRun "cmp --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� cmp ��Ч错误处理����"
-        rlRun "diff --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� diff ��Ч错误处理����"
-        rlRun "diff3 --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� diff3 ��Ч错误处理����"
-        rlRun "sdiff --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "���� sdiff ��Ч错误处理����"
-    rlPhaseEnd
+ rlPhaseStartTest "error handling"
+ rlRun "cmp --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " cmp Чerror handling"
+ rlRun "diff --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " diff Чerror handling"
+ rlRun "diff3 --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " diff3 Чerror handling"
+ rlRun "sdiff --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " sdiff Чerror handling"
+ rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # diffutils 软件包由 lib.sh 的引用计数机制自动管理卸载
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+ rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+ fi
+ # diffutils Package managed by lib.sh 's reference counting auto-uninstall
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

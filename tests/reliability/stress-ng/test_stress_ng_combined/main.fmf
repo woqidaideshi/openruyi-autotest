@@ -1,4 +1,4 @@
-summary: 可靠性测试 - stress-ng - 组合压力 (多 stressor 并行)
+summary: Reliability test - stress-ng - combinedstress (multi stressor andlines)
 test: ./test.sh
 tag: [reliability, stress-ng]
 duration: 5m

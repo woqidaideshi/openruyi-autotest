@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - curl - 璇︾粏妯″紡鍜岄潤榛樻ā寮?
+summary: Functional test - curl - verbose quiet
 test: ./test.sh
 tag:
-  - functional
-  - curl
+ - functional
+ - curl
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/curl/test_curl_verbose_quiet
 require:
-  - curl
-  - beakerlib
+ - curl
+ - beakerlib

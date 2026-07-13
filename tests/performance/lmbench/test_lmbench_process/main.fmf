@@ -1,4 +1,4 @@
-summary: 性能测试 - lmbench - 进程与上下文切换
+summary: Performance test - lmbench - processandcontext switch
 test: ./test.sh
 tag: [performance, lmbench]
 duration: 5m

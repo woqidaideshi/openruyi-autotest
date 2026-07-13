@@ -1,11 +1,11 @@
-summary: attr - getfattr ��������
+summary: Functional test - attr - getfattr basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - attr
+ - functional
+ - attr
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/attr/test_attr_getfattr_basic
 
 require:
-  - beakerlib
+ - beakerlib

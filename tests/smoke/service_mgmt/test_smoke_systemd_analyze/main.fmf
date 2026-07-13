@@ -1,11 +1,11 @@
-summary: 冒烟测试 - systemd-analyze 启动时间
+summary: Smoke test - systemd-analyze startup time
 test: ./test.sh
 tag:
-  - smoke
-  - service_mgmt
+ - smoke
+ - service_mgmt
 duration: 1m
 tier: 0
 path: /tests/smoke/service_mgmt/test_smoke_systemd_analyze
 require:
-  - beakerlib
-  - systemd
+ - beakerlib
+ - systemd

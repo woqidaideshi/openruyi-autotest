@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - net-tcp-cmds - iproute
+summary: Functional test - LTP - net-tcp-cmds - iproute
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - net-tcp-cmds
+ - functional
+ - ltp
+ - net-tcp-cmds
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/net-tcp-cmds/test_ltp_net-tcp-cmds_iproute
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

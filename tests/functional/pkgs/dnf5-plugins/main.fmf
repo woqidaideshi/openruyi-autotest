@@ -1,10 +1,10 @@
-summary: 功能测试 - dnf5-plugins DNF5插件功能验证
+summary: Functional test - dnf5-plugins DNF5functionality verification
 tag:
-  - functional
-  - dnf5-plugins
+ - functional
+ - dnf5-plugins
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/dnf5-plugins
 require:
-  - dnf5-plugins
-  - beakerlib
+ - dnf5-plugins
+ - beakerlib

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - pkgconf - 閿欒澶勭悊
+summary: Functional test - pkgconf - error handling
 test: ./test.sh
 tag:
-  - functional
-  - pkgconf
+ - functional
+ - pkgconf
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pkgconf/test_pkgconf_error_handling
 require:
-  - pkgconf
-  - beakerlib
+ - pkgconf
+ - beakerlib

@@ -1,7 +1,7 @@
-summary: ���ܲ��� - vim
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/vim
 require:
-  - vim
-  - beakerlib
+ - vim
+ - beakerlib

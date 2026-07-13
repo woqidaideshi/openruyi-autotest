@@ -1,13 +1,13 @@
-summary: 冒烟测试 - last 最近登录
+summary: Smoke test - last recent logins
 test: ./test.sh
 tag:
-  - smoke
-  - logging
+ - smoke
+ - logging
 duration: 1m
 tier: 0
 path: /tests/smoke/logging/test_smoke_last_login_records
 require:
-  - beakerlib
-  - util-linux
-  - logrotate
-  - rsyslog
+ - beakerlib
+ - util-linux
+ - logrotate
+ - rsyslog

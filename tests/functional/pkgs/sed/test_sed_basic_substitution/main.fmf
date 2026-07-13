@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - sed - 鍩烘湰鏇挎崲
+summary: Functional test - sed - basic substitution
 test: ./test.sh
 tag:
-  - functional
-  - sed
+ - functional
+ - sed
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/sed/test_sed_basic_substitution
 require:
-  - sed
-  - beakerlib
+ - sed
+ - beakerlib

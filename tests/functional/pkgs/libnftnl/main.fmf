@@ -1,7 +1,7 @@
-summary: ���ܲ��� - libnftnl �����֤
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/libnftnl
 require:
-  - libnftnl
-  - beakerlib
+ - libnftnl
+ - beakerlib

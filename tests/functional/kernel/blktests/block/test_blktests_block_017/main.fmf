@@ -1,12 +1,12 @@
-﻿summary: 鍔熻兘娴嬭瘯 - 鍐呮牳 - blktests - block/017
-test: ./test.sh
+summary: Functional test - kernel - blktests - block 017
+test:./test.sh
 tag:
-  - functional
-  - kernel
-  - blktests
+ - functional
+ - kernel
+ - blktests
 duration: 5m
 tier: 2
 path: /tests/functional/kernel/blktests/block/test_blktests_block_017
 require:
-  - blktests
-  - beakerlib
+ - blktests
+ - beakerlib

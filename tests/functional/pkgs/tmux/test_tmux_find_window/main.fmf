@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - tmux - Find window
-test: ./test.sh
+summary: Functional test - tmux - search
+test:./test.sh
 tag:
-  - functional
-  - tmux
+ - functional
+ - tmux
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/tmux/test_tmux_find_window
 require:
-  - tmux
-  - beakerlib
+ - tmux
+ - beakerlib

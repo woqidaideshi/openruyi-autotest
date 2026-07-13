@@ -1,7 +1,7 @@
-# 兼容性测试计划
-# 验证系统在不同环境下的兼容性
+# Compatibility Test Plan
+# Verify system compatibility across different environments
 
-summary: 兼容性测试 - 验证系统兼容性
+summary: Compatibility Test - Verify system compatibility
 
 environment-file:
   - topology.env

@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - mm - min_free_kbytes
+summary: Functional test - LTP - mm - min_free_kbytes
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - mm
+ - functional
+ - ltp
+ - mm
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/mm/test_ltp_mm_min_free_kbytes
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

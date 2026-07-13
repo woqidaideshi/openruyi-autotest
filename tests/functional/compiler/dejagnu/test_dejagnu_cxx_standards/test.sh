@@ -1,16 +1,16 @@
 #!/bin/bash
-# Functional test: compiler - dejagnu - C++ 标准 (C++11/14/17)
+# Functional test: compiler - dejagnu - C++ Standard (C++11/14/17)
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        dejagnuSetup
-        if ! rpm -q clang 2>/dev/null; then echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y clang 2>/dev/null; fi
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时目录"
+ rlPhaseStartSetup "Environment setup"
+ dejagnuSetup
+ if ! rpm -q clang 2>/dev/null; then echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y clang 2>/dev/null; fi
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
-        cat > cxx11.cpp << 'CEOF'
+ cat > cxx11.cpp << 'CEOF'
 #include <iostream>
 #include <memory>
 using namespace std;
@@ -23,7 +23,7 @@ int x=10;decltype(x)y=20;if(x+y!=30)abort();
 cout<<"CXX11_OK"<<endl;return 0;}
 CEOF
 
-        cat > cxx14.cpp << 'CEOF'
+ cat > cxx14.cpp << 'CEOF'
 #include <iostream>
 using namespace std;
 int main(){auto gen=[](auto a,auto b){return a+b;};if(gen(10,20)!=30)abort();
@@ -34,7 +34,7 @@ auto inc=[val=41](){return val+1;};if(inc()!=42)abort();
 cout<<"CXX14_OK"<<endl;return 0;}
 CEOF
 
-        cat > cxx17.cpp << 'CEOF'
+ cat > cxx17.cpp << 'CEOF'
 #include <iostream>
 #include <string_view>
 #include <tuple>
@@ -49,22 +49,22 @@ optional<int>o=100;if(o.value()!=100)abort();
 if(ANS!=42)abort();
 cout<<"CXX17_OK"<<endl;return 0;}
 CEOF
-    rlPhaseEnd
+ rlPhaseEnd
 
-    rlPhaseStartTest "G++"
-        rlRun "g++ -std=c++11 -Wall -o cxx11_gxx cxx11.cpp && ./cxx11_gxx | grep CXX11_OK" 0 "G++ C++11"
-        rlRun "g++ -std=c++14 -Wall -o cxx14_gxx cxx14.cpp && ./cxx14_gxx | grep CXX14_OK" 0 "G++ C++14"
-        rlRun "g++ -std=c++17 -Wall -o cxx17_gxx cxx17.cpp && ./cxx17_gxx | grep CXX17_OK" 0 "G++ C++17"
-    rlPhaseEnd
+ rlPhaseStartTest "G++"
+ rlRun "g++ -std=c++11 -Wall -o cxx11_gxx cxx11.cpp && ./cxx11_gxx | grep CXX11_OK" 0 "G++ C++11"
+ rlRun "g++ -std=c++14 -Wall -o cxx14_gxx cxx14.cpp && ./cxx14_gxx | grep CXX14_OK" 0 "G++ C++14"
+ rlRun "g++ -std=c++17 -Wall -o cxx17_gxx cxx17.cpp && ./cxx17_gxx | grep CXX17_OK" 0 "G++ C++17"
+ rlPhaseEnd
 
-    rlPhaseStartTest "Clang++"
-        rlRun "clang++ -std=c++11 -Wall -o cxx11_clang cxx11.cpp && ./cxx11_clang | grep CXX11_OK" 0 "Clang C++11"
-        rlRun "clang++ -std=c++14 -Wall -o cxx14_clang cxx14.cpp && ./cxx14_clang | grep CXX14_OK" 0 "Clang C++14"
-        rlRun "clang++ -std=c++17 -Wall -o cxx17_clang cxx17.cpp && ./cxx17_clang | grep CXX17_OK" 0 "Clang C++17"
-    rlPhaseEnd
+ rlPhaseStartTest "Clang++"
+ rlRun "clang++ -std=c++11 -Wall -o cxx11_clang cxx11.cpp && ./cxx11_clang | grep CXX11_OK" 0 "Clang C++11"
+ rlRun "clang++ -std=c++14 -Wall -o cxx14_clang cxx14.cpp && ./cxx14_clang | grep CXX14_OK" 0 "Clang C++14"
+ rlRun "clang++ -std=c++17 -Wall -o cxx17_clang cxx17.cpp && ./cxx17_clang | grep CXX17_OK" 0 "Clang C++17"
+ rlPhaseEnd
 
-    rlPhaseStartCleanup "清理"
-        rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
-    rlPhaseEnd
-    rlJournalPrintText
+ rlPhaseStartCleanup "Cleanup"
+ rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+ rlPhaseEnd
+ rlJournalPrintText
 rlJournalEnd

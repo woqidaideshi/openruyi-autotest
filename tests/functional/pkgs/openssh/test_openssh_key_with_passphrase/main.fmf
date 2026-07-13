@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - openssh - Key with passphrase
+summary: Functional test - openssh - key with passphrase
 test: ./test.sh
 tag:
-  - functional
-  - openssh
+ - functional
+ - openssh
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssh/test_openssh_key_with_passphrase
 require:
-  - openssh
-  - beakerlib
+ - openssh
+ - beakerlib

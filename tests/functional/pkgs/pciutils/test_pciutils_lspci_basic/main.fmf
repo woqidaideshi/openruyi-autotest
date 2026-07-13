@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - pciutils - lspci basic
+summary: Functional test - pciutils - lspci basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - pciutils
+ - functional
+ - pciutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pciutils/test_pciutils_lspci_basic
 require:
-  - pciutils
-  - beakerlib
+ - pciutils
+ - beakerlib

@@ -7,27 +7,27 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        gitSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
+ rlPhaseStartSetup "Environment setup"
+ gitSetup
+ TmpDir=$(mktemp -d)
+ rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+ rlPhaseEnd
 
-    rlPhaseStartTest "Reset-and-restore"
-        rlRun "git add temp.txt" 0 "git add: temp file"
-        rlRun "git reset HEAD temp.txt" 0 "git reset: unstage"
-        rlRun "git restore --staged temp.txt 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "git restore --staged"
-        rlRun "rm -f temp.txt" 0 "Cleanup temp"
-    rlPhaseEnd
+ rlPhaseStartTest "Reset-and-restore"
+ rlRun "git add temp.txt" 0 "git add: temp file"
+ rlRun "git reset HEAD temp.txt" 0 "git reset: unstage"
+ rlRun "git restore --staged temp.txt 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "git restore --staged"
+ rlRun "rm -f temp.txt" 0 "Cleanup temp"
+ rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # git 软件包由 lib.sh 的引用计数机制自动管理卸载
-    rlPhaseEnd
+ rlPhaseStartCleanup "Clean up test environment"
+ rlRun "cd /" 0 "Leave test directory"
+ if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+ rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+ fi
+ # git Package managed by lib.sh 's reference counting auto-uninstall
+ rlPhaseEnd
 
-    rlJournalPrintText
+ rlJournalPrintText
 rlJournalEnd

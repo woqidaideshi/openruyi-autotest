@@ -1,10 +1,10 @@
-summary: 性能测试 - IOzone 文件系统基准测试
+summary: Performance test - IOzone filesystembenchmark
 tag:
-  - performance
-  - iozone
+ - performance
+ - iozone
 duration: 20m
 tier: 2
 path: /tests/performance/iozone
 require:
-  - beakerlib
-  - iozone
+ - beakerlib
+ - iozone

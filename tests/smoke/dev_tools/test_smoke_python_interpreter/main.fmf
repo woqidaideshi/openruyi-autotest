@@ -1,13 +1,13 @@
-summary: 冒烟测试 - python3 可用
+summary: Smoke test - python3 available
 test: ./test.sh
 tag:
-  - smoke
-  - dev_tools
+ - smoke
+ - dev_tools
 duration: 1m
 tier: 0
 path: /tests/smoke/dev_tools/test_smoke_python_interpreter
 require:
-  - beakerlib
-  - gcc
-  - make
-  - python
+ - beakerlib
+ - gcc
+ - make
+ - python

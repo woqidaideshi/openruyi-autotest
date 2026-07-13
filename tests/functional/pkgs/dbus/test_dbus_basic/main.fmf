@@ -1,11 +1,11 @@
-summary: dbus - ��������
+summary: Functional test - dbus - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - dbus
+ - functional
+ - dbus
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/dbus/test_dbus_basic
 
 require:
-  - beakerlib
+ - beakerlib

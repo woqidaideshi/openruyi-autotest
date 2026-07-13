@@ -1,11 +1,11 @@
-summary: 安全测试 - OpenSCAP - CIS Benchmark 安全基线
-tag:
-  - security
-  - openscap
-  - cis
-duration: 10m
-tier: 2
-path: /tests/security/openscap/cis
-require:
-  - beakerlib
-  - scap-security-guide
+summary: Security test - OpenSCAP - CIS Benchmark security
+tag:
+ - security
+ - openscap
+ - cis
+duration: 10m
+tier: 2
+path: /tests/security/openscap/cis
+require:
+ - beakerlib
+ - scap-security-guide

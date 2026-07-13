@@ -1,12 +1,12 @@
-summary: 冒烟测试 - system_info 功能验证
+summary: Smoke test - system_info functionality verification
 tag:
-  - smoke
-  - system_info
+ - smoke
+ - system_info
 duration: 2m
 tier: 0
 path: /tests/smoke/system_info
 require:
-  - beakerlib
-  - coreutils
-  - procps-ng
-  - util-linux
+ - beakerlib
+ - coreutils
+ - procps-ng
+ - util-linux

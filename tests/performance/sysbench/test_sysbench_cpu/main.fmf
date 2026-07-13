@@ -1,5 +1,5 @@
-summary: 性能测试 - sysbench - CPU 计算性能
-test: ./test.sh
+summary: Performance test - sysbench - CPU performance
+test:./test.sh
 tag: [performance, sysbench]
 duration: 5m
 tier: 2

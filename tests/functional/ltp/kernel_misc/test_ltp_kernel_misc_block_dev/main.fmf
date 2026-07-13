@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - kernel_misc - block_dev
+summary: Functional test - LTP - kernel_misc - block_dev
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - kernel_misc
+ - functional
+ - ltp
+ - kernel_misc
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/kernel_misc/test_ltp_kernel_misc_block_dev
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

@@ -1,11 +1,11 @@
-summary: bc - ��������
+summary: Functional test - bc - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - bc
+ - functional
+ - bc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/bc/test_bc_basic
 
 require:
-  - beakerlib
+ - beakerlib

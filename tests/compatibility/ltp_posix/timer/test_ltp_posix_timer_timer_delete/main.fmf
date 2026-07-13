@@ -1,13 +1,13 @@
-summary: 兼容性测试 - LTP POSIX - timer/timer_delete
+summary: Compatibility test - LTP POSIX - timer/timer_delete
 test: ./test.sh
 tag:
-  - compatibility
-  - posix
-  - timer
+ - compatibility
+ - posix
+ - timer
 duration: 3m
 tier: 2
 path: /tests/compatibility/ltp_posix/timer/test_ltp_posix_timer_timer_delete
 require:
-  - beakerlib
-  - gcc
-  - make
+ - beakerlib
+ - gcc
+ - make

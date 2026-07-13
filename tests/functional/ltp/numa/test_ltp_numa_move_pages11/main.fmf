@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - numa - move_pages11
+summary: Functional test - LTP - numa - move_pages11
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - numa
+ - functional
+ - ltp
+ - numa
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/numa/test_ltp_numa_move_pages11
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

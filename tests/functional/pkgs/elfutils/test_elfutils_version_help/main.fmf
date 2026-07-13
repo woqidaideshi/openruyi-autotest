@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - elfutils - 鐗堟湰鍜屽府鍔?
+summary: Functional test - elfutils - version and help
 test: ./test.sh
 tag:
-  - functional
-  - elfutils
+ - functional
+ - elfutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/elfutils/test_elfutils_version_help
 require:
-  - elfutils
-  - beakerlib
+ - elfutils
+ - beakerlib

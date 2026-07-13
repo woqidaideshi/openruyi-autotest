@@ -1,12 +1,12 @@
-﻿summary: 性能测试 - mmtests - buildtest-hpc-mpfr
+﻿summary: Performance test - mmtests - buildtest-hpc-mpfr
 test: ./test.sh
 tag:
-  - performance
-  - kernel
-  - mmtests
+ - performance
+ - kernel
+ - mmtests
 duration: 30m
 tier: 1
 path: /tests/performance/mmtests/test_mmtests_buildtest_hpc_mpfr
 require:
-  - mmtests
-  - beakerlib
+ - mmtests
+ - beakerlib

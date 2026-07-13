@@ -1,12 +1,12 @@
-summary: 冒烟测试 - archive 功能验证
+summary: Smoke test - archive functionality verification
 tag:
-  - smoke
-  - archive
+ - smoke
+ - archive
 duration: 2m
 tier: 0
 path: /tests/smoke/archive
 require:
-  - beakerlib
-  - tar
-  - gzip
-  - xz
+ - beakerlib
+ - tar
+ - gzip
+ - xz

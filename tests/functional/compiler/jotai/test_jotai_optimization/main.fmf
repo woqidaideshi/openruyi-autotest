@@ -1,4 +1,4 @@
-summary: 功能测试 - jotai - 优化级别 (-O0/-O1/-O2/-O3/-Os/-Ofast)
+summary: Functional test - jotai - optimizationlevel (-O0/-O1/-O2/-O3/-Os/-Ofast)
 test: ./test.sh
 tag: [functional, compiler, jotai]
 duration: 5m

@@ -1,13 +1,13 @@
-summary: 性能测试 - UnixBench 半核并行基准测试
+summary: Performance test - UnixBench halfcoreandlinesbenchmark
 test: ./test.sh
 tag:
-  - performance
-  - unixbench
+ - performance
+ - unixbench
 duration: 10m
 tier: 2
 path: /tests/performance/unixbench/test_unixbench_half_cpu
 require:
-  - beakerlib
-  - gcc
-  - make
-  - perl
+ - beakerlib
+ - gcc
+ - make
+ - perl

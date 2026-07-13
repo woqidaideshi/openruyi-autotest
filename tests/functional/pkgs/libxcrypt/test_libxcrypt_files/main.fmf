@@ -1,11 +1,11 @@
-summary: libxcrypt - �ļ���֤
+summary: Functional test - libxcrypt - file verification
 test: ./test.sh
 tag:
-  - functional
-  - libxcrypt
+ - functional
+ - libxcrypt
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libxcrypt/test_libxcrypt_files
 
 require:
-  - beakerlib
+ - beakerlib

@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - net-ipv6 - tcpdump601
+summary: Functional test - LTP - net-ipv6 - tcpdump601
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - net-ipv6
+ - functional
+ - ltp
+ - net-ipv6
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/net-ipv6/test_ltp_net-ipv6_tcpdump601
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

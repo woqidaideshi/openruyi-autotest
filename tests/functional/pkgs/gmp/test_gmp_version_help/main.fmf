@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - gmp - 鐗堟湰鍜屽府鍔?
+summary: Functional test - gmp - version and help
 test: ./test.sh
 tag:
-  - functional
-  - gmp
+ - functional
+ - gmp
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/gmp/test_gmp_version_help
 require:
-  - gmp
-  - beakerlib
+ - gmp
+ - beakerlib

@@ -1,11 +1,11 @@
-summary: openssl - ��ϣ/ժҪ
+summary: Functional test - openssl - hash computation
 test: ./test.sh
 tag:
-  - functional
-  - openssl
+ - functional
+ - openssl
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssl/test_openssl_hash
 
 require:
-  - beakerlib
+ - beakerlib

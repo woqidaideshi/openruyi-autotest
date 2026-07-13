@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - sed - 琛屾搷浣?
+summary: Functional test - sed - linesoperation
 test: ./test.sh
 tag:
-  - functional
-  - sed
+ - functional
+ - sed
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/sed/test_sed_line_operations
 require:
-  - sed
-  - beakerlib
+ - sed
+ - beakerlib

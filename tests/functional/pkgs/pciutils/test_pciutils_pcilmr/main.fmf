@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - pciutils - pcilmr
+summary: Functional test - pciutils - pcilmr
 test: ./test.sh
 tag:
-  - functional
-  - pciutils
+ - functional
+ - pciutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pciutils/test_pciutils_pcilmr
 require:
-  - pciutils
-  - beakerlib
+ - pciutils
+ - beakerlib
