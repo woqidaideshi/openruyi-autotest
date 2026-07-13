@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: chkconfig - error handling��
+# Functional test: chkconfig - error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,8 +13,8 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "error handling��"
- rlRun "chkconfig --list 2>&1 | head -10 || true" 0 "�г�����"
+ rlPhaseStartTest "error handling"
+ rlRun "chkconfig --list 2>&1 | head -10 || true" 0 "Service runlevel configuration"
  rlPhaseEnd
 
 

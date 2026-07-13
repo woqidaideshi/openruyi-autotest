@@ -14,8 +14,8 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "rpm error handling"
- rlRun "rpm --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "��Ч����"
- rlRun "rpm -q /nonexistent_file 2>&1 | grep -qiE \"No such|cannot|error\" || echo error-ok" 0 "��ѯ�����ڵİ�"
+ rlRun "rpm --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "Ч"
+ rlRun "rpm -q /nonexistent_file 2>&1 | grep -qiE \"No such|cannot|error\" || echo error-ok" 0 "ѯڵİ"
  rlPhaseEnd
 
 

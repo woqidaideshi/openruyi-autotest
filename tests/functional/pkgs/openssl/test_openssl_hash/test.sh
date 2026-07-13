@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: openssl - ��ϣ����
+# Functional test: openssl -ϣ
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,10 +13,10 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "��ϣ����"
+ rlPhaseStartTest "ϣ"
  rlRun "TmpDir=$(mktemp -d)" 0 "error handlingʱĿ¼"
  rlRun "cd $TmpDir" 0 "error handlingdirectory"
- rlRun "echo \"test data\" > testfile" 0 "error handling���ļ�"
+ rlRun "echo \"test data\" > testfile" 0 "error handlingļ"
  rlRun "openssl dgst -md5 testfile" 0 "MD5 ժҪ"
  rlRun "openssl dgst -sha256 testfile" 0 "SHA256 ժҪ"
  rlRun "openssl dgst -sha512 testfile" 0 "SHA512 ժҪ"

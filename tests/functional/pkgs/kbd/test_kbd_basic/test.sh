@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: kbd - error handling��
+# Functional test: kbd - error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,11 +13,11 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "error handling��"
- rlRun "dumpkeys --help 2>&1 | head -10" 0 "dumpkeys ����"
- rlRun "showkey --help 2>&1 | head -10" 0 "showkey ����"
- rlRun "loadkeys --help 2>&1 | head -10" 0 "loadkeys ����"
- rlRun "setfont --help 2>&1 | head -10" 0 "setfont ����"
+ rlPhaseStartTest "error handling"
+ rlRun "dumpkeys --help 2>&1 | head -10" 0 "Keyboard mapping"
+ rlRun "showkey --help 2>&1 | head -10" 0 "Keyboard mapping"
+ rlRun "loadkeys --help 2>&1 | head -10" 0 "Keyboard mapping"
+ rlRun "setfont --help 2>&1 | head -10" 0 "Keyboard configuration"
  rlPhaseEnd
 
 

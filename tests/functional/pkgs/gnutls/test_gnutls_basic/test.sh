@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: gnutls - error handling��
+# Functional test: gnutls - error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,10 +13,10 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "error handling��"
+ rlPhaseStartTest "error handling"
 rlRun() { eval "$1" 2>&1; return $?; }
- rlRun "certtool --help 2>&1 | head -10" 0 "certtool ����"
- rlRun "gnutls-cli --help 2>&1 | head -10" 0 "gnutls-cli ����"
+ rlRun "certtool --help 2>&1 | head -10" 0 "Certificate tool operation"
+ rlRun "gnutls-cli --help 2>&1 | head -10" 0 "GnuTLS operation"
  rlPhaseEnd
 
 

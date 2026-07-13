@@ -14,10 +14,10 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "error handling"
- rlRun "cmp --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "���� cmp ��Чerror handling����"
- rlRun "diff --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "���� diff ��Чerror handling����"
- rlRun "diff3 --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "���� diff3 ��Чerror handling����"
- rlRun "sdiff --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "���� sdiff ��Чerror handling����"
+ rlRun "cmp --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " cmp Чerror handling"
+ rlRun "diff --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " diff Чerror handling"
+ rlRun "diff3 --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " diff3 Чerror handling"
+ rlRun "sdiff --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " sdiff Чerror handling"
  rlPhaseEnd
 
 

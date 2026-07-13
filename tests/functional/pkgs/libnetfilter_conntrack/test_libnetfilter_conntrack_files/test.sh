@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: libnetfilter_conntrack - �ļ���֤
+# Functional test: libnetfilter_conntrack -ļ֤
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,10 +13,10 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "�ļ���֤"
- rlRun "ls /usr/lib64/libnetfilter_conntrack.so.3* 2>/dev/null || ls /usr/lib/libnetfilter_conntrack.so.3* 2>/dev/null || echo \"not in standard path\"" 0 "��� libnetfilter_conntrack.so.3"
- rlRun "ls /usr/lib64/libnetfilter_conntrack.so.3.8.0* 2>/dev/null || ls /usr/lib/libnetfilter_conntrack.so.3.8.0* 2>/dev/null || echo \"not in standard path\"" 0 "��� libnetfilter_conntrack.so.3.8.0"
- rlRun "pkg-config --libs libnetfilter_conntrack 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "pkg-config ����Ϣ"
+ rlPhaseStartTest "ļ֤"
+ rlRun "ls /usr/lib64/libnetfilter_conntrack.so.3* 2>/dev/null || ls /usr/lib/libnetfilter_conntrack.so.3* 2>/dev/null || echo \"not in standard path\"" 0 " libnetfilter_conntrack.so.3"
+ rlRun "ls /usr/lib64/libnetfilter_conntrack.so.3.8.0* 2>/dev/null || ls /usr/lib/libnetfilter_conntrack.so.3.8.0* 2>/dev/null || echo \"not in standard path\"" 0 " libnetfilter_conntrack.so.3.8.0"
+ rlRun "pkg-config --libs libnetfilter_conntrack 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "pkg-config Ϣ"
  rlPhaseEnd
 
 

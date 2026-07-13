@@ -14,8 +14,8 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "e2fsprogs error handling"
- rlRun "e2fsck --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "��Ч����"
- rlRun "mke2fs --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "mke2fs ��Ч����"
+ rlRun "e2fsck --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "Ч"
+ rlRun "mke2fs --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "mke2fs Ч"
  rlPhaseEnd
 
 

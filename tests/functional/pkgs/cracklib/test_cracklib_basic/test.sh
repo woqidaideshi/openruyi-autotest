@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: cracklib - error handling��
+# Functional test: cracklib - error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,10 +13,10 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "error handling��"
- rlRun "echo \"password\" | cracklib-check" 0 "error handling���"
- rlRun "echo \"Str0ng!Pass\" | cracklib-check" 0 "���ǿ����"
- rlRun "echo \"abc\" | cracklib-check" 0 "error handling��"
+ rlPhaseStartTest "error handling"
+ rlRun "echo \"password\" | cracklib-check" 0 "error handling"
+ rlRun "echo \"Str0ng!Pass\" | cracklib-check" 0 "ǿ"
+ rlRun "echo \"abc\" | cracklib-check" 0 "error handling"
  rlPhaseEnd
 
 

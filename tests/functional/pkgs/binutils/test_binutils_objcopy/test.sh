@@ -16,10 +16,10 @@ rlJournalStart
  rlPhaseStartTest "objcopy"
  rlRun "TmpDir=$(mktemp -d)" 0 "error handlingʱĿ¼"
  rlRun "cd $TmpDir" 0 "error handlingdirectory"
- rlRun "cp /usr/bin/ls ." 0 "���Ʋ����ļ�"
- rlRun "objcopy --help 2>&1 | head -10" 0 "objcopy ����"
- rlRun "strip --help 2>&1 | head -10" 0 "strip ����"
- rlRun "strip ls 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "strip �ļ�"
+ rlRun "cp /usr/bin/ls ." 0 "List files"
+ rlRun "objcopy --help 2>&1 | head -10" 0 "Copy and convert object files"
+ rlRun "strip --help 2>&1 | head -10" 0 "Strip symbols from binary"
+ rlRun "strip ls 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "strip ļ"
  rlPhaseEnd
 
 

@@ -14,7 +14,7 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "error handling"
- rlRun "cracklib-check --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "��Ч����"
+ rlRun "cracklib-check --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "Ч"
  rlPhaseEnd
 
 

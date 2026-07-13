@@ -14,10 +14,10 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "binutils error handling"
- rlRun "nm /nonexistent_file 2>&1 | grep -qiE \"No such|cannot|error\" || echo error-ok" 0 "nm �����ڵ��ļ�"
- rlRun "objdump /nonexistent_file 2>&1 | grep -qiE \"No such|cannot|error\" || echo error-ok" 0 "objdump �����ڵ��ļ�"
- rlRun "readelf /nonexistent_file 2>&1 | grep -qiE \"No such|cannot|error\" || echo error-ok" 0 "readelf �����ڵ��ļ�"
- rlRun "nm --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "nm ��Ч����"
+ rlRun "nm /nonexistent_file 2>&1 | grep -qiE \"No such|cannot|error\" || echo error-ok" 0 "nm ڵļ"
+ rlRun "objdump /nonexistent_file 2>&1 | grep -qiE \"No such|cannot|error\" || echo error-ok" 0 "objdump ڵļ"
+ rlRun "readelf /nonexistent_file 2>&1 | grep -qiE \"No such|cannot|error\" || echo error-ok" 0 "readelf ڵļ"
+ rlRun "nm --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "nm Ч"
  rlPhaseEnd
 
 

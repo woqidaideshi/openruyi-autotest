@@ -14,9 +14,9 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "error handling"
- rlRun "bc --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "bc ��Ч����"
- rlRun "dc --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "dc ��Ч����"
- rlRun "echo \"1/0\" | bc 2>&1 || true" 0 "bc error handling�"
+ rlRun "bc --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "bc Ч"
+ rlRun "dc --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "dc Ч"
+ rlRun "echo \"1/0\" | bc 2>&1 || true" 0 "bc error handling"
  rlPhaseEnd
 
 

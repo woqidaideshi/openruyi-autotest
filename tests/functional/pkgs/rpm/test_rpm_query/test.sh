@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: rpm - rpm ��ѯ
+# Functional test: rpm - rpmѯ
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,14 +13,14 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "rpm ��ѯ"
+ rlPhaseStartTest "rpmѯ"
 rlRun() { eval "$1" 2>&1; return $?; }
- rlRun "rpm --help 2>&1 | head -10" 0 "rpm ����"
- rlRun "rpm -qa 2>&1 | head -10" 0 "�г����а�"
- rlRun "rpm -qi rpm 2>&1 | head -10" 0 "��ѯ����Ϣ"
- rlRun "rpm -ql rpm 2>&1 | head -10" 0 "�г����ļ�"
- rlRun "rpm -qc rpm 2>&1" 0 "�гerror handlingļ�"
- rlRun "rpm -qd rpm 2>&1 | head -5" 0 "�г��ĵ�"
+ rlRun "rpm --help 2>&1 | head -10" 0 "RPM package operation"
+ rlRun "rpm -qa 2>&1 | head -10" 0 "List installed packages"
+ rlRun "rpm -qi rpm 2>&1 | head -10" 0 "Query package info"
+ rlRun "rpm -ql rpm 2>&1 | head -10" 0 "List package files"
+ rlRun "rpm -qc rpm 2>&1" 0 "RPM package operation"
+ rlRun "rpm -qd rpm 2>&1 | head -5" 0 "RPM package operation"
  rlPhaseEnd
 
 

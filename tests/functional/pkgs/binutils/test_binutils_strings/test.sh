@@ -14,8 +14,8 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "strings"
- rlRun "strings /usr/bin/ls 2>&1 | head -10" 0 "��ȡ ls �ַ���"
- rlRun "strings -n 8 /usr/bin/ls 2>&1 | head -10" 0 "��ȡ���ַ���"
+ rlRun "strings /usr/bin/ls 2>&1 | head -10" 0 "List files"
+ rlRun "strings -n 8 /usr/bin/ls 2>&1 | head -10" 0 "List files"
  rlPhaseEnd
 
 

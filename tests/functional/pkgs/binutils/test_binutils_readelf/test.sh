@@ -15,8 +15,8 @@ rlJournalStart
 
  rlPhaseStartTest "readelf"
  rlRun "readelf -h /usr/bin/ls 2>&1 | head -20" 0 "ELF ͷ"
- rlRun "readelf -S /usr/bin/ls 2>&1 | head -20" 0 "��ͷ��"
- rlRun "readelf -d /usr/bin/ls 2>&1 | head -10" 0 "��̬��"
+ rlRun "readelf -S /usr/bin/ls 2>&1 | head -20" 0 "List files"
+ rlRun "readelf -d /usr/bin/ls 2>&1 | head -10" 0 "List files"
  rlPhaseEnd
 
 

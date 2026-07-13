@@ -14,7 +14,7 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "error handling"
- rlRun "brotli --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "���� brotli ��Чerror handling����"
+ rlRun "brotli --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " brotli Чerror handling"
  rlPhaseEnd
 
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: icu4c - icu4c error handling��
+# Functional test: icu4c - icu4c error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,9 +13,9 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "icu4c error handling��"
- rlRun "icuinfo 2>&1 | head -10 || true" 0 "��ʾ ICU ��Ϣ"
- rlRun "echo \"test\" | uconv -f UTF-8 -t UTF-8" 0 "uconv ת�����"
+ rlPhaseStartTest "icu4c error handling"
+ rlRun "icuinfo 2>&1 | head -10 || true" 0 "ICU operation"
+ rlRun "echo \"test\" | uconv -f UTF-8 -t UTF-8" 0 "uconv ת"
  rlPhaseEnd
 
 

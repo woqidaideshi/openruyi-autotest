@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: iproute2 - iproute2 error handling��
+# Functional test: iproute2 - iproute2 error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,13 +13,13 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "iproute2 error handling��"
- rlRun "ip addr show 2>&1 | head -10" 0 "��ʾ�����ַ"
- rlRun "ip link show 2>&1 | head -10" 0 "��ʾerror handling��"
- rlRun "ip route show 2>&1 | head -5" 0 "��ʾ·�ɱ�"
- rlRun "ss --help 2>&1 | head -10" 0 "ss ����"
- rlRun "ss -tln 2>&1 | head -10" 0 "��ʾ�����˿�"
- rlRun "tc --help 2>&1 | head -10" 0 "tc ����"
+ rlPhaseStartTest "iproute2 error handling"
+ rlRun "ip addr show 2>&1 | head -10" 0 "Show network addresses"
+ rlRun "ip link show 2>&1 | head -10" 0 "Show network interfaces"
+ rlRun "ip route show 2>&1 | head -5" 0 "Show routing table"
+ rlRun "ss --help 2>&1 | head -10" 0 "Socket statistics"
+ rlRun "ss -tln 2>&1 | head -10" 0 "Socket statistics"
+ rlRun "tc --help 2>&1 | head -10" 0 "Traffic control"
  rlPhaseEnd
 
 

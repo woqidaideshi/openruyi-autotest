@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: dbus - error handling��
+# Functional test: dbus - error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,9 +13,9 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "error handling��"
- rlRun "dbus-launch --help 2>&1 | head -10" 0 "dbus-launch ����"
- rlRun "dbus-send --help 2>&1 | head -10" 0 "dbus-send ����"
+ rlPhaseStartTest "error handling"
+ rlRun "dbus-launch --help 2>&1 | head -10" 0 "D-Bus operation"
+ rlRun "dbus-send --help 2>&1 | head -10" 0 "D-Bus operation"
  rlPhaseEnd
 
 

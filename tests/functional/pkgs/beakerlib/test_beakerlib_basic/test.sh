@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: beakerlib - beakerlib error handling��
+# Functional test: beakerlib - beakerlib error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,10 +13,10 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "beakerlib error handling��"
- rlRun "beakerlib-deja-summarize --help 2>&1 | head -10" 0 "summarize ����"
- rlRun "beakerlib-journalcmp --help 2>&1 | head -10" 0 "journalcmp ����"
- rlRun "beakerlib-testwatcher --help 2>&1 | head -10" 0 "testwatcher ����"
+ rlPhaseStartTest "beakerlib error handling"
+ rlRun "beakerlib-deja-summarize --help 2>&1 | head -10" 0 "Display first lines"
+ rlRun "beakerlib-journalcmp --help 2>&1 | head -10" 0 "Compare files byte by byte"
+ rlRun "beakerlib-testwatcher --help 2>&1 | head -10" 0 "Display first lines"
  rlPhaseEnd
 
 

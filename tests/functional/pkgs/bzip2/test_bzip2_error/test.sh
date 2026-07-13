@@ -14,8 +14,8 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "error handling"
- rlRun "bzip2 --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "��Ч����"
- rlRun "bzip2 /nonexistent_file 2>&1 | grep -qiE \"No such|cannot|error\" || echo error-ok" 0 "�����ڵ��ļ�"
+ rlRun "bzip2 --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "Ч"
+ rlRun "bzip2 /nonexistent_file 2>&1 | grep -qiE \"No such|cannot|error\" || echo error-ok" 0 "ڵļ"
  rlPhaseEnd
 
 

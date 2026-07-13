@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: glib - error handling��
+# Functional test: glib - error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,8 +13,8 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "error handling��"
- rlRun "gsettings list-schemas 2>&1 | head -5 || true" 0 "�г� GSettings ģʽ"
+ rlPhaseStartTest "error handling"
+ rlRun "gsettings list-schemas 2>&1 | head -5 || true" 0 "Display first lines"
  rlPhaseEnd
 
 

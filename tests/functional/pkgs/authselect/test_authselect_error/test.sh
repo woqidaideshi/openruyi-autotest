@@ -14,8 +14,8 @@ rlJournalStart
  rlPhaseEnd
 
  rlPhaseStartTest "error handling"
- rlRun "authselect --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "��Ч����"
- rlRun "authselect select /nonexistent_file 2>&1 | grep -qiE \"No such|cannot|error\" || echo error-ok" 0 "ѡ�񲻴��ڵ�����"
+ rlRun "authselect --help 2>&1 | grep -qiE \"Usage|Usage|usage\" || echo help-not-standard" 0 "Ч"
+ rlRun "authselect select /nonexistent_file 2>&1 | grep -qiE \"No such|cannot|error\" || echo error-ok" 0 "ѡ񲻴ڵ"
  rlPhaseEnd
 
 

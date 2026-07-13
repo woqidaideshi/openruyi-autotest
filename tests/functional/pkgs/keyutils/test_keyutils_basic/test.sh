@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: keyutils - error handling��
+# Functional test: keyutils - error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,9 +13,9 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "error handling��"
- rlRun "keyctl show 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "��ʾ��ǰ��Կ"
- rlRun "keyctl list @u 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "�г��û���Կ"
+ rlPhaseStartTest "error handling"
+ rlRun "keyctl show 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "ʾǰԿ"
+ rlRun "keyctl list @u 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "гûԿ"
  rlPhaseEnd
 
 

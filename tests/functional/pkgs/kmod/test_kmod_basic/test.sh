@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: kmod - error handling��
+# Functional test: kmod - error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,10 +13,10 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "error handling��"
- rlRun "lsmod 2>&1 | head -10" 0 "�г����ص�ģ��"
- rlRun "modinfo --help 2>&1 | head -10" 0 "modinfo ����"
- rlRun "modprobe --help 2>&1 | head -10" 0 "modprobe ����"
+ rlPhaseStartTest "error handling"
+ rlRun "lsmod 2>&1 | head -10" 0 "Kernel module operation"
+ rlRun "modinfo --help 2>&1 | head -10" 0 "Module information query"
+ rlRun "modprobe --help 2>&1 | head -10" 0 "Kernel module operation"
  rlPhaseEnd
 
 

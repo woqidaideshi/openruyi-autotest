@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: vim - error handling��
+# Functional test: vim - error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,9 +13,9 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "error handling��"
+ rlPhaseStartTest "error handling"
  rlRun "echo test | vim - -c \"wq! /tmp/vimtest\" 2>&1 || true" 0 "vim error handlingģʽ"
- rlRun "test -f /tmp/vimtest && rm -f /tmp/vimtest || true" 0 "��֤vim�����ļ�"
+ rlRun "test -f /tmp/vimtest && rm -f /tmp/vimtest || true" 0 "Test operation"
  rlPhaseEnd
 
 

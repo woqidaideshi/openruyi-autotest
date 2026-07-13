@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: libevent - �ļ���֤
+# Functional test: libevent -ļ֤
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,13 +13,13 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "�ļ���֤"
- rlRun "ls /usr/lib64/libevent-2.1.so.7* 2>/dev/null || ls /usr/lib/libevent-2.1.so.7* 2>/dev/null || echo \"not in standard path\"" 0 "��� libevent-2.1.so.7"
- rlRun "ls /usr/lib64/libevent-2.1.so.7.0.1* 2>/dev/null || ls /usr/lib/libevent-2.1.so.7.0.1* 2>/dev/null || echo \"not in standard path\"" 0 "��� libevent-2.1.so.7.0.1"
- rlRun "ls /usr/lib64/libevent_core-2.1.so.7* 2>/dev/null || ls /usr/lib/libevent_core-2.1.so.7* 2>/dev/null || echo \"not in standard path\"" 0 "��� libevent_core-2.1.so.7"
- rlRun "ls /usr/lib64/libevent_core-2.1.so.7.0.1* 2>/dev/null || ls /usr/lib/libevent_core-2.1.so.7.0.1* 2>/dev/null || echo \"not in standard path\"" 0 "��� libevent_core-2.1.so.7.0.1"
- rlRun "ls /usr/lib64/libevent_extra-2.1.so.7* 2>/dev/null || ls /usr/lib/libevent_extra-2.1.so.7* 2>/dev/null || echo \"not in standard path\"" 0 "��� libevent_extra-2.1.so.7"
- rlRun "pkg-config --libs libevent 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "pkg-config ����Ϣ"
+ rlPhaseStartTest "ļ֤"
+ rlRun "ls /usr/lib64/libevent-2.1.so.7* 2>/dev/null || ls /usr/lib/libevent-2.1.so.7* 2>/dev/null || echo \"not in standard path\"" 0 " libevent-2.1.so.7"
+ rlRun "ls /usr/lib64/libevent-2.1.so.7.0.1* 2>/dev/null || ls /usr/lib/libevent-2.1.so.7.0.1* 2>/dev/null || echo \"not in standard path\"" 0 " libevent-2.1.so.7.0.1"
+ rlRun "ls /usr/lib64/libevent_core-2.1.so.7* 2>/dev/null || ls /usr/lib/libevent_core-2.1.so.7* 2>/dev/null || echo \"not in standard path\"" 0 " libevent_core-2.1.so.7"
+ rlRun "ls /usr/lib64/libevent_core-2.1.so.7.0.1* 2>/dev/null || ls /usr/lib/libevent_core-2.1.so.7.0.1* 2>/dev/null || echo \"not in standard path\"" 0 " libevent_core-2.1.so.7.0.1"
+ rlRun "ls /usr/lib64/libevent_extra-2.1.so.7* 2>/dev/null || ls /usr/lib/libevent_extra-2.1.so.7* 2>/dev/null || echo \"not in standard path\"" 0 " libevent_extra-2.1.so.7"
+ rlRun "pkg-config --libs libevent 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "pkg-config Ϣ"
  rlPhaseEnd
 
 

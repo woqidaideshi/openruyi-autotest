@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: rpm - rpm ��֤
+# Functional test: rpm - rpm֤
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -13,9 +13,9 @@ rlJournalStart
  rlRun "cd $TmpDir" 0 "Enter temporary test directory"
  rlPhaseEnd
 
- rlPhaseStartTest "rpm ��֤"
- rlRun "rpm -V rpm 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "��֤ rpm error handling��"
- rlRun "rpm --import 2>&1 | head -5 || true" 0 "rpm --import ����"
+ rlPhaseStartTest "rpm֤"
+ rlRun "rpm -V rpm 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "֤ rpm error handling"
+ rlRun "rpm --import 2>&1 | head -5 || true" 0 "RPM package operation"
  rlPhaseEnd
 
 
