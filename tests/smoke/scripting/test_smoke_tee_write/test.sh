@@ -6,25 +6,25 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeScriptingSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlRun "echo "data" | tee out.txt > /dev/null" 0 "Create test data"
+    rlPhaseStartSetup "Environment setup"
+    smokeScriptingSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "echo "data" | tee out.txt > /dev/null" 0 "Create test data"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "tee writefile"
- rlRun 'test -f out.txt' 0 "tee writefile"
- rlRun 'grep data out.txt' 0 "tee contentcorrect"
- rlPhaseEnd
+    rlPhaseStartTest "tee writefile"
+    rlRun 'test -f out.txt' 0 "tee writefile"
+    rlRun 'grep data out.txt' 0 "tee contentcorrect"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

@@ -1,5 +1,5 @@
 summary: Functional test - tmux - Cleanup-terminatewill
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - tmux

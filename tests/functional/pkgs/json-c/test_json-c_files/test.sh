@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- jsonCSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    jsonCSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "c -ļ֤"
- rlRun "ls /usr/lib64/libjson-c.so.5* 2>/dev/null || ls /usr/lib/libjson-c.so.5* 2>/dev/null || echo \"not in standard path\"" 0 " libjson-c.so.5"
- rlRun "ls /usr/lib64/libjson-c.so.5.4.0* 2>/dev/null || ls /usr/lib/libjson-c.so.5.4.0* 2>/dev/null || echo \"not in standard path\"" 0 " libjson-c.so.5.4.0"
- rlRun "pkg-config --libs json-c 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "pkg-config Ϣ"
- rlPhaseEnd
+    rlPhaseStartTest "c -ļ֤"
+    rlRun "ls /usr/lib64/libjson-c.so.5* 2>/dev/null || ls /usr/lib/libjson-c.so.5* 2>/dev/null || echo \"not in standard path\"" 0 " libjson-c.so.5"
+    rlRun "ls /usr/lib64/libjson-c.so.5.4.0* 2>/dev/null || ls /usr/lib/libjson-c.so.5.4.0* 2>/dev/null || echo \"not in standard path\"" 0 " libjson-c.so.5.4.0"
+    rlRun "pkg-config --libs json-c 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "pkg-config Ϣ"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # json-c Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # json-c Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

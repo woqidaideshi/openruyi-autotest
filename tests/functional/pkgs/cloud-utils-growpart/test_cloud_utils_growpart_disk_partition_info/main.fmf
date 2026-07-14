@@ -1,5 +1,5 @@
 summary: Functional test - cloud-utils-growpart partition expansion - /partitioninfo
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - cloud-utils-growpart

@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeNetworkSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeNetworkSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "wget version"
- rlRun 'wget --version 2>&1 || true' 0 "wget version"
- rlRun 'wget --timeout=5 --spider http://example.com 2>&1 || true' 0 "wget spidermode"
- rlPhaseEnd
+    rlPhaseStartTest "wget version"
+    rlRun 'wget --version 2>&1 || true' 0 "wget version"
+    rlRun 'wget --timeout=5 --spider http://example.com 2>&1 || true' 0 "wget spidermode"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

@@ -4,12 +4,12 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- yarpgenSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 ""
+    rlPhaseStartSetup "Environment setup"
+    yarpgenSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 ""
 
- cat > tls_c.c << 'CEOF'
+    cat > tls_c.c << 'CEOF'
 #include <stdio.h>
 #include <stdlib.h>
 __thread int tls_var = 0;
@@ -29,7 +29,7 @@ int main(void){
 }
 CEOF
 
- cat > tls_cpp.cpp << 'CEOF'
+    cat > tls_cpp.cpp << 'CEOF'
 #include <iostream>
 #include <string>
 using namespace std;
@@ -44,27 +44,27 @@ int main(){
  cout<<"TLS_CPP_OK"<<endl;return 0;
 }
 CEOF
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "GCC __thread"
- rlRun "gcc -std=c11 -o tls_c_gcc tls_c.c && ./tls_c_gcc | grep TLS_C_OK" 0 "GCC __thread runcorrect"
- rlRun "gcc -std=c11 -o tls_c_gcc tls_c.c -lpthread" 0 "GCC __thread -lpthread compile"
- rlPhaseEnd
+    rlPhaseStartTest "GCC __thread"
+    rlRun "gcc -std=c11 -o tls_c_gcc tls_c.c && ./tls_c_gcc | grep TLS_C_OK" 0 "GCC __thread runcorrect"
+    rlRun "gcc -std=c11 -o tls_c_gcc tls_c.c -lpthread" 0 "GCC __thread -lpthread compile"
+    rlPhaseEnd
 
- rlPhaseStartTest "G++ thread_local"
- rlRun "g++ -std=c++17 -o tls_cpp_gxx tls_cpp.cpp && ./tls_cpp_gxx | grep TLS_CPP_OK" 0 "G++ thread_local runcorrect"
- rlPhaseEnd
+    rlPhaseStartTest "G++ thread_local"
+    rlRun "g++ -std=c++17 -o tls_cpp_gxx tls_cpp.cpp && ./tls_cpp_gxx | grep TLS_CPP_OK" 0 "G++ thread_local runcorrect"
+    rlPhaseEnd
 
- rlPhaseStartTest "Clang __thread"
- rlRun "clang -std=c11 -o tls_c_clang tls_c.c && ./tls_c_clang | grep TLS_C_OK" 0 "Clang __thread runcorrect"
- rlPhaseEnd
+    rlPhaseStartTest "Clang __thread"
+    rlRun "clang -std=c11 -o tls_c_clang tls_c.c && ./tls_c_clang | grep TLS_C_OK" 0 "Clang __thread runcorrect"
+    rlPhaseEnd
 
- rlPhaseStartTest "Clang++ thread_local"
- rlRun "clang++ -std=c++17 -o tls_cpp_clang tls_cpp.cpp && ./tls_cpp_clang | grep TLS_CPP_OK" 0 "Clang++ thread_local runcorrect"
- rlPhaseEnd
+    rlPhaseStartTest "Clang++ thread_local"
+    rlRun "clang++ -std=c++17 -o tls_cpp_clang tls_cpp.cpp && ./tls_cpp_clang | grep TLS_CPP_OK" 0 "Clang++ thread_local runcorrect"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Cleanup"
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
- rlPhaseEnd
- rlJournalPrintText
+    rlPhaseStartCleanup "Cleanup"
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlPhaseEnd
+    rlJournalPrintText
 rlJournalEnd

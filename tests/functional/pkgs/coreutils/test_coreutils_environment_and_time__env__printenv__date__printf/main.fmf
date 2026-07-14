@@ -1,5 +1,5 @@
 summary: Functional test - coreutils - environment variables and time env printenv printf
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - coreutils

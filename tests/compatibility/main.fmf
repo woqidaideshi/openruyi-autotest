@@ -6,7 +6,7 @@ tier: 2
 path: /tests/compatibility
 require:
  - beakerlib
-hardware-require:
+extra-hardware-require:
  server: 1
  cpu: ">= 4"
  memory: ">= 8 GiB"

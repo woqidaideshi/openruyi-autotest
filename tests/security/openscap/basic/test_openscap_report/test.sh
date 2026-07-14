@@ -7,20 +7,20 @@
 . "$(dirname $0)/../../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment Setup"
- openscapSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter tmp dir"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment Setup"
+    openscapSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter tmp dir"
+    rlPhaseEnd
 
- rlPhaseStartTest "openscap - report"
- rlRun "_openscapEval" 0 "Run verify HTML reportGenerate"
- rlPhaseEnd
+    rlPhaseStartTest "openscap - report"
+    rlRun "_openscapEval" 0 "Run verify HTML reportGenerate"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Cleanup"
- rlRun "cd /" 0 "Leave tmp dir"
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean tmp"
- rlPhaseEnd
+    rlPhaseStartCleanup "Cleanup"
+    rlRun "cd /" 0 "Leave tmp dir"
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean tmp"
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

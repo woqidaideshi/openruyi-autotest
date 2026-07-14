@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- findutilsSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    findutilsSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "find-Executeoperation"
- rlRun "find . -name \"f1.txt\" -exec cat {} \;" 0 "find -exec: Executecommand"
- rlRun "find . -name \"*.txt\" -delete" 0 "find -delete: deletefile"
- rlRun "test ! -f a/f1.txt" 0 "find -delete: verifydelete"
- rlPhaseEnd
+    rlPhaseStartTest "find-Executeoperation"
+    rlRun "find . -name \"f1.txt\" -exec cat {} \;" 0 "find -exec: Executecommand"
+    rlRun "find . -name \"*.txt\" -delete" 0 "find -delete: deletefile"
+    rlRun "test ! -f a/f1.txt" 0 "find -delete: verifydelete"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # findutils Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # findutils Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

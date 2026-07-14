@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- lessSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    lessSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "error handling"
- rlRun "less --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " less Чerror handling"
- rlRun "lessecho --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " lessecho Чerror handling"
- rlRun "lesskey --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " lesskey Чerror handling"
- rlPhaseEnd
+    rlPhaseStartTest "error handling"
+    rlRun "less --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " less Чerror handling"
+    rlRun "lessecho --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " lessecho Чerror handling"
+    rlRun "lesskey --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " lesskey Чerror handling"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # less Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # less Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

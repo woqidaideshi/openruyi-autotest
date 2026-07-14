@@ -6,20 +6,20 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeProcessSetup
- rlRun "sleep 1 &" 0 "Prepare environment"
- rlRun "wait" 0 "Prepare environment"
+    rlPhaseStartSetup "Environment setup"
+    smokeProcessSetup
+    rlRun "sleep 1 &" 0 "Prepare environment"
+    rlRun "wait" 0 "Prepare environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "jobs list background jobs"
- rlRun 'jobs' 0 "jobs list background jobs"
- rlPhaseEnd
+    rlPhaseStartTest "jobs list background jobs"
+    rlRun 'jobs' 0 "jobs list background jobs"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

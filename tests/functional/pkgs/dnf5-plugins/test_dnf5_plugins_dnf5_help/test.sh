@@ -7,24 +7,24 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- dnf5PluginsSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    dnf5PluginsSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "plugins - dnf5-help"
- rlRun "dnf5 --help 2>&1 | head -20" 0 "dnf5 help"
- rlPhaseEnd
+    rlPhaseStartTest "plugins - dnf5-help"
+    rlRun "dnf5 --help 2>&1 | head -20" 0 "dnf5 help"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # dnf5-plugins Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # dnf5-plugins Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

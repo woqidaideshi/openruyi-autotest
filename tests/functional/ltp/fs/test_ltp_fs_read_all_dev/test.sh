@@ -7,21 +7,21 @@
 . "$(dirname "$0")/../../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- ltpSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    ltpSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "LTP fs - read_all_dev"
- rlRun "_ltpRunCase fs read_all_dev" 0 "Execute LTP read_all_dev"
- rlPhaseEnd
+    rlPhaseStartTest "LTP fs - read_all_dev"
+    rlRun "_ltpRunCase fs read_all_dev" 0 "Execute LTP read_all_dev"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Cleanup"
- # LTP Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Cleanup"
+    # LTP Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

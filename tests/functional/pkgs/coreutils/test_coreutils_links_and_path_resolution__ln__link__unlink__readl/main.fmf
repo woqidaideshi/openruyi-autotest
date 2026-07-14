@@ -1,5 +1,5 @@
 summary: Functional test - coreutils - links and path resolution ln link unlink readl
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - coreutils

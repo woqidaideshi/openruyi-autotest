@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeDiskFsSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeDiskFsSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "/etc/fstab exists"
- rlRun 'test -f /etc/fstab' 0 "/etc/fstab exists"
- rlRun 'cat /etc/fstab | head -5' 0 "/etc/fstab readable"
- rlPhaseEnd
+    rlPhaseStartTest "/etc/fstab exists"
+    rlRun 'test -f /etc/fstab' 0 "/etc/fstab exists"
+    rlRun 'cat /etc/fstab | head -5' 0 "/etc/fstab readable"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

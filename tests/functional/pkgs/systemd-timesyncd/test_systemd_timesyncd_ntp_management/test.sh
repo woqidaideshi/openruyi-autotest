@@ -7,27 +7,27 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- systemdTimesyncdSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    systemdTimesyncdSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "timesyncd - NTP-management"
- rlRun "timedatectl show-timesync --property=FallbackNTPServers 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "Fallback NTP servers"
- rlRun "timedatectl show-timesync --property=ServerName 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "Current NTP server"
- rlRun "timedatectl show-timesync --property=ServerAddress 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "Server address"
- rlRun "timedatectl ntp-servers 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "NTP servers list"
- rlPhaseEnd
+    rlPhaseStartTest "timesyncd - NTP-management"
+    rlRun "timedatectl show-timesync --property=FallbackNTPServers 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "Fallback NTP servers"
+    rlRun "timedatectl show-timesync --property=ServerName 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "Current NTP server"
+    rlRun "timedatectl show-timesync --property=ServerAddress 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "Server address"
+    rlRun "timedatectl ntp-servers 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "NTP servers list"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # systemd-timesyncd Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # systemd-timesyncd Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

@@ -1,5 +1,5 @@
 summary: Performance test - fio - linesiscomparison (Direct I/O vs Buffered)
-test:./test.sh
+test: ./test.sh
 tag: [performance, fio]
 duration: 5m
 tier: 2

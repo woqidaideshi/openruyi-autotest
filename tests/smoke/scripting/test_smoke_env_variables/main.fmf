@@ -1,5 +1,5 @@
 summary: Smoke test - env listexportenvironment variables
-test:./test.sh
+test: ./test.sh
 tag:
  - smoke
  - scripting

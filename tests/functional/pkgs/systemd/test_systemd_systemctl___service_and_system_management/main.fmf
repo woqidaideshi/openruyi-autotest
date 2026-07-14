@@ -1,5 +1,5 @@
 summary: Functional test - systemd - systemctl - serviceandsystem
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - systemd

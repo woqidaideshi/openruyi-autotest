@@ -1,5 +1,5 @@
 summary: Functional test - jotai - floating-point (-ffast-math/-frounding-math)
-test:./test.sh
+test: ./test.sh
 tag: [functional, compiler, jotai]
 duration: 5m
 tier: 2

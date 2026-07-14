@@ -1,5 +1,5 @@
 summary: Functional test - systemd-timesyncd - service
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - systemd-timesyncd

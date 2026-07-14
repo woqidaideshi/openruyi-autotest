@@ -1,5 +1,5 @@
 summary: Functional test - vim - check
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - vim

@@ -1,5 +1,5 @@
 summary: Functional test - coreutils - file operations dd truncate shred synchronization instal
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - coreutils

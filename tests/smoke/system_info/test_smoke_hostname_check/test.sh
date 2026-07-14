@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeSystemInfoSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeSystemInfoSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "hostname displayhostname"
- rlRun 'hostname' 0 "hostname displayhostname"
- rlRun 'cat /etc/hostname' 0 "hostname filereadable"
- rlPhaseEnd
+    rlPhaseStartTest "hostname displayhostname"
+    rlRun 'hostname' 0 "hostname displayhostname"
+    rlRun 'cat /etc/hostname' 0 "hostname filereadable"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

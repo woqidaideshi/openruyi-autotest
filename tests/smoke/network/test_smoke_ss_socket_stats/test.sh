@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeNetworkSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeNetworkSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "ss -tln listenTCPport"
- rlRun 'ss -tln' 0 "ss -tln listenTCPport"
- rlRun 'ss -s' 0 "ss -s connectioncount"
- rlPhaseEnd
+    rlPhaseStartTest "ss -tln listenTCPport"
+    rlRun 'ss -tln' 0 "ss -tln listenTCPport"
+    rlRun 'ss -s' 0 "ss -s connectioncount"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

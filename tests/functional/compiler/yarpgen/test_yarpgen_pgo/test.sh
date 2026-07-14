@@ -16,22 +16,22 @@
 rlJournalStart
 
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
 
- yarpgenSetup
+    yarpgenSetup
 
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
 
 
 
 
- cat > pgo_test.c << 'CEOF'
+    cat > pgo_test.c << 'CEOF'
 
 
 #include <stdio.h>
@@ -82,127 +82,127 @@ int main(void){
 CEOF
 
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
 
 
- rlPhaseStartTest "GCC PGO"
+    rlPhaseStartTest "GCC PGO"
 
 
- # Step 1: -fprofile-generate compile
+    # Step 1: -fprofile-generate compile
 
 
- rlRun "gcc -fprofile-generate -o pgo_gen pgo_test.c" 0 "GCC -fprofile-generate compile"
+    rlRun "gcc -fprofile-generate -o pgo_gen pgo_test.c" 0 "GCC -fprofile-generate compile"
 
 
- # Step 2: runproduced profile data
+    # Step 2: runproduced profile data
 
 
- rlRun "./pgo_gen" 0 "GCC PGO trainingrun"
+    rlRun "./pgo_gen" 0 "GCC PGO trainingrun"
 
 
- rlRun "ls *.gcda 2>/dev/null || echo no gcda" 0 "check profile file"
+    rlRun "ls *.gcda 2>/dev/null || echo no gcda" 0 "check profile file"
 
 
- # Step 3: -fprofile-use use profile newcompile
+    # Step 3: -fprofile-use use profile newcompile
 
 
- rlRun "gcc -fprofile-use -o pgo_use pgo_test.c 2>/dev/null" 0 "GCC -fprofile-use compile"
+    rlRun "gcc -fprofile-use -o pgo_use pgo_test.c 2>/dev/null" 0 "GCC -fprofile-use compile"
 
 
- if [ -x./pgo_use ]; then
+    if [ -x./pgo_use ]; then
 
 
- rlRun "./pgo_use | grep PGO_OK" 0 "GCC PGO optimization result correct"
+    rlRun "./pgo_use | grep PGO_OK" 0 "GCC PGO optimization result correct"
 
 
- rlPass "GCC PGO Complete"
+    rlPass "GCC PGO Complete"
 
 
- else
+    else
 
 
- # e.g.if -fprofile-use failed (missing profile), with feedback 
+    # e.g.if -fprofile-use failed (missing profile), with feedback 
 
 
- rlLogWarning "GCC -fprofile-use failed, retry -fprofile-feedback"
+    rlLogWarning "GCC -fprofile-use failed, retry -fprofile-feedback"
 
 
- rlRun "gcc -fprofile-correction -o pgo_fb pgo_test.c 2>/dev/null &&./pgo_fb | grep PGO_OK" 0 "GCC PGO fallback"
+    rlRun "gcc -fprofile-correction -o pgo_fb pgo_test.c 2>/dev/null &&./pgo_fb | grep PGO_OK" 0 "GCC PGO fallback"
 
 
- fi
+    fi
 
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
 
 
- rlPhaseStartTest "Clang PGO"
+    rlPhaseStartTest "Clang PGO"
 
 
- # Clang use -fprofile-instr-generate and -fprofile-instr-use
+    # Clang use -fprofile-instr-generate and -fprofile-instr-use
 
 
- rlRun "clang -fprofile-instr-generate -o pgo_clang_gen pgo_test.c 2>/dev/null" 0 "Clang -fprofile-instr-generate"
+    rlRun "clang -fprofile-instr-generate -o pgo_clang_gen pgo_test.c 2>/dev/null" 0 "Clang -fprofile-instr-generate"
 
 
- if [ -x./pgo_clang_gen ]; then
+    if [ -x./pgo_clang_gen ]; then
 
 
- llvm-profdata merge 2>/dev/null && LLVM_PROFDATA=1 || LLVM_PROFDATA=0
+    llvm-profdata merge 2>/dev/null && LLVM_PROFDATA=1 || LLVM_PROFDATA=0
 
 
- rlRun "./pgo_clang_gen" 0 "Clang PGO trainingrun"
+    rlRun "./pgo_clang_gen" 0 "Clang PGO trainingrun"
 
 
- if [ "$LLVM_PROFDATA" -eq 1 ] && [ -f default.profraw ]; then
+    if [ "$LLVM_PROFDATA" -eq 1 ] && [ -f default.profraw ]; then
 
 
- llvm-profdata merge default.profraw -o default.profdata 2>/dev/null
+    llvm-profdata merge default.profraw -o default.profdata 2>/dev/null
 
 
- rlRun "clang -fprofile-instr-use=default.profdata -o pgo_clang_use pgo_test.c 2>/dev/null &&./pgo_clang_use | grep PGO_OK" 0 "Clang PGO optimizationrun"
+    rlRun "clang -fprofile-instr-use=default.profdata -o pgo_clang_use pgo_test.c 2>/dev/null &&./pgo_clang_use | grep PGO_OK" 0 "Clang PGO optimizationrun"
 
 
- else
+    else
 
 
- rlLogInfo "Clang llvm-profdata noavailable, skip use "
+    rlLogInfo "Clang llvm-profdata noavailable, skip use "
 
 
- fi
+    fi
 
 
- else
+    else
 
 
- rlLogInfo "Clang -fprofile-instr-generate not supported, skip"
+    rlLogInfo "Clang -fprofile-instr-generate not supported, skip"
 
 
- fi
+    fi
 
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
 
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
- rlJournalPrintText
+    rlJournalPrintText
 
 
 rlJournalEnd

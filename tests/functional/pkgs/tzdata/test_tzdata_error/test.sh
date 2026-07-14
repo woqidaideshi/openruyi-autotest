@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- tzdataSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    tzdataSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "error handling"
- rlRun "tzselect --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " tzselect Чerror handling"
- rlRun "zdump --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " zdump Чerror handling"
- rlRun "zic --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " zic Чerror handling"
- rlPhaseEnd
+    rlPhaseStartTest "error handling"
+    rlRun "tzselect --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " tzselect Чerror handling"
+    rlRun "zdump --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " zdump Чerror handling"
+    rlRun "zic --invalid-flag-xyz 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 " zic Чerror handling"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # tzdata Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # tzdata Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

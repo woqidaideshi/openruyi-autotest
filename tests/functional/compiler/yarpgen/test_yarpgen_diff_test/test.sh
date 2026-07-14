@@ -31,328 +31,328 @@ YARPGEN_BIN="/tmp/yarpgen/build/yarpgen"
 rlJournalStart
 
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
 
- yarpgenSetup
+    yarpgenSetup
 
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
-
-
- 
-
-
- if [ ! -x "$YARPGEN_BIN" ]; then
-
-
- rlFail "yarpgen noavailable, skiptest"
-
-
- fi
-
-
- rlPhaseEnd
-
-
-
-
-
- rlPhaseStartTest "differential testing"
-
-
- local diff_failures=0
-
-
- local total_tests=0
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
 
  
 
 
- # run 3 differential testing
+    if [ ! -x "$YARPGEN_BIN" ]; then
 
 
- for round in 1 2 3; do
+    rlFail "yarpgen noavailable, skiptest"
 
 
- rlLogInfo "======== YARPGen differential testing # ${round} ========"
+    fi
 
 
- 
+    rlPhaseEnd
 
 
- # createalonedirectory
 
 
- mkdir -p "round_${round}"
+
+    rlPhaseStartTest "differential testing"
 
 
- cd "round_${round}"
+    local diff_failures=0
 
 
- 
-
-
- # Generate random program
-
-
- $YARPGEN_BIN > /tmp/yarpgen_gen_${round}.log 2>&1
-
-
- if [ ! -f "driver.cpp" ] || [ ! -f "func.cpp" ]; then
-
-
- rlFail "# ${round}: YARPGen programGeneratefailed"
-
-
- cd "$TmpDir"
-
-
- continue
-
-
- fi
+    local total_tests=0
 
 
  
 
 
- total_tests=$((total_tests + 1))
+    # run 3 differential testing
 
 
- rlLogInfo "# ${round}: Generatesuccess (func.cpp: $(wc -l < func.cpp) lines, driver.cpp: $(wc -l < driver.cpp) lines)"
+    for round in 1 2 3; do
 
 
- 
-
-
- # G++ compile
-
-
- g++ -fPIC func.cpp driver.cpp -o test_gxx -O2 2>/tmp/yarpgen_diff_gxx_err_${round}.txt
-
-
- local gxx_rc=$?
+    rlLogInfo "======== YARPGen differential testing # ${round} ========"
 
 
  
 
 
- # Clang compile
+    # createalonedirectory
 
 
- clang++ -fPIC func.cpp driver.cpp -o test_clang -O2 2>/tmp/yarpgen_diff_clang_err_${round}.txt
+    mkdir -p "round_${round}"
 
 
- local clang_rc=$?
-
-
- 
-
-
- if [ "$gxx_rc" -ne 0 ]; then
-
-
- rlFail "# ${round}: G++ Compile failed"
-
-
- cd "$TmpDir"
-
-
- continue
-
-
- fi
+    cd "round_${round}"
 
 
  
 
 
- if [ "$clang_rc" -ne 0 ]; then
+    # Generate random program
 
 
- rlFail "# ${round}: Clang Compile failed"
+    $YARPGEN_BIN > /tmp/yarpgen_gen_${round}.log 2>&1
 
 
- cd "$TmpDir"
+    if [ ! -f "driver.cpp" ] || [ ! -f "func.cpp" ]; then
 
 
- continue
+    rlFail "# ${round}: YARPGen programGeneratefailed"
 
 
- fi
+    cd "$TmpDir"
 
 
- 
+    continue
 
 
- rlPass "# ${round}: G++ and Clang Compile succeeded"
-
-
- 
-
-
- # runandoutput
-
-
- timeout 10./test_gxx > gxx_output.txt 2>/tmp/yarpgen_run_gxx_${round}.txt
-
-
- local gxx_run_rc=$?
+    fi
 
 
  
 
 
- timeout 10./test_clang > clang_output.txt 2>/tmp/yarpgen_run_clang_${round}.txt
+    total_tests=$((total_tests + 1))
 
 
- local clang_run_rc=$?
-
-
- 
-
-
- # checkrun
-
-
- if grep -qi "segmentation fault\|core dumped\|stack\|abort" /tmp/yarpgen_run_gxx_${round}.txt 2>/dev/null; then
-
-
- rlLogWarning "# ${round}: G++ runtime possible"
-
-
- fi
-
-
- if grep -qi "segmentation fault\|core dumped\|stack\|abort" /tmp/yarpgen_run_clang_${round}.txt 2>/dev/null; then
-
-
- rlLogWarning "# ${round}: Clang runtime possible"
-
-
- fi
+    rlLogInfo "# ${round}: Generatesuccess (func.cpp: $(wc -l < func.cpp) lines, driver.cpp: $(wc -l < driver.cpp) lines)"
 
 
  
 
 
- # core: output comparison
+    # G++ compile
 
 
- if [ -f "gxx_output.txt" ] && [ -f "clang_output.txt" ]; then
+    g++ -fPIC func.cpp driver.cpp -o test_gxx -O2 2>/tmp/yarpgen_diff_gxx_err_${round}.txt
 
 
- if diff -q gxx_output.txt clang_output.txt >/dev/null 2>&1; then
-
-
- rlPass "# ${round}: G++ and Clang output consistent ✓"
-
-
- else
-
-
- diff_failures=$((diff_failures + 1))
+    local gxx_rc=$?
 
 
  
 
 
- # Show diff
+    # Clang compile
 
 
- echo "=== output diff ==="
+    clang++ -fPIC func.cpp driver.cpp -o test_clang -O2 2>/tmp/yarpgen_diff_clang_err_${round}.txt
 
 
- diff gxx_output.txt clang_output.txt | head -30
-
-
- echo "=== G++ output ==="
-
-
- cat gxx_output.txt
-
-
- echo "=== Clang output ===" 
-
-
- cat clang_output.txt
+    local clang_rc=$?
 
 
  
 
 
- rlFail "# ${round}: differential testing failed -- G++/Clang output mismatch (possible compiler optimization bug)"
+    if [ "$gxx_rc" -ne 0 ]; then
 
 
- fi
+    rlFail "# ${round}: G++ Compile failed"
 
 
- else
+    cd "$TmpDir"
 
 
- rlFail "# ${round}: outputfile"
+    continue
 
 
- fi
-
-
- 
-
-
- cd "$TmpDir"
-
-
- done
+    fi
 
 
  
 
 
- # Summary
+    if [ "$clang_rc" -ne 0 ]; then
 
 
- rlLogInfo "YARPGen differential testingComplete: $total_tests, $diff_failures noconsistent"
+    rlFail "# ${round}: Clang Compile failed"
 
 
- if [ "$diff_failures" -eq 0 ] && [ "$total_tests" -gt 0 ]; then
+    cd "$TmpDir"
 
 
- rlPass "all YARPGen differential testingpassed: nocompileoutput mismatch"
+    continue
 
 
- fi
+    fi
 
 
- rlPhaseEnd
+ 
+
+
+    rlPass "# ${round}: G++ and Clang Compile succeeded"
+
+
+ 
+
+
+    # runandoutput
+
+
+    timeout 10./test_gxx > gxx_output.txt 2>/tmp/yarpgen_run_gxx_${round}.txt
+
+
+    local gxx_run_rc=$?
+
+
+ 
+
+
+    timeout 10./test_clang > clang_output.txt 2>/tmp/yarpgen_run_clang_${round}.txt
+
+
+    local clang_run_rc=$?
+
+
+ 
+
+
+    # checkrun
+
+
+    if grep -qi "segmentation fault\|core dumped\|stack\|abort" /tmp/yarpgen_run_gxx_${round}.txt 2>/dev/null; then
+
+
+    rlLogWarning "# ${round}: G++ runtime possible"
+
+
+    fi
+
+
+    if grep -qi "segmentation fault\|core dumped\|stack\|abort" /tmp/yarpgen_run_clang_${round}.txt 2>/dev/null; then
+
+
+    rlLogWarning "# ${round}: Clang runtime possible"
+
+
+    fi
+
+
+ 
+
+
+    # core: output comparison
+
+
+    if [ -f "gxx_output.txt" ] && [ -f "clang_output.txt" ]; then
+
+
+    if diff -q gxx_output.txt clang_output.txt >/dev/null 2>&1; then
+
+
+    rlPass "# ${round}: G++ and Clang output consistent ✓"
+
+
+    else
+
+
+    diff_failures=$((diff_failures + 1))
+
+
+ 
+
+
+    # Show diff
+
+
+    echo "=== output diff ==="
+
+
+    diff gxx_output.txt clang_output.txt | head -30
+
+
+    echo "=== G++ output ==="
+
+
+    cat gxx_output.txt
+
+
+    echo "=== Clang output ===" 
+
+
+    cat clang_output.txt
+
+
+ 
+
+
+    rlFail "# ${round}: differential testing failed -- G++/Clang output mismatch (possible compiler optimization bug)"
+
+
+    fi
+
+
+    else
+
+
+    rlFail "# ${round}: outputfile"
+
+
+    fi
+
+
+ 
+
+
+    cd "$TmpDir"
+
+
+    done
+
+
+ 
+
+
+    # Summary
+
+
+    rlLogInfo "YARPGen differential testingComplete: $total_tests, $diff_failures noconsistent"
+
+
+    if [ "$diff_failures" -eq 0 ] && [ "$total_tests" -gt 0 ]; then
+
+
+    rlPass "all YARPGen differential testingpassed: nocompileoutput mismatch"
+
+
+    fi
+
+
+    rlPhaseEnd
 
 
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
 
- rlRun "cd /" 0 "Leave temporary directory"
+    rlRun "cd /" 0 "Leave temporary directory"
 
 
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
 
 
- rm -f /tmp/yarpgen_{gen,diff_{gxx,clang}_err,run_{gxx,clang}}_*.txt
+    rm -f /tmp/yarpgen_{gen,diff_{gxx,clang}_err,run_{gxx,clang}}_*.txt
 
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
 
 
- rlJournalPrintText
+    rlJournalPrintText
 
 
 rlJournalEnd

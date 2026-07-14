@@ -6,20 +6,20 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeNetworkSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeNetworkSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "ssh version"
- rlRun 'ssh -V 2>&1' 0 "ssh version"
- rlRun 'which scp' 0 "scp exists"
- rlRun 'which sftp' 0 "sftp exists"
- rlPhaseEnd
+    rlPhaseStartTest "ssh version"
+    rlRun 'ssh -V 2>&1' 0 "ssh version"
+    rlRun 'which scp' 0 "scp exists"
+    rlRun 'which sftp' 0 "sftp exists"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

@@ -7,27 +7,27 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- gitSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    gitSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "Log-and-show"
- rlRun "git log --oneline -3" 0 "git log: last 3 commits"
- rlRun "git log --graph --oneline" 0 "git log --graph"
- rlRun "git show HEAD --stat" 0 "git show: latest commit"
- rlRun "git show HEAD~1 --oneline" 0 "git show: previous commit"
- rlPhaseEnd
+    rlPhaseStartTest "Log-and-show"
+    rlRun "git log --oneline -3" 0 "git log: last 3 commits"
+    rlRun "git log --graph --oneline" 0 "git log --graph"
+    rlRun "git show HEAD --stat" 0 "git show: latest commit"
+    rlRun "git show HEAD~1 --oneline" 0 "git show: previous commit"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # git Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # git Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

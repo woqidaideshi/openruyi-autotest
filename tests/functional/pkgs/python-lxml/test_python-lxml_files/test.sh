@@ -7,29 +7,29 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- pythonLxmlSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    pythonLxmlSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "lxml -ļ֤"
- rlRun "ls /usr/lib64/_elementpath.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || ls /usr/lib/_elementpath.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || echo \"not in standard path\"" 0 " _elementpath.cpython-313-riscv64-linux-gnu.so"
- rlRun "ls /usr/lib64/builder.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || ls /usr/lib/builder.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || echo \"not in standard path\"" 0 " builder.cpython-313-riscv64-linux-gnu.so"
- rlRun "ls /usr/lib64/etree.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || ls /usr/lib/etree.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || echo \"not in standard path\"" 0 " etree.cpython-313-riscv64-linux-gnu.so"
- rlRun "ls /usr/lib64/_difflib.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || ls /usr/lib/_difflib.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || echo \"not in standard path\"" 0 " _difflib.cpython-313-riscv64-linux-gnu.so"
- rlRun "ls /usr/lib64/diff.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || ls /usr/lib/diff.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || echo \"not in standard path\"" 0 " diff.cpython-313-riscv64-linux-gnu.so"
- rlRun "pkg-config --libs python-lxml 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "pkg-config Ϣ"
- rlPhaseEnd
+    rlPhaseStartTest "lxml -ļ֤"
+    rlRun "ls /usr/lib64/_elementpath.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || ls /usr/lib/_elementpath.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || echo \"not in standard path\"" 0 " _elementpath.cpython-313-riscv64-linux-gnu.so"
+    rlRun "ls /usr/lib64/builder.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || ls /usr/lib/builder.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || echo \"not in standard path\"" 0 " builder.cpython-313-riscv64-linux-gnu.so"
+    rlRun "ls /usr/lib64/etree.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || ls /usr/lib/etree.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || echo \"not in standard path\"" 0 " etree.cpython-313-riscv64-linux-gnu.so"
+    rlRun "ls /usr/lib64/_difflib.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || ls /usr/lib/_difflib.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || echo \"not in standard path\"" 0 " _difflib.cpython-313-riscv64-linux-gnu.so"
+    rlRun "ls /usr/lib64/diff.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || ls /usr/lib/diff.cpython-313-riscv64-linux-gnu.so* 2>/dev/null || echo \"not in standard path\"" 0 " diff.cpython-313-riscv64-linux-gnu.so"
+    rlRun "pkg-config --libs python-lxml 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "pkg-config Ϣ"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # python-lxml Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # python-lxml Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

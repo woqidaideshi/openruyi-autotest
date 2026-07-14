@@ -1,5 +1,5 @@
 summary: Functional test - clang - compile only
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - clang

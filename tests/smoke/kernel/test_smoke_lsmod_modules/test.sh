@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeKernelSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeKernelSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "lsmod list modules"
- rlRun 'lsmod | head -10' 0 "lsmod list modules"
- rlRun 'lsmod | wc -l' 0 "lsmod modulecount"
- rlPhaseEnd
+    rlPhaseStartTest "lsmod list modules"
+    rlRun 'lsmod | head -10' 0 "lsmod list modules"
+    rlRun 'lsmod | wc -l' 0 "lsmod modulecount"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

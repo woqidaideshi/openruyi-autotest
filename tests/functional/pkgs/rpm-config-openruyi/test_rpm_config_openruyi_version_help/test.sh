@@ -7,25 +7,25 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- rpmConfigOpenruyiSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    rpmConfigOpenruyiSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "config-openruyi - version and help"
- rlRun "rpm -ql rpm-config-openruyi | head -20" 0 "List package files"
- rlRun "ls /usr/lib64/lib*.so* 2>/dev/null | head -5 || echo \"No library files\"" 0 "Library file check"
- rlPhaseEnd
+    rlPhaseStartTest "config-openruyi - version and help"
+    rlRun "rpm -ql rpm-config-openruyi | head -20" 0 "List package files"
+    rlRun "ls /usr/lib64/lib*.so* 2>/dev/null | head -5 || echo \"No library files\"" 0 "Library file check"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # rpm-config-openruyi Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # rpm-config-openruyi Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

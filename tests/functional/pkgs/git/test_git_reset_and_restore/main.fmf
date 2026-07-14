@@ -1,5 +1,5 @@
 summary: Functional test - git - reset and 
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - git

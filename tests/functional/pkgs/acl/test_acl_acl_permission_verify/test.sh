@@ -1,40 +1,80 @@
-#!/bin/bash
-# Functional test: acl - ACL permission verify
-# Beakerlib-based test with lifecycle management
-# Shared suite setup/cleanup via../lib.sh (install once, uninstall once)
-
-. /usr/share/beakerlib/beakerlib.sh || exit 1
-. "$(dirname "$0")/../lib.sh"
-
-rlJournalStart
- rlPhaseStartSetup "Environment setup"
- aclSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlRun "touch testfile" 0 "Create test file"
- rlPhaseEnd
-
- rlPhaseStartTest "ACL permission verification"
- rlRun "setfacl --set u::rwx,u:root:rwx,g::r-x,o::r--,m::rwx testfile" 0 "setfullpermission"
- output=$(getfacl testfile 2>&1)
- rlAssertGrep "user::rwx" "$output" "confirm user::rwx alreadyset"
- rlAssertGrep "user:root:rwx" "$output" "confirm user:root:rwx alreadyset"
- rlAssertGrep "group::r-x" "$output" "confirm group::r-x alreadyset"
- rlAssertGrep "mask::rwx" "$output" "confirm mask::rwx alreadyset"
-
- rlRun "setfacl -m u:root:rwx,m::r-- testfile" 0 "set mask haspermission"
- output=$(getfacl testfile 2>&1)
- rlAssertGrep "mask::r--" "$output" "confirm mask::r-- alreadyset"
- rlAssertGrep "user:root:rwx" "$output" "confirm user:root permission mask "
- rlPhaseEnd
-
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # acl Package managed by lib.sh's reference counting auto-uninstall
- rlPhaseEnd
-
- rlJournalPrintText
-rlJournalEnd
+#!/bin/bash
+
+# Functional test: acl - ACL permission verify
+
+# Beakerlib-based test with lifecycle management
+
+# Shared suite setup/cleanup via../lib.sh (install once, uninstall once)
+
+
+
+. /usr/share/beakerlib/beakerlib.sh || exit 1
+
+. "$(dirname "$0")/../lib.sh"
+
+
+
+rlJournalStart
+
+    rlPhaseStartSetup "Environment setup"
+
+    aclSetup
+
+    TmpDir=$(mktemp -d)
+
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+
+    rlRun "touch testfile" 0 "Create test file"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartTest "ACL permission verification"
+
+    rlRun "setfacl --set u::rwx,u:root:rwx,g::r-x,o::r--,m::rwx testfile" 0 "setfullpermission"
+
+    output=$(getfacl testfile 2>&1)
+
+    rlAssertGrep "user::rwx" "$output" "confirm user::rwx alreadyset"
+
+    rlAssertGrep "user:root:rwx" "$output" "confirm user:root:rwx alreadyset"
+
+    rlAssertGrep "group::r-x" "$output" "confirm group::r-x alreadyset"
+
+    rlAssertGrep "mask::rwx" "$output" "confirm mask::rwx alreadyset"
+
+
+
+    rlRun "setfacl -m u:root:rwx,m::r-- testfile" 0 "set mask haspermission"
+
+    output=$(getfacl testfile 2>&1)
+
+    rlAssertGrep "mask::r--" "$output" "confirm mask::r-- alreadyset"
+
+    rlAssertGrep "user:root:rwx" "$output" "confirm user:root permission mask "
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # acl Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
+
+rlJournalEnd
+

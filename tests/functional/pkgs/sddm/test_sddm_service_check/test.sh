@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- sddmSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    sddmSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "Service-check"
- rlRun "systemctl cat sddm.service 2>&1 | head -10" 0 "sddm service unit"
- rlRun "systemctl status sddm.service 2>&1 | head -5 || true" 0 "sddm service status"
- rlRun "systemctl is-enabled sddm.service 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "sddm enabled status"
- rlPhaseEnd
+    rlPhaseStartTest "Service-check"
+    rlRun "systemctl cat sddm.service 2>&1 | head -10" 0 "sddm service unit"
+    rlRun "systemctl status sddm.service 2>&1 | head -5 || true" 0 "sddm service status"
+    rlRun "systemctl is-enabled sddm.service 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "sddm enabled status"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # sddm Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # sddm Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

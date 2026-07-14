@@ -6,20 +6,20 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeLoggingSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeLoggingSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "/var/log directory exists"
- rlRun 'test -d /var/log' 0 "/var/log directory exists"
- rlRun 'ls /var/log | head -10' 0 "/var/log logfilelist"
- rlRun 'test -f /var/log/messages || test -f /var/log/syslog || echo "no standard syslog"' 0 "systemlogexistscheck"
- rlPhaseEnd
+    rlPhaseStartTest "/var/log directory exists"
+    rlRun 'test -d /var/log' 0 "/var/log directory exists"
+    rlRun 'ls /var/log | head -10' 0 "/var/log logfilelist"
+    rlRun 'test -f /var/log/messages || test -f /var/log/syslog || echo "no standard syslog"' 0 "systemlogexistscheck"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeSystemInfoSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeSystemInfoSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "/proc/uptime runtime"
- rlRun 'cat /proc/uptime' 0 "/proc/uptime runtime"
- rlRun 'cat /proc/loadavg' 0 "/proc/loadavg systemload"
- rlPhaseEnd
+    rlPhaseStartTest "/proc/uptime runtime"
+    rlRun 'cat /proc/uptime' 0 "/proc/uptime runtime"
+    rlRun 'cat /proc/loadavg' 0 "/proc/loadavg systemload"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

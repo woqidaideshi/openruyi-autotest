@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokePermissionsSetup
+    rlPhaseStartSetup "Environment setup"
+    smokePermissionsSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "passwd permissioncheck"
- rlRun 'ls -l /usr/bin/passwd' 0 "passwd permissioncheck"
- rlRun 'ls -l /usr/bin/sudo' 0 "sudo permissioncheck"
- rlPhaseEnd
+    rlPhaseStartTest "passwd permissioncheck"
+    rlRun 'ls -l /usr/bin/passwd' 0 "passwd permissioncheck"
+    rlRun 'ls -l /usr/bin/sudo' 0 "sudo permissioncheck"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

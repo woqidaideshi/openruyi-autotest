@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- grepSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    grepSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "Recursive-search---r"
- rlRun "grep -r nested subdir/" 0 "Recursive grep in subdirectory"
- rlRun "grep -rl hello subdir/" 0 "Recursive list files with matches"
- rlRun "grep -r --include=\"*.txt\" hello ." 0 "Recursive with --include filter"
- rlPhaseEnd
+    rlPhaseStartTest "Recursive-search---r"
+    rlRun "grep -r nested subdir/" 0 "Recursive grep in subdirectory"
+    rlRun "grep -rl hello subdir/" 0 "Recursive list files with matches"
+    rlRun "grep -r --include=\"*.txt\" hello ." 0 "Recursive with --include filter"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # grep Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # grep Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

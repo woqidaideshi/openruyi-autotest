@@ -1,5 +1,5 @@
 summary: Functional test - kernel - blktests - block 037
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - kernel

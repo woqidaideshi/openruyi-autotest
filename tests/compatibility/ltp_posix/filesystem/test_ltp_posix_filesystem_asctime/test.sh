@@ -8,17 +8,17 @@
 IFACE_DIR="$LTP_BUILD_DIR/conformance/interfaces"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- ltpPosixSetup
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    ltpPosixSetup
+    rlPhaseEnd
 
- rlPhaseStartTest "POSIX Interface: filesystem / asctime"
- rlRun "run_posix_iface_test 'asctime'" 0 "filesystem/asctime Interface conformance test"
- rlPhaseEnd
+    rlPhaseStartTest "POSIX Interface: filesystem / asctime"
+    rlRun "run_posix_iface_test 'asctime'" 0 "filesystem/asctime Interface conformance test"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

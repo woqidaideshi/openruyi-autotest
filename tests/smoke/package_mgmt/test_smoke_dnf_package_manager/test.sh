@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokePackageMgmtSetup
+    rlPhaseStartSetup "Environment setup"
+    smokePackageMgmtSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "dnf version"
- rlRun 'dnf --version 2>&1 || true' 0 "dnf version"
- rlRun 'dnf repolist 2>&1 | head -5' 0 "dnf repolist repolibrarylist"
- rlPhaseEnd
+    rlPhaseStartTest "dnf version"
+    rlRun 'dnf --version 2>&1 || true' 0 "dnf version"
+    rlRun 'dnf repolist 2>&1 | head -5' 0 "dnf repolist repolibrarylist"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

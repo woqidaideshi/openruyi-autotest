@@ -7,20 +7,20 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- mmtestsSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    mmtestsSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "MMTests - network_netperf_rr_ipv4_unbound"
- rlRun "_mmtestsRunCase config-network-netperf-rr-ipv4-unbound" 0 "Execute MMTests config-network-netperf-rr-ipv4-unbound"
- rlPhaseEnd
+    rlPhaseStartTest "MMTests - network_netperf_rr_ipv4_unbound"
+    rlRun "_mmtestsRunCase config-network-netperf-rr-ipv4-unbound" 0 "Execute MMTests config-network-netperf-rr-ipv4-unbound"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Cleanup"
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Cleanup"
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

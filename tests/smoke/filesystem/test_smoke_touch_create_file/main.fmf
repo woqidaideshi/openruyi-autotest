@@ -1,5 +1,5 @@
 summary: Smoke test - touch createfile
-test:./test.sh
+test: ./test.sh
 tag:
  - smoke
  - filesystem

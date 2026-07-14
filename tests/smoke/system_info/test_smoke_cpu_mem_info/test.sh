@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeSystemInfoSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeSystemInfoSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "/proc/cpuinfo CPU info"
- rlRun 'cat /proc/cpuinfo | head -5' 0 "/proc/cpuinfo CPU info"
- rlRun 'cat /proc/meminfo | head -5' 0 "/proc/meminfo memoryinfo"
- rlPhaseEnd
+    rlPhaseStartTest "/proc/cpuinfo CPU info"
+    rlRun 'cat /proc/cpuinfo | head -5' 0 "/proc/cpuinfo CPU info"
+    rlRun 'cat /proc/meminfo | head -5' 0 "/proc/meminfo memoryinfo"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

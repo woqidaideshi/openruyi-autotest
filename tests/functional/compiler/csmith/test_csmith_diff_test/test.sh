@@ -25,328 +25,328 @@
 rlJournalStart
 
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
 
- csmithSetup
+    csmithSetup
 
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
-
-
- 
-
-
- # Generate 3 different random programs, check for bugs 
-
-
- for i in 1 2 3; do
-
-
- rlRun "csmith > csmith_diff_${i}.c 2>/dev/null" 0 "Generate random program #${i}"
-
-
- done
-
-
- rlPhaseEnd
-
-
-
-
-
- rlPhaseStartTest "differential testing"
-
-
- local diff_failures=0
-
-
- local total_tests=0
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
 
  
 
 
- for i in 1 2 3; do
+    # Generate 3 different random programs, check for bugs 
 
 
- local src="csmith_diff_${i}.c"
+    for i in 1 2 3; do
 
 
- local gcc_bin="csmith_diff_${i}_gcc"
+    rlRun "csmith > csmith_diff_${i}.c 2>/dev/null" 0 "Generate random program #${i}"
 
 
- local clang_bin="csmith_diff_${i}_clang"
+    done
 
 
- local gcc_out="csmith_diff_${i}_gcc_out.txt"
+    rlPhaseEnd
 
 
- local clang_out="csmith_diff_${i}_clang_out.txt"
 
 
- 
+
+    rlPhaseStartTest "differential testing"
 
 
- rlLogInfo "=== differential testing #${i} ==="
+    local diff_failures=0
 
 
- total_tests=$((total_tests + 1))
-
-
- 
-
-
- # GCC compile
-
-
- if gcc -O2 "$src" -o "$gcc_bin" -w 2>/dev/null; then
-
-
- rlPass "test #${i}: GCC Compile succeeded"
-
-
- else
-
-
- rlFail "test #${i}: GCC Compile failed"
-
-
- continue
-
-
- fi
+    local total_tests=0
 
 
  
 
 
- # Clang compile
+    for i in 1 2 3; do
 
 
- if clang -O2 "$src" -o "$clang_bin" -w 2>/dev/null; then
+    local src="csmith_diff_${i}.c"
 
 
- rlPass "test #${i}: Clang Compile succeeded"
+    local gcc_bin="csmith_diff_${i}_gcc"
 
 
- else
+    local clang_bin="csmith_diff_${i}_clang"
 
 
- rlFail "test #${i}: Clang Compile failed"
+    local gcc_out="csmith_diff_${i}_gcc_out.txt"
 
 
- continue
-
-
- fi
+    local clang_out="csmith_diff_${i}_clang_out.txt"
 
 
  
 
 
- # GCC run
+    rlLogInfo "=== differential testing #${i} ==="
 
 
- timeout 10./"$gcc_bin" > "$gcc_out" 2>/tmp/csmith_gcc_runerr_${i}.txt
-
-
- local gcc_run_rc=$?
+    total_tests=$((total_tests + 1))
 
 
  
 
 
- # Clang run
+    # GCC compile
 
 
- timeout 10./"$clang_bin" > "$clang_out" 2>/tmp/csmith_clang_runerr_${i}.txt
+    if gcc -O2 "$src" -o "$gcc_bin" -w 2>/dev/null; then
 
 
- local clang_run_rc=$?
+    rlPass "test #${i}: GCC Compile succeeded"
 
 
- 
+    else
 
 
- # checkrunexit code
+    rlFail "test #${i}: GCC Compile failed"
 
 
- if [ "$gcc_run_rc" -ne 0 ]; then
+    continue
 
 
- rlLogWarning "test #${i}: GCC runtime exit codenon- 0: $gcc_run_rc"
-
-
- fi
-
-
- if [ "$clang_run_rc" -ne 0 ]; then
-
-
- rlLogWarning "test #${i}: Clang runtime exit codenon- 0: $clang_run_rc"
-
-
- fi
+    fi
 
 
  
 
 
- # Check for runtime errors
+    # Clang compile
 
 
- local has_error=0
+    if clang -O2 "$src" -o "$clang_bin" -w 2>/dev/null; then
 
 
- if grep -qi "segmentation fault\|core dumped\|stack smash\|buffer overflow" /tmp/csmith_gcc_runerr_${i}.txt 2>/dev/null; then
+    rlPass "test #${i}: Clang Compile succeeded"
 
 
- rlLogWarning "test #${i}: GCC runtime detect/error"
+    else
 
 
- has_error=1
+    rlFail "test #${i}: Clang Compile failed"
 
 
- fi
+    continue
 
 
- if grep -qi "segmentation fault\|core dumped\|stack smash\|buffer overflow" /tmp/csmith_clang_runerr_${i}.txt 2>/dev/null; then
-
-
- rlLogWarning "test #${i}: Clang runtime detect/error"
-
-
- has_error=1
-
-
- fi
+    fi
 
 
  
 
 
- # core: output comparison
+    # GCC run
 
 
- if [ -f "$gcc_out" ] && [ -f "$clang_out" ]; then
+    timeout 10./"$gcc_bin" > "$gcc_out" 2>/tmp/csmith_gcc_runerr_${i}.txt
 
 
- if diff -q "$gcc_out" "$clang_out" >/dev/null 2>&1; then
-
-
- rlPass "test #${i}: GCC and Clang output consistent ✓"
-
-
- else
-
-
- diff_failures=$((diff_failures + 1))
-
-
- rlLogWarning "test #${i}: GCC and Clang output mismatch!"
+    local gcc_run_rc=$?
 
 
  
 
 
- # Show diff (display first 20 lines)
+    # Clang run
 
 
- rlRun "diff $gcc_out $clang_out | head -20" 0 "output diff (before 20 lines)"
+    timeout 10./"$clang_bin" > "$clang_out" 2>/tmp/csmith_clang_runerr_${i}.txt
 
 
- 
-
-
- # Check for undefined behavior (UB) causing diff -- Csmith generates standard C, should be consistent
-
-
- rlFail "test #${i}: differential testing failed -- GCC/Clang output mismatch (possible compiler bug)"
-
-
- fi
-
-
- else
-
-
- rlFail "test #${i}: notcan Generateoutputfile"
-
-
- fi
+    local clang_run_rc=$?
 
 
  
 
 
- # checkoutputall non-
+    # checkrunexit code
 
 
- if [ -s "$gcc_out" ] && [ -s "$clang_out" ]; then
+    if [ "$gcc_run_rc" -ne 0 ]; then
 
 
- rlPass "test #${i}: compileproducedhasoutput"
+    rlLogWarning "test #${i}: GCC runtime exit codenon- 0: $gcc_run_rc"
 
 
- else
+    fi
 
 
- rlLogWarning "test #${i}: outputfileis"
+    if [ "$clang_run_rc" -ne 0 ]; then
 
 
- fi
+    rlLogWarning "test #${i}: Clang runtime exit codenon- 0: $clang_run_rc"
 
 
- done
+    fi
 
 
  
 
 
- # Summary
+    # Check for runtime errors
 
 
- rlLogInfo "differential testingComplete: $total_tests program, $diff_failures noconsistent"
+    local has_error=0
 
 
- if [ "$diff_failures" -eq 0 ]; then
+    if grep -qi "segmentation fault\|core dumped\|stack smash\|buffer overflow" /tmp/csmith_gcc_runerr_${i}.txt 2>/dev/null; then
 
 
- rlPass "alldifferential testingpassed: nocompileoutput mismatch"
+    rlLogWarning "test #${i}: GCC runtime detect/error"
 
 
- fi
+    has_error=1
 
 
- rlPhaseEnd
+    fi
+
+
+    if grep -qi "segmentation fault\|core dumped\|stack smash\|buffer overflow" /tmp/csmith_clang_runerr_${i}.txt 2>/dev/null; then
+
+
+    rlLogWarning "test #${i}: Clang runtime detect/error"
+
+
+    has_error=1
+
+
+    fi
+
+
+ 
+
+
+    # core: output comparison
+
+
+    if [ -f "$gcc_out" ] && [ -f "$clang_out" ]; then
+
+
+    if diff -q "$gcc_out" "$clang_out" >/dev/null 2>&1; then
+
+
+    rlPass "test #${i}: GCC and Clang output consistent ✓"
+
+
+    else
+
+
+    diff_failures=$((diff_failures + 1))
+
+
+    rlLogWarning "test #${i}: GCC and Clang output mismatch!"
+
+
+ 
+
+
+    # Show diff (display first 20 lines)
+
+
+    rlRun "diff $gcc_out $clang_out | head -20" 0 "output diff (before 20 lines)"
+
+
+ 
+
+
+    # Check for undefined behavior (UB) causing diff -- Csmith generates standard C, should be consistent
+
+
+    rlFail "test #${i}: differential testing failed -- GCC/Clang output mismatch (possible compiler bug)"
+
+
+    fi
+
+
+    else
+
+
+    rlFail "test #${i}: notcan Generateoutputfile"
+
+
+    fi
+
+
+ 
+
+
+    # checkoutputall non-
+
+
+    if [ -s "$gcc_out" ] && [ -s "$clang_out" ]; then
+
+
+    rlPass "test #${i}: compileproducedhasoutput"
+
+
+    else
+
+
+    rlLogWarning "test #${i}: outputfileis"
+
+
+    fi
+
+
+    done
+
+
+ 
+
+
+    # Summary
+
+
+    rlLogInfo "differential testingComplete: $total_tests program, $diff_failures noconsistent"
+
+
+    if [ "$diff_failures" -eq 0 ]; then
+
+
+    rlPass "alldifferential testingpassed: nocompileoutput mismatch"
+
+
+    fi
+
+
+    rlPhaseEnd
 
 
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
 
- rlRun "cd /" 0 "Leave temporary directory"
+    rlRun "cd /" 0 "Leave temporary directory"
 
 
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
 
 
- rm -f /tmp/csmith_{gcc,clang}_runerr_*.txt
+    rm -f /tmp/csmith_{gcc,clang}_runerr_*.txt
 
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
 
 
- rlJournalPrintText
+    rlJournalPrintText
 
 
 rlJournalEnd

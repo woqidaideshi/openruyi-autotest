@@ -1,5 +1,5 @@
 summary: Functional test - make - gmake alias
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - make

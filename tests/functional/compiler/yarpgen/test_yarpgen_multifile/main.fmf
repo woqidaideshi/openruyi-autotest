@@ -1,5 +1,5 @@
 summary: Functional test - yarpgen - multifileseparate compilation + C/C++ link
-test:./test.sh
+test: ./test.sh
 tag: [functional, compiler, yarpgen]
 duration: 5m
 tier: 2

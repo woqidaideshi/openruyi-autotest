@@ -6,24 +6,24 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeProcessSetup
- rlRun "sleep 10 &" 0 "Prepare environment"
- rlRun "PID=$!" 0 "Prepare environment"
- rlRun "sleep 1" 0 "Prepare environment"
- rlRun "if kill -0 $PID 2>/dev/null; then" 0 "Prepare environment"
- rlRun "echo "kill may not have worked"" 0 "Prepare environment"
- rlRun "fi" 0 "Prepare environment"
+    rlPhaseStartSetup "Environment setup"
+    smokeProcessSetup
+    rlRun "sleep 10 &" 0 "Prepare environment"
+    rlRun "PID=$!" 0 "Prepare environment"
+    rlRun "sleep 1" 0 "Prepare environment"
+    rlRun "if kill -0 $PID 2>/dev/null; then" 0 "Prepare environment"
+    rlRun "echo "kill may not have worked"" 0 "Prepare environment"
+    rlRun "fi" 0 "Prepare environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "kill signal"
- rlRun "kill $PID" 0 "kill terminateprocess"
- rlPhaseEnd
+    rlPhaseStartTest "kill signal"
+    rlRun "kill $PID" 0 "kill terminateprocess"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

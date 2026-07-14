@@ -1,5 +1,5 @@
 summary: Functional test - weston - noheaderposttest
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - weston

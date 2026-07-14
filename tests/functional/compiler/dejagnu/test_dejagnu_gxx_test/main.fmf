@@ -1,5 +1,5 @@
 summary: Functional test - dejagnu - G++ compiletestwith
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - compiler

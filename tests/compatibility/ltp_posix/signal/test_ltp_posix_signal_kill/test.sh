@@ -8,17 +8,17 @@
 IFACE_DIR="$LTP_BUILD_DIR/conformance/interfaces"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- ltpPosixSetup
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    ltpPosixSetup
+    rlPhaseEnd
 
- rlPhaseStartTest "POSIX Interface: signal / kill"
- rlRun "run_posix_iface_test 'kill'" 0 "signal/kill Interface conformance test"
- rlPhaseEnd
+    rlPhaseStartTest "POSIX Interface: signal / kill"
+    rlRun "run_posix_iface_test 'kill'" 0 "signal/kill Interface conformance test"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

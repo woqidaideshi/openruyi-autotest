@@ -6,20 +6,20 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeProcessSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeProcessSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "ps currentprocess"
- rlRun 'ps' 0 "ps currentprocess"
- rlRun 'ps aux | head -5' 0 "ps aux allprocess"
- rlRun 'ps -p 1' 0 "ps viewPID 1"
- rlPhaseEnd
+    rlPhaseStartTest "ps currentprocess"
+    rlRun 'ps' 0 "ps currentprocess"
+    rlRun 'ps aux | head -5' 0 "ps aux allprocess"
+    rlRun 'ps -p 1' 0 "ps viewPID 1"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

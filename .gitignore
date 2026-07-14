@@ -15,3 +15,6 @@ AGENTS.md
 
 # 测试服务器拓扑配置（本地敏感信息）
 topology.env
+
+# Python 缓存
+__pycache__/

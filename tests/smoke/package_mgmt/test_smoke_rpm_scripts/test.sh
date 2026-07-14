@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokePackageMgmtSetup
+    rlPhaseStartSetup "Environment setup"
+    smokePackageMgmtSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "rpm script content"
- rlRun 'rpm -q --scripts bash 2>&1 | head -5' 0 "rpm script content"
- rlRun 'rpm -ql bash | head -5' 0 "rpm -ql filelist"
- rlPhaseEnd
+    rlPhaseStartTest "rpm script content"
+    rlRun 'rpm -q --scripts bash 2>&1 | head -5' 0 "rpm script content"
+    rlRun 'rpm -ql bash | head -5' 0 "rpm -ql filelist"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

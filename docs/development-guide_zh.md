@@ -248,7 +248,7 @@ aclCleanup() {
 | `require` | list | ✅ | 依赖的 RPM 软件包（需含被测包 + `coreutils` + `beakerlib`） |
 | `contact` | string | | 测试负责人 |
 | `environment` | dict | | 自定义环境变量，如 `{VAR1: val1, VAR2: val2}`，注入到测试执行环境 |
-| `hardware-require` | dict | | 硬件需求声明（详见图 5.3），如 `{cpu: ">= 4", memory: ">= 8 GiB"}` |
+| `extra-hardware-require` | dict | | 硬件需求声明（详见图 5.3），如 `{cpu: ">= 4", memory: ">= 8 GiB"}` |
 
 ### 测试计划 (plans/*.fmf)
 
@@ -280,7 +280,7 @@ execute:
 |------|------|------|
 | 拓扑配置模板 | `topology.env.example` | 仓库级模板，提交到版本控制 |
 | 拓扑配置实例 | `topology.env` | 实际服务器信息，已 `.gitignore`，不提交 |
-| 测试用例声明 | `main.fmf` 中的 `hardware-require` | 每个用例声明自己的硬件需求 |
+| 测试用例声明 | `main.fmf` 中的 `extra-hardware-require` | 每个用例声明自己的硬件需求 |
 | Plan 加载 | `plans/*.fmf` 中的 `environment-file` | 将 `topology.env` 注入为环境变量 |
 | 公共检查库 | `tests/lib/hw_check.sh` | 解析声明、对比环境、远程执行 |
 
@@ -300,7 +300,7 @@ TEST_SERVER_2_USER=openruyi
 TEST_SERVER_2_PASSWORD=openruyi
 ```
 
-### 5.3 测试用例声明 (`hardware-require`)
+### 5.3 测试用例声明 (`extra-hardware-require`)
 
 #### 支持的字段
 
@@ -319,8 +319,8 @@ TEST_SERVER_2_PASSWORD=openruyi
 利用 FMF 的层级继承机制，在测试分类父级统一声明默认值，子套件无需重复：
 
 ```
-tests/functional/main.fmf          ← hardware-require (默认值)
-  └─ pkgs/acl/main.fmf              ← 无 hardware-require → 继承父级
+tests/functional/main.fmf          ← extra-hardware-require (默认值)
+  └─ pkgs/acl/main.fmf              ← 无 extra-hardware-require → 继承父级
   │    ├─ test_acl_getfacl_basic/    → 获得默认约束 ✅
   │    └─ test_acl_setfacl/          → 获得默认约束 ✅
   └─ kernel/realtime/main.fmf       ← cpu: ">= 16" → 覆盖 cpu
@@ -332,7 +332,7 @@ tests/functional/main.fmf          ← hardware-require (默认值)
 所有测试分类父级 `tests/*/main.fmf` 已统一声明：
 
 ```yaml
-hardware-require:
+extra-hardware-require:
   server: 1
   cpu: ">= 4"
   memory: ">= 8 GiB"
@@ -346,7 +346,7 @@ hardware-require:
 
 ```yaml
 # tests/functional/kernel/realtime/main.fmf
-hardware-require:
+extra-hardware-require:
   cpu: ">= 16"        # 覆盖父级的 ">= 4"
   memory: ">= 16 GiB"  # 覆盖父级的 ">= 8 GiB"
   # server/disk/net 未写，自动继承父级默认值
@@ -395,7 +395,7 @@ tag:
   - my_pkg
 duration: 5m
 tier: 2
-hardware-require:
+extra-hardware-require:
   server: 2
 ```
 
@@ -446,7 +446,7 @@ tmt run plan --name /plans/functional
   ├─ discover: 发现所有包含 tag:functional 的测试
   │
   ├─ execute:
-  │   ├─ test_acl_basic: 继承默认 hardware-require → hwVerify() 自动检查
+  │   ├─ test_acl_basic: 继承默认 extra-hardware-require → hwVerify() 自动检查
   │   ├─ test_multi_host:
   │   │   ├─ hwVerify()
   │   │   │   ├─ TEST_SERVER_COUNT=1, need=2 → "SKIP: need 2 servers"
@@ -500,7 +500,46 @@ tmt run --last report -fvvv
 
 ---
 
-## 8. 常见问题
+## 8. 单元测试（代码质量检查）
+
+`unittests/` 目录包含针对测试框架本身的单元测试，确保所有测试用例符合项目规范。提交 PR 前请在本地运行这些测试。
+
+### 8.1 运行单元测试
+
+```bash
+# 运行所有单元测试
+python -m unittest discover -s unittests -p "test_*.py" -v
+
+# 运行单个测试文件
+python -m unittest unittests.test_tests_quality -v
+```
+
+### 8.2 测试用例概览
+
+所有测试位于 `unittests/test_tests_quality.py`，目前共 **10 个测试**，分为 5 大类：
+
+| 类别 | 测试 | 描述 |
+|------|------|------|
+| **中文字符** | `test_no_chinese_in_tests` | 确保 `tests/` 目录下文件不含中文字符 |
+| **乱码检测** | `test_no_mojibake_in_tests` | 检测 Latin-1 乱码（如 `ä½ å¥½`） |
+| **Shell 脚本规范** | `test_test_sh_compliance` | 验证 `test.sh` 文件符合 BeakerLib 结构（`rlJournalStart`、`rlPhaseStart*`、`rlJournalEnd`、`#!/bin/bash`） |
+| | `test_lib_sh_compliance` | 验证 `lib.sh` 文件符合共享库约定（`library-prefix` 注解、`*Setup()` 函数） |
+| | `test_no_crlf_in_sh_files` | 确保所有 `.sh` 文件使用 LF 换行符，不含 CRLF |
+| | `test_main_fmf_yaml_valid` | 验证 `main.fmf` 文件是合法的 YAML 且包含必填字段 |
+| **可执行权限** | `test_sh_files_executable_in_git` | 确保 `.sh` 文件在 git 中具有可执行权限（`100755`） |
+| | `test_no_non_sh_executable_in_tests` | 确保 `tests/` 下非 `.sh` 文件没有可执行权限 |
+| **缩进规范** | `test_no_tab_in_sh` | 确保 `.sh` 文件中没有 Tab 字符 |
+| | `test_sh_indentation_multiple_of_4` | 确保缩进为 4 的倍数（每层嵌套 4 空格） |
+
+### 8.3 关键设计说明
+
+- **基于 Git 的检查**：大多数测试通过 `git show` 读取已提交内容，避免 `core.autocrlf=true` 的换行符转换干扰。
+- **Heredoc 感知**：缩进测试会排除 heredoc 体内容（`<<WORD ... WORD`），避免嵌入式代码（C、Makefile 等）产生误报。
+- **提交 PR 前确保 10 个测试全部通过**。
+
+---
+
+## 9. 常见问题
 
 ### Q: test.sh 需要可执行权限吗？
 
@@ -543,11 +582,11 @@ bash tests/functional/pkgs/acl/test_acl_my_feature/test.sh
 
 ---
 
-## 9. 实战示例：开发 ACL 测试套
+## 10. 实战示例：开发 ACL 测试套
 
 本节完整演示如何从零开始为一个新的软件包开发测试套，以 `acl` 为例。
 
-### 9.1 总体流程
+### 10.1 总体流程
 
 ```
 需求分析 → 创建套件目录 → 编写 lib.sh → 编写 main.fmf → 编写 test.sh → 验证执行
@@ -555,7 +594,7 @@ bash tests/functional/pkgs/acl/test_acl_my_feature/test.sh
 
 ACL 测试套共 **11 个测试用例**，覆盖 getfacl、setfacl、chacl 三大命令的所有主要功能点。
 
-### 9.2 第 1 步：创建套件目录结构
+### 10.2 第 1 步：创建套件目录结构
 
 ```bash
 # 创建软件包级目录
@@ -577,7 +616,7 @@ require:
 EOF
 ```
 
-### 9.3 第 2 步：编写共享库 `lib.sh`
+### 10.3 第 2 步：编写共享库 `lib.sh`
 
 11 个测试用例都需要 `acl` 软件包，使用共享库 + 引用计数避免每个用例重复安装/卸载：
 
@@ -632,7 +671,7 @@ aclCleanup() {
 EOF
 ```
 
-### 9.4 第 3 步：逐功能点开发测试用例
+### 10.4 第 3 步：逐功能点开发测试用例
 
 以下按功能点分别创建目录、main.fmf 和 test.sh。
 
@@ -813,7 +852,7 @@ rlJournalStart
 rlJournalEnd
 ```
 
-### 9.5 第 4 步：本地验证
+### 10.5 第 4 步：本地验证
 
 ```bash
 cd ~/openruyi-autotest
@@ -838,7 +877,7 @@ tmt run --all plan --name /plans/functional \
 tmt run --last report
 ```
 
-### 9.6 ACL 测试套完整清单
+### 10.6 ACL 测试套完整清单
 
 | # | 用例 | 功能点 | 覆盖命令 |
 |---|------|--------|----------|
@@ -856,7 +895,7 @@ tmt run --last report
 
 > **关键设计决策**：每个用例只测试一个明确的主题（如 "getfacl 基本功能"），避免一个巨长脚本涵盖所有功能。这样单独执行/调试更方便，tmt 报告也更精确。
 
-### 9.7 开发检查清单
+### 10.7 开发检查清单
 
 对照第 7 节的验证清单，逐项确认：
 

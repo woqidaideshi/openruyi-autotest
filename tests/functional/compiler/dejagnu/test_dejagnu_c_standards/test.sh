@@ -5,13 +5,13 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- dejagnuSetup
- if ! rpm -q clang 2>/dev/null; then echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y clang 2>/dev/null; fi
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlPhaseStartSetup "Environment setup"
+    dejagnuSetup
+    if ! rpm -q clang 2>/dev/null; then echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y clang 2>/dev/null; fi
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- cat > c99_test.c << 'CEOF'
+    cat > c99_test.c << 'CEOF'
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -28,7 +28,7 @@ int main(void) {
 }
 CEOF
 
- cat > c11_test.c << 'CEOF'
+    cat > c11_test.c << 'CEOF'
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdalign.h>
@@ -42,7 +42,7 @@ int main(void) {
 }
 CEOF
 
- cat > c17_test.c << 'CEOF'
+    cat > c17_test.c << 'CEOF'
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -57,25 +57,25 @@ int main(void) {
  printf("C17_OK\n"); return 0;
 }
 CEOF
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "GCC C Standard"
- rlRun "gcc -std=c99 -Wall -o c99_gcc c99_test.c && ./c99_gcc | grep C99_OK" 0 "GCC -std=c99"
- rlRun "gcc -std=c11 -Wall -o c11_gcc c11_test.c && ./c11_gcc | grep C11_OK" 0 "GCC -std=c11"
- rlRun "gcc -std=c17 -Wall -o c17_gcc c17_test.c && ./c17_gcc | grep C17_OK" 0 "GCC -std=c17"
- rlPhaseEnd
+    rlPhaseStartTest "GCC C Standard"
+    rlRun "gcc -std=c99 -Wall -o c99_gcc c99_test.c && ./c99_gcc | grep C99_OK" 0 "GCC -std=c99"
+    rlRun "gcc -std=c11 -Wall -o c11_gcc c11_test.c && ./c11_gcc | grep C11_OK" 0 "GCC -std=c11"
+    rlRun "gcc -std=c17 -Wall -o c17_gcc c17_test.c && ./c17_gcc | grep C17_OK" 0 "GCC -std=c17"
+    rlPhaseEnd
 
- rlPhaseStartTest "Clang C Standard"
- rlRun "clang -std=c99 -Wall -o c99_clang c99_test.c && ./c99_clang | grep C99_OK" 0 "Clang -std=c99"
- rlRun "clang -std=c11 -Wall -o c11_clang c11_test.c && ./c11_clang | grep C11_OK" 0 "Clang -std=c11"
- rlRun "clang -std=c17 -Wall -o c17_clang c17_test.c && ./c17_clang | grep C17_OK" 0 "Clang -std=c17"
- ./c99_gcc >/tmp/c99_gcc.txt 2>&1; ./c99_clang >/tmp/c99_clang.txt 2>&1
- diff -q /tmp/c99_gcc.txt /tmp/c99_clang.txt >/dev/null 2>&1 && rlPass "C99 GCC/Clang output consistent" || rlLogInfo "C99 output differs"
- rlPhaseEnd
+    rlPhaseStartTest "Clang C Standard"
+    rlRun "clang -std=c99 -Wall -o c99_clang c99_test.c && ./c99_clang | grep C99_OK" 0 "Clang -std=c99"
+    rlRun "clang -std=c11 -Wall -o c11_clang c11_test.c && ./c11_clang | grep C11_OK" 0 "Clang -std=c11"
+    rlRun "clang -std=c17 -Wall -o c17_clang c17_test.c && ./c17_clang | grep C17_OK" 0 "Clang -std=c17"
+    ./c99_gcc >/tmp/c99_gcc.txt 2>&1; ./c99_clang >/tmp/c99_clang.txt 2>&1
+    diff -q /tmp/c99_gcc.txt /tmp/c99_clang.txt >/dev/null 2>&1 && rlPass "C99 GCC/Clang output consistent" || rlLogInfo "C99 output differs"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Cleanup"
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
- rm -f /tmp/c99_{gcc,clang}.txt
- rlPhaseEnd
- rlJournalPrintText
+    rlPhaseStartCleanup "Cleanup"
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rm -f /tmp/c99_{gcc,clang}.txt
+    rlPhaseEnd
+    rlJournalPrintText
 rlJournalEnd

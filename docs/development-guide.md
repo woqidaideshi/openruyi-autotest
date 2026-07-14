@@ -248,7 +248,7 @@ aclCleanup() {
 | `require` | list | ✅ | Dependent RPM packages (must include package under test + `coreutils` + `beakerlib`) |
 | `contact` | string | | Test owner/maintainer |
 | `environment` | dict | | Custom environment variables, e.g. `{VAR1: val1, VAR2: val2}`, injected into test environment |
-| `hardware-require` | dict | | Hardware requirement declaration (see Section 5.3), e.g. `{cpu: ">= 4", memory: ">= 8 GiB"}` |
+| `extra-hardware-require` | dict | | Hardware requirement declaration (see Section 5.3), e.g. `{cpu: ">= 4", memory: ">= 8 GiB"}` |
 
 ### Test Plan (plans/*.fmf)
 
@@ -280,7 +280,7 @@ All plans in this project use `how: local` mode, implementing hardware environme
 |-----------|------|---------|
 | Topology config template | `topology.env.example` | Repo-level template, committed to version control |
 | Topology config instance | `topology.env` | Actual server info, `.gitignore`'d, not committed |
-| Test case declaration | `hardware-require` in `main.fmf` | Each case declares its hardware requirements |
+| Test case declaration | `extra-hardware-require` in `main.fmf` | Each case declares its hardware requirements |
 | Plan loading | `environment-file` in `plans/*.fmf` | Injects `topology.env` as environment variables |
 | Shared check library | `tests/lib/hw_check.sh` | Parses declarations, compares environment, remote execution |
 
@@ -300,7 +300,7 @@ TEST_SERVER_2_USER=openruyi
 TEST_SERVER_2_PASSWORD=openruyi
 ```
 
-### 5.3 Test Case Declaration (`hardware-require`)
+### 5.3 Test Case Declaration (`extra-hardware-require`)
 
 #### Supported Fields
 
@@ -319,8 +319,8 @@ Supported comparison operators: `=` `!=` `>=` `<=` `>` `<`
 Use FMF's hierarchical inheritance to declare defaults at the test type parent level; child suites don't need to repeat:
 
 ```
-tests/functional/main.fmf          ← hardware-require (defaults)
-  └─ pkgs/acl/main.fmf              ← No hardware-require → inherits parent
+tests/functional/main.fmf          ← extra-hardware-require (defaults)
+  └─ pkgs/acl/main.fmf              ← No extra-hardware-require → inherits parent
   │    ├─ test_acl_getfacl_basic/    → Gets defaults ✅
   │    └─ test_acl_setfacl/          → Gets defaults ✅
   └─ kernel/realtime/main.fmf       ← cpu: ">= 16" → overrides cpu
@@ -332,7 +332,7 @@ tests/functional/main.fmf          ← hardware-require (defaults)
 All test type parents `tests/*/main.fmf` have unified declarations:
 
 ```yaml
-hardware-require:
+extra-hardware-require:
   server: 1
   cpu: ">= 4"
   memory: ">= 8 GiB"
@@ -346,7 +346,7 @@ Child suites only override fields that need elevation; the rest are automaticall
 
 ```yaml
 # tests/functional/kernel/realtime/main.fmf
-hardware-require:
+extra-hardware-require:
   cpu: ">= 16"        # Overrides parent's ">= 4"
   memory: ">= 16 GiB"  # Overrides parent's ">= 8 GiB"
   # server/disk/net not written, auto-inherited from parent defaults
@@ -395,7 +395,7 @@ tag:
   - my_pkg
 duration: 5m
 tier: 2
-hardware-require:
+extra-hardware-require:
   server: 2
 ```
 
@@ -475,7 +475,46 @@ Before submitting a test case, verify all of the following:
 
 ---
 
-## 8. FAQ
+## 8. Unit Tests (Code Quality Checks)
+
+The `unittests/` directory contains unit tests for the test framework itself, ensuring all test cases comply with project conventions. Run these locally before submitting a pull request.
+
+### 8.1 Running Unit Tests
+
+```bash
+# Run all unit tests
+python -m unittest discover -s unittests -p "test_*.py" -v
+
+# Run a single test file
+python -m unittest unittests.test_tests_quality -v
+```
+
+### 8.2 Test Case Overview
+
+All tests are in `unittests/test_tests_quality.py`, currently **10 tests** across 5 categories:
+
+| Category | Test | Description |
+|----------|------|-------------|
+| **Chinese Characters** | `test_no_chinese_in_tests` | Ensures no Chinese characters exist in `tests/` directory files |
+| **Mojibake** | `test_no_mojibake_in_tests` | Detects Latin-1 mojibake (e.g. `ä½ å¥½`) in `tests/` directory files |
+| **Shell Script Compliance** | `test_test_sh_compliance` | Validates `test.sh` files follow BeakerLib structure (`rlJournalStart`, `rlPhaseStart*`, `rlJournalEnd`, `#!/bin/bash`) |
+| | `test_lib_sh_compliance` | Validates `lib.sh` files follow shared library conventions (`library-prefix` annotation, `*Setup()` function) |
+| | `test_no_crlf_in_sh_files` | Ensures all `.sh` files use LF line endings, not CRLF |
+| | `test_main_fmf_yaml_valid` | Validates `main.fmf` files are valid YAML with required fields (`summary`, `test`, `tag`, `duration`, `tier`, `path`, `require`) |
+| **Executable Permissions** | `test_sh_files_executable_in_git` | Ensures `.sh` files have executable (`100755`) permission in git |
+| | `test_no_non_sh_executable_in_tests` | Ensures no non-`.sh` files have executable permission in `tests/` |
+| **Indentation** | `test_no_tab_in_sh` | Ensures no tab characters in `.sh` files |
+| | `test_sh_indentation_multiple_of_4` | Ensures indentation uses multiples of 4 spaces (4 per nesting level) |
+
+### 8.3 Key Design Notes
+
+- **Git-based checks**: Most tests read committed content via `git show` to avoid CRLF conversion interference from `core.autocrlf=true`.
+- **Heredoc awareness**: The indentation test excludes heredoc body content (`<<WORD ... WORD`) to avoid false positives from embedded code (C, Makefile, etc.).
+- **All 10 tests must pass** before submitting a PR.
+
+---
+
+## 9. FAQ
 
 ### Q: Error `beakerlib.sh: No such file or directory`
 
@@ -526,16 +565,16 @@ sudo rm -f /var/tmp/tmt-test.pid.lock
 
 ---
 
-## 9. Practical Example: ACL Test Suite
+## 10. Practical Example: ACL Test Suite
 
 This section uses the `acl` test suite as a complete walkthrough from environment setup to viewing results.
 
-### 9.1 Prerequisites
+### 10.1 Prerequisites
 
 - A clean openRuyi server (this example: 10.20.237.192:12055)
 - git, tmt, beakerlib installed (see Section 1)
 
-### 9.2 Clone Repository and Install Dependencies
+### 10.2 Clone Repository and Install Dependencies
 
 ```bash
 git clone https://git.openruyi.cn/woqidaideshi/openruyi-autotest.git
@@ -546,7 +585,7 @@ sudo dnf install -y tmt beakerlib python-six
 sudo dnf install -y acl         # ACL test target package
 ```
 
-### 9.3 (Optional) Configure topology.env
+### 10.3 (Optional) Configure topology.env
 
 ```bash
 cp topology.env.example topology.env
@@ -565,7 +604,7 @@ TEST_SERVER_1_PASSWORD=openruyi
 
 > If the current user is already `openruyi` and running locally, you can skip configuring `topology.env`; tmt will auto-detect.
 
-### 9.4 Clean Up Lock Files (Important)
+### 10.4 Clean Up Lock Files (Important)
 
 If tmt was previously run but interrupted abnormally, lock files may remain:
 
@@ -573,7 +612,7 @@ If tmt was previously run but interrupted abnormally, lock files may remain:
 sudo rm -f /var/tmp/tmt-test.pid.lock
 ```
 
-### 9.5 Execute ACL Test Suite
+### 10.5 Execute ACL Test Suite
 
 ```bash
 cd ~/openruyi-autotest
@@ -607,7 +646,7 @@ discover
         ...
 ```
 
-### 9.6 View Results
+### 10.6 View Results
 
 ```bash
 # Enter the most recent run directory
@@ -619,7 +658,7 @@ cat plans/functional/execute/data/guest/default-0/tests/functional/pkgs/acl/test
 
 **Expected result**: All cases show `PASS` at the end of the output.
 
-### 9.7 FAQ
+### 10.7 FAQ
 
 **Q: `acl` package not found?**
 

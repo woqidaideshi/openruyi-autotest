@@ -1,5 +1,5 @@
 summary: Functional test - openssh - key format
-test:./test.sh
+test: ./test.sh
 tag:
  - functional
  - openssh
