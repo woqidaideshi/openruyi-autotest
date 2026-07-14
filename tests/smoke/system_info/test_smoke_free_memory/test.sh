@@ -14,36 +14,36 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeSystemInfoSetup
-
-
-
- rlPhaseEnd
+    smokeSystemInfoSetup
 
 
 
- rlPhaseStartTest "free memoryuse"
-
- rlRun 'free' 0 "free memoryuse"
-
- rlRun 'free -h' 0 "free -h human-readable"
-
- rlRun 'free -t' 0 "free -t lines"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "free memoryuse"
+
+    rlRun 'free' 0 "free memoryuse"
+
+    rlRun 'free -h' 0 "free -h human-readable"
+
+    rlRun 'free -t' 0 "free -t lines"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

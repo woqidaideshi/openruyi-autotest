@@ -10,71 +10,71 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- sysbenchSetup
+    sysbenchSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- local cores=$(nproc)
+    local cores=$(nproc)
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest " (different lock counts)"
-
- echo ""
-
- echo "=== performance ==="
-
- printf "%-12s %-15s %-15s %-15s\n" "Mutexes" "eps" "Lat(ms)" "Lock/s"
+    rlPhaseEnd
 
 
 
- for mn in 64 512 1024 2048; do
+    rlPhaseStartTest " (different lock counts)"
 
- local log="/tmp/sb_mutex_${mn}.log"
+    echo ""
 
- sysbench --threads=$cores --mutex-num=$mn --mutex-loops=50000 \
+    echo "=== performance ==="
 
- --mutex-locks=200000 --time=20 --report-interval=5 \
-
- mutex run 2>&1 | tee "$log"
+    printf "%-12s %-15s %-15s %-15s\n" "Mutexes" "eps" "Lat(ms)" "Lock/s"
 
 
 
- local eps lat locks
+    for mn in 64 512 1024 2048; do
 
- eps=$(grep "events per second" "$log" | grep -oP '[\d.]+' | head -1)
+    local log="/tmp/sb_mutex_${mn}.log"
 
- lat=$(grep "95th percentile" "$log" | grep -oP '[\d.]+' | head -1)
+    sysbench --threads=$cores --mutex-num=$mn --mutex-loops=50000 \
 
- locks=$(grep "total time:" "$log" -A5 | grep "total number" | grep -oP '[\d.]+' | head -1)
+    --mutex-locks=200000 --time=20 --report-interval=5 \
 
-
-
- printf "%-12s %-15s %-15s %-15s\n" "$mn" "${eps:-N/A}" "${lat:-N/A}" "${locks:-N/A}"
-
- rlPass "mutex num=$mn: eps=${eps:-N/A}"
-
- done
-
- rlPhaseEnd
+    mutex run 2>&1 | tee "$log"
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    local eps lat locks
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    eps=$(grep "events per second" "$log" | grep -oP '[\d.]+' | head -1)
 
- rm -f /tmp/sb_mutex_*.log
+    lat=$(grep "95th percentile" "$log" | grep -oP '[\d.]+' | head -1)
 
- rlPhaseEnd
+    locks=$(grep "total time:" "$log" -A5 | grep "total number" | grep -oP '[\d.]+' | head -1)
 
- rlJournalPrintText
+
+
+    printf "%-12s %-15s %-15s %-15s\n" "$mn" "${eps:-N/A}" "${lat:-N/A}" "${locks:-N/A}"
+
+    rlPass "mutex num=$mn: eps=${eps:-N/A}"
+
+    done
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rm -f /tmp/sb_mutex_*.log
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

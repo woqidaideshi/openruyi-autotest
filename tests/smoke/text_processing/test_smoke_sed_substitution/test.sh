@@ -14,36 +14,36 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeTextProcessingSetup
+    smokeTextProcessingSetup
 
- rlRun "echo "hello world" | sed's/world/universe/' | grep universe" 0 "Prepare environment"
-
-
-
- rlPhaseEnd
+    rlRun "echo "hello world" | sed's/world/universe/' | grep universe" 0 "Prepare environment"
 
 
 
- rlPhaseStartTest "sed replace"
-
- rlRun 'echo "hello" | sed "s/h/H/"' 0 "sed replace"
-
- rlRun 'echo "a b c" | sed "s/ /,/g"' 0 "sed replace"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "sed replace"
+
+    rlRun 'echo "hello" | sed "s/h/H/"' 0 "sed replace"
+
+    rlRun 'echo "a b c" | sed "s/ /,/g"' 0 "sed replace"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

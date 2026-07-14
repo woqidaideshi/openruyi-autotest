@@ -38,51 +38,51 @@ STRESS_FLAG="/tmp/.beakerlib_stress_ng_suite"
 
 stressNgSetup() {
 
- if [ ! -f "$STRESS_FLAG" ]; then
+    if [ ! -f "$STRESS_FLAG" ]; then
 
- if ! rpm -q stress-ng 2>/dev/null; then
+    if ! rpm -q stress-ng 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y stress-ng 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y stress-ng 2>/dev/null
 
- if ! rpm -q stress-ng 2>/dev/null; then
+    if ! rpm -q stress-ng 2>/dev/null; then
 
- rlLogWarning "stress-ng failed"
+    rlLogWarning "stress-ng failed"
 
- echo "installed=0" > "$STRESS_FLAG"
+    echo "installed=0" > "$STRESS_FLAG"
 
- else
+    else
 
- echo "installed=1" > "$STRESS_FLAG"
+    echo "installed=1" > "$STRESS_FLAG"
 
- rlLogInfo "already stress-ng"
+    rlLogInfo "already stress-ng"
 
- fi
+    fi
 
- else
+    else
 
- echo "installed=0" > "$STRESS_FLAG"
+    echo "installed=0" > "$STRESS_FLAG"
 
- rlLogInfo "stress-ng already exists"
+    rlLogInfo "stress-ng already exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$STRESS_FLAG"
+    echo "ref=1" >> "$STRESS_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$STRESS_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$STRESS_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$STRESS_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$STRESS_FLAG"
 
- rlLogInfo "stress-ng reference count: $ref"
+    rlLogInfo "stress-ng reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "stressNgCleanup"
+    rlCleanupAppend "stressNgCleanup"
 
 }
 
@@ -90,29 +90,29 @@ stressNgSetup() {
 
 stressNgCleanup() {
 
- if [ ! -f "$STRESS_FLAG" ]; then return 0; fi
+    if [ ! -f "$STRESS_FLAG" ]; then return 0; fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$STRESS_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$STRESS_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- if grep -q "^installed=1" "$STRESS_FLAG"; then
+    if grep -q "^installed=1" "$STRESS_FLAG"; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y stress-ng 2>/dev/null || true
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y stress-ng 2>/dev/null || true
 
- fi
+    fi
 
- rm -f "$STRESS_FLAG"
+    rm -f "$STRESS_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$STRESS_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$STRESS_FLAG"
 
- fi
+    fi
 
 }
 
@@ -122,7 +122,7 @@ stressNgCleanup() {
 
 _stressNgTaintBefore() {
 
- cat /proc/sys/kernel/tainted 2>/dev/null || echo "0"
+    cat /proc/sys/kernel/tainted 2>/dev/null || echo "0"
 
 }
 
@@ -132,21 +132,21 @@ _stressNgTaintBefore() {
 
 _stressNgTaintCheck() {
 
- local before="$1"
+    local before="$1"
 
- local after
+    local after
 
- after=$(cat /proc/sys/kernel/tainted 2>/dev/null || echo "0")
+    after=$(cat /proc/sys/kernel/tainted 2>/dev/null || echo "0")
 
- if [ "$before" != "$after" ]; then
+    if [ "$before" != "$after" ]; then
 
- rlFail "kernel tainted: $before → $after"
+    rlFail "kernel tainted: $before → $after"
 
- else
+    else
 
- rlPass "kernel tainted no: $before"
+    rlPass "kernel tainted no: $before"
 
- fi
+    fi
 
 }
 
@@ -158,69 +158,69 @@ _stressNgTaintCheck() {
 
 _stressNgValidate() {
 
- local log="$1"
+    local log="$1"
 
- local stressor="$2"
+    local stressor="$2"
 
- if [ ! -f "$log" ]; then rlFail "logfile $log does not exist"; return 1; fi
-
-
-
- # 1. "successful run completed"
-
- if grep -q "successful run completed" "$log"; then
-
- rlPass "$stressor: successComplete"
-
- else
-
- rlFail "$stressor: notnormalComplete"
-
- fi
+    if [ ! -f "$log" ]; then rlFail "logfile $log does not exist"; return 1; fi
 
 
 
- # 2. failed: 0
+    # 1. "successful run completed"
 
- local failed
+    if grep -q "successful run completed" "$log"; then
 
- failed=$(grep -oP 'failed:\s*\K\d+' "$log" | tail -1)
+    rlPass "$stressor: successComplete"
 
- if [ -n "$failed" ] && [ "$failed" -eq 0 ]; then
+    else
 
- rlPass "$stressor: failed=$failed"
+    rlFail "$stressor: notnormalComplete"
 
- elif [ -n "$failed" ]; then
-
- rlFail "$stressor: exists $failed failed"
-
- fi
+    fi
 
 
 
- # 3. bogo ops/s > 0
+    # 2. failed: 0
 
- local bogo
+    local failed
 
- bogo=$(grep -oP "$stressor\s+.*?\s+(\d+\.?\d*)\s+\(\s*real\s+time\s*\)" "$log" | grep -oP '\d+\.?\d*(?=\s*\(\s*real)' | head -1)
+    failed=$(grep -oP 'failed:\s*\K\d+' "$log" | tail -1)
 
- if [ -z "$bogo" ]; then
+    if [ -n "$failed" ] && [ "$failed" -eq 0 ]; then
 
- bogo=$(grep "$stressor" "$log" | grep -oP '\d+\.?\d+(?=\s*\(\s*real)' | head -1)
+    rlPass "$stressor: failed=$failed"
 
- fi
+    elif [ -n "$failed" ]; then
 
- if [ -n "$bogo" ] && [ "$(echo "$bogo > 0" | bc 2>/dev/null || echo 1)" -eq 1 ]; then
+    rlFail "$stressor: exists $failed failed"
 
- rlPass "$stressor: bogo ops/s = $bogo (real time)"
+    fi
 
- else
 
- rlLogWarning "$stressor: Unable toresolve bogo ops"
 
- fi
+    # 3. bogo ops/s > 0
 
- return 0
+    local bogo
+
+    bogo=$(grep -oP "$stressor\s+.*?\s+(\d+\.?\d*)\s+\(\s*real\s+time\s*\)" "$log" | grep -oP '\d+\.?\d*(?=\s*\(\s*real)' | head -1)
+
+    if [ -z "$bogo" ]; then
+
+    bogo=$(grep "$stressor" "$log" | grep -oP '\d+\.?\d+(?=\s*\(\s*real)' | head -1)
+
+    fi
+
+    if [ -n "$bogo" ] && [ "$(echo "$bogo > 0" | bc 2>/dev/null || echo 1)" -eq 1 ]; then
+
+    rlPass "$stressor: bogo ops/s = $bogo (real time)"
+
+    else
+
+    rlLogWarning "$stressor: Unable toresolve bogo ops"
+
+    fi
+
+    return 0
 
 }
 

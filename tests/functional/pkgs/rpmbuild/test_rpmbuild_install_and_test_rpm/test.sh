@@ -16,47 +16,47 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- rpmbuildSetup
+    rpmbuildSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "Install-and-test-RPM"
-
- rlRun "rpm -i 2>&1 || rpm -e 2>&1" 0 "rpm /commandavailable"
-
- rlRun "rpm -K 2>&1 || rpm --checksig 2>&1" 0 "rpm checksumcommand"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "Install-and-test-RPM"
 
+    rlRun "rpm -i 2>&1 || rpm -e 2>&1" 0 "rpm /commandavailable"
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "rpm -K 2>&1 || rpm --checksig 2>&1" 0 "rpm checksumcommand"
 
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # rpmbuild Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # rpmbuild Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

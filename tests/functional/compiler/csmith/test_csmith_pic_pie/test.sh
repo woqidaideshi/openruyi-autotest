@@ -10,17 +10,17 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- csmithSetup
+    csmithSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
 
 
- cat > pic_test.c << 'CEOF'
+    cat > pic_test.c << 'CEOF'
 
 #include <stdio.h>
 
@@ -48,7 +48,7 @@ CEOF
 
 
 
- cat > pic_main.c << 'CEOF'
+    cat > pic_main.c << 'CEOF'
 
 #include <stdio.h>
 
@@ -68,61 +68,61 @@ if(a!=42||b!=42)abort();printf("PIC_PIE_OK\n");return 0;}
 
 CEOF
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "GCC -fPIC + -pie"
+    rlPhaseStartTest "GCC -fPIC + -pie"
 
- # -fPIC compilesharedtargetfile
+    # -fPIC compilesharedtargetfile
 
- rlRun "gcc -fPIC -c pic_test.c -o pic_test.o" 0 "GCC -fPIC compile"
+    rlRun "gcc -fPIC -c pic_test.c -o pic_test.o" 0 "GCC -fPIC compile"
 
- # -pie linkisnoexecutable
+    # -pie linkisnoexecutable
 
- rlRun "gcc -pie -o pie_gcc pic_main.c pic_test.o &&./pie_gcc | grep PIC_PIE_OK" 0 "GCC -pie run"
+    rlRun "gcc -pie -o pie_gcc pic_main.c pic_test.o &&./pie_gcc | grep PIC_PIE_OK" 0 "GCC -pie run"
 
- # verify PIE binary
+    # verify PIE binary
 
- rlRun "file pie_gcc | grep -q'shared object\|pie executable\|position independent'" 0 "GCC PIE typeverify"
-
-
-
- # -fPIE
-
- rlRun "gcc -fPIE -c pic_main.c -o pic_main.o && gcc -pie pic_main.o pic_test.o -o pie2_gcc &&./pie2_gcc | grep PIC_PIE_OK" 0 "GCC -fPIE + -pie"
+    rlRun "file pie_gcc | grep -q'shared object\|pie executable\|position independent'" 0 "GCC PIE typeverify"
 
 
 
- # verify hidden symbolnoexport
+    # -fPIE
 
- rlRun "nm pic_test.o | grep -q 'hidden_func'" 0 "hidden_func existsin.o"
-
- nm pic_test.o | grep hidden_func | grep -qi ' t \| T ' && rlLogInfo "hidden_func insymboltableincan"
-
- rlPhaseEnd
+    rlRun "gcc -fPIE -c pic_main.c -o pic_main.o && gcc -pie pic_main.o pic_test.o -o pie2_gcc &&./pie2_gcc | grep PIC_PIE_OK" 0 "GCC -fPIE + -pie"
 
 
 
- rlPhaseStartTest "Clang -fPIC + -pie"
+    # verify hidden symbolnoexport
 
- rlRun "clang -fPIC -c pic_test.c -o pic_test_c.o" 0 "Clang -fPIC compile"
+    rlRun "nm pic_test.o | grep -q 'hidden_func'" 0 "hidden_func existsin.o"
 
- rlRun "clang -pie -o pie_clang pic_main.c pic_test_c.o &&./pie_clang | grep PIC_PIE_OK" 0 "Clang -pie"
+    nm pic_test.o | grep hidden_func | grep -qi ' t \| T ' && rlLogInfo "hidden_func insymboltableincan"
 
- rlPass "Clang PIC/PIE correct"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "Clang -fPIC + -pie"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "clang -fPIC -c pic_test.c -o pic_test_c.o" 0 "Clang -fPIC compile"
 
- rlPhaseEnd
+    rlRun "clang -pie -o pie_clang pic_main.c pic_test_c.o &&./pie_clang | grep PIC_PIE_OK" 0 "Clang -pie"
 
- rlJournalPrintText
+    rlPass "Clang PIC/PIE correct"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

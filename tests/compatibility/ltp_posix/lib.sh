@@ -32,95 +32,95 @@ SUDO_PASSWORD="${TEST_SERVER_1_PASSWORD:-openruyi}"
 
 ltpPosixSetup() {
 
- if [ ! -f "$LTP_FLAG" ]; then
+    if [ ! -f "$LTP_FLAG" ]; then
 
- DEPS="git gcc make"
+    DEPS="git gcc make"
 
- MISSING_DEPS=""
+    MISSING_DEPS=""
 
- for dep in $DEPS; do
+    for dep in $DEPS; do
 
- if ! rpm -q "$dep" 2>/dev/null; then
+    if ! rpm -q "$dep" 2>/dev/null; then
 
- MISSING_DEPS="$MISSING_DEPS $dep"
+    MISSING_DEPS="$MISSING_DEPS $dep"
 
- fi
+    fi
 
- done
+    done
 
- if [ -n "$MISSING_DEPS" ]; then
+    if [ -n "$MISSING_DEPS" ]; then
 
- echo "$SUDO_PASSWORD" | sudo -S dnf install -y $MISSING_DEPS 2>/dev/null || true
+    echo "$SUDO_PASSWORD" | sudo -S dnf install -y $MISSING_DEPS 2>/dev/null || true
 
- echo "installed_deps=1" > "$LTP_FLAG"
+    echo "installed_deps=1" > "$LTP_FLAG"
 
- else
+    else
 
- echo "installed_deps=0" > "$LTP_FLAG"
+    echo "installed_deps=0" > "$LTP_FLAG"
 
- fi
+    fi
 
 
 
- if [ ! -d "$LTP_DIR" ]; then
+    if [ ! -d "$LTP_DIR" ]; then
 
- mkdir -p /tmp
+    mkdir -p /tmp
 
- cd /tmp
+    cd /tmp
 
- rm -rf ltp-posix
+    rm -rf ltp-posix
 
- if git clone --depth 1 https://github.com/linux-test-project/ltp.git ltp-posix 2>/dev/null; then
+    if git clone --depth 1 https://github.com/linux-test-project/ltp.git ltp-posix 2>/dev/null; then
 
- cd "$LTP_DIR"
+    cd "$LTP_DIR"
 
- make autotools 2>/dev/null || true
+    make autotools 2>/dev/null || true
 
- cd "$LTP_BUILD_DIR"
+    cd "$LTP_BUILD_DIR"
 
 ./configure 2>/dev/null || true
 
- make -j$(nproc) 2>/dev/null || true
+    make -j$(nproc) 2>/dev/null || true
 
- make top_builddir="$LTP_DIR" -C conformance all 2>/dev/null || true
+    make top_builddir="$LTP_DIR" -C conformance all 2>/dev/null || true
 
- echo "installed_ltp=1" >> "$LTP_FLAG"
+    echo "installed_ltp=1" >> "$LTP_FLAG"
 
- rlLogInfo "LTP POSIX Compilation complete"
+    rlLogInfo "LTP POSIX Compilation complete"
 
- else
+    else
 
- echo "installed_ltp=0" >> "$LTP_FLAG"
+    echo "installed_ltp=0" >> "$LTP_FLAG"
 
- rlLogWarning "LTP clone failed, test will be skipped"
+    rlLogWarning "LTP clone failed, test will be skipped"
 
- fi
+    fi
 
- else
+    else
 
- echo "installed_ltp=0" >> "$LTP_FLAG"
+    echo "installed_ltp=0" >> "$LTP_FLAG"
 
- rlLogInfo "LTP already exists"
+    rlLogInfo "LTP already exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$LTP_FLAG"
+    echo "ref=1" >> "$LTP_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$LTP_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$LTP_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
 
- rlLogInfo "LTP POSIX already initialized by other tests, reference count: $ref"
+    rlLogInfo "LTP POSIX already initialized by other tests, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "ltpPosixCleanup"
+    rlCleanupAppend "ltpPosixCleanup"
 
 }
 
@@ -128,39 +128,39 @@ ltpPosixSetup() {
 
 ltpPosixCleanup() {
 
- if [ ! -f "$LTP_FLAG" ]; then
+    if [ ! -f "$LTP_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$LTP_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$LTP_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -rf "$LTP_DIR" 2>/dev/null || true
+    rm -rf "$LTP_DIR" 2>/dev/null || true
 
- if grep -q "^installed_deps=1" "$LTP_FLAG" 2>/dev/null; then
+    if grep -q "^installed_deps=1" "$LTP_FLAG" 2>/dev/null; then
 
- echo "$SUDO_PASSWORD" | sudo -S dnf remove -y git gcc make 2>/dev/null || true
+    echo "$SUDO_PASSWORD" | sudo -S dnf remove -y git gcc make 2>/dev/null || true
 
- fi
+    fi
 
- rm -f "$LTP_FLAG"
+    rm -f "$LTP_FLAG"
 
- rlLogInfo "LTP POSIX Cleanup complete"
+    rlLogInfo "LTP POSIX Cleanup complete"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
 
- rlLogInfo "LTP POSIX Retain (still have $ref test(s) not completed)"
+    rlLogInfo "LTP POSIX Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 
@@ -174,87 +174,87 @@ ltpPosixCleanup() {
 
 run_posix_iface_test() {
 
- local iface="$1"
+    local iface="$1"
 
- local dir="$IFACE_DIR/$iface"
+    local dir="$IFACE_DIR/$iface"
 
- local inc_dir="$LTP_BUILD_DIR/include"
+    local inc_dir="$LTP_BUILD_DIR/include"
 
- local lib_common="$LTP_BUILD_DIR/lib/common.c"
-
-
-
- if [ ! -d "$dir" ]; then
-
- rlLogWarning "SKIP: Interface directory does not exist $iface"
-
- return 0
-
- fi
+    local lib_common="$LTP_BUILD_DIR/lib/common.c"
 
 
 
- cd "$dir"
+    if [ ! -d "$dir" ]; then
+
+    rlLogWarning "SKIP: Interface directory does not exist $iface"
+
+    return 0
+
+    fi
 
 
 
- # 1. run.sh script test
-
- for test_sh in $(find. -maxdepth 1 -type f -name "*.sh" ! -name "Makefile" 2>/dev/null | sort); do
-
- local test_name="${iface}/$(basename "$test_sh")"
-
- if rlRun "echo $SUDO_PASSWORD | sudo -S sh $test_sh" 0 "POSIX $test_name"; then
-
- rlLogInfo "PASS: $test_name"
-
- else
-
- rlLogError "FAIL: $test_name"
-
- fi
-
- done
+    cd "$dir"
 
 
 
- # 2. compile.c file and run (Max per interface 3 samples)
+    # 1. run.sh script test
 
- local c_count=0
+    for test_sh in $(find. -maxdepth 1 -type f -name "*.sh" ! -name "Makefile" 2>/dev/null | sort); do
 
- for src in $(find. -maxdepth 1 -type f -name "*.c" 2>/dev/null | sort); do
+    local test_name="${iface}/$(basename "$test_sh")"
 
- local test_name="${iface}/$(basename "$src".c)"
+    if rlRun "echo $SUDO_PASSWORD | sudo -S sh $test_sh" 0 "POSIX $test_name"; then
 
- local bin="/tmp/posix_test_$$_${c_count}"
+    rlLogInfo "PASS: $test_name"
 
- c_count=$((c_count + 1))
+    else
 
- if gcc -std=gnu11 -I"$inc_dir" -Wno-error=incompatible-pointer-types -o "$bin" "$lib_common" "$src" -lpthread -lrt -lm 2>/dev/null; then
+    rlLogError "FAIL: $test_name"
 
- if rlRun "echo $SUDO_PASSWORD | sudo -S $bin" 0 "POSIX $test_name"; then
+    fi
 
- rlLogInfo "PASS: $test_name"
+    done
 
- else
 
- rlLogError "FAIL: $test_name"
 
- fi
+    # 2. compile.c file and run (Max per interface 3 samples)
 
- rm -f "$bin"
+    local c_count=0
 
- else
+    for src in $(find. -maxdepth 1 -type f -name "*.c" 2>/dev/null | sort); do
 
- rlLogWarning "SKIP: Compile failed $test_name"
+    local test_name="${iface}/$(basename "$src".c)"
 
- fi
+    local bin="/tmp/posix_test_$$_${c_count}"
 
- [ "$c_count" -ge 3 ] && break
+    c_count=$((c_count + 1))
 
- done
+    if gcc -std=gnu11 -I"$inc_dir" -Wno-error=incompatible-pointer-types -o "$bin" "$lib_common" "$src" -lpthread -lrt -lm 2>/dev/null; then
 
- return 0
+    if rlRun "echo $SUDO_PASSWORD | sudo -S $bin" 0 "POSIX $test_name"; then
+
+    rlLogInfo "PASS: $test_name"
+
+    else
+
+    rlLogError "FAIL: $test_name"
+
+    fi
+
+    rm -f "$bin"
+
+    else
+
+    rlLogWarning "SKIP: Compile failed $test_name"
+
+    fi
+
+    [ "$c_count" -ge 3 ] && break
+
+    done
+
+    return 0
 
 }
 

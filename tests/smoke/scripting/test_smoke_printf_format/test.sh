@@ -14,34 +14,34 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeScriptingSetup
-
-
-
- rlPhaseEnd
+    smokeScriptingSetup
 
 
 
- rlPhaseStartTest "printf basic output"
-
- rlRun 'printf "hello"' 0 "printf basic output"
-
- rlRun 'printf "%d\n" 42' 0 "printf format-izenumber"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "printf basic output"
+
+    rlRun 'printf "hello"' 0 "printf basic output"
+
+    rlRun 'printf "%d\n" 42' 0 "printf format-izenumber"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

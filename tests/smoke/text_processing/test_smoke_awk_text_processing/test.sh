@@ -14,44 +14,44 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeTextProcessingSetup
+    smokeTextProcessingSetup
 
- rlRun "echo "a 1" 0 "Prepare environment"
+    rlRun "echo "a 1" 0 "Prepare environment"
 
- rlRun "b 2" 0 "Prepare environment"
+    rlRun "b 2" 0 "Prepare environment"
 
- rlRun "c 3" > data.txt" 0 "Prepare environment"
+    rlRun "c 3" > data.txt" 0 "Prepare environment"
 
- rlRun "rm -f data.txt" 0 "Prepare environment"
-
-
-
- rlPhaseEnd
+    rlRun "rm -f data.txt" 0 "Prepare environment"
 
 
 
- rlPhaseStartTest "awk print#one column"
-
- rlRun 'awk "{print \$1}" data.txt' 0 "awk print#one column"
-
- rlRun 'awk "{print \$2}" data.txt' 0 "awk print#list"
-
- rlRun 'awk "{sum+=\$2} END{print sum}" data.txt' 0 "awk and"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "awk print#one column"
+
+    rlRun 'awk "{print \$1}" data.txt' 0 "awk print#one column"
+
+    rlRun 'awk "{print \$2}" data.txt' 0 "awk print#list"
+
+    rlRun 'awk "{sum+=\$2} END{print sum}" data.txt' 0 "awk and"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

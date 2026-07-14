@@ -10,155 +10,155 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- fioSetup
+    fioSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "datalibraryload (70R/30W, BS=8K)"
+    rlPhaseStartTest "datalibraryload (70R/30W, BS=8K)"
 
- local testfile="$TmpDir/db_workload.dat"
+    local testfile="$TmpDir/db_workload.dat"
 
- local log="$TmpDir/db_randrw.log"
+    local log="$TmpDir/db_randrw.log"
 
 
 
- rlLogInfo "=== datalibraryload: 70%read 30%write, BS=8K, 8jobs, iodepth=16 ==="
+    rlLogInfo "=== datalibraryload: 70%read 30%write, BS=8K, 8jobs, iodepth=16 ==="
 
- _fioDropCaches
+    _fioDropCaches
 
- fio --name=db_mixed --filename="$testfile" --direct=1 \
+    fio --name=db_mixed --filename="$testfile" --direct=1 \
 
- --rw=randrw --rwmixread=70 --bs=8k --size=256M \
+    --rw=randrw --rwmixread=70 --bs=8k --size=256M \
 
- --numjobs=8 --iodepth=16 --ioengine=libaio \
+    --numjobs=8 --iodepth=16 --ioengine=libaio \
 
- --runtime=60 --thread --group_reporting 2>&1 | tee "$log"
+    --runtime=60 --thread --group_reporting 2>&1 | tee "$log"
 
 
 
- echo ""
+    echo ""
 
- echo "=== datalibraryloadresult ==="
+    echo "=== datalibraryloadresult ==="
 
- cat "$log"
+    cat "$log"
 
- _fioParseResult "$log"
+    _fioParseResult "$log"
 
 
 
- # checkreadwriteall hashasdata
+    # checkreadwriteall hashasdata
 
- grep -q "read:" "$log" && rlPass "readdatahas"
+    grep -q "read:" "$log" && rlPass "readdatahas"
 
- grep -q "write:" "$log" && rlPass "writedatahas"
+    grep -q "write:" "$log" && rlPass "writedatahas"
 
- rm -f "$testfile"
+    rm -f "$testfile"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "Web serverload (80R/20W, BS=4K)"
+    rlPhaseStartTest "Web serverload (80R/20W, BS=4K)"
 
- local testfile="$TmpDir/web_workload.dat"
+    local testfile="$TmpDir/web_workload.dat"
 
- local log="$TmpDir/web_randrw.log"
+    local log="$TmpDir/web_randrw.log"
 
 
 
- rlLogInfo "=== Web serverload: 80%read 20%write, BS=4K, 4jobs ==="
+    rlLogInfo "=== Web serverload: 80%read 20%write, BS=4K, 4jobs ==="
 
- _fioDropCaches
+    _fioDropCaches
 
- fio --name=web_mixed --filename="$testfile" --direct=1 \
+    fio --name=web_mixed --filename="$testfile" --direct=1 \
 
- --rw=randrw --rwmixread=80 --bs=4k --size=128M \
+    --rw=randrw --rwmixread=80 --bs=4k --size=128M \
 
- --numjobs=4 --iodepth=32 --ioengine=libaio \
+    --numjobs=4 --iodepth=32 --ioengine=libaio \
 
- --runtime=30 --thread --group_reporting 2>&1 | tee "$log"
+    --runtime=30 --thread --group_reporting 2>&1 | tee "$log"
 
 
 
- echo ""
+    echo ""
 
- echo "=== Web loadresult ==="
+    echo "=== Web loadresult ==="
 
- cat "$log"
+    cat "$log"
 
- _fioParseResult "$log"
+    _fioParseResult "$log"
 
- rm -f "$testfile"
+    rm -f "$testfile"
 
- rlPass "loadtestComplete"
+    rlPass "loadtestComplete"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "read/write ratiocomparison (50/50, 70/30, 90/10)"
+    rlPhaseStartTest "read/write ratiocomparison (50/50, 70/30, 90/10)"
 
- echo ""
+    echo ""
 
- echo "=== read/write ratio vs total ==="
+    echo "=== read/write ratio vs total ==="
 
- printf "%-10s %-15s %-15s %-15s\n" "R/W" "Read IOPS" "Write IOPS" "Total BW"
+    printf "%-10s %-15s %-15s %-15s\n" "R/W" "Read IOPS" "Write IOPS" "Total BW"
 
 
 
- for ratio in 50 70 90; do
+    for ratio in 50 70 90; do
 
- local testfile="$TmpDir/rw${ratio}.dat"
+    local testfile="$TmpDir/rw${ratio}.dat"
 
- local log="$TmpDir/rw${ratio}.log"
+    local log="$TmpDir/rw${ratio}.log"
 
- _fioDropCaches
+    _fioDropCaches
 
- fio --name=rw${ratio} --filename="$testfile" --direct=1 \
+    fio --name=rw${ratio} --filename="$testfile" --direct=1 \
 
- --rw=randrw --rwmixread=$ratio --bs=8k --size=64M \
+    --rw=randrw --rwmixread=$ratio --bs=8k --size=64M \
 
- --numjobs=4 --iodepth=16 --ioengine=libaio \
+    --numjobs=4 --iodepth=16 --ioengine=libaio \
 
- --runtime=15 --thread --group_reporting 2>&1 | tee "$log"
+    --runtime=15 --thread --group_reporting 2>&1 | tee "$log"
 
 
 
- local riops wiop bw
+    local riops wiop bw
 
- riops=$(grep "read:" "$log" | grep -oP 'IOPS=\K[\d.]+k?' | head -1)
+    riops=$(grep "read:" "$log" | grep -oP 'IOPS=\K[\d.]+k?' | head -1)
 
- wiop=$(grep "write:" "$log" | grep -oP 'IOPS=\K[\d.]+k?' | head -1)
+    wiop=$(grep "write:" "$log" | grep -oP 'IOPS=\K[\d.]+k?' | head -1)
 
- bw=$(grep "READ:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
+    bw=$(grep "READ:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
 
- printf "%-10s %-15s %-15s %-15s\n" "${ratio}/$((100-ratio))" "${riops:-N/A}" "${wiop:-N/A}" "${bw:-N/A}"
+    printf "%-10s %-15s %-15s %-15s\n" "${ratio}/$((100-ratio))" "${riops:-N/A}" "${wiop:-N/A}" "${bw:-N/A}"
 
- rm -f "$testfile"
+    rm -f "$testfile"
 
- done
+    done
 
- rlPass "read/write ratiocomparisonComplete"
+    rlPass "read/write ratiocomparisonComplete"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 

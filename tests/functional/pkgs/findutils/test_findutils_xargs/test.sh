@@ -16,47 +16,47 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- findutilsSetup
+    findutilsSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "xargs"
-
- rlRun "cat nums.txt | xargs echo" 0 "xargs: basicUsage"
-
- rlRun "echo \"test1 test2\" | xargs -n1 echo" 0 "xargs -n1: eachparameter"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "xargs"
 
+    rlRun "cat nums.txt | xargs echo" 0 "xargs: basicUsage"
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "echo \"test1 test2\" | xargs -n1 echo" 0 "xargs -n1: eachparameter"
 
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # findutils Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # findutils Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

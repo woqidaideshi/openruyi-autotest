@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeUserMgmtSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeUserMgmtSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "sudo Command exists"
- rlRun 'which sudo' 0 "sudo Command exists"
- rlRun 'sudo -V 2>&1 | head -1' 0 "sudo version"
- rlPhaseEnd
+    rlPhaseStartTest "sudo Command exists"
+    rlRun 'which sudo' 0 "sudo Command exists"
+    rlRun 'sudo -V 2>&1 | head -1' 0 "sudo version"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

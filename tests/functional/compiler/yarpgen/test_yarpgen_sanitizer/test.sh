@@ -16,22 +16,22 @@
 rlJournalStart
 
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
 
- yarpgenSetup
+    yarpgenSetup
 
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
 
 
 
 
- cat > clean.c << 'CEOF'
+    cat > clean.c << 'CEOF'
 
 
 #include <stdio.h>
@@ -55,94 +55,94 @@ free(p);if(s!=450)abort();printf("ASAN_CLEAN_OK\n");return 0;}
 CEOF
 
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
 
 
- rlPhaseStartTest "GCC ASAN"
+    rlPhaseStartTest "GCC ASAN"
 
 
- rlRun "gcc -fsanitize=address -g -o asan_gcc clean.c 2>/dev/null" 0 "GCC -fsanitize=address"
+    rlRun "gcc -fsanitize=address -g -o asan_gcc clean.c 2>/dev/null" 0 "GCC -fsanitize=address"
 
 
- if [ -x./asan_gcc ]; then
+    if [ -x./asan_gcc ]; then
 
 
 ./asan_gcc >/tmp/asan_gcc.txt 2>&1
 
 
- grep -qi "ERROR\|AddressSanitizer" /tmp/asan_gcc.txt && rlFail "GCC ASAN " || rlPass "GCC ASAN normalprogramno"
+    grep -qi "ERROR\|AddressSanitizer" /tmp/asan_gcc.txt && rlFail "GCC ASAN " || rlPass "GCC ASAN normalprogramno"
 
 
- fi
+    fi
 
 
- rlPhaseEnd
-
-
-
-
-
- rlPhaseStartTest "GCC UBSAN"
-
-
- rlRun "gcc -fsanitize=undefined -g -o ubsan_gcc clean.c &&./ubsan_gcc" 0 "GCC UBSAN normal"
-
-
- rlPass "GCC UBSAN no undefined behavior"
-
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
 
 
- rlPhaseStartTest "Clang ASAN"
+    rlPhaseStartTest "GCC UBSAN"
 
 
- rlRun "clang -fsanitize=address -g -o asan_clang clean.c &&./asan_clang 2>/tmp/asan_clang.txt" 0 "Clang ASAN"
+    rlRun "gcc -fsanitize=undefined -g -o ubsan_gcc clean.c &&./ubsan_gcc" 0 "GCC UBSAN normal"
 
 
- grep -qi "ERROR\|AddressSanitizer" /tmp/asan_clang.txt && rlFail "Clang ASAN " || rlPass "Clang ASAN normal"
+    rlPass "GCC UBSAN no undefined behavior"
 
 
- rlPhaseEnd
-
-
-
-
-
- rlPhaseStartTest "Clang UBSAN"
-
-
- rlRun "clang -fsanitize=undefined -g -o ubsan_clang clean.c &&./ubsan_clang" 0 "Clang UBSAN"
-
-
- rlPass "Clang UBSAN no undefined behavior"
-
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "Clang ASAN"
 
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "clang -fsanitize=address -g -o asan_clang clean.c &&./asan_clang 2>/tmp/asan_clang.txt" 0 "Clang ASAN"
 
 
- rm -f /tmp/asan_{gcc,clang}.txt
+    grep -qi "ERROR\|AddressSanitizer" /tmp/asan_clang.txt && rlFail "Clang ASAN " || rlPass "Clang ASAN normal"
 
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
- rlJournalPrintText
+
+
+
+    rlPhaseStartTest "Clang UBSAN"
+
+
+    rlRun "clang -fsanitize=undefined -g -o ubsan_clang clean.c &&./ubsan_clang" 0 "Clang UBSAN"
+
+
+    rlPass "Clang UBSAN no undefined behavior"
+
+
+    rlPhaseEnd
+
+
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+
+    rm -f /tmp/asan_{gcc,clang}.txt
+
+
+    rlPhaseEnd
+
+
+    rlJournalPrintText
 
 
 rlJournalEnd

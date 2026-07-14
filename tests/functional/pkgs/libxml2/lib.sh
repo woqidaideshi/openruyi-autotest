@@ -18,41 +18,41 @@ PKG_FLAG="/tmp/.beakerlib_libxml2_suite"
 
 libxml2Setup() {
 
- if [ ! -f "$PKG_FLAG" ]; then
+    if [ ! -f "$PKG_FLAG" ]; then
 
- if ! rpm -q libxml2 2>/dev/null; then
+    if ! rpm -q libxml2 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libxml2 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y libxml2 2>/dev/null
 
- echo "installed=1" > "$PKG_FLAG"
+    echo "installed=1" > "$PKG_FLAG"
 
- rlLogInfo "already libxml2 soft ()"
+    rlLogInfo "already libxml2 soft ()"
 
- else
+    else
 
- echo "installed=0" > "$PKG_FLAG"
+    echo "installed=0" > "$PKG_FLAG"
 
- rlLogInfo "libxml2 softalready exists"
+    rlLogInfo "libxml2 softalready exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$PKG_FLAG"
+    echo "ref=1" >> "$PKG_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
 
- rlLogInfo "libxml2 alreadybyothertest, reference count: $ref"
+    rlLogInfo "libxml2 alreadybyothertest, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "libxml2Cleanup"
+    rlCleanupAppend "libxml2Cleanup"
 
 }
 
@@ -60,37 +60,37 @@ libxml2Setup() {
 
 libxml2Cleanup() {
 
- if [ ! -f "$PKG_FLAG" ]; then
+    if [ ! -f "$PKG_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- if grep -q "^installed=1" "$PKG_FLAG"; then
+    if grep -q "^installed=1" "$PKG_FLAG"; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libxml2 2>/dev/null || true
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y libxml2 2>/dev/null || true
 
- rlLogInfo "already libxml2 soft (posttest)"
+    rlLogInfo "already libxml2 soft (posttest)"
 
- fi
+    fi
 
- rm -f "$PKG_FLAG"
+    rm -f "$PKG_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
 
- rlLogInfo "libxml2 Retain (still have $ref test(s) not completed)"
+    rlLogInfo "libxml2 Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

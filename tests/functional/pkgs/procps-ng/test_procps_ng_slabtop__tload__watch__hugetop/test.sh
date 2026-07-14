@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- procpsNgSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    procpsNgSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "ng - slabtop--tload--watch--hugetop"
- rlRun "which slabtop 2>/dev/null || echo slabtop-not-found" 0 "slabtop Command check"
- rlRun "which tload 2>/dev/null || echo tload-not-found" 0 "tload Command check"
- rlRun "watch --version" 0 "watch --version"
- rlPhaseEnd
+    rlPhaseStartTest "ng - slabtop--tload--watch--hugetop"
+    rlRun "which slabtop 2>/dev/null || echo slabtop-not-found" 0 "slabtop Command check"
+    rlRun "which tload 2>/dev/null || echo tload-not-found" 0 "tload Command check"
+    rlRun "watch --version" 0 "watch --version"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # procps-ng Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # procps-ng Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

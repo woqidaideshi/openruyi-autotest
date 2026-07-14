@@ -26,29 +26,29 @@ SMOKE_SCRIPTING_FLAG="/tmp/.beakerlib_smoke_scripting_suite"
 
 smokeScriptingSetup() {
 
- if [ ! -f "$SMOKE_SCRIPTING_FLAG" ]; then
+    if [ ! -f "$SMOKE_SCRIPTING_FLAG" ]; then
 
- echo "installed=0" > "$SMOKE_SCRIPTING_FLAG"
+    echo "installed=0" > "$SMOKE_SCRIPTING_FLAG"
 
- echo "ref=1" >> "$SMOKE_SCRIPTING_FLAG"
+    echo "ref=1" >> "$SMOKE_SCRIPTING_FLAG"
 
- rlLogInfo "smoke-scripting: coreDependenciesalreadyconfirmavailable"
+    rlLogInfo "smoke-scripting: coreDependenciesalreadyconfirmavailable"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_SCRIPTING_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_SCRIPTING_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SCRIPTING_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SCRIPTING_FLAG"
 
- rlLogInfo "smoke-scripting already initialized by other tests, reference count: $ref"
+    rlLogInfo "smoke-scripting already initialized by other tests, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "smokeScriptingCleanup"
+    rlCleanupAppend "smokeScriptingCleanup"
 
 }
 
@@ -56,31 +56,31 @@ smokeScriptingSetup() {
 
 smokeScriptingCleanup() {
 
- if [ ! -f "$SMOKE_SCRIPTING_FLAG" ]; then
+    if [ ! -f "$SMOKE_SCRIPTING_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_SCRIPTING_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_SCRIPTING_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$SMOKE_SCRIPTING_FLAG"
+    rm -f "$SMOKE_SCRIPTING_FLAG"
 
- rlLogInfo "smoke-scripting: Cleanup complete (posttest)"
+    rlLogInfo "smoke-scripting: Cleanup complete (posttest)"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SCRIPTING_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SCRIPTING_FLAG"
 
- rlLogInfo "smoke-scripting: Retain (still have $ref test(s) not completed)"
+    rlLogInfo "smoke-scripting: Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

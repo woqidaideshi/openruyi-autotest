@@ -14,34 +14,34 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeSystemInfoSetup
-
-
-
- rlPhaseEnd
+    smokeSystemInfoSetup
 
 
 
- rlPhaseStartTest "du -sh directorysize"
-
- rlRun 'du -sh /etc' 0 "du -sh directorysize"
-
- rlRun 'du -h /bin | head -5' 0 "du listexportfilesize"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "du -sh directorysize"
+
+    rlRun 'du -sh /etc' 0 "du -sh directorysize"
+
+    rlRun 'du -h /bin | head -5' 0 "du listexportfilesize"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

@@ -16,47 +16,47 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- perlSetup
+    perlSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "error handling"
-
- rlRun "perl -e \"print \\"hello\n\\"\"" 0 "ִм Perl "
-
- rlRun "perl -v 2>&1 | head -5" 0 "Display first lines"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "error handling"
 
+    rlRun "perl -e \"print \\"hello\n\\"\"" 0 "ִм Perl "
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "perl -v 2>&1 | head -5" 0 "Display first lines"
 
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # perl Package managed by lib.sh 's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # perl Package managed by lib.sh 's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

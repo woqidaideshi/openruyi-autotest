@@ -18,41 +18,41 @@ PKG_FLAG="/tmp/.beakerlib_labwc_suite"
 
 labwcSetup() {
 
- if [ ! -f "$PKG_FLAG" ]; then
+    if [ ! -f "$PKG_FLAG" ]; then
 
- if ! rpm -q labwc 2>/dev/null; then
+    if ! rpm -q labwc 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y labwc 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y labwc 2>/dev/null
 
- echo "installed=1" > "$PKG_FLAG"
+    echo "installed=1" > "$PKG_FLAG"
 
- rlLogInfo "already labwc soft ()"
+    rlLogInfo "already labwc soft ()"
 
- else
+    else
 
- echo "installed=0" > "$PKG_FLAG"
+    echo "installed=0" > "$PKG_FLAG"
 
- rlLogInfo "labwc softalready exists"
+    rlLogInfo "labwc softalready exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$PKG_FLAG"
+    echo "ref=1" >> "$PKG_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
 
- rlLogInfo "labwc alreadybyothertest, reference count: $ref"
+    rlLogInfo "labwc alreadybyothertest, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "labwcCleanup"
+    rlCleanupAppend "labwcCleanup"
 
 }
 
@@ -60,37 +60,37 @@ labwcSetup() {
 
 labwcCleanup() {
 
- if [ ! -f "$PKG_FLAG" ]; then
+    if [ ! -f "$PKG_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- if grep -q "^installed=1" "$PKG_FLAG"; then
+    if grep -q "^installed=1" "$PKG_FLAG"; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y labwc 2>/dev/null || true
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y labwc 2>/dev/null || true
 
- rlLogInfo "already labwc soft (posttest)"
+    rlLogInfo "already labwc soft (posttest)"
 
- fi
+    fi
 
- rm -f "$PKG_FLAG"
+    rm -f "$PKG_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
 
- rlLogInfo "labwc Retain (still have $ref test(s) not completed)"
+    rlLogInfo "labwc Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

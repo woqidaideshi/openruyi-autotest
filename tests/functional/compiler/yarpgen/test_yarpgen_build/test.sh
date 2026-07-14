@@ -14,159 +14,159 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- yarpgenSetup
+    yarpgenSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "YARPGen build verification"
+    rlPhaseStartTest "YARPGen build verification"
 
- # checkrepolibrarydirectory
+    # checkrepolibrarydirectory
 
- if [ -d "/tmp/yarpgen" ]; then
+    if [ -d "/tmp/yarpgen" ]; then
 
- rlPass "yarpgen source codedirectory exists"
-
- 
-
- # checksource file
-
- if [ -f "/tmp/yarpgen/CMakeLists.txt" ]; then
-
- rlPass "CMakeLists.txt exists"
-
- fi
+    rlPass "yarpgen source codedirectory exists"
 
  
 
- if [ -d "/tmp/yarpgen/src" ]; then
+    # checksource file
 
- rlPass "src directory exists"
+    if [ -f "/tmp/yarpgen/CMakeLists.txt" ]; then
 
- rlRun "ls /tmp/yarpgen/src/" 0 "listexportsource file"
+    rlPass "CMakeLists.txt exists"
 
- fi
-
- else
-
- rlFail "yarpgen source codedirectorydoes not exist"
-
- fi
+    fi
 
  
 
- # checkbuilddirectory
+    if [ -d "/tmp/yarpgen/src" ]; then
 
- if [ -d "/tmp/yarpgen/build" ]; then
+    rlPass "src directory exists"
 
- rlPass "build directory exists"
+    rlRun "ls /tmp/yarpgen/src/" 0 "listexportsource file"
 
- else
+    fi
 
- rlFail "build directorydoes not exist"
+    else
 
- fi
+    rlFail "yarpgen source codedirectorydoes not exist"
 
- 
-
- # check yarpgen executable
-
- if [ -f "/tmp/yarpgen/build/yarpgen" ]; then
-
- rlPass "yarpgen executablealreadyGenerate"
+    fi
 
  
 
- # checkfiletype
+    # checkbuilddirectory
 
- rlRun "file /tmp/yarpgen/build/yarpgen" 0 "check yarpgen filetype"
+    if [ -d "/tmp/yarpgen/build" ]; then
 
- file /tmp/yarpgen/build/yarpgen | tee /tmp/yarpgen_file.txt
+    rlPass "build directory exists"
 
- if grep -qi "ELF" /tmp/yarpgen_file.txt; then
+    else
 
- rlPass "yarpgen is ELF executable"
+    rlFail "build directorydoes not exist"
 
- fi
-
- 
-
- # checkversion/help info
-
- /tmp/yarpgen/build/yarpgen --help 2>&1 | tee /tmp/yarpgen_help.txt
-
- if [ -s /tmp/yarpgen_help.txt ]; then
-
- rlPass "yarpgen --help hasoutput"
-
- fi
+    fi
 
  
 
- # testGenerate random program
+    # check yarpgen executable
 
- rlRun "/tmp/yarpgen/build/yarpgen 2>&1" 0 "Execute yarpgen Generate random program"
+    if [ -f "/tmp/yarpgen/build/yarpgen" ]; then
 
- 
-
- # checkGenerateoutputfile
-
- local gen_files=0
-
- for f in init.h func.cpp driver.cpp; do
-
- if [ -f "$f" ]; then
-
- gen_files=$((gen_files + 1))
-
- rlPass "Generate $f ($(wc -l < $f) lines)"
-
- fi
-
- done
+    rlPass "yarpgen executablealreadyGenerate"
 
  
 
- if [ "$gen_files" -eq 3 ]; then
+    # checkfiletype
 
- rlPass "YARPGen successGenerateall 3 file (init.h + func.cpp + driver.cpp)"
+    rlRun "file /tmp/yarpgen/build/yarpgen" 0 "check yarpgen filetype"
 
- else
+    file /tmp/yarpgen/build/yarpgen | tee /tmp/yarpgen_file.txt
 
- rlFail "YARPGen onlyGenerate $gen_files/3 file"
+    if grep -qi "ELF" /tmp/yarpgen_file.txt; then
 
- fi
+    rlPass "yarpgen is ELF executable"
 
- else
+    fi
 
- rlFail "yarpgen executablenotGenerate"
+ 
 
- fi
+    # checkversion/help info
 
- rlPhaseEnd
+    /tmp/yarpgen/build/yarpgen --help 2>&1 | tee /tmp/yarpgen_help.txt
+
+    if [ -s /tmp/yarpgen_help.txt ]; then
+
+    rlPass "yarpgen --help hasoutput"
+
+    fi
+
+ 
+
+    # testGenerate random program
+
+    rlRun "/tmp/yarpgen/build/yarpgen 2>&1" 0 "Execute yarpgen Generate random program"
+
+ 
+
+    # checkGenerateoutputfile
+
+    local gen_files=0
+
+    for f in init.h func.cpp driver.cpp; do
+
+    if [ -f "$f" ]; then
+
+    gen_files=$((gen_files + 1))
+
+    rlPass "Generate $f ($(wc -l < $f) lines)"
+
+    fi
+
+    done
+
+ 
+
+    if [ "$gen_files" -eq 3 ]; then
+
+    rlPass "YARPGen successGenerateall 3 file (init.h + func.cpp + driver.cpp)"
+
+    else
+
+    rlFail "YARPGen onlyGenerate $gen_files/3 file"
+
+    fi
+
+    else
+
+    rlFail "yarpgen executablenotGenerate"
+
+    fi
+
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 "Leave temporary directory"
+    rlRun "cd /" 0 "Leave temporary directory"
 
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
 
- rm -f /tmp/yarpgen_{file,help}.txt
+    rm -f /tmp/yarpgen_{file,help}.txt
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 

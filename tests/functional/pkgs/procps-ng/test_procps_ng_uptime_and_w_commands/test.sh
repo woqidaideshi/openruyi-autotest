@@ -16,47 +16,47 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- procpsNgSetup
+    procpsNgSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "ng - uptime-and-w-commands"
-
- rlRun "uptime" 0 "uptime systemruntime"
-
- rlRun "w" 0 "w currentuser"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "ng - uptime-and-w-commands"
 
+    rlRun "uptime" 0 "uptime systemruntime"
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "w" 0 "w currentuser"
 
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # procps-ng Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # procps-ng Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

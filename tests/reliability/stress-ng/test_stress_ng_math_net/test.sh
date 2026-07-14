@@ -10,121 +10,121 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- stressNgSetup
+    stressNgSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- TAINT=$(_stressNgTaintBefore)
+    TAINT=$(_stressNgTaintBefore)
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "MATRIX stress ()"
-
- local log="$TmpDir/matrix.log"
-
- rlRun "stress-ng --matrix 2 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--matrix 2"
-
- _stressNgValidate "$log" "matrix"
-
- # usr time, verify usr > sys
-
- if grep -q "matrix" "$log"; then
-
- local usr sys
-
- usr=$(grep "matrix" "$log" | awk '{for(i=1;i<=NF;i++){if($i~/^[0-9.]+$/&&$(i-1)~/secs/)print $i}}' | head -1)
-
- rlLogInfo " bogo verify"
-
- fi
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "AF-ALG stress (kernelcrypto)"
+    rlPhaseStartTest "MATRIX stress ()"
 
- local log="$TmpDir/af_alg.log"
+    local log="$TmpDir/matrix.log"
 
- stress-ng --af-alg 2 --timeout 20s --metrics-brief --log-file "$log" 2>&1 | tail -5
+    rlRun "stress-ng --matrix 2 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--matrix 2"
 
- if grep -q "successful run completed" "$log" 2>/dev/null; then
+    _stressNgValidate "$log" "matrix"
 
- _stressNgValidate "$log" "af-alg"
+    # usr time, verify usr > sys
 
- else
+    if grep -q "matrix" "$log"; then
 
- rlLogInfo "AF-ALG stressor no by supports (nokernelcryptomodule), skip"
+    local usr sys
 
- rlPass "AF-ALG: skip"
+    usr=$(grep "matrix" "$log" | awk '{for(i=1;i<=NF;i++){if($i~/^[0-9.]+$/&&$(i-1)~/secs/)print $i}}' | head -1)
 
- fi
+    rlLogInfo " bogo verify"
 
- rlPhaseEnd
+    fi
 
-
-
- rlPhaseStartTest "VM-SPLICE stress (pipe splice)"
-
- local log="$TmpDir/vm_splice.log"
-
- stress-ng --vm-splice 2 --timeout 20s --metrics-brief --log-file "$log" 2>&1 | tail -5
-
- if grep -q "successful run completed" "$log" 2>/dev/null; then
-
- _stressNgValidate "$log" "vm-splice"
-
- else
-
- rlLogInfo "vm-splice noavailable, skip"
-
- rlPass "VM-SPLICE: skip"
-
- fi
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "BAD-ALTSTACK stress (Exceptionsignalstack)"
+    rlPhaseStartTest "AF-ALG stress (kernelcrypto)"
 
- #: itemswillExceptionsignalhandlepath, possiblehaspreerror
+    local log="$TmpDir/af_alg.log"
 
- local log="$TmpDir/bad_altstack.log"
+    stress-ng --af-alg 2 --timeout 20s --metrics-brief --log-file "$log" 2>&1 | tail -5
 
- rlRun "stress-ng --bad-altstack 1 --timeout 10s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--bad-altstack 1"
+    if grep -q "successful run completed" "$log" 2>/dev/null; then
 
- # bad-altstack possiblehas skipped, this isnormal
+    _stressNgValidate "$log" "af-alg"
 
- rlLogInfo "bad-altstack Complete (has skipped orwarning)"
+    else
 
- rlPass "BAD-ALTSTACK: ExecuteComplete"
+    rlLogInfo "AF-ALG stressor no by supports (nokernelcryptomodule), skip"
 
- rlPhaseEnd
+    rlPass "AF-ALG: skip"
 
+    fi
 
-
- rlPhaseStartTest "tainted"
-
- _stressNgTaintCheck "$TAINT"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "VM-SPLICE stress (pipe splice)"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    local log="$TmpDir/vm_splice.log"
 
- rlPhaseEnd
+    stress-ng --vm-splice 2 --timeout 20s --metrics-brief --log-file "$log" 2>&1 | tail -5
 
- rlJournalPrintText
+    if grep -q "successful run completed" "$log" 2>/dev/null; then
+
+    _stressNgValidate "$log" "vm-splice"
+
+    else
+
+    rlLogInfo "vm-splice noavailable, skip"
+
+    rlPass "VM-SPLICE: skip"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartTest "BAD-ALTSTACK stress (Exceptionsignalstack)"
+
+    #: itemswillExceptionsignalhandlepath, possiblehaspreerror
+
+    local log="$TmpDir/bad_altstack.log"
+
+    rlRun "stress-ng --bad-altstack 1 --timeout 10s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--bad-altstack 1"
+
+    # bad-altstack possiblehas skipped, this isnormal
+
+    rlLogInfo "bad-altstack Complete (has skipped orwarning)"
+
+    rlPass "BAD-ALTSTACK: ExecuteComplete"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartTest "tainted"
+
+    _stressNgTaintCheck "$TAINT"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

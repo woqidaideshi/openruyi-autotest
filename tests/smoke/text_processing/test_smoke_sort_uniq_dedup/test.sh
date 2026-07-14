@@ -14,15 +14,15 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeTextProcessingSetup
+    smokeTextProcessingSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlRun "cat > nums.txt << EOF" 0 "Create test data"
+    rlRun "cat > nums.txt << EOF" 0 "Create test data"
 
  rlRun "3" 0 "Create test data"
 

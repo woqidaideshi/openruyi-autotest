@@ -14,46 +14,46 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeFSSetup
+    smokeFSSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "touch createfile"
-
- rlRun "touch empty.txt" 0 "touch createfile"
-
- rlRun "test -f empty.txt" 0 "file exists"
-
- rlRun "test ! -s empty.txt" 0 "filesizeis0"
-
- rlRun "touch -t 202401010000 ref.txt" 0 "touch settimestamp"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "touch createfile"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun "touch empty.txt" 0 "touch createfile"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "test -f empty.txt" 0 "file exists"
 
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    rlRun "test ! -s empty.txt" 0 "filesizeis0"
 
- fi
+    rlRun "touch -t 202401010000 ref.txt" 0 "touch settimestamp"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

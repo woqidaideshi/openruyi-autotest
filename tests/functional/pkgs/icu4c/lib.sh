@@ -18,41 +18,41 @@ PKG_FLAG="/tmp/.beakerlib_icu4c_suite"
 
 icu4cSetup() {
 
- if [ ! -f "$PKG_FLAG" ]; then
+    if [ ! -f "$PKG_FLAG" ]; then
 
- if ! rpm -q icu4c 2>/dev/null; then
+    if ! rpm -q icu4c 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y icu4c 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y icu4c 2>/dev/null
 
- echo "installed=1" > "$PKG_FLAG"
+    echo "installed=1" > "$PKG_FLAG"
 
- rlLogInfo "already icu4c soft ()"
+    rlLogInfo "already icu4c soft ()"
 
- else
+    else
 
- echo "installed=0" > "$PKG_FLAG"
+    echo "installed=0" > "$PKG_FLAG"
 
- rlLogInfo "icu4c softalready exists"
+    rlLogInfo "icu4c softalready exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$PKG_FLAG"
+    echo "ref=1" >> "$PKG_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
 
- rlLogInfo "icu4c alreadybyothertest, reference count: $ref"
+    rlLogInfo "icu4c alreadybyothertest, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "icu4cCleanup"
+    rlCleanupAppend "icu4cCleanup"
 
 }
 
@@ -60,37 +60,37 @@ icu4cSetup() {
 
 icu4cCleanup() {
 
- if [ ! -f "$PKG_FLAG" ]; then
+    if [ ! -f "$PKG_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- if grep -q "^installed=1" "$PKG_FLAG"; then
+    if grep -q "^installed=1" "$PKG_FLAG"; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y icu4c 2>/dev/null || true
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y icu4c 2>/dev/null || true
 
- rlLogInfo "already icu4c soft (posttest)"
+    rlLogInfo "already icu4c soft (posttest)"
 
- fi
+    fi
 
- rm -f "$PKG_FLAG"
+    rm -f "$PKG_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
 
- rlLogInfo "icu4c Retain (still have $ref test(s) not completed)"
+    rlLogInfo "icu4c Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

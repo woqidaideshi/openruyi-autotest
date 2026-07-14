@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- grepSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    grepSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "Multiple-patterns---e---f"
- rlRun "grep -e Hello -e apple test1.txt test2.txt" 0 "Multiple patterns with -e"
- rlRun "grep -f patterns.txt test1.txt test2.txt" 0 "Patterns from file with -f"
- rlRun "test $(grep -m1 Hello test1.txt | wc -l) -eq 1" 0 "Max count: stop after first match"
- rlPhaseEnd
+    rlPhaseStartTest "Multiple-patterns---e---f"
+    rlRun "grep -e Hello -e apple test1.txt test2.txt" 0 "Multiple patterns with -e"
+    rlRun "grep -f patterns.txt test1.txt test2.txt" 0 "Patterns from file with -f"
+    rlRun "test $(grep -m1 Hello test1.txt | wc -l) -eq 1" 0 "Max count: stop after first match"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # grep Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # grep Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

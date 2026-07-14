@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeServiceMgmtSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeServiceMgmtSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "systemd-analyze startup time"
- rlRun 'timeout 10 systemd-analyze 2>&1 || true' 0 "systemd-analyze startup time"
- rlRun 'timeout 15 systemd-analyze blame 2>&1 | head -5 || true' 0 "systemd-analyze blame"
- rlPhaseEnd
+    rlPhaseStartTest "systemd-analyze startup time"
+    rlRun 'timeout 10 systemd-analyze 2>&1 || true' 0 "systemd-analyze startup time"
+    rlRun 'timeout 15 systemd-analyze blame 2>&1 | head -5 || true' 0 "systemd-analyze blame"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

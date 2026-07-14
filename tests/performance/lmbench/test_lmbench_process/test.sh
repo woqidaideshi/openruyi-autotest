@@ -10,123 +10,123 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- lmbenchSetup
+    lmbenchSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "processcreate"
+    rlPhaseStartTest "processcreate"
 
- cd "$LMBENCH_DIR"
+    cd "$LMBENCH_DIR"
 
- echo "=== processcreateoverhead ==="
+    echo "=== processcreateoverhead ==="
 
- echo "fork + exit latency (microsecond):"
+    echo "fork + exit latency (microsecond):"
 
 ./bin/lat_proc fork 2>&1
 
- echo ""
+    echo ""
 
 
 
- echo "fork + execve latency (microsecond):"
+    echo "fork + execve latency (microsecond):"
 
 ./bin/lat_proc exec 2>&1
 
- echo ""
+    echo ""
 
 
 
- echo "fork + /bin/sh latency (microsecond):"
+    echo "fork + /bin/sh latency (microsecond):"
 
 ./bin/lat_proc shell 2>&1
 
 
 
- rlPass "processlatencytestComplete"
+    rlPass "processlatencytestComplete"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "context switchoverhead"
-
- cd "$LMBENCH_DIR"
-
- echo ""
-
- echo "=== context switchlatency ==="
+    rlPhaseEnd
 
 
 
- # differentprocesscountanddatasizecontext switch
+    rlPhaseStartTest "context switchoverhead"
 
- for procs in 2 4 8 16; do
+    cd "$LMBENCH_DIR"
 
- for size in 0 16 64; do
+    echo ""
 
- echo -n " ${procs}p/${size}K: "
+    echo "=== context switchlatency ==="
+
+
+
+    # differentprocesscountanddatasizecontext switch
+
+    for procs in 2 4 8 16; do
+
+    for size in 0 16 64; do
+
+    echo -n " ${procs}p/${size}K: "
 
 ./bin/lat_ctx -s $size $procs 2>&1 | grep -oP '[\d.]+' | head -1
 
- done
+    done
 
- done
-
-
-
- rlPass "context switchanalysisComplete"
-
- rlPhaseEnd
+    done
 
 
 
- rlPhaseStartTest "threadcreateoverhead"
+    rlPass "context switchanalysisComplete"
 
- cd "$LMBENCH_DIR"
+    rlPhaseEnd
 
- echo ""
 
- echo "=== threadoperation ==="
 
- if [ -f bin/lat_pthread ]; then
+    rlPhaseStartTest "threadcreateoverhead"
+
+    cd "$LMBENCH_DIR"
+
+    echo ""
+
+    echo "=== threadoperation ==="
+
+    if [ -f bin/lat_pthread ]; then
 
 ./bin/lat_pthread create 2>&1 || echo "pthread testnoavailable"
 
- fi
+    fi
 
 
 
- # subprocessandthreadcomparison
+    # subprocessandthreadcomparison
 
- echo ""
+    echo ""
 
- echo "=== fork vs thread comparison ==="
+    echo "=== fork vs thread comparison ==="
 
- echo "fork: "
+    echo "fork: "
 
 ./bin/lat_proc fork 2>&1 | tail -1 || true
 
- rlPass "threadoverheadtestComplete"
+    rlPass "threadoverheadtestComplete"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 

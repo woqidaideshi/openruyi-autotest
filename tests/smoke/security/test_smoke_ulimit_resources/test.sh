@@ -14,34 +14,34 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeSecuritySetup
-
-
-
- rlPhaseEnd
+    smokeSecuritySetup
 
 
 
- rlPhaseStartTest "ulimit -n filedescriptor limit"
-
- rlRun 'ulimit -n' 0 "ulimit -n filedescriptor limit"
-
- rlRun 'ulimit -u' 0 "ulimit -u userprocesscount"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "ulimit -n filedescriptor limit"
+
+    rlRun 'ulimit -n' 0 "ulimit -n filedescriptor limit"
+
+    rlRun 'ulimit -u' 0 "ulimit -u userprocesscount"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

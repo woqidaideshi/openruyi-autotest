@@ -16,51 +16,51 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- cmakeSetup
+    cmakeSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "Error-handling"
-
- rlRun "cmake /nonexistent/path 2>&1" 1 "cmake vsdoes not existpathshould error"
-
- rlRun "cmake --build /nonexistent/build 2>&1" 1 "cmake --build vsdoes not existdirectoryshould error"
-
- rlRun "cmake -E true" 0 "cmake -E true returnsuccess"
-
- rlRun "cmake -E false 2>&1" 1 "cmake -E false returnfailed"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "Error-handling"
 
+    rlRun "cmake /nonexistent/path 2>&1" 1 "cmake vsdoes not existpathshould error"
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cmake --build /nonexistent/build 2>&1" 1 "cmake --build vsdoes not existdirectoryshould error"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun "cmake -E true" 0 "cmake -E true returnsuccess"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "cmake -E false 2>&1" 1 "cmake -E false returnfailed"
 
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # cmake Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # cmake Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

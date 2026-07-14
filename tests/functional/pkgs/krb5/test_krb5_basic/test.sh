@@ -16,45 +16,45 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- krb5Setup
+    krb5Setup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "krb5 error handling"
-
- rlRun "klist 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "Ʊ(Ϊ)"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "krb5 error handling"
 
+    rlRun "klist 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "Ʊ(Ϊ)"
 
- rlPhaseStartCleanup "Clean up test environment"
-
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # krb5 Package managed by lib.sh 's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # krb5 Package managed by lib.sh 's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

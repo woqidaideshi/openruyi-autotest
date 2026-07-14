@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeProcessSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeProcessSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "pidof searchsystemd"
- rlRun 'pidof systemd' 0 "pidof searchsystemd"
- rlRun 'pgrep -x systemd' 0 "pgrep searchprocess"
- rlPhaseEnd
+    rlPhaseStartTest "pidof searchsystemd"
+    rlRun 'pidof systemd' 0 "pidof searchsystemd"
+    rlRun 'pgrep -x systemd' 0 "pgrep searchprocess"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

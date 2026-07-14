@@ -14,107 +14,107 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- trinitySetup
+    trinitySetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- TAINT_BEFORE=$(_trinityTaintBefore)
+    TAINT_BEFORE=$(_trinityTaintBefore)
 
- chmod 777 "$TmpDir"
+    chmod 777 "$TmpDir"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "vssecurity syscall"
-
- local safe_calls="getpid getuid getgid geteuid getppid gettimeofday clock_gettime nanosleep getcpu getrandom uname sysinfo"
-
- local tested=0
+    rlPhaseEnd
 
 
 
- for call in $safe_calls; do
+    rlPhaseStartTest "vssecurity syscall"
 
- # check syscall whetheravailable
+    local safe_calls="getpid getuid getgid geteuid getppid gettimeofday clock_gettime nanosleep getcpu getrandom uname sysinfo"
 
- if trinity -L 2>&1 | grep -qiw "$call"; then
-
- rlLogInfo "test syscall: $call"
-
- local log="$TmpDir/trinity_${call}.log"
-
- timeout 15 sudo -u "$TRINITY_USER" trinity -q -c "$call" -N 1000 > "$log" 2>&1
-
- local rc=$?
-
- tested=$((tested + 1))
+    local tested=0
 
 
 
- if [ "$rc" -eq 0 ] || [ "$rc" -eq 124 ]; then
+    for call in $safe_calls; do
 
- # checkoutputnocontains BUG
+    # check syscall whetheravailable
 
- if grep -q "BUG:" "$log" 2>/dev/null; then
+    if trinity -L 2>&1 | grep -qiw "$call"; then
 
- rlFail "syscall $call BUG"
+    rlLogInfo "test syscall: $call"
 
- grep "BUG:" "$log" | head -5
+    local log="$TmpDir/trinity_${call}.log"
 
- else
+    timeout 15 sudo -u "$TRINITY_USER" trinity -q -c "$call" -N 1000 > "$log" 2>&1
 
- rlPass "syscall $call: security ($([[ $rc -eq 124 ]] && echo timeout || echo done))"
+    local rc=$?
 
- fi
-
- else
-
- rlLogWarning "syscall $call: exit code $rc"
-
- fi
-
- else
-
- rlLogInfo "syscall $call noavailable, skip"
-
- fi
-
- done
+    tested=$((tested + 1))
 
 
 
- rlLogInfo "sharedtest $tested security syscall"
+    if [ "$rc" -eq 0 ] || [ "$rc" -eq 124 ]; then
 
- if [ "$tested" -gt 0 ]; then
+    # checkoutputnocontains BUG
 
- rlPass "vsSecurity testComplete ($tested syscalls)"
+    if grep -q "BUG:" "$log" 2>/dev/null; then
 
- fi
+    rlFail "syscall $call BUG"
 
- rlPhaseEnd
+    grep "BUG:" "$log" | head -5
+
+    else
+
+    rlPass "syscall $call: security ($([[ $rc -eq 124 ]] && echo timeout || echo done))"
+
+    fi
+
+    else
+
+    rlLogWarning "syscall $call: exit code $rc"
+
+    fi
+
+    else
+
+    rlLogInfo "syscall $call noavailable, skip"
+
+    fi
+
+    done
 
 
 
- rlPhaseStartTest "tainted check"
+    rlLogInfo "sharedtest $tested security syscall"
 
- _trinityTaintCheck "$TAINT_BEFORE"
+    if [ "$tested" -gt 0 ]; then
 
- rlPhaseEnd
+    rlPass "vsSecurity testComplete ($tested syscalls)"
+
+    fi
+
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "tainted check"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    _trinityTaintCheck "$TAINT_BEFORE"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

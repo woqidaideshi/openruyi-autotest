@@ -30,81 +30,81 @@ YARPGEN_DIR="/tmp/yarpgen"
 
 yarpgenSetup() {
 
- if [ ! -f "$YARPGEN_FLAG" ]; then
+    if [ ! -f "$YARPGEN_FLAG" ]; then
 
- # Install build dependencies
+    # Install build dependencies
 
- if ! rpm -q cmake 2>/dev/null; then
+    if ! rpm -q cmake 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y cmake 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y cmake 2>/dev/null
 
- fi
+    fi
 
- if ! rpm -q gcc-c++ 2>/dev/null; then
+    if ! rpm -q gcc-c++ 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y gcc-c++ 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y gcc-c++ 2>/dev/null
 
- fi
-
- 
-
- # Clone and build yarpgen if not present
-
- if [ ! -f "$YARPGEN_DIR/build/yarpgen" ]; then
-
- if [ ! -d "$YARPGEN_DIR" ]; then
-
- git clone --depth 1 https://github.com/intel/yarpgen.git "$YARPGEN_DIR" 2>/dev/null
-
- fi
-
- if [ -d "$YARPGEN_DIR" ]; then
-
- mkdir -p "$YARPGEN_DIR/build"
-
- cd "$YARPGEN_DIR/build"
-
- cmake.. 2>/dev/null && make -j$(nproc) 2>/dev/null
-
- cd - >/dev/null
-
- fi
-
- fi
+    fi
 
  
 
- if [ -f "$YARPGEN_DIR/build/yarpgen" ]; then
+    # Clone and build yarpgen if not present
 
- echo "built=1" > "$YARPGEN_FLAG"
+    if [ ! -f "$YARPGEN_DIR/build/yarpgen" ]; then
 
- rlLogInfo "YARPGen Compile succeeded: $YARPGEN_DIR/build/yarpgen"
+    if [ ! -d "$YARPGEN_DIR" ]; then
 
- else
+    git clone --depth 1 https://github.com/intel/yarpgen.git "$YARPGEN_DIR" 2>/dev/null
 
- rlLogWarning "YARPGen Compile failed"
+    fi
 
- echo "built=0" > "$YARPGEN_FLAG"
+    if [ -d "$YARPGEN_DIR" ]; then
 
- fi
+    mkdir -p "$YARPGEN_DIR/build"
 
- echo "ref=1" >> "$YARPGEN_FLAG"
+    cd "$YARPGEN_DIR/build"
 
- else
+    cmake.. 2>/dev/null && make -j$(nproc) 2>/dev/null
 
- local ref
+    cd - >/dev/null
 
- ref=$(grep "^ref=" "$YARPGEN_FLAG" | cut -d= -f2)
+    fi
 
- ref=$((ref + 1))
+    fi
 
- sed -i "s/^ref=.*/ref=$ref/" "$YARPGEN_FLAG"
+ 
 
- rlLogInfo "yarpgen reference count: $ref"
+    if [ -f "$YARPGEN_DIR/build/yarpgen" ]; then
 
- fi
+    echo "built=1" > "$YARPGEN_FLAG"
 
- rlCleanupAppend "yarpgenCleanup"
+    rlLogInfo "YARPGen Compile succeeded: $YARPGEN_DIR/build/yarpgen"
+
+    else
+
+    rlLogWarning "YARPGen Compile failed"
+
+    echo "built=0" > "$YARPGEN_FLAG"
+
+    fi
+
+    echo "ref=1" >> "$YARPGEN_FLAG"
+
+    else
+
+    local ref
+
+    ref=$(grep "^ref=" "$YARPGEN_FLAG" | cut -d= -f2)
+
+    ref=$((ref + 1))
+
+    sed -i "s/^ref=.*/ref=$ref/" "$YARPGEN_FLAG"
+
+    rlLogInfo "yarpgen reference count: $ref"
+
+    fi
+
+    rlCleanupAppend "yarpgenCleanup"
 
 }
 
@@ -112,27 +112,27 @@ yarpgenSetup() {
 
 yarpgenCleanup() {
 
- if [ ! -f "$YARPGEN_FLAG" ]; then return 0; fi
+    if [ ! -f "$YARPGEN_FLAG" ]; then return 0; fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$YARPGEN_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$YARPGEN_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$YARPGEN_FLAG"
+    rm -f "$YARPGEN_FLAG"
 
- rlLogInfo "yarpgen testCleanup complete (Retainbuildwith)"
+    rlLogInfo "yarpgen testCleanup complete (Retainbuildwith)"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$YARPGEN_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$YARPGEN_FLAG"
 
- rlLogInfo "yarpgen Retain (still have $ref test)"
+    rlLogInfo "yarpgen Retain (still have $ref test)"
 
- fi
+    fi
 
 }
 

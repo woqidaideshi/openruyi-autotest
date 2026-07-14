@@ -14,36 +14,36 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeTextProcessingSetup
-
-
-
- rlPhaseEnd
+    smokeTextProcessingSetup
 
 
 
- rlPhaseStartTest "wc -l countlinescount"
-
- rlRun 'wc -l /etc/os-release' 0 "wc -l countlinescount"
-
- rlRun 'wc -c /etc/hostname' 0 "wc -c countcount"
-
- rlRun 'wc -w /etc/os-release' 0 "wc -w countsinglecount"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "wc -l countlinescount"
+
+    rlRun 'wc -l /etc/os-release' 0 "wc -l countlinescount"
+
+    rlRun 'wc -c /etc/hostname' 0 "wc -c countcount"
+
+    rlRun 'wc -w /etc/os-release' 0 "wc -w countsinglecount"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

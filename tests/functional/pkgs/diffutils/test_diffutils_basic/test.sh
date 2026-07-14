@@ -16,53 +16,53 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- diffutilsSetup
+    diffutilsSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "error handling"
+    rlPhaseStartTest "error handling"
 
 rlRun() { eval "$1" 2>&1; return $?; }
 
- rlRun "cmp --help 2>&1 | head -10" 0 "Compare files byte by byte"
+    rlRun "cmp --help 2>&1 | head -10" 0 "Compare files byte by byte"
 
- rlRun "diff --help 2>&1 | head -10" 0 "Compare files line by line"
+    rlRun "diff --help 2>&1 | head -10" 0 "Compare files line by line"
 
- rlRun "diff3 --help 2>&1 | head -10" 0 "Three-way file comparison"
+    rlRun "diff3 --help 2>&1 | head -10" 0 "Three-way file comparison"
 
- rlRun "sdiff --help 2>&1 | head -10" 0 "Compare files line by line"
+    rlRun "sdiff --help 2>&1 | head -10" 0 "Compare files line by line"
 
- rlPhaseEnd
-
-
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
-
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # diffutils Package managed by lib.sh 's reference counting auto-uninstall
-
- rlPhaseEnd
 
 
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlJournalPrintText
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # diffutils Package managed by lib.sh 's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

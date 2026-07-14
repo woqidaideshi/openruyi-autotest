@@ -14,34 +14,34 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- nmapSetup
-
-
-
- rlPhaseEnd
+    nmapSetup
 
 
 
- rlPhaseStartTest "nmap OS fingerprint"
-
- rlRun 'nmap -T4 --host-timeout 60s -O localhost 2>&1 || true' 0 "OS fingerprint"
-
- rlRun 'nmap -T4 --host-timeout 30s -O --osscan-limit localhost 2>&1 || true' 0 " OS detect"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "nmap OS fingerprint"
+
+    rlRun 'nmap -T4 --host-timeout 60s -O localhost 2>&1 || true' 0 "OS fingerprint"
+
+    rlRun 'nmap -T4 --host-timeout 30s -O --osscan-limit localhost 2>&1 || true' 0 " OS detect"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

@@ -16,59 +16,59 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- lvm2Setup
+    lvm2Setup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "lvm2 error handling"
-
- rlRun "lvm version 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "LVM "
-
- rlRun "lvm help 2>&1 | head -10" 0 "Display first lines"
-
- rlRun "pvs 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "ʾerror handling"
-
- rlRun "vgs 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "ʾ"
-
- rlRun "lvs 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "ʾ߼"
-
- rlRun "pvdisplay 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "error handling"
-
- rlRun "vgdisplay 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "error handling"
-
- rlRun "lvdisplay 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "߼error handling"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "lvm2 error handling"
+
+    rlRun "lvm version 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "LVM "
+
+    rlRun "lvm help 2>&1 | head -10" 0 "Display first lines"
+
+    rlRun "pvs 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "ʾerror handling"
+
+    rlRun "vgs 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "ʾ"
+
+    rlRun "lvs 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "ʾ߼"
+
+    rlRun "pvdisplay 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "error handling"
+
+    rlRun "vgdisplay 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "error handling"
+
+    rlRun "lvdisplay 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "߼error handling"
+
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
-
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # lvm2 Package managed by lib.sh 's reference counting auto-uninstall
-
- rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # lvm2 Package managed by lib.sh 's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

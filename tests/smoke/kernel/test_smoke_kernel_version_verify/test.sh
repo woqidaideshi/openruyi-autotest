@@ -14,36 +14,36 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeKernelSetup
-
-
-
- rlPhaseEnd
+    smokeKernelSetup
 
 
 
- rlPhaseStartTest "kernelversion"
-
- rlRun 'uname -r' 0 "kernelversion"
-
- rlRun 'cat /proc/cmdline' 0 "/proc/cmdline parameter"
-
- rlRun 'cat /proc/version' 0 "/proc/version kernelcompileinfo"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "kernelversion"
+
+    rlRun 'uname -r' 0 "kernelversion"
+
+    rlRun 'cat /proc/cmdline' 0 "/proc/cmdline parameter"
+
+    rlRun 'cat /proc/version' 0 "/proc/version kernelcompileinfo"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

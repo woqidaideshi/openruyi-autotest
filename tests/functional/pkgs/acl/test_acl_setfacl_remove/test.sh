@@ -16,91 +16,91 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- aclSetup
+    aclSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlRun "touch testfile" 0 "Create test file"
+    rlRun "touch testfile" 0 "Create test file"
 
- rlRun "mkdir testdir" 0 "Create test directory"
+    rlRun "mkdir testdir" 0 "Create test directory"
 
- # pre ACL deletetestuse
+    # pre ACL deletetestuse
 
- rlRun "setfacl -m u:root:rwx,g:root:r-x testfile" 0 "pre ACL deletetest"
+    rlRun "setfacl -m u:root:rwx,g:root:r-x testfile" 0 "pre ACL deletetest"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "setfacl delete functionality"
-
- rlRun "setfacl -x u:root testfile" 0 "deleteuser root ACL entries"
-
- output=$(getfacl testfile 2>&1)
-
- rlAssertNotGrep "user:root:" "$output" "confirmuser root entriesalreadydelete"
+    rlPhaseEnd
 
 
 
- rlRun "setfacl -x g:root testfile" 0 "deletegroup root ACL entries"
+    rlPhaseStartTest "setfacl delete functionality"
 
- output=$(getfacl testfile 2>&1)
+    rlRun "setfacl -x u:root testfile" 0 "deleteuser root ACL entries"
 
- rlAssertNotGrep "group:root:" "$output" "confirmgroup root entriesalreadydelete"
+    output=$(getfacl testfile 2>&1)
 
-
-
- rlRun "setfacl -b testfile" 0 "deleteall ACL"
-
- output=$(getfacl testfile 2>&1)
-
- rlAssertNotGrep "user:root:" "$output" "confirm -b postno ACL"
+    rlAssertNotGrep "user:root:" "$output" "confirmuser root entriesalreadydelete"
 
 
 
- rlRun "setfacl -k testdir" 0 "deletedirectory default ACL"
+    rlRun "setfacl -x g:root testfile" 0 "deletegroup root ACL entries"
 
- output=$(getfacl testdir 2>&1)
+    output=$(getfacl testfile 2>&1)
 
- rlAssertNotGrep "default:" "$output" "confirm -k postno default ACL"
-
-
-
- rlRun "echo 'u:root' > remove_rules.txt" 0 "createdeletefile"
-
- rlRun "setfacl -m u:root:rwx testfile" 0 "adduser ACL"
-
- rlRun "setfacl -X remove_rules.txt testfile" 0 "fromfilereadanddelete ACL"
-
- output=$(getfacl testfile 2>&1)
-
- rlAssertNotGrep "user:root:" "$output" "confirmfromfiledeletesuccess"
-
- rlPhaseEnd
+    rlAssertNotGrep "group:root:" "$output" "confirmgroup root entriesalreadydelete"
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "setfacl -b testfile" 0 "deleteall ACL"
 
- rlRun "cd /" 0 "Leave test directory"
+    output=$(getfacl testfile 2>&1)
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # acl Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlAssertNotGrep "user:root:" "$output" "confirm -b postno ACL"
 
 
 
- rlJournalPrintText
+    rlRun "setfacl -k testdir" 0 "deletedirectory default ACL"
+
+    output=$(getfacl testdir 2>&1)
+
+    rlAssertNotGrep "default:" "$output" "confirm -k postno default ACL"
+
+
+
+    rlRun "echo 'u:root' > remove_rules.txt" 0 "createdeletefile"
+
+    rlRun "setfacl -m u:root:rwx testfile" 0 "adduser ACL"
+
+    rlRun "setfacl -X remove_rules.txt testfile" 0 "fromfilereadanddelete ACL"
+
+    output=$(getfacl testfile 2>&1)
+
+    rlAssertNotGrep "user:root:" "$output" "confirmfromfiledeletesuccess"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # acl Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

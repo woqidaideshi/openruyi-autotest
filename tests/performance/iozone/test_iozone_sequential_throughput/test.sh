@@ -12,175 +12,175 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- iozoneSetup
+    iozoneSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
+    sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "sequential write throughput"
+    rlPhaseStartTest "sequential write throughput"
 
- local testfile="$TmpDir/seq_write.dat"
+    local testfile="$TmpDir/seq_write.dat"
 
- local log="$TmpDir/seq_write.log"
+    local log="$TmpDir/seq_write.log"
 
 
 
- # onlywithwriteoperation (-i 0), recordsize, testfilesequential write
+    # onlywithwriteoperation (-i 0), recordsize, testfilesequential write
 
- iozone -c -s 256m -r 64k -i 0 -f "$testfile" 2>&1 | tee "$log"
+    iozone -c -s 256m -r 64k -i 0 -f "$testfile" 2>&1 | tee "$log"
 
 
 
- echo ""
+    echo ""
 
- echo "=== sequential writeresult (256M, 64K record) ==="
+    echo "=== sequential writeresult (256M, 64K record) ==="
 
- cat "$log"
+    cat "$log"
 
 
 
- local write_kbps
+    local write_kbps
 
- write_kbps=$(grep -E '^\s+[0-9]+\s+[0-9]+' "$log" | awk '{print $3}' | head -1)
+    write_kbps=$(grep -E '^\s+[0-9]+\s+[0-9]+' "$log" | awk '{print $3}' | head -1)
 
- if [ -n "$write_kbps" ] && [ "$write_kbps" != "0" ]; then
+    if [ -n "$write_kbps" ] && [ "$write_kbps" != "0" ]; then
 
- local write_mbps
+    local write_mbps
 
- write_mbps=$(awk "BEGIN {printf \"%.1f\", ${write_kbps}/1024}" 2>/dev/null)
+    write_mbps=$(awk "BEGIN {printf \"%.1f\", ${write_kbps}/1024}" 2>/dev/null)
 
- rlLogInfo "sequential write throughput: ${write_mbps} MB/s (${write_kbps} KB/s)"
+    rlLogInfo "sequential write throughput: ${write_mbps} MB/s (${write_kbps} KB/s)"
 
- rlPass "sequential write: ${write_mbps} MB/s"
+    rlPass "sequential write: ${write_mbps} MB/s"
 
- else
+    else
 
- rlFail "notget to sequential writedata"
+    rlFail "notget to sequential writedata"
 
- fi
+    fi
 
- rm -f "$testfile"
+    rm -f "$testfile"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "sequential read throughput"
+    rlPhaseStartTest "sequential read throughput"
 
- # writefile, sequential read
+    # writefile, sequential read
 
- local testfile="$TmpDir/seq_read.dat"
+    local testfile="$TmpDir/seq_read.dat"
 
- local log="$TmpDir/seq_read.log"
+    local log="$TmpDir/seq_read.log"
 
 
 
- # prewritefile
+    # prewritefile
 
- dd if=/dev/zero of="$testfile" bs=1M count=256 2>/dev/null
+    dd if=/dev/zero of="$testfile" bs=1M count=256 2>/dev/null
 
- sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
+    sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
 
 
 
- # onlywithreadoperation (-i 1)
+    # onlywithreadoperation (-i 1)
 
- iozone -c -s 256m -r 64k -i 1 -f "$testfile" 2>&1 | tee "$log"
+    iozone -c -s 256m -r 64k -i 1 -f "$testfile" 2>&1 | tee "$log"
 
 
 
- echo ""
+    echo ""
 
- echo "=== sequential readresult (256M, 64K record) ==="
+    echo "=== sequential readresult (256M, 64K record) ==="
 
- cat "$log"
+    cat "$log"
 
 
 
- local read_kbps
+    local read_kbps
 
- read_kbps=$(grep -E '^\s+[0-9]+\s+[0-9]+' "$log" | awk '{print $5}' | head -1)
+    read_kbps=$(grep -E '^\s+[0-9]+\s+[0-9]+' "$log" | awk '{print $5}' | head -1)
 
- if [ -n "$read_kbps" ] && [ "$read_kbps" != "0" ]; then
+    if [ -n "$read_kbps" ] && [ "$read_kbps" != "0" ]; then
 
- local read_mbps
+    local read_mbps
 
- read_mbps=$(awk "BEGIN {printf \"%.1f\", ${read_kbps}/1024}" 2>/dev/null)
+    read_mbps=$(awk "BEGIN {printf \"%.1f\", ${read_kbps}/1024}" 2>/dev/null)
 
- rlLogInfo "sequential read throughput: ${read_mbps} MB/s (${read_kbps} KB/s)"
+    rlLogInfo "sequential read throughput: ${read_mbps} MB/s (${read_kbps} KB/s)"
 
- rlPass "sequential read: ${read_mbps} MB/s"
+    rlPass "sequential read: ${read_mbps} MB/s"
 
- else
+    else
 
- rlFail "notget to sequential readdata"
+    rlFail "notget to sequential readdata"
 
- fi
+    fi
 
- rm -f "$testfile"
+    rm -f "$testfile"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "read/write ratioanalysis"
+    rlPhaseStartTest "read/write ratioanalysis"
 
- # simultaneouslyreadwrite, readwrite
+    # simultaneouslyreadwrite, readwrite
 
- local testfile="$TmpDir/rw_ratio.dat"
+    local testfile="$TmpDir/rw_ratio.dat"
 
- local log="$TmpDir/rw_ratio.log"
+    local log="$TmpDir/rw_ratio.log"
 
 
 
- sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
+    sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
 
- iozone -c -s 128m -r 64k -i 0 -i 1 -f "$testfile" 2>&1 | tee "$log"
+    iozone -c -s 128m -r 64k -i 0 -i 1 -f "$testfile" 2>&1 | tee "$log"
 
 
 
- local w r
+    local w r
 
- w=$(grep -E '^\s+[0-9]+\s+[0-9]+' "$log" | awk '{print $3}' | head -1)
+    w=$(grep -E '^\s+[0-9]+\s+[0-9]+' "$log" | awk '{print $3}' | head -1)
 
- r=$(grep -E '^\s+[0-9]+\s+[0-9]+' "$log" | awk '{print $5}' | head -1)
+    r=$(grep -E '^\s+[0-9]+\s+[0-9]+' "$log" | awk '{print $5}' | head -1)
 
 
 
- if [ -n "$w" ] && [ -n "$r" ] && [ "$w" != "0" ]; then
+    if [ -n "$w" ] && [ -n "$r" ] && [ "$w" != "0" ]; then
 
- local ratio
+    local ratio
 
- ratio=$(awk "BEGIN {printf \"%.2f\", ${r}/${w}}" 2>/dev/null)
+    ratio=$(awk "BEGIN {printf \"%.2f\", ${r}/${w}}" 2>/dev/null)
 
- rlLogInfo "read/write: ${ratio}x (read=${r} write=${w} KB/s)"
+    rlLogInfo "read/write: ${ratio}x (read=${r} write=${w} KB/s)"
 
- fi
+    fi
 
- rlPass "read/write ratioanalysisComplete"
+    rlPass "read/write ratioanalysisComplete"
 
- rm -f "$testfile"
+    rm -f "$testfile"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 

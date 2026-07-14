@@ -16,57 +16,57 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- aclSetup
+    aclSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlRun "touch testfile" 0 "Create test file"
+    rlRun "touch testfile" 0 "Create test file"
 
- rlRun "ln -s testfile symlink" 0 "createsymbollink"
+    rlRun "ln -s testfile symlink" 0 "createsymbollink"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "setfacl symbollinkhandle"
-
- rlRun "setfacl -L -m u:root:rwx symlink" 0 "use -L symbollinkset ACL"
-
- output=$(getfacl testfile 2>&1)
-
- rlAssertGrep "user:root:rwx" "$output" "confirm -L symbollinksetsuccess"
+    rlPhaseEnd
 
 
 
- rlRun "setfacl -b testfile" 0 "Cleanup ACL"
+    rlPhaseStartTest "setfacl symbollinkhandle"
 
- rlRun "setfacl -P -m u:root:r-- symlink" 0 "use -P nosymbollink"
+    rlRun "setfacl -L -m u:root:rwx symlink" 0 "use -L symbollinkset ACL"
 
- rlPhaseEnd
+    output=$(getfacl testfile 2>&1)
 
-
-
- rlPhaseStartCleanup "Clean up test environment"
-
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # acl Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlAssertGrep "user:root:rwx" "$output" "confirm -L symbollinksetsuccess"
 
 
 
- rlJournalPrintText
+    rlRun "setfacl -b testfile" 0 "Cleanup ACL"
+
+    rlRun "setfacl -P -m u:root:r-- symlink" 0 "use -P nosymbollink"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # acl Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

@@ -16,67 +16,67 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- aclSetup
+    aclSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlRun "mkdir -p testdir/subdir1/subdir2" 0 "createmultisubdirectory"
+    rlRun "mkdir -p testdir/subdir1/subdir2" 0 "createmultisubdirectory"
 
- rlRun "touch testdir/file1 testdir/subdir1/file2" 0 "Create test file"
+    rlRun "touch testdir/file1 testdir/subdir1/file2" 0 "Create test file"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "setfacl recursive functionality"
-
- rlRun "setfacl -R -m u:root:rw- testdir" 0 "recursiveset user ACL"
-
- output1=$(getfacl testdir/file1 2>&1)
-
- output2=$(getfacl testdir/subdir1/file2 2>&1)
-
- rlAssertGrep "user:root:rw-" "$output1" "verify file1 recursiveset ACL"
-
- rlAssertGrep "user:root:rw-" "$output2" "verify subdir1/file2 recursiveset ACL"
+    rlPhaseEnd
 
 
 
- rlRun "setfacl -R -b testdir" 0 "recursivedeleteall ACL"
+    rlPhaseStartTest "setfacl recursive functionality"
 
- output1=$(getfacl testdir/file1 2>&1)
+    rlRun "setfacl -R -m u:root:rw- testdir" 0 "recursiveset user ACL"
 
- output2=$(getfacl testdir/subdir1/file2 2>&1)
+    output1=$(getfacl testdir/file1 2>&1)
 
- rlAssertNotGrep "user:root:" "$output1" "confirm file1 recursivedeletesuccess"
+    output2=$(getfacl testdir/subdir1/file2 2>&1)
 
- rlAssertNotGrep "user:root:" "$output2" "confirm subdir1/file2 recursivedeletesuccess"
+    rlAssertGrep "user:root:rw-" "$output1" "verify file1 recursiveset ACL"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartCleanup "Clean up test environment"
-
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # acl Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlAssertGrep "user:root:rw-" "$output2" "verify subdir1/file2 recursiveset ACL"
 
 
 
- rlJournalPrintText
+    rlRun "setfacl -R -b testdir" 0 "recursivedeleteall ACL"
+
+    output1=$(getfacl testdir/file1 2>&1)
+
+    output2=$(getfacl testdir/subdir1/file2 2>&1)
+
+    rlAssertNotGrep "user:root:" "$output1" "confirm file1 recursivedeletesuccess"
+
+    rlAssertNotGrep "user:root:" "$output2" "confirm subdir1/file2 recursivedeletesuccess"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # acl Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

@@ -14,36 +14,36 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeTextProcessingSetup
-
-
-
- rlPhaseEnd
+    smokeTextProcessingSetup
 
 
 
- rlPhaseStartTest "head before3lines"
-
- rlRun 'head -3 /etc/os-release' 0 "head before3lines"
-
- rlRun 'tail -3 /etc/os-release' 0 "tail post3lines"
-
- rlRun 'head -c 10 /etc/hostname' 0 "head before10"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "head before3lines"
+
+    rlRun 'head -3 /etc/os-release' 0 "head before3lines"
+
+    rlRun 'tail -3 /etc/os-release' 0 "tail post3lines"
+
+    rlRun 'head -c 10 /etc/hostname' 0 "head before10"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

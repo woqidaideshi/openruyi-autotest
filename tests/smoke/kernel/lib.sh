@@ -26,29 +26,29 @@ SMOKE_KERNEL_FLAG="/tmp/.beakerlib_smoke_kernel_suite"
 
 smokeKernelSetup() {
 
- if [ ! -f "$SMOKE_KERNEL_FLAG" ]; then
+    if [ ! -f "$SMOKE_KERNEL_FLAG" ]; then
 
- echo "installed=0" > "$SMOKE_KERNEL_FLAG"
+    echo "installed=0" > "$SMOKE_KERNEL_FLAG"
 
- echo "ref=1" >> "$SMOKE_KERNEL_FLAG"
+    echo "ref=1" >> "$SMOKE_KERNEL_FLAG"
 
- rlLogInfo "smoke-kernel: coreDependenciesalreadyconfirmavailable"
+    rlLogInfo "smoke-kernel: coreDependenciesalreadyconfirmavailable"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_KERNEL_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_KERNEL_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_KERNEL_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_KERNEL_FLAG"
 
- rlLogInfo "smoke-kernel already initialized by other tests, reference count: $ref"
+    rlLogInfo "smoke-kernel already initialized by other tests, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "smokeKernelCleanup"
+    rlCleanupAppend "smokeKernelCleanup"
 
 }
 
@@ -56,31 +56,31 @@ smokeKernelSetup() {
 
 smokeKernelCleanup() {
 
- if [ ! -f "$SMOKE_KERNEL_FLAG" ]; then
+    if [ ! -f "$SMOKE_KERNEL_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_KERNEL_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_KERNEL_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$SMOKE_KERNEL_FLAG"
+    rm -f "$SMOKE_KERNEL_FLAG"
 
- rlLogInfo "smoke-kernel: Cleanup complete (posttest)"
+    rlLogInfo "smoke-kernel: Cleanup complete (posttest)"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_KERNEL_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_KERNEL_FLAG"
 
- rlLogInfo "smoke-kernel: Retain (still have $ref test(s) not completed)"
+    rlLogInfo "smoke-kernel: Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

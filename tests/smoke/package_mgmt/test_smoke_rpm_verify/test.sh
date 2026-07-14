@@ -6,18 +6,18 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokePackageMgmtSetup
+    rlPhaseStartSetup "Environment setup"
+    smokePackageMgmtSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "rpm -V verifypackage integrity"
- rlRun 'rpm -V coreutils 2>&1 || true' 0 "rpm -V verifypackage integrity"
- rlPhaseEnd
+    rlPhaseStartTest "rpm -V verifypackage integrity"
+    rlRun 'rpm -V coreutils 2>&1 || true' 0 "rpm -V verifypackage integrity"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

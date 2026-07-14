@@ -26,29 +26,29 @@ SMOKE_DISK_FS_FLAG="/tmp/.beakerlib_smoke_disk_fs_suite"
 
 smokeDiskFsSetup() {
 
- if [ ! -f "$SMOKE_DISK_FS_FLAG" ]; then
+    if [ ! -f "$SMOKE_DISK_FS_FLAG" ]; then
 
- echo "installed=0" > "$SMOKE_DISK_FS_FLAG"
+    echo "installed=0" > "$SMOKE_DISK_FS_FLAG"
 
- echo "ref=1" >> "$SMOKE_DISK_FS_FLAG"
+    echo "ref=1" >> "$SMOKE_DISK_FS_FLAG"
 
- rlLogInfo "smoke-disk_fs: coreDependenciesalreadyconfirmavailable"
+    rlLogInfo "smoke-disk_fs: coreDependenciesalreadyconfirmavailable"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_DISK_FS_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_DISK_FS_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_DISK_FS_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_DISK_FS_FLAG"
 
- rlLogInfo "smoke-disk_fs already initialized by other tests, reference count: $ref"
+    rlLogInfo "smoke-disk_fs already initialized by other tests, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "smokeDiskFsCleanup"
+    rlCleanupAppend "smokeDiskFsCleanup"
 
 }
 
@@ -56,31 +56,31 @@ smokeDiskFsSetup() {
 
 smokeDiskFsCleanup() {
 
- if [ ! -f "$SMOKE_DISK_FS_FLAG" ]; then
+    if [ ! -f "$SMOKE_DISK_FS_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_DISK_FS_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_DISK_FS_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$SMOKE_DISK_FS_FLAG"
+    rm -f "$SMOKE_DISK_FS_FLAG"
 
- rlLogInfo "smoke-disk_fs: Cleanup complete (posttest)"
+    rlLogInfo "smoke-disk_fs: Cleanup complete (posttest)"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_DISK_FS_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_DISK_FS_FLAG"
 
- rlLogInfo "smoke-disk_fs: Retain (still have $ref test(s) not completed)"
+    rlLogInfo "smoke-disk_fs: Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

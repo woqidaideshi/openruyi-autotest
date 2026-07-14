@@ -10,115 +10,115 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- iozoneSetup
+    iozoneSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
+    sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "Direct I/O vs Normal comparison"
-
- local testfile="$TmpDir/iozone_dio.dat"
+    rlPhaseEnd
 
 
 
- # Normal IO (use Page Cache)
+    rlPhaseStartTest "Direct I/O vs Normal comparison"
 
- rlLogInfo "=== Standard I/O (use Page Cache) ==="
-
- iozone -s 64m -r 4k -i 0 -i 1 -f "$testfile" 2>&1 | tee /tmp/iozone_normal.txt
-
- echo "--- Standard I/O result ---"
-
- cat /tmp/iozone_normal.txt
+    local testfile="$TmpDir/iozone_dio.dat"
 
 
 
- sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
+    # Normal IO (use Page Cache)
 
- rm -f "$testfile"
+    rlLogInfo "=== Standard I/O (use Page Cache) ==="
 
+    iozone -s 64m -r 4k -i 0 -i 1 -f "$testfile" 2>&1 | tee /tmp/iozone_normal.txt
 
+    echo "--- Standard I/O result ---"
 
- # Direct IO (bypass Page Cache)
-
- rlLogInfo "=== Direct I/O (bypass Page Cache, -I) ==="
-
- iozone -I -s 64m -r 4k -i 0 -i 1 -f "$testfile" 2>&1 | tee /tmp/iozone_direct.txt
-
- echo "--- Direct I/O result ---"
-
- cat /tmp/iozone_direct.txt
+    cat /tmp/iozone_normal.txt
 
 
 
- # verifyhasoutput
+    sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
 
- grep -qE '^\s+[0-9]+\s+[0-9]+' /tmp/iozone_normal.txt && rlPass "Standard I/O: datalinesexists"
-
- grep -qE '^\s+[0-9]+\s+[0-9]+' /tmp/iozone_direct.txt && rlPass "Direct I/O: datalinesexists"
+    rm -f "$testfile"
 
 
 
- # comparisonanalysis
+    # Direct IO (bypass Page Cache)
 
- local normal_write
+    rlLogInfo "=== Direct I/O (bypass Page Cache, -I) ==="
 
- normal_write=$(grep -E '^\s+[0-9]+\s+[0-9]+' /tmp/iozone_normal.txt | awk '{print $3}' | head -1)
+    iozone -I -s 64m -r 4k -i 0 -i 1 -f "$testfile" 2>&1 | tee /tmp/iozone_direct.txt
 
- local direct_write
+    echo "--- Direct I/O result ---"
 
- direct_write=$(grep -E '^\s+[0-9]+\s+[0-9]+' /tmp/iozone_direct.txt | awk '{print $3}' | head -1)
-
-
-
- rlLogInfo "Standard I/O Write: ${normal_write} KB/s"
-
- rlLogInfo "Direct I/O Write: ${direct_write} KB/s"
+    cat /tmp/iozone_direct.txt
 
 
 
- if [ -n "$normal_write" ] && [ -n "$direct_write" ]; then
+    # verifyhasoutput
 
- # Direct I/O more (bypass), but noshouldis 0
+    grep -qE '^\s+[0-9]+\s+[0-9]+' /tmp/iozone_normal.txt && rlPass "Standard I/O: datalinesexists"
 
- if [ "$direct_write" != "0" ] && [ "$direct_write" != "" ]; then
-
- rlPass "Direct I/O producedhas: ${direct_write} KB/s"
-
- else
-
- rlLogWarning "Direct I/O is 0 (possible -I not supportedcurrentfilesystem)"
-
- fi
-
- # Standard I/O should Direct I/O (has)
-
- rlLogInfo ": $(awk "BEGIN {printf \"%.1f\", ${normal_write}/${direct_write}}" 2>/dev/null || echo N/A)x"
-
- fi
-
- rlPhaseEnd
+    grep -qE '^\s+[0-9]+\s+[0-9]+' /tmp/iozone_direct.txt && rlPass "Direct I/O: datalinesexists"
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    # comparisonanalysis
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    local normal_write
 
- rm -f /tmp/iozone_{normal,direct}.txt
+    normal_write=$(grep -E '^\s+[0-9]+\s+[0-9]+' /tmp/iozone_normal.txt | awk '{print $3}' | head -1)
 
- rlPhaseEnd
+    local direct_write
 
- rlJournalPrintText
+    direct_write=$(grep -E '^\s+[0-9]+\s+[0-9]+' /tmp/iozone_direct.txt | awk '{print $3}' | head -1)
+
+
+
+    rlLogInfo "Standard I/O Write: ${normal_write} KB/s"
+
+    rlLogInfo "Direct I/O Write: ${direct_write} KB/s"
+
+
+
+    if [ -n "$normal_write" ] && [ -n "$direct_write" ]; then
+
+    # Direct I/O more (bypass), but noshouldis 0
+
+    if [ "$direct_write" != "0" ] && [ "$direct_write" != "" ]; then
+
+    rlPass "Direct I/O producedhas: ${direct_write} KB/s"
+
+    else
+
+    rlLogWarning "Direct I/O is 0 (possible -I not supportedcurrentfilesystem)"
+
+    fi
+
+    # Standard I/O should Direct I/O (has)
+
+    rlLogInfo ": $(awk "BEGIN {printf \"%.1f\", ${normal_write}/${direct_write}}" 2>/dev/null || echo N/A)x"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rm -f /tmp/iozone_{normal,direct}.txt
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

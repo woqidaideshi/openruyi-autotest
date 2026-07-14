@@ -16,49 +16,49 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- wgetSetup
+    wgetSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "Continue-and-mirror"
-
- rlRun "wget -c --version 2>&1 | grep -q Wget" 0 "wget -c breakpointOption exists"
-
- rlRun "wget -m --version 2>&1 | grep -q Wget" 0 "wget -m Option exists"
-
- rlRun "wget -N --version 2>&1 | grep -q Wget" 0 "wget -N timestampOption exists"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "Continue-and-mirror"
 
+    rlRun "wget -c --version 2>&1 | grep -q Wget" 0 "wget -c breakpointOption exists"
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "wget -m --version 2>&1 | grep -q Wget" 0 "wget -m Option exists"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun "wget -N --version 2>&1 | grep -q Wget" 0 "wget -N timestampOption exists"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # wget Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # wget Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

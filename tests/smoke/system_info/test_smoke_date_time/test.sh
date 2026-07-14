@@ -14,36 +14,36 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeSystemInfoSetup
-
-
-
- rlPhaseEnd
+    smokeSystemInfoSetup
 
 
 
- rlPhaseStartTest "date current time"
-
- rlRun 'date' 0 "date current time"
-
- rlRun 'date +%Y-%m-%d' 0 "date format"
-
- rlRun 'date +%H:%M:%S' 0 "date format-izetime"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "date current time"
+
+    rlRun 'date' 0 "date current time"
+
+    rlRun 'date +%Y-%m-%d' 0 "date format"
+
+    rlRun 'date +%H:%M:%S' 0 "date format-izetime"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

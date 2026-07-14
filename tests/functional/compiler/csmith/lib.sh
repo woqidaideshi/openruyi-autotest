@@ -24,51 +24,51 @@ CSMITH_FLAG="/tmp/.beakerlib_compiler_csmith_suite"
 
 csmithSetup() {
 
- if [ ! -f "$CSMITH_FLAG" ]; then
+    if [ ! -f "$CSMITH_FLAG" ]; then
 
- if ! rpm -q Csmith 2>/dev/null; then
+    if ! rpm -q Csmith 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y Csmith 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y Csmith 2>/dev/null
 
- if ! rpm -q Csmith 2>/dev/null; then
+    if ! rpm -q Csmith 2>/dev/null; then
 
- rlLogWarning "Csmith failed"
+    rlLogWarning "Csmith failed"
 
- echo "installed=0" > "$CSMITH_FLAG"
+    echo "installed=0" > "$CSMITH_FLAG"
 
- else
+    else
 
- echo "installed=1" > "$CSMITH_FLAG"
+    echo "installed=1" > "$CSMITH_FLAG"
 
- rlLogInfo "already Csmith ()"
+    rlLogInfo "already Csmith ()"
 
- fi
+    fi
 
- else
+    else
 
- echo "installed=0" > "$CSMITH_FLAG"
+    echo "installed=0" > "$CSMITH_FLAG"
 
- rlLogInfo "Csmith already exists"
+    rlLogInfo "Csmith already exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$CSMITH_FLAG"
+    echo "ref=1" >> "$CSMITH_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$CSMITH_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$CSMITH_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$CSMITH_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$CSMITH_FLAG"
 
- rlLogInfo "Csmith reference count: $ref"
+    rlLogInfo "Csmith reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "csmithCleanup"
+    rlCleanupAppend "csmithCleanup"
 
 }
 
@@ -76,33 +76,33 @@ csmithSetup() {
 
 csmithCleanup() {
 
- if [ ! -f "$CSMITH_FLAG" ]; then return 0; fi
+    if [ ! -f "$CSMITH_FLAG" ]; then return 0; fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$CSMITH_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$CSMITH_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- if grep -q "^installed=1" "$CSMITH_FLAG"; then
+    if grep -q "^installed=1" "$CSMITH_FLAG"; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y Csmith 2>/dev/null || true
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y Csmith 2>/dev/null || true
 
- rlLogInfo "already Csmith"
+    rlLogInfo "already Csmith"
 
- fi
+    fi
 
- rm -f "$CSMITH_FLAG"
+    rm -f "$CSMITH_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$CSMITH_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$CSMITH_FLAG"
 
- rlLogInfo "Csmith Retain (still have $ref test)"
+    rlLogInfo "Csmith Retain (still have $ref test)"
 
- fi
+    fi
 
 }
 

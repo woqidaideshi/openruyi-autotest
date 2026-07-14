@@ -10,133 +10,133 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- lmbenchSetup
+    lmbenchSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "local communicationlatency (Pipe/Unix Socket/TCP/UDP)"
-
- cd "$LMBENCH_DIR"
-
- echo "=== local IPC latency (microsecond) ==="
+    rlPhaseEnd
 
 
 
- # Pipe latency
+    rlPhaseStartTest "local communicationlatency (Pipe/Unix Socket/TCP/UDP)"
 
- echo "Pipe:"
+    cd "$LMBENCH_DIR"
+
+    echo "=== local IPC latency (microsecond) ==="
+
+
+
+    # Pipe latency
+
+    echo "Pipe:"
 
 ./bin/lat_pipe 2>&1 | head -3 || echo " N/A"
 
- echo ""
+    echo ""
 
 
 
- # Unix socket latency
+    # Unix socket latency
 
- echo "Unix socket (AF_UNIX):"
+    echo "Unix socket (AF_UNIX):"
 
 ./bin/lat_unix 2>&1 | head -3 || echo " N/A"
 
- echo ""
+    echo ""
 
 
 
- # TCP locallatency
+    # TCP locallatency
 
- echo "TCP localhost:"
+    echo "TCP localhost:"
 
 ./bin/lat_tcp -s 2>&1 &
 
- local tcp_pid=$!
+    local tcp_pid=$!
 
- sleep 1
+    sleep 1
 
 ./bin/lat_tcp localhost 2>&1 | head -5 || echo " N/A"
 
- kill $tcp_pid 2>/dev/null || true
+    kill $tcp_pid 2>/dev/null || true
 
- echo ""
+    echo ""
 
 
 
- # UDP locallatency
+    # UDP locallatency
 
- echo "UDP localhost:"
+    echo "UDP localhost:"
 
 ./bin/lat_udp -s 2>&1 &
 
- local udp_pid=$!
+    local udp_pid=$!
 
- sleep 1
+    sleep 1
 
 ./bin/lat_udp localhost 2>&1 | head -5 || echo " N/A"
 
- kill $udp_pid 2>/dev/null || true
+    kill $udp_pid 2>/dev/null || true
 
 
 
- rlPass "local communicationlatencytestComplete"
+    rlPass "local communicationlatencytestComplete"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "full Benchmark "
-
- cd "$LMBENCH_DIR"
-
- echo ""
-
- echo "=== LMbench full Benchmark run ==="
+    rlPhaseEnd
 
 
 
- # Run the full automated suite
+    rlPhaseStartTest "full Benchmark "
 
- _lmbenchRun 2>&1 | tee /tmp/lmbench_full.log
+    cd "$LMBENCH_DIR"
 
+    echo ""
 
-
- if [ -f "$LMBENCH_DIR/results/summary.out" ]; then
-
- cp "$LMBENCH_DIR/results/summary.out" /tmp/lmbench_summary.txt
-
- echo ""
-
- echo "=== full Summary output ==="
-
- cat /tmp/lmbench_summary.txt
-
- rlPass "full Benchmark Complete"
-
- else
-
- rlLogWarning "Summary filenotGenerate"
-
- fi
-
- rlPhaseEnd
+    echo "=== LMbench full Benchmark run ==="
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    # Run the full automated suite
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    _lmbenchRun 2>&1 | tee /tmp/lmbench_full.log
 
- rm -f /tmp/lmbench_{full,summary}.txt
 
- rlPhaseEnd
 
- rlJournalPrintText
+    if [ -f "$LMBENCH_DIR/results/summary.out" ]; then
+
+    cp "$LMBENCH_DIR/results/summary.out" /tmp/lmbench_summary.txt
+
+    echo ""
+
+    echo "=== full Summary output ==="
+
+    cat /tmp/lmbench_summary.txt
+
+    rlPass "full Benchmark Complete"
+
+    else
+
+    rlLogWarning "Summary filenotGenerate"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rm -f /tmp/lmbench_{full,summary}.txt
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

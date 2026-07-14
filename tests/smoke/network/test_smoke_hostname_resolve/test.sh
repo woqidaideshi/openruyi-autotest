@@ -6,20 +6,20 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeNetworkSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeNetworkSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "getent resolve localhost"
- rlRun 'getent hosts localhost' 0 "getent resolve localhost"
- rlRun 'cat /etc/resolv.conf' 0 "/etc/resolv.conf DNSconfiguration"
- rlRun 'cat /etc/hosts' 0 "/etc/hosts localresolve"
- rlPhaseEnd
+    rlPhaseStartTest "getent resolve localhost"
+    rlRun 'getent hosts localhost' 0 "getent resolve localhost"
+    rlRun 'cat /etc/resolv.conf' 0 "/etc/resolv.conf DNSconfiguration"
+    rlRun 'cat /etc/hosts' 0 "/etc/hosts localresolve"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

@@ -16,49 +16,49 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- pciutilsSetup
+    pciutilsSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "lspci-verbose"
-
- rlRun "lspci -v" 0 "lspci -v verbose mode"
-
- rlRun "lspci -vv 2>&1 | head -10" 0 "lspci -vv moreverbose mode"
-
- rlRun "lspci -vvv 2>&1 | head -10" 0 "lspci -vvv verbose mode"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "lspci-verbose"
 
+    rlRun "lspci -v" 0 "lspci -v verbose mode"
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "lspci -vv 2>&1 | head -10" 0 "lspci -vv moreverbose mode"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun "lspci -vvv 2>&1 | head -10" 0 "lspci -vvv verbose mode"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # pciutils Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # pciutils Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

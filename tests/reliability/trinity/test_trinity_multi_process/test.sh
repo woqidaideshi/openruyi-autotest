@@ -12,101 +12,101 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- trinitySetup
+    trinitySetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- TAINT_BEFORE=$(_trinityTaintBefore)
+    TAINT_BEFORE=$(_trinityTaintBefore)
 
- chmod 777 "$TmpDir"
+    chmod 777 "$TmpDir"
 
- local cores
+    local cores
 
- cores=$(nproc)
+    cores=$(nproc)
 
- rlLogInfo "CPU corecount: $cores"
+    rlLogInfo "CPU corecount: $cores"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "singleprocess baseline"
-
- local log1="$TmpDir/trinity_1proc.log"
-
- timeout 30 sudo -u "$TRINITY_USER" trinity -q -C 1 -N 5000 > "$log1" 2>&1
-
- local rc1=$?
-
- local calls1
-
- calls1=$(grep -c "succeeded\|completed" "$log1" 2>/dev/null || echo "N/A")
-
- rlLogInfo "singleprocess: exit=$rc1, Completecallwith≈$calls1"
-
- rlRun "[ $rc1 -eq 0 ] || [ $rc1 -eq 124 ]" 0 "singleprocesstestComplete"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "multiprocessandlines ($cores cores)"
+    rlPhaseStartTest "singleprocess baseline"
 
- local log_multi="$TmpDir/trinity_multi.log"
+    local log1="$TmpDir/trinity_1proc.log"
 
- timeout 30 sudo -u "$TRINITY_USER" trinity -q -C "$cores" -N 10000 > "$log_multi" 2>&1
+    timeout 30 sudo -u "$TRINITY_USER" trinity -q -C 1 -N 5000 > "$log1" 2>&1
 
- local rc_multi=$?
+    local rc1=$?
 
- rlLogInfo "multiprocess ($cores): exit=$rc_multi"
+    local calls1
 
+    calls1=$(grep -c "succeeded\|completed" "$log1" 2>/dev/null || echo "N/A")
 
+    rlLogInfo "singleprocess: exit=$rc1, Completecallwith≈$calls1"
 
- if [ "$rc_multi" -eq 0 ] || [ "$rc_multi" -eq 124 ]; then
+    rlRun "[ $rc1 -eq 0 ] || [ $rc1 -eq 124 ]" 0 "singleprocesstestComplete"
 
- rlPass "Trinity -C $cores multiprocesstestComplete"
-
- else
-
- rlLogWarning "multiprocessExceptionexport: $rc_multi"
-
- fi
+    rlPhaseEnd
 
 
 
- # verifymultiprocess
+    rlPhaseStartTest "multiprocessandlines ($cores cores)"
 
- if grep -qi "child\|process\|fork" "$log_multi" 2>/dev/null; then
+    local log_multi="$TmpDir/trinity_multi.log"
 
- rlPass "detect to multiprocessand"
+    timeout 30 sudo -u "$TRINITY_USER" trinity -q -C "$cores" -N 10000 > "$log_multi" 2>&1
 
- fi
+    local rc_multi=$?
 
- _trinityCheckOutput "$log_multi"
-
- rlPhaseEnd
+    rlLogInfo "multiprocess ($cores): exit=$rc_multi"
 
 
 
- rlPhaseStartTest "tainted check"
+    if [ "$rc_multi" -eq 0 ] || [ "$rc_multi" -eq 124 ]; then
 
- _trinityTaintCheck "$TAINT_BEFORE"
+    rlPass "Trinity -C $cores multiprocesstestComplete"
 
- rlPhaseEnd
+    else
+
+    rlLogWarning "multiprocessExceptionexport: $rc_multi"
+
+    fi
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    # verifymultiprocess
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    if grep -qi "child\|process\|fork" "$log_multi" 2>/dev/null; then
 
- rlPhaseEnd
+    rlPass "detect to multiprocessand"
 
- rlJournalPrintText
+    fi
+
+    _trinityCheckOutput "$log_multi"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartTest "tainted check"
+
+    _trinityTaintCheck "$TAINT_BEFORE"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

@@ -14,38 +14,38 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeSystemInfoSetup
-
-
-
- rlPhaseEnd
+    smokeSystemInfoSetup
 
 
 
- rlPhaseStartTest "uname kernelname"
-
- rlRun 'uname' 0 "uname kernelname"
-
- rlRun 'uname -a' 0 "uname -a allinfo"
-
- rlRun 'uname -r' 0 "uname -r kernelversion"
-
- rlRun 'uname -m' 0 "uname -m "
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "uname kernelname"
+
+    rlRun 'uname' 0 "uname kernelname"
+
+    rlRun 'uname -a' 0 "uname -a allinfo"
+
+    rlRun 'uname -r' 0 "uname -r kernelversion"
+
+    rlRun 'uname -m' 0 "uname -m "
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

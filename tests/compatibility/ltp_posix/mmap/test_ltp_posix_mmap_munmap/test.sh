@@ -8,17 +8,17 @@
 IFACE_DIR="$LTP_BUILD_DIR/conformance/interfaces"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- ltpPosixSetup
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    ltpPosixSetup
+    rlPhaseEnd
 
- rlPhaseStartTest "POSIX Interface: mmap / munmap"
- rlRun "run_posix_iface_test 'munmap'" 0 "mmap/munmap Interface conformance test"
- rlPhaseEnd
+    rlPhaseStartTest "POSIX Interface: mmap / munmap"
+    rlRun "run_posix_iface_test 'munmap'" 0 "mmap/munmap Interface conformance test"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

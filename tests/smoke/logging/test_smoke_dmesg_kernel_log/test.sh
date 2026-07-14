@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeLoggingSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeLoggingSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "dmesg kernellog"
- rlRun 'dmesg | head -10' 0 "dmesg kernellog"
- rlRun 'dmesg | wc -l' 0 "dmesg loglinescount"
- rlPhaseEnd
+    rlPhaseStartTest "dmesg kernellog"
+    rlRun 'dmesg | head -10' 0 "dmesg kernellog"
+    rlRun 'dmesg | wc -l' 0 "dmesg loglinescount"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

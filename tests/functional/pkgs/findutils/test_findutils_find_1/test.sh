@@ -16,51 +16,51 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- findutilsSetup
+    findutilsSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "find-option"
-
- rlRun "find. -maxdepth 1 -name \"*.txt\"" 0 "find -maxdepth: "
-
- rlRun "find. -mindepth 2" 0 "find -mindepth: "
-
- rlRun "find. -empty" 0 "find -empty: file/directory"
-
- rlRun "find. -size +0c" 0 "find -size: size"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "find-option"
 
+    rlRun "find. -maxdepth 1 -name \"*.txt\"" 0 "find -maxdepth: "
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "find. -mindepth 2" 0 "find -mindepth: "
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun "find. -empty" 0 "find -empty: file/directory"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "find. -size +0c" 0 "find -size: size"
 
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # findutils Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # findutils Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

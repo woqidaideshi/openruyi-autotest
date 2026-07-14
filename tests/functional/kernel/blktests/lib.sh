@@ -40,47 +40,47 @@ BLKTESTS_FLAG="/tmp/.beakerlib_blktests_suite"
 
 _blktestsRunCase() {
 
- local group="$1"
+    local group="$1"
 
- local test="$2"
+    local test="$2"
 
- local test_name="${group}/${test}"
+    local test_name="${group}/${test}"
 
- local out="/tmp/blktests_out_$$"
-
-
-
- if [ ! -x "$BLKTESTS_DIR/check" ]; then
-
- rlFail "blktests runner not found ($BLKTESTS_DIR/check)"
-
- return 1
-
- fi
+    local out="/tmp/blktests_out_$$"
 
 
 
- if [ ! -f "$BLKTESTS_DIR/tests/$group/$test" ]; then
+    if [ ! -x "$BLKTESTS_DIR/check" ]; then
 
- rlFail "blktests test not found ($BLKTESTS_DIR/tests/$group/$test)"
+    rlFail "blktests runner not found ($BLKTESTS_DIR/check)"
 
- return 1
+    return 1
 
- fi
-
-
-
- cd "$BLKTESTS_DIR" 2>/dev/null || true
+    fi
 
 
 
- # blktests requires TEST_DEVS config; without devices, most tests will be [not run]
+    if [ ! -f "$BLKTESTS_DIR/tests/$group/$test" ]; then
 
- # Create minimal config if it doesn't exist
+    rlFail "blktests test not found ($BLKTESTS_DIR/tests/$group/$test)"
 
- if [ ! -f "$BLKTESTS_DIR/config" ]; then
+    return 1
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S bash -c "cat > $BLKTESTS_DIR/config << 'EOF'
+    fi
+
+
+
+    cd "$BLKTESTS_DIR" 2>/dev/null || true
+
+
+
+    # blktests requires TEST_DEVS config; without devices, most tests will be [not run]
+
+    # Create minimal config if it doesn't exist
+
+    if [ ! -f "$BLKTESTS_DIR/config" ]; then
+
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S bash -c "cat > $BLKTESTS_DIR/config << 'EOF'
 
 TIMEOUT=30
 

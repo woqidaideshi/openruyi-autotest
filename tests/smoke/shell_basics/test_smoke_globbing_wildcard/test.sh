@@ -14,48 +14,48 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeShellBasicsSetup
+    smokeShellBasicsSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlRun "touch a.txt b.txt c.jpg" 0 "Create test data"
-
-
-
- rlPhaseEnd
+    rlRun "touch a.txt b.txt c.jpg" 0 "Create test data"
 
 
 
- rlPhaseStartTest "*.txt wildcard"
-
- rlRun 'ls *.txt | wc -l' 0 "*.txt wildcard"
-
- rlRun 'ls ?.jpg' 0 "?.jpg singlewildcard"
-
- rlRun 'echo ~ | grep /' 0 "~ directoryat begin"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "*.txt wildcard"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun 'ls *.txt | wc -l' 0 "*.txt wildcard"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun 'ls ?.jpg' 0 "?.jpg singlewildcard"
 
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    rlRun 'echo ~ | grep /' 0 "~ directoryat begin"
 
- fi
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

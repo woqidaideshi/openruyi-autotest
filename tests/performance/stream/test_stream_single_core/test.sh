@@ -10,51 +10,51 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- streamSetup
+    streamSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- rlLogInfo "CPU corecount: $(nproc)"
+    rlLogInfo "CPU corecount: $(nproc)"
 
- lscpu 2>/dev/null | grep -i "cache\|model name" | head -10
+    lscpu 2>/dev/null | grep -i "cache\|model name" | head -10
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "single-core COPY (1R+1W)"
+    rlPhaseStartTest "single-core COPY (1R+1W)"
 
- local log="/tmp/stream_copy.log"
+    local log="/tmp/stream_copy.log"
 
- export OMP_NUM_THREADS=1
+    export OMP_NUM_THREADS=1
 
- _streamRun 1 > "$log" 2>&1
+    _streamRun 1 > "$log" 2>&1
 
- rlRun "cat $log" 0 "STREAM COPY full output"
+    rlRun "cat $log" 0 "STREAM COPY full output"
 
- local bw
+    local bw
 
- bw=$(grep "^Copy:" "$log" | awk '{print $2}' | head -1)
+    bw=$(grep "^Copy:" "$log" | awk '{print $2}' | head -1)
 
- if [ -n "$bw" ] && [ "$bw" != "0" ]; then
+    if [ -n "$bw" ] && [ "$bw" != "0" ]; then
 
- rlPass "COPY: ${bw} MB/s"
+    rlPass "COPY: ${bw} MB/s"
 
- else
+    else
 
- rlFail "COPY notreturnhasdata"
+    rlFail "COPY notreturnhasdata"
 
- fi
+    fi
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "single-core SCALE (1R+1W)"
+    rlPhaseStartTest "single-core SCALE (1R+1W)"
 
 
 
@@ -62,89 +62,89 @@ rlJournalStart
 
 
 
- local log="/tmp/stream_scale.log"
+    local log="/tmp/stream_scale.log"
 
- export OMP_NUM_THREADS=1
+    export OMP_NUM_THREADS=1
 
- _streamRun 1 > "$log" 2>&1
+    _streamRun 1 > "$log" 2>&1
 
- rlRun "cat $log" 0 "STREAM SCALE full output"
+    rlRun "cat $log" 0 "STREAM SCALE full output"
 
- local bw
+    local bw
 
- bw=$(grep "^Scale:" "$log" | awk '{print $2}' | head -1)
+    bw=$(grep "^Scale:" "$log" | awk '{print $2}' | head -1)
 
- [ -n "$bw" ] && [ "$bw" != "0" ] && rlPass "SCALE: ${bw} MB/s" || rlFail "SCALE nodata"
+    [ -n "$bw" ] && [ "$bw" != "0" ] && rlPass "SCALE: ${bw} MB/s" || rlFail "SCALE nodata"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "single-core ADD (2R+1W)"
+    rlPhaseStartTest "single-core ADD (2R+1W)"
 
- local log="/tmp/stream_add.log"
+    local log="/tmp/stream_add.log"
 
- export OMP_NUM_THREADS=1
+    export OMP_NUM_THREADS=1
 
- _streamRun 1 > "$log" 2>&1
+    _streamRun 1 > "$log" 2>&1
 
- rlRun "cat $log" 0 "STREAM ADD full output"
+    rlRun "cat $log" 0 "STREAM ADD full output"
 
- local bw
+    local bw
 
- bw=$(grep "^Add:" "$log" | awk '{print $2}' | head -1)
+    bw=$(grep "^Add:" "$log" | awk '{print $2}' | head -1)
 
- [ -n "$bw" ] && [ "$bw" != "0" ] && rlPass "ADD: ${bw} MB/s" || rlFail "ADD nodata"
+    [ -n "$bw" ] && [ "$bw" != "0" ] && rlPass "ADD: ${bw} MB/s" || rlFail "ADD nodata"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "single-core TRIAD (2R+1W,)"
+    rlPhaseStartTest "single-core TRIAD (2R+1W,)"
 
- local log="/tmp/stream_triad.log"
+    local log="/tmp/stream_triad.log"
 
- export OMP_NUM_THREADS=1
+    export OMP_NUM_THREADS=1
 
- _streamRun 1 > "$log" 2>&1
+    _streamRun 1 > "$log" 2>&1
 
- echo ""
+    echo ""
 
- echo "=== STREAM single-corefullresult ==="
+    echo "=== STREAM single-corefullresult ==="
 
- cat "$log"
+    cat "$log"
 
- _streamParseResult "$log"
+    _streamParseResult "$log"
 
 
 
- local bw
+    local bw
 
- bw=$(grep "^Triad:" "$log" | awk '{print $2}' | head -1)
+    bw=$(grep "^Triad:" "$log" | awk '{print $2}' | head -1)
 
- if [ -n "$bw" ] && [ "$bw" != "0" ]; then
+    if [ -n "$bw" ] && [ "$bw" != "0" ]; then
 
- rlPass "single-core TRIAD: ${bw} MB/s (corememorybandwidth)"
+    rlPass "single-core TRIAD: ${bw} MB/s (corememorybandwidth)"
 
- else
+    else
 
- rlFail "TRIAD notreturndata"
+    rlFail "TRIAD notreturndata"
 
- fi
+    fi
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
 
- rm -f /tmp/stream_{copy,scale,add,triad}.log
+    rm -f /tmp/stream_{copy,scale,add,triad}.log
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 

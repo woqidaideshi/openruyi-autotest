@@ -14,36 +14,36 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeSystemInfoSetup
-
-
-
- rlPhaseEnd
+    smokeSystemInfoSetup
 
 
 
- rlPhaseStartTest "df disk usage"
-
- rlRun 'df' 0 "df disk usage"
-
- rlRun 'df -h' 0 "df -h human-readable"
-
- rlRun 'df /' 0 "df rootpartition"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "df disk usage"
+
+    rlRun 'df' 0 "df disk usage"
+
+    rlRun 'df -h' 0 "df -h human-readable"
+
+    rlRun 'df /' 0 "df rootpartition"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeServiceMgmtSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeServiceMgmtSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "hostnamectl Status"
- rlRun 'hostnamectl 2>&1 || true' 0 "hostnamectl Status"
- rlRun 'hostnamectl status 2>&1 || true' 0 "hostnamectl status"
- rlPhaseEnd
+    rlPhaseStartTest "hostnamectl Status"
+    rlRun 'hostnamectl 2>&1 || true' 0 "hostnamectl Status"
+    rlRun 'hostnamectl status 2>&1 || true' 0 "hostnamectl status"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeProcessSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeProcessSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "nproc CPU corecount"
- rlRun 'nproc' 0 "nproc CPU corecount"
- rlRun 'nproc --all' 0 "nproc --all allhandle"
- rlPhaseEnd
+    rlPhaseStartTest "nproc CPU corecount"
+    rlRun 'nproc' 0 "nproc CPU corecount"
+    rlRun 'nproc --all' 0 "nproc --all allhandle"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

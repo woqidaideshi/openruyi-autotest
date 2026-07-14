@@ -16,47 +16,47 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- wgetSetup
+    wgetSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "User-agent"
-
- rlRun "wget --user-agent='TestAgent/1.0' --version 2>&1 | grep -q Wget" 0 "wget --user-agent Option exists"
-
- rlRun "wget -U 'TestAgent/1.0' --version 2>&1 | grep -q Wget" 0 "wget -U option (user-agent write)"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "User-agent"
 
+    rlRun "wget --user-agent='TestAgent/1.0' --version 2>&1 | grep -q Wget" 0 "wget --user-agent Option exists"
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "wget -U 'TestAgent/1.0' --version 2>&1 | grep -q Wget" 0 "wget -U option (user-agent write)"
 
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # wget Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # wget Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

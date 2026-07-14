@@ -14,15 +14,15 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeTextProcessingSetup
+    smokeTextProcessingSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- cat > fruits.txt << EOF
+    cat > fruits.txt << EOF
 
  apple
 
@@ -36,38 +36,38 @@ rlJournalStart
 
 
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "grep basic search"
+    rlPhaseStartTest "grep basic search"
 
- rlRun 'grep apple fruits.txt' 0 "grep basic search"
+    rlRun 'grep apple fruits.txt' 0 "grep basic search"
 
- rlRun 'grep -i apple fruits.txt' 0 "grep -i sizewrite"
+    rlRun 'grep -i apple fruits.txt' 0 "grep -i sizewrite"
 
- rlRun 'grep -c a fruits.txt' 0 "grep -c count"
+    rlRun 'grep -c a fruits.txt' 0 "grep -c count"
 
- rlRun 'grep -v banana fruits.txt' 0 "grep -v "
+    rlRun 'grep -v banana fruits.txt' 0 "grep -v "
 
- rlPhaseEnd
-
-
-
- rlPhaseStartCleanup "Clean up test environment"
-
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

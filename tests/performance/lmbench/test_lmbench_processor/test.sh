@@ -10,169 +10,169 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- lmbenchSetup
+    lmbenchSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- if [ ! -f "$LMBENCH_DIR/bin/lmbench" ]; then
+    if [ ! -f "$LMBENCH_DIR/bin/lmbench" ]; then
 
- rlFail "LMbench notcompile"; return 0
+    rlFail "LMbench notcompile"; return 0
 
- fi
+    fi
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "handleoperationlatency (null call, signal, fork)"
+    rlPhaseStartTest "handleoperationlatency (null call, signal, fork)"
 
- cd "$LMBENCH_DIR"
+    cd "$LMBENCH_DIR"
 
- # runsingletestnon-full
+    # runsingletestnon-full
 
- echo "=== null call latency (system callsoverhead) ==="
+    echo "=== null call latency (system callsoverhead) ==="
 
 ./bin/lat_syscall null 2>&1 || true
 
- echo ""
+    echo ""
 
 
 
- echo "=== open/close latency (filesystemcallwith) ==="
+    echo "=== open/close latency (filesystemcallwith) ==="
 
 ./bin/lat_syscall open /tmp 2>&1 || true
 
- echo ""
+    echo ""
 
 
 
- echo "=== signal handlelatency ==="
+    echo "=== signal handlelatency ==="
 
 ./bin/lat_sig install 2>&1 || true
 
- echo ""
+    echo ""
 
 
 
- echo "=== fork latency (processcreateoverhead) ==="
+    echo "=== fork latency (processcreateoverhead) ==="
 
 ./bin/lat_proc fork 2>&1 || true
 
- echo ""
+    echo ""
 
 
 
- echo "=== exec latency ==="
+    echo "=== exec latency ==="
 
 ./bin/lat_proc exec 2>&1 || true
 
- echo ""
+    echo ""
 
 
 
- echo "=== shell latency ==="
+    echo "=== shell latency ==="
 
 ./bin/lat_proc shell 2>&1 || true
 
 
 
- rlPass "handleoperationlatencytestComplete"
+    rlPass "handleoperationlatencytestComplete"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "memorylatencyanalysis"
-
- cd "$LMBENCH_DIR"
+    rlPhaseEnd
 
 
 
- # Memory latency with different sizes
+    rlPhaseStartTest "memorylatencyanalysis"
 
- for size in 1M 4M 16M; do
+    cd "$LMBENCH_DIR"
 
- echo ""
 
- echo "=== memorylatency (${size}) ==="
+
+    # Memory latency with different sizes
+
+    for size in 1M 4M 16M; do
+
+    echo ""
+
+    echo "=== memorylatency (${size}) ==="
 
 ./bin/lat_mem_rd ${size} 16 2>&1 | head -5
 
- done
+    done
 
 
 
- # Memory bandwidth
+    # Memory bandwidth
 
- echo ""
+    echo ""
 
- echo "=== memorybandwidth (bw_mem) ==="
+    echo "=== memorybandwidth (bw_mem) ==="
 
- for op in rd wr rdwr cp fwr frd fcp bzero bcopy; do
+    for op in rd wr rdwr cp fwr frd fcp bzero bcopy; do
 
- local out
+    local out
 
- out=$(./bin/bw_mem 16M "$op" 2>&1 | tail -1)
+    out=$(./bin/bw_mem 16M "$op" 2>&1 | tail -1)
 
- if [ -n "$out" ]; then
+    if [ -n "$out" ]; then
 
- echo " $op: $out MB/s"
+    echo " $op: $out MB/s"
 
- fi
+    fi
 
- done
-
-
-
- rlPass "memorylatencyanalysisComplete"
-
- rlPhaseEnd
+    done
 
 
 
- rlPhaseStartTest "/floating-point operationslatency"
+    rlPass "memorylatencyanalysisComplete"
 
- cd "$LMBENCH_DIR"
+    rlPhaseEnd
 
- echo ""
 
- echo "=== basic arithmeticlatency (seconds) ==="
+
+    rlPhaseStartTest "/floating-point operationslatency"
+
+    cd "$LMBENCH_DIR"
+
+    echo ""
+
+    echo "=== basic arithmeticlatency (seconds) ==="
 
 ./bin/lat_ops 2>&1 | head -20
 
- echo ""
+    echo ""
 
 
 
- # Run lat_ops for specific types
+    # Run lat_ops for specific types
 
- for op in bit add mul div mod; do
+    for op in bit add mul div mod; do
 
- echo -n "int $op: "
+    echo -n "int $op: "
 
 ./bin/lat_ops -W 5 -N 3 "$op" 2>&1 | grep -oP '[\d.]+' | head -1
 
- done
+    done
 
 
 
- rlPass "latencytestComplete"
+    rlPass "latencytestComplete"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 

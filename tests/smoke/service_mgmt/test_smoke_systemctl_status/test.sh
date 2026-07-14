@@ -6,20 +6,20 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeServiceMgmtSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeServiceMgmtSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "systemctl version"
- rlRun 'systemctl --version' 0 "systemctl version"
- rlRun 'systemctl list-units --type=service | head -5' 0 "systemctl servicelist"
- rlRun 'systemctl is-system-running 2>&1 || true' 0 "systemctl systemrunStatus"
- rlPhaseEnd
+    rlPhaseStartTest "systemctl version"
+    rlRun 'systemctl --version' 0 "systemctl version"
+    rlRun 'systemctl list-units --type=service | head -5' 0 "systemctl servicelist"
+    rlRun 'systemctl is-system-running 2>&1 || true' 0 "systemctl systemrunStatus"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

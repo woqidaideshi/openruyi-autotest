@@ -14,36 +14,36 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- nmapSetup
-
-
-
- rlPhaseEnd
+    nmapSetup
 
 
 
- rlPhaseStartTest "nmap TCP/UDP port scan"
-
- rlRun 'nmap -T4 --host-timeout 30s -p 22,80,443 localhost 2>&1' 0 "TCP port scan (withport)"
-
- rlRun 'nmap -T4 --host-timeout 30s -sU -p 53 localhost 2>&1' 0 "UDP port scan (DNS)"
-
- rlRun 'nmap -T4 --host-timeout 30s -p 1-100 localhost 2>&1' 0 "TCP port scan (1-100)"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "nmap TCP/UDP port scan"
+
+    rlRun 'nmap -T4 --host-timeout 30s -p 22,80,443 localhost 2>&1' 0 "TCP port scan (withport)"
+
+    rlRun 'nmap -T4 --host-timeout 30s -sU -p 53 localhost 2>&1' 0 "UDP port scan (DNS)"
+
+    rlRun 'nmap -T4 --host-timeout 30s -p 1-100 localhost 2>&1' 0 "TCP port scan (1-100)"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeKernelSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeKernelSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "sysctl -a kernelparameter"
- rlRun 'sysctl -a 2>&1 | head -5 || true' 0 "sysctl -a kernelparameter"
- rlRun 'sysctl kernel.hostname 2>&1 || true' 0 "sysctl readhostnameparameter"
- rlPhaseEnd
+    rlPhaseStartTest "sysctl -a kernelparameter"
+    rlRun 'sysctl -a 2>&1 | head -5 || true' 0 "sysctl -a kernelparameter"
+    rlRun 'sysctl kernel.hostname 2>&1 || true' 0 "sysctl readhostnameparameter"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

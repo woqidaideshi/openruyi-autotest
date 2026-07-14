@@ -10,17 +10,17 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- yarpgenSetup
+    yarpgenSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
 
 
- cat > str.c << 'CEOF'
+    cat > str.c << 'CEOF'
 
 #include <string.h>
 
@@ -34,7 +34,7 @@ int cd(const char*s){int c=0;for(;*s;s++)if(*s>='0'&&*s<='9')c++;return c;}
 
 CEOF
 
- cat > str.h << 'CEOF'
+    cat > str.h << 'CEOF'
 
 #ifndef S_H
 
@@ -58,7 +58,7 @@ int cv(const char*s);int cd(const char*s);
 
 CEOF
 
- cat > mat.c << 'CEOF'
+    cat > mat.c << 'CEOF'
 
 int fact(int n){int r=1;for(int i=2;i<=n;i++)r*=i;return r;}
 
@@ -66,7 +66,7 @@ int gcd(int a,int b){while(b){int t=b;b=a%b;a=t;}return a;}
 
 CEOF
 
- cat > mat.h << 'CEOF'
+    cat > mat.h << 'CEOF'
 
 #ifndef M_H
 
@@ -90,7 +90,7 @@ int fact(int n);int gcd(int a,int b);
 
 CEOF
 
- cat > main.cpp << 'CEOF'
+    cat > main.cpp << 'CEOF'
 
 #include <iostream>
 
@@ -112,47 +112,47 @@ if(ok)cout<<"MULTI_OK"<<endl;return ok?0:1;}
 
 CEOF
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "GCC/G++ separate compilation"
+    rlPhaseStartTest "GCC/G++ separate compilation"
 
- rlRun "gcc -c str.c -o str.o && gcc -c mat.c -o mat.o" 0 "GCC compile.o"
+    rlRun "gcc -c str.c -o str.o && gcc -c mat.c -o mat.o" 0 "GCC compile.o"
 
- rlRun "g++ -o multi_gxx main.cpp str.o mat.o &&./multi_gxx | grep MULTI_OK" 0 "G++ link C+C++"
+    rlRun "g++ -o multi_gxx main.cpp str.o mat.o &&./multi_gxx | grep MULTI_OK" 0 "G++ link C+C++"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "Clang/Clang++ separate compilation"
-
- rlRun "clang -c str.c -o str_c.o && clang -c mat.c -o mat_c.o" 0 "Clang compile.o"
-
- rlRun "clang++ -o multi_clang main.cpp str_c.o mat_c.o &&./multi_clang | grep MULTI_OK" 0 "Clang++ link"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "cross-compiler linking"
+    rlPhaseStartTest "Clang/Clang++ separate compilation"
 
- rlRun "clang++ -o cross1 main.cpp str.o mat.o 2>&1 &&./cross1 | grep MULTI_OK" 0 "Clang++ + GCC.o"
+    rlRun "clang -c str.c -o str_c.o && clang -c mat.c -o mat_c.o" 0 "Clang compile.o"
 
- rlRun "g++ -o cross2 main.cpp str_c.o mat_c.o 2>&1 &&./cross2 | grep MULTI_OK" 0 "G++ + Clang.o"
+    rlRun "clang++ -o multi_clang main.cpp str_c.o mat_c.o &&./multi_clang | grep MULTI_OK" 0 "Clang++ link"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "cross-compiler linking"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "clang++ -o cross1 main.cpp str.o mat.o 2>&1 &&./cross1 | grep MULTI_OK" 0 "Clang++ + GCC.o"
 
- rlPhaseEnd
+    rlRun "g++ -o cross2 main.cpp str_c.o mat_c.o 2>&1 &&./cross2 | grep MULTI_OK" 0 "G++ + Clang.o"
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

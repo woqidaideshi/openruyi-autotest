@@ -10,97 +10,97 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- sysbenchSetup
+    sysbenchSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- local cores=$(nproc)
+    local cores=$(nproc)
 
- local data_dir="$TmpDir/sb_fileio"
+    local data_dir="$TmpDir/sb_fileio"
 
- mkdir -p "$data_dir"
+    mkdir -p "$data_dir"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "file I/O all modes"
-
- echo ""
-
- echo "=== file I/O performance (${cores} thread, I/O) ==="
-
- printf "%-10s %-15s %-15s\n" "Mode" "MiB/s" "IOPS"
+    rlPhaseEnd
 
 
 
- for mode in seqwr seqrewr seqrd rndrd rndwr rndrw; do
+    rlPhaseStartTest "file I/O all modes"
 
- sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
+    echo ""
 
- sleep 2
+    echo "=== file I/O performance (${cores} thread, I/O) ==="
 
-
-
- local log="/tmp/sb_fileio_${mode}.log"
+    printf "%-10s %-15s %-15s\n" "Mode" "MiB/s" "IOPS"
 
 
 
- # Prepare
+    for mode in seqwr seqrewr seqrd rndrd rndwr rndrw; do
 
- sysbench --threads=$cores --file-total-size=2G --file-test-mode=$mode \
+    sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
 
- --file-num=4 fileio prepare 2>&1 > /dev/null
-
-
-
- # Run
-
- sysbench --threads=$cores --file-extra-flags=direct --file-total-size=2G \
-
- --file-test-mode=$mode --time=20 --report-interval=5 \
-
- fileio run 2>&1 | tee "$log"
+    sleep 2
 
 
 
- local bw iops
-
- bw=$(grep "MiB/sec" "$log" | grep -oP '[\d.]+' | head -1)
-
- iops=$(grep "reads/s\|writes/s" "$log" | grep -oP '[\d.]+' | head -1)
-
- printf "%-10s %-15s %-15s\n" "$mode" "${bw:-N/A}" "${iops:-N/A}"
-
- rlPass "fileio $mode: ${bw:-N/A} MiB/s"
+    local log="/tmp/sb_fileio_${mode}.log"
 
 
 
- # Cleanup
+    # Prepare
 
- sysbench --threads=$cores --file-total-size=2G \
+    sysbench --threads=$cores --file-total-size=2G --file-test-mode=$mode \
 
- --file-test-mode=$mode fileio cleanup 2>&1 > /dev/null
-
- done
-
- rlPhaseEnd
+    --file-num=4 fileio prepare 2>&1 > /dev/null
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    # Run
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    sysbench --threads=$cores --file-extra-flags=direct --file-total-size=2G \
 
- rm -f /tmp/sb_fileio_*.log
+    --file-test-mode=$mode --time=20 --report-interval=5 \
 
- rlPhaseEnd
+    fileio run 2>&1 | tee "$log"
 
- rlJournalPrintText
+
+
+    local bw iops
+
+    bw=$(grep "MiB/sec" "$log" | grep -oP '[\d.]+' | head -1)
+
+    iops=$(grep "reads/s\|writes/s" "$log" | grep -oP '[\d.]+' | head -1)
+
+    printf "%-10s %-15s %-15s\n" "$mode" "${bw:-N/A}" "${iops:-N/A}"
+
+    rlPass "fileio $mode: ${bw:-N/A} MiB/s"
+
+
+
+    # Cleanup
+
+    sysbench --threads=$cores --file-total-size=2G \
+
+    --file-test-mode=$mode fileio cleanup 2>&1 > /dev/null
+
+    done
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rm -f /tmp/sb_fileio_*.log
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

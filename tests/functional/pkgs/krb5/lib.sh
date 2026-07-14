@@ -18,41 +18,41 @@ PKG_FLAG="/tmp/.beakerlib_krb5_suite"
 
 krb5Setup() {
 
- if [ ! -f "$PKG_FLAG" ]; then
+    if [ ! -f "$PKG_FLAG" ]; then
 
- if ! rpm -q krb5 2>/dev/null; then
+    if ! rpm -q krb5 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y krb5 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y krb5 2>/dev/null
 
- echo "installed=1" > "$PKG_FLAG"
+    echo "installed=1" > "$PKG_FLAG"
 
- rlLogInfo "already krb5 soft ()"
+    rlLogInfo "already krb5 soft ()"
 
- else
+    else
 
- echo "installed=0" > "$PKG_FLAG"
+    echo "installed=0" > "$PKG_FLAG"
 
- rlLogInfo "krb5 softalready exists"
+    rlLogInfo "krb5 softalready exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$PKG_FLAG"
+    echo "ref=1" >> "$PKG_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
 
- rlLogInfo "krb5 alreadybyothertest, reference count: $ref"
+    rlLogInfo "krb5 alreadybyothertest, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "krb5Cleanup"
+    rlCleanupAppend "krb5Cleanup"
 
 }
 
@@ -60,37 +60,37 @@ krb5Setup() {
 
 krb5Cleanup() {
 
- if [ ! -f "$PKG_FLAG" ]; then
+    if [ ! -f "$PKG_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- if grep -q "^installed=1" "$PKG_FLAG"; then
+    if grep -q "^installed=1" "$PKG_FLAG"; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y krb5 2>/dev/null || true
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y krb5 2>/dev/null || true
 
- rlLogInfo "already krb5 soft (posttest)"
+    rlLogInfo "already krb5 soft (posttest)"
 
- fi
+    fi
 
- rm -f "$PKG_FLAG"
+    rm -f "$PKG_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
 
- rlLogInfo "krb5 Retain (still have $ref test(s) not completed)"
+    rlLogInfo "krb5 Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

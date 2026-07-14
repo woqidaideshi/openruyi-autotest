@@ -14,48 +14,48 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeTextProcessingSetup
+    smokeTextProcessingSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlRun "echo "a" > f1; echo "b" > f2" 0 "Create test data"
+    rlRun "echo "a" > f1; echo "b" > f2" 0 "Create test data"
 
- rlRun "echo "a" > f3; echo "a" > f4" 0 "Create test data"
-
-
-
- rlPhaseEnd
+    rlRun "echo "a" > f3; echo "a" > f4" 0 "Create test data"
 
 
 
- rlPhaseStartTest "diff detect diff"
-
- rlRun 'diff f1 f2' 1 "diff detect diff"
-
- rlRun 'diff f3 f4' 0 "diff file"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "diff detect diff"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun 'diff f1 f2' 1 "diff detect diff"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun 'diff f3 f4' 0 "diff file"
 
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

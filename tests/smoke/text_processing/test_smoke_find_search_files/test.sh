@@ -14,48 +14,48 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeTextProcessingSetup
+    smokeTextProcessingSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlRun "touch found.txt; mkdir sub" 0 "Create test data"
-
-
-
- rlPhaseEnd
+    rlRun "touch found.txt; mkdir sub" 0 "Create test data"
 
 
 
- rlPhaseStartTest "find by namesearch"
-
- rlRun 'find. -name "found.txt"' 0 "find by namesearch"
-
- rlRun 'find. -type d' 0 "find typedirectory"
-
- rlRun 'find. -type f' 0 "find typefile"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "find by namesearch"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun 'find. -name "found.txt"' 0 "find by namesearch"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun 'find. -type d' 0 "find typedirectory"
 
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    rlRun 'find. -type f' 0 "find typefile"
 
- fi
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

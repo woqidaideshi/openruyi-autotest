@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokePermissionsSetup
+    rlPhaseStartSetup "Environment setup"
+    smokePermissionsSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "/tmp directory exists"
- rlRun 'test -d /tmp' 0 "/tmp directory exists"
- rlRun 'ls -ld /tmp' 0 "ls -ld /tmp permission"
- rlPhaseEnd
+    rlPhaseStartTest "/tmp directory exists"
+    rlRun 'test -d /tmp' 0 "/tmp directory exists"
+    rlRun 'ls -ld /tmp' 0 "ls -ld /tmp permission"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

@@ -6,11 +6,11 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeScriptingSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlRun "cat > myscript.sh << 'EOF'" 0 "Create test data"
+    rlPhaseStartSetup "Environment setup"
+    smokeScriptingSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cat > myscript.sh << 'EOF'" 0 "Create test data"
  rlRun "echo "script ran successfully"" 0 "Create test data"
  rlRun "EOF" 0 "Create test data"
  rlRun "chmod +x myscript.sh" 0 "Create test data"

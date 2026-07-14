@@ -14,25 +14,25 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- dejagnuSetup
+    dejagnuSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
-
- 
-
- # create GCC testsuite directory structure
-
- mkdir -p gcc-testsuite/gcc.dg
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
  
 
- # Create test C source file
+    # create GCC testsuite directory structure
 
- cat > gcc-testsuite/gcc.dg/dejagnu_test.c << 'CEOF'
+    mkdir -p gcc-testsuite/gcc.dg
+
+ 
+
+    # Create test C source file
+
+    cat > gcc-testsuite/gcc.dg/dejagnu_test.c << 'CEOF'
 
 /* { dg-do run } */
 
@@ -88,9 +88,9 @@ CEOF
 
  
 
- # create DejaGnu.exp file
+    # create DejaGnu.exp file
 
- cat > gcc-testsuite/gcc.dg/dejagnu_test.exp << 'EEOF'
+    cat > gcc-testsuite/gcc.dg/dejagnu_test.exp << 'EEOF'
 
 # GCC DejaGnu test driver
 
@@ -108,121 +108,121 @@ EEOF
 
  
 
- rlLogInfo "testfilealreadycreate"
+    rlLogInfo "testfilealreadycreate"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "GCC DejaGnu test"
+    rlPhaseStartTest "GCC DejaGnu test"
 
- # enter testsuite directoryExecute runtest
+    # enter testsuite directoryExecute runtest
 
- cd gcc-testsuite
-
- 
-
- # set GCC path
-
- export GCC_UNDER_TEST=gcc
-
- export GXX_UNDER_TEST=g++
+    cd gcc-testsuite
 
  
 
- runtest --tool gcc gcc.dg/dejagnu_test.exp 2>&1 | tee /tmp/dejagnu_gcc_run.log
+    # set GCC path
 
- local rc=${PIPESTATUS[0]}
+    export GCC_UNDER_TEST=gcc
 
- 
-
- rlRun "ls -la gcc.log gcc.sum 2>/dev/null || true" 0 "check.log/.sum file"
+    export GXX_UNDER_TEST=g++
 
  
 
- # verify.sum filecontent
+    runtest --tool gcc gcc.dg/dejagnu_test.exp 2>&1 | tee /tmp/dejagnu_gcc_run.log
 
- if [ -f gcc.sum ]; then
-
- rlRun "cat gcc.sum" 0 "display.sum content"
+    local rc=${PIPESTATUS[0]}
 
  
 
- # check whether there is PASS 
-
- if grep -q "^PASS:" gcc.sum; then
-
- local pass_count
-
- pass_count=$(grep -c "^PASS:" gcc.sum)
-
- rlPass "GCC DejaGnu testpassed ($pass_count PASS)"
-
- else
-
- rlFail "GCC.sum filenotcontains PASS result"
-
- fi
+    rlRun "ls -la gcc.log gcc.sum 2>/dev/null || true" 0 "check.log/.sum file"
 
  
 
- # checknoshouldhas FAIL
+    # verify.sum filecontent
 
- if grep -q "^FAIL:" gcc.sum; then
+    if [ -f gcc.sum ]; then
 
- local fail_count
-
- fail_count=$(grep -c "^FAIL:" gcc.sum)
-
- rlFail "GCC testexists $fail_count failed"
-
- else
-
- rlPass "GCC testno FAIL"
-
- fi
-
- else
-
- rlFail "notGenerate gcc.sum file"
-
- fi
+    rlRun "cat gcc.sum" 0 "display.sum content"
 
  
 
- # verify.log filecontainscompile/runoutput
+    # check whether there is PASS 
 
- if [ -f gcc.log ]; then
+    if grep -q "^PASS:" gcc.sum; then
 
- if grep -q "GCC_DG_TEST_PASSED\|PASS\|dg-runtest" gcc.log; then
+    local pass_count
 
- rlPass "gcc.log containspretestoutput"
+    pass_count=$(grep -c "^PASS:" gcc.sum)
 
- fi
+    rlPass "GCC DejaGnu testpassed ($pass_count PASS)"
 
- fi
+    else
+
+    rlFail "GCC.sum filenotcontains PASS result"
+
+    fi
 
  
 
- cd "$TmpDir"
+    # checknoshouldhas FAIL
 
- rlPhaseEnd
+    if grep -q "^FAIL:" gcc.sum; then
+
+    local fail_count
+
+    fail_count=$(grep -c "^FAIL:" gcc.sum)
+
+    rlFail "GCC testexists $fail_count failed"
+
+    else
+
+    rlPass "GCC testno FAIL"
+
+    fi
+
+    else
+
+    rlFail "notGenerate gcc.sum file"
+
+    fi
+
+ 
+
+    # verify.log filecontainscompile/runoutput
+
+    if [ -f gcc.log ]; then
+
+    if grep -q "GCC_DG_TEST_PASSED\|PASS\|dg-runtest" gcc.log; then
+
+    rlPass "gcc.log containspretestoutput"
+
+    fi
+
+    fi
+
+ 
+
+    cd "$TmpDir"
+
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 "Leave temporary directory"
+    rlRun "cd /" 0 "Leave temporary directory"
 
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
 
- rm -f /tmp/dejagnu_gcc_run.log
+    rm -f /tmp/dejagnu_gcc_run.log
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 

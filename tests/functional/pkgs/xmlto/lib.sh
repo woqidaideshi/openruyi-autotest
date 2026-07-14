@@ -18,41 +18,41 @@ PKG_FLAG="/tmp/.beakerlib_xmlto_suite"
 
 xmltoSetup() {
 
- if [ ! -f "$PKG_FLAG" ]; then
+    if [ ! -f "$PKG_FLAG" ]; then
 
- if ! rpm -q xmlto 2>/dev/null; then
+    if ! rpm -q xmlto 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y xmlto 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y xmlto 2>/dev/null
 
- echo "installed=1" > "$PKG_FLAG"
+    echo "installed=1" > "$PKG_FLAG"
 
- rlLogInfo "already xmlto soft ()"
+    rlLogInfo "already xmlto soft ()"
 
- else
+    else
 
- echo "installed=0" > "$PKG_FLAG"
+    echo "installed=0" > "$PKG_FLAG"
 
- rlLogInfo "xmlto softalready exists"
+    rlLogInfo "xmlto softalready exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$PKG_FLAG"
+    echo "ref=1" >> "$PKG_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
 
- rlLogInfo "xmlto alreadybyothertest, reference count: $ref"
+    rlLogInfo "xmlto alreadybyothertest, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "xmltoCleanup"
+    rlCleanupAppend "xmltoCleanup"
 
 }
 
@@ -60,37 +60,37 @@ xmltoSetup() {
 
 xmltoCleanup() {
 
- if [ ! -f "$PKG_FLAG" ]; then
+    if [ ! -f "$PKG_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- if grep -q "^installed=1" "$PKG_FLAG"; then
+    if grep -q "^installed=1" "$PKG_FLAG"; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y xmlto 2>/dev/null || true
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y xmlto 2>/dev/null || true
 
- rlLogInfo "already xmlto soft (posttest)"
+    rlLogInfo "already xmlto soft (posttest)"
 
- fi
+    fi
 
- rm -f "$PKG_FLAG"
+    rm -f "$PKG_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
 
- rlLogInfo "xmlto Retain (still have $ref test(s) not completed)"
+    rlLogInfo "xmlto Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

@@ -14,60 +14,60 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeArchiveSetup
+    smokeArchiveSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlRun "mkdir src" 0 "createsourcedirectory"
+    rlRun "mkdir src" 0 "createsourcedirectory"
 
- rlRun "echo a > src/a.txt" 0 "createsource file a"
+    rlRun "echo a > src/a.txt" 0 "createsource file a"
 
- rlRun "echo b > src/b.txt" 0 "createsource file b"
+    rlRun "echo b > src/b.txt" 0 "createsource file b"
 
- rlRun "mkdir extract" 0 "createdecompressdirectory"
-
-
-
- rlPhaseEnd
+    rlRun "mkdir extract" 0 "createdecompressdirectory"
 
 
 
- rlPhaseStartTest "tar createarchive"
-
- rlRun 'tar -cf test.tar src' 0 "tar createarchive"
-
- rlRun 'test -f test.tar' 0 "tar filealreadycreate"
-
- rlRun 'tar -tf test.tar | grep a.txt' 0 "tar -t listexportcontent"
-
- rlRun "cd extract" 0 "enterdecompressdirectory"
-
- rlRun 'tar -xf../test.tar' 0 "tar -x decompress"
-
- rlRun 'test -f src/a.txt' 0 "decompressfile exists"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "tar createarchive"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun 'tar -cf test.tar src' 0 "tar createarchive"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun 'test -f test.tar' 0 "tar filealreadycreate"
 
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    rlRun 'tar -tf test.tar | grep a.txt' 0 "tar -t listexportcontent"
 
- fi
+    rlRun "cd extract" 0 "enterdecompressdirectory"
 
- rlPhaseEnd
+    rlRun 'tar -xf../test.tar' 0 "tar -x decompress"
+
+    rlRun 'test -f src/a.txt' 0 "decompressfile exists"
+
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

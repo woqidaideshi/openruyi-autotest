@@ -10,87 +10,87 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- stressNgSetup
+    stressNgSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- TAINT=$(_stressNgTaintBefore)
+    TAINT=$(_stressNgTaintBefore)
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "VM stress (memory)"
-
- local log="$TmpDir/vm.log"
-
- rlRun "stress-ng --vm 2 --vm-bytes 128M --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--vm 2x128M"
-
- _stressNgValidate "$log" "vm"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "MMAP stress"
+    rlPhaseStartTest "VM stress (memory)"
 
- local log="$TmpDir/mmap.log"
+    local log="$TmpDir/vm.log"
 
- rlRun "stress-ng --mmap 2 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--mmap 2"
+    rlRun "stress-ng --vm 2 --vm-bytes 128M --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--vm 2x128M"
 
- _stressNgValidate "$log" "mmap"
+    _stressNgValidate "$log" "vm"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "MADVISE stress"
-
- local log="$TmpDir/madvise.log"
-
- rlRun "stress-ng --madvise 2 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--madvise 2"
-
- _stressNgValidate "$log" "madvise"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "Memory combined stress"
+    rlPhaseStartTest "MMAP stress"
 
- local log="$TmpDir/mem_combo.log"
+    local log="$TmpDir/mmap.log"
 
- # simultaneously VM + MMAP
+    rlRun "stress-ng --mmap 2 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--mmap 2"
 
- rlRun "stress-ng --vm 1 --vm-bytes 64M --mmap 1 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -10" 0 "memorycombined stress"
+    _stressNgValidate "$log" "mmap"
 
- _stressNgValidate "$log" "vm"
-
- _stressNgValidate "$log" "mmap"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "tainted"
+    rlPhaseStartTest "MADVISE stress"
 
- _stressNgTaintCheck "$TAINT"
+    local log="$TmpDir/madvise.log"
 
- rlPhaseEnd
+    rlRun "stress-ng --madvise 2 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--madvise 2"
+
+    _stressNgValidate "$log" "madvise"
+
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "Memory combined stress"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    local log="$TmpDir/mem_combo.log"
 
- rlPhaseEnd
+    # simultaneously VM + MMAP
 
- rlJournalPrintText
+    rlRun "stress-ng --vm 1 --vm-bytes 64M --mmap 1 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -10" 0 "memorycombined stress"
+
+    _stressNgValidate "$log" "vm"
+
+    _stressNgValidate "$log" "mmap"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartTest "tainted"
+
+    _stressNgTaintCheck "$TAINT"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

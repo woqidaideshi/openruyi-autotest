@@ -50,115 +50,115 @@ STREAM_DIR="/tmp/stream_bench"
 
 streamSetup() {
 
- if [ ! -f "$STREAM_FLAG" ]; then
+    if [ ! -f "$STREAM_FLAG" ]; then
 
- # Install build deps
+    # Install build deps
 
- for dep in gcc wget; do
+    for dep in gcc wget; do
 
- if ! rpm -q "$dep" 2>/dev/null; then
+    if ! rpm -q "$dep" 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y "$dep" 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y "$dep" 2>/dev/null
 
- fi
+    fi
 
- done
-
-
-
- # Download and compile STREAM
-
- if [ ! -f "$STREAM_DIR/stream" ]; then
-
- mkdir -p "$STREAM_DIR"
-
- cd "$STREAM_DIR"
-
- wget -q https://raw.githubusercontent.com/jeffhammond/STREAM/refs/heads/master/stream.c 2>/dev/null || true
-
- if [ -f stream.c ]; then
-
- # Get L3 cache size to calculate array size
-
- local l3_kb
-
- l3_kb=$(lscpu 2>/dev/null | grep -i "L3 cache" | grep -oP '\d+' | head -1)
-
- if [ -z "$l3_kb" ] || [ "$l3_kb" -lt 1024 ]; then
-
- l3_kb=4096 # default 4MB
-
- fi
-
- # Array size = 4x L3 cache / 8 bytes per element
-
- local array_elements=$((l3_kb * 1024 / 8 * 4))
-
- # Ensure minimum 10M elements
-
- if [ "$array_elements" -lt 10000000 ]; then
-
- array_elements=10000000
-
- fi
-
- rlLogInfo "L3 Cache: ${l3_kb}KB, Array elements: ${array_elements}"
+    done
 
 
 
- gcc -O3 -fopenmp -DSTREAM_ARRAY_SIZE=${array_elements} -DNTIMES=20 \
+    # Download and compile STREAM
 
- stream.c -o stream -lm 2>/dev/null
+    if [ ! -f "$STREAM_DIR/stream" ]; then
 
- if [ -x stream ]; then
+    mkdir -p "$STREAM_DIR"
 
- echo "built=1" > "$STREAM_FLAG"
+    cd "$STREAM_DIR"
 
- echo "array_size=$array_elements" >> "$STREAM_FLAG"
+    wget -q https://raw.githubusercontent.com/jeffhammond/STREAM/refs/heads/master/stream.c 2>/dev/null || true
 
- rlLogInfo "STREAM Compile succeeded (array=$array_elements)"
+    if [ -f stream.c ]; then
 
- else
+    # Get L3 cache size to calculate array size
 
- echo "built=0" > "$STREAM_FLAG"
+    local l3_kb
 
- rlLogWarning "STREAM Compile failed"
+    l3_kb=$(lscpu 2>/dev/null | grep -i "L3 cache" | grep -oP '\d+' | head -1)
 
- fi
+    if [ -z "$l3_kb" ] || [ "$l3_kb" -lt 1024 ]; then
 
- else
+    l3_kb=4096 # default 4MB
 
- echo "built=0" > "$STREAM_FLAG"
+    fi
 
- rlLogWarning "stream.c downloadfailed"
+    # Array size = 4x L3 cache / 8 bytes per element
 
- fi
+    local array_elements=$((l3_kb * 1024 / 8 * 4))
 
- cd - >/dev/null
+    # Ensure minimum 10M elements
 
- else
+    if [ "$array_elements" -lt 10000000 ]; then
 
- echo "built=0" > "$STREAM_FLAG"
+    array_elements=10000000
 
- rlLogInfo "STREAM already exists"
+    fi
 
- fi
+    rlLogInfo "L3 Cache: ${l3_kb}KB, Array elements: ${array_elements}"
 
- echo "ref=1" >> "$STREAM_FLAG"
 
- else
 
- local ref
+    gcc -O3 -fopenmp -DSTREAM_ARRAY_SIZE=${array_elements} -DNTIMES=20 \
 
- ref=$(grep "^ref=" "$STREAM_FLAG" | cut -d= -f2)
+    stream.c -o stream -lm 2>/dev/null
 
- ref=$((ref + 1))
+    if [ -x stream ]; then
 
- sed -i "s/^ref=.*/ref=$ref/" "$STREAM_FLAG"
+    echo "built=1" > "$STREAM_FLAG"
 
- fi
+    echo "array_size=$array_elements" >> "$STREAM_FLAG"
 
- rlCleanupAppend "streamCleanup"
+    rlLogInfo "STREAM Compile succeeded (array=$array_elements)"
+
+    else
+
+    echo "built=0" > "$STREAM_FLAG"
+
+    rlLogWarning "STREAM Compile failed"
+
+    fi
+
+    else
+
+    echo "built=0" > "$STREAM_FLAG"
+
+    rlLogWarning "stream.c downloadfailed"
+
+    fi
+
+    cd - >/dev/null
+
+    else
+
+    echo "built=0" > "$STREAM_FLAG"
+
+    rlLogInfo "STREAM already exists"
+
+    fi
+
+    echo "ref=1" >> "$STREAM_FLAG"
+
+    else
+
+    local ref
+
+    ref=$(grep "^ref=" "$STREAM_FLAG" | cut -d= -f2)
+
+    ref=$((ref + 1))
+
+    sed -i "s/^ref=.*/ref=$ref/" "$STREAM_FLAG"
+
+    fi
+
+    rlCleanupAppend "streamCleanup"
 
 }
 
@@ -166,23 +166,23 @@ streamSetup() {
 
 streamCleanup() {
 
- if [ ! -f "$STREAM_FLAG" ]; then return 0; fi
+    if [ ! -f "$STREAM_FLAG" ]; then return 0; fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$STREAM_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$STREAM_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$STREAM_FLAG"
+    rm -f "$STREAM_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$STREAM_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$STREAM_FLAG"
 
- fi
+    fi
 
 }
 
@@ -194,41 +194,41 @@ streamCleanup() {
 
 _streamRun() {
 
- local threads="${1:-1}"
+    local threads="${1:-1}"
 
- local affinity="${2:-0}"
+    local affinity="${2:-0}"
 
- cd "$STREAM_DIR"
+    cd "$STREAM_DIR"
 
- if [ ! -x stream ]; then
+    if [ ! -x stream ]; then
 
- rlFail "STREAM executabledoes not exist"
+    rlFail "STREAM executabledoes not exist"
 
- return 1
+    return 1
 
- fi
-
-
-
- export OMP_NUM_THREADS=$threads
-
- if [ -n "$affinity" ]; then
-
- export GOMP_CPU_AFFINITY="$affinity"
-
- fi
+    fi
 
 
 
- # Clear caches
+    export OMP_NUM_THREADS=$threads
 
- sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
+    if [ -n "$affinity" ]; then
+
+    export GOMP_CPU_AFFINITY="$affinity"
+
+    fi
+
+
+
+    # Clear caches
+
+    sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
 
 
 
 ./stream 2>&1
 
- return $?
+    return $?
 
 }
 
@@ -238,55 +238,55 @@ _streamRun() {
 
 _streamParseResult() {
 
- local log="$1"
+    local log="$1"
 
- if [ ! -f "$log" ]; then return 1; fi
-
-
-
- echo ""
-
- echo "=== STREAM memorybandwidthresult ==="
-
- echo "Function Best Rate MB/s Avg time Min time Max time"
-
- grep -E "^(Copy|Scale|Add|Triad):" "$log" | head -4
-
- echo ""
+    if [ ! -f "$log" ]; then return 1; fi
 
 
 
- # Extract and validate
+    echo ""
 
- local copy_bw scale_bw add_bw triad_bw
+    echo "=== STREAM memorybandwidthresult ==="
 
- copy_bw=$(grep "^Copy:" "$log" | awk '{print $2}' | head -1)
+    echo "Function Best Rate MB/s Avg time Min time Max time"
 
- scale_bw=$(grep "^Scale:" "$log" | awk '{print $2}' | head -1)
+    grep -E "^(Copy|Scale|Add|Triad):" "$log" | head -4
 
- add_bw=$(grep "^Add:" "$log" | awk '{print $2}' | head -1)
-
- triad_bw=$(grep "^Triad:" "$log" | awk '{print $2}' | head -1)
+    echo ""
 
 
 
- if [ -n "$copy_bw" ] && [ -n "$triad_bw" ]; then
+    # Extract and validate
 
- rlLogInfo "Copy: ${copy_bw} MB/s"
+    local copy_bw scale_bw add_bw triad_bw
 
- rlLogInfo "Scale: ${scale_bw} MB/s"
+    copy_bw=$(grep "^Copy:" "$log" | awk '{print $2}' | head -1)
 
- rlLogInfo "Add: ${add_bw} MB/s"
+    scale_bw=$(grep "^Scale:" "$log" | awk '{print $2}' | head -1)
 
- rlLogInfo "Triad: ${triad_bw} MB/s"
+    add_bw=$(grep "^Add:" "$log" | awk '{print $2}' | head -1)
 
- echo "--- resolve ---"
+    triad_bw=$(grep "^Triad:" "$log" | awk '{print $2}' | head -1)
 
- return 0
 
- fi
 
- return 1
+    if [ -n "$copy_bw" ] && [ -n "$triad_bw" ]; then
+
+    rlLogInfo "Copy: ${copy_bw} MB/s"
+
+    rlLogInfo "Scale: ${scale_bw} MB/s"
+
+    rlLogInfo "Add: ${add_bw} MB/s"
+
+    rlLogInfo "Triad: ${triad_bw} MB/s"
+
+    echo "--- resolve ---"
+
+    return 0
+
+    fi
+
+    return 1
 
 }
 

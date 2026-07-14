@@ -485,3 +485,117 @@ class TestShExecutable(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestShIndentation(unittest.TestCase):
+    """检查 tests/ 目录下所有 .sh 文件使用 4 空格层级缩进。"""
+
+    # beakerlib 顶层结构关键字（0 级缩进）
+    TOP_LEVEL_RE = re.compile(
+        r'^\s{0,3}(?:rlJournalStart|rlJournalEnd|rlJournalPrintText)\s*$'
+    )
+
+    # beakerlib Phase 关键字（应为 4 空格 / 1 级缩进）
+    PHASE_RE = re.compile(
+        r'^\s{0,3}(?:rlPhaseStart(?:Setup|Test|Cleanup)?|rlPhaseEnd)\b'
+    )
+
+    # 需要至少 1 级（4 空格）缩进的 beakerlib 函数调用
+    INDENTED_CALL_RE = re.compile(
+        r'^\s{0,3}(?:rlRun|rlAssertGrep|rlAssertNotGrep|rlAssertExists'
+        r'|rlAssertNotExists|rlAssertEquals|rlAssertNotEquals'
+        r'|rlLog|rlLogInfo|rlLogWarning|rlLogError|rlLogDebug'
+        r'|rlPass|rlFail)\b'
+    )
+
+    def test_no_tab_in_sh(self):
+        """验证所有 .sh 文件不含 Tab 缩进。"""
+        all_files = _collect_files(TESTS_DIR)
+        violations = []
+
+        for filepath in all_files:
+            if not filepath.endswith(".sh"):
+                continue
+            raw = _git_show(filepath)
+            if raw is None:
+                continue
+            try:
+                content = raw.decode("utf-8")
+            except UnicodeDecodeError:
+                continue
+
+            for lineno, line in enumerate(content.split("\n"), 1):
+                if "\t" in line:
+                    rel_path = os.path.relpath(filepath, PROJECT_ROOT).replace("\\", "/")
+                    violations.append(f"{rel_path}:{lineno}: 包含 Tab 字符")
+                    break  # 每个文件只报告一次
+
+        if violations:
+            self.fail(
+                f"发现 {len(violations)} 个 .sh 文件包含 Tab 字符:\n"
+                + "\n".join(f"  - {v}" for v in violations[:30])
+            )
+
+    def test_sh_indentation_multiple_of_4(self):
+        """验证所有 .sh 文件的非注释行缩进为 4 的倍数。"""
+        all_files = _collect_files(TESTS_DIR)
+        violations = []
+
+        # heredoc 检测正则：匹配 <<[-]?['"]?(\w+)['"]? 或 <<[-]?'EOF'
+        HEREDOC_RE = re.compile(r'<<\s*-?\s*["\']?(\w+)["\']?')
+
+        for filepath in all_files:
+            if not filepath.endswith(".sh"):
+                continue
+            try:
+                with open(filepath, "r", encoding="utf-8") as f:
+                    content = f.read()
+            except Exception:
+                continue
+
+            rel_path = os.path.relpath(filepath, PROJECT_ROOT).replace("\\", "/")
+            file_violations = []
+            in_heredoc = False
+            heredoc_delim = None
+
+            for lineno, line in enumerate(content.split("\n"), 1):
+                stripped = line.lstrip(" ")
+                if not stripped or stripped.isspace():
+                    continue  # 空行跳过
+                if stripped.startswith("#"):
+                    continue  # 注释行不限制缩进
+
+                # heredoc 处理
+                if in_heredoc:
+                    if stripped == heredoc_delim:
+                        in_heredoc = False
+                        heredoc_delim = None
+                    continue  # heredoc 内部跳过
+
+                # 检测 heredoc 开始
+                hd_match = HEREDOC_RE.search(line)
+                if hd_match:
+                    delim = hd_match.group(1)
+                    # 确保不是误匹配（如 echo '<<EOF' 这样的字符串）
+                    remaining = line[hd_match.end():]
+                    if delim not in remaining:
+                        in_heredoc = True
+                        heredoc_delim = delim
+                    # 当前行继续检查缩进（<< 在行中可能有前缀缩进）
+                    # 但如果 << 在同一行有代码，还是要检查
+
+                leading = len(line) - len(stripped)
+                if leading % 4 != 0:
+                    file_violations.append(f"  L{lineno}: {leading}空格 ({line.rstrip()[:60]})")
+
+            if file_violations:
+                violations.append(f"{rel_path}:\n" + "\n".join(file_violations[:3]))
+
+            if len(violations) >= 30:
+                break
+
+        if violations:
+            self.fail(
+                f"发现 {len(violations)} 个 .sh 文件缩进不是 4 的倍数:\n"
+                + "\n".join(f"  - {v}" for v in violations)
+            )

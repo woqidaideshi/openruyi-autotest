@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- grepSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    grepSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "Case-insensitive---i"
- rlRun "grep -i hello test1.txt" 0 "Case insensitive grep"
- rlRun "test $(grep -i hello test1.txt | wc -l) -ge 2" 0 "Verify case insensitive matches"
- rlRun "grep hello test1.txt" 1 "Case sensitive: lowercase only matches lowercase"
- rlPhaseEnd
+    rlPhaseStartTest "Case-insensitive---i"
+    rlRun "grep -i hello test1.txt" 0 "Case insensitive grep"
+    rlRun "test $(grep -i hello test1.txt | wc -l) -ge 2" 0 "Verify case insensitive matches"
+    rlRun "grep hello test1.txt" 1 "Case sensitive: lowercase only matches lowercase"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # grep Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # grep Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

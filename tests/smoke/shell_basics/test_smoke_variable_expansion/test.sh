@@ -14,38 +14,38 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeShellBasicsSetup
+    smokeShellBasicsSetup
 
- rlRun "X=hello; test "$X" = "hello"" 0 "Prepare environment"
-
-
-
- rlPhaseEnd
+    rlRun "X=hello; test "$X" = "hello"" 0 "Prepare environment"
 
 
 
- rlPhaseStartTest "export variable"
-
- rlRun 'export Y=world' 0 "export variable"
-
- rlRun 'echo $HOME | grep /' 0 "\$HOME environment variables"
-
- rlRun 'echo ${#HOME}' 0 "\${#VAR} "
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "export variable"
+
+    rlRun 'export Y=world' 0 "export variable"
+
+    rlRun 'echo $HOME | grep /' 0 "\$HOME environment variables"
+
+    rlRun 'echo ${#HOME}' 0 "\${#VAR} "
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

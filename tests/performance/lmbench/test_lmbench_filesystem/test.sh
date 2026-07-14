@@ -10,117 +10,117 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- lmbenchSetup
+    lmbenchSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "filecreate/deletelatency"
-
- cd "$LMBENCH_DIR"
-
- echo "=== fileoperationlatency (microsecond) ==="
+    rlPhaseEnd
 
 
 
- # 0K file
+    rlPhaseStartTest "filecreate/deletelatency"
 
- echo "0file:"
+    cd "$LMBENCH_DIR"
 
- echo -n " create: ";./bin/lat_fs /tmp 2>&1 | grep -oP '[\d.]+' | head -1 || echo "N/A"
-
- echo -n " delete: ";./bin/lat_unlink /tmp 2>&1 | grep -oP '[\d.]+' | head -1 || echo "N/A"
+    echo "=== fileoperationlatency (microsecond) ==="
 
 
 
- # 10K file 
+    # 0K file
 
- echo "10Kfile:"
+    echo "0file:"
+
+    echo -n " create: ";./bin/lat_fs /tmp 2>&1 | grep -oP '[\d.]+' | head -1 || echo "N/A"
+
+    echo -n " delete: ";./bin/lat_unlink /tmp 2>&1 | grep -oP '[\d.]+' | head -1 || echo "N/A"
+
+
+
+    # 10K file 
+
+    echo "10Kfile:"
 
 ./bin/lat_fs 10k /tmp 2>&1 || true
 
- echo ""
+    echo ""
 
 
 
- rlPass "fileoperationlatencytestComplete"
+    rlPass "fileoperationlatencytestComplete"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "mmap mappinglatency"
+    rlPhaseStartTest "mmap mappinglatency"
 
- cd "$LMBENCH_DIR"
+    cd "$LMBENCH_DIR"
 
- echo ""
+    echo ""
 
- echo "=== mmap latency (microsecond) ==="
+    echo "=== mmap latency (microsecond) ==="
 
- for size in 1m 4m 16m; do
+    for size in 1m 4m 16m; do
 
- echo -n " mmap ${size}: "
+    echo -n " mmap ${size}: "
 
 ./bin/lat_mmap ${size} /tmp 2>&1 | grep -oP '[\d.]+' | head -1 || echo "N/A"
 
- done
+    done
 
- rlPass "mmap latencyanalysisComplete"
+    rlPass "mmap latencyanalysisComplete"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "page faultlatency"
+    rlPhaseStartTest "page faultlatency"
 
- cd "$LMBENCH_DIR"
+    cd "$LMBENCH_DIR"
 
- echo ""
+    echo ""
 
- echo "=== pageerror handlinglatency ==="
+    echo "=== pageerror handlinglatency ==="
 
- # Page fault (major/minor)
+    # Page fault (major/minor)
 
- echo -n " minor page fault: "
+    echo -n " minor page fault: "
 
 ./bin/lat_pagefault /tmp 2>&1 | grep -oP '[\d.]+' | head -1 || echo "N/A"
 
 
 
- # filesystembandwidth
+    # filesystembandwidth
 
- echo ""
+    echo ""
 
- echo "=== filesystemsequential readwritebandwidth ==="
+    echo "=== filesystemsequential readwritebandwidth ==="
 
- for size in 1m 4m; do
+    for size in 1m 4m; do
 
- echo -n " read ${size}: "
+    echo -n " read ${size}: "
 
 ./bin/bw_file_rd ${size} io_only /tmp 2>&1 | grep -oP '[\d.]+' | tail -1 || echo "N/A"
 
- done
+    done
 
- rlPass "page faultanalysisComplete"
+    rlPass "page faultanalysisComplete"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 

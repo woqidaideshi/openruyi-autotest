@@ -14,34 +14,34 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeServiceMgmtSetup
-
-
-
- rlPhaseEnd
+    smokeServiceMgmtSetup
 
 
 
- rlPhaseStartTest "journalctl version"
-
- rlRun 'journalctl --version' 0 "journalctl version"
-
- rlRun 'journalctl -n 10 --no-pager 2>&1 || true' 0 "journalctl log"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "journalctl version"
+
+    rlRun 'journalctl --version' 0 "journalctl version"
+
+    rlRun 'journalctl -n 10 --no-pager 2>&1 || true' 0 "journalctl log"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

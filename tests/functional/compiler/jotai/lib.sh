@@ -32,51 +32,51 @@ JOTAI_DIR="/tmp/jotai-benchmarks"
 
 jotaiPrepareBenchmark() {
 
- local dest="${1:-./bench.c}"
+    local dest="${1:-./bench.c}"
 
- local bench_file=""
+    local bench_file=""
 
- local candidate_dirs=("$JOTAI_DIR/benchmarks/anghaLeaves" "$JOTAI_DIR/benchmarks")
+    local candidate_dirs=("$JOTAI_DIR/benchmarks/anghaLeaves" "$JOTAI_DIR/benchmarks")
 
- local dir
-
-
-
- mkdir -p "$(dirname "$dest")"
+    local dir
 
 
 
- for dir in "${candidate_dirs[@]}"; do
-
- [ -d "$dir" ] || continue
-
- bench_file=$(find "$dir" -name '*.c' -type f 2>/dev/null | sort | head -1)
-
- if [ -n "$bench_file" ]; then
-
- break
-
- fi
-
- done
+    mkdir -p "$(dirname "$dest")"
 
 
 
- if [ -n "$bench_file" ]; then
+    for dir in "${candidate_dirs[@]}"; do
 
- cp "$bench_file" "$dest"
+    [ -d "$dir" ] || continue
 
- rlLogInfo "Select benchmark: $(basename "$bench_file")"
+    bench_file=$(find "$dir" -name '*.c' -type f 2>/dev/null | sort | head -1)
 
- return 0
+    if [ -n "$bench_file" ]; then
 
- fi
+    break
+
+    fi
+
+    done
 
 
 
- mkdir -p "$JOTAI_DIR/benchmarks/anghaLeaves"
+    if [ -n "$bench_file" ]; then
 
- cat > "$JOTAI_DIR/benchmarks/anghaLeaves/bench.c" <<'EOF'
+    cp "$bench_file" "$dest"
+
+    rlLogInfo "Select benchmark: $(basename "$bench_file")"
+
+    return 0
+
+    fi
+
+
+
+    mkdir -p "$JOTAI_DIR/benchmarks/anghaLeaves"
+
+    cat > "$JOTAI_DIR/benchmarks/anghaLeaves/bench.c" <<'EOF'
 
 #include <stdio.h>
 
@@ -92,9 +92,9 @@ EOF
 
 
 
- cp "$JOTAI_DIR/benchmarks/anghaLeaves/bench.c" "$dest"
+    cp "$JOTAI_DIR/benchmarks/anghaLeaves/bench.c" "$dest"
 
- rlLogWarning "notavailable benchmark, alreadyGenerate bench.c"
+    rlLogWarning "notavailable benchmark, alreadyGenerate bench.c"
 
 }
 
@@ -102,69 +102,69 @@ EOF
 
 jotaiSetup() {
 
- if [ ! -f "$JOTAI_FLAG" ]; then
+    if [ ! -f "$JOTAI_FLAG" ]; then
 
- # Install dependencies
+    # Install dependencies
 
- if ! rpm -q gcc 2>/dev/null; then
+    if ! rpm -q gcc 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y gcc 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y gcc 2>/dev/null
 
- fi
+    fi
 
- if ! rpm -q clang 2>/dev/null; then
+    if ! rpm -q clang 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y clang 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y clang 2>/dev/null
 
- fi
+    fi
 
  
 
- # Clone jotai-benchmarks if not present
+    # Clone jotai-benchmarks if not present
 
- if [ ! -d "$JOTAI_DIR" ]; then
+    if [ ! -d "$JOTAI_DIR" ]; then
 
- git clone --depth 1 https://github.com/lac-dcc/jotai-benchmarks.git "$JOTAI_DIR" 2>/dev/null
+    git clone --depth 1 https://github.com/lac-dcc/jotai-benchmarks.git "$JOTAI_DIR" 2>/dev/null
 
- if [ -d "$JOTAI_DIR" ] && [ -d "$JOTAI_DIR/benchmarks" ]; then
+    if [ -d "$JOTAI_DIR" ] && [ -d "$JOTAI_DIR/benchmarks" ]; then
 
- echo "cloned=1" > "$JOTAI_FLAG"
+    echo "cloned=1" > "$JOTAI_FLAG"
 
- rlLogInfo "alreadyClone jotai-benchmarks"
+    rlLogInfo "alreadyClone jotai-benchmarks"
 
- else
+    else
 
- rlLogWarning "jotai-benchmarks Clonefailed"
+    rlLogWarning "jotai-benchmarks Clonefailed"
 
- echo "cloned=0" > "$JOTAI_FLAG"
+    echo "cloned=0" > "$JOTAI_FLAG"
 
- fi
+    fi
 
- else
+    else
 
- echo "cloned=0" > "$JOTAI_FLAG"
+    echo "cloned=0" > "$JOTAI_FLAG"
 
- rlLogInfo "jotai-benchmarks already exists"
+    rlLogInfo "jotai-benchmarks already exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$JOTAI_FLAG"
+    echo "ref=1" >> "$JOTAI_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$JOTAI_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$JOTAI_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$JOTAI_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$JOTAI_FLAG"
 
- rlLogInfo "jotai reference count: $ref"
+    rlLogInfo "jotai reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "jotaiCleanup"
+    rlCleanupAppend "jotaiCleanup"
 
 }
 
@@ -172,27 +172,27 @@ jotaiSetup() {
 
 jotaiCleanup() {
 
- if [ ! -f "$JOTAI_FLAG" ]; then return 0; fi
+    if [ ! -f "$JOTAI_FLAG" ]; then return 0; fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$JOTAI_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$JOTAI_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$JOTAI_FLAG"
+    rm -f "$JOTAI_FLAG"
 
- rlLogInfo "jotai testCleanup complete (Retain repo with)"
+    rlLogInfo "jotai testCleanup complete (Retain repo with)"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$JOTAI_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$JOTAI_FLAG"
 
- rlLogInfo "jotai Retain (still have $ref test)"
+    rlLogInfo "jotai Retain (still have $ref test)"
 
- fi
+    fi
 
 }
 

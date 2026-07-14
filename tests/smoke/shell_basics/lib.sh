@@ -26,29 +26,29 @@ SMOKE_SHELL_BASICS_FLAG="/tmp/.beakerlib_smoke_shell_basics_suite"
 
 smokeShellBasicsSetup() {
 
- if [ ! -f "$SMOKE_SHELL_BASICS_FLAG" ]; then
+    if [ ! -f "$SMOKE_SHELL_BASICS_FLAG" ]; then
 
- echo "installed=0" > "$SMOKE_SHELL_BASICS_FLAG"
+    echo "installed=0" > "$SMOKE_SHELL_BASICS_FLAG"
 
- echo "ref=1" >> "$SMOKE_SHELL_BASICS_FLAG"
+    echo "ref=1" >> "$SMOKE_SHELL_BASICS_FLAG"
 
- rlLogInfo "smoke-shell_basics: coreDependenciesalreadyconfirmavailable"
+    rlLogInfo "smoke-shell_basics: coreDependenciesalreadyconfirmavailable"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_SHELL_BASICS_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_SHELL_BASICS_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SHELL_BASICS_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SHELL_BASICS_FLAG"
 
- rlLogInfo "smoke-shell_basics already initialized by other tests, reference count: $ref"
+    rlLogInfo "smoke-shell_basics already initialized by other tests, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "smokeShellBasicsCleanup"
+    rlCleanupAppend "smokeShellBasicsCleanup"
 
 }
 
@@ -56,31 +56,31 @@ smokeShellBasicsSetup() {
 
 smokeShellBasicsCleanup() {
 
- if [ ! -f "$SMOKE_SHELL_BASICS_FLAG" ]; then
+    if [ ! -f "$SMOKE_SHELL_BASICS_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_SHELL_BASICS_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_SHELL_BASICS_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$SMOKE_SHELL_BASICS_FLAG"
+    rm -f "$SMOKE_SHELL_BASICS_FLAG"
 
- rlLogInfo "smoke-shell_basics: Cleanup complete (posttest)"
+    rlLogInfo "smoke-shell_basics: Cleanup complete (posttest)"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SHELL_BASICS_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SHELL_BASICS_FLAG"
 
- rlLogInfo "smoke-shell_basics: Retain (still have $ref test(s) not completed)"
+    rlLogInfo "smoke-shell_basics: Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

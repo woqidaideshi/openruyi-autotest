@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeKernelSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeKernelSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "/proc/sys directory exists"
- rlRun 'test -d /proc/sys' 0 "/proc/sys directory exists"
- rlRun 'cat /proc/sys/kernel/hostname' 0 "/proc/sys readable"
- rlPhaseEnd
+    rlPhaseStartTest "/proc/sys directory exists"
+    rlRun 'test -d /proc/sys' 0 "/proc/sys directory exists"
+    rlRun 'cat /proc/sys/kernel/hostname' 0 "/proc/sys readable"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

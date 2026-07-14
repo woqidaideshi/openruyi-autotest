@@ -40,69 +40,69 @@ OPENSCAP_FLAG="/tmp/.beakerlib_openscap_suite"
 
 _openscapInfo() {
 
- local out="/tmp/openscap_out_$$"
+    local out="/tmp/openscap_out_$$"
 
 
 
- if [ ! -f "$OPENSCAP_DS" ]; then
+    if [ ! -f "$OPENSCAP_DS" ]; then
 
- rlFail "Data stream file not found ($OPENSCAP_DS)"
+    rlFail "Data stream file not found ($OPENSCAP_DS)"
 
- return 1
+    return 1
 
- fi
-
-
-
- oscap info "$OPENSCAP_DS" 2>&1 | tee "$out"
-
- local rc=${PIPESTATUS[0]}
+    fi
 
 
 
- if [ "$rc" -ne 0 ]; then
+    oscap info "$OPENSCAP_DS" 2>&1 | tee "$out"
 
- rlFail "oscap info Execution failed (exit=$rc)"
-
- rm -f "$out"
-
- return 1
-
- fi
+    local rc=${PIPESTATUS[0]}
 
 
 
- # Verify expected content
+    if [ "$rc" -ne 0 ]; then
 
- if ! grep -q "Document type: Source Data Stream" "$out"; then
+    rlFail "oscap info Execution failed (exit=$rc)"
 
- rlFail "oscap info outputnofull (missing Document type)"
+    rm -f "$out"
 
- rm -f "$out"
+    return 1
 
- return 1
-
- fi
+    fi
 
 
 
- if ! grep -q "$OPENSCAP_PROFILE" "$out"; then
+    # Verify expected content
 
- rlFail "oscap info notpre profile: $OPENSCAP_PROFILE"
+    if ! grep -q "Document type: Source Data Stream" "$out"; then
 
- rm -f "$out"
+    rlFail "oscap info outputnofull (missing Document type)"
 
- return 1
+    rm -f "$out"
 
- fi
+    return 1
+
+    fi
 
 
 
- rlPass "oscap info dataverifypassed"
+    if ! grep -q "$OPENSCAP_PROFILE" "$out"; then
 
- rm -f "$out"
+    rlFail "oscap info notpre profile: $OPENSCAP_PROFILE"
 
- return 0
+    rm -f "$out"
+
+    return 1
+
+    fi
+
+
+
+    rlPass "oscap info dataverifypassed"
+
+    rm -f "$out"
+
+    return 0
 
 }
 
@@ -114,105 +114,105 @@ _openscapInfo() {
 
 _openscapEval() {
 
- local out="/tmp/openscap_eval_$$"
+    local out="/tmp/openscap_eval_$$"
 
- local result_xml="/tmp/openscap_result_$$.xml"
+    local result_xml="/tmp/openscap_result_$$.xml"
 
- local report_html="/tmp/openscap_report_$$.html"
-
-
-
- if [ ! -f "$OPENSCAP_DS" ]; then
-
- rlFail "Data stream file not found ($OPENSCAP_DS)"
-
- return 1
-
- fi
+    local report_html="/tmp/openscap_report_$$.html"
 
 
 
- timeout --signal=KILL --kill-after=10 600 \
+    if [ ! -f "$OPENSCAP_DS" ]; then
 
- oscap xccdf eval --profile "$OPENSCAP_PROFILE" \
+    rlFail "Data stream file not found ($OPENSCAP_DS)"
 
- --results-arf "$result_xml" \
+    return 1
 
- --report "$report_html" \
-
- "$OPENSCAP_DS" 2>&1 | tee "$out"
-
- local rc=${PIPESTATUS[0]}
+    fi
 
 
 
- if [ "$rc" -eq 137 ]; then
+    timeout --signal=KILL --kill-after=10 600 \
 
- rlFail "oscap eval Executetimeout"
+    oscap xccdf eval --profile "$OPENSCAP_PROFILE" \
 
- rm -f "$out" "$result_xml" "$report_html"
+    --results-arf "$result_xml" \
 
- return 1
+    --report "$report_html" \
 
- fi
+    "$OPENSCAP_DS" 2>&1 | tee "$out"
 
-
-
- if [ "$rc" -ne 0 ]; then
-
- rlFail "oscap eval Execution failed (exit=$rc)"
-
- rm -f "$out" "$result_xml" "$report_html"
-
- return 1
-
- fi
+    local rc=${PIPESTATUS[0]}
 
 
 
- # Check that result files were generated
+    if [ "$rc" -eq 137 ]; then
 
- if [ ! -f "$result_xml" ]; then
+    rlFail "oscap eval Executetimeout"
 
- rlFail "oscap eval notGenerate ARF resultfile"
+    rm -f "$out" "$result_xml" "$report_html"
 
- rm -f "$out" "$report_html"
+    return 1
 
- return 1
-
- fi
+    fi
 
 
 
- if [ ! -f "$report_html" ]; then
+    if [ "$rc" -ne 0 ]; then
 
- rlFail "oscap eval notGenerate HTML reportfile"
+    rlFail "oscap eval Execution failed (exit=$rc)"
 
- rm -f "$out" "$result_xml"
+    rm -f "$out" "$result_xml" "$report_html"
 
- return 1
+    return 1
 
- fi
-
-
-
- # Parse result counts from XML
-
- local pass fail notappl error
-
- pass=$(grep -c '<result>pass</result>' "$result_xml" 2>/dev/null || echo 0)
-
- fail=$(grep -c '<result>fail</result>' "$result_xml" 2>/dev/null || echo 0)
-
- notappl=$(grep -c '<result>notapplicable</result>' "$result_xml" 2>/dev/null || echo 0)
+    fi
 
 
 
- rlPass "oscap eval Complete (pass=$pass, fail=$fail, notapplicable=$notappl)"
+    # Check that result files were generated
 
- rm -f "$out" "$result_xml" "$report_html"
+    if [ ! -f "$result_xml" ]; then
 
- return 0
+    rlFail "oscap eval notGenerate ARF resultfile"
+
+    rm -f "$out" "$report_html"
+
+    return 1
+
+    fi
+
+
+
+    if [ ! -f "$report_html" ]; then
+
+    rlFail "oscap eval notGenerate HTML reportfile"
+
+    rm -f "$out" "$result_xml"
+
+    return 1
+
+    fi
+
+
+
+    # Parse result counts from XML
+
+    local pass fail notappl error
+
+    pass=$(grep -c '<result>pass</result>' "$result_xml" 2>/dev/null || echo 0)
+
+    fail=$(grep -c '<result>fail</result>' "$result_xml" 2>/dev/null || echo 0)
+
+    notappl=$(grep -c '<result>notapplicable</result>' "$result_xml" 2>/dev/null || echo 0)
+
+
+
+    rlPass "oscap eval Complete (pass=$pass, fail=$fail, notapplicable=$notappl)"
+
+    rm -f "$out" "$result_xml" "$report_html"
+
+    return 0
 
 }
 
@@ -224,115 +224,115 @@ _openscapEval() {
 
 _openscapGenerateFix() {
 
- local out="/tmp/openscap_fix_$$"
+    local out="/tmp/openscap_fix_$$"
 
- local result_xml="/tmp/openscap_fix_result_$$.xml"
+    local result_xml="/tmp/openscap_fix_result_$$.xml"
 
- local fix_sh="/tmp/openscap_fix_$$.sh"
-
-
-
- if [ ! -f "$OPENSCAP_DS" ]; then
-
- rlFail "Data stream file not found ($OPENSCAP_DS)"
-
- return 1
-
- fi
+    local fix_sh="/tmp/openscap_fix_$$.sh"
 
 
 
- # First run eval to get results
+    if [ ! -f "$OPENSCAP_DS" ]; then
 
- timeout --signal=KILL --kill-after=10 300 \
+    rlFail "Data stream file not found ($OPENSCAP_DS)"
 
- oscap xccdf eval --profile "$OPENSCAP_PROFILE" \
+    return 1
 
- --results "$result_xml" \
-
- "$OPENSCAP_DS" 2>&1 | tee "$out"
-
- local rc=${PIPESTATUS[0]}
+    fi
 
 
 
- if [ "$rc" -ne 0 ] || [ ! -f "$result_xml" ]; then
+    # First run eval to get results
 
- rlFail "oscap eval failed, Unable toGeneratescript"
+    timeout --signal=KILL --kill-after=10 300 \
 
- rm -f "$out" "$result_xml"
+    oscap xccdf eval --profile "$OPENSCAP_PROFILE" \
 
- return 1
+    --results "$result_xml" \
 
- fi
+    "$OPENSCAP_DS" 2>&1 | tee "$out"
 
-
-
- # Extract result-id from the eval output
-
- local result_id
-
- result_id=$(grep -oP 'TestResult.*?id="\K[^"]+' "$result_xml" | head -1)
-
- if [ -z "$result_id" ]; then
-
- rlFail "Unable tofromresultinextract TestResult id"
-
- rm -f "$out" "$result_xml"
-
- return 1
-
- fi
+    local rc=${PIPESTATUS[0]}
 
 
 
- # Generate fix script
+    if [ "$rc" -ne 0 ] || [ ! -f "$result_xml" ]; then
 
- oscap xccdf generate fix --fix-type bash \
+    rlFail "oscap eval failed, Unable toGeneratescript"
 
- --result-id "$result_id" \
+    rm -f "$out" "$result_xml"
 
- --output "$fix_sh" \
+    return 1
 
- "$result_xml" 2>&1 | tee -a "$out"
-
- rc=${PIPESTATUS[0]}
+    fi
 
 
 
- if [ "$rc" -ne 0 ]; then
+    # Extract result-id from the eval output
 
- rlFail "oscap generate fix Execution failed (exit=$rc)"
+    local result_id
 
- rm -f "$out" "$result_xml" "$fix_sh"
+    result_id=$(grep -oP 'TestResult.*?id="\K[^"]+' "$result_xml" | head -1)
 
- return 1
+    if [ -z "$result_id" ]; then
 
- fi
+    rlFail "Unable tofromresultinextract TestResult id"
 
+    rm -f "$out" "$result_xml"
 
+    return 1
 
- if [ ! -f "$fix_sh" ] || [ ! -s "$fix_sh" ]; then
-
- rlLogWarning "oscap generate fix Generatescriptis (systemalready)"
-
- rlPass "oscap generate fix Complete (noneed)"
-
- else
-
- local lines
-
- lines=$(wc -l < "$fix_sh")
-
- rlPass "oscap generate fix Complete (Generate $lines linesscript)"
-
- fi
+    fi
 
 
 
- rm -f "$out" "$result_xml" "$fix_sh"
+    # Generate fix script
 
- return 0
+    oscap xccdf generate fix --fix-type bash \
+
+    --result-id "$result_id" \
+
+    --output "$fix_sh" \
+
+    "$result_xml" 2>&1 | tee -a "$out"
+
+    rc=${PIPESTATUS[0]}
+
+
+
+    if [ "$rc" -ne 0 ]; then
+
+    rlFail "oscap generate fix Execution failed (exit=$rc)"
+
+    rm -f "$out" "$result_xml" "$fix_sh"
+
+    return 1
+
+    fi
+
+
+
+    if [ ! -f "$fix_sh" ] || [ ! -s "$fix_sh" ]; then
+
+    rlLogWarning "oscap generate fix Generatescriptis (systemalready)"
+
+    rlPass "oscap generate fix Complete (noneed)"
+
+    else
+
+    local lines
+
+    lines=$(wc -l < "$fix_sh")
+
+    rlPass "oscap generate fix Complete (Generate $lines linesscript)"
+
+    fi
+
+
+
+    rm -f "$out" "$result_xml" "$fix_sh"
+
+    return 0
 
 }
 
@@ -340,53 +340,53 @@ _openscapGenerateFix() {
 
 openscapSetup() {
 
- if [ ! -f "$OPENSCAP_FLAG" ]; then
+    if [ ! -f "$OPENSCAP_FLAG" ]; then
 
- if [ ! -f "$OPENSCAP_DS" ]; then
+    if [ ! -f "$OPENSCAP_DS" ]; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y scap-security-guide 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y scap-security-guide 2>/dev/null
 
- if [ ! -f "$OPENSCAP_DS" ]; then
+    if [ ! -f "$OPENSCAP_DS" ]; then
 
- rlLogWarning "scap-security-guide failed, test will be skipped"
+    rlLogWarning "scap-security-guide failed, test will be skipped"
 
- echo "installed=0" > "$OPENSCAP_FLAG"
+    echo "installed=0" > "$OPENSCAP_FLAG"
 
- else
+    else
 
- echo "installed=1" > "$OPENSCAP_FLAG"
+    echo "installed=1" > "$OPENSCAP_FLAG"
 
- rlLogInfo "already scap-security-guide ()"
+    rlLogInfo "already scap-security-guide ()"
 
- fi
+    fi
 
- else
+    else
 
- echo "installed=0" > "$OPENSCAP_FLAG"
+    echo "installed=0" > "$OPENSCAP_FLAG"
 
- rlLogInfo "scap-security-guide already exists"
+    rlLogInfo "scap-security-guide already exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$OPENSCAP_FLAG"
+    echo "ref=1" >> "$OPENSCAP_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$OPENSCAP_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$OPENSCAP_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$OPENSCAP_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$OPENSCAP_FLAG"
 
- rlLogInfo "openscap already, reference count: $ref"
+    rlLogInfo "openscap already, reference count: $ref"
 
- fi
+    fi
 
 
 
- rlCleanupAppend "openscapCleanup"
+    rlCleanupAppend "openscapCleanup"
 
 }
 
@@ -394,26 +394,26 @@ openscapSetup() {
 
 openscapCleanup() {
 
- if [ ! -f "$OPENSCAP_FLAG" ]; then return 0; fi
+    if [ ! -f "$OPENSCAP_FLAG" ]; then return 0; fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$OPENSCAP_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$OPENSCAP_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$OPENSCAP_FLAG"
+    rm -f "$OPENSCAP_FLAG"
 
- rlLogInfo "openscap testCleanup complete"
+    rlLogInfo "openscap testCleanup complete"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$OPENSCAP_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$OPENSCAP_FLAG"
 
- rlLogInfo "openscap Retain (still have $ref test(s) not completed)"
+    rlLogInfo "openscap Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }

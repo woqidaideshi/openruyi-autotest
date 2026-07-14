@@ -52,105 +52,105 @@ SUDO_PASSWORD="${TEST_SERVER_1_PASSWORD:-openruyi}"
 
 unixbenchSetup() {
 
- if [ ! -f "$UNIXBENCH_FLAG" ]; then
+    if [ ! -f "$UNIXBENCH_FLAG" ]; then
 
- # Install build dependencies (per Testing-Guide.md spec)
+    # Install build dependencies (per Testing-Guide.md spec)
 
- MISSING=""
+    MISSING=""
 
- for dep in git gcc make perl gcc-c++ libtirpc-devel bc libtool automake; do
+    for dep in git gcc make perl gcc-c++ libtirpc-devel bc libtool automake; do
 
- if ! rpm -q "$dep" 2>/dev/null; then
+    if ! rpm -q "$dep" 2>/dev/null; then
 
- MISSING="$MISSING $dep"
+    MISSING="$MISSING $dep"
 
- fi
+    fi
 
- done
+    done
 
- if [ -n "$MISSING" ]; then
+    if [ -n "$MISSING" ]; then
 
- echo "$SUDO_PASSWORD" | sudo -S dnf install -y $MISSING 2>/dev/null || true
+    echo "$SUDO_PASSWORD" | sudo -S dnf install -y $MISSING 2>/dev/null || true
 
- echo "installed_deps=1" > "$UNIXBENCH_FLAG"
+    echo "installed_deps=1" > "$UNIXBENCH_FLAG"
 
- else
+    else
 
- echo "installed_deps=0" > "$UNIXBENCH_FLAG"
+    echo "installed_deps=0" > "$UNIXBENCH_FLAG"
 
- fi
+    fi
 
 
 
- # Clone and build UnixBench v6.0.1 (per Testing-Guide.md spec)
+    # Clone and build UnixBench v6.0.1 (per Testing-Guide.md spec)
 
- if [ ! -f "$UNIXBENCH_DIR/Run" ]; then
+    if [ ! -f "$UNIXBENCH_DIR/Run" ]; then
 
- cd /tmp
+    cd /tmp
 
- rm -rf unixbench byte-unixbench 2>/dev/null || true
+    rm -rf unixbench byte-unixbench 2>/dev/null || true
 
- # Clone specific v6.0.1 tag (not just --depth 1)
+    # Clone specific v6.0.1 tag (not just --depth 1)
 
- git clone -b v6.0.1 https://github.com/kdlucas/byte-unixbench.git 2>/dev/null && {
+    git clone -b v6.0.1 https://github.com/kdlucas/byte-unixbench.git 2>/dev/null && {
 
- mv byte-unixbench unixbench 2>/dev/null || true
+    mv byte-unixbench unixbench 2>/dev/null || true
 
- cd "$UNIXBENCH_DIR/UnixBench"
+    cd "$UNIXBENCH_DIR/UnixBench"
 
- # Create local branch per guide
+    # Create local branch per guide
 
- git checkout -b br-v6.0.1 2>/dev/null || true
+    git checkout -b br-v6.0.1 2>/dev/null || true
 
- # Patch maxCopies to nproc for multi-threaded tests (>16 cores)
+    # Patch maxCopies to nproc for multi-threaded tests (>16 cores)
 
- sed -i "s/\('system.*'maxCopies'\) => 16/\1 => \`nproc\`/" Run
+    sed -i "s/\('system.*'maxCopies'\) => 16/\1 => \`nproc\`/" Run
 
- # Patch arch for riscv64: rv64g -> rva23u64
+    # Patch arch for riscv64: rv64g -> rva23u64
 
- sed -i's/rv64g/rva23u64/g' Makefile
+    sed -i's/rv64g/rva23u64/g' Makefile
 
- # Compile with gnu99 standard
+    # Compile with gnu99 standard
 
- make all CC='gcc -std=gnu99' -j$(nproc) 2>/dev/null || true
+    make all CC='gcc -std=gnu99' -j$(nproc) 2>/dev/null || true
 
- echo "built=1" >> "$UNIXBENCH_FLAG"
+    echo "built=1" >> "$UNIXBENCH_FLAG"
 
- rlLogInfo "UnixBench v6.0.1 build complete"
+    rlLogInfo "UnixBench v6.0.1 build complete"
 
- } || {
+    } || {
 
- echo "built=0" >> "$UNIXBENCH_FLAG"
+    echo "built=0" >> "$UNIXBENCH_FLAG"
 
- rlLogWarning "UnixBench clone/build failed"
+    rlLogWarning "UnixBench clone/build failed"
 
- }
+    }
 
- else
+    else
 
- echo "built=0" >> "$UNIXBENCH_FLAG"
+    echo "built=0" >> "$UNIXBENCH_FLAG"
 
- rlLogInfo "UnixBench already present"
+    rlLogInfo "UnixBench already present"
 
- fi
+    fi
 
- echo "ref=1" >> "$UNIXBENCH_FLAG"
+    echo "ref=1" >> "$UNIXBENCH_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$UNIXBENCH_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$UNIXBENCH_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$UNIXBENCH_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$UNIXBENCH_FLAG"
 
- rlLogInfo "UnixBench already initialized by another test, ref count: $ref"
+    rlLogInfo "UnixBench already initialized by another test, ref count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "unixbenchCleanup"
+    rlCleanupAppend "unixbenchCleanup"
 
 }
 
@@ -158,39 +158,39 @@ unixbenchSetup() {
 
 unixbenchCleanup() {
 
- if [ ! -f "$UNIXBENCH_FLAG" ]; then
+    if [ ! -f "$UNIXBENCH_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$UNIXBENCH_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$UNIXBENCH_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -rf "$UNIXBENCH_DIR" 2>/dev/null || true
+    rm -rf "$UNIXBENCH_DIR" 2>/dev/null || true
 
- if grep -q "^installed_deps=1" "$UNIXBENCH_FLAG" 2>/dev/null; then
+    if grep -q "^installed_deps=1" "$UNIXBENCH_FLAG" 2>/dev/null; then
 
- echo "$SUDO_PASSWORD" | sudo -S dnf remove -y git gcc make perl gcc-c++ libtirpc-devel bc libtool automake 2>/dev/null || true
+    echo "$SUDO_PASSWORD" | sudo -S dnf remove -y git gcc make perl gcc-c++ libtirpc-devel bc libtool automake 2>/dev/null || true
 
- fi
+    fi
 
- rm -f "$UNIXBENCH_FLAG"
+    rm -f "$UNIXBENCH_FLAG"
 
- rlLogInfo "UnixBench cleanup complete"
+    rlLogInfo "UnixBench cleanup complete"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$UNIXBENCH_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$UNIXBENCH_FLAG"
 
- rlLogInfo "UnixBench kept ($ref tests remaining)"
+    rlLogInfo "UnixBench kept ($ref tests remaining)"
 
- fi
+    fi
 
 }
 
@@ -234,161 +234,161 @@ unixbenchCleanup() {
 
 run_unixbench_3x() {
 
- local test_name="$1"
+    local test_name="$1"
 
- shift
+    shift
 
- local run_args="$*"
+    local run_args="$*"
 
- local result_dir="$UNIXBENCH_DIR/UnixBench/results/$test_name"
+    local result_dir="$UNIXBENCH_DIR/UnixBench/results/$test_name"
 
- # Also save to persistent location outside $UNIXBENCH_DIR (survives cleanup)
+    # Also save to persistent location outside $UNIXBENCH_DIR (survives cleanup)
 
- local persist_dir="/tmp/unixbench_results_${test_name}"
+    local persist_dir="/tmp/unixbench_results_${test_name}"
 
- mkdir -p "$result_dir" "$persist_dir"
-
-
-
- # Clean up any prior results to avoid confusion with old.log files
-
- rm -f "$result_dir"/run_*.log "$result_dir"/summary.txt 2>/dev/null || true
+    mkdir -p "$result_dir" "$persist_dir"
 
 
 
- local scores=()
+    # Clean up any prior results to avoid confusion with old.log files
 
- local rcs=()
+    rm -f "$result_dir"/run_*.log "$result_dir"/summary.txt 2>/dev/null || true
 
- for i in 1 2 3; do
 
- rlLogInfo "========== UnixBench [$test_name] # $i run =========="
+
+    local scores=()
+
+    local rcs=()
+
+    for i in 1 2 3; do
+
+    rlLogInfo "========== UnixBench [$test_name] # $i run =========="
 
 ./Run $run_args > "$result_dir/run_${i}.log" 2>&1
 
- local rc=$?
+    local rc=$?
 
- rcs+=("$rc")
+    rcs+=("$rc")
 
- rlLogInfo "# $i runComplete (exit code: $rc)"
+    rlLogInfo "# $i runComplete (exit code: $rc)"
 
 
 
- local score
+    local score
 
- score=$(grep "System Benchmarks Index Score" "$result_dir/run_${i}.log" | tail -1 | awk '{print $NF}')
+    score=$(grep "System Benchmarks Index Score" "$result_dir/run_${i}.log" | tail -1 | awk '{print $NF}')
 
- if [ -z "$score" ]; then
+    if [ -z "$score" ]; then
 
- score="N/A"
+    score="N/A"
 
- fi
+    fi
 
- scores+=("$score")
+    scores+=("$score")
 
- rlLogInfo "# $i System Benchmarks Index Score: $score"
+    rlLogInfo "# $i System Benchmarks Index Score: $score"
 
- done
+    done
 
 
 
- # Calculate average if all 3 scores are numeric
+    # Calculate average if all 3 scores are numeric
 
- local avg="N/A"
+    local avg="N/A"
 
- local s1="${scores[0]}"
+    local s1="${scores[0]}"
 
- local s2="${scores[1]}"
+    local s2="${scores[1]}"
 
- local s3="${scores[2]}"
+    local s3="${scores[2]}"
 
- if [[ "$s1" =~ ^[0-9.]+$ ]] && [[ "$s2" =~ ^[0-9.]+$ ]] && [[ "$s3" =~ ^[0-9.]+$ ]]; then
+    if [[ "$s1" =~ ^[0-9.]+$ ]] && [[ "$s2" =~ ^[0-9.]+$ ]] && [[ "$s3" =~ ^[0-9.]+$ ]]; then
 
- avg=$(awk "BEGIN {printf \"%.1f\", ($s1+$s2+$s3)/3}")
+    avg=$(awk "BEGIN {printf \"%.1f\", ($s1+$s2+$s3)/3}")
 
- fi
+    fi
 
 
 
- # Generate structured summary file
+    # Generate structured summary file
 
- {
+    {
 
- echo "============================================="
+    echo "============================================="
 
- echo " UnixBench Test Results"
+    echo " UnixBench Test Results"
 
- echo "============================================="
+    echo "============================================="
 
- echo "Test: $test_name"
+    echo "Test: $test_name"
 
- echo "Date: $(date '+%Y-%m-%d %H:%M:%S')"
+    echo "Date: $(date '+%Y-%m-%d %H:%M:%S')"
 
- echo "Host: $(hostname)"
+    echo "Host: $(hostname)"
 
- echo "CPU Cores: $(nproc)"
+    echo "CPU Cores: $(nproc)"
 
- echo "Command:./Run $run_args"
+    echo "Command:./Run $run_args"
 
- echo "============================================="
+    echo "============================================="
 
- echo ""
+    echo ""
 
- for i in 1 2 3; do
+    for i in 1 2 3; do
 
- echo "--- Run $i ---"
+    echo "--- Run $i ---"
 
- echo "Exit Code: ${rcs[$((i-1))]}"
+    echo "Exit Code: ${rcs[$((i-1))]}"
 
- echo "System Benchmarks Index Score: ${scores[$((i-1))]}"
+    echo "System Benchmarks Index Score: ${scores[$((i-1))]}"
 
- echo ""
+    echo ""
 
- done
+    done
 
- echo "--- Summary ---"
+    echo "--- Summary ---"
 
- echo "Run 1 Score: ${scores[0]}"
+    echo "Run 1 Score: ${scores[0]}"
 
- echo "Run 2 Score: ${scores[1]}"
+    echo "Run 2 Score: ${scores[1]}"
 
- echo "Run 3 Score: ${scores[2]}"
+    echo "Run 3 Score: ${scores[2]}"
 
- echo "Average: $avg"
+    echo "Average: $avg"
 
- echo ""
+    echo ""
 
- echo "--- Individual Sub-Test Scores (from Run 3) ---"
+    echo "--- Individual Sub-Test Scores (from Run 3) ---"
 
- # Extract the BASELINE/RESULT/INDEX table from run 3
+    # Extract the BASELINE/RESULT/INDEX table from run 3
 
- awk '/System Benchmarks Index Values/,/=======/' "$result_dir/run_3.log" 2>/dev/null || echo "(unavailable)"
+    awk '/System Benchmarks Index Values/,/=======/' "$result_dir/run_3.log" 2>/dev/null || echo "(unavailable)"
 
- echo "============================================="
+    echo "============================================="
 
- } > "$result_dir/summary.txt"
+    } > "$result_dir/summary.txt"
 
 
 
- rlLogInfo "========== UnixBench [$test_name] result =========="
+    rlLogInfo "========== UnixBench [$test_name] result =========="
 
- rlLogInfo "Run 1: ${scores[0]} | Run 2: ${scores[1]} | Run 3: ${scores[2]}"
+    rlLogInfo "Run 1: ${scores[0]} | Run 2: ${scores[1]} | Run 3: ${scores[2]}"
 
- rlLogInfo "Average System Benchmarks Index Score: $avg"
+    rlLogInfo "Average System Benchmarks Index Score: $avg"
 
- rlLogInfo "Results saved to: $result_dir/"
+    rlLogInfo "Results saved to: $result_dir/"
 
- # Also copy to persistent location
+    # Also copy to persistent location
 
- cp -r "$result_dir"/* "$persist_dir/" 2>/dev/null || true
+    cp -r "$result_dir"/* "$persist_dir/" 2>/dev/null || true
 
- rlLogInfo "Persistent copy at: $persist_dir/"
+    rlLogInfo "Persistent copy at: $persist_dir/"
 
 
 
- # Output average for caller
+    # Output average for caller
 
- echo "$avg"
+    echo "$avg"
 
 }
 
@@ -400,8 +400,8 @@ run_unixbench_3x() {
 
 extract_score() {
 
- local log="$1"
+    local log="$1"
 
- grep "System Benchmarks Index Score" "$log" | tail -1 | awk '{print $NF}'
+    grep "System Benchmarks Index Score" "$log" | tail -1 | awk '{print $NF}'
 
 }

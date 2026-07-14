@@ -14,36 +14,36 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- nmapSetup
-
-
-
- rlPhaseEnd
+    nmapSetup
 
 
 
- rlPhaseStartTest "nmap /IDS "
-
- rlRun 'nmap -T4 --host-timeout 30s -f -p 22 localhost 2>&1 || true' 0 ""
-
- rlRun 'nmap -T4 --host-timeout 30s --data-length 30 -p 22 localhost 2>&1 || true' 0 "randomdata"
-
- rlRun 'nmap -T4 --host-timeout 30s --badsum -p 22 localhost 2>&1 || true' 0 "errorchecksumand"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "nmap /IDS "
+
+    rlRun 'nmap -T4 --host-timeout 30s -f -p 22 localhost 2>&1 || true' 0 ""
+
+    rlRun 'nmap -T4 --host-timeout 30s --data-length 30 -p 22 localhost 2>&1 || true' 0 "randomdata"
+
+    rlRun 'nmap -T4 --host-timeout 30s --badsum -p 22 localhost 2>&1 || true' 0 "errorchecksumand"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

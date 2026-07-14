@@ -14,34 +14,34 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeUserMgmtSetup
-
-
-
- rlPhaseEnd
+    smokeUserMgmtSetup
 
 
 
- rlPhaseStartTest "/etc/skel directory exists"
-
- rlRun 'test -d /etc/skel' 0 "/etc/skel directory exists"
-
- rlRun 'ls -la /home' 0 "ls /home userdirectory"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "/etc/skel directory exists"
+
+    rlRun 'test -d /etc/skel' 0 "/etc/skel directory exists"
+
+    rlRun 'ls -la /home' 0 "ls /home userdirectory"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

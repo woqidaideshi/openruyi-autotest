@@ -10,113 +10,113 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- iozoneSetup
+    iozoneSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- # getmemorysize (MB)
+    # getmemorysize (MB)
 
- TOTAL_MEM_MB=$(free -m | awk '/^Mem:/{print $2}')
+    TOTAL_MEM_MB=$(free -m | awk '/^Mem:/{print $2}')
 
- rlLogInfo "systemmemory: ${TOTAL_MEM_MB} MB"
+    rlLogInfo "systemmemory: ${TOTAL_MEM_MB} MB"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "multifilesizetest"
-
- local sizes="64 128 256 512"
-
- local throughputs=()
+    rlPhaseEnd
 
 
 
- for sz in $sizes; do
+    rlPhaseStartTest "multifilesizetest"
 
- local testfile="$TmpDir/iozone_${sz}m.dat"
+    local sizes="64 128 256 512"
 
- local log="$TmpDir/iozone_${sz}m.log"
-
-
-
- sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
-
- rlLogInfo "=== testfilesize: ${sz}M ==="
+    local throughputs=()
 
 
 
- iozone -c -s ${sz}m -r 16k -f "$testfile" 2>&1 | tee "$log"
+    for sz in $sizes; do
+
+    local testfile="$TmpDir/iozone_${sz}m.dat"
+
+    local log="$TmpDir/iozone_${sz}m.log"
 
 
 
- echo ""
+    sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
 
- echo "--- IOzone ${sz}M result ---"
-
- cat "$log"
+    rlLogInfo "=== testfilesize: ${sz}M ==="
 
 
 
- # extract write 
-
- local write_kbps
-
- write_kbps=$(grep -E '^\s+[0-9]+\s+[0-9]+' "$log" | awk '{print $3}' | head -1)
-
- if [ -n "$write_kbps" ] && [ "$write_kbps" != "0" ]; then
-
- throughputs+=("${sz}M:${write_kbps}")
-
- rlLogInfo "${sz}M Write: ${write_kbps} KB/s"
-
- fi
+    iozone -c -s ${sz}m -r 16k -f "$testfile" 2>&1 | tee "$log"
 
 
 
- rm -f "$testfile"
+    echo ""
 
- done
+    echo "--- IOzone ${sz}M result ---"
 
-
-
- # total
-
- echo ""
-
- echo "=== multitesttotal ==="
-
- for t in "${throughputs[@]}"; do
-
- echo " $t KB/s"
-
- done
-
- if [ ${#throughputs[@]} -gt 0 ]; then
-
- rlPass "multitestComplete (${#throughputs[@]}/4 hasresult)"
-
- else
-
- rlFail "notcan gethasdata"
-
- fi
-
- rlPhaseEnd
+    cat "$log"
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    # extract write 
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    local write_kbps
 
- rlPhaseEnd
+    write_kbps=$(grep -E '^\s+[0-9]+\s+[0-9]+' "$log" | awk '{print $3}' | head -1)
 
- rlJournalPrintText
+    if [ -n "$write_kbps" ] && [ "$write_kbps" != "0" ]; then
+
+    throughputs+=("${sz}M:${write_kbps}")
+
+    rlLogInfo "${sz}M Write: ${write_kbps} KB/s"
+
+    fi
+
+
+
+    rm -f "$testfile"
+
+    done
+
+
+
+    # total
+
+    echo ""
+
+    echo "=== multitesttotal ==="
+
+    for t in "${throughputs[@]}"; do
+
+    echo " $t KB/s"
+
+    done
+
+    if [ ${#throughputs[@]} -gt 0 ]; then
+
+    rlPass "multitestComplete (${#throughputs[@]}/4 hasresult)"
+
+    else
+
+    rlFail "notcan gethasdata"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

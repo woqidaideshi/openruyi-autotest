@@ -16,48 +16,48 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- unixbenchSetup
+    unixbenchSetup
 
- rlRun "cd $UNIXBENCH_DIR/UnixBench" 0 "enter UnixBench directory"
+    rlRun "cd $UNIXBENCH_DIR/UnixBench" 0 "enter UnixBench directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "UnixBench multithreadfullbenchmark (3independent runs)"
-
- if [ ! -f "$UNIXBENCH_DIR/UnixBench/Run" ]; then
-
- rlLogWarning "UnixBench not installed, skiptest"
-
- rlPhaseEnd
-
- rlJournalPrintText
-
- rlJournalEnd
-
- exit 0
-
- fi
-
- AVG=$(run_unixbench_3x "full_average" "-i 3 -c $(nproc)")
-
- rlLogInfo "fullmultithread 3 avg of runs System Benchmarks Index Score: $AVG"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "UnixBench multithreadfullbenchmark (3independent runs)"
 
- rlRun "cd /" 0 "Leave test directory"
+    if [ ! -f "$UNIXBENCH_DIR/UnixBench/Run" ]; then
 
- rlPhaseEnd
+    rlLogWarning "UnixBench not installed, skiptest"
+
+    rlPhaseEnd
+
+    rlJournalPrintText
+
+    rlJournalEnd
+
+    exit 0
+
+    fi
+
+    AVG=$(run_unixbench_3x "full_average" "-i 3 -c $(nproc)")
+
+    rlLogInfo "fullmultithread 3 avg of runs System Benchmarks Index Score: $AVG"
+
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

@@ -14,99 +14,99 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- trinitySetup
+    trinitySetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- TAINT_BEFORE=$(_trinityTaintBefore)
+    TAINT_BEFORE=$(_trinityTaintBefore)
 
- chmod 777 "$TmpDir"
+    chmod 777 "$TmpDir"
 
- local cores
+    local cores
 
- cores=$(nproc)
+    cores=$(nproc)
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "mode -qq -l off"
-
- local log="$TmpDir/trinity_stress.log"
-
- # Documentation recommends: trinity -qq -l off -C$(nproc)
-
- timeout 45 sudo -u "$TRINITY_USER" trinity -qq -l off -C "$cores" > "$log" 2>&1
-
- local rc=$?
+    rlPhaseEnd
 
 
 
- rlLogInfo "testexit code: $rc"
+    rlPhaseStartTest "mode -qq -l off"
+
+    local log="$TmpDir/trinity_stress.log"
+
+    # Documentation recommends: trinity -qq -l off -C$(nproc)
+
+    timeout 45 sudo -u "$TRINITY_USER" trinity -qq -l off -C "$cores" > "$log" 2>&1
+
+    local rc=$?
 
 
 
- if [ "$rc" -eq 124 ]; then
-
- rlPass "full-speed stresstest timeout Complete (45s, $cores process)"
-
- elif [ "$rc" -eq 0 ]; then
-
- rlPass "full-speed stresstestnormalComplete"
-
- else
-
- # checkwhetherissignalterminate (137 = SIGKILL, 143 = SIGTERM)
-
- if [ "$rc" -eq 137 ] || [ "$rc" -eq 143 ]; then
-
- rlLogWarning "mode by signalterminate: $rc"
-
- else
-
- rlLogWarning "modeExceptionexport: $rc"
-
- fi
-
- fi
+    rlLogInfo "testexit code: $rc"
 
 
 
- # outputcount
+    if [ "$rc" -eq 124 ]; then
 
- rlRun "wc -l < $log 2>/dev/null || echo 0" 0 "outputlinescount"
+    rlPass "full-speed stresstest timeout Complete (45s, $cores process)"
 
- rlRun "tail -10 $log 2>/dev/null || echo empty" 0 "postoutput"
+    elif [ "$rc" -eq 0 ]; then
+
+    rlPass "full-speed stresstestnormalComplete"
+
+    else
+
+    # checkwhetherissignalterminate (137 = SIGKILL, 143 = SIGTERM)
+
+    if [ "$rc" -eq 137 ] || [ "$rc" -eq 143 ]; then
+
+    rlLogWarning "mode by signalterminate: $rc"
+
+    else
+
+    rlLogWarning "modeExceptionexport: $rc"
+
+    fi
+
+    fi
 
 
 
- # checkException
+    # outputcount
 
- _trinityCheckOutput "$log"
+    rlRun "wc -l < $log 2>/dev/null || echo 0" 0 "outputlinescount"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "tainted check"
-
- _trinityTaintCheck "$TAINT_BEFORE"
-
- rlPhaseEnd
+    rlRun "tail -10 $log 2>/dev/null || echo empty" 0 "postoutput"
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    # checkException
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    _trinityCheckOutput "$log"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+
+
+    rlPhaseStartTest "tainted check"
+
+    _trinityTaintCheck "$TAINT_BEFORE"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

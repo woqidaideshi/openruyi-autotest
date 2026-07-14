@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeScriptingSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeScriptingSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "sleep 1seconds"
- rlRun 'sleep 1' 0 "sleep 1seconds"
- rlRun 'timeout 1 sleep 0.5' 0 "timeout command"
- rlPhaseEnd
+    rlPhaseStartTest "sleep 1seconds"
+    rlRun 'sleep 1' 0 "sleep 1seconds"
+    rlRun 'timeout 1 sleep 0.5' 0 "timeout command"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

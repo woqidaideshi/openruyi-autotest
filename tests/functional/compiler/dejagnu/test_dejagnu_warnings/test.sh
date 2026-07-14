@@ -10,19 +10,19 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- dejagnuSetup
+    dejagnuSetup
 
- if ! rpm -q clang 2>/dev/null; then echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y clang 2>/dev/null; fi
+    if ! rpm -q clang 2>/dev/null; then echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y clang 2>/dev/null; fi
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
 
 
- cat > clean.c << 'CEOF'
+    cat > clean.c << 'CEOF'
 
 #include <stdio.h>
 
@@ -44,7 +44,7 @@ CEOF
 
 
 
- cat > clean.cpp << 'CEOF'
+    cat > clean.cpp << 'CEOF'
 
 #include <iostream>
 
@@ -64,47 +64,47 @@ std::cout<<"WARN_CLEAN_CXX_OK"<<std::endl;return 0;}
 
 CEOF
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "GCC/G++ zero warnings"
+    rlPhaseStartTest "GCC/G++ zero warnings"
 
- rlRun "gcc -Wall -Wextra -o w_gcc clean.c 2>/tmp/gcc_w.txt && [ ! -s /tmp/gcc_w.txt ]" 0 "GCC -Wall -Wextra zero warnings"
+    rlRun "gcc -Wall -Wextra -o w_gcc clean.c 2>/tmp/gcc_w.txt && [ ! -s /tmp/gcc_w.txt ]" 0 "GCC -Wall -Wextra zero warnings"
 
- rlRun "gcc -Wall -Werror -o w_gcc_we clean.c &&./w_gcc_we | grep WARN_CLEAN_OK" 0 "GCC -Wall -Werror"
+    rlRun "gcc -Wall -Werror -o w_gcc_we clean.c &&./w_gcc_we | grep WARN_CLEAN_OK" 0 "GCC -Wall -Werror"
 
- rlRun "g++ -Wall -Wextra -o w_gxx clean.cpp 2>/tmp/gxx_w.txt &&./w_gxx | grep WARN_CLEAN_CXX_OK" 0 "G++ -Wall -Wextra"
+    rlRun "g++ -Wall -Wextra -o w_gxx clean.cpp 2>/tmp/gxx_w.txt &&./w_gxx | grep WARN_CLEAN_CXX_OK" 0 "G++ -Wall -Wextra"
 
- rlRun "g++ -Wall -Werror -o w_gxx_we clean.cpp &&./w_gxx_we | grep WARN_CLEAN_CXX_OK" 0 "G++ -Wall -Werror"
+    rlRun "g++ -Wall -Werror -o w_gxx_we clean.cpp &&./w_gxx_we | grep WARN_CLEAN_CXX_OK" 0 "G++ -Wall -Werror"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "Clang/Clang++ zero warnings"
-
- rlRun "clang -Wall -Wextra -o w_clang clean.c &&./w_clang | grep WARN_CLEAN_OK" 0 "Clang -Wall -Wextra"
-
- rlRun "clang -Wall -Werror -o w_clang_we clean.c &&./w_clang_we | grep WARN_CLEAN_OK" 0 "Clang -Wall -Werror"
-
- rlRun "clang++ -Wall -Wextra -o w_clangxx clean.cpp &&./w_clangxx | grep WARN_CLEAN_CXX_OK" 0 "Clang++ -Wall -Wextra"
-
- rlRun "clang++ -Wall -Werror -o w_clangxx_we clean.cpp &&./w_clangxx_we | grep WARN_CLEAN_CXX_OK" 0 "Clang++ -Wall -Werror"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "Clang/Clang++ zero warnings"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "clang -Wall -Wextra -o w_clang clean.c &&./w_clang | grep WARN_CLEAN_OK" 0 "Clang -Wall -Wextra"
 
- rm -f /tmp/{gcc,gxx}_w.txt
+    rlRun "clang -Wall -Werror -o w_clang_we clean.c &&./w_clang_we | grep WARN_CLEAN_OK" 0 "Clang -Wall -Werror"
 
- rlPhaseEnd
+    rlRun "clang++ -Wall -Wextra -o w_clangxx clean.cpp &&./w_clangxx | grep WARN_CLEAN_CXX_OK" 0 "Clang++ -Wall -Wextra"
 
- rlJournalPrintText
+    rlRun "clang++ -Wall -Werror -o w_clangxx_we clean.cpp &&./w_clangxx_we | grep WARN_CLEAN_CXX_OK" 0 "Clang++ -Wall -Werror"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rm -f /tmp/{gcc,gxx}_w.txt
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

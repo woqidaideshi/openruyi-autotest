@@ -14,34 +14,34 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeSecuritySetup
-
-
-
- rlPhaseEnd
+    smokeSecuritySetup
 
 
 
- rlPhaseStartTest "/etc/sudoers exists"
-
- rlRun 'test -f /etc/sudoers' 0 "/etc/sudoers exists"
-
- rlRun'sudo -l 2>&1 || true' 0 "sudo -l listexportpermission"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "/etc/sudoers exists"
+
+    rlRun 'test -f /etc/sudoers' 0 "/etc/sudoers exists"
+
+    rlRun'sudo -l 2>&1 || true' 0 "sudo -l listexportpermission"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

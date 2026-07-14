@@ -10,111 +10,111 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- streamSetup
+    streamSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- # getsize
+    # getsize
 
- local l1_kb l2_kb l3_kb
+    local l1_kb l2_kb l3_kb
 
- l1_kb=$(lscpu 2>/dev/null | grep "L1d cache" | grep -oP '\d+' | head -1)
+    l1_kb=$(lscpu 2>/dev/null | grep "L1d cache" | grep -oP '\d+' | head -1)
 
- l2_kb=$(lscpu 2>/dev/null | grep "L2 cache" | grep -oP '\d+' | head -1)
+    l2_kb=$(lscpu 2>/dev/null | grep "L2 cache" | grep -oP '\d+' | head -1)
 
- l3_kb=$(lscpu 2>/dev/null | grep "L3 cache" | grep -oP '\d+' | head -1)
+    l3_kb=$(lscpu 2>/dev/null | grep "L3 cache" | grep -oP '\d+' | head -1)
 
- rlLogInfo "L1d: ${l1_kb:-?}KB, L2: ${l2_kb:-?}KB, L3: ${l3_kb:-?}KB"
+    rlLogInfo "L1d: ${l1_kb:-?}KB, L2: ${l2_kb:-?}KB, L3: ${l3_kb:-?}KB"
 
- if [ ! -f "$STREAM_DIR/stream.c" ]; then
+    if [ ! -f "$STREAM_DIR/stream.c" ]; then
 
- rlFail "stream.c does not exist"; return 0
+    rlFail "stream.c does not exist"; return 0
 
- fi
+    fi
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "differentcountgroupsizecompilerun"
-
- echo ""
-
- echo "=== countgroupsize vs memorybandwidth (single-core TRIAD) ==="
-
- printf "%-15s %-15s %-10s\n" "ArraySize" "Triad(MB/s)" "FitIn"
+    rlPhaseEnd
 
 
 
- # testdifferentcountgroupsize: 10K ~ 10M 
+    rlPhaseStartTest "differentcountgroupsizecompilerun"
 
- for elems in 10000 100000 500000 1000000 5000000 10000000; do
+    echo ""
 
- local name="stream_${elems}"
+    echo "=== countgroupsize vs memorybandwidth (single-core TRIAD) ==="
 
- local log="/tmp/${name}.log"
-
-
-
- # compile
-
- gcc -O3 -DSTREAM_ARRAY_SIZE=$elems -DNTIMES=10 \
-
- "$STREAM_DIR/stream.c" -o "$name" -lm 2>/dev/null
-
- if [ ! -x "$name" ]; then continue; fi
+    printf "%-15s %-15s %-10s\n" "ArraySize" "Triad(MB/s)" "FitIn"
 
 
 
- # run
+    # testdifferentcountgroupsize: 10K ~ 10M 
 
- OMP_NUM_THREADS=1./"$name" > "$log" 2>&1
+    for elems in 10000 100000 500000 1000000 5000000 10000000; do
 
- local triad
+    local name="stream_${elems}"
 
- triad=$(grep "^Triad:" "$log" | awk '{print $2}' | head -1)
-
-
-
- # datain
-
- local bytes=$((elems * 8 * 3)) # 3 arrays × 8 bytes
-
- local fit="DRAM"
-
- if [ -n "$l3_kb" ] && [ "$bytes" -le $((l3_kb * 1024)) ]; then fit="L3"; fi
-
- if [ -n "$l2_kb" ] && [ "$bytes" -le $((l2_kb * 1024)) ]; then fit="L2"; fi
-
- if [ -n "$l1_kb" ] && [ "$bytes" -le $((l1_kb * 1024)) ]; then fit="L1"; fi
+    local log="/tmp/${name}.log"
 
 
 
- printf "%-15s %-15s %-10s\n" "$elems" "${triad:-N/A}" "$fit"
+    # compile
 
- rm -f "$name"
+    gcc -O3 -DSTREAM_ARRAY_SIZE=$elems -DNTIMES=10 \
 
- done
+    "$STREAM_DIR/stream.c" -o "$name" -lm 2>/dev/null
 
- rlPass "countgroupsizeanalysisComplete"
-
- rlPhaseEnd
+    if [ ! -x "$name" ]; then continue; fi
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    # run
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    OMP_NUM_THREADS=1./"$name" > "$log" 2>&1
 
- rm -f /tmp/stream_*.log
+    local triad
 
- rlPhaseEnd
+    triad=$(grep "^Triad:" "$log" | awk '{print $2}' | head -1)
 
- rlJournalPrintText
+
+
+    # datain
+
+    local bytes=$((elems * 8 * 3)) # 3 arrays × 8 bytes
+
+    local fit="DRAM"
+
+    if [ -n "$l3_kb" ] && [ "$bytes" -le $((l3_kb * 1024)) ]; then fit="L3"; fi
+
+    if [ -n "$l2_kb" ] && [ "$bytes" -le $((l2_kb * 1024)) ]; then fit="L2"; fi
+
+    if [ -n "$l1_kb" ] && [ "$bytes" -le $((l1_kb * 1024)) ]; then fit="L1"; fi
+
+
+
+    printf "%-15s %-15s %-10s\n" "$elems" "${triad:-N/A}" "$fit"
+
+    rm -f "$name"
+
+    done
+
+    rlPass "countgroupsizeanalysisComplete"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rm -f /tmp/stream_*.log
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

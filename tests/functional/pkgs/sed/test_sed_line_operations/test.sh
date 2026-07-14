@@ -16,51 +16,51 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- sedSetup
+    sedSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "linesoperation"
-
- rlRun "sed -n \"2p\" lines.txt" 0 "sed -n: printspecifylines"
-
- rlRun "sed \"2d\" lines.txt" 0 "sed d: deletespecifylines"
-
- rlRun "sed \"2a newline\" lines.txt" 0 "sed a: lines"
-
- rlRun "sed \"2i insertline\" lines.txt" 0 "sed i: lines"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "linesoperation"
 
+    rlRun "sed -n \"2p\" lines.txt" 0 "sed -n: printspecifylines"
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "sed \"2d\" lines.txt" 0 "sed d: deletespecifylines"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun "sed \"2a newline\" lines.txt" 0 "sed a: lines"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "sed \"2i insertline\" lines.txt" 0 "sed i: lines"
 
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # sed Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # sed Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

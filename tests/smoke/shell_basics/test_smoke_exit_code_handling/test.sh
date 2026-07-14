@@ -14,38 +14,38 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeShellBasicsSetup
+    smokeShellBasicsSetup
 
- rlRun "true; test $? -eq 0" 0 "Prepare environment"
+    rlRun "true; test $? -eq 0" 0 "Prepare environment"
 
- rlRun "false; test $? -ne 0" 0 "Prepare environment"
-
-
-
- rlPhaseEnd
+    rlRun "false; test $? -ne 0" 0 "Prepare environment"
 
 
 
- rlPhaseStartTest "&& logical AND"
-
- rlRun 'true && echo yes' 0 "&& logical AND"
-
- rlRun 'false || echo no' 0 "|| or"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "&& logical AND"
+
+    rlRun 'true && echo yes' 0 "&& logical AND"
+
+    rlRun 'false || echo no' 0 "|| or"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

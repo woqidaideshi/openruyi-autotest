@@ -10,109 +10,109 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- streamSetup
+    streamSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- local max_cores=$(nproc)
+    local max_cores=$(nproc)
 
- rlLogInfo "CPU corecount: $max_cores"
+    rlLogInfo "CPU corecount: $max_cores"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "multi-core TRIAD bandwidth"
-
- echo ""
-
- echo "=== multi-corememorybandwidth (TRIAD) ==="
-
- printf "%-8s %-15s %-15s %-15s\n" "Cores" "Triad(MB/s)" "Copy(MB/s)" ""
-
- local single_bw=""
+    rlPhaseEnd
 
 
 
- for t in 1 2 4 $(nproc); do
+    rlPhaseStartTest "multi-core TRIAD bandwidth"
 
- # skipcorecounttest
+    echo ""
 
- [ "$t" -gt "$max_cores" ] && continue
+    echo "=== multi-corememorybandwidth (TRIAD) ==="
 
+    printf "%-8s %-15s %-15s %-15s\n" "Cores" "Triad(MB/s)" "Copy(MB/s)" ""
 
-
- local log="/tmp/stream_${t}core.log"
-
- rlLogInfo "=== ${t} core TRIAD ==="
-
- export OMP_NUM_THREADS=$t
-
- _streamRun $t > "$log" 2>&1 2>/dev/null
+    local single_bw=""
 
 
 
- local triad copy
+    for t in 1 2 4 $(nproc); do
 
- triad=$(grep "^Triad:" "$log" | awk '{print $2}' | head -1)
+    # skipcorecounttest
 
- copy=$(grep "^Copy:" "$log" | awk '{print $2}' | head -1)
-
-
-
- if [ -n "$triad" ]; then
-
- if [ "$t" -eq 1 ]; then
-
- single_bw="$triad"
-
- fi
-
- local eff="N/A"
-
- if [ -n "$single_bw" ] && [ "$single_bw" != "0" ]; then
-
- eff=$(awk "BEGIN {printf \"%.1f%%\", ${triad}/${single_bw}/${t}*100}" 2>/dev/null || echo "N/A")
-
- fi
-
- printf "%-8s %-15s %-15s %-15s\n" "$t" "$triad" "${copy:-N/A}" "$eff"
-
- rlPass "${t}core TRIAD: ${triad} MB/s"
-
- else
-
- rlFail "${t}core: nodata"
-
- fi
-
- done
+    [ "$t" -gt "$max_cores" ] && continue
 
 
 
- if [ -n "$single_bw" ] && [ "$single_bw" != "0" ]; then
+    local log="/tmp/stream_${t}core.log"
 
- rlLogInfo " (single-core TRIAD): ${single_bw} MB/s"
+    rlLogInfo "=== ${t} core TRIAD ==="
 
- fi
+    export OMP_NUM_THREADS=$t
 
- rlPhaseEnd
+    _streamRun $t > "$log" 2>&1 2>/dev/null
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    local triad copy
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    triad=$(grep "^Triad:" "$log" | awk '{print $2}' | head -1)
 
- rm -f /tmp/stream_*core.log
+    copy=$(grep "^Copy:" "$log" | awk '{print $2}' | head -1)
 
- rlPhaseEnd
 
- rlJournalPrintText
+
+    if [ -n "$triad" ]; then
+
+    if [ "$t" -eq 1 ]; then
+
+    single_bw="$triad"
+
+    fi
+
+    local eff="N/A"
+
+    if [ -n "$single_bw" ] && [ "$single_bw" != "0" ]; then
+
+    eff=$(awk "BEGIN {printf \"%.1f%%\", ${triad}/${single_bw}/${t}*100}" 2>/dev/null || echo "N/A")
+
+    fi
+
+    printf "%-8s %-15s %-15s %-15s\n" "$t" "$triad" "${copy:-N/A}" "$eff"
+
+    rlPass "${t}core TRIAD: ${triad} MB/s"
+
+    else
+
+    rlFail "${t}core: nodata"
+
+    fi
+
+    done
+
+
+
+    if [ -n "$single_bw" ] && [ "$single_bw" != "0" ]; then
+
+    rlLogInfo " (single-core TRIAD): ${single_bw} MB/s"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rm -f /tmp/stream_*core.log
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

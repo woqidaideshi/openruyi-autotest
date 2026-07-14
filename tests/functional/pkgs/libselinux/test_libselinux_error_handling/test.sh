@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- libselinuxSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    libselinuxSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "error handling"
- rlRun "rpm -q libselinux" 0 "libselinux Package installed"
- rlRun "rpm -ql libselinux | grep -E '\\.so' | head -3" 0 "libselinux Library file exists"
- rlRun "ldconfig -p | grep libselinux" 0 "libselinux in ldconfig cache"
- rlPhaseEnd
+    rlPhaseStartTest "error handling"
+    rlRun "rpm -q libselinux" 0 "libselinux Package installed"
+    rlRun "rpm -ql libselinux | grep -E '\\.so' | head -3" 0 "libselinux Library file exists"
+    rlRun "ldconfig -p | grep libselinux" 0 "libselinux in ldconfig cache"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # libselinux Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # libselinux Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

@@ -16,49 +16,49 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- gawkSetup
+    gawkSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "error handling"
+    rlPhaseStartTest "error handling"
 
 rlRun() { eval "$1" 2>&1; return $?; }
 
- rlRun "awk --help 2>&1 | head -10" 0 "AWK text processing"
+    rlRun "awk --help 2>&1 | head -10" 0 "AWK text processing"
 
- rlRun "gawk --help 2>&1 | head -10" 0 "AWK text processing"
+    rlRun "gawk --help 2>&1 | head -10" 0 "AWK text processing"
 
- rlPhaseEnd
-
-
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
-
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # gawk Package managed by lib.sh 's reference counting auto-uninstall
-
- rlPhaseEnd
 
 
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlJournalPrintText
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # gawk Package managed by lib.sh 's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

@@ -26,29 +26,29 @@ SMOKE_SECURITY_FLAG="/tmp/.beakerlib_smoke_security_suite"
 
 smokeSecuritySetup() {
 
- if [ ! -f "$SMOKE_SECURITY_FLAG" ]; then
+    if [ ! -f "$SMOKE_SECURITY_FLAG" ]; then
 
- echo "installed=0" > "$SMOKE_SECURITY_FLAG"
+    echo "installed=0" > "$SMOKE_SECURITY_FLAG"
 
- echo "ref=1" >> "$SMOKE_SECURITY_FLAG"
+    echo "ref=1" >> "$SMOKE_SECURITY_FLAG"
 
- rlLogInfo "smoke-security: coreDependenciesalreadyconfirmavailable"
+    rlLogInfo "smoke-security: coreDependenciesalreadyconfirmavailable"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_SECURITY_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_SECURITY_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SECURITY_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SECURITY_FLAG"
 
- rlLogInfo "smoke-security already initialized by other tests, reference count: $ref"
+    rlLogInfo "smoke-security already initialized by other tests, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "smokeSecurityCleanup"
+    rlCleanupAppend "smokeSecurityCleanup"
 
 }
 
@@ -56,31 +56,31 @@ smokeSecuritySetup() {
 
 smokeSecurityCleanup() {
 
- if [ ! -f "$SMOKE_SECURITY_FLAG" ]; then
+    if [ ! -f "$SMOKE_SECURITY_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_SECURITY_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_SECURITY_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$SMOKE_SECURITY_FLAG"
+    rm -f "$SMOKE_SECURITY_FLAG"
 
- rlLogInfo "smoke-security: Cleanup complete (posttest)"
+    rlLogInfo "smoke-security: Cleanup complete (posttest)"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SECURITY_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SECURITY_FLAG"
 
- rlLogInfo "smoke-security: Retain (still have $ref test(s) not completed)"
+    rlLogInfo "smoke-security: Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

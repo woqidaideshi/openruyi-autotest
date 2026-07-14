@@ -14,50 +14,50 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeArchiveSetup
+    smokeArchiveSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlRun "dd if=/dev/zero of=big.txt bs=1k count=10 2>/dev/null" 0 "Create test data"
-
-
-
- rlPhaseEnd
+    rlRun "dd if=/dev/zero of=big.txt bs=1k count=10 2>/dev/null" 0 "Create test data"
 
 
 
- rlPhaseStartTest "gzip compress"
-
- rlRun 'gzip big.txt' 0 "gzip compress"
-
- rlRun 'test -f big.txt.gz' 0 "compressfile exists"
-
- rlRun 'gunzip big.txt.gz' 0 "gunzip decompress"
-
- rlRun 'test -f big.txt' 0 "decompressfile"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "gzip compress"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun 'gzip big.txt' 0 "gzip compress"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun 'test -f big.txt.gz' 0 "compressfile exists"
 
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    rlRun 'gunzip big.txt.gz' 0 "gunzip decompress"
 
- fi
+    rlRun 'test -f big.txt' 0 "decompressfile"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

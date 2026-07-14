@@ -10,115 +10,115 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- fioSetup
+    fioSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- _fioDropCaches
+    _fioDropCaches
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "sequential read throughput (different block sizes)"
-
- local testfile="$TmpDir/seq_read.dat"
-
- # preCreate test file (512MB)
-
- dd if=/dev/zero of="$testfile" bs=1M count=512 2>/dev/null
+    rlPhaseEnd
 
 
 
- for bs in 64 128 256 512 1024; do
+    rlPhaseStartTest "sequential read throughput (different block sizes)"
 
- _fioDropCaches
+    local testfile="$TmpDir/seq_read.dat"
 
- local log="$TmpDir/seq_read_${bs}k.log"
+    # preCreate test file (512MB)
 
- rlLogInfo "=== sequential read BS=${bs}K ==="
-
- fio --name=seq_read_${bs}k --filename="$testfile" --direct=1 \
-
- --rw=read --bs=${bs}k --size=256M --numjobs=1 --iodepth=8 \
-
- --ioengine=libaio --runtime=30 --group_reporting 2>&1 | tee "$log"
+    dd if=/dev/zero of="$testfile" bs=1M count=512 2>/dev/null
 
 
 
- # extractbandwidth
+    for bs in 64 128 256 512 1024; do
 
- local bw
+    _fioDropCaches
 
- bw=$(grep "READ:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
+    local log="$TmpDir/seq_read_${bs}k.log"
 
- if [ -n "$bw" ]; then
+    rlLogInfo "=== sequential read BS=${bs}K ==="
 
- echo " BS=${bs}K: BW=${bw}"
+    fio --name=seq_read_${bs}k --filename="$testfile" --direct=1 \
 
- rlPass "sequential read BS=${bs}K: ${bw}"
+    --rw=read --bs=${bs}k --size=256M --numjobs=1 --iodepth=8 \
 
- fi
-
- done
-
- rm -f "$testfile"
-
- rlPhaseEnd
+    --ioengine=libaio --runtime=30 --group_reporting 2>&1 | tee "$log"
 
 
 
- rlPhaseStartTest "sequential write throughput (different block sizes)"
+    # extractbandwidth
 
- _fioDropCaches
+    local bw
 
- for bs in 64 128 256 512 1024; do
+    bw=$(grep "READ:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
 
- _fioDropCaches
+    if [ -n "$bw" ]; then
 
- local log="$TmpDir/seq_write_${bs}k.log"
+    echo " BS=${bs}K: BW=${bw}"
 
- rlLogInfo "=== sequential write BS=${bs}K ==="
+    rlPass "sequential read BS=${bs}K: ${bw}"
 
- fio --name=seq_write_${bs}k --filename="$TmpDir/seq_write_${bs}k.dat" --direct=1 \
+    fi
 
- --rw=write --bs=${bs}k --size=256M --numjobs=1 --iodepth=8 \
+    done
 
- --ioengine=libaio --runtime=30 --group_reporting 2>&1 | tee "$log"
+    rm -f "$testfile"
 
-
-
- local bw
-
- bw=$(grep "WRITE:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
-
- if [ -n "$bw" ]; then
-
- echo " BS=${bs}K: BW=${bw}"
-
- rlPass "sequential write BS=${bs}K: ${bw}"
-
- fi
-
- rm -f "$TmpDir/seq_write_${bs}k.dat"
-
- done
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "sequential write throughput (different block sizes)"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    _fioDropCaches
 
- rlPhaseEnd
+    for bs in 64 128 256 512 1024; do
 
- rlJournalPrintText
+    _fioDropCaches
+
+    local log="$TmpDir/seq_write_${bs}k.log"
+
+    rlLogInfo "=== sequential write BS=${bs}K ==="
+
+    fio --name=seq_write_${bs}k --filename="$TmpDir/seq_write_${bs}k.dat" --direct=1 \
+
+    --rw=write --bs=${bs}k --size=256M --numjobs=1 --iodepth=8 \
+
+    --ioengine=libaio --runtime=30 --group_reporting 2>&1 | tee "$log"
+
+
+
+    local bw
+
+    bw=$(grep "WRITE:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
+
+    if [ -n "$bw" ]; then
+
+    echo " BS=${bs}K: BW=${bw}"
+
+    rlPass "sequential write BS=${bs}K: ${bw}"
+
+    fi
+
+    rm -f "$TmpDir/seq_write_${bs}k.dat"
+
+    done
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

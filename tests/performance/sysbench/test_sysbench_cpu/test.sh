@@ -10,89 +10,89 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- sysbenchSetup
+    sysbenchSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "single-core CPU"
-
- local log="/tmp/sb_cpu_1.log"
-
- rlLogInfo "=== CPU single-core (--threads=1) ==="
-
- sysbench --threads=1 --cpu-max-prime=40000 --time=30 --report-interval=5 cpu run 2>&1 | tee "$log"
-
- _sysbenchParse "$log"
-
- local eps
-
- eps=$(grep "events per second" "$log" | grep -oP '[\d.]+' | head -1)
-
- [ -n "$eps" ] && rlPass "single-core CPU: ${eps} events/s" || rlFail "nodata"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "multi-core CPU"
+    rlPhaseStartTest "single-core CPU"
 
- local cores=$(nproc)
+    local log="/tmp/sb_cpu_1.log"
 
- local log="/tmp/sb_cpu_n.log"
+    rlLogInfo "=== CPU single-core (--threads=1) ==="
 
- rlLogInfo "=== CPU multi-core (--threads=$cores) ==="
+    sysbench --threads=1 --cpu-max-prime=40000 --time=30 --report-interval=5 cpu run 2>&1 | tee "$log"
 
- sysbench --threads=$cores --cpu-max-prime=40000 --time=30 --report-interval=5 cpu run 2>&1 | tee "$log"
+    _sysbenchParse "$log"
 
- _sysbenchParse "$log"
+    local eps
 
- local eps
+    eps=$(grep "events per second" "$log" | grep -oP '[\d.]+' | head -1)
 
- eps=$(grep "events per second" "$log" | grep -oP '[\d.]+' | head -1)
+    [ -n "$eps" ] && rlPass "single-core CPU: ${eps} events/s" || rlFail "nodata"
 
- [ -n "$eps" ] && rlPass "multi-core CPU ($cores): ${eps} events/s" || rlFail "nodata"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "single-core vs multi-core comparison"
+    rlPhaseStartTest "multi-core CPU"
 
- local eps1 epsN
+    local cores=$(nproc)
 
- eps1=$(grep "events per second" /tmp/sb_cpu_1.log | grep -oP '[\d.]+' | head -1)
+    local log="/tmp/sb_cpu_n.log"
 
- epsN=$(grep "events per second" /tmp/sb_cpu_n.log | grep -oP '[\d.]+' | head -1)
+    rlLogInfo "=== CPU multi-core (--threads=$cores) ==="
 
- if [ -n "$eps1" ] && [ -n "$epsN" ]; then
+    sysbench --threads=$cores --cpu-max-prime=40000 --time=30 --report-interval=5 cpu run 2>&1 | tee "$log"
 
- rlLogInfo "single-core: ${eps1} eps, multi-core($(nproc)): ${epsN} eps"
+    _sysbenchParse "$log"
 
- fi
+    local eps
 
- rlPass "CPU comparisonanalysisComplete"
+    eps=$(grep "events per second" "$log" | grep -oP '[\d.]+' | head -1)
 
- rlPhaseEnd
+    [ -n "$eps" ] && rlPass "multi-core CPU ($cores): ${eps} events/s" || rlFail "nodata"
+
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "single-core vs multi-core comparison"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    local eps1 epsN
 
- rm -f /tmp/sb_cpu_*.log
+    eps1=$(grep "events per second" /tmp/sb_cpu_1.log | grep -oP '[\d.]+' | head -1)
 
- rlPhaseEnd
+    epsN=$(grep "events per second" /tmp/sb_cpu_n.log | grep -oP '[\d.]+' | head -1)
 
- rlJournalPrintText
+    if [ -n "$eps1" ] && [ -n "$epsN" ]; then
+
+    rlLogInfo "single-core: ${eps1} eps, multi-core($(nproc)): ${epsN} eps"
+
+    fi
+
+    rlPass "CPU comparisonanalysisComplete"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rm -f /tmp/sb_cpu_*.log
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

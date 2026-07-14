@@ -7,21 +7,21 @@
 . "$(dirname "$0")/../../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- ltpSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    ltpSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "LTP power-management-tests - high_freq_hwp_cap_cppc"
- rlRun "_ltpRunCase power-management-tests high_freq_hwp_cap_cppc" 0 "Execute LTP high_freq_hwp_cap_cppc"
- rlPhaseEnd
+    rlPhaseStartTest "LTP power-management-tests - high_freq_hwp_cap_cppc"
+    rlRun "_ltpRunCase power-management-tests high_freq_hwp_cap_cppc" 0 "Execute LTP high_freq_hwp_cap_cppc"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Cleanup"
- # LTP Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Cleanup"
+    # LTP Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

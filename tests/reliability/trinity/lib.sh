@@ -38,73 +38,73 @@ TRINITY_USER="trinity_tester"
 
 trinitySetup() {
 
- if [ ! -f "$TRINITY_FLAG" ]; then
+    if [ ! -f "$TRINITY_FLAG" ]; then
 
- # Install trinity
+    # Install trinity
 
- if ! rpm -q trinity 2>/dev/null; then
+    if ! rpm -q trinity 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y trinity 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y trinity 2>/dev/null
 
- if ! rpm -q trinity 2>/dev/null; then
+    if ! rpm -q trinity 2>/dev/null; then
 
- rlLogWarning "trinity failed"
+    rlLogWarning "trinity failed"
 
- echo "installed=0" > "$TRINITY_FLAG"
+    echo "installed=0" > "$TRINITY_FLAG"
 
- else
+    else
 
- echo "installed=1" > "$TRINITY_FLAG"
+    echo "installed=1" > "$TRINITY_FLAG"
 
- rlLogInfo "already trinity ()"
+    rlLogInfo "already trinity ()"
 
- fi
+    fi
 
- else
+    else
 
- echo "installed=0" > "$TRINITY_FLAG"
+    echo "installed=0" > "$TRINITY_FLAG"
 
- rlLogInfo "trinity already exists"
+    rlLogInfo "trinity already exists"
 
- fi
-
-
-
- # Create non-root user for trinity (MUST NOT run as root)
-
- if ! id "$TRINITY_USER" >/dev/null 2>&1; then
-
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S useradd -m "$TRINITY_USER" 2>/dev/null
-
- echo "${TRINITY_USER}:trinity123" | sudo -S chpasswd 2>/dev/null
-
- rlLogInfo "alreadycreate Trinity withuser: $TRINITY_USER"
-
- else
-
- rlLogInfo "user $TRINITY_USER already exists"
-
- fi
+    fi
 
 
 
- echo "ref=1" >> "$TRINITY_FLAG"
+    # Create non-root user for trinity (MUST NOT run as root)
 
- else
+    if ! id "$TRINITY_USER" >/dev/null 2>&1; then
 
- local ref
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S useradd -m "$TRINITY_USER" 2>/dev/null
 
- ref=$(grep "^ref=" "$TRINITY_FLAG" | cut -d= -f2)
+    echo "${TRINITY_USER}:trinity123" | sudo -S chpasswd 2>/dev/null
 
- ref=$((ref + 1))
+    rlLogInfo "alreadycreate Trinity withuser: $TRINITY_USER"
 
- sed -i "s/^ref=.*/ref=$ref/" "$TRINITY_FLAG"
+    else
 
- rlLogInfo "trinity reference count: $ref"
+    rlLogInfo "user $TRINITY_USER already exists"
 
- fi
+    fi
 
- rlCleanupAppend "trinityCleanup"
+
+
+    echo "ref=1" >> "$TRINITY_FLAG"
+
+    else
+
+    local ref
+
+    ref=$(grep "^ref=" "$TRINITY_FLAG" | cut -d= -f2)
+
+    ref=$((ref + 1))
+
+    sed -i "s/^ref=.*/ref=$ref/" "$TRINITY_FLAG"
+
+    rlLogInfo "trinity reference count: $ref"
+
+    fi
+
+    rlCleanupAppend "trinityCleanup"
 
 }
 
@@ -112,35 +112,35 @@ trinitySetup() {
 
 trinityCleanup() {
 
- if [ ! -f "$TRINITY_FLAG" ]; then return 0; fi
+    if [ ! -f "$TRINITY_FLAG" ]; then return 0; fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$TRINITY_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$TRINITY_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- if grep -q "^installed=1" "$TRINITY_FLAG"; then
+    if grep -q "^installed=1" "$TRINITY_FLAG"; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y trinity 2>/dev/null || true
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y trinity 2>/dev/null || true
 
- rlLogInfo "already trinity"
+    rlLogInfo "already trinity"
 
- fi
+    fi
 
- rm -f "$TRINITY_FLAG"
+    rm -f "$TRINITY_FLAG"
 
- rlLogInfo "trinity testCleanup complete"
+    rlLogInfo "trinity testCleanup complete"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$TRINITY_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$TRINITY_FLAG"
 
- rlLogInfo "trinity Retain (still have $ref test)"
+    rlLogInfo "trinity Retain (still have $ref test)"
 
- fi
+    fi
 
 }
 
@@ -152,15 +152,15 @@ trinityCleanup() {
 
 _trinityTaintBefore() {
 
- if [ -r /proc/sys/kernel/tainted ]; then
+    if [ -r /proc/sys/kernel/tainted ]; then
 
- cat /proc/sys/kernel/tainted
+    cat /proc/sys/kernel/tainted
 
- else
+    else
 
- echo "0"
+    echo "0"
 
- fi
+    fi
 
 }
 
@@ -172,31 +172,31 @@ _trinityTaintBefore() {
 
 _trinityTaintCheck() {
 
- local before="$1"
+    local before="$1"
 
- local after
+    local after
 
- if [ -r /proc/sys/kernel/tainted ]; then
+    if [ -r /proc/sys/kernel/tainted ]; then
 
- after=$(cat /proc/sys/kernel/tainted)
+    after=$(cat /proc/sys/kernel/tainted)
 
- else
+    else
 
- after="0"
+    after="0"
 
- fi
+    fi
 
- if [ "$before" != "$after" ]; then
+    if [ "$before" != "$after" ]; then
 
- rlFail "kernel tainted Status: $before → $after (kernel!)"
+    rlFail "kernel tainted Status: $before → $after (kernel!)"
 
- rlLogWarning "Tainted: P=proprietary, F=forced, S=out-of-spec, R=user-forced, B=bad-page, U=user, D=die, A=ACPI, W=warning, C=driver, I=workaround, O=out-of-tree, E=unsigned, L=soft-lockup, K=kernel-livepatch"
+    rlLogWarning "Tainted: P=proprietary, F=forced, S=out-of-spec, R=user-forced, B=bad-page, U=user, D=die, A=ACPI, W=warning, C=driver, I=workaround, O=out-of-tree, E=unsigned, L=soft-lockup, K=kernel-livepatch"
 
- else
+    else
 
- rlPass "kernel tainted Statusno: $before"
+    rlPass "kernel tainted Statusno: $before"
 
- fi
+    fi
 
 }
 
@@ -208,55 +208,55 @@ _trinityTaintCheck() {
 
 _trinityCheckOutput() {
 
- local log="$1"
+    local log="$1"
 
- if [ ! -f "$log" ]; then return 0; fi
-
-
-
- # Check for BUG markers (kernel-level)
-
- if grep -q "BUG:" "$log" 2>/dev/null; then
-
- rlLogWarning "outputin BUG: "
-
- grep "BUG:" "$log" | head -10
-
- return 0
-
- fi
+    if [ ! -f "$log" ]; then return 0; fi
 
 
 
- # Check for kernel Oops
+    # Check for BUG markers (kernel-level)
 
- if grep -qi "Oops:\|kernel BUG\|Unable to handle kernel" "$log" 2>/dev/null; then
+    if grep -q "BUG:" "$log" 2>/dev/null; then
 
- rlFail "outputinkernel Oops/BUG"
+    rlLogWarning "outputin BUG: "
 
- grep -i "Oops:\|kernel BUG\|Unable to handle kernel" "$log" | head -10
+    grep "BUG:" "$log" | head -10
 
- return 0
+    return 0
 
- fi
-
-
-
- # Check for segfaults
-
- local segfaults
-
- segfaults=$(grep -c "segfault\|Segmentation fault\|core dumped" "$log" 2>/dev/null || echo 0)
-
- if [ "$segfaults" -gt 0 ]; then
-
- rlLogWarning "subprocessproduced $segfaults segfault (fuzzer normallinesis)"
-
- fi
+    fi
 
 
 
- rlPass "Trinity outputnokernel BUG/Oops"
+    # Check for kernel Oops
+
+    if grep -qi "Oops:\|kernel BUG\|Unable to handle kernel" "$log" 2>/dev/null; then
+
+    rlFail "outputinkernel Oops/BUG"
+
+    grep -i "Oops:\|kernel BUG\|Unable to handle kernel" "$log" | head -10
+
+    return 0
+
+    fi
+
+
+
+    # Check for segfaults
+
+    local segfaults
+
+    segfaults=$(grep -c "segfault\|Segmentation fault\|core dumped" "$log" 2>/dev/null || echo 0)
+
+    if [ "$segfaults" -gt 0 ]; then
+
+    rlLogWarning "subprocessproduced $segfaults segfault (fuzzer normallinesis)"
+
+    fi
+
+
+
+    rlPass "Trinity outputnokernel BUG/Oops"
 
 }
 

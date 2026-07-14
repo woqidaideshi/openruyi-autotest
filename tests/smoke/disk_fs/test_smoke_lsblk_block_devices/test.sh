@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeDiskFsSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeDiskFsSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "lsblk blockdevice"
- rlRun 'lsblk' 0 "lsblk blockdevice"
- rlRun 'lsblk -f 2>&1 || true' 0 "lsblk -f filesystem"
- rlPhaseEnd
+    rlPhaseStartTest "lsblk blockdevice"
+    rlRun 'lsblk' 0 "lsblk blockdevice"
+    rlRun 'lsblk -f 2>&1 || true' 0 "lsblk -f filesystem"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

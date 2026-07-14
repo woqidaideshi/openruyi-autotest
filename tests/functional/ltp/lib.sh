@@ -36,9 +36,9 @@ LTP_TAG="20260529"
 
 _ltpSetupPath() {
 
- export PATH="$LTP_INSTALL_DIR:$LTP_INSTALL_DIR/tools:$PATH"
+    export PATH="$LTP_INSTALL_DIR:$LTP_INSTALL_DIR/tools:$PATH"
 
- export LTPROOT="$LTP_INSTALL_DIR"
+    export LTPROOT="$LTP_INSTALL_DIR"
 
 }
 
@@ -52,101 +52,101 @@ _ltpSetupPath() {
 
 _ltpRunCase() {
 
- local suite="$1"
+    local suite="$1"
 
- local case="$2"
+    local case="$2"
 
- local out="/tmp/ltp_out_$$"
-
-
-
- # Try kirk first (newer LTP), fall back to runltp (older LTP)
-
- if command -v kirk >/dev/null 2>&1; then
-
- kirk -f "$suite" -p "$case" 2>&1 | tee "$out"
-
- elif command -v runltp >/dev/null 2>&1; then
-
- # runltp may be a stub ("runltp was removed from LTP") in newer LTP
-
- if runltp 2>&1 | grep -q "runltp was removed"; then
-
- rlFail "LTP runner: runltp is a stub, need kirk (LTP >= 2026)"
-
- return 1
-
- fi
-
- runltp -f "$suite" -s "$case" -q 2>&1 | tee "$out"
-
- else
-
- rlFail "LTP runner not found (kirk or runltp)"
-
- return 1
-
- fi
-
- local rc=${PIPESTATUS[0]}
+    local out="/tmp/ltp_out_$$"
 
 
 
- if [ "$rc" -ne 0 ]; then
+    # Try kirk first (newer LTP), fall back to runltp (older LTP)
 
- rlFail "LTP withExecution failed (kirk exit=$rc)"
+    if command -v kirk >/dev/null 2>&1; then
 
- rm -f "$out"
+    kirk -f "$suite" -p "$case" 2>&1 | tee "$out"
 
- return 1
+    elif command -v runltp >/dev/null 2>&1; then
 
- fi
+    # runltp may be a stub ("runltp was removed from LTP") in newer LTP
 
+    if runltp 2>&1 | grep -q "runltp was removed"; then
 
+    rlFail "LTP runner: runltp is a stub, need kirk (LTP >= 2026)"
 
- # All skipped, nothing actually passed -- map to tmt SKIP
+    return 1
 
- if grep -qE 'Passed:[[:space:]]*0' "$out" && \
+    fi
 
- grep -qE 'Skipped:[[:space:]]*[1-9]' "$out" && \
+    runltp -f "$suite" -s "$case" -q 2>&1 | tee "$out"
 
- grep -qE 'Failed:[[:space:]]*0' "$out" && \
+    else
 
- grep -qE 'Broken:[[:space:]]*0' "$out"; then
+    rlFail "LTP runner not found (kirk or runltp)"
 
- rlTestSkip "LTP withskip (Environmentnot supported)"
+    return 1
 
- rm -f "$out"
+    fi
 
- return 0
-
- fi
-
-
-
- # Has failures or broken -- map to tmt FAIL
-
- if grep -qE 'Failed:[[:space:]]*[1-9]' "$out" || \
-
- grep -qE 'Broken:[[:space:]]*[1-9]' "$out"; then
-
- rlFail "LTP withexistsfailedor"
-
- rm -f "$out"
-
- return 1
-
- fi
+    local rc=${PIPESTATUS[0]}
 
 
 
- # All good (pass, possibly with some skipped)
+    if [ "$rc" -ne 0 ]; then
 
- rlPass "LTP withpassed"
+    rlFail "LTP withExecution failed (kirk exit=$rc)"
 
- rm -f "$out"
+    rm -f "$out"
 
- return 0
+    return 1
+
+    fi
+
+
+
+    # All skipped, nothing actually passed -- map to tmt SKIP
+
+    if grep -qE 'Passed:[[:space:]]*0' "$out" && \
+
+    grep -qE 'Skipped:[[:space:]]*[1-9]' "$out" && \
+
+    grep -qE 'Failed:[[:space:]]*0' "$out" && \
+
+    grep -qE 'Broken:[[:space:]]*0' "$out"; then
+
+    rlTestSkip "LTP withskip (Environmentnot supported)"
+
+    rm -f "$out"
+
+    return 0
+
+    fi
+
+
+
+    # Has failures or broken -- map to tmt FAIL
+
+    if grep -qE 'Failed:[[:space:]]*[1-9]' "$out" || \
+
+    grep -qE 'Broken:[[:space:]]*[1-9]' "$out"; then
+
+    rlFail "LTP withexistsfailedor"
+
+    rm -f "$out"
+
+    return 1
+
+    fi
+
+
+
+    # All good (pass, possibly with some skipped)
+
+    rlPass "LTP withpassed"
+
+    rm -f "$out"
+
+    return 0
 
 }
 
@@ -154,175 +154,175 @@ _ltpRunCase() {
 
 ltpSetup() {
 
- if [ ! -f "$LTP_FLAG" ]; then
+    if [ ! -f "$LTP_FLAG" ]; then
 
- local method=""
+    local method=""
 
- # Check if any working LTP exists (kirk or runltp)
+    # Check if any working LTP exists (kirk or runltp)
 
- if command -v kirk >/dev/null 2>&1 || command -v runltp >/dev/null 2>&1; then
+    if command -v kirk >/dev/null 2>&1 || command -v runltp >/dev/null 2>&1; then
 
- method="system"
+    method="system"
 
- echo "installed=0" > "$LTP_FLAG"
+    echo "installed=0" > "$LTP_FLAG"
 
- elif [ -x "$LTP_INSTALL_DIR/runltp" ] || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
+    elif [ -x "$LTP_INSTALL_DIR/runltp" ] || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
 
- _ltpSetupPath
+    _ltpSetupPath
 
- method="source-cached"
+    method="source-cached"
 
- echo "installed=0" > "$LTP_FLAG"
+    echo "installed=0" > "$LTP_FLAG"
 
- else
+    else
 
- rlLogInfo " LTP ()..."
+    rlLogInfo " LTP ()..."
 
- # Try dnf first
+    # Try dnf first
 
- if echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y ltp 2>/dev/null && command -v kirk >/dev/null 2>&1; then
+    if echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y ltp 2>/dev/null && command -v kirk >/dev/null 2>&1; then
 
- method="dnf"
+    method="dnf"
 
- echo "installed=1" > "$LTP_FLAG"
+    echo "installed=1" > "$LTP_FLAG"
 
- else
+    else
 
- # dnf failed or kirk not in PATH -- compile from source
+    # dnf failed or kirk not in PATH -- compile from source
 
- rlLogInfo "dnf failedorno kirk, fromsource codecompile (tag: $LTP_TAG)..."
+    rlLogInfo "dnf failedorno kirk, fromsource codecompile (tag: $LTP_TAG)..."
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig \
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y git make gcc gcc-c++ autoconf automake pkgconfig \
 
- zlib-devel keyutils-libs-devel libtirpc-devel libmnl-devel libaio-devel \
+    zlib-devel keyutils-libs-devel libtirpc-devel libmnl-devel libaio-devel \
 
- libcap-devel openssl-devel numactl-devel 2>/dev/null || true
+    libcap-devel openssl-devel numactl-devel 2>/dev/null || true
 
- if [ ! -d "$LTP_INSTALL_DIR" ]; then
+    if [ ! -d "$LTP_INSTALL_DIR" ]; then
 
- git clone --depth 1 --branch "$LTP_TAG" https://github.com/linux-test-project/ltp.git "$LTP_INSTALL_DIR" 2>/dev/null || true
+    git clone --depth 1 --branch "$LTP_TAG" https://github.com/linux-test-project/ltp.git "$LTP_INSTALL_DIR" 2>/dev/null || true
 
- fi
+    fi
 
- if [ -f "$LTP_INSTALL_DIR/Makefile" ]; then
+    if [ -f "$LTP_INSTALL_DIR/Makefile" ]; then
 
- # Fix: riscv64 glibc already defines struct sched_attr /
+    # Fix: riscv64 glibc already defines struct sched_attr /
 
- # sched_setattr / sched_getattr (conflicting with lapi/sched.h).
+    # sched_setattr / sched_getattr (conflicting with lapi/sched.h).
 
- # Wrap the LTP fallback with #ifndef guards.
+    # Wrap the LTP fallback with #ifndef guards.
 
- local sched_h="$LTP_INSTALL_DIR/include/lapi/sched.h"
+    local sched_h="$LTP_INSTALL_DIR/include/lapi/sched.h"
 
- if [ -f "$sched_h" ] && grep -q'struct sched_attr' "$sched_h" 2>/dev/null; then
+    if [ -f "$sched_h" ] && grep -q'struct sched_attr' "$sched_h" 2>/dev/null; then
 
- sed -i '/^struct sched_attr {/,/^};/s/^/\/\//' "$sched_h"
+    sed -i '/^struct sched_attr {/,/^};/s/^/\/\//' "$sched_h"
 
- sed -i '/^static inline int sched_setattr/,/^}/s/^/\/\//' "$sched_h"
+    sed -i '/^static inline int sched_setattr/,/^}/s/^/\/\//' "$sched_h"
 
- sed -i '/^static inline int sched_getattr/,/^}/s/^/\/\//' "$sched_h"
+    sed -i '/^static inline int sched_getattr/,/^}/s/^/\/\//' "$sched_h"
 
- fi
+    fi
 
- cd "$LTP_INSTALL_DIR" && make autotools &&./configure --prefix="$LTP_INSTALL_DIR" --with-open-posix-testsuite && make -j$(nproc) -k || true
+    cd "$LTP_INSTALL_DIR" && make autotools &&./configure --prefix="$LTP_INSTALL_DIR" --with-open-posix-testsuite && make -j$(nproc) -k || true
 
- # Install whatever was built (kirk + test binaries). Some
+    # Install whatever was built (kirk + test binaries). Some
 
- # test binaries may be missing due to kernel header
+    # test binaries may be missing due to kernel header
 
- # incompatibilities on riscv64, but kirk works fine.
+    # incompatibilities on riscv64, but kirk works fine.
 
- sudo make install 2>&1 | tail -3 || true
+    sudo make install 2>&1 | tail -3 || true
 
- fi
+    fi
 
- _ltpSetupPath
+    _ltpSetupPath
 
- # Check for kirk first (required for LTP >= 2026).
+    # Check for kirk first (required for LTP >= 2026).
 
- # runltp may be a leftover stub from dnf, don't trust it alone.
+    # runltp may be a leftover stub from dnf, don't trust it alone.
 
- if command -v kirk >/dev/null 2>&1; then
+    if command -v kirk >/dev/null 2>&1; then
 
- method="source"
+    method="source"
 
- echo "installed=2" > "$LTP_FLAG"
+    echo "installed=2" > "$LTP_FLAG"
 
- elif [ -x "$LTP_INSTALL_DIR/tools/kirk" ]; then
+    elif [ -x "$LTP_INSTALL_DIR/tools/kirk" ]; then
 
- # kirk was built but make install failed -- install manually
+    # kirk was built but make install failed -- install manually
 
- cp -a "$LTP_INSTALL_DIR/tools/kirk" "$LTP_INSTALL_DIR/" 2>/dev/null || true
+    cp -a "$LTP_INSTALL_DIR/tools/kirk" "$LTP_INSTALL_DIR/" 2>/dev/null || true
 
- _ltpSetupPath
+    _ltpSetupPath
 
- if command -v kirk >/dev/null 2>&1; then
+    if command -v kirk >/dev/null 2>&1; then
 
- method="source"
+    method="source"
 
- echo "installed=2" > "$LTP_FLAG"
+    echo "installed=2" > "$LTP_FLAG"
 
- else
+    else
 
- rlLogWarning "LTP source codeCompile succeededbut kirk failed, testpossibleUnable toExecute"
+    rlLogWarning "LTP source codeCompile succeededbut kirk failed, testpossibleUnable toExecute"
 
- method="failed"
+    method="failed"
 
- echo "installed=3" > "$LTP_FLAG"
+    echo "installed=3" > "$LTP_FLAG"
 
- fi
+    fi
 
- elif command -v runltp >/dev/null 2>&1; then
+    elif command -v runltp >/dev/null 2>&1; then
 
- # Fallback: only rely on runltp (older LTP, pre-2026)
+    # Fallback: only rely on runltp (older LTP, pre-2026)
 
- method="source-legacy"
+    method="source-legacy"
 
- echo "installed=2" > "$LTP_FLAG"
+    echo "installed=2" > "$LTP_FLAG"
 
- else
+    else
 
- rlLogWarning "LTP source codeCompile failed, testpossibleUnable toExecute"
+    rlLogWarning "LTP source codeCompile failed, testpossibleUnable toExecute"
 
- method="failed"
+    method="failed"
 
- echo "installed=3" > "$LTP_FLAG"
+    echo "installed=3" > "$LTP_FLAG"
 
- fi
+    fi
 
- fi
+    fi
 
- fi
+    fi
 
- echo "ref=1" >> "$LTP_FLAG"
+    echo "ref=1" >> "$LTP_FLAG"
 
- rlLogInfo "LTP: $method"
+    rlLogInfo "LTP: $method"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$LTP_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$LTP_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
 
- rlLogInfo "LTP already, reference count: $ref"
+    rlLogInfo "LTP already, reference count: $ref"
 
- # Restore PATH if source install
+    # Restore PATH if source install
 
- if [ -x "$LTP_INSTALL_DIR/runltp" ] || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
+    if [ -x "$LTP_INSTALL_DIR/runltp" ] || [ -x "$LTP_INSTALL_DIR/kirk" ]; then
 
- _ltpSetupPath
+    _ltpSetupPath
 
- fi
+    fi
 
- fi
+    fi
 
 
 
- rlCleanupAppend "ltpCleanup"
+    rlCleanupAppend "ltpCleanup"
 
 }
 
@@ -330,41 +330,41 @@ ltpSetup() {
 
 ltpCleanup() {
 
- if [ ! -f "$LTP_FLAG" ]; then return 0; fi
+    if [ ! -f "$LTP_FLAG" ]; then return 0; fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$LTP_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$LTP_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- local installed
+    local installed
 
- installed=$(grep "^installed=" "$LTP_FLAG" | cut -d= -f2)
+    installed=$(grep "^installed=" "$LTP_FLAG" | cut -d= -f2)
 
- case "$installed" in
+    case "$installed" in
 
- 1) echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y ltp 2>/dev/null || true
+    1) echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y ltp 2>/dev/null || true
 
- rlLogInfo "already LTP (dnf)";;
+    rlLogInfo "already LTP (dnf)";;
 
- 2) rm -rf "$LTP_INSTALL_DIR"
+    2) rm -rf "$LTP_INSTALL_DIR"
 
- rlLogInfo "alreadydelete LTP source codedirectory";;
+    rlLogInfo "alreadydelete LTP source codedirectory";;
 
- esac
+    esac
 
- rm -f "$LTP_FLAG"
+    rm -f "$LTP_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$LTP_FLAG"
 
- rlLogInfo "LTP Retain (still have $ref test(s) not completed)"
+    rlLogInfo "LTP Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

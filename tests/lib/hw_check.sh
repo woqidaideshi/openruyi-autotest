@@ -79,73 +79,73 @@
 _hwFmfGet() {
 
 
- local section="$1" # e.g. "extra-hardware-require"
+    local section="$1" # e.g. "extra-hardware-require"
 
 
- local key="$2" # e.g. "server"
+    local key="$2" # e.g. "server"
 
 
- local file="${3:-main.fmf}"
+    local file="${3:-main.fmf}"
 
 
 
 
 
- # resolve extra-hardware-require key: value
+    # resolve extra-hardware-require key: value
 
 
- # Supported format:
+    # Supported format:
 
 
- # extra-hardware-require:
+    # extra-hardware-require:
 
 
- # server: 2
+    # server: 2
 
 
- # cpu: ">= 4"
+    # cpu: ">= 4"
 
 
- awk -v sec="$section" -v k="$key" '
+    awk -v sec="$section" -v k="$key" '
 
 
- $0 ~ "^"sec":" { in_section=1; next }
+    $0 ~ "^"sec":" { in_section=1; next }
 
 
- in_section && /^[[:space:]]+[a-z]/ {
+    in_section && /^[[:space:]]+[a-z]/ {
 
 
- if ($1 == k":") {
+    if ($1 == k":") {
 
 
- # output key post all value (e.g. ">= 4" "8 GiB")
+    # output key post all value (e.g. ">= 4" "8 GiB")
 
 
- $1 = ""
+    $1 = ""
 
 
- sub(/^[[:space:]]+/, "")
+    sub(/^[[:space:]]+/, "")
 
 
- gsub(/"/, "")
+    gsub(/"/, "")
 
 
- print
+    print
 
 
- exit
+    exit
 
 
- }
+    }
 
 
- }
+    }
 
 
- in_section && /^[^[:space:]]/ { exit }
+    in_section && /^[^[:space:]]/ { exit }
 
 
- ' "$file"
+    ' "$file"
 
 
 }
@@ -163,37 +163,37 @@ _hwFmfGet() {
 _hwParseOp() {
 
 
- local raw="$1"
+    local raw="$1"
 
 
- if [[ "$raw" =~ ^(\>=|\<=|!=|>|<|=) ]]; then
+    if [[ "$raw" =~ ^(\>=|\<=|!=|>|<|=) ]]; then
 
 
- op="${BASH_REMATCH[1]}"
+    op="${BASH_REMATCH[1]}"
 
 
- actual="${raw#$op}"
+    actual="${raw#$op}"
 
 
- # stripmultiremainingspacesandquotes
+    # stripmultiremainingspacesandquotes
 
 
- actual=$(echo "$actual" | tr -d '"'"'" | xargs)
+    actual=$(echo "$actual" | tr -d '"'"'" | xargs)
 
 
- else
+    else
 
 
- op="="
+    op="="
 
 
- actual=$(echo "$raw" | tr -d '"'"'" | xargs)
+    actual=$(echo "$raw" | tr -d '"'"'" | xargs)
 
 
- fi
+    fi
 
 
- echo "$op|$actual"
+    echo "$op|$actual"
 
 
 }
@@ -208,88 +208,88 @@ _hwParseOp() {
 _hwCompare() {
 
 
- local have="$1" # actual value
+    local have="$1" # actual value
 
 
- local need_raw="$2" # raw requirement string (e.g. ">= 4")
+    local need_raw="$2" # raw requirement string (e.g. ">= 4")
 
 
- local type="${3:-int}" # int or str
-
-
-
-
-
- local parsed=$(_hwParseOp "$need_raw")
-
-
- local op="${parsed%%|*}"
-
-
- local val="${parsed##*|}"
+    local type="${3:-int}" # int or str
 
 
 
 
 
- case "$type" in
+    local parsed=$(_hwParseOp "$need_raw")
 
 
- int)
+    local op="${parsed%%|*}"
 
 
- case "$op" in
+    local val="${parsed##*|}"
 
 
- "=") [ "$have" -eq "$val" ];;
 
 
- "!=") [ "$have" -ne "$val" ];;
+
+    case "$type" in
 
 
- ">") [ "$have" -gt "$val" ];;
+    int)
 
 
- ">=") [ "$have" -ge "$val" ];;
+    case "$op" in
 
 
- "<") [ "$have" -lt "$val" ];;
+    "=") [ "$have" -eq "$val" ];;
 
 
- "<=") [ "$have" -le "$val" ];;
+    "!=") [ "$have" -ne "$val" ];;
 
 
- *) return 1;;
+    ">") [ "$have" -gt "$val" ];;
 
 
- esac
+    ">=") [ "$have" -ge "$val" ];;
 
 
-;;
+    "<") [ "$have" -lt "$val" ];;
 
 
- str)
+    "<=") [ "$have" -le "$val" ];;
 
 
- case "$op" in
+    *) return 1;;
 
 
- "=") [ "$have" = "$val" ];;
-
-
- "!=") [ "$have" != "$val" ];;
-
-
- *) return 1;;
-
-
- esac
+    esac
 
 
 ;;
 
 
- esac
+    str)
+
+
+    case "$op" in
+
+
+    "=") [ "$have" = "$val" ];;
+
+
+    "!=") [ "$have" != "$val" ];;
+
+
+    *) return 1;;
+
+
+    esac
+
+
+;;
+
+
+    esac
 
 
 }
@@ -322,16 +322,16 @@ _hwCompare() {
 hwGetServerInfo() {
 
 
- local idx="$1"
+    local idx="$1"
 
 
- local field="$2"
+    local field="$2"
 
 
- local var="TEST_SERVER_${idx}_${field^^}"
+    local var="TEST_SERVER_${idx}_${field^^}"
 
 
- echo "${!var}"
+    echo "${!var}"
 
 
 }
@@ -355,127 +355,127 @@ hwGetServerInfo() {
 hwRunOnServer() {
 
 
- local idx="$1"; shift
+    local idx="$1"; shift
 
 
- local host=$(hwGetServerInfo "$idx" host)
+    local host=$(hwGetServerInfo "$idx" host)
 
 
- local port=$(hwGetServerInfo "$idx" port)
+    local port=$(hwGetServerInfo "$idx" port)
 
 
- local user=$(hwGetServerInfo "$idx" user)
+    local user=$(hwGetServerInfo "$idx" user)
 
 
- local pass=$(hwGetServerInfo "$idx" password)
+    local pass=$(hwGetServerInfo "$idx" password)
 
 
 
 
 
- port="${port:-22}"
+    port="${port:-22}"
 
 
- user="${user:-root}"
+    user="${user:-root}"
 
 
 
 
 
- # e.g.if localhost, Execute
+    # e.g.if localhost, Execute
 
 
- if [ "$host" = "localhost" ] || [ "$host" = "127.0.0.1" ] || [ "$host" = "$(hostname -I 2>/dev/null | awk '{print $1}')" ]; then
+    if [ "$host" = "localhost" ] || [ "$host" = "127.0.0.1" ] || [ "$host" = "$(hostname -I 2>/dev/null | awk '{print $1}')" ]; then
 
 
- rlLogInfo "[local@$idx] $*"
+    rlLogInfo "[local@$idx] $*"
 
 
- eval "$@"
+    eval "$@"
 
 
- return $?
+    return $?
 
 
- fi
+    fi
 
 
 
 
 
- # e.g.ifusernois root, passed sudo escalate privileges
+    # e.g.ifusernois root, passed sudo escalate privileges
 
 
- if [ "$user" != "root" ]; then
+    if [ "$user" != "root" ]; then
 
 
- rlLogInfo "[$user@$host:$port] (sudo) $*"
+    rlLogInfo "[$user@$host:$port] (sudo) $*"
 
 
- # willcommandparametersecurityescapepostpassed sudo Execute
+    # willcommandparametersecurityescapepostpassed sudo Execute
 
 
- local remote_cmd
+    local remote_cmd
 
 
- remote_cmd=$(printf '%q ' "$@")
+    remote_cmd=$(printf '%q ' "$@")
 
 
- if [ -n "$pass" ] && command -v sshpass >/dev/null 2>&1; then
+    if [ -n "$pass" ] && command -v sshpass >/dev/null 2>&1; then
 
 
- sshpass -p "$pass" ssh -o StrictHostKeyChecking=no \
+    sshpass -p "$pass" ssh -o StrictHostKeyChecking=no \
 
 
- -o ConnectTimeout=10 -p "$port" "${user}@${host}" \
+    -o ConnectTimeout=10 -p "$port" "${user}@${host}" \
 
 
- "echo '$pass' | sudo -S -- sh -c $remote_cmd"
+    "echo '$pass' | sudo -S -- sh -c $remote_cmd"
 
 
- else
+    else
 
 
- ssh -o StrictHostKeyChecking=no \
+    ssh -o StrictHostKeyChecking=no \
 
 
- -o ConnectTimeout=10 -p "$port" "${user}@${host}" \
+    -o ConnectTimeout=10 -p "$port" "${user}@${host}" \
 
 
- "sudo -- sh -c $remote_cmd"
+    "sudo -- sh -c $remote_cmd"
 
 
- fi
+    fi
 
 
- else
+    else
 
 
- rlLogInfo "[$user@$host:$port] $*"
+    rlLogInfo "[$user@$host:$port] $*"
 
 
- if [ -n "$pass" ] && command -v sshpass >/dev/null 2>&1; then
+    if [ -n "$pass" ] && command -v sshpass >/dev/null 2>&1; then
 
 
- sshpass -p "$pass" ssh -o StrictHostKeyChecking=no \
+    sshpass -p "$pass" ssh -o StrictHostKeyChecking=no \
 
 
- -o ConnectTimeout=10 -p "$port" "${user}@${host}" "$@"
+    -o ConnectTimeout=10 -p "$port" "${user}@${host}" "$@"
 
 
- else
+    else
 
 
- ssh -o StrictHostKeyChecking=no \
+    ssh -o StrictHostKeyChecking=no \
 
 
- -o ConnectTimeout=10 -p "$port" "${user}@${host}" "$@"
+    -o ConnectTimeout=10 -p "$port" "${user}@${host}" "$@"
 
 
- fi
+    fi
 
 
- fi
+    fi
 
 
 }
@@ -499,46 +499,46 @@ hwRunOnServer() {
 hwServerVerify() {
 
 
- local have=${TEST_SERVER_COUNT:-1}
+    local have=${TEST_SERVER_COUNT:-1}
 
 
- local need
+    local need
 
 
- need=$(_hwFmfGet "extra-hardware-require" "server" "${1:-main.fmf}")
-
-
-
-
-
- [ -z "$need" ] && return 0
+    need=$(_hwFmfGet "extra-hardware-require" "server" "${1:-main.fmf}")
 
 
 
 
 
- if [ "$have" -lt "$need" ]; then
+    [ -z "$need" ] && return 0
 
 
- echo "SKIP: need $need servers, but TEST_SERVER_COUNT=$have"
 
 
- rlLogWarning "Environmentnomeets: needs $need server, actualonlyhas $have "
+
+    if [ "$have" -lt "$need" ]; then
 
 
- rlLogWarning "Pleasein topology.env inconfigurationmoremultiserverpostretry"
+    echo "SKIP: need $need servers, but TEST_SERVER_COUNT=$have"
 
 
- exit 0
+    rlLogWarning "Environmentnomeets: needs $need server, actualonlyhas $have "
 
 
- fi
+    rlLogWarning "Pleasein topology.env inconfigurationmoremultiserverpostretry"
 
 
- rlLogInfo "hw: servers OK ($have >= $need)"
+    exit 0
 
 
- return 0
+    fi
+
+
+    rlLogInfo "hw: servers OK ($have >= $need)"
+
+
+    return 0
 
 
 }
@@ -553,43 +553,43 @@ hwServerVerify() {
 hwCpuCheck() {
 
 
- local need
+    local need
 
 
- need=$(_hwFmfGet "extra-hardware-require" "cpu" "${1:-main.fmf}")
+    need=$(_hwFmfGet "extra-hardware-require" "cpu" "${1:-main.fmf}")
 
 
- [ -z "$need" ] && return 0
-
-
-
-
-
- local have=$(nproc)
+    [ -z "$need" ] && return 0
 
 
 
 
 
- if ! _hwCompare "$have" "$need" int; then
+    local have=$(nproc)
 
 
- echo "SKIP: need cpu $need, have $have cores"
 
 
- rlLogWarning "Environmentnomeets: CPU needs $need, actual $(nproc) core"
+
+    if ! _hwCompare "$have" "$need" int; then
 
 
- exit 0
+    echo "SKIP: need cpu $need, have $have cores"
 
 
- fi
+    rlLogWarning "Environmentnomeets: CPU needs $need, actual $(nproc) core"
 
 
- rlLogInfo "hw: CPU OK (have $have, need $need)"
+    exit 0
 
 
- return 0
+    fi
+
+
+    rlLogInfo "hw: CPU OK (have $have, need $need)"
+
+
+    return 0
 
 
 }
@@ -604,73 +604,73 @@ hwCpuCheck() {
 hwMemCheck() {
 
 
- local need
+    local need
 
 
- need=$(_hwFmfGet "extra-hardware-require" "memory" "${1:-main.fmf}")
+    need=$(_hwFmfGet "extra-hardware-require" "memory" "${1:-main.fmf}")
 
 
- [ -z "$need" ] && return 0
-
-
-
-
-
- # getavailablememory (GB), with free command
-
-
- local have=$(free -g | awk '/^Mem:/{print $7}')
-
-
- [ -z "$have" ] && have=$(free -g | awk '/^Mem:/{print $2}')
+    [ -z "$need" ] && return 0
 
 
 
 
 
- # e.g.if need incontains GiB/GB single, extractnumber
+    # getavailablememory (GB), with free command
 
 
- local need_num=$(echo "$need" | grep -oP '[\d.]+' | head -1)
+    local have=$(free -g | awk '/^Mem:/{print $7}')
 
 
-
-
-
- if [ -z "$need_num" ]; then
-
-
- rlLogWarning "hw: Unable toresolvememoryneed '$need', skipcheck"
-
-
- return 0
-
-
- fi
+    [ -z "$have" ] && have=$(free -g | awk '/^Mem:/{print $2}')
 
 
 
 
 
- if [ "$have" -lt "$need_num" ]; then
+    # e.g.if need incontains GiB/GB single, extractnumber
 
 
- echo "SKIP: need memory $need, have ${have}G"
+    local need_num=$(echo "$need" | grep -oP '[\d.]+' | head -1)
 
 
- rlLogWarning "Environmentnomeets: memoryneeds $need, actual ${have}G"
 
 
- exit 0
+
+    if [ -z "$need_num" ]; then
 
 
- fi
+    rlLogWarning "hw: Unable toresolvememoryneed '$need', skipcheck"
 
 
- rlLogInfo "hw: Memory OK (have ${have}G, need $need)"
+    return 0
 
 
- return 0
+    fi
+
+
+
+
+
+    if [ "$have" -lt "$need_num" ]; then
+
+
+    echo "SKIP: need memory $need, have ${have}G"
+
+
+    rlLogWarning "Environmentnomeets: memoryneeds $need, actual ${have}G"
+
+
+    exit 0
+
+
+    fi
+
+
+    rlLogInfo "hw: Memory OK (have ${have}G, need $need)"
+
+
+    return 0
 
 
 }
@@ -685,43 +685,43 @@ hwMemCheck() {
 hwDiskCheck() {
 
 
- local need
+    local need
 
 
- need=$(_hwFmfGet "extra-hardware-require" "disk" "${1:-main.fmf}")
+    need=$(_hwFmfGet "extra-hardware-require" "disk" "${1:-main.fmf}")
 
 
- [ -z "$need" ] && return 0
-
-
-
-
-
- local have=$(lsblk -nd 2>/dev/null | wc -l)
+    [ -z "$need" ] && return 0
 
 
 
 
 
- if ! _hwCompare "$have" "$need" int; then
+    local have=$(lsblk -nd 2>/dev/null | wc -l)
 
 
- echo "SKIP: need disk count $need, have $have disks"
 
 
- rlLogWarning "Environmentnomeets: disk needs $need block, actual $have block"
+
+    if ! _hwCompare "$have" "$need" int; then
 
 
- exit 0
+    echo "SKIP: need disk count $need, have $have disks"
 
 
- fi
+    rlLogWarning "Environmentnomeets: disk needs $need block, actual $have block"
 
 
- rlLogInfo "hw: Disk OK (have $have, need $need)"
+    exit 0
 
 
- return 0
+    fi
+
+
+    rlLogInfo "hw: Disk OK (have $have, need $need)"
+
+
+    return 0
 
 
 }
@@ -736,49 +736,49 @@ hwDiskCheck() {
 hwNetCheck() {
 
 
- local need
+    local need
 
 
- need=$(_hwFmfGet "extra-hardware-require" "net" "${1:-main.fmf}")
+    need=$(_hwFmfGet "extra-hardware-require" "net" "${1:-main.fmf}")
 
 
- [ -z "$need" ] && return 0
-
-
-
-
-
- # countphysical NICscount (exclude lo loopbackInterface)
-
-
- local have=$(ip -o link show 2>/dev/null | grep -v 'lo' | grep -c'state UP')
-
-
- [ -z "$have" ] && have=0
+    [ -z "$need" ] && return 0
 
 
 
 
 
- if ! _hwCompare "$have" "$need" int; then
+    # countphysical NICscount (exclude lo loopbackInterface)
 
 
- echo "SKIP: need net count $need, have $have interfaces"
+    local have=$(ip -o link show 2>/dev/null | grep -v 'lo' | grep -c'state UP')
 
 
- rlLogWarning "Environmentnomeets: NICs need $need, actual $have "
+    [ -z "$have" ] && have=0
 
 
- exit 0
 
 
- fi
+
+    if ! _hwCompare "$have" "$need" int; then
 
 
- rlLogInfo "hw: Net OK (have $have, need $need)"
+    echo "SKIP: need net count $need, have $have interfaces"
 
 
- return 0
+    rlLogWarning "Environmentnomeets: NICs need $need, actual $have "
+
+
+    exit 0
+
+
+    fi
+
+
+    rlLogInfo "hw: Net OK (have $have, need $need)"
+
+
+    return 0
 
 
 }
@@ -796,49 +796,49 @@ hwNetCheck() {
 hwVerify() {
 
 
- local fmf="${1:-main.fmf}"
+    local fmf="${1:-main.fmf}"
 
 
 
 
 
- # checkwhetherdeclared extra-hardware-require
+    # checkwhetherdeclared extra-hardware-require
 
 
- if ! grep -q "^extra-hardware-require:" "$fmf" 2>/dev/null; then
+    if ! grep -q "^extra-hardware-require:" "$fmf" 2>/dev/null; then
 
 
- return 0 # notdeclared, noneedcheck
+    return 0 # notdeclared, noneedcheck
 
 
- fi
+    fi
 
 
 
 
 
- rlLogInfo "===== Hardware environment check ====="
+    rlLogInfo "===== Hardware environment check ====="
 
 
- hwServerVerify "$fmf"
+    hwServerVerify "$fmf"
 
 
- hwCpuCheck "$fmf"
+    hwCpuCheck "$fmf"
 
 
- hwMemCheck "$fmf"
+    hwMemCheck "$fmf"
 
 
- hwDiskCheck "$fmf"
+    hwDiskCheck "$fmf"
 
 
- hwNetCheck "$fmf"
+    hwNetCheck "$fmf"
 
 
- rlLogInfo "===== Hardware environment checkpassed ====="
+    rlLogInfo "===== Hardware environment checkpassed ====="
 
 
- return 0
+    return 0
 
 
 }

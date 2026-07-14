@@ -14,56 +14,56 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeArchiveSetup
+    smokeArchiveSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlRun "mkdir pkg" 0 "createsoftdirectory"
+    rlRun "mkdir pkg" 0 "createsoftdirectory"
 
- rlRun "echo test > pkg/README" 0 "Create test file"
-
-
-
- rlPhaseEnd
+    rlRun "echo test > pkg/README" 0 "Create test file"
 
 
 
- rlPhaseStartTest "tar -czf createtar.gz"
-
- rlRun 'tar -czf pkg.tar.gz pkg' 0 "tar -czf createtar.gz"
-
- rlRun 'test -f pkg.tar.gz' 0 "tar.gz file exists"
-
- rlRun "mkdir out" 0 "createdecompressdirectory"
-
- rlRun "cd out" 0 "enterdecompressdirectory"
-
- rlRun 'tar -xzf../pkg.tar.gz' 0 "tar -xzf decompresstar.gz"
-
- rlRun 'test -f pkg/README' 0 "decompresscontentexists"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "tar -czf createtar.gz"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun 'tar -czf pkg.tar.gz pkg' 0 "tar -czf createtar.gz"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun 'test -f pkg.tar.gz' 0 "tar.gz file exists"
 
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    rlRun "mkdir out" 0 "createdecompressdirectory"
 
- fi
+    rlRun "cd out" 0 "enterdecompressdirectory"
 
- rlPhaseEnd
+    rlRun 'tar -xzf../pkg.tar.gz' 0 "tar -xzf decompresstar.gz"
+
+    rlRun 'test -f pkg/README' 0 "decompresscontentexists"
+
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

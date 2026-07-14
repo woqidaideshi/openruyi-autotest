@@ -6,20 +6,20 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeUserMgmtSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeUserMgmtSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "/etc/passwd file exists"
- rlRun 'test -f /etc/passwd' 0 "/etc/passwd file exists"
- rlRun 'test -f /etc/shadow' 0 "/etc/shadow file exists"
- rlRun 'cat /etc/passwd | head -3' 0 "/etc/passwd readable"
- rlPhaseEnd
+    rlPhaseStartTest "/etc/passwd file exists"
+    rlRun 'test -f /etc/passwd' 0 "/etc/passwd file exists"
+    rlRun 'test -f /etc/shadow' 0 "/etc/shadow file exists"
+    rlRun 'cat /etc/passwd | head -3' 0 "/etc/passwd readable"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

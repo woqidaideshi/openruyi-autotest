@@ -10,85 +10,85 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- stressNgSetup
+    stressNgSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- TAINT=$(_stressNgTaintBefore)
+    TAINT=$(_stressNgTaintBefore)
 
- mkdir -p "$TmpDir/io_test"
+    mkdir -p "$TmpDir/io_test"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "HDD stress (IO)"
-
- local log="$TmpDir/hdd.log"
-
- rlRun "stress-ng --hdd 2 --hdd-bytes 32M --temp-path $TmpDir/io_test --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--hdd 2"
-
- _stressNgValidate "$log" "hdd"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "AIO stress (IO)"
+    rlPhaseStartTest "HDD stress (IO)"
 
- # aio needs libaio supports, possiblesystemnot supported
+    local log="$TmpDir/hdd.log"
 
- local log="$TmpDir/aio.log"
+    rlRun "stress-ng --hdd 2 --hdd-bytes 32M --temp-path $TmpDir/io_test --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--hdd 2"
 
- stress-ng --aio 2 --timeout 20s --metrics-brief --log-file "$log" 2>&1 | tail -5
+    _stressNgValidate "$log" "hdd"
 
- if grep -q "successful run completed" "$log" 2>/dev/null; then
-
- _stressNgValidate "$log" "aio"
-
- else
-
- rlLogInfo "AIO stressor no by supports, skip (normal)"
-
- rlPass "AIO: skip (not supported)"
-
- fi
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "GETDENT stress (directory)"
+    rlPhaseStartTest "AIO stress (IO)"
 
- local log="$TmpDir/getdent.log"
+    # aio needs libaio supports, possiblesystemnot supported
 
- rlRun "stress-ng --getdent 2 --timeout 20s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--getdent 2"
+    local log="$TmpDir/aio.log"
 
- _stressNgValidate "$log" "getdent"
+    stress-ng --aio 2 --timeout 20s --metrics-brief --log-file "$log" 2>&1 | tail -5
 
- rlPhaseEnd
+    if grep -q "successful run completed" "$log" 2>/dev/null; then
+
+    _stressNgValidate "$log" "aio"
+
+    else
+
+    rlLogInfo "AIO stressor no by supports, skip (normal)"
+
+    rlPass "AIO: skip (not supported)"
+
+    fi
+
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "tainted"
+    rlPhaseStartTest "GETDENT stress (directory)"
 
- _stressNgTaintCheck "$TAINT"
+    local log="$TmpDir/getdent.log"
 
- rlPhaseEnd
+    rlRun "stress-ng --getdent 2 --timeout 20s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--getdent 2"
+
+    _stressNgValidate "$log" "getdent"
+
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "tainted"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    _stressNgTaintCheck "$TAINT"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

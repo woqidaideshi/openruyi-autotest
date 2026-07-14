@@ -26,29 +26,29 @@ SMOKE_SERVICE_MGMT_FLAG="/tmp/.beakerlib_smoke_service_mgmt_suite"
 
 smokeServiceMgmtSetup() {
 
- if [ ! -f "$SMOKE_SERVICE_MGMT_FLAG" ]; then
+    if [ ! -f "$SMOKE_SERVICE_MGMT_FLAG" ]; then
 
- echo "installed=0" > "$SMOKE_SERVICE_MGMT_FLAG"
+    echo "installed=0" > "$SMOKE_SERVICE_MGMT_FLAG"
 
- echo "ref=1" >> "$SMOKE_SERVICE_MGMT_FLAG"
+    echo "ref=1" >> "$SMOKE_SERVICE_MGMT_FLAG"
 
- rlLogInfo "smoke-service_mgmt: coreDependenciesalreadyconfirmavailable"
+    rlLogInfo "smoke-service_mgmt: coreDependenciesalreadyconfirmavailable"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_SERVICE_MGMT_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_SERVICE_MGMT_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SERVICE_MGMT_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SERVICE_MGMT_FLAG"
 
- rlLogInfo "smoke-service_mgmt already initialized by other tests, reference count: $ref"
+    rlLogInfo "smoke-service_mgmt already initialized by other tests, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "smokeServiceMgmtCleanup"
+    rlCleanupAppend "smokeServiceMgmtCleanup"
 
 }
 
@@ -56,31 +56,31 @@ smokeServiceMgmtSetup() {
 
 smokeServiceMgmtCleanup() {
 
- if [ ! -f "$SMOKE_SERVICE_MGMT_FLAG" ]; then
+    if [ ! -f "$SMOKE_SERVICE_MGMT_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_SERVICE_MGMT_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_SERVICE_MGMT_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$SMOKE_SERVICE_MGMT_FLAG"
+    rm -f "$SMOKE_SERVICE_MGMT_FLAG"
 
- rlLogInfo "smoke-service_mgmt: Cleanup complete (posttest)"
+    rlLogInfo "smoke-service_mgmt: Cleanup complete (posttest)"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SERVICE_MGMT_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_SERVICE_MGMT_FLAG"
 
- rlLogInfo "smoke-service_mgmt: Retain (still have $ref test(s) not completed)"
+    rlLogInfo "smoke-service_mgmt: Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

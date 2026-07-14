@@ -14,36 +14,36 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeTextProcessingSetup
+    smokeTextProcessingSetup
 
- rlRun "echo "a:b:c:d" | cut -d: -f1,3 | grep "a:c"" 0 "Prepare environment"
-
-
-
- rlPhaseEnd
+    rlRun "echo "a:b:c:d" | cut -d: -f1,3 | grep "a:c"" 0 "Prepare environment"
 
 
 
- rlPhaseStartTest "cut extract#one field"
-
- rlRun 'echo "user:x:1000" | cut -d: -f1' 0 "cut extract#one field"
-
- rlRun 'echo "hello" | cut -c1-3' 0 "cut "
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "cut extract#one field"
+
+    rlRun 'echo "user:x:1000" | cut -d: -f1' 0 "cut extract#one field"
+
+    rlRun 'echo "hello" | cut -c1-3' 0 "cut "
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

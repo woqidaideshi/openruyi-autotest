@@ -16,37 +16,37 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment Setup"
+    rlPhaseStartSetup "Environment Setup"
 
- openscapSetup
+    openscapSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter tmp dir"
+    rlRun "cd $TmpDir" 0 "Enter tmp dir"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "openscap - generate_fix"
-
- rlRun "_openscapGenerateFix" 0 "Run Generatescript"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "openscap - generate_fix"
 
- rlRun "cd /" 0 "Leave tmp dir"
+    rlRun "_openscapGenerateFix" 0 "Run Generatescript"
 
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean tmp"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 "Leave tmp dir"
+
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean tmp"
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

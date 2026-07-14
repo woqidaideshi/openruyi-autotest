@@ -10,17 +10,17 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- yarpgenSetup
+    yarpgenSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
 
 
- cat > vec.c << 'CEOF'
+    cat > vec.c << 'CEOF'
 
 #include <stdio.h>
 
@@ -66,81 +66,81 @@ int main(void){
 
 CEOF
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "GCC vectorization"
+    rlPhaseStartTest "GCC vectorization"
 
- # -O2 Default enabled -ftree-vectorize
+    # -O2 Default enabled -ftree-vectorize
 
- rlRun "gcc -O2 -o vec_gcc_O2 vec.c &&./vec_gcc_O2 | grep VEC_OK" 0 "GCC -O2 vectorizationcompile+run"
-
-
-
- # -O3 morevectorization
-
- rlRun "gcc -O3 -o vec_gcc_O3 vec.c &&./vec_gcc_O3 | grep VEC_OK" 0 "GCC -O3 vectorization"
+    rlRun "gcc -O2 -o vec_gcc_O2 vec.c &&./vec_gcc_O2 | grep VEC_OK" 0 "GCC -O2 vectorizationcompile+run"
 
 
 
- # disablevectorizationcomparison
+    # -O3 morevectorization
 
- rlRun "gcc -O2 -fno-tree-vectorize -o vec_gcc_novec vec.c &&./vec_gcc_novec | grep VEC_OK" 0 "GCC disablevectorizationstill correct"
-
-
-
- # vectorizationreport
-
- gcc -O2 -ftree-vectorize -fopt-info-vec -c vec.c -o /dev/null 2>/tmp/vec_report.txt
-
- if grep -qi "vectorized\|loop vectorized\|LOOP VECTORIZED" /tmp/vec_report.txt; then
-
- rlPass "GCC vectorizationreport: detect to vectorizationloop"
-
- rlRun "grep -i 'vectorized\|VECTORIZED' /tmp/vec_report.txt | head -5" 0 "vectorizationlooplist"
-
- else
-
- rlLogInfo "GCC notreportvectorization (possibleorformatdifferent)"
-
- fi
-
- rlPhaseEnd
+    rlRun "gcc -O3 -o vec_gcc_O3 vec.c &&./vec_gcc_O3 | grep VEC_OK" 0 "GCC -O3 vectorization"
 
 
 
- rlPhaseStartTest "Clang vectorization"
+    # disablevectorizationcomparison
 
- rlRun "clang -O2 -o vec_clang_O2 vec.c &&./vec_clang_O2 | grep VEC_OK" 0 "Clang -O2 vectorization"
-
- rlRun "clang -O3 -o vec_clang_O3 vec.c &&./vec_clang_O3 | grep VEC_OK" 0 "Clang -O3 vectorization"
-
- # Clang vectorizationreport
-
- clang -O2 -Rpass=loop-vectorize -c vec.c -o /dev/null 2>/tmp/vec_clang_report.txt
-
- if [ -s /tmp/vec_clang_report.txt ]; then
-
- rlPass "Clang vectorizationreport: hasoutput"
-
- rlRun "cat /tmp/vec_clang_report.txt | head -5" 0 "Clang vectorizationreport"
-
- fi
-
- rlPhaseEnd
+    rlRun "gcc -O2 -fno-tree-vectorize -o vec_gcc_novec vec.c &&./vec_gcc_novec | grep VEC_OK" 0 "GCC disablevectorizationstill correct"
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    # vectorizationreport
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    gcc -O2 -ftree-vectorize -fopt-info-vec -c vec.c -o /dev/null 2>/tmp/vec_report.txt
 
- rm -f /tmp/vec_{,clang_}report.txt
+    if grep -qi "vectorized\|loop vectorized\|LOOP VECTORIZED" /tmp/vec_report.txt; then
 
- rlPhaseEnd
+    rlPass "GCC vectorizationreport: detect to vectorizationloop"
 
- rlJournalPrintText
+    rlRun "grep -i 'vectorized\|VECTORIZED' /tmp/vec_report.txt | head -5" 0 "vectorizationlooplist"
+
+    else
+
+    rlLogInfo "GCC notreportvectorization (possibleorformatdifferent)"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartTest "Clang vectorization"
+
+    rlRun "clang -O2 -o vec_clang_O2 vec.c &&./vec_clang_O2 | grep VEC_OK" 0 "Clang -O2 vectorization"
+
+    rlRun "clang -O3 -o vec_clang_O3 vec.c &&./vec_clang_O3 | grep VEC_OK" 0 "Clang -O3 vectorization"
+
+    # Clang vectorizationreport
+
+    clang -O2 -Rpass=loop-vectorize -c vec.c -o /dev/null 2>/tmp/vec_clang_report.txt
+
+    if [ -s /tmp/vec_clang_report.txt ]; then
+
+    rlPass "Clang vectorizationreport: hasoutput"
+
+    rlRun "cat /tmp/vec_clang_report.txt | head -5" 0 "Clang vectorizationreport"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rm -f /tmp/vec_{,clang_}report.txt
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

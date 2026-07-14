@@ -14,34 +14,34 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeServiceMgmtSetup
-
-
-
- rlPhaseEnd
+    smokeServiceMgmtSetup
 
 
 
- rlPhaseStartTest "timedatectl timeStatus"
-
- rlRun 'timedatectl 2>&1 || true' 0 "timedatectl timeStatus"
-
- rlRun 'timedatectl list-timezones 2>&1 | head -3 || true' 0 "timedatectl list"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "timedatectl timeStatus"
+
+    rlRun 'timedatectl 2>&1 || true' 0 "timedatectl timeStatus"
+
+    rlRun 'timedatectl list-timezones 2>&1 | head -3 || true' 0 "timedatectl list"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

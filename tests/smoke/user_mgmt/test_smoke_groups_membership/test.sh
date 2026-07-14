@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeUserMgmtSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeUserMgmtSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "groups currentusergroup"
- rlRun 'groups' 0 "groups currentusergroup"
- rlRun 'groups root' 0 "groups rootusergroup"
- rlPhaseEnd
+    rlPhaseStartTest "groups currentusergroup"
+    rlRun 'groups' 0 "groups currentusergroup"
+    rlRun 'groups root' 0 "groups rootusergroup"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

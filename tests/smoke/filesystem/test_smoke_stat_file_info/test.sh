@@ -14,32 +14,32 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeFSSetup
+    smokeFSSetup
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "stat viewfileinfo"
-
- rlRun "stat /etc/os-release" 0 "stat viewfile"
-
- rlRun "stat -c '%s' /etc/os-release" 0 "stat format-izeoutputsize"
-
- rlRun "stat /" 0 "stat viewdirectory"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "stat viewfileinfo"
 
- rlPhaseEnd
+    rlRun "stat /etc/os-release" 0 "stat viewfile"
+
+    rlRun "stat -c '%s' /etc/os-release" 0 "stat format-izeoutputsize"
+
+    rlRun "stat /" 0 "stat viewdirectory"
+
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

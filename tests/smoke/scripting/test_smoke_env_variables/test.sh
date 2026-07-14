@@ -14,36 +14,36 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeScriptingSetup
-
-
-
- rlPhaseEnd
+    smokeScriptingSetup
 
 
 
- rlPhaseStartTest "env listexportenvironment variables"
-
- rlRun 'env | head -5' 0 "env listexportenvironment variables"
-
- rlRun 'echo $PATH | grep /bin' 0 "\$PATH contains /bin"
-
- rlRun 'echo $SHELL' 0 "\$SHELL defaultshell"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "env listexportenvironment variables"
+
+    rlRun 'env | head -5' 0 "env listexportenvironment variables"
+
+    rlRun 'echo $PATH | grep /bin' 0 "\$PATH contains /bin"
+
+    rlRun 'echo $SHELL' 0 "\$SHELL defaultshell"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

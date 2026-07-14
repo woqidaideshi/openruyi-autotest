@@ -32,51 +32,51 @@ ACL_FLAG="/tmp/.beakerlib_acl_suite"
 
 aclSetup() {
 
- if [ ! -f "$ACL_FLAG" ]; then
+    if [ ! -f "$ACL_FLAG" ]; then
 
- # First test to arrive: install if needed
+    # First test to arrive: install if needed
 
- if ! rpm -q acl 2>/dev/null; then
+    if ! rpm -q acl 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y acl 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y acl 2>/dev/null
 
- echo "installed=1" > "$ACL_FLAG"
+    echo "installed=1" > "$ACL_FLAG"
 
- rlLogInfo "already acl soft ()"
+    rlLogInfo "already acl soft ()"
 
- else
+    else
 
- echo "installed=0" > "$ACL_FLAG"
+    echo "installed=0" > "$ACL_FLAG"
 
- rlLogInfo "acl softalready exists"
+    rlLogInfo "acl softalready exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$ACL_FLAG"
+    echo "ref=1" >> "$ACL_FLAG"
 
- else
+    else
 
- # Subsequent tests: increment ref count, skip install
+    # Subsequent tests: increment ref count, skip install
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$ACL_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$ACL_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$ACL_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$ACL_FLAG"
 
- rlLogInfo "acl alreadybyothertest, reference count: $ref"
+    rlLogInfo "acl alreadybyothertest, reference count: $ref"
 
- fi
+    fi
 
 
 
- # Register cleanup -- runs at rlJournalEnd regardless of test failure
+    # Register cleanup -- runs at rlJournalEnd regardless of test failure
 
- # Ref-counting ensures only the LAST test actually uninstalls
+    # Ref-counting ensures only the LAST test actually uninstalls
 
- rlCleanupAppend "aclCleanup"
+    rlCleanupAppend "aclCleanup"
 
 }
 
@@ -84,43 +84,43 @@ aclSetup() {
 
 aclCleanup() {
 
- if [ ! -f "$ACL_FLAG" ]; then
+    if [ ! -f "$ACL_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
-
-
-
- local ref
-
- ref=$(grep "^ref=" "$ACL_FLAG" | cut -d= -f2)
-
- ref=$((ref - 1))
+    fi
 
 
 
- if [ "$ref" -le 0 ]; then
+    local ref
 
- # Last test to leave: uninstall if we installed
+    ref=$(grep "^ref=" "$ACL_FLAG" | cut -d= -f2)
 
- if grep -q "^installed=1" "$ACL_FLAG"; then
+    ref=$((ref - 1))
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y acl 2>/dev/null || true
 
- rlLogInfo "already acl soft (posttest)"
 
- fi
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$ACL_FLAG"
+    # Last test to leave: uninstall if we installed
 
- else
+    if grep -q "^installed=1" "$ACL_FLAG"; then
 
- sed -i "s/^ref=.*/ref=$ref/" "$ACL_FLAG"
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y acl 2>/dev/null || true
 
- rlLogInfo "acl Retain (still have $ref test(s) not completed)"
+    rlLogInfo "already acl soft (posttest)"
 
- fi
+    fi
+
+    rm -f "$ACL_FLAG"
+
+    else
+
+    sed -i "s/^ref=.*/ref=$ref/" "$ACL_FLAG"
+
+    rlLogInfo "acl Retain (still have $ref test(s) not completed)"
+
+    fi
 
 }
 

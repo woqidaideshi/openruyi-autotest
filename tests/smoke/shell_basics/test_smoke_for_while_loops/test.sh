@@ -6,20 +6,20 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeShellBasicsSetup
- rlRun "for i in 1 2 3; do echo $i; done | grep -q 2" 0 "Prepare environment"
- rlRun "n=0; while [ $n -lt 3 ]; do n=$((n+1)); done; test $n -eq 3" 0 "Prepare environment"
+    rlPhaseStartSetup "Environment setup"
+    smokeShellBasicsSetup
+    rlRun "for i in 1 2 3; do echo $i; done | grep -q 2" 0 "Prepare environment"
+    rlRun "n=0; while [ $n -lt 3 ]; do n=$((n+1)); done; test $n -eq 3" 0 "Prepare environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "for loop normal"
- rlRun 'echo ok' 0 "for loop normal"
- rlPhaseEnd
+    rlPhaseStartTest "for loop normal"
+    rlRun 'echo ok' 0 "for loop normal"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

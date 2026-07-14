@@ -6,20 +6,20 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeDevToolsSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeDevToolsSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "python3 available"
- rlRun 'which python3' 0 "python3 available"
- rlRun 'python3 --version' 0 "python3 version"
- rlRun 'python3 -c "print(1+1)"' 0 "python3 basic arithmetic"
- rlPhaseEnd
+    rlPhaseStartTest "python3 available"
+    rlRun 'which python3' 0 "python3 available"
+    rlRun 'python3 --version' 0 "python3 version"
+    rlRun 'python3 -c "print(1+1)"' 0 "python3 basic arithmetic"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

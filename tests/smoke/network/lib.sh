@@ -26,29 +26,29 @@ SMOKE_NETWORK_FLAG="/tmp/.beakerlib_smoke_network_suite"
 
 smokeNetworkSetup() {
 
- if [ ! -f "$SMOKE_NETWORK_FLAG" ]; then
+    if [ ! -f "$SMOKE_NETWORK_FLAG" ]; then
 
- echo "installed=0" > "$SMOKE_NETWORK_FLAG"
+    echo "installed=0" > "$SMOKE_NETWORK_FLAG"
 
- echo "ref=1" >> "$SMOKE_NETWORK_FLAG"
+    echo "ref=1" >> "$SMOKE_NETWORK_FLAG"
 
- rlLogInfo "smoke-network: coreDependenciesalreadyconfirmavailable"
+    rlLogInfo "smoke-network: coreDependenciesalreadyconfirmavailable"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_NETWORK_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_NETWORK_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_NETWORK_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_NETWORK_FLAG"
 
- rlLogInfo "smoke-network already initialized by other tests, reference count: $ref"
+    rlLogInfo "smoke-network already initialized by other tests, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "smokeNetworkCleanup"
+    rlCleanupAppend "smokeNetworkCleanup"
 
 }
 
@@ -56,31 +56,31 @@ smokeNetworkSetup() {
 
 smokeNetworkCleanup() {
 
- if [ ! -f "$SMOKE_NETWORK_FLAG" ]; then
+    if [ ! -f "$SMOKE_NETWORK_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_NETWORK_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_NETWORK_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$SMOKE_NETWORK_FLAG"
+    rm -f "$SMOKE_NETWORK_FLAG"
 
- rlLogInfo "smoke-network: Cleanup complete (posttest)"
+    rlLogInfo "smoke-network: Cleanup complete (posttest)"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_NETWORK_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_NETWORK_FLAG"
 
- rlLogInfo "smoke-network: Retain (still have $ref test(s) not completed)"
+    rlLogInfo "smoke-network: Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

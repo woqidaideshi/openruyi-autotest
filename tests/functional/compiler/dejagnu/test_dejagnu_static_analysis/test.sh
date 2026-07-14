@@ -10,19 +10,19 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- dejagnuSetup
+    dejagnuSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
 
 
- # normal code (analyzer noshould error)
+    # normal code (analyzer noshould error)
 
- cat > clean.c << 'CEOF'
+    cat > clean.c << 'CEOF'
 
 #include <stdio.h>
 
@@ -42,9 +42,9 @@ CEOF
 
 
 
- # hasinissue (double-free, use-after-free)
+    # hasinissue (double-free, use-after-free)
 
- cat > bug.c << 'CEOF'
+    cat > bug.c << 'CEOF'
 
 #include <stdlib.h>
 
@@ -56,85 +56,85 @@ int bug_leak(void){int*p=malloc(100);return 0;}
 
 CEOF
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "normal code zero warning"
+    rlPhaseStartTest "normal code zero warning"
 
- rlRun "gcc -fanalyzer -Wall -o analyze_clean clean.c 2>/tmp/analyzer_clean.txt" 0 "GCC -fanalyzer normal codecompile"
+    rlRun "gcc -fanalyzer -Wall -o analyze_clean clean.c 2>/tmp/analyzer_clean.txt" 0 "GCC -fanalyzer normal codecompile"
 
- if grep -qi "warning:\|error:" /tmp/analyzer_clean.txt; then
+    if grep -qi "warning:\|error:" /tmp/analyzer_clean.txt; then
 
- rlLogWarning "fanalyzer vsnormal codeproducedwarning"
+    rlLogWarning "fanalyzer vsnormal codeproducedwarning"
 
- rlRun "cat /tmp/analyzer_clean.txt" 0 "analyzer output"
+    rlRun "cat /tmp/analyzer_clean.txt" 0 "analyzer output"
 
- else
+    else
 
- rlPass "fanalyzer: normal codezero warnings"
+    rlPass "fanalyzer: normal codezero warnings"
 
- fi
+    fi
 
- rlRun "./analyze_clean | grep'sum=45'" 0 "normal coderunverify"
+    rlRun "./analyze_clean | grep'sum=45'" 0 "normal coderunverify"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "Bug code detection"
-
- rlRun "gcc -fanalyzer -c bug.c -o bug.o 2>/tmp/analyzer_bug.txt" 0 "GCC -fanalyzer bug compile"
-
- rlRun "cat /tmp/analyzer_bug.txt" 0 "analyzer bug detectoutput"
-
- # analyzer shouldexport double-free or use-after-free
-
- if grep -qi "double.*free\|use.after.*free\|leak" /tmp/analyzer_bug.txt; then
-
- rlPass "fanalyzer successexportmemoryissue"
-
- else
-
- rlLogWarning "fanalyzer notexportprememoryissue (possibleversionnot supported)"
-
- fi
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "Clang static analysis"
+    rlPhaseStartTest "Bug code detection"
 
- rlRun "clang --analyze clean.c 2>/tmp/clang_analyze.txt" 0 "Clang --analyze normal code"
+    rlRun "gcc -fanalyzer -c bug.c -o bug.o 2>/tmp/analyzer_bug.txt" 0 "GCC -fanalyzer bug compile"
 
- if grep -qi "warning:\|error:" /tmp/clang_analyze.txt; then
+    rlRun "cat /tmp/analyzer_bug.txt" 0 "analyzer bug detectoutput"
 
- rlLogWarning "Clang --analyze vsnormal codeproducedwarning"
+    # analyzer shouldexport double-free or use-after-free
 
- else
+    if grep -qi "double.*free\|use.after.*free\|leak" /tmp/analyzer_bug.txt; then
 
- rlPass "Clang --analyze: normal codezero warnings"
+    rlPass "fanalyzer successexportmemoryissue"
 
- fi
+    else
 
- rlRun "clang --analyze bug.c 2>/tmp/clang_analyze_bug.txt" 0 "Clang --analyze bug "
+    rlLogWarning "fanalyzer notexportprememoryissue (possibleversionnot supported)"
 
- grep -qi "warning:" /tmp/clang_analyze_bug.txt && rlPass "Clang --analyze exportissue" || rlLogInfo "Clang notexport"
+    fi
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "Clang static analysis"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "clang --analyze clean.c 2>/tmp/clang_analyze.txt" 0 "Clang --analyze normal code"
 
- rm -f /tmp/{analyzer,clang_analyze}{_clean,_bug}.txt
+    if grep -qi "warning:\|error:" /tmp/clang_analyze.txt; then
 
- rlPhaseEnd
+    rlLogWarning "Clang --analyze vsnormal codeproducedwarning"
 
- rlJournalPrintText
+    else
+
+    rlPass "Clang --analyze: normal codezero warnings"
+
+    fi
+
+    rlRun "clang --analyze bug.c 2>/tmp/clang_analyze_bug.txt" 0 "Clang --analyze bug "
+
+    grep -qi "warning:" /tmp/clang_analyze_bug.txt && rlPass "Clang --analyze exportissue" || rlLogInfo "Clang notexport"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rm -f /tmp/{analyzer,clang_analyze}{_clean,_bug}.txt
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

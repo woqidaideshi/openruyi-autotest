@@ -16,47 +16,47 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- whichSetup
+    whichSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "error handling"
+    rlPhaseStartTest "error handling"
 
 rlRun() { eval "$1" 2>&1; return $?; }
 
- rlRun "which --help 2>&1 | head -10" 0 "Locate command path"
+    rlRun "which --help 2>&1 | head -10" 0 "Locate command path"
 
- rlPhaseEnd
-
-
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
-
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # which Package managed by lib.sh 's reference counting auto-uninstall
-
- rlPhaseEnd
 
 
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlJournalPrintText
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # which Package managed by lib.sh 's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

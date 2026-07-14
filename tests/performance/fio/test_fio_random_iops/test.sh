@@ -10,103 +10,103 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- fioSetup
+    fioSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "random read IOPS (different block sizes)"
-
- local testfile="$TmpDir/randread.dat"
-
- dd if=/dev/zero of="$testfile" bs=1M count=256 2>/dev/null
+    rlPhaseEnd
 
 
 
- for bs in 4 16 32 64; do
+    rlPhaseStartTest "random read IOPS (different block sizes)"
 
- _fioDropCaches
+    local testfile="$TmpDir/randread.dat"
 
- local log="$TmpDir/randread_${bs}k.log"
-
- rlLogInfo "=== random read BS=${bs}K ==="
-
- fio --name=randread_${bs}k --filename="$testfile" --direct=1 \
-
- --rw=randread --bs=${bs}k --size=128M --numjobs=4 --iodepth=16 \
-
- --ioengine=libaio --runtime=20 --thread --group_reporting 2>&1 | tee "$log"
+    dd if=/dev/zero of="$testfile" bs=1M count=256 2>/dev/null
 
 
 
- local iops bw
+    for bs in 4 16 32 64; do
 
- iops=$(grep "read:" "$log" | grep -oP 'IOPS=\K[\d.]+k?' | head -1)
+    _fioDropCaches
 
- bw=$(grep "READ:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
+    local log="$TmpDir/randread_${bs}k.log"
 
- echo " BS=${bs}K: IOPS=${iops}, BW=${bw}"
+    rlLogInfo "=== random read BS=${bs}K ==="
 
- if [ -n "$iops" ]; then rlPass "random read BS=${bs}K: IOPS=${iops}"; fi
+    fio --name=randread_${bs}k --filename="$testfile" --direct=1 \
 
- done
+    --rw=randread --bs=${bs}k --size=128M --numjobs=4 --iodepth=16 \
 
- rm -f "$testfile"
-
- rlPhaseEnd
+    --ioengine=libaio --runtime=20 --thread --group_reporting 2>&1 | tee "$log"
 
 
 
- rlPhaseStartTest "randomwrite IOPS (different block sizes)"
+    local iops bw
 
- for bs in 4 16 32 64; do
+    iops=$(grep "read:" "$log" | grep -oP 'IOPS=\K[\d.]+k?' | head -1)
 
- _fioDropCaches
+    bw=$(grep "READ:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
 
- local log="$TmpDir/randwrite_${bs}k.log"
+    echo " BS=${bs}K: IOPS=${iops}, BW=${bw}"
 
- rlLogInfo "=== randomwrite BS=${bs}K ==="
+    if [ -n "$iops" ]; then rlPass "random read BS=${bs}K: IOPS=${iops}"; fi
 
- fio --name=randwrite_${bs}k --filename="$TmpDir/randwrite_${bs}k.dat" --direct=1 \
+    done
 
- --rw=randwrite --bs=${bs}k --size=128M --numjobs=4 --iodepth=16 \
+    rm -f "$testfile"
 
- --ioengine=libaio --runtime=20 --thread --group_reporting 2>&1 | tee "$log"
-
-
-
- local iops bw
-
- iops=$(grep "write:" "$log" | grep -oP 'IOPS=\K[\d.]+k?' | head -1)
-
- bw=$(grep "WRITE:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
-
- echo " BS=${bs}K: IOPS=${iops}, BW=${bw}"
-
- if [ -n "$iops" ]; then rlPass "randomwrite BS=${bs}K: IOPS=${iops}"; fi
-
- rm -f "$TmpDir/randwrite_${bs}k.dat"
-
- done
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "randomwrite IOPS (different block sizes)"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    for bs in 4 16 32 64; do
 
- rlPhaseEnd
+    _fioDropCaches
 
- rlJournalPrintText
+    local log="$TmpDir/randwrite_${bs}k.log"
+
+    rlLogInfo "=== randomwrite BS=${bs}K ==="
+
+    fio --name=randwrite_${bs}k --filename="$TmpDir/randwrite_${bs}k.dat" --direct=1 \
+
+    --rw=randwrite --bs=${bs}k --size=128M --numjobs=4 --iodepth=16 \
+
+    --ioengine=libaio --runtime=20 --thread --group_reporting 2>&1 | tee "$log"
+
+
+
+    local iops bw
+
+    iops=$(grep "write:" "$log" | grep -oP 'IOPS=\K[\d.]+k?' | head -1)
+
+    bw=$(grep "WRITE:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
+
+    echo " BS=${bs}K: IOPS=${iops}, BW=${bw}"
+
+    if [ -n "$iops" ]; then rlPass "randomwrite BS=${bs}K: IOPS=${iops}"; fi
+
+    rm -f "$TmpDir/randwrite_${bs}k.dat"
+
+    done
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

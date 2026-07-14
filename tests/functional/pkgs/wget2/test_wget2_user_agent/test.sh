@@ -16,47 +16,47 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- wget2Setup
+    wget2Setup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "User-agent"
-
- rlRun "wget2 --user-agent=TestBot/2.0 --version 2>&1 | grep -q Wget" 0 "wget2 --user-agent Option available"
-
- rlRun "wget2 -U TestBot/2.0 --version 2>&1 | grep -q Wget" 0 "wget2 -U writeOption available"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "User-agent"
 
+    rlRun "wget2 --user-agent=TestBot/2.0 --version 2>&1 | grep -q Wget" 0 "wget2 --user-agent Option available"
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "wget2 -U TestBot/2.0 --version 2>&1 | grep -q Wget" 0 "wget2 -U writeOption available"
 
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # wget2 Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # wget2 Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

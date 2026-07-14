@@ -20,191 +20,191 @@ YARPGEN_BIN="/tmp/yarpgen/build/yarpgen"
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- yarpgenSetup
+    yarpgenSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
-
- 
-
- if [ ! -x "$YARPGEN_BIN" ]; then
-
- rlFail "yarpgen executablenoavailable"
-
- else
-
- # Generate random C++ program
-
- rlRun "$YARPGEN_BIN 2>&1" 0 "Generate random C++ program"
-
- for f in init.h func.cpp driver.cpp; do
-
- rlAssertExists "$f"
-
- done
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
  
 
- # displayGeneratelinescount
+    if [ ! -x "$YARPGEN_BIN" ]; then
 
- rlRun "wc -l init.h func.cpp driver.cpp" 0 "Generatelinescountcount"
+    rlFail "yarpgen executablenoavailable"
 
- fi
+    else
 
- rlPhaseEnd
+    # Generate random C++ program
 
+    rlRun "$YARPGEN_BIN 2>&1" 0 "Generate random C++ program"
 
+    for f in init.h func.cpp driver.cpp; do
 
- rlPhaseStartTest "G++ compile"
+    rlAssertExists "$f"
 
- if [ ! -f "func.cpp" ]; then
-
- rlFail "filedoes not exist, skip"
-
- else
-
- # G++ -O0
-
- rlRun "g++ -fPIC func.cpp driver.cpp -o yarpgen_gxx_O0 -O0 2>/tmp/yarpgen_gxx_O0_err.txt" 0 "G++ -O0 compile"
-
- if [ -x./yarpgen_gxx_O0 ]; then
-
- rlRun "file./yarpgen_gxx_O0 | grep -i elf" 0 "G++ -O0 Output is ELF"
-
- local warn_O0
-
- warn_O0=$(grep -c "warning:" /tmp/yarpgen_gxx_O0_err.txt 2>/dev/null || echo 0)
-
- rlLogInfo "G++ -O0 warning count: $warn_O0"
-
- fi
+    done
 
  
 
- # G++ -O2
+    # displayGeneratelinescount
 
- rlRun "g++ -fPIC func.cpp driver.cpp -o yarpgen_gxx_O2 -O2 2>/tmp/yarpgen_gxx_O2_err.txt" 0 "G++ -O2 compile"
+    rlRun "wc -l init.h func.cpp driver.cpp" 0 "Generatelinescountcount"
 
- if [ -x./yarpgen_gxx_O2 ]; then
+    fi
 
- rlPass "G++ -O2 Compile succeeded"
-
- local warn_O2
-
- warn_O2=$(grep -c "warning:" /tmp/yarpgen_gxx_O2_err.txt 2>/dev/null || echo 0)
-
- rlLogInfo "G++ -O2 warning count: $warn_O2"
-
- 
-
- # displayoptimizationwarningdiff
-
- rlRun "grep 'warning:' /tmp/yarpgen_gxx_O2_err.txt | head -10" 0 "G++ -O2 warning (before 10)"
-
- fi
-
- 
-
- # G++ -O3
-
- rlRun "g++ -fPIC func.cpp driver.cpp -o yarpgen_gxx_O3 -O3 2>/tmp/yarpgen_gxx_O3_err.txt" 0 "G++ -O3 compile"
-
- if [ -x./yarpgen_gxx_O3 ]; then
-
- rlPass "G++ -O3 Compile succeeded"
-
- local warn_O3
-
- warn_O3=$(grep -c "warning:" /tmp/yarpgen_gxx_O3_err.txt 2>/dev/null || echo 0)
-
- rlLogInfo "G++ -O3 warning count: $warn_O3"
-
- fi
-
- fi
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "Clang compile"
+    rlPhaseStartTest "G++ compile"
 
- if [ ! -f "func.cpp" ]; then
+    if [ ! -f "func.cpp" ]; then
 
- rlFail "filedoes not exist, skip"
+    rlFail "filedoes not exist, skip"
 
- else
+    else
 
- # Clang -O0
+    # G++ -O0
 
- rlRun "clang++ -fPIC func.cpp driver.cpp -o yarpgen_clang_O0 -O0 2>/tmp/yarpgen_clang_O0_err.txt" 0 "Clang -O0 compile"
+    rlRun "g++ -fPIC func.cpp driver.cpp -o yarpgen_gxx_O0 -O0 2>/tmp/yarpgen_gxx_O0_err.txt" 0 "G++ -O0 compile"
 
- if [ -x./yarpgen_clang_O0 ]; then
+    if [ -x./yarpgen_gxx_O0 ]; then
 
- rlRun "file./yarpgen_clang_O0 | grep -i elf" 0 "Clang -O0 Output is ELF"
+    rlRun "file./yarpgen_gxx_O0 | grep -i elf" 0 "G++ -O0 Output is ELF"
 
- fi
+    local warn_O0
+
+    warn_O0=$(grep -c "warning:" /tmp/yarpgen_gxx_O0_err.txt 2>/dev/null || echo 0)
+
+    rlLogInfo "G++ -O0 warning count: $warn_O0"
+
+    fi
 
  
 
- # Clang -O2
+    # G++ -O2
 
- rlRun "clang++ -fPIC func.cpp driver.cpp -o yarpgen_clang_O2 -O2 2>/tmp/yarpgen_clang_O2_err.txt" 0 "Clang -O2 compile"
+    rlRun "g++ -fPIC func.cpp driver.cpp -o yarpgen_gxx_O2 -O2 2>/tmp/yarpgen_gxx_O2_err.txt" 0 "G++ -O2 compile"
 
- if [ -x./yarpgen_clang_O2 ]; then
+    if [ -x./yarpgen_gxx_O2 ]; then
 
- rlPass "Clang -O2 Compile succeeded"
+    rlPass "G++ -O2 Compile succeeded"
 
- local warn_O2
+    local warn_O2
 
- warn_O2=$(grep -c "warning:" /tmp/yarpgen_clang_O2_err.txt 2>/dev/null || echo 0)
+    warn_O2=$(grep -c "warning:" /tmp/yarpgen_gxx_O2_err.txt 2>/dev/null || echo 0)
 
- rlLogInfo "Clang -O2 warning count: $warn_O2"
-
- rlRun "grep 'warning:' /tmp/yarpgen_clang_O2_err.txt | head -10" 0 "Clang -O2 warning (before 10)"
-
- fi
+    rlLogInfo "G++ -O2 warning count: $warn_O2"
 
  
 
- # Clang -O3
+    # displayoptimizationwarningdiff
 
- rlRun "clang++ -fPIC func.cpp driver.cpp -o yarpgen_clang_O3 -O3 2>/tmp/yarpgen_clang_O3_err.txt" 0 "Clang -O3 compile"
+    rlRun "grep 'warning:' /tmp/yarpgen_gxx_O2_err.txt | head -10" 0 "G++ -O2 warning (before 10)"
 
- if [ -x./yarpgen_clang_O3 ]; then
+    fi
 
- rlPass "Clang -O3 Compile succeeded"
+ 
 
- local warn_O3
+    # G++ -O3
 
- warn_O3=$(grep -c "warning:" /tmp/yarpgen_clang_O3_err.txt 2>/dev/null || echo 0)
+    rlRun "g++ -fPIC func.cpp driver.cpp -o yarpgen_gxx_O3 -O3 2>/tmp/yarpgen_gxx_O3_err.txt" 0 "G++ -O3 compile"
 
- rlLogInfo "Clang -O3 warning count: $warn_O3"
+    if [ -x./yarpgen_gxx_O3 ]; then
 
- fi
+    rlPass "G++ -O3 Compile succeeded"
 
- fi
+    local warn_O3
 
- rlPhaseEnd
+    warn_O3=$(grep -c "warning:" /tmp/yarpgen_gxx_O3_err.txt 2>/dev/null || echo 0)
 
+    rlLogInfo "G++ -O3 warning count: $warn_O3"
 
+    fi
 
- rlPhaseStartCleanup "Cleanup"
+    fi
 
- rlRun "cd /" 0 "Leave temporary directory"
-
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
-
- rm -f /tmp/yarpgen_{gxx,clang}_O?_err.txt
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartTest "Clang compile"
+
+    if [ ! -f "func.cpp" ]; then
+
+    rlFail "filedoes not exist, skip"
+
+    else
+
+    # Clang -O0
+
+    rlRun "clang++ -fPIC func.cpp driver.cpp -o yarpgen_clang_O0 -O0 2>/tmp/yarpgen_clang_O0_err.txt" 0 "Clang -O0 compile"
+
+    if [ -x./yarpgen_clang_O0 ]; then
+
+    rlRun "file./yarpgen_clang_O0 | grep -i elf" 0 "Clang -O0 Output is ELF"
+
+    fi
+
+ 
+
+    # Clang -O2
+
+    rlRun "clang++ -fPIC func.cpp driver.cpp -o yarpgen_clang_O2 -O2 2>/tmp/yarpgen_clang_O2_err.txt" 0 "Clang -O2 compile"
+
+    if [ -x./yarpgen_clang_O2 ]; then
+
+    rlPass "Clang -O2 Compile succeeded"
+
+    local warn_O2
+
+    warn_O2=$(grep -c "warning:" /tmp/yarpgen_clang_O2_err.txt 2>/dev/null || echo 0)
+
+    rlLogInfo "Clang -O2 warning count: $warn_O2"
+
+    rlRun "grep 'warning:' /tmp/yarpgen_clang_O2_err.txt | head -10" 0 "Clang -O2 warning (before 10)"
+
+    fi
+
+ 
+
+    # Clang -O3
+
+    rlRun "clang++ -fPIC func.cpp driver.cpp -o yarpgen_clang_O3 -O3 2>/tmp/yarpgen_clang_O3_err.txt" 0 "Clang -O3 compile"
+
+    if [ -x./yarpgen_clang_O3 ]; then
+
+    rlPass "Clang -O3 Compile succeeded"
+
+    local warn_O3
+
+    warn_O3=$(grep -c "warning:" /tmp/yarpgen_clang_O3_err.txt 2>/dev/null || echo 0)
+
+    rlLogInfo "Clang -O3 warning count: $warn_O3"
+
+    fi
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 "Leave temporary directory"
+
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
+
+    rm -f /tmp/yarpgen_{gxx,clang}_O?_err.txt
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

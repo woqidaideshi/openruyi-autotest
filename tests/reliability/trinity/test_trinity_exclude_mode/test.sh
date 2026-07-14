@@ -14,113 +14,113 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- trinitySetup
+    trinitySetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- TAINT_BEFORE=$(_trinityTaintBefore)
+    TAINT_BEFORE=$(_trinityTaintBefore)
 
- chmod 777 "$TmpDir"
-
-
-
- # exclude syscall list
-
- DANGEROUS="reboot shutdown init_module delete_module mount umount2 mknod swapon swapoff ioperm iopl kexec_load kexec_file_load"
-
- rlLogInfo "exclude syscall: $DANGEROUS"
-
- rlPhaseEnd
+    chmod 777 "$TmpDir"
 
 
 
- rlPhaseStartTest "excludeall syscall"
+    # exclude syscall list
 
- local log="$TmpDir/trinity_exclude.log"
+    DANGEROUS="reboot shutdown init_module delete_module mount umount2 mknod swapon swapoff ioperm iopl kexec_load kexec_file_load"
 
- # build -x parameter
+    rlLogInfo "exclude syscall: $DANGEROUS"
 
- local exclude_args=""
-
- for call in $DANGEROUS; do
-
- exclude_args="$exclude_args -x $call"
-
- done
+    rlPhaseEnd
 
 
 
- timeout 45 sudo -u "$TRINITY_USER" trinity -q $exclude_args -N 20000 > "$log" 2>&1
+    rlPhaseStartTest "excludeall syscall"
 
- local rc=$?
+    local log="$TmpDir/trinity_exclude.log"
 
+    # build -x parameter
 
+    local exclude_args=""
 
- rlLogInfo "excludemodeexit code: $rc"
+    for call in $DANGEROUS; do
 
+    exclude_args="$exclude_args -x $call"
 
-
- if [ "$rc" -eq 0 ] || [ "$rc" -eq 124 ]; then
-
- rlPass "excludecallwithpost Trinity normalrun"
-
- else
-
- rlLogWarning "excludemodeException: $rc"
-
- fi
+    done
 
 
 
- # verifyexcludecallwithnotexport
+    timeout 45 sudo -u "$TRINITY_USER" trinity -q $exclude_args -N 20000 > "$log" 2>&1
 
- local leak=0
-
- for call in $DANGEROUS; do
-
- if grep -qiw "$call" "$log" 2>/dev/null; then
-
- rlLogWarning "exclude: $call"
-
- leak=1
-
- fi
-
- done
-
- if [ "$leak" -eq 0 ]; then
-
- rlPass "all syscall successexclude"
-
- fi
+    local rc=$?
 
 
 
- _trinityCheckOutput "$log"
-
- rlPhaseEnd
+    rlLogInfo "excludemodeexit code: $rc"
 
 
 
- rlPhaseStartTest "tainted check"
+    if [ "$rc" -eq 0 ] || [ "$rc" -eq 124 ]; then
 
- _trinityTaintCheck "$TAINT_BEFORE"
+    rlPass "excludecallwithpost Trinity normalrun"
 
- rlPhaseEnd
+    else
+
+    rlLogWarning "excludemodeException: $rc"
+
+    fi
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    # verifyexcludecallwithnotexport
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    local leak=0
 
- rlPhaseEnd
+    for call in $DANGEROUS; do
 
- rlJournalPrintText
+    if grep -qiw "$call" "$log" 2>/dev/null; then
+
+    rlLogWarning "exclude: $call"
+
+    leak=1
+
+    fi
+
+    done
+
+    if [ "$leak" -eq 0 ]; then
+
+    rlPass "all syscall successexclude"
+
+    fi
+
+
+
+    _trinityCheckOutput "$log"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartTest "tainted check"
+
+    _trinityTaintCheck "$TAINT_BEFORE"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

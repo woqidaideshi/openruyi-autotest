@@ -14,36 +14,36 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeTextProcessingSetup
-
-
-
- rlPhaseEnd
+    smokeTextProcessingSetup
 
 
 
- rlPhaseStartTest "tr case conversion"
-
- rlRun 'echo "HELLO" | tr "A-Z" "a-z"' 0 "tr case conversion"
-
- rlRun 'echo "a b c" | tr -d " "' 0 "tr -d deletespaces"
-
- rlRun 'echo "a b c" | tr -s " "' 0 "tr -s compressspaces"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "tr case conversion"
+
+    rlRun 'echo "HELLO" | tr "A-Z" "a-z"' 0 "tr case conversion"
+
+    rlRun 'echo "a b c" | tr -d " "' 0 "tr -d deletespaces"
+
+    rlRun 'echo "a b c" | tr -s " "' 0 "tr -s compressspaces"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

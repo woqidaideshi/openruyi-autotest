@@ -6,20 +6,20 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeNetworkSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeNetworkSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "ip addr networkInterface"
- rlRun 'ip addr show' 0 "ip addr networkInterface"
- rlRun 'ip link show' 0 "ip link "
- rlRun 'ip route show' 0 "ip route bytable"
- rlPhaseEnd
+    rlPhaseStartTest "ip addr networkInterface"
+    rlRun 'ip addr show' 0 "ip addr networkInterface"
+    rlRun 'ip link show' 0 "ip link "
+    rlRun 'ip route show' 0 "ip route bytable"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

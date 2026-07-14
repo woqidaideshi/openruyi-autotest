@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- gnutlsSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    gnutlsSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "certtool"
- rlRun "TmpDir=$(mktemp -d)" 0 "error handlingʱĿ¼"
- rlRun "cd $TmpDir" 0 "error handlingdirectory"
- rlRun "certtool --generate-privkey --outfile key.pem 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "˽Կ"
- rlPhaseEnd
+    rlPhaseStartTest "certtool"
+    rlRun "TmpDir=$(mktemp -d)" 0 "error handlingʱĿ¼"
+    rlRun "cd $TmpDir" 0 "error handlingdirectory"
+    rlRun "certtool --generate-privkey --outfile key.pem 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "˽Կ"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # gnutls Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # gnutls Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

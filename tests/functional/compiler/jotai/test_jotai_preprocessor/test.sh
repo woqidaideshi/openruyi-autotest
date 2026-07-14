@@ -10,17 +10,17 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- jotaiSetup
+    jotaiSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
 
 
- cat > pp.c << 'CEOF'
+    cat > pp.c << 'CEOF'
 
 #include <stdio.h>
 
@@ -48,11 +48,11 @@ printf("PP_OK\n");return 0;}
 
 CEOF
 
- mkdir -p inc; echo '#define HDR 1' > inc/inc.h
+    mkdir -p inc; echo '#define HDR 1' > inc/inc.h
 
 
 
- cat > mac.c << 'CEOF'
+    cat > mac.c << 'CEOF'
 
 #include <stdio.h>
 
@@ -72,53 +72,53 @@ printf("MACRO_OK\n");return 0;}
 
 CEOF
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "GCC preprocessing"
+    rlPhaseStartTest "GCC preprocessing"
 
- rlRun "gcc -E pp.c 2>/dev/null | grep -q main" 0 "GCC -E preprocessing"
+    rlRun "gcc -E pp.c 2>/dev/null | grep -q main" 0 "GCC -E preprocessing"
 
- rlRun "gcc -DVER=\\\"2.0\\\" -DHAVE_FEAT -Iinc -o pp_gcc pp.c &&./pp_gcc|tee /tmp/pp_gcc.txt" 0 "GCC -D/-I"
+    rlRun "gcc -DVER=\\\"2.0\\\" -DHAVE_FEAT -Iinc -o pp_gcc pp.c &&./pp_gcc|tee /tmp/pp_gcc.txt" 0 "GCC -D/-I"
 
- grep -q "VER=2.0" /tmp/pp_gcc.txt && rlPass "VER macrocorrect"
+    grep -q "VER=2.0" /tmp/pp_gcc.txt && rlPass "VER macrocorrect"
 
- grep -q "FEAT=1" /tmp/pp_gcc.txt && rlPass "HAVE_FEAT compile"
+    grep -q "FEAT=1" /tmp/pp_gcc.txt && rlPass "HAVE_FEAT compile"
 
- rlRun "gcc -o mac_gcc mac.c &&./mac_gcc|tee /tmp/mac_gcc.txt" 0 "GCC macrotest"
+    rlRun "gcc -o mac_gcc mac.c &&./mac_gcc|tee /tmp/mac_gcc.txt" 0 "GCC macrotest"
 
- grep -q "S=hello" /tmp/mac_gcc.txt && rlPass "# "
+    grep -q "S=hello" /tmp/mac_gcc.txt && rlPass "# "
 
- grep -q "C=100" /tmp/mac_gcc.txt && rlPass "## connection"
+    grep -q "C=100" /tmp/mac_gcc.txt && rlPass "## connection"
 
- grep -q "SQ=25" /tmp/mac_gcc.txt && rlPass "macroat begin"
+    grep -q "SQ=25" /tmp/mac_gcc.txt && rlPass "macroat begin"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "Clang preprocessing"
-
- rlRun "clang -E pp.c 2>/dev/null | grep -q main" 0 "Clang -E"
-
- rlRun "clang -DVER=\\\"2.0\\\" -DHAVE_FEAT -Iinc -o pp_clang pp.c &&./pp_clang | grep PP_OK" 0 "Clang -D/-I"
-
- rlRun "clang -o mac_clang mac.c &&./mac_clang | grep MACRO_OK" 0 "Clang macro"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "Clang preprocessing"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "clang -E pp.c 2>/dev/null | grep -q main" 0 "Clang -E"
 
- rm -f /tmp/{pp,mac}_gcc.txt
+    rlRun "clang -DVER=\\\"2.0\\\" -DHAVE_FEAT -Iinc -o pp_clang pp.c &&./pp_clang | grep PP_OK" 0 "Clang -D/-I"
 
- rlPhaseEnd
+    rlRun "clang -o mac_clang mac.c &&./mac_clang | grep MACRO_OK" 0 "Clang macro"
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rm -f /tmp/{pp,mac}_gcc.txt
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

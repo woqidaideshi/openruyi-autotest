@@ -24,41 +24,41 @@ NMAP_FLAG="/tmp/.beakerlib_nmap_suite"
 
 nmapSetup() {
 
- if [ ! -f "$NMAP_FLAG" ]; then
+    if [ ! -f "$NMAP_FLAG" ]; then
 
- if ! rpm -q nmap 2>/dev/null; then
+    if ! rpm -q nmap 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y nmap 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y nmap 2>/dev/null
 
- echo "installed=1" > "$NMAP_FLAG"
+    echo "installed=1" > "$NMAP_FLAG"
 
- rlLogInfo "already nmap soft ()"
+    rlLogInfo "already nmap soft ()"
 
- else
+    else
 
- echo "installed=0" > "$NMAP_FLAG"
+    echo "installed=0" > "$NMAP_FLAG"
 
- rlLogInfo "nmap softalready exists"
+    rlLogInfo "nmap softalready exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$NMAP_FLAG"
+    echo "ref=1" >> "$NMAP_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$NMAP_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$NMAP_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$NMAP_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$NMAP_FLAG"
 
- rlLogInfo "nmap alreadybyothertest, reference count: $ref"
+    rlLogInfo "nmap alreadybyothertest, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "nmapCleanup"
+    rlCleanupAppend "nmapCleanup"
 
 }
 
@@ -66,36 +66,36 @@ nmapSetup() {
 
 nmapCleanup() {
 
- if [ ! -f "$NMAP_FLAG" ]; then
+    if [ ! -f "$NMAP_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$NMAP_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$NMAP_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- if grep -q "^installed=1" "$NMAP_FLAG"; then
+    if grep -q "^installed=1" "$NMAP_FLAG"; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y nmap 2>/dev/null || true
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y nmap 2>/dev/null || true
 
- rlLogInfo "already nmap soft (posttest)"
+    rlLogInfo "already nmap soft (posttest)"
 
- fi
+    fi
 
- rm -f "$NMAP_FLAG"
+    rm -f "$NMAP_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$NMAP_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$NMAP_FLAG"
 
- rlLogInfo "nmap Retain (still have $ref test(s) not completed)"
+    rlLogInfo "nmap Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }

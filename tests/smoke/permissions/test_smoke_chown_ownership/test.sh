@@ -14,46 +14,46 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokePermissionsSetup
+    smokePermissionsSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlRun "touch own.txt" 0 "Create test data"
-
-
-
- rlPhaseEnd
+    rlRun "touch own.txt" 0 "Create test data"
 
 
 
- rlPhaseStartTest "chown setall"
-
- rlRun 'chown $(whoami) own.txt' 0 "chown setall"
-
- rlRun 'test -O own.txt' 0 "fileincurrentuser"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "chown setall"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun 'chown $(whoami) own.txt' 0 "chown setall"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun 'test -O own.txt' 0 "fileincurrentuser"
 
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

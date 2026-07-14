@@ -7,27 +7,27 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- systemdSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    systemdSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "systemd-path"
- rlRun "systemd-path" 0 "systemd-path: all paths"
- rlRun "systemd-path systemd-system-config" 0 "systemd-path: specific path"
- rlRun "systemd-path --suffix=test search-bin" 0 "systemd-path --suffix"
- rlRun "systemd-path --help 2>&1 | head -3" 0 "systemd-path help"
- rlPhaseEnd
+    rlPhaseStartTest "systemd-path"
+    rlRun "systemd-path" 0 "systemd-path: all paths"
+    rlRun "systemd-path systemd-system-config" 0 "systemd-path: specific path"
+    rlRun "systemd-path --suffix=test search-bin" 0 "systemd-path --suffix"
+    rlRun "systemd-path --help 2>&1 | head -3" 0 "systemd-path help"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # systemd Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # systemd Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

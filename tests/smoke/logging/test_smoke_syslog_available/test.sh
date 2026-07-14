@@ -14,34 +14,34 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeLoggingSetup
-
-
-
- rlPhaseEnd
+    smokeLoggingSetup
 
 
 
- rlPhaseStartTest "logger writelog"
-
- rlRun 'logger -t smoke_test "smoke test log message"' 0 "logger writelog"
-
- rlRun 'journalctl -t smoke_test --no-pager -n 1 2>&1 || true' 0 "journalctl testlog"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "logger writelog"
+
+    rlRun 'logger -t smoke_test "smoke test log message"' 0 "logger writelog"
+
+    rlRun 'journalctl -t smoke_test --no-pager -n 1 2>&1 || true' 0 "journalctl testlog"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

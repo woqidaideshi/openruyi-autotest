@@ -10,17 +10,17 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- jotaiSetup
+    jotaiSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
 
 
- cat > inline.c << 'CEOF'
+    cat > inline.c << 'CEOF'
 
 #include <stdio.h>
 
@@ -60,53 +60,53 @@ int main(void){
 
 CEOF
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "GCC inline"
+    rlPhaseStartTest "GCC inline"
 
- # -finline-functions (default -O2)
+    # -finline-functions (default -O2)
 
- rlRun "gcc -O2 -finline-functions -o inline_gcc_O2 inline.c &&./inline_gcc_O2 | grep inline_ok" 0 "GCC -O2 -finline-functions"
+    rlRun "gcc -O2 -finline-functions -o inline_gcc_O2 inline.c &&./inline_gcc_O2 | grep inline_ok" 0 "GCC -O2 -finline-functions"
 
- # -fno-inline
+    # -fno-inline
 
- rlRun "gcc -O2 -fno-inline -o inline_gcc_no inline.c &&./inline_gcc_no | grep inline_ok" 0 "GCC -fno-inline"
+    rlRun "gcc -O2 -fno-inline -o inline_gcc_no inline.c &&./inline_gcc_no | grep inline_ok" 0 "GCC -fno-inline"
 
- # verify noinline functionisalonesymbol
+    # verify noinline functionisalonesymbol
 
- rlRun "nm inline_gcc_O2 | grep -q no_inline || nm inline_gcc_O2 | grep -q ' T '" 0 "symboltablecheck"
+    rlRun "nm inline_gcc_O2 | grep -q no_inline || nm inline_gcc_O2 | grep -q ' T '" 0 "symboltablecheck"
 
- # verify always_inline in -fno-inline 
+    # verify always_inline in -fno-inline 
 
- rlRun "./inline_gcc_no" 0 "no-inline moderunnormal"
+    rlRun "./inline_gcc_no" 0 "no-inline moderunnormal"
 
- rlPass "GCC always_inline/noinline correct"
+    rlPass "GCC always_inline/noinline correct"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "Clang inline"
-
- rlRun "clang -O2 -o inline_clang_O2 inline.c &&./inline_clang_O2 | grep inline_ok" 0 "Clang -O2"
-
- rlRun "clang -O2 -fno-inline -o inline_clang_no inline.c &&./inline_clang_no | grep inline_ok" 0 "Clang -fno-inline"
-
- rlPass "Clang always_inline/noinline correct"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "Clang inline"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "clang -O2 -o inline_clang_O2 inline.c &&./inline_clang_O2 | grep inline_ok" 0 "Clang -O2"
 
- rlPhaseEnd
+    rlRun "clang -O2 -fno-inline -o inline_clang_no inline.c &&./inline_clang_no | grep inline_ok" 0 "Clang -fno-inline"
 
- rlJournalPrintText
+    rlPass "Clang always_inline/noinline correct"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

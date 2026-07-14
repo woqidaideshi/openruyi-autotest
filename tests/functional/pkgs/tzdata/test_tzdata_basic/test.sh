@@ -16,51 +16,51 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- tzdataSetup
+    tzdataSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "error handling"
+    rlPhaseStartTest "error handling"
 
 rlRun() { eval "$1" 2>&1; return $?; }
 
- rlRun "tzselect --help 2>&1 | head -10" 0 "Display first lines"
+    rlRun "tzselect --help 2>&1 | head -10" 0 "Display first lines"
 
- rlRun "zdump --help 2>&1 | head -10" 0 "Timezone information dump"
+    rlRun "zdump --help 2>&1 | head -10" 0 "Timezone information dump"
 
- rlRun "zic --help 2>&1 | head -10" 0 "Timezone compiler operation"
+    rlRun "zic --help 2>&1 | head -10" 0 "Timezone compiler operation"
 
- rlPhaseEnd
-
-
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
-
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # tzdata Package managed by lib.sh 's reference counting auto-uninstall
-
- rlPhaseEnd
 
 
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlJournalPrintText
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # tzdata Package managed by lib.sh 's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

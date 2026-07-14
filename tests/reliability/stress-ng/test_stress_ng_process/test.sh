@@ -10,91 +10,91 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- stressNgSetup
+    stressNgSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- TAINT=$(_stressNgTaintBefore)
+    TAINT=$(_stressNgTaintBefore)
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "FORK stress"
-
- local log="$TmpDir/fork.log"
-
- rlRun "stress-ng --fork 4 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--fork 4"
-
- _stressNgValidate "$log" "fork"
-
- # fork shouldhas bogo ops
-
- grep "fork" "$log" | head -3
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "CONTEXT switch stress"
+    rlPhaseStartTest "FORK stress"
 
- local log="$TmpDir/context.log"
+    local log="$TmpDir/fork.log"
 
- rlRun "stress-ng --context 4 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--context 4"
+    rlRun "stress-ng --fork 4 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--fork 4"
 
- _stressNgValidate "$log" "context"
+    _stressNgValidate "$log" "fork"
 
- rlPhaseEnd
+    # fork shouldhas bogo ops
 
+    grep "fork" "$log" | head -3
 
-
- rlPhaseStartTest "ZOMBIE stress"
-
- # zombie willproducedprocesspost, possiblehaspreerror
-
- local log="$TmpDir/zombie.log"
-
- rlRun "stress-ng --zombie 2 --timeout 15s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--zombie 2"
-
- _stressNgValidate "$log" "zombie"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "WAIT stress (get/gettid)"
+    rlPhaseStartTest "CONTEXT switch stress"
 
- local log="$TmpDir/wait.log"
+    local log="$TmpDir/context.log"
 
- # --get: callwith getpid/getppid 
+    rlRun "stress-ng --context 4 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--context 4"
 
- rlRun "stress-ng --get 4 --timeout 20s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--get 4"
+    _stressNgValidate "$log" "context"
 
- _stressNgValidate "$log" "get"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "tainted"
+    rlPhaseStartTest "ZOMBIE stress"
 
- _stressNgTaintCheck "$TAINT"
+    # zombie willproducedprocesspost, possiblehaspreerror
 
- rlPhaseEnd
+    local log="$TmpDir/zombie.log"
+
+    rlRun "stress-ng --zombie 2 --timeout 15s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--zombie 2"
+
+    _stressNgValidate "$log" "zombie"
+
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartTest "WAIT stress (get/gettid)"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    local log="$TmpDir/wait.log"
 
- rlPhaseEnd
+    # --get: callwith getpid/getppid 
 
- rlJournalPrintText
+    rlRun "stress-ng --get 4 --timeout 20s --metrics-brief --log-file $log 2>&1 | tail -5" 0 "--get 4"
+
+    _stressNgValidate "$log" "get"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartTest "tainted"
+
+    _stressNgTaintCheck "$TAINT"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

@@ -14,36 +14,36 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokePackageMgmtSetup
-
-
-
- rlPhaseEnd
+    smokePackageMgmtSetup
 
 
 
- rlPhaseStartTest "/etc/os-release exists"
-
- rlRun 'cat /etc/os-release' 0 "/etc/os-release exists"
-
- rlRun 'grep openRuyi /etc/os-release' 0 "openRuyi linesverconfirm"
-
- rlRun 'rpm -q openruyi-release' 0 "openruyi-release exists"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "/etc/os-release exists"
+
+    rlRun 'cat /etc/os-release' 0 "/etc/os-release exists"
+
+    rlRun 'grep openRuyi /etc/os-release' 0 "openRuyi linesverconfirm"
+
+    rlRun 'rpm -q openruyi-release' 0 "openruyi-release exists"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

@@ -28,51 +28,51 @@ CIS_FLAG="/tmp/.beakerlib_openscap_cis_suite"
 
 cisSetup() {
 
- if [ ! -f "$CIS_FLAG" ]; then
+    if [ ! -f "$CIS_FLAG" ]; then
 
- if [ ! -f "$CIS_DS" ]; then
+    if [ ! -f "$CIS_DS" ]; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y scap-security-guide 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y scap-security-guide 2>/dev/null
 
- if [ ! -f "$CIS_DS" ]; then
+    if [ ! -f "$CIS_DS" ]; then
 
- rlLogWarning "scap-security-guide failed"
+    rlLogWarning "scap-security-guide failed"
 
- echo "installed=0" > "$CIS_FLAG"
+    echo "installed=0" > "$CIS_FLAG"
 
- else
+    else
 
- echo "installed=1" > "$CIS_FLAG"
+    echo "installed=1" > "$CIS_FLAG"
 
- rlLogInfo "already scap-security-guide"
+    rlLogInfo "already scap-security-guide"
 
- fi
+    fi
 
- else
+    else
 
- echo "installed=0" > "$CIS_FLAG"
+    echo "installed=0" > "$CIS_FLAG"
 
- rlLogInfo "scap-security-guide already exists"
+    rlLogInfo "scap-security-guide already exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$CIS_FLAG"
+    echo "ref=1" >> "$CIS_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$CIS_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$CIS_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$CIS_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$CIS_FLAG"
 
- rlLogInfo "CIS reference count: $ref"
+    rlLogInfo "CIS reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "cisCleanup"
+    rlCleanupAppend "cisCleanup"
 
 }
 
@@ -80,26 +80,26 @@ cisSetup() {
 
 cisCleanup() {
 
- if [ ! -f "$CIS_FLAG" ]; then return 0; fi
+    if [ ! -f "$CIS_FLAG" ]; then return 0; fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$CIS_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$CIS_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$CIS_FLAG"
+    rm -f "$CIS_FLAG"
 
- rlLogInfo "CIS testCleanup complete"
+    rlLogInfo "CIS testCleanup complete"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$CIS_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$CIS_FLAG"
 
- rlLogInfo "CIS Retain (still have $ref test)"
+    rlLogInfo "CIS Retain (still have $ref test)"
 
- fi
+    fi
 
 }

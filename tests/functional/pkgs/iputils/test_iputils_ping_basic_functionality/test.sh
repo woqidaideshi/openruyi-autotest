@@ -16,49 +16,49 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- iputilsSetup
+    iputilsSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "ping-basic-functionality"
-
- rlRun "ping -V" 0 "ping version info"
-
- rlRun "ping -c 1 127.0.0.1" 0 "ping localloopback 1 "
-
- rlRun "ping -c 2 127.0.0.1 -i 0.2" 0 "ping specify"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "ping-basic-functionality"
 
+    rlRun "ping -V" 0 "ping version info"
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "ping -c 1 127.0.0.1" 0 "ping localloopback 1 "
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun "ping -c 2 127.0.0.1 -i 0.2" 0 "ping specify"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # iputils Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # iputils Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

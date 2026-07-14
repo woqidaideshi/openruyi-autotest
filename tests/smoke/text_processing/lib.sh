@@ -26,29 +26,29 @@ SMOKE_TEXT_PROCESSING_FLAG="/tmp/.beakerlib_smoke_text_processing_suite"
 
 smokeTextProcessingSetup() {
 
- if [ ! -f "$SMOKE_TEXT_PROCESSING_FLAG" ]; then
+    if [ ! -f "$SMOKE_TEXT_PROCESSING_FLAG" ]; then
 
- echo "installed=0" > "$SMOKE_TEXT_PROCESSING_FLAG"
+    echo "installed=0" > "$SMOKE_TEXT_PROCESSING_FLAG"
 
- echo "ref=1" >> "$SMOKE_TEXT_PROCESSING_FLAG"
+    echo "ref=1" >> "$SMOKE_TEXT_PROCESSING_FLAG"
 
- rlLogInfo "smoke-text_processing: coreDependenciesalreadyconfirmavailable"
+    rlLogInfo "smoke-text_processing: coreDependenciesalreadyconfirmavailable"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_TEXT_PROCESSING_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_TEXT_PROCESSING_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_TEXT_PROCESSING_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_TEXT_PROCESSING_FLAG"
 
- rlLogInfo "smoke-text_processing already initialized by other tests, reference count: $ref"
+    rlLogInfo "smoke-text_processing already initialized by other tests, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "smokeTextProcessingCleanup"
+    rlCleanupAppend "smokeTextProcessingCleanup"
 
 }
 
@@ -56,31 +56,31 @@ smokeTextProcessingSetup() {
 
 smokeTextProcessingCleanup() {
 
- if [ ! -f "$SMOKE_TEXT_PROCESSING_FLAG" ]; then
+    if [ ! -f "$SMOKE_TEXT_PROCESSING_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$SMOKE_TEXT_PROCESSING_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$SMOKE_TEXT_PROCESSING_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- rm -f "$SMOKE_TEXT_PROCESSING_FLAG"
+    rm -f "$SMOKE_TEXT_PROCESSING_FLAG"
 
- rlLogInfo "smoke-text_processing: Cleanup complete (posttest)"
+    rlLogInfo "smoke-text_processing: Cleanup complete (posttest)"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_TEXT_PROCESSING_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$SMOKE_TEXT_PROCESSING_FLAG"
 
- rlLogInfo "smoke-text_processing: Retain (still have $ref test(s) not completed)"
+    rlLogInfo "smoke-text_processing: Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

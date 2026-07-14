@@ -7,25 +7,25 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- opensshSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    opensshSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "Key-with-passphrase"
- rlRun "ssh-keygen -t ed25519 -f test_pass -N \"testpass\" -q" 0 "Generate key with passphrase"
- rlRun "ssh-keygen -p -P \"testpass\" -N \"\" -f test_pass -q" 0 "Remove passphrase"
- rlPhaseEnd
+    rlPhaseStartTest "Key-with-passphrase"
+    rlRun "ssh-keygen -t ed25519 -f test_pass -N \"testpass\" -q" 0 "Generate key with passphrase"
+    rlRun "ssh-keygen -p -P \"testpass\" -N \"\" -f test_pass -q" 0 "Remove passphrase"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # openssh Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # openssh Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

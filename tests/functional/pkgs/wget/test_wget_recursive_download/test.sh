@@ -16,49 +16,49 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- wgetSetup
+    wgetSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "Recursive-download"
-
- rlRun "wget -r --version 2>&1 | grep -q Wget" 0 "wget -r recursiveOption exists"
-
- rlRun "wget -l 2 --version 2>&1 | grep -q Wget" 0 "wget -l recursiveoption"
-
- rlRun "wget -p --version 2>&1 | grep -q Wget" 0 "wget -p pageoption"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "Recursive-download"
 
+    rlRun "wget -r --version 2>&1 | grep -q Wget" 0 "wget -r recursiveOption exists"
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "wget -l 2 --version 2>&1 | grep -q Wget" 0 "wget -l recursiveoption"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun "wget -p --version 2>&1 | grep -q Wget" 0 "wget -p pageoption"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # wget Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # wget Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

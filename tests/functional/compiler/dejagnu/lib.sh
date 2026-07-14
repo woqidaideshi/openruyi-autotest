@@ -32,51 +32,51 @@ DEJAGNU_FLAG="/tmp/.beakerlib_compiler_dejagnu_suite"
 
 dejagnuSetup() {
 
- if [ ! -f "$DEJAGNU_FLAG" ]; then
+    if [ ! -f "$DEJAGNU_FLAG" ]; then
 
- if ! rpm -q dejagnu 2>/dev/null; then
+    if ! rpm -q dejagnu 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y dejagnu 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y dejagnu 2>/dev/null
 
- if ! rpm -q dejagnu 2>/dev/null; then
+    if ! rpm -q dejagnu 2>/dev/null; then
 
- rlLogWarning "dejagnu failed"
+    rlLogWarning "dejagnu failed"
 
- echo "installed=0" > "$DEJAGNU_FLAG"
+    echo "installed=0" > "$DEJAGNU_FLAG"
 
- else
+    else
 
- echo "installed=1" > "$DEJAGNU_FLAG"
+    echo "installed=1" > "$DEJAGNU_FLAG"
 
- rlLogInfo "already dejagnu ()"
+    rlLogInfo "already dejagnu ()"
 
- fi
+    fi
 
- else
+    else
 
- echo "installed=0" > "$DEJAGNU_FLAG"
+    echo "installed=0" > "$DEJAGNU_FLAG"
 
- rlLogInfo "dejagnu already exists"
+    rlLogInfo "dejagnu already exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$DEJAGNU_FLAG"
+    echo "ref=1" >> "$DEJAGNU_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$DEJAGNU_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$DEJAGNU_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$DEJAGNU_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$DEJAGNU_FLAG"
 
- rlLogInfo "dejagnu reference count: $ref"
+    rlLogInfo "dejagnu reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "dejagnuCleanup"
+    rlCleanupAppend "dejagnuCleanup"
 
 }
 
@@ -84,33 +84,33 @@ dejagnuSetup() {
 
 dejagnuCleanup() {
 
- if [ ! -f "$DEJAGNU_FLAG" ]; then return 0; fi
+    if [ ! -f "$DEJAGNU_FLAG" ]; then return 0; fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$DEJAGNU_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$DEJAGNU_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- if grep -q "^installed=1" "$DEJAGNU_FLAG"; then
+    if grep -q "^installed=1" "$DEJAGNU_FLAG"; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y dejagnu 2>/dev/null || true
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y dejagnu 2>/dev/null || true
 
- rlLogInfo "already dejagnu"
+    rlLogInfo "already dejagnu"
 
- fi
+    fi
 
- rm -f "$DEJAGNU_FLAG"
+    rm -f "$DEJAGNU_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$DEJAGNU_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$DEJAGNU_FLAG"
 
- rlLogInfo "dejagnu Retain (still have $ref test)"
+    rlLogInfo "dejagnu Retain (still have $ref test)"
 
- fi
+    fi
 
 }
 

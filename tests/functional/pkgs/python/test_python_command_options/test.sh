@@ -16,49 +16,49 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- pythonSetup
+    pythonSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "commandlinesoption"
-
- rlRun "python3 -h 2>&1 | head -5" 0 "python3 -h: "
-
- rlRun "python3 -V" 0 "python3 -V: version"
-
- rlRun "python3 -c \"import os; print(os.name)\"" 0 "python3: osmodule"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "commandlinesoption"
 
+    rlRun "python3 -h 2>&1 | head -5" 0 "python3 -h: "
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlRun "python3 -V" 0 "python3 -V: version"
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun "python3 -c \"import os; print(os.name)\"" 0 "python3: osmodule"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # python Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # python Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

@@ -14,105 +14,105 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- csmithSetup
+    csmithSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "Csmith installation verification"
+    rlPhaseStartTest "Csmith installation verification"
 
- # checkcommandwhetherexists
+    # checkcommandwhetherexists
 
- rlRun "which Csmith" 0 "Csmith Command exists"
-
- 
-
- # checkversion info
-
- csmith --version 2>&1 | tee /tmp/csmith_version.txt
-
- if grep -qi "csmith\|version" /tmp/csmith_version.txt; then
-
- rlPass "csmith --version outputnormal"
-
- else
-
- rlFail "csmith --version outputException"
-
- fi
+    rlRun "which Csmith" 0 "Csmith Command exists"
 
  
 
- # Generate random C program
+    # checkversion info
 
- rlRun "csmith > random1.c 2>/tmp/csmith_stderr.txt" 0 "Generate random C program"
+    csmith --version 2>&1 | tee /tmp/csmith_version.txt
 
- 
+    if grep -qi "csmith\|version" /tmp/csmith_version.txt; then
 
- # verifyGenerate C filenon-andcorrect
+    rlPass "csmith --version outputnormal"
 
- if [ -s random1.c ]; then
+    else
 
- local lines
+    rlFail "csmith --version outputException"
 
- lines=$(wc -l < random1.c)
-
- rlPass "Csmith Generate C program ($lines lines)"
+    fi
 
  
 
- # Check if contains main function
+    # Generate random C program
 
- if grep -q "int main" random1.c; then
-
- rlPass "Generateprogramcontains main function"
-
- else
-
- rlFail "Generateprogrammissing main function"
-
- fi
+    rlRun "csmith > random1.c 2>/tmp/csmith_stderr.txt" 0 "Generate random C program"
 
  
 
- # Check if contains C Standardheaderfilereference
+    # verifyGenerate C filenon-andcorrect
 
- if grep -q "#include" random1.c; then
+    if [ -s random1.c ]; then
 
- rlPass "Generateprogramcontainsheaderfilereference"
+    local lines
 
- fi
+    lines=$(wc -l < random1.c)
 
- else
+    rlPass "Csmith Generate C program ($lines lines)"
 
- rlFail "Csmith notGeneratehas C program"
+ 
 
- fi
+    # Check if contains main function
 
- rlPhaseEnd
+    if grep -q "int main" random1.c; then
+
+    rlPass "Generateprogramcontains main function"
+
+    else
+
+    rlFail "Generateprogrammissing main function"
+
+    fi
+
+ 
+
+    # Check if contains C Standardheaderfilereference
+
+    if grep -q "#include" random1.c; then
+
+    rlPass "Generateprogramcontainsheaderfilereference"
+
+    fi
+
+    else
+
+    rlFail "Csmith notGeneratehas C program"
+
+    fi
+
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 "Leave temporary directory"
+    rlRun "cd /" 0 "Leave temporary directory"
 
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
 
- rm -f /tmp/csmith_version.txt /tmp/csmith_stderr.txt
+    rm -f /tmp/csmith_version.txt /tmp/csmith_stderr.txt
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 

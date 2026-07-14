@@ -14,34 +14,34 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeDiskFsSetup
-
-
-
- rlPhaseEnd
+    smokeDiskFsSetup
 
 
 
- rlPhaseStartTest "mount mountlist"
-
- rlRun 'mount | head -5' 0 "mount mountlist"
-
- rlRun 'mount | grep " / "' 0 "mount rootpartitionmount"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "mount mountlist"
+
+    rlRun 'mount | head -5' 0 "mount mountlist"
+
+    rlRun 'mount | grep " / "' 0 "mount rootpartitionmount"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

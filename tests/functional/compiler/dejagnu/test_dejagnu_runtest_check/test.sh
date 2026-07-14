@@ -14,91 +14,91 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- dejagnuSetup
+    dejagnuSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "runtest command availability"
+    rlPhaseStartTest "runtest command availability"
 
- # check runtest whetherexists
+    # check runtest whetherexists
 
- rlRun "which runtest" 0 "runtest Command exists"
-
- 
-
- # checkversionoutput
-
- runtest --version 2>&1 | tee /tmp/dejagnu_version.txt
-
- if grep -qi "dejagnu" /tmp/dejagnu_version.txt; then
-
- rlPass "runtest --version contains DejaGnu info"
-
- else
-
- rlFail "runtest --version outputException"
-
- fi
+    rlRun "which runtest" 0 "runtest Command exists"
 
  
 
- # checkoutput
+    # checkversionoutput
 
- runtest --help 2>&1 | tee /tmp/dejagnu_help.txt
+    runtest --version 2>&1 | tee /tmp/dejagnu_version.txt
 
- if grep -q "\-\-tool" /tmp/dejagnu_help.txt; then
+    if grep -qi "dejagnu" /tmp/dejagnu_version.txt; then
 
- rlPass "runtest --help contains --tool option"
+    rlPass "runtest --version contains DejaGnu info"
 
- else
+    else
 
- rlFail "runtest --help missing --tool option"
+    rlFail "runtest --version outputException"
 
- fi
+    fi
 
  
 
- # verifycanby noparameterrun (willerrorbut noshould segfault)
+    # checkoutput
 
- runtest 2>&1 | tee /tmp/dejagnu_noargs.txt
+    runtest --help 2>&1 | tee /tmp/dejagnu_help.txt
 
- local rc=$?
+    if grep -q "\-\-tool" /tmp/dejagnu_help.txt; then
 
- if [ "$rc" -ne 0 ]; then
+    rlPass "runtest --help contains --tool option"
 
- rlPass "runtest noparameterruncorrectexport (non- exit code iscanpre)"
+    else
 
- else
+    rlFail "runtest --help missing --tool option"
 
- rlFail "runtest noparameterrunreturn 0"
+    fi
 
- fi
+ 
 
- rlPhaseEnd
+    # verifycanby noparameterrun (willerrorbut noshould segfault)
+
+    runtest 2>&1 | tee /tmp/dejagnu_noargs.txt
+
+    local rc=$?
+
+    if [ "$rc" -ne 0 ]; then
+
+    rlPass "runtest noparameterruncorrectexport (non- exit code iscanpre)"
+
+    else
+
+    rlFail "runtest noparameterrunreturn 0"
+
+    fi
+
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 "Leave temporary directory"
+    rlRun "cd /" 0 "Leave temporary directory"
 
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
 
- rm -f /tmp/dejagnu_version.txt /tmp/dejagnu_help.txt /tmp/dejagnu_noargs.txt
+    rm -f /tmp/dejagnu_version.txt /tmp/dejagnu_help.txt /tmp/dejagnu_noargs.txt
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 

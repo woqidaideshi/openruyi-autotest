@@ -46,39 +46,39 @@ FIO_FLAG="/tmp/.beakerlib_fio_suite"
 
 fioSetup() {
 
- if [ ! -f "$FIO_FLAG" ]; then
+    if [ ! -f "$FIO_FLAG" ]; then
 
- if ! rpm -q fio 2>/dev/null; then
+    if ! rpm -q fio 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y fio 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y fio 2>/dev/null
 
- echo "installed=1" > "$FIO_FLAG"
+    echo "installed=1" > "$FIO_FLAG"
 
- rlLogInfo "already fio"
+    rlLogInfo "already fio"
 
- else
+    else
 
- echo "installed=0" > "$FIO_FLAG"
+    echo "installed=0" > "$FIO_FLAG"
 
- rlLogInfo "fio already exists"
+    rlLogInfo "fio already exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$FIO_FLAG"
+    echo "ref=1" >> "$FIO_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$FIO_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$FIO_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$FIO_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$FIO_FLAG"
 
- fi
+    fi
 
- rlCleanupAppend "fioCleanup"
+    rlCleanupAppend "fioCleanup"
 
 }
 
@@ -86,25 +86,25 @@ fioSetup() {
 
 fioCleanup() {
 
- if [ ! -f "$FIO_FLAG" ]; then return 0; fi
+    if [ ! -f "$FIO_FLAG" ]; then return 0; fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$FIO_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$FIO_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- grep -q "^installed=1" "$FIO_FLAG" && echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y fio 2>/dev/null || true
+    grep -q "^installed=1" "$FIO_FLAG" && echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y fio 2>/dev/null || true
 
- rm -f "$FIO_FLAG"
+    rm -f "$FIO_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$FIO_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$FIO_FLAG"
 
- fi
+    fi
 
 }
 
@@ -116,59 +116,59 @@ fioCleanup() {
 
 _fioParseResult() {
 
- local log="$1"
+    local log="$1"
 
- if [ ! -f "$log" ]; then return 1; fi
-
-
-
- echo "--- fio resultresolve ---"
-
- # Extract READ line
-
- grep "read:" "$log" | head -1
-
- # Extract WRITE line
-
- grep "write:" "$log" | head -1
+    if [ ! -f "$log" ]; then return 1; fi
 
 
 
- # Extract summary BW
+    echo "--- fio resultresolve ---"
 
- local rd_bw wr_bw
+    # Extract READ line
 
- rd_bw=$(grep "READ:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
+    grep "read:" "$log" | head -1
 
- wr_bw=$(grep "WRITE:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
+    # Extract WRITE line
 
-
-
- if [ -n "$rd_bw" ]; then rlLogInfo "Read BW: $rd_bw"; fi
-
- if [ -n "$wr_bw" ]; then rlLogInfo "Write BW: $wr_bw"; fi
+    grep "write:" "$log" | head -1
 
 
 
- # Extract IOPS
+    # Extract summary BW
 
- local rd_iops wr_iops
+    local rd_bw wr_bw
 
- rd_iops=$(grep "read:" "$log" | grep -oP 'IOPS=\K[\d.]+k?' | head -1)
+    rd_bw=$(grep "READ:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
 
- wr_iops=$(grep "write:" "$log" | grep -oP 'IOPS=\K[\d.]+k?' | head -1)
-
- if [ -n "$rd_iops" ]; then rlLogInfo "Read IOPS: $rd_iops"; fi
-
- if [ -n "$wr_iops" ]; then rlLogInfo "Write IOPS: $wr_iops"; fi
+    wr_bw=$(grep "WRITE:" "$log" | grep -oP 'bw=\K[\d.]+[KMG]iB/s' | head -1)
 
 
 
- # Extract latency percentiles (p50, p99)
+    if [ -n "$rd_bw" ]; then rlLogInfo "Read BW: $rd_bw"; fi
 
- grep "clat (" "$log" | grep -E "p50|p99" | head -2
+    if [ -n "$wr_bw" ]; then rlLogInfo "Write BW: $wr_bw"; fi
 
- echo "--- resolve ---"
+
+
+    # Extract IOPS
+
+    local rd_iops wr_iops
+
+    rd_iops=$(grep "read:" "$log" | grep -oP 'IOPS=\K[\d.]+k?' | head -1)
+
+    wr_iops=$(grep "write:" "$log" | grep -oP 'IOPS=\K[\d.]+k?' | head -1)
+
+    if [ -n "$rd_iops" ]; then rlLogInfo "Read IOPS: $rd_iops"; fi
+
+    if [ -n "$wr_iops" ]; then rlLogInfo "Write IOPS: $wr_iops"; fi
+
+
+
+    # Extract latency percentiles (p50, p99)
+
+    grep "clat (" "$log" | grep -E "p50|p99" | head -2
+
+    echo "--- resolve ---"
 
 }
 
@@ -178,9 +178,9 @@ _fioParseResult() {
 
 _fioDropCaches() {
 
- sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
+    sync && echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null 2>&1 || true
 
- sleep 1
+    sleep 1
 
 }
 

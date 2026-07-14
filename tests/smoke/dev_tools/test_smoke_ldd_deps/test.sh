@@ -14,34 +14,34 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokeDevToolsSetup
-
-
-
- rlPhaseEnd
+    smokeDevToolsSetup
 
 
 
- rlPhaseStartTest "ldd viewlink"
-
- rlRun 'ldd /bin/sh' 0 "ldd viewlink"
-
- rlRun 'ldd /bin/ls' 0 "ldd ls Dependencies"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "ldd viewlink"
+
+    rlRun 'ldd /bin/sh' 0 "ldd viewlink"
+
+    rlRun 'ldd /bin/ls' 0 "ldd ls Dependencies"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

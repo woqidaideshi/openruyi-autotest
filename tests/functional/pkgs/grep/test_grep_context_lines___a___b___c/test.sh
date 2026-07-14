@@ -7,26 +7,26 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- grepSetup
- TmpDir=$(mktemp -d)
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
- rlPhaseEnd
+    rlPhaseStartSetup "Environment setup"
+    grepSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlPhaseEnd
 
- rlPhaseStartTest "Context-lines---A---B---C"
- rlRun "grep -A1 \"Hello World\" test1.txt" 0 "Context: 1 line after match"
- rlRun "grep -B1 \"Hello Linux\" test1.txt" 0 "Context: 1 line before match"
- rlRun "grep -C1 \"Hello World\" test1.txt" 0 "Context: 1 line before and after"
- rlPhaseEnd
+    rlPhaseStartTest "Context-lines---A---B---C"
+    rlRun "grep -A1 \"Hello World\" test1.txt" 0 "Context: 1 line after match"
+    rlRun "grep -B1 \"Hello Linux\" test1.txt" 0 "Context: 1 line before match"
+    rlRun "grep -C1 \"Hello World\" test1.txt" 0 "Context: 1 line before and after"
+    rlPhaseEnd
 
 
- rlPhaseStartCleanup "Clean up test environment"
- rlRun "cd /" 0 "Leave test directory"
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
- fi
- # grep Package managed by lib.sh 's reference counting auto-uninstall
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # grep Package managed by lib.sh 's reference counting auto-uninstall
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

@@ -44,51 +44,51 @@ IOZONE_FLAG="/tmp/.beakerlib_iozone_suite"
 
 iozoneSetup() {
 
- if [ ! -f "$IOZONE_FLAG" ]; then
+    if [ ! -f "$IOZONE_FLAG" ]; then
 
- if ! rpm -q iozone 2>/dev/null; then
+    if ! rpm -q iozone 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y iozone 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y iozone 2>/dev/null
 
- if ! rpm -q iozone 2>/dev/null; then
+    if ! rpm -q iozone 2>/dev/null; then
 
- rlLogWarning "iozone failed"
+    rlLogWarning "iozone failed"
 
- echo "installed=0" > "$IOZONE_FLAG"
+    echo "installed=0" > "$IOZONE_FLAG"
 
- else
+    else
 
- echo "installed=1" > "$IOZONE_FLAG"
+    echo "installed=1" > "$IOZONE_FLAG"
 
- rlLogInfo "already iozone"
+    rlLogInfo "already iozone"
 
- fi
+    fi
 
- else
+    else
 
- echo "installed=0" > "$IOZONE_FLAG"
+    echo "installed=0" > "$IOZONE_FLAG"
 
- rlLogInfo "iozone already exists"
+    rlLogInfo "iozone already exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$IOZONE_FLAG"
+    echo "ref=1" >> "$IOZONE_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$IOZONE_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$IOZONE_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$IOZONE_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$IOZONE_FLAG"
 
- rlLogInfo "iozone reference count: $ref"
+    rlLogInfo "iozone reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "iozoneCleanup"
+    rlCleanupAppend "iozoneCleanup"
 
 }
 
@@ -96,29 +96,29 @@ iozoneSetup() {
 
 iozoneCleanup() {
 
- if [ ! -f "$IOZONE_FLAG" ]; then return 0; fi
+    if [ ! -f "$IOZONE_FLAG" ]; then return 0; fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$IOZONE_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$IOZONE_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- if grep -q "^installed=1" "$IOZONE_FLAG"; then
+    if grep -q "^installed=1" "$IOZONE_FLAG"; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y iozone 2>/dev/null || true
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y iozone 2>/dev/null || true
 
- fi
+    fi
 
- rm -f "$IOZONE_FLAG"
+    rm -f "$IOZONE_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$IOZONE_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$IOZONE_FLAG"
 
- fi
+    fi
 
 }
 
@@ -130,59 +130,59 @@ iozoneCleanup() {
 
 _iozoneParseOutput() {
 
- local log="$1"
+    local log="$1"
 
- if [ ! -f "$log" ]; then return 1; fi
-
-
-
- echo "=== IOzone resultresolve ==="
-
- # Extract the data line (contains throughput values)
-
- grep -E '^\s+[0-9]+\s+[0-9]+' "$log" | while read -r line; do
-
- # Parse: kB reclen write rewrite read reread random_read random_write bkwd_read record_rewrite stride_read fwrite frewrite fread freread
-
- local kb reclen write rewrite read_val reread rread rwrite bkwd rec_rewrite stride fwrite frewrite fread freread
-
- read -r kb reclen write rewrite read_val reread rread rwrite bkwd rec_rewrite stride fwrite frewrite fread freread <<< "$line"
+    if [ ! -f "$log" ]; then return 1; fi
 
 
 
- echo ""
+    echo "=== IOzone resultresolve ==="
 
- echo "filesize: ${kb} KB, recordsize: ${reclen} KB"
+    # Extract the data line (contains throughput values)
 
- echo " Write: ${write} KB/s"
+    grep -E '^\s+[0-9]+\s+[0-9]+' "$log" | while read -r line; do
 
- echo " Re-write: ${rewrite} KB/s"
+    # Parse: kB reclen write rewrite read reread random_read random_write bkwd_read record_rewrite stride_read fwrite frewrite fread freread
 
- echo " Read: ${read_val} KB/s"
+    local kb reclen write rewrite read_val reread rread rwrite bkwd rec_rewrite stride fwrite frewrite fread freread
 
- echo " Re-read: ${reread} KB/s"
-
- echo " Random Read: ${rread} KB/s"
-
- echo " Random Write: ${rwrite} KB/s"
+    read -r kb reclen write rewrite read_val reread rread rwrite bkwd rec_rewrite stride fwrite frewrite fread freread <<< "$line"
 
 
 
- # Calculate geometric mean of the key metrics
+    echo ""
 
- if [ -n "$write" ] && [ "$write" != "0" ]; then
+    echo "filesize: ${kb} KB, recordsize: ${reclen} KB"
 
- local geo
+    echo " Write: ${write} KB/s"
 
- geo=$(awk "BEGIN { printf \"%.0f\", ($write * $rewrite * ${read_val} * $reread * $rread * $rwrite) ^ (1/6) }" 2>/dev/null)
+    echo " Re-write: ${rewrite} KB/s"
 
- echo " Geometric Mean (6 ops): ${geo} KB/s"
+    echo " Read: ${read_val} KB/s"
 
- fi
+    echo " Re-read: ${reread} KB/s"
 
- done
+    echo " Random Read: ${rread} KB/s"
 
- echo "=== resolve ==="
+    echo " Random Write: ${rwrite} KB/s"
+
+
+
+    # Calculate geometric mean of the key metrics
+
+    if [ -n "$write" ] && [ "$write" != "0" ]; then
+
+    local geo
+
+    geo=$(awk "BEGIN { printf \"%.0f\", ($write * $rewrite * ${read_val} * $reread * $rread * $rwrite) ^ (1/6) }" 2>/dev/null)
+
+    echo " Geometric Mean (6 ops): ${geo} KB/s"
+
+    fi
+
+    done
+
+    echo "=== resolve ==="
 
 }
 

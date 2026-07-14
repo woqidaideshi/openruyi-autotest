@@ -12,89 +12,89 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- trinitySetup
+    trinitySetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- # recordtestbeforekernel tainted Status
+    # recordtestbeforekernel tainted Status
 
- TAINT_BEFORE=$(_trinityTaintBefore)
+    TAINT_BEFORE=$(_trinityTaintBefore)
 
- rlLogInfo "testbefore tainted: $TAINT_BEFORE"
+    rlLogInfo "testbefore tainted: $TAINT_BEFORE"
 
- # Ensure TmpDir canwrite
+    # Ensure TmpDir canwrite
 
- chmod 777 "$TmpDir"
+    chmod 777 "$TmpDir"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "system callstest"
-
- local log_file="$TmpDir/trinity_basic.log"
-
- # by non- root userrun trinity, time 60s
-
- timeout 70 sudo -u "$TRINITY_USER" trinity -q -N 99999 > "$log_file" 2>&1
-
- local rc=$?
-
- rlLogInfo "Trinity exit code: $rc"
+    rlPhaseEnd
 
 
 
- if [ "$rc" -eq 124 ]; then
+    rlPhaseStartTest "system callstest"
 
- rlPass "Trinity by timeout normalterminate (60s post)"
+    local log_file="$TmpDir/trinity_basic.log"
 
- elif [ "$rc" -eq 0 ]; then
+    # by non- root userrun trinity, time 60s
 
- rlPass "Trinity normalexport (all syscall Complete)"
+    timeout 70 sudo -u "$TRINITY_USER" trinity -q -N 99999 > "$log_file" 2>&1
 
- else
+    local rc=$?
 
- rlLogWarning "Trinity non-exit code: $rc"
-
- fi
+    rlLogInfo "Trinity exit code: $rc"
 
 
 
- # checkoutput
+    if [ "$rc" -eq 124 ]; then
 
- rlRun "wc -l < $log_file" 0 "outputlinescountcount"
+    rlPass "Trinity by timeout normalterminate (60s post)"
 
- _trinityCheckOutput "$log_file"
+    elif [ "$rc" -eq 0 ]; then
 
+    rlPass "Trinity normalexport (all syscall Complete)"
 
+    else
 
- # displaypostoutput
+    rlLogWarning "Trinity non-exit code: $rc"
 
- rlRun "tail -20 $log_file" 0 "Trinity post 20 linesoutput"
-
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "tainted Statuscheck"
-
- _trinityTaintCheck "$TAINT_BEFORE"
-
- rlPhaseEnd
+    fi
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    # checkoutput
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "wc -l < $log_file" 0 "outputlinescountcount"
 
- rlPhaseEnd
+    _trinityCheckOutput "$log_file"
 
- rlJournalPrintText
+
+
+    # displaypostoutput
+
+    rlRun "tail -20 $log_file" 0 "Trinity post 20 linesoutput"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartTest "tainted Statuscheck"
+
+    _trinityTaintCheck "$TAINT_BEFORE"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

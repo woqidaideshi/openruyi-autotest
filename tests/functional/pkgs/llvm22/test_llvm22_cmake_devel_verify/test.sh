@@ -36,43 +36,43 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- llvm22Setup
+    llvm22Setup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
-
-
-
- # auto-discover LLVM cmake directory
-
- LLVM_CMAKE_DIR=$(rpm -ql llvm22-devel | grep 'LLVMConfig\.cmake$' | head -1 | xargs dirname)
-
- rlLogInfo "LLVM cmake directory: $LLVM_CMAKE_DIR"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
 
 
- # count.cmake filecount
+    # auto-discover LLVM cmake directory
 
- CMAKE_COUNT=$(rpm -ql llvm22-devel | grep -c '\.cmake$')
+    LLVM_CMAKE_DIR=$(rpm -ql llvm22-devel | grep 'LLVMConfig\.cmake$' | head -1 | xargs dirname)
 
- rlLogInfo "llvm22-devel $CMAKE_COUNT.cmake file"
-
- rlPhaseEnd
+    rlLogInfo "LLVM cmake directory: $LLVM_CMAKE_DIR"
 
 
 
- rlPhaseStartTest "find_package(LLVM) COMPONENTS - checksum LLVMExports.cmake exportfull"
+    # count.cmake filecount
 
- if [ "$CMAKE_COUNT" -eq 0 ]; then
+    CMAKE_COUNT=$(rpm -ql llvm22-devel | grep -c '\.cmake$')
 
- rlLogWarning "llvm22-devel not.cmake file, skip cmake checksum"
+    rlLogInfo "llvm22-devel $CMAKE_COUNT.cmake file"
 
- else
+    rlPhaseEnd
 
- cat > "$TmpDir/CMakeLists.txt" << 'CMAKEEOF'
+
+
+    rlPhaseStartTest "find_package(LLVM) COMPONENTS - checksum LLVMExports.cmake exportfull"
+
+    if [ "$CMAKE_COUNT" -eq 0 ]; then
+
+    rlLogWarning "llvm22-devel not.cmake file, skip cmake checksum"
+
+    else
+
+    cat > "$TmpDir/CMakeLists.txt" << 'CMAKEEOF'
 
 cmake_minimum_required(VERSION 3.13.4)
 
@@ -108,30 +108,30 @@ CMAKEEOF
 
 
 
- rlRun "cmake -S $TmpDir -B $TmpDir/build_components" 0 \
+    rlRun "cmake -S $TmpDir -B $TmpDir/build_components" 0 \
 
- "cmake configuration (find_package LLVM with COMPONENTS)"
+    "cmake configuration (find_package LLVM with COMPONENTS)"
 
- fi
+    fi
 
- rlPhaseEnd
-
-
-
- rlPhaseStartCleanup "Clean up test environment"
-
- rlRun "cd /" 0 "Leave test directory"
-
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

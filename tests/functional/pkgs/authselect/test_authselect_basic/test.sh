@@ -25,70 +25,70 @@
 rlJournalStart
 
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
 
- authselectSetup
+    authselectSetup
 
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
 
- rlPhaseEnd
-
-
-
-
-
- rlPhaseStartTest "error handling"
-
-
- rlRun "authselect list 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "гerror handling"
-
-
- rlRun "authselect current 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "ǰ"
-
-
- rlRun "authselect check 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "ǰ"
-
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
 
 
+    rlPhaseStartTest "error handling"
 
 
-
- rlPhaseStartCleanup "Clean up test environment"
-
-
- rlRun "cd /" 0 "Leave test directory"
+    rlRun "authselect list 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "гerror handling"
 
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "authselect current 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "ǰ"
 
 
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    rlRun "authselect check 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "ǰ"
 
 
- fi
-
-
- # authselect Package managed by lib.sh's reference counting auto-uninstall
-
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
 
 
- rlJournalPrintText
+
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+
+    rlRun "cd /" 0 "Leave test directory"
+
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+
+    fi
+
+
+    # authselect Package managed by lib.sh's reference counting auto-uninstall
+
+
+    rlPhaseEnd
+
+
+
+
+
+    rlJournalPrintText
 
 
 rlJournalEnd

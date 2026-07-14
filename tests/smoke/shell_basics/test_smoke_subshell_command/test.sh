@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeShellBasicsSetup
- rlRun "X=$(date +%Y); test -n "$X"" 0 "Prepare environment"
+    rlPhaseStartSetup "Environment setup"
+    smokeShellBasicsSetup
+    rlRun "X=$(date +%Y); test -n "$X"" 0 "Prepare environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "\$() commandreplace"
- rlRun 'echo $(uname)' 0 "\$() commandreplace"
- rlPhaseEnd
+    rlPhaseStartTest "\$() commandreplace"
+    rlRun 'echo $(uname)' 0 "\$() commandreplace"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

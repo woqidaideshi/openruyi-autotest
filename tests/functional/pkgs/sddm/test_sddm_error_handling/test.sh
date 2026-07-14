@@ -16,49 +16,49 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- sddmSetup
+    sddmSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "Error-handling"
-
- # SDDM intentionally ignores unknown arguments and starts the daemon.
-
- # Verify it doesn't crash: timeout kills it, exit 124 = still running.
-
- rlRun "timeout 3 sddm --invalid-option >/dev/null 2>&1; [ \$? -eq 124 ]" 0 "SDDM notparameter, normalno"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
+    rlPhaseStartTest "Error-handling"
 
+    # SDDM intentionally ignores unknown arguments and starts the daemon.
 
- rlPhaseStartCleanup "Clean up test environment"
+    # Verify it doesn't crash: timeout kills it, exit 124 = still running.
 
- rlRun "cd /" 0 "Leave test directory"
+    rlRun "timeout 3 sddm --invalid-option >/dev/null 2>&1; [ \$? -eq 124 ]" 0 "SDDM notparameter, normalno"
 
- if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-
- rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
-
- fi
-
- # sddm Package managed by lib.sh's reference counting auto-uninstall
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # sddm Package managed by lib.sh's reference counting auto-uninstall
+
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd
 

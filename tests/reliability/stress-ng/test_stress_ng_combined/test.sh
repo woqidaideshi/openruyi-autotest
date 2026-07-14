@@ -12,151 +12,151 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- stressNgSetup
+    stressNgSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- TAINT=$(_stressNgTaintBefore)
+    TAINT=$(_stressNgTaintBefore)
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "combined stress: CPU+MEM+PROC"
+    rlPhaseStartTest "combined stress: CPU+MEM+PROC"
 
- local log="$TmpDir/combo1.log"
+    local log="$TmpDir/combo1.log"
 
- # simultaneously CPU(2thread) + VM(128M) + FORK(2thread)
+    # simultaneously CPU(2thread) + VM(128M) + FORK(2thread)
 
- rlRun "stress-ng --cpu 2 --vm 1 --vm-bytes 64M --fork 2 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -10" 0 "CPU+VM+FORK combined"
+    rlRun "stress-ng --cpu 2 --vm 1 --vm-bytes 64M --fork 2 --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -10" 0 "CPU+VM+FORK combined"
 
- tail -20 "$log"
+    tail -20 "$log"
 
 
 
- # verifyeach stressor all success
+    # verifyeach stressor all success
 
- for s in cpu vm fork; do
+    for s in cpu vm fork; do
 
- if grep -q "$s" "$log"; then
+    if grep -q "$s" "$log"; then
 
- _stressNgValidate "$log" "$s"
+    _stressNgValidate "$log" "$s"
 
- fi
+    fi
 
- done
+    done
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "combined stress: Documentation recommends workload"
+    rlPhaseStartTest "combined stress: Documentation recommends workload"
 
- # useDocumentation recommends 13 workload (time)
+    # useDocumentation recommends 13 workload (time)
 
- local log="$TmpDir/combo2.log"
+    local log="$TmpDir/combo2.log"
 
- local workloads="cpu context fork get mmap vm-splice wait zombie"
+    local workloads="cpu context fork get mmap vm-splice wait zombie"
 
- local args=""
+    local args=""
 
- for w in $workloads; do args="$args --$w 1"; done
+    for w in $workloads; do args="$args --$w 1"; done
 
 
 
- rlRun "stress-ng $args --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -15" 0 "Documentation recommends workload combined"
+    rlRun "stress-ng $args --timeout 30s --metrics-brief --log-file $log 2>&1 | tail -15" 0 "Documentation recommends workload combined"
 
- tail -30 "$log"
+    tail -30 "$log"
 
 
 
- # count passed count
+    # count passed count
 
- local passed
+    local passed
 
- passed=$(grep -oP 'passed:\s*\K\d+' "$log" | awk '{s+=$1} END {print s}')
+    passed=$(grep -oP 'passed:\s*\K\d+' "$log" | awk '{s+=$1} END {print s}')
 
- rlLogInfo "combinedtest passed totalcount: $passed"
+    rlLogInfo "combinedtest passed totalcount: $passed"
 
- if [ -n "$passed" ] && [ "$passed" -gt 0 ]; then
+    if [ -n "$passed" ] && [ "$passed" -gt 0 ]; then
 
- rlPass "combined stress: $passed stressor passed"
+    rlPass "combined stress: $passed stressor passed"
 
- fi
+    fi
 
 
 
- # confirmnofailed
+    # confirmnofailed
 
- local failed
+    local failed
 
- failed=$(grep -oP 'failed:\s*\K\d+' "$log" | awk '{s+=$1} END {print s}')
+    failed=$(grep -oP 'failed:\s*\K\d+' "$log" | awk '{s+=$1} END {print s}')
 
- if [ -z "$failed" ] || [ "$failed" -eq 0 ]; then
+    if [ -z "$failed" ] || [ "$failed" -eq 0 ]; then
 
- rlPass "combined stress: failed=0"
+    rlPass "combined stress: failed=0"
 
- else
+    else
 
- rlLogWarning "combined stressexists $failed failed"
+    rlLogWarning "combined stressexists $failed failed"
 
- fi
+    fi
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "metrics analysis"
+    rlPhaseStartTest "metrics analysis"
 
- local log="$TmpDir/combo1.log"
+    local log="$TmpDir/combo1.log"
 
- # analysis usr/sys time 
+    # analysis usr/sys time 
 
- if [ -f "$log" ]; then
+    if [ -f "$log" ]; then
 
- rlRun "grep -E 'cpu|vm|fork' $log | head -10" 0 "metrics "
+    rlRun "grep -E 'cpu|vm|fork' $log | head -10" 0 "metrics "
 
- # usr time shouldtotaltime
+    # usr time shouldtotaltime
 
- local total_usr total_sys
+    local total_usr total_sys
 
- total_usr=$(grep -oP 'usr time\s+\K[\d.]+' "$log" | head -1)
+    total_usr=$(grep -oP 'usr time\s+\K[\d.]+' "$log" | head -1)
 
- total_sys=$(grep -oP'sys time\s+\K[\d.]+' "$log" | head -1)
+    total_sys=$(grep -oP'sys time\s+\K[\d.]+' "$log" | head -1)
 
- if [ -n "$total_usr" ]; then
+    if [ -n "$total_usr" ]; then
 
- rlLogInfo "usr time: $total_usr, sys time: $total_sys"
+    rlLogInfo "usr time: $total_usr, sys time: $total_sys"
 
- rlPass "metrics canresolve"
+    rlPass "metrics canresolve"
 
- fi
+    fi
 
- fi
+    fi
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "tainted"
+    rlPhaseStartTest "tainted"
 
- _stressNgTaintCheck "$TAINT"
+    _stressNgTaintCheck "$TAINT"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 

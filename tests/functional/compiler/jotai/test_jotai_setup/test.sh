@@ -18,97 +18,97 @@ BENCH_DIR="/tmp/jotai-benchmarks/benchmarks/anghaLeaves"
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- jotaiSetup
+    jotaiSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
- rlRun "which git" 0 "git commandavailable"
+    rlRun "which git" 0 "git commandavailable"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "repository verification"
+    rlPhaseStartTest "repository verification"
 
- # checkrepolibrarydirectorywhetherexists
+    # checkrepolibrarydirectorywhetherexists
 
- if [ -d "/tmp/jotai-benchmarks" ]; then
+    if [ -d "/tmp/jotai-benchmarks" ]; then
 
- rlPass "jotai-benchmarks directory exists"
-
- 
-
- # check benchmarks subdirectory
-
- if [ -d "/tmp/jotai-benchmarks/benchmarks" ]; then
-
- rlPass "benchmarks subdirectory exists"
+    rlPass "jotai-benchmarks directory exists"
 
  
 
- # listexportavailable benchmark file
+    # check benchmarks subdirectory
 
- rlRun "find /tmp/jotai-benchmarks/benchmarks -name '*.c' -type f | head -20" 0 "listexportbefore 20 C benchmark file"
+    if [ -d "/tmp/jotai-benchmarks/benchmarks" ]; then
 
- 
-
- # verifyhas C file
-
- count=$(find /tmp/jotai-benchmarks/benchmarks -name '*.c' -type f 2>/dev/null | wc -l)
-
- if [ "$count" -gt 0 ]; then
-
- rlPass "repolibrarycontains $count C benchmark file"
-
- else
-
- rlFail "repolibrarynocontains C benchmark file"
-
- fi
+    rlPass "benchmarks subdirectory exists"
 
  
 
- # check anghaLeaves directory
+    # listexportavailable benchmark file
 
- if [ -d "$BENCH_DIR" ]; then
+    rlRun "find /tmp/jotai-benchmarks/benchmarks -name '*.c' -type f | head -20" 0 "listexportbefore 20 C benchmark file"
 
- angha_count=$(find "$BENCH_DIR" -name '*.c' -type f 2>/dev/null | wc -l)
+ 
 
- rlPass "anghaLeaves directorycontains $angha_count benchmark file"
+    # verifyhas C file
 
- fi
+    count=$(find /tmp/jotai-benchmarks/benchmarks -name '*.c' -type f 2>/dev/null | wc -l)
 
- else
+    if [ "$count" -gt 0 ]; then
 
- rlFail "benchmarks subdirectorydoes not exist"
+    rlPass "repolibrarycontains $count C benchmark file"
 
- fi
+    else
 
- else
+    rlFail "repolibrarynocontains C benchmark file"
 
- rlFail "jotai-benchmarks Clonefailed"
+    fi
 
- fi
+ 
 
- rlPhaseEnd
+    # check anghaLeaves directory
+
+    if [ -d "$BENCH_DIR" ]; then
+
+    angha_count=$(find "$BENCH_DIR" -name '*.c' -type f 2>/dev/null | wc -l)
+
+    rlPass "anghaLeaves directorycontains $angha_count benchmark file"
+
+    fi
+
+    else
+
+    rlFail "benchmarks subdirectorydoes not exist"
+
+    fi
+
+    else
+
+    rlFail "jotai-benchmarks Clonefailed"
+
+    fi
+
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 "Leave temporary directory"
+    rlRun "cd /" 0 "Leave temporary directory"
 
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 

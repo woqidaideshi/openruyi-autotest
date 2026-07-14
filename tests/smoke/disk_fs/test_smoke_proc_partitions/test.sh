@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeDiskFsSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeDiskFsSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "/proc/partitions partitionlist"
- rlRun 'cat /proc/partitions' 0 "/proc/partitions partitionlist"
- rlRun 'cat /proc/filesystems | head -5' 0 "/proc/filesystems supportsfilesystem"
- rlPhaseEnd
+    rlPhaseStartTest "/proc/partitions partitionlist"
+    rlRun 'cat /proc/partitions' 0 "/proc/partitions partitionlist"
+    rlRun 'cat /proc/filesystems | head -5' 0 "/proc/filesystems supportsfilesystem"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

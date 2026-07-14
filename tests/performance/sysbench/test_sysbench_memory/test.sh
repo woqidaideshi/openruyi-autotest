@@ -10,101 +10,101 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- sysbenchSetup
+    sysbenchSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
- local cores=$(nproc)
+    local cores=$(nproc)
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "sequential readwrite (block 1M)"
-
- echo ""
-
- echo "=== memorysequential ($cores thread) ==="
-
- printf "%-12s %-15s\n" "Mode" "MiB/s"
+    rlPhaseEnd
 
 
 
- for op in read write; do
+    rlPhaseStartTest "sequential readwrite (block 1M)"
 
- local log="/tmp/sb_mem_seq_${op}.log"
+    echo ""
 
- sysbench --threads=$cores --memory-block-size=1M --memory-total-size=10000G \
+    echo "=== memorysequential ($cores thread) ==="
 
- --memory-oper=$op --memory-access-mode=seq --time=15 \
-
- --report-interval=5 memory run 2>&1 | tee "$log"
+    printf "%-12s %-15s\n" "Mode" "MiB/s"
 
 
 
- local bw
+    for op in read write; do
 
- bw=$(grep "MiB/sec" "$log" | grep -oP '[\d.]+' | head -1)
+    local log="/tmp/sb_mem_seq_${op}.log"
 
- printf "%-12s %-15s\n" "seq/$op" "${bw:-N/A}"
+    sysbench --threads=$cores --memory-block-size=1M --memory-total-size=10000G \
 
- rlPass "sequential${op}: ${bw:-N/A} MiB/s"
+    --memory-oper=$op --memory-access-mode=seq --time=15 \
 
- done
-
- rlPhaseEnd
+    --report-interval=5 memory run 2>&1 | tee "$log"
 
 
 
- rlPhaseStartTest "random readwrite (block 8K)"
+    local bw
 
- echo ""
+    bw=$(grep "MiB/sec" "$log" | grep -oP '[\d.]+' | head -1)
 
- echo "=== memoryrandom ($cores thread) ==="
+    printf "%-12s %-15s\n" "seq/$op" "${bw:-N/A}"
 
- printf "%-12s %-15s\n" "Mode" "MiB/s"
+    rlPass "sequential${op}: ${bw:-N/A} MiB/s"
 
+    done
 
-
- for op in read write; do
-
- local log="/tmp/sb_mem_rnd_${op}.log"
-
- sysbench --threads=$cores --memory-block-size=8K --memory-total-size=200G \
-
- --memory-oper=$op --memory-access-mode=rnd --time=15 \
-
- --report-interval=5 memory run 2>&1 | tee "$log"
+    rlPhaseEnd
 
 
 
- local bw
+    rlPhaseStartTest "random readwrite (block 8K)"
 
- bw=$(grep "MiB/sec" "$log" | grep -oP '[\d.]+' | head -1)
+    echo ""
 
- printf "%-12s %-15s\n" "rnd/$op" "${bw:-N/A}"
+    echo "=== memoryrandom ($cores thread) ==="
 
- rlPass "random${op}: ${bw:-N/A} MiB/s"
-
- done
-
- rlPhaseEnd
+    printf "%-12s %-15s\n" "Mode" "MiB/s"
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    for op in read write; do
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    local log="/tmp/sb_mem_rnd_${op}.log"
 
- rm -f /tmp/sb_mem_*.log
+    sysbench --threads=$cores --memory-block-size=8K --memory-total-size=200G \
 
- rlPhaseEnd
+    --memory-oper=$op --memory-access-mode=rnd --time=15 \
 
- rlJournalPrintText
+    --report-interval=5 memory run 2>&1 | tee "$log"
+
+
+
+    local bw
+
+    bw=$(grep "MiB/sec" "$log" | grep -oP '[\d.]+' | head -1)
+
+    printf "%-12s %-15s\n" "rnd/$op" "${bw:-N/A}"
+
+    rlPass "random${op}: ${bw:-N/A} MiB/s"
+
+    done
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartCleanup "Cleanup"
+
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+
+    rm -f /tmp/sb_mem_*.log
+
+    rlPhaseEnd
+
+    rlJournalPrintText
 
 rlJournalEnd
 

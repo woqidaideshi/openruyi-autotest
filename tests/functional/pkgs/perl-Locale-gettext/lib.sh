@@ -18,41 +18,41 @@ PKG_FLAG="/tmp/.beakerlib_perl_Locale_gettext_suite"
 
 perlLocaleGettextSetup() {
 
- if [ ! -f "$PKG_FLAG" ]; then
+    if [ ! -f "$PKG_FLAG" ]; then
 
- if ! rpm -q perl-Locale-gettext 2>/dev/null; then
+    if ! rpm -q perl-Locale-gettext 2>/dev/null; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y perl-Locale-gettext 2>/dev/null
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y perl-Locale-gettext 2>/dev/null
 
- echo "installed=1" > "$PKG_FLAG"
+    echo "installed=1" > "$PKG_FLAG"
 
- rlLogInfo "already perl-Locale-gettext soft ()"
+    rlLogInfo "already perl-Locale-gettext soft ()"
 
- else
+    else
 
- echo "installed=0" > "$PKG_FLAG"
+    echo "installed=0" > "$PKG_FLAG"
 
- rlLogInfo "perl-Locale-gettext softalready exists"
+    rlLogInfo "perl-Locale-gettext softalready exists"
 
- fi
+    fi
 
- echo "ref=1" >> "$PKG_FLAG"
+    echo "ref=1" >> "$PKG_FLAG"
 
- else
+    else
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
 
- ref=$((ref + 1))
+    ref=$((ref + 1))
 
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
 
- rlLogInfo "perl-Locale-gettext alreadybyothertest, reference count: $ref"
+    rlLogInfo "perl-Locale-gettext alreadybyothertest, reference count: $ref"
 
- fi
+    fi
 
- rlCleanupAppend "perlLocaleGettextCleanup"
+    rlCleanupAppend "perlLocaleGettextCleanup"
 
 }
 
@@ -60,37 +60,37 @@ perlLocaleGettextSetup() {
 
 perlLocaleGettextCleanup() {
 
- if [ ! -f "$PKG_FLAG" ]; then
+    if [ ! -f "$PKG_FLAG" ]; then
 
- return 0
+    return 0
 
- fi
+    fi
 
- local ref
+    local ref
 
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+    ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
 
- ref=$((ref - 1))
+    ref=$((ref - 1))
 
- if [ "$ref" -le 0 ]; then
+    if [ "$ref" -le 0 ]; then
 
- if grep -q "^installed=1" "$PKG_FLAG"; then
+    if grep -q "^installed=1" "$PKG_FLAG"; then
 
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y perl-Locale-gettext 2>/dev/null || true
+    echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y perl-Locale-gettext 2>/dev/null || true
 
- rlLogInfo "already perl-Locale-gettext soft (posttest)"
+    rlLogInfo "already perl-Locale-gettext soft (posttest)"
 
- fi
+    fi
 
- rm -f "$PKG_FLAG"
+    rm -f "$PKG_FLAG"
 
- else
+    else
 
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+    sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
 
- rlLogInfo "perl-Locale-gettext Retain (still have $ref test(s) not completed)"
+    rlLogInfo "perl-Locale-gettext Retain (still have $ref test(s) not completed)"
 
- fi
+    fi
 
 }
 

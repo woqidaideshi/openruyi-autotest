@@ -10,17 +10,17 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- dejagnuSetup
+    dejagnuSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 ""
+    rlRun "cd $TmpDir" 0 ""
 
 
 
- cat > exc.cpp << 'CEOF'
+    cat > exc.cpp << 'CEOF'
 
 #include <iostream>
 
@@ -68,59 +68,59 @@ int main(void){
 
 CEOF
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "G++ Exception"
+    rlPhaseStartTest "G++ Exception"
 
- rlRun "g++ -std=c++17 -o exc_gxx exc.cpp &&./exc_gxx" 0 "G++ Exceptionprogramrun"
+    rlRun "g++ -std=c++17 -o exc_gxx exc.cpp &&./exc_gxx" 0 "G++ Exceptionprogramrun"
 
 ./exc_gxx | tee /tmp/exc_gxx.txt
 
- grep -q "safe_add=30" /tmp/exc_gxx.txt && rlPass "noexcept functionnormal"
+    grep -q "safe_add=30" /tmp/exc_gxx.txt && rlPass "noexcept functionnormal"
 
- grep -q "div=25" /tmp/exc_gxx.txt && rlPass "normal"
+    grep -q "div=25" /tmp/exc_gxx.txt && rlPass "normal"
 
- grep -q "div0 caught" /tmp/exc_gxx.txt && rlPass "Exception (throw→catch)"
+    grep -q "div0 caught" /tmp/exc_gxx.txt && rlPass "Exception (throw→catch)"
 
- grep -q "ctor 1" /tmp/exc_gxx.txt && grep -q "dtor 1" /tmp/exc_gxx.txt && rlPass "RAII /"
+    grep -q "ctor 1" /tmp/exc_gxx.txt && grep -q "dtor 1" /tmp/exc_gxx.txt && rlPass "RAII /"
 
- grep -q "caught: inner" /tmp/exc_gxx.txt && rlPass "nestedException"
+    grep -q "caught: inner" /tmp/exc_gxx.txt && rlPass "nestedException"
 
- grep -q "CXX_EXC_OK" /tmp/exc_gxx.txt && rlPass "Exceptionhandleallpassed"
+    grep -q "CXX_EXC_OK" /tmp/exc_gxx.txt && rlPass "Exceptionhandleallpassed"
 
- rlPhaseEnd
-
-
-
- rlPhaseStartTest "Clang++ Exception"
-
- rlRun "clang++ -std=c++17 -o exc_clang exc.cpp &&./exc_clang | grep CXX_EXC_OK" 0 "Clang++ Exceptionhandle"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "G++ vs Clang++ exception consistency"
+    rlPhaseStartTest "Clang++ Exception"
+
+    rlRun "clang++ -std=c++17 -o exc_clang exc.cpp &&./exc_clang | grep CXX_EXC_OK" 0 "Clang++ Exceptionhandle"
+
+    rlPhaseEnd
+
+
+
+    rlPhaseStartTest "G++ vs Clang++ exception consistency"
 
 ./exc_gxx >/tmp/exc_gxx2.txt 2>&1;./exc_clang >/tmp/exc_clang2.txt 2>&1
 
- diff /tmp/exc_gxx2.txt /tmp/exc_clang2.txt >/dev/null 2>&1 && rlPass "G++/Clang++ Exceptionlinesisconsistent" || rlLogInfo "output differs"
+    diff /tmp/exc_gxx2.txt /tmp/exc_clang2.txt >/dev/null 2>&1 && rlPass "G++/Clang++ Exceptionlinesisconsistent" || rlLogInfo "output differs"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
+    rlRun "cd /" 0 ""; [ -n "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 ""
 
- rm -f /tmp/exc_{gxx,gxx2,clang2}.txt
+    rm -f /tmp/exc_{gxx,gxx2,clang2}.txt
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 

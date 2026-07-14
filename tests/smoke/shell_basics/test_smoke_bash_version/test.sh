@@ -6,19 +6,19 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
- rlPhaseStartSetup "Environment setup"
- smokeShellBasicsSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeShellBasicsSetup
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlPhaseStartTest "bash version"
- rlRun 'bash --version' 0 "bash version"
- rlRun 'bash -c "echo shell works"' 0 "bash -c Executecommand"
- rlPhaseEnd
+    rlPhaseStartTest "bash version"
+    rlRun 'bash --version' 0 "bash version"
+    rlRun 'bash -c "echo shell works"' 0 "bash -c Executecommand"
+    rlPhaseEnd
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartCleanup "Clean up test environment"
 
- rlPhaseEnd
+    rlPhaseEnd
 
- rlJournalPrintText
+    rlJournalPrintText
 rlJournalEnd

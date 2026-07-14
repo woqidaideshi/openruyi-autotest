@@ -14,38 +14,38 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- smokePackageMgmtSetup
-
-
-
- rlPhaseEnd
+    smokePackageMgmtSetup
 
 
 
- rlPhaseStartTest "rpm version"
-
- rlRun 'rpm --version' 0 "rpm version"
-
- rlRun 'rpm -q coreutils' 0 "rpm -q "
-
- rlRun 'rpm -qa | head -5' 0 "rpm -qa listexportall"
-
- rlRun 'rpm -qi coreutils | head -5' 0 "rpm -qi info"
-
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Clean up test environment"
+    rlPhaseStartTest "rpm version"
+
+    rlRun 'rpm --version' 0 "rpm version"
+
+    rlRun 'rpm -q coreutils' 0 "rpm -q "
+
+    rlRun 'rpm -qa | head -5' 0 "rpm -qa listexportall"
+
+    rlRun 'rpm -qi coreutils | head -5' 0 "rpm -qi info"
+
+    rlPhaseEnd
 
 
 
- rlPhaseEnd
+    rlPhaseStartCleanup "Clean up test environment"
 
 
 
- rlJournalPrintText
+    rlPhaseEnd
+
+
+
+    rlJournalPrintText
 
 rlJournalEnd

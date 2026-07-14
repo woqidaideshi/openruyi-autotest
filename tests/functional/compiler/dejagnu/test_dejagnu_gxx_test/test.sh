@@ -14,25 +14,25 @@
 
 rlJournalStart
 
- rlPhaseStartSetup "Environment setup"
+    rlPhaseStartSetup "Environment setup"
 
- dejagnuSetup
+    dejagnuSetup
 
- TmpDir=$(mktemp -d)
+    TmpDir=$(mktemp -d)
 
- rlRun "cd $TmpDir" 0 "Enter temporary directory"
-
- 
-
- # create G++ testsuite directory structure
-
- mkdir -p gxx-testsuite/g++.dg
+    rlRun "cd $TmpDir" 0 "Enter temporary directory"
 
  
 
- # Create test C++ source file
+    # create G++ testsuite directory structure
 
- cat > gxx-testsuite/g++.dg/dejagnu_gxx_test.C << 'CEOF'
+    mkdir -p gxx-testsuite/g++.dg
+
+ 
+
+    # Create test C++ source file
+
+    cat > gxx-testsuite/g++.dg/dejagnu_gxx_test.C << 'CEOF'
 
 // { dg-do run }
 
@@ -110,9 +110,9 @@ CEOF
 
  
 
- # create DejaGnu.exp file
+    # create DejaGnu.exp file
 
- cat > gxx-testsuite/g++.dg/dejagnu_gxx_test.exp << 'EEOF'
+    cat > gxx-testsuite/g++.dg/dejagnu_gxx_test.exp << 'EEOF'
 
 # G++ DejaGnu test driver
 
@@ -130,109 +130,109 @@ EEOF
 
  
 
- rlLogInfo "G++ testfilealreadycreate"
+    rlLogInfo "G++ testfilealreadycreate"
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlPhaseStartTest "G++ DejaGnu test"
+    rlPhaseStartTest "G++ DejaGnu test"
 
- cd gxx-testsuite
-
- 
-
- export GCC_UNDER_TEST=gcc
-
- export GXX_UNDER_TEST=g++
+    cd gxx-testsuite
 
  
 
- runtest --tool g++ g++.dg/dejagnu_gxx_test.exp 2>&1 | tee /tmp/dejagnu_gxx_run.log
+    export GCC_UNDER_TEST=gcc
 
- local rc=${PIPESTATUS[0]}
-
- 
-
- # verify.sum file
-
- if [ -f g++.sum ]; then
-
- rlRun "cat g++.sum" 0 "display g++.sum content"
+    export GXX_UNDER_TEST=g++
 
  
 
- if grep -q "^PASS:" g++.sum; then
+    runtest --tool g++ g++.dg/dejagnu_gxx_test.exp 2>&1 | tee /tmp/dejagnu_gxx_run.log
 
- local pass_count
-
- pass_count=$(grep -c "^PASS:" g++.sum)
-
- rlPass "G++ DejaGnu testpassed ($pass_count PASS)"
-
- else
-
- rlFail "G++.sum filenotcontains PASS result"
-
- fi
+    local rc=${PIPESTATUS[0]}
 
  
 
- if grep -q "^FAIL:" g++.sum; then
+    # verify.sum file
 
- local fail_count
+    if [ -f g++.sum ]; then
 
- fail_count=$(grep -c "^FAIL:" g++.sum)
-
- rlFail "G++ testexists $fail_count failed"
-
- else
-
- rlPass "G++ testno FAIL"
-
- fi
-
- else
-
- rlFail "notGenerate g++.sum file"
-
- fi
+    rlRun "cat g++.sum" 0 "display g++.sum content"
 
  
 
- # verify.log file
+    if grep -q "^PASS:" g++.sum; then
 
- if [ -f g++.log ]; then
+    local pass_count
 
- if grep -q "GXX_DG_TEST_PASSED\|PASS\|dg-runtest" g++.log; then
+    pass_count=$(grep -c "^PASS:" g++.sum)
 
- rlPass "g++.log containspreoutput"
+    rlPass "G++ DejaGnu testpassed ($pass_count PASS)"
 
- fi
+    else
 
- fi
+    rlFail "G++.sum filenotcontains PASS result"
+
+    fi
 
  
 
- cd "$TmpDir"
+    if grep -q "^FAIL:" g++.sum; then
 
- rlPhaseEnd
+    local fail_count
+
+    fail_count=$(grep -c "^FAIL:" g++.sum)
+
+    rlFail "G++ testexists $fail_count failed"
+
+    else
+
+    rlPass "G++ testno FAIL"
+
+    fi
+
+    else
+
+    rlFail "notGenerate g++.sum file"
+
+    fi
+
+ 
+
+    # verify.log file
+
+    if [ -f g++.log ]; then
+
+    if grep -q "GXX_DG_TEST_PASSED\|PASS\|dg-runtest" g++.log; then
+
+    rlPass "g++.log containspreoutput"
+
+    fi
+
+    fi
+
+ 
+
+    cd "$TmpDir"
+
+    rlPhaseEnd
 
 
 
- rlPhaseStartCleanup "Cleanup"
+    rlPhaseStartCleanup "Cleanup"
 
- rlRun "cd /" 0 "Leave temporary directory"
+    rlRun "cd /" 0 "Leave temporary directory"
 
- [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean up temporary directory"
 
- rm -f /tmp/dejagnu_gxx_run.log
+    rm -f /tmp/dejagnu_gxx_run.log
 
- rlPhaseEnd
+    rlPhaseEnd
 
 
 
- rlJournalPrintText
+    rlJournalPrintText
 
 rlJournalEnd
 
