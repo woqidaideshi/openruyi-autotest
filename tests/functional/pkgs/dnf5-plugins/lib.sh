@@ -1,48 +1,96 @@
-# library-prefix = dnf5_plugins
-#
-# dnf5-plugins suite-level shared library
-# Uses flag-file + reference counting to ensure the package
-# is installed only ONCE and uninstalled only ONCE across all
-# test cases.
-
-PKG_FLAG="/tmp/.beakerlib_dnf5_plugins_suite"
-
-dnf5PluginsSetup() {
- if [ ! -f "$PKG_FLAG" ]; then
- if ! rpm -q dnf5-plugins 2>/dev/null; then
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y dnf5-plugins 2>/dev/null
- echo "installed=1" > "$PKG_FLAG"
- rlLogInfo "already dnf5-plugins soft ()"
- else
- echo "installed=0" > "$PKG_FLAG"
- rlLogInfo "dnf5-plugins softalready exists"
- fi
- echo "ref=1" >> "$PKG_FLAG"
- else
- local ref
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
- ref=$((ref + 1))
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "dnf5-plugins alreadybyothertest, reference count: $ref"
- fi
- rlCleanupAppend "dnf5PluginsCleanup"
-}
-
-dnf5PluginsCleanup() {
- if [ ! -f "$PKG_FLAG" ]; then
- return 0
- fi
- local ref
- ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
- ref=$((ref - 1))
- if [ "$ref" -le 0 ]; then
- if grep -q "^installed=1" "$PKG_FLAG"; then
- echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y dnf5-plugins 2>/dev/null || true
- rlLogInfo "already dnf5-plugins soft (posttest)"
- fi
- rm -f "$PKG_FLAG"
- else
- sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
- rlLogInfo "dnf5-plugins Retain (still have $ref test(s) not completed)"
- fi
-}
+# library-prefix = dnf5_plugins
+
+#
+
+# dnf5-plugins suite-level shared library
+
+# Uses flag-file + reference counting to ensure the package
+
+# is installed only ONCE and uninstalled only ONCE across all
+
+# test cases.
+
+
+
+PKG_FLAG="/tmp/.beakerlib_dnf5_plugins_suite"
+
+
+
+dnf5PluginsSetup() {
+
+ if [ ! -f "$PKG_FLAG" ]; then
+
+ if ! rpm -q dnf5-plugins 2>/dev/null; then
+
+ echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf install -y dnf5-plugins 2>/dev/null
+
+ echo "installed=1" > "$PKG_FLAG"
+
+ rlLogInfo "already dnf5-plugins soft ()"
+
+ else
+
+ echo "installed=0" > "$PKG_FLAG"
+
+ rlLogInfo "dnf5-plugins softalready exists"
+
+ fi
+
+ echo "ref=1" >> "$PKG_FLAG"
+
+ else
+
+ local ref
+
+ ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+
+ ref=$((ref + 1))
+
+ sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+
+ rlLogInfo "dnf5-plugins alreadybyothertest, reference count: $ref"
+
+ fi
+
+ rlCleanupAppend "dnf5PluginsCleanup"
+
+}
+
+
+
+dnf5PluginsCleanup() {
+
+ if [ ! -f "$PKG_FLAG" ]; then
+
+ return 0
+
+ fi
+
+ local ref
+
+ ref=$(grep "^ref=" "$PKG_FLAG" | cut -d= -f2)
+
+ ref=$((ref - 1))
+
+ if [ "$ref" -le 0 ]; then
+
+ if grep -q "^installed=1" "$PKG_FLAG"; then
+
+ echo "${TEST_SERVER_1_PASSWORD:-openruyi}" | sudo -S dnf remove -y dnf5-plugins 2>/dev/null || true
+
+ rlLogInfo "already dnf5-plugins soft (posttest)"
+
+ fi
+
+ rm -f "$PKG_FLAG"
+
+ else
+
+ sed -i "s/^ref=.*/ref=$ref/" "$PKG_FLAG"
+
+ rlLogInfo "dnf5-plugins Retain (still have $ref test(s) not completed)"
+
+ fi
+
+}
+
