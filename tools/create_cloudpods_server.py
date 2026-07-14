@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-CloudPods QEMU Launcher Script
+CloudPods QEMU Server Creator
 基于 mugen-generator 代码库分析，创建一个精简的 CloudPods 虚拟机启动器。
 
 功能：
@@ -12,7 +12,7 @@ CloudPods QEMU Launcher Script
 5. 跳过 os-autotest 下载和测试执行
 
 用法：
-    python cloudpods_launcher.py \
+    python create_cloudpods_server.py \
         --os-version 24.03-LTS-SP1 \
         --os-arch riscv64 \
         --vm-count 1 \
@@ -49,7 +49,7 @@ except ImportError:
     print("ERROR: requests 库未安装，请执行: pip install requests urllib3")
     sys.exit(1)
 
-log = logging.getLogger("cloudpods_launcher")
+log = logging.getLogger("create_cloudpods_server")
 log.setLevel(logging.DEBUG)
 _formatter = logging.Formatter(
     fmt="%(asctime)s | %(levelname)-7s | %(message)s",
@@ -503,10 +503,10 @@ def create_and_prepare_vms(args: argparse.Namespace) -> List[Dict]:
     """创建虚拟机并等待就绪"""
     # 获取 CloudPods 客户端
     keystone_url = args.cloudpods_url or os.environ.get(
-        "CLOUDPODS_KEYSTONE_URL", "https://10.20.40.101:30500/v3"
+        "CLOUDPODS_KEYSTONE_URL", Env.CLOUDPODS_KEYSTONE_URL
     )
-    cp_user = args.cloudpods_user or os.environ.get("CLOUDPODS_USER", "admin")
-    cp_password = args.cloudpods_password or os.environ.get("CLOUDPODS_PASSWORD", "")
+    cp_user = args.cloudpods_user or os.environ.get("CLOUDPODS_USER", Env.CLOUDPODS_USER)
+    cp_password = args.cloudpods_password or os.environ.get("CLOUDPODS_PASSWORD", Env.CLOUDPODS_PASSWORD)
     cp = CloudPodsClient(keystone_url, cp_user, cp_password)
     if not cp.authenticate():
         log.error("CloudPods 认证失败，退出")
@@ -520,7 +520,7 @@ def create_and_prepare_vms(args: argparse.Namespace) -> List[Dict]:
 
     # 网络列表
     nets_list = os.environ.get("CLOUDPODS_NET_LIST",
-                               "e50836ad-cc39-4683-8d6b-072866f1981d").split(",")
+                               Env.NET_LIST).split(",")
 
     # 创建虚拟机
     log.info(f"=" * 60)
@@ -548,8 +548,8 @@ def create_and_prepare_vms(args: argparse.Namespace) -> List[Dict]:
     log.info(f"创建成功，共 {len(server_ids)} 台: {server_ids}")
 
     # 等待每台虚拟机就绪
-    ssh_user = args.ssh_user or os.environ.get("USER", "root")
-    ssh_password = args.ssh_password or os.environ.get("PASSWORD", "openEuler12#$")
+    ssh_user = args.ssh_user or os.environ.get("USER", Env.SSH_USER)
+    ssh_password = args.ssh_password or os.environ.get("PASSWORD", Env.SSH_PASSWORD)
 
     results = []
     for sid in server_ids:
@@ -595,10 +595,10 @@ def create_and_prepare_vms(args: argparse.Namespace) -> List[Dict]:
 def cleanup_vms(args: argparse.Namespace, server_ids: List[str]):
     """清理虚拟机"""
     keystone_url = args.cloudpods_url or os.environ.get(
-        "CLOUDPODS_KEYSTONE_URL", "https://10.20.40.101:30500/v3"
+        "CLOUDPODS_KEYSTONE_URL", Env.CLOUDPODS_KEYSTONE_URL
     )
-    cp_user = args.cloudpods_user or os.environ.get("CLOUDPODS_USER", "admin")
-    cp_password = args.cloudpods_password or os.environ.get("CLOUDPODS_PASSWORD", "")
+    cp_user = args.cloudpods_user or os.environ.get("CLOUDPODS_USER", Env.CLOUDPODS_USER)
+    cp_password = args.cloudpods_password or os.environ.get("CLOUDPODS_PASSWORD", Env.CLOUDPODS_PASSWORD)
     cp = CloudPodsClient(keystone_url, cp_user, cp_password)
     if not cp.authenticate():
         log.error("CloudPods 认证失败，无法清理")
@@ -615,66 +615,66 @@ def cleanup_vms(args: argparse.Namespace, server_ids: List[str]):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="CloudPods QEMU Launcher - 基于 mugen-generator 的精简虚拟机启动器",
+        description="CloudPods QEMU Server Creator - 基于 mugen-generator 的精简虚拟机启动器",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 示例:
   # 创建 1 台 riscv64 虚拟机
-  python cloudpods_launcher.py --os-version 24.03-LTS-SP1 --os-arch riscv64 \\
+  python create_cloudpods_server.py --os-version 24.03-LTS-SP1 --os-arch riscv64 \\
       -e GUEST_IMAGE_ID=xxx -e DISK_IMAGE_ID=yyy
 
   # 创建 3 台 x86_64 虚拟机
-  python cloudpods_launcher.py --os-version 24.03-LTS-SP1 --os-arch x86_64 --vm-count 3
+  python create_cloudpods_server.py --os-version 24.03-LTS-SP1 --os-arch x86_64 --vm-count 3
 
   # 清理虚拟机
-  python cloudpods_launcher.py --action cleanup --server-ids id1,id2,id3
+  python create_cloudpods_server.py --action cleanup --server-ids id1,id2,id3
 
   # 只输出结果 JSON
-  python cloudpods_launcher.py --os-version 24.03-LTS-SP1 --os-arch x86_64 -q
+  python create_cloudpods_server.py --os-version 24.03-LTS-SP1 --os-arch x86_64 -q
         """
     )
 
     # 基础参数
-    parser.add_argument("--os-version", default="24.03-LTS-SP1",
-                        help="操作系统版本 (默认: 24.03-LTS-SP1)")
-    parser.add_argument("--os-arch", default="x86_64",
-                        help="架构: x86_64 / aarch64 / riscv64 (默认: x86_64)")
-    parser.add_argument("--vm-count", type=int, default=1,
-                        help="创建虚拟机数量 (默认: 1)")
-    parser.add_argument("--vm-name", default="cloudpods-launcher",
-                        help="虚拟机名称前缀 (默认: cloudpods-launcher)")
-    parser.add_argument("--sku", default="ecs.g1.c4m12",
-                        help="服务器规格 (默认: ecs.g1.c4m12)")
-    parser.add_argument("--bios", default="bios",
-                        help="BIOS 类型 (默认: bios)")
-    parser.add_argument("--timeout", type=int, default=1800,
-                        help="等待虚拟机就绪超时秒数 (默认: 1800)")
+    parser.add_argument("--os-version", default=Env.OS_VERSION,
+                        help=f"操作系统版本 (默认: {Env.OS_VERSION})")
+    parser.add_argument("--os-arch", default=Env.OS_ARCH,
+                        help=f"架构: x86_64 / aarch64 / riscv64 (默认: {Env.OS_ARCH})")
+    parser.add_argument("--vm-count", type=int, default=Env.VM_COUNT,
+                        help=f"创建虚拟机数量 (默认: {Env.VM_COUNT})")
+    parser.add_argument("--vm-name", default=Env.VM_NAME,
+                        help=f"虚拟机名称前缀 (默认: {Env.VM_NAME})")
+    parser.add_argument("--sku", default=Env.SKU,
+                        help=f"服务器规格 (默认: {Env.SKU})")
+    parser.add_argument("--bios", default=Env.BIOS,
+                        help=f"BIOS 类型 (默认: {Env.BIOS})")
+    parser.add_argument("--timeout", type=int, default=Env.TIMEOUT,
+                        help=f"等待虚拟机就绪超时秒数 (默认: {Env.TIMEOUT})")
     parser.add_argument("--action", choices=["create", "cleanup"], default="create",
                         help="操作: create / cleanup (默认: create)")
     parser.add_argument("--server-ids", default="",
                         help="清理模式下，要删除的 server_id 列表（逗号分隔）")
 
     # CloudPods 认证
-    parser.add_argument("--cloudpods-url", default="",
+    parser.add_argument("--cloudpods-url", default=Env.CLOUDPODS_KEYSTONE_URL,
                         help="CloudPods Keystone URL")
-    parser.add_argument("--cloudpods-user", default="",
+    parser.add_argument("--cloudpods-user", default=Env.CLOUDPODS_USER,
                         help="CloudPods 用户名")
-    parser.add_argument("--cloudpods-password", default="",
+    parser.add_argument("--cloudpods-password", default=Env.CLOUDPODS_PASSWORD,
                         help="CloudPods 密码")
 
     # SSH
-    parser.add_argument("--ssh-user", default="",
-                        help="SSH 用户名 (默认: root)")
-    parser.add_argument("--ssh-password", default="",
+    parser.add_argument("--ssh-user", default=Env.SSH_USER,
+                        help=f"SSH 用户名 (默认: {Env.SSH_USER})")
+    parser.add_argument("--ssh-password", default=Env.SSH_PASSWORD,
                         help="SSH 密码")
 
     # 环境准备
     parser.add_argument("--skip-repo-update", action="store_true",
                         help="跳过 yum 源更新")
-    parser.add_argument("--mugen-repo", default="",
-                        help="os-autotest 代码仓库 URL（可选，提供则会 git clone）")
-    parser.add_argument("--mugen-branch", default="main",
-                        help="os-autotest 代码分支 (默认: main)")
+    parser.add_argument("--mugen-repo", default=Env.OS_AUTOTEST_REPO_HTTPS,
+                        help="os-autotest 代码仓库 URL（默认自动克隆）")
+    parser.add_argument("--mugen-branch", default=Env.OS_AUTOTEST_BRANCH,
+                        help=f"os-autotest 代码分支 (默认: {Env.OS_AUTOTEST_BRANCH})")
 
     # 环境变量注入
     parser.add_argument("-e", "--env", action="append", default=[],
@@ -721,6 +721,54 @@ def main():
             with open(args.output_json, "w", encoding="utf-8") as f:
                 json.dump(output, f, indent=2, ensure_ascii=False)
             log.info(f"结果已写入: {args.output_json}")
+
+
+# ============================================================
+# 环境配置类（集中定义所有可配置变量）
+# ============================================================
+
+class Env:
+    """CloudPods 环境配置，所有可配置变量集中于此，方便修改。"""
+
+    # --- CloudPods 默认认证 ---
+    CLOUDPODS_KEYSTONE_URL = "https://10.20.40.101:30500/v3"
+    CLOUDPODS_USER = "admin"
+    CLOUDPODS_PASSWORD = "jSj@2008"
+
+    # --- 默认网络 ---
+    NET_LIST = "efdb73ac-d785-47a1-82bf-65c2229eacca,3e0ac273-6da8-4188-821b-d97a84cb7754,04bc4008-f5a6-40a0-84aa-5fcd76e3f2ef,0f71d7ea-6e7a-42bc-81c3-290e396581a7,b7272573-29ea-4e46-8c27-22b81503aee6"
+
+    # --- 虚拟机默认配置 ---
+    OS_VERSION = "openRuyi-RVA23"
+    OS_ARCH = "riscv64"
+    VM_COUNT = 1
+    VM_NAME = "redrose2100"
+    SKU = "ecs.g1.c4m12"
+    BIOS = "BIOS"
+    TIMEOUT = 1800
+
+    # --- SSH 默认配置 ---
+    SSH_USER = "root"
+    SSH_PASSWORD = "ISRCpassword@123"
+
+    # --- Yum 源配置 ---
+    DELETE_DEFAULT_YUM_REPOS = "yes"
+    ADD_YUM_REPOS = "https://diamond.oerv.ac.cn/openruyi/riscv64/"
+
+    # --- os-autotest 代码仓库 ---
+    OS_AUTOTEST_REPO_HTTPS = "https://atomgit.com/openeuler/mugen.git"
+    OS_AUTOTEST_BRANCH = "master"
+
+    # --- 测试执行配置 ---
+    CONCURRENCY = 50
+
+    # --- RISC-V 特殊配置 ---
+    RISCV_BIOS = "uefi"
+    RISCV_DEFAULT_USERNAME = "root"
+    RISCV_DEFAULT_PASSWORD = "openruyi"
+    RISCV_IMAGE_URL = "https://s3.develop.oepkgs.net/demo/openruyi-virt_riscv64.qcow2.xz"
+    RISCV_VIRT_CODE_URL = "https://s3.develop.oepkgs.net/demo/RISCV_VIRT_CODE.fd"
+    RISCV_VIRT_VARS_URL = "https://s3.develop.oepkgs.net/demo/RISCV_VIRT_VARS.fd"
 
 
 if __name__ == "__main__":
