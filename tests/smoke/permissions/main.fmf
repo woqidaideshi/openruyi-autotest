@@ -1,10 +1,10 @@
-summary: 冒烟测试 - permissions 功能验证
+summary: Smoke test - permissions functionality verification
 tag:
-  - smoke
-  - permissions
+ - smoke
+ - permissions
 duration: 2m
 tier: 0
 path: /tests/smoke/permissions
 require:
-  - beakerlib
-  - coreutils
+ - beakerlib
+ - coreutils

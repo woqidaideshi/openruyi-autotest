@@ -1,11 +1,11 @@
-summary: patch - ��������
+summary: Functional test - patch - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - patch
+ - functional
+ - patch
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/patch/test_patch_basic
 
 require:
-  - beakerlib
+ - beakerlib

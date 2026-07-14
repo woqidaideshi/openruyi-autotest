@@ -1,4 +1,4 @@
-summary: 可靠性测试 - trinity - 多进程并行测试 (-C)
+summary: Reliability test - trinity - multiprocessandlinestest (-C)
 test: ./test.sh
 tag: [reliability, trinity]
 duration: 5m

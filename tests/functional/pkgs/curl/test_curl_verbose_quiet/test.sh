@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: curl - 详细模式和静默模式
+# Functional test: curl - verbose modeandquiet mode
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -7,24 +7,24 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        curlSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseStartSetup "Environment setup"
+    curlSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
     rlPhaseEnd
 
-    rlPhaseStartTest "详细模式和静默模式"
-        rlRun "curl -v http://example.com 2>&1 | head -5 || echo \"详细模式\"" 0 "curl -v: 详细模式"
-        rlRun "curl -s http://example.com 2>&1 | head -3" 0 "curl -s: 静默模式"
+    rlPhaseStartTest "verbose modeandquiet mode"
+    rlRun "curl -v http://example.com 2>&1 | head -5 || echo \"verbose mode\"" 0 "curl -v: verbose mode"
+    rlRun "curl -s http://example.com 2>&1 | head -3" 0 "curl -s: quiet mode"
     rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # curl 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # curl Package managed by lib.sh 's reference counting auto-uninstall
     rlPhaseEnd
 
     rlJournalPrintText

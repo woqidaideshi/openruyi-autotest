@@ -1,12 +1,36 @@
-# 功能测试 - 共享配置
-# 所有子目录的软件包测试都会继承这些配置
+# Functional test - Shared configuration
+
+
+# allsubdirectoryPackage testsall willinheritconfiguration
+
+
 framework: shell
+
+
 duration: 5m
+
+
 tier: 1
+
+
 contact: QA Team
-hardware-require:
-  server: 1
-  cpu: ">= 4"
-  memory: ">= 8 GiB"
-  disk: ">= 1"
-  net: ">= 1"
+
+
+extra-hardware-require:
+
+
+ server: 1
+
+
+ cpu: ">= 4"
+
+
+ memory: ">= 8 GiB"
+
+
+ disk: ">= 1"
+
+
+ net: ">= 1"
+
+

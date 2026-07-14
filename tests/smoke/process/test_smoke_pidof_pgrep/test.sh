@@ -1,22 +1,22 @@
 #!/bin/bash
-# Smoke test: process - pidof 查找systemd
+# Smoke test: process - pidof searchsystemd
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeProcessSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeProcessSetup
 
     rlPhaseEnd
 
-    rlPhaseStartTest "pidof 查找systemd"
-        rlRun 'pidof systemd' 0 "pidof 查找systemd"
-        rlRun 'pgrep -x systemd' 0 "pgrep 查找进程"
+    rlPhaseStartTest "pidof searchsystemd"
+    rlRun 'pidof systemd' 0 "pidof searchsystemd"
+    rlRun 'pgrep -x systemd' 0 "pgrep searchprocess"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+    rlPhaseStartCleanup "Clean up test environment"
 
     rlPhaseEnd
 

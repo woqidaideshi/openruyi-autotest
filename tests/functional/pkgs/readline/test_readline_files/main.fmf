@@ -1,11 +1,11 @@
-summary: readline - �ļ���֤
+summary: Functional test - readline - file verification
 test: ./test.sh
 tag:
-  - functional
-  - readline
+ - functional
+ - readline
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/readline/test_readline_files
 
 require:
-  - beakerlib
+ - beakerlib

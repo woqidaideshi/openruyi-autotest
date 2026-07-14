@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - vim - Recording test
+summary: Functional test - vim - test
 test: ./test.sh
 tag:
-  - functional
-  - vim
+ - functional
+ - vim
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/vim/test_vim_recording_test
 require:
-  - vim
-  - beakerlib
+ - vim
+ - beakerlib

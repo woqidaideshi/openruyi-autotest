@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - xz - 鐗堟湰鍜屽府鍔?
+summary: Functional test - xz - version and help
 test: ./test.sh
 tag:
-  - functional
-  - xz
+ - functional
+ - xz
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/xz/test_xz_version_help
 require:
-  - xz
-  - beakerlib
+ - xz
+ - beakerlib

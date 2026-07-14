@@ -7,30 +7,30 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        tmuxSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseStartSetup "Environment setup"
+    tmuxSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
     rlPhaseEnd
 
     rlPhaseStartTest "Server-management"
-        rlRun "tmux start-server" 0 "start-server: start tmux server"
-        rlRun "tmux list-sessions 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "list-sessions: initial state"
-        rlRun "tmux has-session -t test 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "has-session: check nonexistent"
-        rlRun "tmux list-clients 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "list-clients: list connected clients"
-        rlRun "tmux list-commands | head -20" 0 "list-commands: list all commands"
-        rlRun "tmux lscm new-session" 0 "list-commands: filter specific command"
-        rlRun "tmux lscm -F \"#{command}\" | head -10" 0 "list-commands: format output"
-        rlRun "tmux server-access -l 2>&1 | grep -qiE \"error|Error|not found|No such|无法\" || echo expected-error" 1 "server-access -l: list access"
+    rlRun "tmux start-server" 0 "start-server: start tmux server"
+    rlRun "tmux list-sessions 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "list-sessions: initial state"
+    rlRun "tmux has-session -t test 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "has-session: check nonexistent"
+    rlRun "tmux list-clients 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "list-clients: list connected clients"
+    rlRun "tmux list-commands | head -20" 0 "list-commands: list all commands"
+    rlRun "tmux lscm new-session" 0 "list-commands: filter specific command"
+    rlRun "tmux lscm -F \"#{command}\" | head -10" 0 "list-commands: format output"
+    rlRun "tmux server-access -l 2>&1 | grep -qiE \"error|Error|not found|No such|Unable to\" || echo expected-error" 1 "server-access -l: list access"
     rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # tmux 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # tmux Package managed by lib.sh 's reference counting auto-uninstall
     rlPhaseEnd
 
     rlJournalPrintText

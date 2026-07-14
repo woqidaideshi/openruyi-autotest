@@ -1,12 +1,12 @@
-﻿summary: 性能测试 - mmtests - pagereclaim-stutterp
+﻿summary: Performance test - mmtests - pagereclaim-stutterp
 test: ./test.sh
 tag:
-  - performance
-  - kernel
-  - mmtests
+ - performance
+ - kernel
+ - mmtests
 duration: 30m
 tier: 1
 path: /tests/performance/mmtests/test_mmtests_pagereclaim_stutterp
 require:
-  - mmtests
-  - beakerlib
+ - mmtests
+ - beakerlib

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - linux-headers - 閿欒澶勭悊
+summary: Functional test - linux-headers - error handling
 test: ./test.sh
 tag:
-  - functional
-  - linux-headers
+ - functional
+ - linux-headers
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/linux-headers/test_linux_headers_error_handling
 require:
-  - linux-headers
-  - beakerlib
+ - linux-headers
+ - beakerlib

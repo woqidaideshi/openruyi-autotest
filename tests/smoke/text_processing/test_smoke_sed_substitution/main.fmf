@@ -1,15 +1,15 @@
-summary: 冒烟测试 - sed 替换
+summary: Smoke test - sed replace
 test: ./test.sh
 tag:
-  - smoke
-  - text_processing
+ - smoke
+ - text_processing
 duration: 1m
 tier: 0
 path: /tests/smoke/text_processing/test_smoke_sed_substitution
 require:
-  - beakerlib
-  - gawk
-  - coreutils
-  - findutils
-  - grep
-  - sed
+ - beakerlib
+ - gawk
+ - coreutils
+ - findutils
+ - grep
+ - sed

@@ -8,16 +8,16 @@
 IFACE_DIR="$LTP_BUILD_DIR/conformance/interfaces"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        ltpPosixSetup
+    rlPhaseStartSetup "Environment setup"
+    ltpPosixSetup
     rlPhaseEnd
 
-    rlPhaseStartTest "POSIX 接口: pthread / pthread_once"
-        rlRun "run_posix_iface_test 'pthread_once'" 0 "pthread/pthread_once 接口一致性测试"
+    rlPhaseStartTest "POSIX Interface: pthread / pthread_once"
+    rlRun "run_posix_iface_test 'pthread_once'" 0 "pthread/pthread_once Interface conformance test"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
     rlPhaseEnd
 
     rlJournalPrintText

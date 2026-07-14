@@ -1,6 +1,6 @@
 #!/bin/bash
 # Security test: openscap - report
-# OpenSCAP: 验证 HTML 报告生成
+# OpenSCAP: verify HTML reportGenerate
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
@@ -8,18 +8,18 @@
 
 rlJournalStart
     rlPhaseStartSetup "Environment Setup"
-        openscapSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "Enter tmp dir"
+    openscapSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter tmp dir"
     rlPhaseEnd
 
     rlPhaseStartTest "openscap - report"
-        rlRun "_openscapEval" 0 "Run 验证 HTML 报告生成"
+    rlRun "_openscapEval" 0 "Run verify HTML reportGenerate"
     rlPhaseEnd
 
     rlPhaseStartCleanup "Cleanup"
-        rlRun "cd /" 0 "Leave tmp dir"
-        [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean tmp"
+    rlRun "cd /" 0 "Leave tmp dir"
+    [ -n "$TmpDir" ] && [ -d "$TmpDir" ] && rlRun "rm -rf $TmpDir" 0 "Clean tmp"
     rlPhaseEnd
 
     rlJournalPrintText

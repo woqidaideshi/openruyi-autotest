@@ -7,24 +7,24 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        labwcSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseStartSetup "Environment setup"
+    labwcSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
     rlPhaseEnd
 
     rlPhaseStartTest "Config-dirs"
-        rlRun "ls /etc/xdg/labwc/ 2>&1 || echo \"No system config dir\"" 0 "System config dir"
-        rlRun "ls /usr/share/labwc/ 2>&1 || echo \"No data dir\"" 0 "Data dir"
+    rlRun "ls /etc/xdg/labwc/ 2>&1 || echo \"No system config dir\"" 0 "System config dir"
+    rlRun "ls /usr/share/labwc/ 2>&1 || echo \"No data dir\"" 0 "Data dir"
     rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # labwc 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # labwc Package managed by lib.sh 's reference counting auto-uninstall
     rlPhaseEnd
 
     rlJournalPrintText

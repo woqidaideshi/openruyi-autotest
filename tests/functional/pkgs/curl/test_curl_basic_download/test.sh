@@ -1,31 +1,62 @@
 #!/bin/bash
-# Functional test: curl - 基本下载
+
+# Functional test: curl - basicdownload
+
 # Beakerlib-based test with lifecycle management
-# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
+
+# Shared suite setup/cleanup via../lib.sh (install once, uninstall once)
+
+
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
+
 . "$(dirname "$0")/../lib.sh"
 
+
+
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        curlSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+
+    rlPhaseStartSetup "Environment setup"
+
+    curlSetup
+
+    TmpDir=$(mktemp -d)
+
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+
     rlPhaseEnd
 
-    rlPhaseStartTest "基本下载"
-        rlRun "curl -s -o /dev/null http://example.com 2>&1 || echo \"网络测试完成\"" 0 "curl 下载示例页面"
-        rlRun "curl -s -I http://example.com 2>&1 | head -5" 0 "curl -I: 仅获取响应头"
+
+
+    rlPhaseStartTest "basicdownload"
+
+    rlRun "curl -s -o /dev/null http://example.com 2>&1 || echo \"networktestComplete\"" 0 "curl downloadExamplepage"
+
+    rlRun "curl -s -I http://example.com 2>&1 | head -5" 0 "curl -I: getshouldheader"
+
     rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # curl 软件包由 lib.sh 的引用计数机制自动管理卸载
+
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # curl Package managed by lib.sh's reference counting auto-uninstall
+
     rlPhaseEnd
+
+
 
     rlJournalPrintText
+
 rlJournalEnd
+

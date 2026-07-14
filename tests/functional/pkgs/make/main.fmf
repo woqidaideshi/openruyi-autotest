@@ -1,10 +1,10 @@
-summary: 功能测试 - make 构建工具功能验证
+summary: Functional test - make buildfunctionality verification
 tag:
-  - functional
-  - make
+ - functional
+ - make
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/make
 require:
-  - make
-  - beakerlib
+ - make
+ - beakerlib

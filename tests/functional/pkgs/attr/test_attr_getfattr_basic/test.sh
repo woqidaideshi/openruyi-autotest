@@ -1,37 +1,111 @@
 #!/bin/bash
-# Functional test: attr - getfattr 错误处理��
+
+
+# Functional test: attr - getfattr error handling
+
+
 # Beakerlib-based test with lifecycle management
-# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
+
+
+# Shared suite setup/cleanup via../lib.sh (install once, uninstall once)
+
+
+
+
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
+
+
 . "$(dirname "$0")/../lib.sh"
 
+
+
+
+
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        attrSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-    rlPhaseEnd
-
-    rlPhaseStartTest "getfattr 错误处理��"
-        rlRun "TmpDir=$(mktemp -d)" 0 "错误处理ʱ����Ŀ¼"
-        rlRun "cd $TmpDir" 0 "错误处理�Ŀ¼"
-        rlRun "touch testfile" 0 "错误处理���ļ�"
-        rlRun "mkdir testdir" 0 "错误处理��Ŀ¼"
-        rlRun "getfattr -d testfile" 0 "�鿴�ļ���չ����"
-        rlRun "setfattr -n user.test -v hello testfile" 0 "错误处理չ����"
-        rlRun "getfattr -n user.test testfile" 0 "�鿴ָ����չ����"
-        rlRun "getfattr -d testfile" 0 "�鿴错误处理չ����"
-    rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # attr 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseStartSetup "Environment setup"
+
+
+    attrSetup
+
+
+    TmpDir=$(mktemp -d)
+
+
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+
+
     rlPhaseEnd
+
+
+
+
+
+    rlPhaseStartTest "getfattr error handling"
+
+
+    rlRun "TmpDir=$(mktemp -d)" 0 "error handlingdirectory"
+
+
+    rlRun "cd $TmpDir" 0 "error handlingdirectory"
+
+
+    rlRun "touch testfile" 0 "Test operation"
+
+
+    rlRun "mkdir testdir" 0 "Test operation"
+
+
+    rlRun "getfattr -d testfile" 0 "Get extended file attributes"
+
+
+    rlRun "setfattr -n user.test -v hello testfile" 0 "Set extended file attributes"
+
+
+    rlRun "getfattr -n user.test testfile" 0 "Get extended file attributes"
+
+
+    rlRun "getfattr -d testfile" 0 "Get extended file attributes"
+
+
+    rlPhaseEnd
+
+
+
+
+
+
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+
+    rlRun "cd /" 0 "Leave test directory"
+
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+
+    fi
+
+
+    # attr Package managed by lib.sh's reference counting auto-uninstall
+
+
+    rlPhaseEnd
+
+
+
+
 
     rlJournalPrintText
+
+
 rlJournalEnd
+
+

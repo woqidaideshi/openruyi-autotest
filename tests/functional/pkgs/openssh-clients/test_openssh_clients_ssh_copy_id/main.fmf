@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - openssh-clients - ssh-copy-id
+summary: Functional test - openssh-clients - SSHconnection copy id
 test: ./test.sh
 tag:
-  - functional
-  - openssh-clients
+ - functional
+ - openssh-clients
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssh-clients/test_openssh_clients_ssh_copy_id
 require:
-  - openssh-clients
-  - beakerlib
+ - openssh-clients
+ - beakerlib

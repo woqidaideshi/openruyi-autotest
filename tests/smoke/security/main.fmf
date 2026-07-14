@@ -1,11 +1,11 @@
-summary: 冒烟测试 - security 功能验证
+summary: Smoke test - security functionality verification
 tag:
-  - smoke
-  - security
+ - smoke
+ - security
 duration: 2m
 tier: 0
 path: /tests/smoke/security
 require:
-  - beakerlib
-  - sudo
-  - coreutils
+ - beakerlib
+ - sudo
+ - coreutils

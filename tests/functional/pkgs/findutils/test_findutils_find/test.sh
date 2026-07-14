@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: findutils - find-基本查找
+# Functional test: findutils - find-basicsearch
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -7,25 +7,25 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        findutilsSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseStartSetup "Environment setup"
+    findutilsSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
     rlPhaseEnd
 
-    rlPhaseStartTest "find-基本查找"
-        rlRun "find . -name \"*.txt\"" 0 "find -name: 按名称查找"
-        rlRun "find . -type f" 0 "find -type f: 查找文件"
-        rlRun "find . -type d" 0 "find -type d: 查找目录"
+    rlPhaseStartTest "find-basicsearch"
+    rlRun "find . -name \"*.txt\"" 0 "find -name: by namesearch"
+    rlRun "find . -type f" 0 "find -type f: searchfile"
+    rlRun "find . -type d" 0 "find -type d: searchdirectory"
     rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # findutils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # findutils Package managed by lib.sh 's reference counting auto-uninstall
     rlPhaseEnd
 
     rlJournalPrintText

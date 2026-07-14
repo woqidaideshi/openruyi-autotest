@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - bash - 閿欒澶勭悊
+summary: Functional test - bash - error handling
 test: ./test.sh
 tag:
-  - functional
-  - bash
+ - functional
+ - bash
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/bash/test_bash_error_handling
 require:
-  - bash
-  - beakerlib
+ - bash
+ - beakerlib

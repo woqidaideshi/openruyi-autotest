@@ -8,16 +8,16 @@
 IFACE_DIR="$LTP_BUILD_DIR/conformance/interfaces"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        ltpPosixSetup
+    rlPhaseStartSetup "Environment setup"
+    ltpPosixSetup
     rlPhaseEnd
 
-    rlPhaseStartTest "POSIX 接口: sched / sched_yield"
-        rlRun "run_posix_iface_test 'sched_yield'" 0 "sched/sched_yield 接口一致性测试"
+    rlPhaseStartTest "POSIX Interface: sched / sched_yield"
+    rlRun "run_posix_iface_test 'sched_yield'" 0 "sched/sched_yield Interface conformance test"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
     rlPhaseEnd
 
     rlJournalPrintText

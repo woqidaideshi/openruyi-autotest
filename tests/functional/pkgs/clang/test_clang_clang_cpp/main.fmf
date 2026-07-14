@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - clang - clang-cpp
+summary: Functional test - clang - clang cpp
 test: ./test.sh
 tag:
-  - functional
-  - clang
+ - functional
+ - clang
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/clang/test_clang_clang_cpp
 require:
-  - clang
-  - beakerlib
+ - clang
+ - beakerlib

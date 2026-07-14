@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - wget - Special features
+summary: Functional test - wget - special features
 test: ./test.sh
 tag:
-  - functional
-  - wget
+ - functional
+ - wget
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/wget/test_wget_special_features
 require:
-  - wget
-  - beakerlib
+ - wget
+ - beakerlib

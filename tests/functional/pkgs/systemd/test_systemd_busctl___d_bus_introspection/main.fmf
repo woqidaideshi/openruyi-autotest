@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - systemd - busctl - D-Bus introspection
+summary: Functional test - systemd - busctl - D-Bus
 test: ./test.sh
 tag:
-  - functional
-  - systemd
+ - functional
+ - systemd
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_busctl___d_bus_introspection
 require:
-  - systemd
-  - beakerlib
+ - systemd
+ - beakerlib

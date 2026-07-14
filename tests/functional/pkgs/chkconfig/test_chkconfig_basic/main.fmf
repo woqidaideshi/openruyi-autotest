@@ -1,11 +1,11 @@
-summary: chkconfig - ��������
+summary: Functional test - chkconfig - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - chkconfig
+ - functional
+ - chkconfig
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/chkconfig/test_chkconfig_basic
 
 require:
-  - beakerlib
+ - beakerlib

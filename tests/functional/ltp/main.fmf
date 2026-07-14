@@ -1,11 +1,11 @@
-summary: 功能测试 - LTP 功能测试套件（kirk + 20250930）
+summary: Functional test - LTP Functional test (kirk + 20250930)
 tag:
-  - functional
-  - ltp
+ - functional
+ - ltp
 duration: 30m
 tier: 1
 path: /tests/functional/ltp
 require:
-  - beakerlib
-  - git
-  - make
+ - beakerlib
+ - git
+ - make

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - nettle - 鐗堟湰鍜屽府鍔?
+summary: Functional test - nettle - version and help
 test: ./test.sh
 tag:
-  - functional
-  - nettle
+ - functional
+ - nettle
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/nettle/test_nettle_version_help
 require:
-  - nettle
-  - beakerlib
+ - nettle
+ - beakerlib

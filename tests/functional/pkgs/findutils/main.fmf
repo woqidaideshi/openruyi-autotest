@@ -1,10 +1,10 @@
-summary: 功能测试 - findutils 文件查找
+summary: Functional test - findutils filesearch
 tag:
-  - functional
-  - findutils
+ - functional
+ - findutils
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/findutils
 require:
-  - findutils
-  - beakerlib
+ - findutils
+ - beakerlib

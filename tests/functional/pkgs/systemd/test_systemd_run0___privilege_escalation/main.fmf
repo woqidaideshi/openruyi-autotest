@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - systemd - run0 - Privilege escalation
-test: ./test.sh
-tag:
-  - functional
-  - systemd
-duration: 2m
-tier: 1
-path: /tests/functional/pkgs/systemd/test_systemd_run0___privilege_escalation
-require:
-  - systemd
-  - beakerlib
+summary: Functional test - systemd - run0 - permission
+test: ./test.sh
+tag:
+ - functional
+ - systemd
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/systemd/test_systemd_run0___privilege_escalation
+require:
+ - systemd
+ - beakerlib

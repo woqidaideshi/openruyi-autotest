@@ -1,4 +1,4 @@
-summary: 性能测试 - lmbench - 网络通信延迟
+summary: Performance test - lmbench - networklatency
 test: ./test.sh
 tag: [performance, lmbench]
 duration: 5m

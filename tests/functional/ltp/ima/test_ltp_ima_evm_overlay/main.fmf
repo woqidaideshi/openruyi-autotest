@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - ima - evm_overlay
+summary: Functional test - LTP - ima - evm_overlay
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - ima
+ - functional
+ - ltp
+ - ima
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/ima/test_ltp_ima_evm_overlay
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

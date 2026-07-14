@@ -1,13 +1,13 @@
-summary: 冒烟测试 - logger 写入日志
+summary: Smoke test - logger writelog
 test: ./test.sh
 tag:
-  - smoke
-  - logging
+ - smoke
+ - logging
 duration: 1m
 tier: 0
 path: /tests/smoke/logging/test_smoke_syslog_available
 require:
-  - beakerlib
-  - util-linux
-  - logrotate
-  - rsyslog
+ - beakerlib
+ - util-linux
+ - logrotate
+ - rsyslog

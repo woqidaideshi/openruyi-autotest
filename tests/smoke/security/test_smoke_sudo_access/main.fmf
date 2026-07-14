@@ -1,12 +1,12 @@
-summary: 冒烟测试 - /etc/sudoers 存在
+summary: Smoke test - /etc/sudoers exists
 test: ./test.sh
 tag:
-  - smoke
-  - security
+ - smoke
+ - security
 duration: 1m
 tier: 0
 path: /tests/smoke/security/test_smoke_sudo_access
 require:
-  - beakerlib
-  - sudo
-  - coreutils
+ - beakerlib
+ - sudo
+ - coreutils

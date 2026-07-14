@@ -1,11 +1,11 @@
-summary: 冒烟测试 - pidof 查找systemd
+summary: Smoke test - pidof searchsystemd
 test: ./test.sh
 tag:
-  - smoke
-  - process
+ - smoke
+ - process
 duration: 1m
 tier: 0
 path: /tests/smoke/process/test_smoke_pidof_pgrep
 require:
-  - beakerlib
-  - procps-ng
+ - beakerlib
+ - procps-ng

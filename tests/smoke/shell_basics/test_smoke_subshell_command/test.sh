@@ -1,22 +1,22 @@
 #!/bin/bash
-# Smoke test: shell_basics - \$() 命令替换
+# Smoke test: shell_basics - \$() commandreplace
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeShellBasicsSetup
-        rlRun "X=$(date +%Y); test -n "$X"" 0 "准备环境"
+    rlPhaseStartSetup "Environment setup"
+    smokeShellBasicsSetup
+    rlRun "X=$(date +%Y); test -n "$X"" 0 "Prepare environment"
 
     rlPhaseEnd
 
-    rlPhaseStartTest "\$() 命令替换"
-        rlRun 'echo $(uname)' 0 "\$() 命令替换"
+    rlPhaseStartTest "\$() commandreplace"
+    rlRun 'echo $(uname)' 0 "\$() commandreplace"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+    rlPhaseStartCleanup "Clean up test environment"
 
     rlPhaseEnd
 

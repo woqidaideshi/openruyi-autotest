@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - tar - Incremental backup
+summary: Functional test - tar - 
 test: ./test.sh
 tag:
-  - functional
-  - tar
+ - functional
+ - tar
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/tar/test_tar_incremental_backup
 require:
-  - tar
-  - beakerlib
+ - tar
+ - beakerlib

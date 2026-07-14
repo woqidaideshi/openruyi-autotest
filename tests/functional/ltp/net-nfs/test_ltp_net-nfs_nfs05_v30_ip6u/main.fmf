@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - net-nfs - nfs05_v30_ip6u
+summary: Functional test - LTP - net-nfs - nfs05_v30_ip6u
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - net-nfs
+ - functional
+ - ltp
+ - net-nfs
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/net-nfs/test_ltp_net-nfs_nfs05_v30_ip6u
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

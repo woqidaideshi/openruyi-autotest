@@ -1,13 +1,13 @@
-summary: 兼容性测试 - LTP POSIX - mqueue/mq_open
+summary: Compatibility test - LTP POSIX - mqueue/mq_open
 test: ./test.sh
 tag:
-  - compatibility
-  - posix
-  - mqueue
+ - compatibility
+ - posix
+ - mqueue
 duration: 3m
 tier: 2
 path: /tests/compatibility/ltp_posix/mqueue/test_ltp_posix_mqueue_mq_open
 require:
-  - beakerlib
-  - gcc
-  - make
+ - beakerlib
+ - gcc
+ - make

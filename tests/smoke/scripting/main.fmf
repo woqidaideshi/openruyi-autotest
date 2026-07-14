@@ -1,10 +1,10 @@
-summary: 冒烟测试 - scripting 功能验证
+summary: Smoke test - scripting functionality verification
 tag:
-  - smoke
-  - scripting
+ - smoke
+ - scripting
 duration: 2m
 tier: 0
 path: /tests/smoke/scripting
 require:
-  - beakerlib
-  - coreutils
+ - beakerlib
+ - coreutils

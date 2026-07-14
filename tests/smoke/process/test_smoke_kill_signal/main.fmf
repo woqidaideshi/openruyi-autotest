@@ -1,11 +1,11 @@
-summary: 冒烟测试 - kill signal
+summary: Smoke test - kill signal
 test: ./test.sh
 tag:
-  - smoke
-  - process
+ - smoke
+ - process
 duration: 1m
 tier: 0
 path: /tests/smoke/process/test_smoke_kill_signal
 require:
-  - beakerlib
-  - procps-ng
+ - beakerlib
+ - procps-ng

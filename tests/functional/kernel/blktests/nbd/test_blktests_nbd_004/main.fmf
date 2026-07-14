@@ -1,12 +1,12 @@
-﻿summary: 鍔熻兘娴嬭瘯 - 鍐呮牳 - blktests - nbd/004
+summary: Functional test - kernel - blktests - nbd 004
 test: ./test.sh
 tag:
-  - functional
-  - kernel
-  - blktests
+ - functional
+ - kernel
+ - blktests
 duration: 5m
 tier: 2
 path: /tests/functional/kernel/blktests/nbd/test_blktests_nbd_004
 require:
-  - blktests
-  - beakerlib
+ - blktests
+ - beakerlib

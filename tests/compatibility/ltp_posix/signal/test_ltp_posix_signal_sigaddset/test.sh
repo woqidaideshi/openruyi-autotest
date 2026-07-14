@@ -8,16 +8,16 @@
 IFACE_DIR="$LTP_BUILD_DIR/conformance/interfaces"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        ltpPosixSetup
+    rlPhaseStartSetup "Environment setup"
+    ltpPosixSetup
     rlPhaseEnd
 
-    rlPhaseStartTest "POSIX 接口: signal / sigaddset"
-        rlRun "run_posix_iface_test 'sigaddset'" 0 "signal/sigaddset 接口一致性测试"
+    rlPhaseStartTest "POSIX Interface: signal / sigaddset"
+    rlRun "run_posix_iface_test 'sigaddset'" 0 "signal/sigaddset Interface conformance test"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
     rlPhaseEnd
 
     rlJournalPrintText

@@ -1,24 +1,47 @@
 #!/bin/bash
-# Smoke test: system_info - du -sh 目录大小
+
+# Smoke test: system_info - du -sh directorysize
+
 # Beakerlib-based test with lifecycle management
 
+
+
 . /usr/share/beakerlib/beakerlib.sh || exit 1
+
 . "$(dirname "$0")/../lib.sh"
 
+
+
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeSystemInfoSetup
+
+    rlPhaseStartSetup "Environment setup"
+
+    smokeSystemInfoSetup
+
+
 
     rlPhaseEnd
 
-    rlPhaseStartTest "du -sh 目录大小"
-        rlRun 'du -sh /etc' 0 "du -sh 目录大小"
-        rlRun 'du -h /bin | head -5' 0 "du 列出文件大小"
+
+
+    rlPhaseStartTest "du -sh directorysize"
+
+    rlRun 'du -sh /etc' 0 "du -sh directorysize"
+
+    rlRun 'du -h /bin | head -5' 0 "du listexportfilesize"
+
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+
 
     rlPhaseEnd
+
+
 
     rlJournalPrintText
+
 rlJournalEnd

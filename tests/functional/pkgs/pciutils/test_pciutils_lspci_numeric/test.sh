@@ -7,24 +7,24 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        pciutilsSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseStartSetup "Environment setup"
+    pciutilsSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
     rlPhaseEnd
 
     rlPhaseStartTest "lspci-numeric"
-        rlRun "lspci -n" 0 "lspci -n 数字ID模式"
-        rlRun "lspci -nn 2>&1" 0 "lspci -nn 数字ID+名称"
+    rlRun "lspci -n" 0 "lspci -n numberIDmode"
+    rlRun "lspci -nn 2>&1" 0 "lspci -nn numberID+name"
     rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # pciutils 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # pciutils Package managed by lib.sh 's reference counting auto-uninstall
     rlPhaseEnd
 
     rlJournalPrintText

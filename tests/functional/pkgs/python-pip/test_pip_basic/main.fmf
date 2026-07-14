@@ -1,11 +1,11 @@
-summary: pip - ��������
+summary: Functional test - python-pip - pip basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - python-pip
+ - functional
+ - python-pip
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/python-pip/test_pip_basic
 
 require:
-  - beakerlib
+ - beakerlib

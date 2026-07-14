@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - psmisc - fuser mount points
-test: ./test.sh
-tag:
-  - functional
-  - psmisc
-duration: 2m
-tier: 1
-path: /tests/functional/pkgs/psmisc/test_psmisc_fuser_mount_points
-require:
-  - psmisc
-  - beakerlib
+summary: Functional test - psmisc - fusermount
+test: ./test.sh
+tag:
+ - functional
+ - psmisc
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/psmisc/test_psmisc_fuser_mount_points
+require:
+ - psmisc
+ - beakerlib

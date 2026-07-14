@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - xz - 閿欒澶勭悊
+summary: Functional test - xz - error handling
 test: ./test.sh
 tag:
-  - functional
-  - xz
+ - functional
+ - xz
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/xz/test_xz_error_handling
 require:
-  - xz
-  - beakerlib
+ - xz
+ - beakerlib

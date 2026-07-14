@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - dio - dio03
+summary: Functional test - LTP - dio - dio03
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - dio
+ - functional
+ - ltp
+ - dio
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/dio/test_ltp_dio_dio03
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

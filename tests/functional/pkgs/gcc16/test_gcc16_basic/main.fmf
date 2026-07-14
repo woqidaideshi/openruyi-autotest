@@ -1,11 +1,11 @@
-summary: gcc16 - ��������
+summary: Functional test - gcc16 - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - gcc16
+ - functional
+ - gcc16
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/gcc16/test_gcc16_basic
 
 require:
-  - beakerlib
+ - beakerlib

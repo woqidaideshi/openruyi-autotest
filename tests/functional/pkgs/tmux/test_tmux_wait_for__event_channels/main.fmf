@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - tmux - Wait-for (event channels)
+summary: Functional test - tmux - ()
 test: ./test.sh
 tag:
-  - functional
-  - tmux
+ - functional
+ - tmux
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/tmux/test_tmux_wait_for__event_channels
 require:
-  - tmux
-  - beakerlib
+ - tmux
+ - beakerlib

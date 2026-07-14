@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - syscalls - socketcall03
+summary: Functional test - LTP - syscalls - socketcall03
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - syscalls
+ - functional
+ - ltp
+ - syscalls
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/syscalls/test_ltp_syscalls_socketcall03
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

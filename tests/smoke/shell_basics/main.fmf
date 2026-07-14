@@ -1,11 +1,11 @@
-summary: 冒烟测试 - shell_basics 功能验证
+summary: Smoke test - shell_basics functionality verification
 tag:
-  - smoke
-  - shell_basics
+ - smoke
+ - shell_basics
 duration: 2m
 tier: 0
 path: /tests/smoke/shell_basics
 require:
-  - beakerlib
-  - bash
-  - coreutils
+ - beakerlib
+ - bash
+ - coreutils

@@ -1,12 +1,12 @@
-﻿summary: 性能测试 - mmtests - scheduler-sysbench-cpu
+﻿summary: Performance test - mmtests - scheduler-sysbench-cpu
 test: ./test.sh
 tag:
-  - performance
-  - kernel
-  - mmtests
+ - performance
+ - kernel
+ - mmtests
 duration: 30m
 tier: 1
 path: /tests/performance/mmtests/test_mmtests_scheduler_sysbench_cpu
 require:
-  - mmtests
-  - beakerlib
+ - mmtests
+ - beakerlib

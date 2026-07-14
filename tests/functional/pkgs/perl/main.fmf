@@ -1,7 +1,7 @@
-summary: ���ܲ��� - perl
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/perl
 require:
-  - perl
-  - beakerlib
+ - perl
+ - beakerlib

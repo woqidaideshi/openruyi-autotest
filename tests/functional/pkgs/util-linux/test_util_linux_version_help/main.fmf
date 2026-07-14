@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - util-linux - 鐗堟湰鍜屽府鍔?
+summary: Functional test - util-linux - version and help
 test: ./test.sh
 tag:
-  - functional
-  - util-linux
+ - functional
+ - util-linux
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/util-linux/test_util_linux_version_help
 require:
-  - util-linux
-  - beakerlib
+ - util-linux
+ - beakerlib

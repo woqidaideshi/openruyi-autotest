@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - coreutils - Special utilities (stty, pathchk, tsort, ptx, dircolors)
+summary: Functional test - coreutils - special utilities stty pathchk tsort ptx dirc
 test: ./test.sh
 tag:
-  - functional
-  - coreutils
+ - functional
+ - coreutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/coreutils/test_coreutils_special_utilities__stty__pathchk__tsort__ptx__dirc
 require:
-  - coreutils
-  - beakerlib
+ - coreutils
+ - beakerlib

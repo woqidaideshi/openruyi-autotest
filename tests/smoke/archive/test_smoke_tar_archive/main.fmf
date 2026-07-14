@@ -1,13 +1,13 @@
-summary: 冒烟测试 - tar 创建归档
+summary: Smoke test - tar createarchive
 test: ./test.sh
 tag:
-  - smoke
-  - archive
+ - smoke
+ - archive
 duration: 1m
 tier: 0
 path: /tests/smoke/archive/test_smoke_tar_archive
 require:
-  - beakerlib
-  - tar
-  - gzip
-  - xz
+ - beakerlib
+ - tar
+ - gzip
+ - xz

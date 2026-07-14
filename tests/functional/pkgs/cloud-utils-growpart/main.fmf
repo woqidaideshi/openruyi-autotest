@@ -1,10 +1,10 @@
-summary: 功能测试 - cloud-utils-growpart 分区扩容功能验证
+summary: Functional test - cloud-utils-growpart partition expansionfunctionality verification
 tag:
-  - functional
-  - cloud-utils-growpart
+ - functional
+ - cloud-utils-growpart
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/cloud-utils-growpart
 require:
-  - cloud-utils-growpart
-  - beakerlib
+ - cloud-utils-growpart
+ - beakerlib

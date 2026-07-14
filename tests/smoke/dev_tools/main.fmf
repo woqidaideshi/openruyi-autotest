@@ -1,12 +1,12 @@
-summary: 冒烟测试 - dev_tools 功能验证
+summary: Smoke test - dev_tools functionality verification
 tag:
-  - smoke
-  - dev_tools
+ - smoke
+ - dev_tools
 duration: 2m
 tier: 0
 path: /tests/smoke/dev_tools
 require:
-  - beakerlib
-  - gcc
-  - make
-  - python
+ - beakerlib
+ - gcc
+ - make
+ - python

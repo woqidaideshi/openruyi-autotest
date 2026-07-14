@@ -1,30 +1,60 @@
 #!/bin/bash
-# Functional test: python - 模块导入
+
+# Functional test: python - module
+
 # Beakerlib-based test with lifecycle management
-# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
+
+# Shared suite setup/cleanup via../lib.sh (install once, uninstall once)
+
+
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
+
 . "$(dirname "$0")/../lib.sh"
 
+
+
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        pythonSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+
+    rlPhaseStartSetup "Environment setup"
+
+    pythonSetup
+
+    TmpDir=$(mktemp -d)
+
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+
     rlPhaseEnd
 
-    rlPhaseStartTest "模块导入"
-        rlRun "python3 -c \"import json, math, re, hashlib\"" 0 "python3: 导入标准模块"
+
+
+    rlPhaseStartTest "module"
+
+    rlRun "python3 -c \"import json, math, re, hashlib\"" 0 "python3: Standardmodule"
+
     rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # python 软件包由 lib.sh 的引用计数机制自动管理卸载
+
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # python Package managed by lib.sh's reference counting auto-uninstall
+
     rlPhaseEnd
+
+
 
     rlJournalPrintText
+
 rlJournalEnd
+

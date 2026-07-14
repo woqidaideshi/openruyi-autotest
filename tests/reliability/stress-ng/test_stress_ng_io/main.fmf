@@ -1,4 +1,4 @@
-summary: 可靠性测试 - stress-ng - IO 压力 (hdd/aio)
+summary: Reliability test - stress-ng - IO stress (hdd/aio)
 test: ./test.sh
 tag: [reliability, stress-ng]
 duration: 5m

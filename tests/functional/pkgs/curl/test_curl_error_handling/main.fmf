@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - curl - 閿欒澶勭悊
+summary: Functional test - curl - error handling
 test: ./test.sh
 tag:
-  - functional
-  - curl
+ - functional
+ - curl
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/curl/test_curl_error_handling
 require:
-  - curl
-  - beakerlib
+ - curl
+ - beakerlib

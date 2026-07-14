@@ -1,4 +1,4 @@
-summary: 功能测试 - yarpgen - 指导优化 (-fprofile-generate/-fprofile-use)
+summary: Functional test - yarpgen - optimization (-fprofile-generate/-fprofile-use)
 test: ./test.sh
 tag: [functional, compiler, yarpgen]
 duration: 5m

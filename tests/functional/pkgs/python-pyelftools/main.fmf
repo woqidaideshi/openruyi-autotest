@@ -1,10 +1,10 @@
-summary: 功能测试 - python-pyelftools 软件包功能验证
+summary: Functional test - python-pyelftools package functionality verification
 tag:
-  - functional
-  - python-pyelftools
+ - functional
+ - python-pyelftools
 duration: 3m
 tier: 1
 path: /tests/functional/pkgs/python-pyelftools
 require:
-  - python-pyelftools
-  - beakerlib
+ - python-pyelftools
+ - beakerlib

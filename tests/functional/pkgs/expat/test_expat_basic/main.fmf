@@ -1,11 +1,11 @@
-summary: expat - ��������
+summary: Functional test - expat - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - expat
+ - functional
+ - expat
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/expat/test_expat_basic
 
 require:
-  - beakerlib
+ - beakerlib

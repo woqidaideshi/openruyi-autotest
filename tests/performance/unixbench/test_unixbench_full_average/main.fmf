@@ -1,13 +1,13 @@
-summary: 性能测试 - UnixBench 多线程全量基准测试 (3次独立运行取平均)
-test: ./test.sh
-tag:
-  - performance
-  - unixbench
-duration: 30m
-tier: 2
-path: /tests/performance/unixbench/test_unixbench_full_average
-require:
-  - beakerlib
-  - gcc
-  - make
-  - perl
+summary: Performance test - UnixBench multithreadfullbenchmark (3independent runs)
+test: ./test.sh
+tag:
+ - performance
+ - unixbench
+duration: 30m
+tier: 2
+path: /tests/performance/unixbench/test_unixbench_full_average
+require:
+ - beakerlib
+ - gcc
+ - make
+ - perl

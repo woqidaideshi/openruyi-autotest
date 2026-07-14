@@ -1,11 +1,11 @@
-summary: 功能测试 - acl 软件包功能验证
+summary: Functional test - acl package functionality verification
 tag:
-  - functional
-  - acl
+ - functional
+ - acl
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/acl
 require:
-  - acl
-  - coreutils
-  - beakerlib
+ - acl
+ - coreutils
+ - beakerlib

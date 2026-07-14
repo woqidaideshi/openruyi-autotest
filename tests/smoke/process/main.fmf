@@ -1,10 +1,10 @@
-summary: 冒烟测试 - process 功能验证
+summary: Smoke test - process functionality verification
 tag:
-  - smoke
-  - process
+ - smoke
+ - process
 duration: 2m
 tier: 0
 path: /tests/smoke/process
 require:
-  - beakerlib
-  - procps-ng
+ - beakerlib
+ - procps-ng

@@ -1,10 +1,10 @@
-summary: 功能测试 - python-setuptools 软件包功能验证
+summary: Functional test - python-setuptools package functionality verification
 tag:
-  - functional
-  - python-setuptools
+ - functional
+ - python-setuptools
 duration: 3m
 tier: 1
 path: /tests/functional/pkgs/python-setuptools
 require:
-  - python-setuptools
-  - beakerlib
+ - python-setuptools
+ - beakerlib

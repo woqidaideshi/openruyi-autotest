@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - coreutils - File creation and listing (echo, cat, ls, dir, vdir)
+summary: Functional test - coreutils - file creation and listing echo cat ls dir vdi
 test: ./test.sh
 tag:
-  - functional
-  - coreutils
+ - functional
+ - coreutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/coreutils/test_coreutils_file_creation_and_listing__echo__cat__ls__dir__vdi
 require:
-  - coreutils
-  - beakerlib
+ - coreutils
+ - beakerlib

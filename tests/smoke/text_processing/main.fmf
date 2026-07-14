@@ -1,14 +1,14 @@
-summary: 冒烟测试 - text_processing 功能验证
+summary: Smoke test - text_processing functionality verification
 tag:
-  - smoke
-  - text_processing
+ - smoke
+ - text_processing
 duration: 2m
 tier: 0
 path: /tests/smoke/text_processing
 require:
-  - beakerlib
-  - gawk
-  - coreutils
-  - findutils
-  - grep
-  - sed
+ - beakerlib
+ - gawk
+ - coreutils
+ - findutils
+ - grep
+ - sed

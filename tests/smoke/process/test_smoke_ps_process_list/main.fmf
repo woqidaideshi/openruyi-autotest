@@ -1,11 +1,11 @@
-summary: 冒烟测试 - ps 当前进程
+summary: Smoke test - ps currentprocess
 test: ./test.sh
 tag:
-  - smoke
-  - process
+ - smoke
+ - process
 duration: 1m
 tier: 0
 path: /tests/smoke/process/test_smoke_ps_process_list
 require:
-  - beakerlib
-  - procps-ng
+ - beakerlib
+ - procps-ng

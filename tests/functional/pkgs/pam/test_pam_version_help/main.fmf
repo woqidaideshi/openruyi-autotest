@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - pam - 鐗堟湰鍜屽府鍔?
+summary: Functional test - pam - version and help
 test: ./test.sh
 tag:
-  - functional
-  - pam
+ - functional
+ - pam
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pam/test_pam_version_help
 require:
-  - pam
-  - beakerlib
+ - pam
+ - beakerlib

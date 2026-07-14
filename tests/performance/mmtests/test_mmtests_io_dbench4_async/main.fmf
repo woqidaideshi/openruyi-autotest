@@ -1,12 +1,12 @@
-﻿summary: 性能测试 - mmtests - io-dbench4-async
+﻿summary: Performance test - mmtests - io-dbench4-async
 test: ./test.sh
 tag:
-  - performance
-  - kernel
-  - mmtests
+ - performance
+ - kernel
+ - mmtests
 duration: 30m
 tier: 1
 path: /tests/performance/mmtests/test_mmtests_io_dbench4_async
 require:
-  - mmtests
-  - beakerlib
+ - mmtests
+ - beakerlib

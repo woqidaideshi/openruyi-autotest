@@ -1,4 +1,4 @@
-summary: 功能测试 - yarpgen - 线程局部存储 (__thread/thread_local)
+summary: Functional test - yarpgen - thread (__thread/thread_local)
 test: ./test.sh
 tag: [functional, compiler, yarpgen]
 duration: 3m

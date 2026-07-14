@@ -1,7 +1,7 @@
-summary: ���ܲ��� - python-pip
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/python-pip
 require:
-  - python3-pip
-  - beakerlib
+ - python3-pip
+ - beakerlib

@@ -1,10 +1,10 @@
-summary: 冒烟测试 - 基本文件系统功能
-tag:
-  - smoke
-  - filesystem
-duration: 2m
-tier: 0
-path: /tests/smoke/filesystem
-require:
-  - coreutils
-  - beakerlib
+summary: Smoke test - basicfilesystem
+tag:
+ - smoke
+ - filesystem
+duration: 2m
+tier: 0
+path: /tests/smoke/filesystem
+require:
+ - coreutils
+ - beakerlib

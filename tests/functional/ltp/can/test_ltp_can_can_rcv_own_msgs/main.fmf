@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - can - can_rcv_own_msgs
+summary: Functional test - LTP - can - can_rcv_own_msgs
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - can
+ - functional
+ - ltp
+ - can
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/can/test_ltp_can_can_rcv_own_msgs
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

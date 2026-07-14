@@ -1,12 +1,12 @@
-summary: 功能测试 - dejagnu - runtest 基础可用性检查
-test: ./test.sh
-tag:
-  - functional
-  - compiler
-  - dejagnu
-duration: 5m
-tier: 2
-path: /tests/functional/compiler/dejagnu/test_dejagnu_runtest_check
-require:
-  - dejagnu
-  - beakerlib
+summary: Functional test - dejagnu - runtest availablecheck
+test: ./test.sh
+tag:
+ - functional
+ - compiler
+ - dejagnu
+duration: 5m
+tier: 2
+path: /tests/functional/compiler/dejagnu/test_dejagnu_runtest_check
+require:
+ - dejagnu
+ - beakerlib

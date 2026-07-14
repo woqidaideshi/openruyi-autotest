@@ -1,7 +1,7 @@
-summary: ���ܲ��� - libbpf �����֤
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/libbpf
 require:
-  - libbpf
-  - beakerlib
+ - libbpf
+ - beakerlib

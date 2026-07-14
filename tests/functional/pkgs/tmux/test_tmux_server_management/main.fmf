@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - tmux - Server management
+summary: Functional test - tmux - server
 test: ./test.sh
 tag:
-  - functional
-  - tmux
+ - functional
+ - tmux
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/tmux/test_tmux_server_management
 require:
-  - tmux
-  - beakerlib
+ - tmux
+ - beakerlib

@@ -1,12 +1,12 @@
-﻿summary: 鍔熻兘娴嬭瘯 - 鍐呮牳 - blktests - ublk/002
+summary: Functional test - kernel - blktests - ublk 002
 test: ./test.sh
 tag:
-  - functional
-  - kernel
-  - blktests
+ - functional
+ - kernel
+ - blktests
 duration: 5m
 tier: 2
 path: /tests/functional/kernel/blktests/ublk/test_blktests_ublk_002
 require:
-  - blktests
-  - beakerlib
+ - blktests
+ - beakerlib

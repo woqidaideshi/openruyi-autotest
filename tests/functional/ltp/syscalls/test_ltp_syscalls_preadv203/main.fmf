@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - syscalls - preadv203
+summary: Functional test - LTP - syscalls - preadv203
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - syscalls
+ - functional
+ - ltp
+ - syscalls
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/syscalls/test_ltp_syscalls_preadv203
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

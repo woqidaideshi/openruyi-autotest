@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - gzip - 鐗堟湰鍜屽府鍔?
+summary: Functional test - gzip - version and help
 test: ./test.sh
 tag:
-  - functional
-  - gzip
+ - functional
+ - gzip
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/gzip/test_gzip_version_help
 require:
-  - gzip
-  - beakerlib
+ - gzip
+ - beakerlib

@@ -1,12 +1,12 @@
-summary: 兼容性测试 - LTP POSIX - signal
+summary: Compatibility test - LTP POSIX - signal
 tag:
-  - compatibility
-  - posix
-  - signal
+ - compatibility
+ - posix
+ - signal
 duration: 15m
 tier: 2
 path: /tests/compatibility/ltp_posix/signal
 require:
-  - beakerlib
-  - gcc
-  - make
+ - beakerlib
+ - gcc
+ - make

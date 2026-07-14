@@ -8,16 +8,16 @@
 IFACE_DIR="$LTP_BUILD_DIR/conformance/interfaces"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        ltpPosixSetup
+    rlPhaseStartSetup "Environment setup"
+    ltpPosixSetup
     rlPhaseEnd
 
-    rlPhaseStartTest "POSIX 接口: aio / lio_listio"
-        rlRun "run_posix_iface_test 'lio_listio'" 0 "aio/lio_listio 接口一致性测试"
+    rlPhaseStartTest "POSIX Interface: aio / lio_listio"
+    rlRun "run_posix_iface_test 'lio_listio'" 0 "aio/lio_listio Interface conformance test"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
     rlPhaseEnd
 
     rlJournalPrintText

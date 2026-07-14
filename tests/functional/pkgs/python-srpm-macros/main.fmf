@@ -1,7 +1,7 @@
-summary: ���ܲ��� - python-srpm-macros ������֤
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/python-srpm-macros
 require:
-  - python-srpm-macros
-  - beakerlib
+ - python-srpm-macros
+ - beakerlib

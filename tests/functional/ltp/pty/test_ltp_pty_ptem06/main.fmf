@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - pty - ptem06
+summary: Functional test - LTP - pty - ptem06
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - pty
+ - functional
+ - ltp
+ - pty
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/pty/test_ltp_pty_ptem06
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

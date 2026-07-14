@@ -1,11 +1,11 @@
-summary: 冒烟测试 - hostnamectl 状态
+summary: Smoke test - hostnamectl Status
 test: ./test.sh
 tag:
-  - smoke
-  - service_mgmt
+ - smoke
+ - service_mgmt
 duration: 1m
 tier: 0
 path: /tests/smoke/service_mgmt/test_smoke_hostnamectl
 require:
-  - beakerlib
-  - systemd
+ - beakerlib
+ - systemd

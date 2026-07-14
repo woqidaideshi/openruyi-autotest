@@ -1,11 +1,11 @@
-summary: libtasn1 - ��������
+summary: Functional test - libtasn1 - basic functionality
 test: ./test.sh
 tag:
-  - functional
-  - libtasn1
+ - functional
+ - libtasn1
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libtasn1/test_libtasn1_basic
 
 require:
-  - beakerlib
+ - beakerlib

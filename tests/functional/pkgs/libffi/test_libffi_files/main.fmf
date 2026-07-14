@@ -1,11 +1,11 @@
-summary: libffi - �ļ���֤
+summary: Functional test - libffi - file verification
 test: ./test.sh
 tag:
-  - functional
-  - libffi
+ - functional
+ - libffi
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libffi/test_libffi_files
 
 require:
-  - beakerlib
+ - beakerlib

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - labwc - lab-sensible-terminal
+summary: Functional test - labwc - lab sensible terminal
 test: ./test.sh
 tag:
-  - functional
-  - labwc
+ - functional
+ - labwc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/labwc/test_labwc_lab_sensible_terminal
 require:
-  - labwc
-  - beakerlib
+ - labwc
+ - beakerlib

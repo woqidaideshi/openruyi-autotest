@@ -1,14 +1,14 @@
-summary: 特性测试
+summary: Feature test
 tag:
-  - feature
+ - feature
 duration: 5m
 tier: 1
 path: /tests/feature
 require:
-  - beakerlib
-hardware-require:
-  server: 1
-  cpu: ">= 4"
-  memory: ">= 8 GiB"
-  disk: ">= 1"
-  net: ">= 1"
+ - beakerlib
+extra-hardware-require:
+ server: 1
+ cpu: ">= 4"
+ memory: ">= 8 GiB"
+ disk: ">= 1"
+ net: ">= 1"

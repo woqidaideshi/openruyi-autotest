@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - rpmbuild - Build RPM package
+summary: Functional test - rpmbuild - buildRPM
 test: ./test.sh
 tag:
-  - functional
-  - rpmbuild
+ - functional
+ - rpmbuild
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/rpmbuild/test_rpmbuild_build_rpm_package
 require:
-  - rpmbuild
-  - beakerlib
+ - rpmbuild
+ - beakerlib

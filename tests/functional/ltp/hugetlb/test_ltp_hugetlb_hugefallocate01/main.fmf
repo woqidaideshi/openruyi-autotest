@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - hugetlb - hugefallocate01
+summary: Functional test - LTP - hugetlb - hugefallocate01
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - hugetlb
+ - functional
+ - ltp
+ - hugetlb
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/hugetlb/test_ltp_hugetlb_hugefallocate01
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

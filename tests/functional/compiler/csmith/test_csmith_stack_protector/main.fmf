@@ -1,7 +1,21 @@
-summary: 功能测试 - csmith - 栈保护 (-fstack-protector)
+summary: Functional test - csmith - stack (-fstack-protector)
+
+
 test: ./test.sh
+
+
 tag: [functional, compiler, csmith]
+
+
 duration: 5m
+
+
 tier: 2
+
+
 path: /tests/functional/compiler/csmith/test_csmith_stack_protector
+
+
 require: [csmith, gcc, clang, beakerlib]
+
+

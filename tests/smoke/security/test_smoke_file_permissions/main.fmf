@@ -1,12 +1,12 @@
-summary: 冒烟测试 - chmod 设置权限
+summary: Smoke test - chmod setpermission
 test: ./test.sh
 tag:
-  - smoke
-  - security
+ - smoke
+ - security
 duration: 1m
 tier: 0
 path: /tests/smoke/security/test_smoke_file_permissions
 require:
-  - beakerlib
-  - sudo
-  - coreutils
+ - beakerlib
+ - sudo
+ - coreutils

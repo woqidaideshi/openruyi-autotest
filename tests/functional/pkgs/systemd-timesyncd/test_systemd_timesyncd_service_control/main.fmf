@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - systemd-timesyncd - Service control
-test: ./test.sh
-tag:
-  - functional
-  - systemd-timesyncd
-duration: 2m
-tier: 1
-path: /tests/functional/pkgs/systemd-timesyncd/test_systemd_timesyncd_service_control
-require:
-  - systemd-timesyncd
-  - beakerlib
+summary: Functional test - systemd-timesyncd - service
+test: ./test.sh
+tag:
+ - functional
+ - systemd-timesyncd
+duration: 2m
+tier: 1
+path: /tests/functional/pkgs/systemd-timesyncd/test_systemd_timesyncd_service_control
+require:
+ - systemd-timesyncd
+ - beakerlib

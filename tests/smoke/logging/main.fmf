@@ -1,12 +1,12 @@
-summary: 冒烟测试 - logging 功能验证
+summary: Smoke test - logging functionality verification
 tag:
-  - smoke
-  - logging
+ - smoke
+ - logging
 duration: 2m
 tier: 0
 path: /tests/smoke/logging
 require:
-  - beakerlib
-  - util-linux
-  - logrotate
-  - rsyslog
+ - beakerlib
+ - util-linux
+ - logrotate
+ - rsyslog

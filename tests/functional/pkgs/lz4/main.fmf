@@ -1,7 +1,7 @@
-summary: ���ܲ��� - lz4 ������������֤
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/lz4
 require:
-  - lz4
-  - beakerlib
+ - lz4
+ - beakerlib

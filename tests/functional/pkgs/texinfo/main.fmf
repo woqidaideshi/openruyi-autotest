@@ -1,10 +1,10 @@
-summary: 功能测试 - texinfo 软件包功能验证
+summary: Functional test - texinfo package functionality verification
 tag:
-  - functional
-  - texinfo
+ - functional
+ - texinfo
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/texinfo
 require:
-  - texinfo
-  - beakerlib
+ - texinfo
+ - beakerlib

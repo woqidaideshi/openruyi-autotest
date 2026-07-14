@@ -8,16 +8,16 @@
 IFACE_DIR="$LTP_BUILD_DIR/conformance/interfaces"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        ltpPosixSetup
+    rlPhaseStartSetup "Environment setup"
+    ltpPosixSetup
     rlPhaseEnd
 
-    rlPhaseStartTest "POSIX 接口: clocks / nanosleep"
-        rlRun "run_posix_iface_test 'nanosleep'" 0 "clocks/nanosleep 接口一致性测试"
+    rlPhaseStartTest "POSIX Interface: clocks / nanosleep"
+    rlRun "run_posix_iface_test 'nanosleep'" 0 "clocks/nanosleep Interface conformance test"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
     rlPhaseEnd
 
     rlJournalPrintText

@@ -1,10 +1,10 @@
-summary: 功能测试 - systemd 系统和服务管理器功能验证
-tag:
-  - functional
-  - systemd
-duration: 5m
-tier: 1
-path: /tests/functional/pkgs/systemd
-require:
-  - systemd
-  - beakerlib
+summary: Functional test - systemd systemandservicefunctionality verification
+tag:
+ - functional
+ - systemd
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/systemd
+require:
+ - systemd
+ - beakerlib

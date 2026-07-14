@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - zstd - 鐗堟湰鍜屽府鍔?
+summary: Functional test - zstd - version and help
 test: ./test.sh
 tag:
-  - functional
-  - zstd
+ - functional
+ - zstd
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/zstd/test_zstd_version_help
 require:
-  - zstd
-  - beakerlib
+ - zstd
+ - beakerlib

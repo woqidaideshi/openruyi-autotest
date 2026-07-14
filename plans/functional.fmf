@@ -1,14 +1,14 @@
-# 功能测试计划
-# 执行所有功能测试用例
+# Functional Test Plan
+# Execute all functional test cases
 
-summary: 功能测试 - 验证所有功能测试用例
+summary: Functional Test - Verify all functional test cases
 
 environment-file:
   - topology.env
 
 discover:
   how: fmf
-  # 发现所有标记为 functional 的测试
+  # Discover all tests tagged as functional
   filter: "tag:functional"
 
 provision:
@@ -20,7 +20,7 @@ execute:
 prepare:
   how: shell
   script:
-    - echo "准备测试环境..."
+    - echo "Preparing test environment..."
     - dnf install -y curl wget 2>/dev/null || true
 
 report:

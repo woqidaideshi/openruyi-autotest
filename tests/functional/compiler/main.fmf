@@ -1,12 +1,12 @@
-summary: 功能测试 - 编译器与工具链测试
+summary: Functional test - Compiler and toolchain tests
 tag:
-  - functional
-  - compiler
+ - functional
+ - compiler
 duration: 30m
 tier: 2
 path: /tests/functional/compiler
 require:
-  - beakerlib
-  - gcc
-  - gcc-c++
-  - clang
+ - beakerlib
+ - gcc
+ - gcc-c++
+ - clang

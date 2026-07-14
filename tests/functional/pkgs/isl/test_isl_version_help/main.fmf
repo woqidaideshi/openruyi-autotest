@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - isl - 鐗堟湰鍜屽府鍔?
+summary: Functional test - isl - version and help
 test: ./test.sh
 tag:
-  - functional
-  - isl
+ - functional
+ - isl
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/isl/test_isl_version_help
 require:
-  - isl
-  - beakerlib
+ - isl
+ - beakerlib

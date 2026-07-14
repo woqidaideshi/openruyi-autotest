@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - grep - Invert match (-v)
+summary: Functional test - grep - invert match v
 test: ./test.sh
 tag:
-  - functional
-  - grep
+ - functional
+ - grep
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/grep/test_grep_invert_match___v
 require:
-  - grep
-  - beakerlib
+ - grep
+ - beakerlib

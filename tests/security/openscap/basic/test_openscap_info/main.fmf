@@ -1,11 +1,11 @@
-summary: 安全测试 - openscap - info
+summary: Security test - openscap - info
 test: ./test.sh
 tag:
-  - security
-  - openscap
+ - security
+ - openscap
 duration: 5m
 tier: 2
 path: /tests/security/openscap/basic/test_openscap_info
 require:
-  - scap-security-guide
-  - beakerlib
+ - scap-security-guide
+ - beakerlib

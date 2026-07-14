@@ -1,22 +1,22 @@
 #!/bin/bash
-# Smoke test: service_mgmt - hostnamectl 状态
+# Smoke test: service_mgmt - hostnamectl Status
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeServiceMgmtSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeServiceMgmtSetup
 
     rlPhaseEnd
 
-    rlPhaseStartTest "hostnamectl 状态"
-        rlRun 'hostnamectl 2>&1 || true' 0 "hostnamectl 状态"
-        rlRun 'hostnamectl status 2>&1 || true' 0 "hostnamectl status"
+    rlPhaseStartTest "hostnamectl Status"
+    rlRun 'hostnamectl 2>&1 || true' 0 "hostnamectl Status"
+    rlRun 'hostnamectl status 2>&1 || true' 0 "hostnamectl status"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+    rlPhaseStartCleanup "Clean up test environment"
 
     rlPhaseEnd
 

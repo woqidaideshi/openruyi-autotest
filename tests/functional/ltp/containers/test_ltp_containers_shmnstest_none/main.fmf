@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - containers - shmnstest_none
+summary: Functional test - LTP - containers - shmnstest_none
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - containers
+ - functional
+ - ltp
+ - containers
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/containers/test_ltp_containers_shmnstest_none
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

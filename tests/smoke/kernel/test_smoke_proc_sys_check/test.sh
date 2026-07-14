@@ -1,22 +1,22 @@
 #!/bin/bash
-# Smoke test: kernel - /proc/sys 目录存在
+# Smoke test: kernel - /proc/sys directory exists
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeKernelSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeKernelSetup
 
     rlPhaseEnd
 
-    rlPhaseStartTest "/proc/sys 目录存在"
-        rlRun 'test -d /proc/sys' 0 "/proc/sys 目录存在"
-        rlRun 'cat /proc/sys/kernel/hostname' 0 "/proc/sys 可读"
+    rlPhaseStartTest "/proc/sys directory exists"
+    rlRun 'test -d /proc/sys' 0 "/proc/sys directory exists"
+    rlRun 'cat /proc/sys/kernel/hostname' 0 "/proc/sys readable"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+    rlPhaseStartCleanup "Clean up test environment"
 
     rlPhaseEnd
 

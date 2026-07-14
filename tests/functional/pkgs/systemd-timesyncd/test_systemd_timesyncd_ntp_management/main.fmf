@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - systemd-timesyncd - NTP management
+summary: Functional test - systemd-timesyncd - NTP
 test: ./test.sh
 tag:
-  - functional
-  - systemd-timesyncd
+ - functional
+ - systemd-timesyncd
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd-timesyncd/test_systemd_timesyncd_ntp_management
 require:
-  - systemd-timesyncd
-  - beakerlib
+ - systemd-timesyncd
+ - beakerlib

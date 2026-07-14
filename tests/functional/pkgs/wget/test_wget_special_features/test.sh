@@ -7,25 +7,25 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        wgetSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseStartSetup "Environment setup"
+    wgetSetup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
     rlPhaseEnd
 
     rlPhaseStartTest "Special-features"
-        rlRun "wget --post-data='test' --version 2>&1 | grep -q Wget" 0 "wget --post-data 选项存在"
-        rlRun "wget --body-data='test' --version 2>&1 | grep -q Wget" 0 "wget --body-data 选项存在"
-        rlRun "wget --content-on-error --version 2>&1 | grep -q Wget" 0 "wget --content-on-error 选项"
+    rlRun "wget --post-data='test' --version 2>&1 | grep -q Wget" 0 "wget --post-data Option exists"
+    rlRun "wget --body-data='test' --version 2>&1 | grep -q Wget" 0 "wget --body-data Option exists"
+    rlRun "wget --content-on-error --version 2>&1 | grep -q Wget" 0 "wget --content-on-error option"
     rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # wget 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # wget Package managed by lib.sh 's reference counting auto-uninstall
     rlPhaseEnd
 
     rlJournalPrintText

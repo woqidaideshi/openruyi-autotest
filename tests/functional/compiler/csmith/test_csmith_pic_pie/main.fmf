@@ -1,7 +1,21 @@
-summary: 功能测试 - csmith - 位置无关代码 (-fPIC/-fPIE/-pie)
+summary: Functional test - csmith - no (-fPIC/-fPIE/-pie)
+
+
 test: ./test.sh
+
+
 tag: [functional, compiler, csmith]
+
+
 duration: 5m
+
+
 tier: 2
+
+
 path: /tests/functional/compiler/csmith/test_csmith_pic_pie
+
+
 require: [csmith, gcc, clang, beakerlib]
+
+

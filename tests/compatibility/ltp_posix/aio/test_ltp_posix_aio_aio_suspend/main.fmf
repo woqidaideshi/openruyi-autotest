@@ -1,13 +1,13 @@
-summary: 兼容性测试 - LTP POSIX - aio/aio_suspend
+summary: Compatibility test - LTP POSIX - aio/aio_suspend
 test: ./test.sh
 tag:
-  - compatibility
-  - posix
-  - aio
+ - compatibility
+ - posix
+ - aio
 duration: 3m
 tier: 2
 path: /tests/compatibility/ltp_posix/aio/test_ltp_posix_aio_aio_suspend
 require:
-  - beakerlib
-  - gcc
-  - make
+ - beakerlib
+ - gcc
+ - make

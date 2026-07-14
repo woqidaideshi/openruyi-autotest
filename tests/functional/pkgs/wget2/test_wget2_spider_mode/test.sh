@@ -7,32 +7,32 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        wget2Setup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseStartSetup "Environment setup"
+    wget2Setup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
     rlPhaseEnd
 
     rlPhaseStartTest "Spider-mode"
-        rlRun "wget2 --spider --version 2>&1 | grep -q Wget" 0 "wget2 --spider 选项可用"
-        rlRun "echo '<html><body>test</body></html>' > $TmpDir/index.html" 0 "创建测试页面"
-        rlRun "python3 -m http.server --bind 127.0.0.1 0 &> /dev/null &" 0 "启动本地 HTTP 服务器"
-        HTTP_PID=$!
-        sleep 2
-        PORT=$(ss -tlpn 2>/dev/null | grep $HTTP_PID | grep -oP '127\.0\.0\.1:\K\d+' | head -1)
-        if [ -n "$PORT" ]; then
-            rlRun "wget2 --spider http://127.0.0.1:$PORT/index.html" 0 "wget2 --spider 检查页面存在"
-        fi
-        kill $HTTP_PID 2>/dev/null || true
+    rlRun "wget2 --spider --version 2>&1 | grep -q Wget" 0 "wget2 --spider Option available"
+    rlRun "echo '<html><body>test</body></html>' > $TmpDir/index.html" 0 "Create test page"
+    rlRun "python3 -m http.server --bind 127.0.0.1 0 &> /dev/null &" 0 "Start local HTTP server"
+    HTTP_PID=$!
+    sleep 2
+    PORT=$(ss -tlpn 2>/dev/null | grep $HTTP_PID | grep -oP '127\.0\.0\.1:\K\d+' | head -1)
+    if [ -n "$PORT" ]; then
+    rlRun "wget2 --spider http://127.0.0.1:$PORT/index.html" 0 "wget2 --spider checkpageexists"
+    fi
+    kill $HTTP_PID 2>/dev/null || true
     rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # wget2 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # wget2 Package managed by lib.sh 's reference counting auto-uninstall
     rlPhaseEnd
 
     rlJournalPrintText

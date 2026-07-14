@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - openssh - Change comment
+summary: Functional test - openssh - change comment
 test: ./test.sh
 tag:
-  - functional
-  - openssh
+ - functional
+ - openssh
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/openssh/test_openssh_change_comment
 require:
-  - openssh
-  - beakerlib
+ - openssh
+ - beakerlib

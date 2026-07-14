@@ -8,16 +8,16 @@
 IFACE_DIR="$LTP_BUILD_DIR/conformance/interfaces"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        ltpPosixSetup
+    rlPhaseStartSetup "Environment setup"
+    ltpPosixSetup
     rlPhaseEnd
 
-    rlPhaseStartTest "POSIX 接口: mqueue / mq_receive"
-        rlRun "run_posix_iface_test 'mq_receive'" 0 "mqueue/mq_receive 接口一致性测试"
+    rlPhaseStartTest "POSIX Interface: mqueue / mq_receive"
+    rlRun "run_posix_iface_test 'mq_receive'" 0 "mqueue/mq_receive Interface conformance test"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
     rlPhaseEnd
 
     rlJournalPrintText

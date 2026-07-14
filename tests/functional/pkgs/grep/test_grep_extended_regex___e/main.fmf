@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - grep - Extended regex (-E)
+summary: Functional test - grep - extended e
 test: ./test.sh
 tag:
-  - functional
-  - grep
+ - functional
+ - grep
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/grep/test_grep_extended_regex___e
 require:
-  - grep
-  - beakerlib
+ - grep
+ - beakerlib

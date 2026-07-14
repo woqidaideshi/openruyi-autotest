@@ -1,13 +1,13 @@
-summary: 冒烟测试 - /proc/uptime 运行时间
+summary: Smoke test - /proc/uptime runtime
 test: ./test.sh
 tag:
-  - smoke
-  - system_info
+ - smoke
+ - system_info
 duration: 1m
 tier: 0
 path: /tests/smoke/system_info/test_smoke_uptime_load
 require:
-  - beakerlib
-  - coreutils
-  - procps-ng
-  - util-linux
+ - beakerlib
+ - coreutils
+ - procps-ng
+ - util-linux

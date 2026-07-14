@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - systemd - coredumpctl
+summary: Functional test - systemd - coredumpctl
 test: ./test.sh
 tag:
-  - functional
-  - systemd
+ - functional
+ - systemd
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_coredumpctl
 require:
-  - systemd
-  - beakerlib
+ - systemd
+ - beakerlib

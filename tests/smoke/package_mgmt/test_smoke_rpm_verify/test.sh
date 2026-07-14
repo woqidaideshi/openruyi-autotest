@@ -1,21 +1,21 @@
 #!/bin/bash
-# Smoke test: package_mgmt - rpm -V 验证包完整性
+# Smoke test: package_mgmt - rpm -V verifypackage integrity
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokePackageMgmtSetup
+    rlPhaseStartSetup "Environment setup"
+    smokePackageMgmtSetup
 
     rlPhaseEnd
 
-    rlPhaseStartTest "rpm -V 验证包完整性"
-        rlRun 'rpm -V coreutils 2>&1 || true' 0 "rpm -V 验证包完整性"
+    rlPhaseStartTest "rpm -V verifypackage integrity"
+    rlRun 'rpm -V coreutils 2>&1 || true' 0 "rpm -V verifypackage integrity"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+    rlPhaseStartCleanup "Clean up test environment"
 
     rlPhaseEnd
 

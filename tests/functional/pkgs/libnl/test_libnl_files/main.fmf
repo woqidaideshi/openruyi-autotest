@@ -1,11 +1,11 @@
-summary: libnl - �ļ���֤
+summary: Functional test - libnl - file verification
 test: ./test.sh
 tag:
-  - functional
-  - libnl
+ - functional
+ - libnl
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/libnl/test_libnl_files
 
 require:
-  - beakerlib
+ - beakerlib

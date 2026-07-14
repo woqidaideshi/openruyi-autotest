@@ -1,10 +1,10 @@
-summary: 功能测试 - util-linux 系统工具集
-tag:
-  - functional
-  - util-linux
-duration: 5m
-tier: 1
-path: /tests/functional/pkgs/util-linux
-require:
-  - util-linux
-  - beakerlib
+summary: Functional test - util-linux system
+tag:
+ - functional
+ - util-linux
+duration: 5m
+tier: 1
+path: /tests/functional/pkgs/util-linux
+require:
+ - util-linux
+ - beakerlib

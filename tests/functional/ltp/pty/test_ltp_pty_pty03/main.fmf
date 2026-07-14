@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - pty - pty03
+summary: Functional test - LTP - pty - pty03
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - pty
+ - functional
+ - ltp
+ - pty
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/pty/test_ltp_pty_pty03
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

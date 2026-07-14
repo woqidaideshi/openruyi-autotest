@@ -1,7 +1,7 @@
-summary: 性能测试 - iozone - 记录大小对 I/O 吞吐影响分析
-test: ./test.sh
-tag: [performance, iozone]
-duration: 5m
-tier: 2
-path: /tests/performance/iozone/test_iozone_record_profiling
-require: [iozone, beakerlib]
+summary: Performance test - iozone - recordsizevs I/O analysis
+test: ./test.sh
+tag: [performance, iozone]
+duration: 5m
+tier: 2
+path: /tests/performance/iozone/test_iozone_record_profiling
+require: [iozone, beakerlib]

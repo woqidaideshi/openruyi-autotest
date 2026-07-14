@@ -1,7 +1,7 @@
-summary: ���ܲ��� - which ������������֤
+summary: Functional test
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/which
 require:
-  - which
-  - beakerlib
+ - which
+ - beakerlib

@@ -1,13 +1,13 @@
-﻿summary: 功能测试 - 内核 - realtime - pthread_kill_latency
+﻿summary: Functional test - kernel - realtime - pthread_kill_latency
 test: ./test.sh
 tag:
-  - functional
-  - kernel
-  - realtime
-  - ltp
+ - functional
+ - kernel
+ - realtime
+ - ltp
 duration: 10m
 tier: 1
 path: /tests/functional/kernel/realtime/test_realtime_pthread_kill_latency
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

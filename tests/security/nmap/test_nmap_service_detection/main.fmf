@@ -1,11 +1,11 @@
-summary: 安全测试 - nmap 服务版本检测
+summary: Security test - nmap serviceversiondetect
 test: ./test.sh
 tag:
-  - security
-  - nmap
+ - security
+ - nmap
 duration: 2m
 tier: 1
 path: /tests/security/nmap/test_nmap_service_detection
 require:
-  - beakerlib
-  - nmap
+ - beakerlib
+ - nmap

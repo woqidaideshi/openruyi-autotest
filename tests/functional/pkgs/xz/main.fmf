@@ -1,10 +1,10 @@
-summary: 功能测试 - xz 压缩工具集
+summary: Functional test - xz compression toolset
 tag:
-  - functional
-  - xz
+ - functional
+ - xz
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/xz
 require:
-  - xz
-  - beakerlib
+ - xz
+ - beakerlib

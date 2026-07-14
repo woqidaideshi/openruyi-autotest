@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - net-multicast - mc_member
+summary: Functional test - LTP - net-multicast - mc_member
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - net-multicast
+ - functional
+ - ltp
+ - net-multicast
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/net-multicast/test_ltp_net-multicast_mc_member
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

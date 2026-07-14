@@ -1,4 +1,4 @@
-summary: 性能测试 - stream - 编译器优化对比 (GCC vs Clang)
+summary: Performance test - stream - compileoptimizationcomparison (GCC vs Clang)
 test: ./test.sh
 tag: [performance, stream]
 duration: 5m

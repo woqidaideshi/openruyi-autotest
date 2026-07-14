@@ -1,12 +1,12 @@
-﻿summary: 性能测试 - mmtests - io-trunc
+﻿summary: Performance test - mmtests - io-trunc
 test: ./test.sh
 tag:
-  - performance
-  - kernel
-  - mmtests
+ - performance
+ - kernel
+ - mmtests
 duration: 30m
 tier: 1
 path: /tests/performance/mmtests/test_mmtests_io_trunc
 require:
-  - mmtests
-  - beakerlib
+ - mmtests
+ - beakerlib

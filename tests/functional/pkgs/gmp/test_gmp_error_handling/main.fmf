@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - gmp - 閿欒澶勭悊
+summary: Functional test - gmp - error handling
 test: ./test.sh
 tag:
-  - functional
-  - gmp
+ - functional
+ - gmp
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/gmp/test_gmp_error_handling
 require:
-  - gmp
-  - beakerlib
+ - gmp
+ - beakerlib

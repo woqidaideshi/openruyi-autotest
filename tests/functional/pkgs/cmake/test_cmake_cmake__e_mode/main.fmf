@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - cmake - CMake -E mode
+summary: Functional test - cmake - CMakebuild e mode
 test: ./test.sh
 tag:
-  - functional
-  - cmake
+ - functional
+ - cmake
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/cmake/test_cmake_cmake__e_mode
 require:
-  - cmake
-  - beakerlib
+ - cmake
+ - beakerlib

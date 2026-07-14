@@ -1,11 +1,11 @@
-summary: 冒烟测试 - /etc/skel 骨架目录存在
+summary: Smoke test - /etc/skel directory exists
 test: ./test.sh
 tag:
-  - smoke
-  - user_mgmt
+ - smoke
+ - user_mgmt
 duration: 1m
 tier: 0
 path: /tests/smoke/user_mgmt/test_smoke_etc_skel_home
 require:
-  - beakerlib
-  - coreutils
+ - beakerlib
+ - coreutils

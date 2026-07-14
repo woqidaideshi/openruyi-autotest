@@ -1,22 +1,22 @@
 #!/bin/bash
-# Smoke test: permissions - /tmp 目录存在
+# Smoke test: permissions - /tmp directory exists
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokePermissionsSetup
+    rlPhaseStartSetup "Environment setup"
+    smokePermissionsSetup
 
     rlPhaseEnd
 
-    rlPhaseStartTest "/tmp 目录存在"
-        rlRun 'test -d /tmp' 0 "/tmp 目录存在"
-        rlRun 'ls -ld /tmp' 0 "ls -ld /tmp 权限"
+    rlPhaseStartTest "/tmp directory exists"
+    rlRun 'test -d /tmp' 0 "/tmp directory exists"
+    rlRun 'ls -ld /tmp' 0 "ls -ld /tmp permission"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+    rlPhaseStartCleanup "Clean up test environment"
 
     rlPhaseEnd
 

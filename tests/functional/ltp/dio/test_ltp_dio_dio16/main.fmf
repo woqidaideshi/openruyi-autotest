@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - dio - dio16
+summary: Functional test - LTP - dio - dio16
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - dio
+ - functional
+ - ltp
+ - dio
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/dio/test_ltp_dio_dio16
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

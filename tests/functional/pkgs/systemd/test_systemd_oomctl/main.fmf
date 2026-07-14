@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - systemd - oomctl
+summary: Functional test - systemd - oomctl
 test: ./test.sh
 tag:
-  - functional
-  - systemd
+ - functional
+ - systemd
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/systemd/test_systemd_oomctl
 require:
-  - systemd
-  - beakerlib
+ - systemd
+ - beakerlib

@@ -1,4 +1,4 @@
-summary: 功能测试 - jotai - 浮点精度 (-ffast-math/-frounding-math)
+summary: Functional test - jotai - floating-point (-ffast-math/-frounding-math)
 test: ./test.sh
 tag: [functional, compiler, jotai]
 duration: 5m

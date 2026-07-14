@@ -1,24 +1,47 @@
 #!/bin/bash
-# Smoke test: security - ulimit -n 文件描述符上限
+
+# Smoke test: security - ulimit -n filedescriptor limit
+
 # Beakerlib-based test with lifecycle management
 
+
+
 . /usr/share/beakerlib/beakerlib.sh || exit 1
+
 . "$(dirname "$0")/../lib.sh"
 
+
+
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeSecuritySetup
+
+    rlPhaseStartSetup "Environment setup"
+
+    smokeSecuritySetup
+
+
 
     rlPhaseEnd
 
-    rlPhaseStartTest "ulimit -n 文件描述符上限"
-        rlRun 'ulimit -n' 0 "ulimit -n 文件描述符上限"
-        rlRun 'ulimit -u' 0 "ulimit -u 用户进程数上限"
+
+
+    rlPhaseStartTest "ulimit -n filedescriptor limit"
+
+    rlRun 'ulimit -n' 0 "ulimit -n filedescriptor limit"
+
+    rlRun 'ulimit -u' 0 "ulimit -u userprocesscount"
+
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+
 
     rlPhaseEnd
+
+
 
     rlJournalPrintText
+
 rlJournalEnd

@@ -1,10 +1,10 @@
-summary: 功能测试 - iptables 软件包功能验证
+summary: Functional test - iptables package functionality verification
 tag:
-  - functional
-  - iptables
+ - functional
+ - iptables
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/iptables
 require:
-  - iptables
-  - beakerlib
+ - iptables
+ - beakerlib

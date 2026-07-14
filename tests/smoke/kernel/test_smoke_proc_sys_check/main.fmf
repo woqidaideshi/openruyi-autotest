@@ -1,12 +1,12 @@
-summary: 冒烟测试 - /proc/sys 目录存在
+summary: Smoke test - /proc/sys directory exists
 test: ./test.sh
 tag:
-  - smoke
-  - kernel
+ - smoke
+ - kernel
 duration: 1m
 tier: 0
 path: /tests/smoke/kernel/test_smoke_proc_sys_check
 require:
-  - beakerlib
-  - kmod
-  - procps-ng
+ - beakerlib
+ - kmod
+ - procps-ng

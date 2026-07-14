@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - filesystem - 閿欒澶勭悊
+summary: Functional test - filesystem - error handling
 test: ./test.sh
 tag:
-  - functional
-  - filesystem
+ - functional
+ - filesystem
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/filesystem/test_filesystem_error_handling
 require:
-  - filesystem
-  - beakerlib
+ - filesystem
+ - beakerlib

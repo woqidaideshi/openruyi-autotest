@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - sed - 灏卞湴缂栬緫
+summary: Functional test - sed - in-place edit
 test: ./test.sh
 tag:
-  - functional
-  - sed
+ - functional
+ - sed
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/sed/test_sed_inplace_edit
 require:
-  - sed
-  - beakerlib
+ - sed
+ - beakerlib

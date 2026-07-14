@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - mpdecimal - 閿欒澶勭悊
+summary: Functional test - mpdecimal - error handling
 test: ./test.sh
 tag:
-  - functional
-  - mpdecimal
+ - functional
+ - mpdecimal
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/mpdecimal/test_mpdecimal_error_handling
 require:
-  - mpdecimal
-  - beakerlib
+ - mpdecimal
+ - beakerlib

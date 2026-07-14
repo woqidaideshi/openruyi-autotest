@@ -1,11 +1,11 @@
-summary: dbus-broker - ������
+summary: Functional test - dbus-broker - D-Bus broker error handling
 test: ./test.sh
 tag:
-  - functional
-  - dbus-broker
+ - functional
+ - dbus-broker
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/dbus-broker/test_dbus-broker_error
 
 require:
-  - beakerlib
+ - beakerlib

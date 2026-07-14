@@ -1,11 +1,11 @@
-summary: binutils - ar �鵵
+summary: Functional test - binutils - ararchive
 test: ./test.sh
 tag:
-  - functional
-  - binutils
+ - functional
+ - binutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/binutils/test_binutils_ar
 
 require:
-  - beakerlib
+ - beakerlib

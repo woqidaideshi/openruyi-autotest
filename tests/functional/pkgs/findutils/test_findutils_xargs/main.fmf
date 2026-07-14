@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - findutils - xargs
+summary: Functional test - findutils - xargs
 test: ./test.sh
 tag:
-  - functional
-  - findutils
+ - functional
+ - findutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/findutils/test_findutils_xargs
 require:
-  - findutils
-  - beakerlib
+ - findutils
+ - beakerlib

@@ -1,23 +1,23 @@
 #!/bin/bash
-# Smoke test: dev_tools - python3 可用
+# Smoke test: dev_tools - python3 available
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeDevToolsSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeDevToolsSetup
 
     rlPhaseEnd
 
-    rlPhaseStartTest "python3 可用"
-        rlRun 'which python3' 0 "python3 可用"
-        rlRun 'python3 --version' 0 "python3 版本"
-        rlRun 'python3 -c "print(1+1)"' 0 "python3 基本运算"
+    rlPhaseStartTest "python3 available"
+    rlRun 'which python3' 0 "python3 available"
+    rlRun 'python3 --version' 0 "python3 version"
+    rlRun 'python3 -c "print(1+1)"' 0 "python3 basic arithmetic"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+    rlPhaseStartCleanup "Clean up test environment"
 
     rlPhaseEnd
 

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - podman - Help commands
+summary: Functional test - podman - help info commands
 test: ./test.sh
 tag:
-  - functional
-  - podman
+ - functional
+ - podman
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/podman/test_podman_help_commands
 require:
-  - podman
-  - beakerlib
+ - podman
+ - beakerlib

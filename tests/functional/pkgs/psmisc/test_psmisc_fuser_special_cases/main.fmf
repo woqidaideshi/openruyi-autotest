@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - psmisc - fuser special cases
+summary: Functional test - psmisc - fuser
 test: ./test.sh
 tag:
-  - functional
-  - psmisc
+ - functional
+ - psmisc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/psmisc/test_psmisc_fuser_special_cases
 require:
-  - psmisc
-  - beakerlib
+ - psmisc
+ - beakerlib

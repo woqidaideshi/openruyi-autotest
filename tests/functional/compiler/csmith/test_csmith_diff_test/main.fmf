@@ -1,14 +1,14 @@
-summary: 功能测试 - csmith - 差分测试（GCC vs Clang 输出对比）
+summary: Functional test - csmith - differential testing (GCC vs Clang output comparison)
 test: ./test.sh
 tag:
-  - functional
-  - compiler
-  - csmith
+ - functional
+ - compiler
+ - csmith
 duration: 5m
 tier: 2
 path: /tests/functional/compiler/csmith/test_csmith_diff_test
 require:
-  - csmith
-  - gcc
-  - clang
-  - beakerlib
+ - csmith
+ - gcc
+ - clang
+ - beakerlib

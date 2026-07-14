@@ -1,10 +1,10 @@
-summary: 可靠性测试 - stress-ng 系统压力测试
+summary: Reliability test - stress-ng system stress test
 tag:
-  - reliability
-  - stress-ng
+ - reliability
+ - stress-ng
 duration: 30m
 tier: 2
 path: /tests/reliability/stress-ng
 require:
-  - beakerlib
-  - stress-ng
+ - beakerlib
+ - stress-ng

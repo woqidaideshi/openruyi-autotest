@@ -1,13 +1,13 @@
-summary: 兼容性测试 - LTP POSIX - sched/sched_get_priority_min
+summary: Compatibility test - LTP POSIX - sched/sched_get_priority_min
 test: ./test.sh
 tag:
-  - compatibility
-  - posix
-  - sched
+ - compatibility
+ - posix
+ - sched
 duration: 3m
 tier: 2
 path: /tests/compatibility/ltp_posix/sched/test_ltp_posix_sched_sched_get_priority_min
 require:
-  - beakerlib
-  - gcc
-  - make
+ - beakerlib
+ - gcc
+ - make

@@ -1,13 +1,13 @@
-summary: 兼容性测试 - LTP POSIX - signal/sigwaitinfo
+summary: Compatibility test - LTP POSIX - signal/sigwaitinfo
 test: ./test.sh
 tag:
-  - compatibility
-  - posix
-  - signal
+ - compatibility
+ - posix
+ - signal
 duration: 3m
 tier: 2
 path: /tests/compatibility/ltp_posix/signal/test_ltp_posix_signal_sigwaitinfo
 require:
-  - beakerlib
-  - gcc
-  - make
+ - beakerlib
+ - gcc
+ - make

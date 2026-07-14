@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - gcc - Linking and libraries
+summary: Functional test - gcc - link and libraries
 test: ./test.sh
 tag:
-  - functional
-  - gcc
+ - functional
+ - gcc
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/gcc/test_gcc_linking_and_libraries
 require:
-  - gcc
-  - beakerlib
+ - gcc
+ - beakerlib

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - bash - 鍩烘湰鑴氭湰鎵ц
+summary: Functional test - bash - basic functionality script execution
 test: ./test.sh
 tag:
-  - functional
-  - bash
+ - functional
+ - bash
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/bash/test_bash_basic_script
 require:
-  - bash
-  - beakerlib
+ - bash
+ - beakerlib

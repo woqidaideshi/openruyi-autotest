@@ -1,12 +1,12 @@
-summary: 功能测试 - LTP - tracing - pt_disable_branch
+summary: Functional test - LTP - tracing - pt_disable_branch
 test: ./test.sh
 tag:
-  - functional
-  - ltp
-  - tracing
+ - functional
+ - ltp
+ - tracing
 duration: 30m
 tier: 1
 path: /tests/functional/ltp/tracing/test_ltp_tracing_pt_disable_branch
 require:
-  - ltp
-  - beakerlib
+ - ltp
+ - beakerlib

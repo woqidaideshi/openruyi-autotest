@@ -1,4 +1,4 @@
-summary: 可靠性测试 - stress-ng - CPU 压力 (阶梯线程)
+summary: Reliability test - stress-ng - CPU stress (rampthread)
 test: ./test.sh
 tag: [reliability, stress-ng]
 duration: 5m

@@ -1,4 +1,4 @@
-summary: 可靠性测试 - trinity - 全速压力测试 (-qq -l off)
+summary: Reliability test - trinity - full-speed stresstest (-qq -l off)
 test: ./test.sh
 tag: [reliability, trinity]
 duration: 5m

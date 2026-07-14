@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - tmux - Error handling
+summary: Functional test - tmux - error handling
 test: ./test.sh
 tag:
-  - functional
-  - tmux
+ - functional
+ - tmux
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/tmux/test_tmux_error_handling
 require:
-  - tmux
-  - beakerlib
+ - tmux
+ - beakerlib

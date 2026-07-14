@@ -1,4 +1,4 @@
-summary: 性能测试 - sysbench - 互斥锁竞争
+summary: Performance test - sysbench - 
 test: ./test.sh
 tag: [performance, sysbench]
 duration: 5m

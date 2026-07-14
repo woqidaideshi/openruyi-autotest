@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - pciutils - lspci with domain
+summary: Functional test - pciutils - lspci with domain
 test: ./test.sh
 tag:
-  - functional
-  - pciutils
+ - functional
+ - pciutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pciutils/test_pciutils_lspci_with_domain
 require:
-  - pciutils
-  - beakerlib
+ - pciutils
+ - beakerlib

@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - iputils - Network interface testing
+summary: Functional test - iputils - network functionality interface testing
 test: ./test.sh
 tag:
-  - functional
-  - iputils
+ - functional
+ - iputils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/iputils/test_iputils_network_interface_testing
 require:
-  - iputils
-  - beakerlib
+ - iputils
+ - beakerlib

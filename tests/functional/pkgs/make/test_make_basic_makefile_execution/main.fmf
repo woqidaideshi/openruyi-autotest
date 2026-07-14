@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - make - Basic Makefile execution
+summary: Functional test - make - basic functionality Makefile execution
 test: ./test.sh
 tag:
-  - functional
-  - make
+ - functional
+ - make
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/make/test_make_basic_makefile_execution
 require:
-  - make
-  - beakerlib
+ - make
+ - beakerlib

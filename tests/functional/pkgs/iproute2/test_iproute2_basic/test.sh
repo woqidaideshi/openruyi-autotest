@@ -1,5 +1,5 @@
 #!/bin/bash
-# Functional test: iproute2 - iproute2 错误处理��
+# Functional test: iproute2 - iproute2 error handling
 # Beakerlib-based test with lifecycle management
 # Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
 
@@ -7,28 +7,28 @@
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        iproute2Setup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
+    rlPhaseStartSetup "Environment setup"
+    iproute2Setup
+    TmpDir=$(mktemp -d)
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
     rlPhaseEnd
 
-    rlPhaseStartTest "iproute2 错误处理��"
-        rlRun "ip addr show 2>&1 | head -10" 0 "��ʾ�����ַ"
-        rlRun "ip link show 2>&1 | head -10" 0 "��ʾ错误处理��"
-        rlRun "ip route show 2>&1 | head -5" 0 "��ʾ·�ɱ�"
-        rlRun "ss --help 2>&1 | head -10" 0 "ss ����"
-        rlRun "ss -tln 2>&1 | head -10" 0 "��ʾ�����˿�"
-        rlRun "tc --help 2>&1 | head -10" 0 "tc ����"
+    rlPhaseStartTest "iproute2 error handling"
+    rlRun "ip addr show 2>&1 | head -10" 0 "Show network addresses"
+    rlRun "ip link show 2>&1 | head -10" 0 "Show network interfaces"
+    rlRun "ip route show 2>&1 | head -5" 0 "Show routing table"
+    rlRun "ss --help 2>&1 | head -10" 0 "Socket statistics"
+    rlRun "ss -tln 2>&1 | head -10" 0 "Socket statistics"
+    rlRun "tc --help 2>&1 | head -10" 0 "Traffic control"
     rlPhaseEnd
 
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # iproute2 软件包由 lib.sh 的引用计数机制自动管理卸载
+    rlPhaseStartCleanup "Clean up test environment"
+    rlRun "cd /" 0 "Leave test directory"
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+    fi
+    # iproute2 Package managed by lib.sh 's reference counting auto-uninstall
     rlPhaseEnd
 
     rlJournalPrintText

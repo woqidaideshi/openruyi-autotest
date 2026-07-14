@@ -1,22 +1,22 @@
 #!/bin/bash
-# Smoke test: network - wget 版本
+# Smoke test: network - wget version
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeNetworkSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeNetworkSetup
 
     rlPhaseEnd
 
-    rlPhaseStartTest "wget 版本"
-        rlRun 'wget --version 2>&1 || true' 0 "wget 版本"
-        rlRun 'wget --timeout=5 --spider http://example.com 2>&1 || true' 0 "wget spider模式"
+    rlPhaseStartTest "wget version"
+    rlRun 'wget --version 2>&1 || true' 0 "wget version"
+    rlRun 'wget --timeout=5 --spider http://example.com 2>&1 || true' 0 "wget spidermode"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+    rlPhaseStartCleanup "Clean up test environment"
 
     rlPhaseEnd
 

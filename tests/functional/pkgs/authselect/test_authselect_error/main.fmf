@@ -1,11 +1,11 @@
-summary: authselect - ������
+summary: Functional test - authselect - error handling
 test: ./test.sh
 tag:
-  - functional
-  - authselect
+ - functional
+ - authselect
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/authselect/test_authselect_error
 
 require:
-  - beakerlib
+ - beakerlib

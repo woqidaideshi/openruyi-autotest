@@ -1,24 +1,47 @@
 #!/bin/bash
-# Smoke test: service_mgmt - journalctl 版本
+
+# Smoke test: service_mgmt - journalctl version
+
 # Beakerlib-based test with lifecycle management
 
+
+
 . /usr/share/beakerlib/beakerlib.sh || exit 1
+
 . "$(dirname "$0")/../lib.sh"
 
+
+
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeServiceMgmtSetup
+
+    rlPhaseStartSetup "Environment setup"
+
+    smokeServiceMgmtSetup
+
+
 
     rlPhaseEnd
 
-    rlPhaseStartTest "journalctl 版本"
-        rlRun 'journalctl --version' 0 "journalctl 版本"
-        rlRun 'journalctl -n 10 --no-pager 2>&1 || true' 0 "journalctl 最近日志"
+
+
+    rlPhaseStartTest "journalctl version"
+
+    rlRun 'journalctl --version' 0 "journalctl version"
+
+    rlRun 'journalctl -n 10 --no-pager 2>&1 || true' 0 "journalctl log"
+
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+
 
     rlPhaseEnd
+
+
 
     rlJournalPrintText
+
 rlJournalEnd

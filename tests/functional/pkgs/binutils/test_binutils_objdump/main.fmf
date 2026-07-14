@@ -1,11 +1,11 @@
-summary: binutils - objdump �����
+summary: Functional test - binutils - objdumpAssembly
 test: ./test.sh
 tag:
-  - functional
-  - binutils
+ - functional
+ - binutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/binutils/test_binutils_objdump
 
 require:
-  - beakerlib
+ - beakerlib

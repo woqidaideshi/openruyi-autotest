@@ -1,10 +1,10 @@
-summary: 功能测试 - filesystem 文件系统包
+summary: Functional test - filesystem filesystem
 tag:
-  - functional
-  - filesystem
+ - functional
+ - filesystem
 duration: 5m
 tier: 1
 path: /tests/functional/pkgs/filesystem
 require:
-  - filesystem
-  - beakerlib
+ - filesystem
+ - beakerlib

@@ -1,22 +1,22 @@
 #!/bin/bash
-# Smoke test: process - nproc CPU 核心数
+# Smoke test: process - nproc CPU corecount
 # Beakerlib-based test with lifecycle management
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 . "$(dirname "$0")/../lib.sh"
 
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeProcessSetup
+    rlPhaseStartSetup "Environment setup"
+    smokeProcessSetup
 
     rlPhaseEnd
 
-    rlPhaseStartTest "nproc CPU 核心数"
-        rlRun 'nproc' 0 "nproc CPU 核心数"
-        rlRun 'nproc --all' 0 "nproc --all 所有处理器"
+    rlPhaseStartTest "nproc CPU corecount"
+    rlRun 'nproc' 0 "nproc CPU corecount"
+    rlRun 'nproc --all' 0 "nproc --all allhandle"
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+    rlPhaseStartCleanup "Clean up test environment"
 
     rlPhaseEnd
 

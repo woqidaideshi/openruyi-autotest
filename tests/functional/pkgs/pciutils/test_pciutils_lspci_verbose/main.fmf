@@ -1,11 +1,11 @@
-﻿summary: 鍔熻兘娴嬭瘯 - pciutils - lspci verbose
+summary: Functional test - pciutils - lspci verbose
 test: ./test.sh
 tag:
-  - functional
-  - pciutils
+ - functional
+ - pciutils
 duration: 2m
 tier: 1
 path: /tests/functional/pkgs/pciutils/test_pciutils_lspci_verbose
 require:
-  - pciutils
-  - beakerlib
+ - pciutils
+ - beakerlib

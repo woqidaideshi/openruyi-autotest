@@ -1,4 +1,4 @@
-summary: 性能测试 - fio - 延迟分析 (队列深度 vs 块大小)
+summary: Performance test - fio - latencyanalysis (queue depth vs block size)
 test: ./test.sh
 tag: [performance, fio]
 duration: 5m

@@ -1,25 +1,49 @@
 #!/bin/bash
-# Smoke test: scripting - env 列出环境变量
+
+# Smoke test: scripting - env listexportenvironment variables
+
 # Beakerlib-based test with lifecycle management
 
+
+
 . /usr/share/beakerlib/beakerlib.sh || exit 1
+
 . "$(dirname "$0")/../lib.sh"
 
+
+
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        smokeScriptingSetup
+
+    rlPhaseStartSetup "Environment setup"
+
+    smokeScriptingSetup
+
+
 
     rlPhaseEnd
 
-    rlPhaseStartTest "env 列出环境变量"
-        rlRun 'env | head -5' 0 "env 列出环境变量"
-        rlRun 'echo $PATH | grep /bin' 0 "\$PATH 含/bin"
-        rlRun 'echo $SHELL' 0 "\$SHELL 默认shell"
+
+
+    rlPhaseStartTest "env listexportenvironment variables"
+
+    rlRun 'env | head -5' 0 "env listexportenvironment variables"
+
+    rlRun 'echo $PATH | grep /bin' 0 "\$PATH contains /bin"
+
+    rlRun 'echo $SHELL' 0 "\$SHELL defaultshell"
+
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+
 
     rlPhaseEnd
+
+
 
     rlJournalPrintText
+
 rlJournalEnd

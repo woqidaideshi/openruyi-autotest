@@ -1,50 +1,100 @@
 #!/bin/bash
+
 # Functional test: acl - setfacl advanced
+
 # Beakerlib-based test with lifecycle management
-# Shared suite setup/cleanup via ../lib.sh (install once, uninstall once)
+
+# Shared suite setup/cleanup via../lib.sh (install once, uninstall once)
+
+
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
+
 . "$(dirname "$0")/../lib.sh"
 
+
+
 rlJournalStart
-    rlPhaseStartSetup "环境准备"
-        aclSetup
-        TmpDir=$(mktemp -d)
-        rlRun "cd $TmpDir" 0 "进入临时测试目录"
-        rlRun "touch testfile" 0 "创建测试文件"
-        rlRun "mkdir testdir" 0 "创建测试目录"
+
+    rlPhaseStartSetup "Environment setup"
+
+    aclSetup
+
+    TmpDir=$(mktemp -d)
+
+    rlRun "cd $TmpDir" 0 "Enter temporary test directory"
+
+    rlRun "touch testfile" 0 "Create test file"
+
+    rlRun "mkdir testdir" 0 "Create test directory"
+
     rlPhaseEnd
 
-    rlPhaseStartTest "setfacl 高级功能"
-        rlRun "setfacl -m d:u:root:rwx testdir" 0 "为目录设置 default user ACL"
-        rlRun "getfacl testdir" 0 "验证 default ACL 设置"
-        rlAssertGrep "default:user:root:rwx" "$(getfacl testdir 2>&1)" "确认 default:user:root:rwx 已设置"
 
-        rlRun "setfacl -m d:g:root:r-x testdir" 0 "为目录设置 default group ACL"
-        rlRun "getfacl testdir" 0 "验证 default group ACL"
 
-        rlRun "setfacl -m d:m::rwx testdir" 0 "为目录设置 default mask"
-        rlRun "getfacl testdir" 0 "验证 default mask"
+    rlPhaseStartTest "setfacl advanced functionality"
 
-        rlRun "setfacl -m d:o::r-- testdir" 0 "为目录设置 default other"
-        rlRun "getfacl testdir" 0 "验证 default other"
+    rlRun "setfacl -m d:u:root:rwx testdir" 0 "isdirectoryset default user ACL"
 
-        rlRun "setfacl --set u::rw-,u:root:rwx,g::r--,o::r--,m::rwx testfile" 0 "使用 --set 替换整个 ACL"
-        rlRun "getfacl testfile" 0 "验证 ACL 替换"
-        rlAssertGrep "user:root:rwx" "$(getfacl testfile 2>&1)" "确认 --set 已替换 ACL"
+    rlRun "getfacl testdir" 0 "verify default ACL set"
 
-        rlRun "echo 'u:root:rw-' > acl_rules.txt" 0 "创建 ACL 规则文件"
-        rlRun "setfacl -M acl_rules.txt testfile" 0 "从文件读取并应用 ACL"
-        rlRun "getfacl testfile" 0 "验证从文件应用的 ACL"
+    rlAssertGrep "default:user:root:rwx" "$(getfacl testdir 2>&1)" "confirm default:user:root:rwx alreadyset"
+
+
+
+    rlRun "setfacl -m d:g:root:r-x testdir" 0 "isdirectoryset default group ACL"
+
+    rlRun "getfacl testdir" 0 "verify default group ACL"
+
+
+
+    rlRun "setfacl -m d:m::rwx testdir" 0 "isdirectoryset default mask"
+
+    rlRun "getfacl testdir" 0 "verify default mask"
+
+
+
+    rlRun "setfacl -m d:o::r-- testdir" 0 "isdirectoryset default other"
+
+    rlRun "getfacl testdir" 0 "verify default other"
+
+
+
+    rlRun "setfacl --set u::rw-,u:root:rwx,g::r--,o::r--,m::rwx testfile" 0 "use --set replaceint ACL"
+
+    rlRun "getfacl testfile" 0 "verify ACL replace"
+
+    rlAssertGrep "user:root:rwx" "$(getfacl testfile 2>&1)" "confirm --set alreadyreplace ACL"
+
+
+
+    rlRun "echo 'u:root:rw-' > acl_rules.txt" 0 "create ACL file"
+
+    rlRun "setfacl -M acl_rules.txt testfile" 0 "fromfilereadandshouldwith ACL"
+
+    rlRun "getfacl testfile" 0 "verifyfromfileshouldwith ACL"
+
     rlPhaseEnd
 
-    rlPhaseStartCleanup "清理测试环境"
-        rlRun "cd /" 0 "离开测试目录"
-        if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
-            rlRun "rm -rf $TmpDir" 0 "清理临时测试目录"
-        fi
-        # acl 软件包由 lib.sh 的引用计数机制自动管理卸载
+
+
+    rlPhaseStartCleanup "Clean up test environment"
+
+    rlRun "cd /" 0 "Leave test directory"
+
+    if [ -n "$TmpDir" ] && [ -d "$TmpDir" ]; then
+
+    rlRun "rm -rf $TmpDir" 0 "Clean up temporary test directory"
+
+    fi
+
+    # acl Package managed by lib.sh's reference counting auto-uninstall
+
     rlPhaseEnd
+
+
 
     rlJournalPrintText
+
 rlJournalEnd
+
