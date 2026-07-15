@@ -214,7 +214,7 @@ class CloudPodsClient:
         }
         try:
             rs = session.post(url=url, json=data, verify=False, timeout=600)
-            if rs.status_code != 201:
+            if rs.status_code != 200:
                 log.error(f"Keystone auth failed: status={rs.status_code}, body={rs.text[:500]}")
                 return None
             token = rs.headers.get("X-Subject-Token", "")
@@ -241,7 +241,15 @@ class CloudPodsClient:
                 name = ep.get("service_name", "")
                 ep_url = ep.get("url", "")
                 if name and ep_url:
-                    endpoints[name] = ep_url
+                    # Prefer IP-based endpoints over DNS names (for cross-platform compatibility)
+                    if name in endpoints:
+                        existing = endpoints[name]
+                        # If existing is DNS and new is IP, replace
+                        if not re.match(r'https?://\d+\.\d+\.\d+\.\d+', existing) and \
+                           re.match(r'https?://\d+\.\d+\.\d+\.\d+', ep_url):
+                            endpoints[name] = ep_url
+                    else:
+                        endpoints[name] = ep_url
             log.info(f"Endpoints: {list(endpoints.keys())}")
             return endpoints
         except Exception as e:
@@ -419,19 +427,26 @@ def wait_for_sshable(ip: str, port: int, username: str, password: str,
                      timeout: int = 3600, interval: int = 10) -> bool:
     """等待 SSH 可达"""
     log.info(f"Waiting for {ip}:{port} SSH (timeout={timeout}s)...")
-    for i in range(0, timeout, interval):
-        try:
-            ssh = SSHClient(ip=ip, port=port, username=username, password=password, connect_timeout=10)
-            if ssh.is_sshable:
-                rs = ssh.exec("sudo ls /")
-                if "root" in rs.stdout and rs.exit_code == 0:
-                    ssh.close()
-                    log.info(f"{ip}:{port} SSH OK after {i}s")
-                    return True
-            ssh.close()
-        except Exception as e:
-            log.warning(f"{ip}:{port} SSH attempt failed: {e}")
-        time.sleep(interval)
+    # 抑制 paramiko 内部的 banner/连接错误日志，避免刷屏
+    paramiko_logger = logging.getLogger("paramiko")
+    old_level = paramiko_logger.level
+    paramiko_logger.setLevel(logging.ERROR)
+    try:
+        for i in range(0, timeout, interval):
+            try:
+                ssh = SSHClient(ip=ip, port=port, username=username, password=password, connect_timeout=10)
+                if ssh.is_sshable:
+                    rs = ssh.exec("sudo ls /")
+                    if "root" in rs.stdout and rs.exit_code == 0:
+                        ssh.close()
+                        log.info(f"{ip}:{port} SSH OK after {i}s")
+                        return True
+                ssh.close()
+            except Exception as e:
+                log.warning(f"{ip}:{port} SSH attempt failed: {e}")
+            time.sleep(interval)
+    finally:
+        paramiko_logger.setLevel(old_level)
     log.error(f"{ip}:{port} SSH timeout after {timeout}s")
     return False
 
@@ -519,11 +534,17 @@ def try_wget(ssh: SSHClient, url: str, save_dir: str = "/opt",
 def create_qemu_server(env: "Env") -> bool:
     """
     主要流程：
-    1. 在 CloudPods 上创建 x86_64 KVM 虚拟机
-    2. 等待虚拟机 SSH 可达
-    3. 在虚拟机上安装 QEMU、下载 RISC-V 固件和镜像
-    4. 启动 QEMU
-    5. 等待 QEMU 内 RISC-V 虚拟机 SSH 可达
+    1. 在 CloudPods 上创建 N 台 x86_64 KVM 虚拟机
+    2. 等待所有虚拟机运行并获取 IP
+    3. 对每台 CloudPods host：
+       - 等待 SSH 可达
+       - 安装 QEMU、下载 RISC-V 固件和镜像
+       - 创建 bridge + TAP 设备
+       - 启动 M 个 QEMU RISC-V 虚拟机
+       - 等待 QEMU 内 RISC-V 虚拟机 SSH 可达
+       - 配置 QEMU 虚拟网卡 (bridge IP)，使同 host 的 QEMU VM 可互通
+       - 收集 bridge IP 列表
+    4. 汇总输出所有 host 及其 QEMU VM 信息
     """
     # ---- Step 1: Connect to CloudPods ----
     log.info("=" * 60)
@@ -543,14 +564,18 @@ def create_qemu_server(env: "Env") -> bool:
     log.info(f"Step 2: Creating {env.cloudpods_server_num} CloudPods server(s)...")
     log.info("=" * 60)
     nets = env.cloudpods_kvm_net_list.split(",")
+    # 创建虚拟机时只使用第一个网卡
+    create_nets = nets[:1]
+    vm_uuid = str(uuid.uuid4())
+    vm_name = f"{env.server_name_prefix}-{vm_uuid.split('-', 1)[1]}"
     server_ids = cp.create_server_by_guest_image(
         guest_image_id=env.guest_image_id,
         disk_image_id=env.disk_image_id,
         arch="x86_64",
         disk_size_mb=204800,
         disks=[],
-        nets_list=nets,
-        vm_name=env.server_name_prefix,
+        nets_list=create_nets,
+        vm_name=vm_name,
         sku=env.server_sku,
         count=env.cloudpods_server_num,
         hypervisor="kvm",
@@ -589,385 +614,377 @@ def create_qemu_server(env: "Env") -> bool:
         server_ips.append(ip)
         log.info(f"Server {sid} -> {ip}")
 
-    # Use the first server
-    host_ip = server_ips[0]
-    host_ssh = SSHClient(ip=host_ip, port=22,
-                         username=env.user, password=env.password)
+    # ---- Step 5-14: Setup each CloudPods host ----
+    all_qemu_ips: Dict[str, List[str]] = {}  # host_ip -> [bridge_ip1, ...]
 
-    # ---- Step 5: Wait for server SSH ----
-    log.info("=" * 60)
-    log.info("Step 5: Waiting for server SSH...")
-    log.info("=" * 60)
-    if not wait_for_sshable(host_ip, 22, env.user, env.password):
-        log.error(f"Server {host_ip} SSH not reachable")
-        for s in server_ids:
-            cp.delete_server(s)
-        return False
+    for host_idx, host_ip in enumerate(server_ips):
+        log.info("=" * 60)
+        log.info(f">>> Setting up host {host_idx + 1}/{len(server_ips)}: {host_ip} <<<")
+        log.info("=" * 60)
 
-    # Reconnect after SSH is available
-    host_ssh = SSHClient(ip=host_ip, port=22,
-                         username=env.user, password=env.password)
+        # ---- Step 5: Wait for server SSH ----
+        log.info(f"[Host {host_idx}] Step 5: Waiting for server SSH...")
+        if not wait_for_sshable(host_ip, 22, env.user, env.password):
+            log.error(f"[Host {host_idx}] Server {host_ip} SSH not reachable")
+            return False
 
-    # ---- Step 6: Configure yum repos on host ----
-    log.info("=" * 60)
-    log.info("Step 6: Configuring yum repos on host...")
-    log.info("=" * 60)
-    if env.delete_default_yum_repos.lower() == "yes":
-        host_ssh.exec("sudo rm -rf /etc/yum.repos.d/*.repo")
-    if env.add_yum_repos:
-        for i, repo_url in enumerate(env.add_yum_repos.split(",")):
-            repo_content = f"""[local-{i}]
-name=local-{i}
-baseurl={repo_url}
-priority=10
-enabled=1
-gpgcheck=0
-skip_if_unavailable=1"""
-            host_ssh.exec(f"sudo tee /etc/yum.repos.d/local-{i}.repo <<'EOF'\n{repo_content}\nEOF")
+        host_ssh = SSHClient(ip=host_ip, port=22,
+                             username=env.user, password=env.password)
+
+        # ---- Step 6: Replace default yum repos with ISCAS mirror & install packages ----
+        log.info(f"[Host {host_idx}] Step 6: Replacing default repo with ISCAS mirror & installing packages...")
+        if env.delete_default_yum_repos.lower() == "yes":
+            host_ssh.exec(
+                "sudo sed -i 's|repo.openeuler.org|mirrors.iscas.ac.cn/openeuler|g' "
+                "/etc/yum.repos.d/*.repo"
+            )
+            host_ssh.exec(
+                "sudo sed -i 's|mirrors.openeuler.org|mirrors.iscas.ac.cn/openeuler|g' "
+                "/etc/yum.repos.d/*.repo"
+            )
             host_ssh.exec("sudo dnf clean all", timeout=3600)
             host_ssh.exec("sudo dnf makecache", timeout=3600)
+        required_packages = [
+            "wget", "xz", "zstd", "screen", "expect",
+            "firewalld", "qemu-img", "bridge-utils",
+        ]
+        for pkg in required_packages:
+            if not try_install_rpm(host_ssh, pkg):
+                log.error(f"[Host {host_idx}] Failed to install {pkg}")
+                return False
 
-    # ---- Step 7: Install required packages on host ----
-    log.info("=" * 60)
-    log.info("Step 7: Installing required packages on host...")
-    log.info("=" * 60)
-    required_packages = [
-        "wget", "xz", "zstd", "screen", "expect",
-        "firewalld", "qemu-img", "bridge-utils",
-    ]
-    for pkg in required_packages:
-        if not try_install_rpm(host_ssh, pkg):
-            log.error(f"Failed to install {pkg}")
-            return False
+        # Start firewalld
+        host_ssh.exec("sudo systemctl start firewalld")
+        host_ssh.exec("sudo systemctl enable firewalld")
 
-    # Start firewalld
-    host_ssh.exec("sudo systemctl start firewalld")
-    host_ssh.exec("sudo systemctl enable firewalld")
-
-    # ---- Step 8: Install QEMU ----
-    log.info("=" * 60)
-    log.info("Step 8: Installing QEMU...")
-    log.info("=" * 60)
-    if env.os_version in ["openRuyi-RVA23"]:
-        # Install from Nexus repo
-        if not try_install_rpm(host_ssh, "libslirp-devel"):
-            log.error("Failed to install libslirp-devel")
-            return False
-        nexus_repo = """[nexus-qemu]
+        # ---- Step 7: Install QEMU ----
+        log.info(f"[Host {host_idx}] Step 7: Installing QEMU...")
+        if env.os_version in ["openRuyi-RVA23"]:
+            # Install from Nexus repo
+            if not try_install_rpm(host_ssh, "libslirp-devel"):
+                log.error(f"[Host {host_idx}] Failed to install libslirp-devel")
+                return False
+            nexus_repo = """[nexus-qemu]
 name=Nexus QEMU Repo
 baseurl=https://nexus.gray.oepkgs.net/repository/yum-hosted/
 enabled=1
 gpgcheck=0
 priority=1"""
-        host_ssh.exec(f"sudo tee /etc/yum.repos.d/nexus-qemu.repo <<'EOF'\n{nexus_repo}\nEOF")
-        host_ssh.exec("sudo yum clean all", timeout=60)
-        host_ssh.exec("sudo rm -rf /var/cache/yum")
-        rs = host_ssh.exec(
-            "sudo yum install -y qemu-10.1.2 --disablerepo=* --enablerepo=nexus-qemu",
-            timeout=180,
-        )
-        if rs.exit_code != 0:
-            log.error(f"QEMU install failed: {rs.stderr[:500]}")
-            return False
-    else:
-        # Try system QEMU
-        if not try_install_rpm(host_ssh, "qemu-system-riscv"):
-            log.error("Failed to install qemu-system-riscv")
-            return False
-
-    # Verify QEMU
-    qemu_path = "/usr/local/qemu/bin/qemu-system-riscv64" if env.os_version in ["openRuyi-RVA23"] else "qemu-system-riscv64"
-    rs = host_ssh.exec(f"{qemu_path} --version", timeout=60)
-    if rs.exit_code != 0:
-        log.error(f"QEMU version check failed: {rs.stderr[:500]}")
-        return False
-    log.info(f"QEMU version: {rs.stdout.strip()[:200]}")
-
-    # ---- Step 9: Configure firewall ----
-    log.info("=" * 60)
-    log.info("Step 9: Configuring firewall ports...")
-    log.info("=" * 60)
-    for port in [f"{12055 + i}/tcp" for i in range(env.riscv_qemu_num)]:
-        check = host_ssh.exec(f"sudo firewall-cmd --zone=public --query-port={port} --permanent", timeout=60)
-        if check.exit_code != 0:
-            rs = host_ssh.exec(f"sudo firewall-cmd --zone=public --add-port={port} --permanent", timeout=60)
+            host_ssh.exec(f"sudo tee /etc/yum.repos.d/nexus-qemu.repo <<'EOF'\n{nexus_repo}\nEOF")
+            host_ssh.exec("sudo yum clean all", timeout=60)
+            host_ssh.exec("sudo rm -rf /var/cache/yum")
+            rs = host_ssh.exec(
+                "sudo yum install -y qemu-10.1.2 --disablerepo=* --enablerepo=nexus-qemu",
+                timeout=180,
+            )
             if rs.exit_code != 0:
-                log.warning(f"Failed to add firewall port {port}: {rs.stderr}")
-    host_ssh.exec("sudo firewall-cmd --reload", timeout=60)
+                log.error(f"[Host {host_idx}] QEMU install failed: {rs.stderr[:500]}")
+                return False
+        else:
+            # Try system QEMU
+            if not try_install_rpm(host_ssh, "qemu-system-riscv"):
+                log.error(f"[Host {host_idx}] Failed to install qemu-system-riscv")
+                return False
 
-    # ---- Step 10: Download RISC-V image & firmware ----
-    log.info("=" * 60)
-    log.info("Step 10: Downloading RISC-V image and firmware...")
-    log.info("=" * 60)
-    host_ssh.exec("sudo rm -rf /opt/*.xz /opt/*.zst /opt/*.fd /opt/*.qcow2 2>/dev/null")
-
-    if not try_wget(host_ssh, env.riscv_image_url, "/opt"):
-        log.error("Failed to download RISC-V image")
-        return False
-    if not try_wget(host_ssh, env.riscv_virt_code_url, "/opt"):
-        log.error("Failed to download RISCV_VIRT_CODE.fd")
-        return False
-    if not try_wget(host_ssh, env.riscv_virt_vars_url, "/opt"):
-        log.error("Failed to download RISCV_VIRT_VARS.fd")
-        return False
-
-    # ---- Step 11: Decompress image ----
-    log.info("=" * 60)
-    log.info("Step 11: Decompressing RISC-V image...")
-    log.info("=" * 60)
-    image_name = env.riscv_image_url.split("/")[-1]
-    if ".qcow2.xz" in image_name:
-        rs = host_ssh.exec("cd /opt && sudo xz -d -f *.qcow2.xz", timeout=3600)
+        # Verify QEMU
+        qemu_path = "/usr/local/qemu/bin/qemu-system-riscv64" if env.os_version in ["openRuyi-RVA23"] else "qemu-system-riscv64"
+        rs = host_ssh.exec(f"{qemu_path} --version", timeout=60)
         if rs.exit_code != 0:
-            log.error(f"xz decompress failed: {rs.stderr}")
+            log.error(f"[Host {host_idx}] QEMU version check failed: {rs.stderr[:500]}")
             return False
-        image_name = image_name.replace(".qcow2.xz", ".qcow2")
-    elif ".qcow2.zst" in image_name:
-        rs = host_ssh.exec("cd /opt && sudo zstd -d -f *.qcow2.zst", timeout=3600)
-        if rs.exit_code != 0:
-            log.error(f"zstd decompress failed: {rs.stderr}")
+        log.info(f"[Host {host_idx}] QEMU version: {rs.stdout.strip()[:200]}")
+
+        # ---- Step 8: Configure firewall ----
+        log.info(f"[Host {host_idx}] Step 8: Configuring firewall ports...")
+        for port in [f"{12055 + i}/tcp" for i in range(env.riscv_qemu_num)]:
+            check = host_ssh.exec(f"sudo firewall-cmd --zone=public --query-port={port} --permanent", timeout=60)
+            if check.exit_code != 0:
+                rs = host_ssh.exec(f"sudo firewall-cmd --zone=public --add-port={port} --permanent", timeout=60)
+                if rs.exit_code != 0:
+                    log.warning(f"[Host {host_idx}] Failed to add firewall port {port}: {rs.stderr}")
+        host_ssh.exec("sudo firewall-cmd --reload", timeout=60)
+
+        # ---- Step 9: Download RISC-V image & firmware ----
+        log.info(f"[Host {host_idx}] Step 9: Downloading RISC-V image and firmware...")
+        host_ssh.exec("sudo rm -rf /opt/*.xz /opt/*.zst /opt/*.fd /opt/*.qcow2 2>/dev/null")
+
+        if not try_wget(host_ssh, env.riscv_image_url, "/opt"):
+            log.error(f"[Host {host_idx}] Failed to download RISC-V image")
             return False
-        image_name = image_name.replace(".qcow2.zst", ".qcow2")
-    log.info(f"Image decompressed: {image_name}")
-
-    virt_code_name = env.riscv_virt_code_url.split("/")[-1]
-    virt_vars_name = env.riscv_virt_vars_url.split("/")[-1]
-
-    # ---- Step 12: Create bridge and TAP devices ----
-    log.info("=" * 60)
-    log.info("Step 12: Setting up bridge and TAP devices...")
-    log.info("=" * 60)
-
-    # Create bridge br0
-    host_ssh.exec("sudo brctl addbr br0")
-    time.sleep(3)
-    host_ssh.exec("sudo ip link set br0 up")
-    time.sleep(3)
-    ip_check = host_ssh.exec("sudo ip addr show dev br0", timeout=60)
-    if "10.0.0.1/24" not in ip_check.stdout:
-        rs = host_ssh.exec("sudo ip addr add 10.0.0.1/24 dev br0", timeout=60)
-        if rs.exit_code != 0:
-            log.error(f"Failed to add IP to br0: {rs.stderr}")
+        if not try_wget(host_ssh, env.riscv_virt_code_url, "/opt"):
+            log.error(f"[Host {host_idx}] Failed to download RISCV_VIRT_CODE.fd")
+            return False
+        if not try_wget(host_ssh, env.riscv_virt_vars_url, "/opt"):
+            log.error(f"[Host {host_idx}] Failed to download RISCV_VIRT_VARS.fd")
             return False
 
-    # Enable IP forwarding & NAT
-    host_ssh.exec('sudo sh -c \'echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf\' && sudo sysctl -p')
-    host_ssh.exec("sudo iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -j MASQUERADE")
+        # ---- Step 10: Decompress image ----
+        log.info(f"[Host {host_idx}] Step 10: Decompressing RISC-V image...")
+        image_name = env.riscv_image_url.split("/")[-1]
+        if ".qcow2.xz" in image_name:
+            rs = host_ssh.exec("cd /opt && sudo xz -d -f *.qcow2.xz", timeout=3600)
+            if rs.exit_code != 0:
+                log.error(f"[Host {host_idx}] xz decompress failed: {rs.stderr}")
+                return False
+            image_name = image_name.replace(".qcow2.xz", ".qcow2")
+        elif ".qcow2.zst" in image_name:
+            rs = host_ssh.exec("cd /opt && sudo zstd -d -f *.qcow2.zst", timeout=3600)
+            if rs.exit_code != 0:
+                log.error(f"[Host {host_idx}] zstd decompress failed: {rs.stderr}")
+                return False
+            image_name = image_name.replace(".qcow2.zst", ".qcow2")
+        log.info(f"[Host {host_idx}] Image decompressed: {image_name}")
 
-    # Parse SKU for CPU/memory
-    cpu, memory = 8, 8
-    sku_match = re.search(r"ecs\.g1\.c(\d+)m(\d+)", env.server_sku)
-    if sku_match:
-        cpu = int(sku_match.group(1)) // max(env.riscv_qemu_num, 1)
-        memory = int(sku_match.group(2)) // max(env.riscv_qemu_num, 1)
-    cpu = max(cpu, 1)
-    memory = max(memory, 2)
+        virt_code_name = env.riscv_virt_code_url.split("/")[-1]
+        virt_vars_name = env.riscv_virt_vars_url.split("/")[-1]
 
-    # Parse disks
-    if env.riscv_qemu_disks:
-        try:
-            disk_sizes = json.loads(env.riscv_qemu_disks)
-        except json.JSONDecodeError:
-            disk_sizes = []
-            log.warning(f"Failed to parse RISCV_QEMU_DISKS='{env.riscv_qemu_disks}', using empty list")
-    else:
-        disk_sizes = []
+        # ---- Step 11: Create bridge and TAP devices ----
+        log.info(f"[Host {host_idx}] Step 11: Setting up bridge and TAP devices...")
 
-    # ---- Step 13: Launch QEMU VMs ----
-    log.info("=" * 60)
-    log.info(f"Step 13: Launching {env.riscv_qemu_num} QEMU VM(s)...")
-    log.info(f"  CPU={cpu}, Memory={memory}G, NICs={env.riscv_qemu_net_num}, Disks={disk_sizes}")
-    log.info("=" * 60)
-
-    for i in range(env.riscv_qemu_num):
-        # Create base qcow2
-        base_name = f"riscv-mugen-server-{i}.qcow2"
-        cmd = f"cd /opt && sudo qemu-img create -f qcow2 -F qcow2 -b {image_name} {base_name}"
-        rs = host_ssh.exec(cmd, timeout=3600)
-        if rs.exit_code != 0:
-            log.error(f"Failed to create qcow2: {rs.stderr}")
-            return False
+        # Create bridge br0
+        host_ssh.exec("sudo brctl addbr br0")
         time.sleep(3)
-
-        # Create extra disks
-        disk_names = []
-        for j, dsize in enumerate(disk_sizes):
-            dname = f"disk{i}{j}.qcow2"
-            cmd = f"cd /opt && sudo qemu-img create -f qcow2 {dname} {dsize}G"
-            rs = host_ssh.exec(cmd, timeout=1800)
+        host_ssh.exec("sudo ip link set br0 up")
+        time.sleep(3)
+        ip_check = host_ssh.exec("sudo ip addr show dev br0", timeout=60)
+        if "10.0.0.1/24" not in ip_check.stdout:
+            rs = host_ssh.exec("sudo ip addr add 10.0.0.1/24 dev br0", timeout=60)
             if rs.exit_code != 0:
-                log.error(f"Failed to create extra disk {dname}: {rs.stderr}")
+                log.error(f"[Host {host_idx}] Failed to add IP to br0: {rs.stderr}")
+                return False
+
+        # Enable IP forwarding & NAT
+        host_ssh.exec('sudo sh -c \'echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf\' && sudo sysctl -p')
+        host_ssh.exec("sudo iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -j MASQUERADE")
+
+        # Parse SKU for CPU/memory
+        cpu, memory = 8, 8
+        sku_match = re.search(r"ecs\.g1\.c(\d+)m(\d+)", env.server_sku)
+        if sku_match:
+            cpu = int(sku_match.group(1)) // max(env.riscv_qemu_num, 1)
+            memory = int(sku_match.group(2)) // max(env.riscv_qemu_num, 1)
+        cpu = max(cpu, 1)
+        memory = max(memory, 2)
+
+        # Parse disks
+        if env.riscv_qemu_disks:
+            try:
+                disk_sizes = json.loads(env.riscv_qemu_disks)
+            except json.JSONDecodeError:
+                disk_sizes = []
+                log.warning(f"[Host {host_idx}] Failed to parse RISCV_QEMU_DISKS='{env.riscv_qemu_disks}', using empty list")
+        else:
+            disk_sizes = []
+
+        # ---- Step 12: Launch QEMU VMs ----
+        log.info(f"[Host {host_idx}] Step 12: Launching {env.riscv_qemu_num} QEMU VM(s)...")
+        log.info(f"  CPU={cpu}, Memory={memory}G, NICs={env.riscv_qemu_net_num}, Disks={disk_sizes}")
+
+        for i in range(env.riscv_qemu_num):
+            # Create base qcow2
+            base_name = f"riscv-mugen-server-{i}.qcow2"
+            cmd = f"cd /opt && sudo qemu-img create -f qcow2 -F qcow2 -b {image_name} {base_name}"
+            rs = host_ssh.exec(cmd, timeout=3600)
+            if rs.exit_code != 0:
+                log.error(f"[Host {host_idx}] QEMU {i}: Failed to create qcow2: {rs.stderr}")
                 return False
             time.sleep(3)
-            disk_names.append(dname)
 
-        # Create TAP devices
-        total_nics = env.riscv_qemu_net_num + 1  # +1 for management
-        for j in range(total_nics):
-            tap_name = f"tap{i * total_nics + j}"
-            # Check if tap exists
-            rs = host_ssh.exec(f"sudo ip link show {tap_name}", timeout=60)
-            if rs.exit_code != 0:
-                host_ssh.exec(f"sudo ip tuntap add {tap_name} mode tap")
-            time.sleep(3)
-            # Add to bridge
-            check = host_ssh.exec(f"sudo brctl show br0 | grep -w {tap_name}", timeout=60)
-            if check.exit_code != 0:
-                host_ssh.exec(f"sudo brctl addif br0 {tap_name}")
-            time.sleep(3)
-            # Set up
-            check = host_ssh.exec(f"sudo ip link show {tap_name} | grep -w UP", timeout=60)
-            if check.exit_code != 0:
-                host_ssh.exec(f"sudo ip link set {tap_name} up")
-            time.sleep(3)
+            # Create extra disks
+            disk_names = []
+            for j, dsize in enumerate(disk_sizes):
+                dname = f"disk{i}{j}.qcow2"
+                cmd = f"cd /opt && sudo qemu-img create -f qcow2 {dname} {dsize}G"
+                rs = host_ssh.exec(cmd, timeout=1800)
+                if rs.exit_code != 0:
+                    log.error(f"[Host {host_idx}] QEMU {i}: Failed to create extra disk {dname}: {rs.stderr}")
+                    return False
+                time.sleep(3)
+                disk_names.append(dname)
 
-        # Build QEMU command
-        if env.os_version in ["openRuyi-RVA23"]:
-            qemu_cmd = "cd /opt && /usr/local/qemu/bin/qemu-system-riscv64"
-        else:
-            qemu_cmd = "cd /opt && qemu-system-riscv64"
+            # Create TAP devices
+            total_nics = env.riscv_qemu_net_num + 1  # +1 for management
+            for j in range(total_nics):
+                tap_name = f"tap{i * total_nics + j}"
+                # Check if tap exists
+                rs = host_ssh.exec(f"sudo ip link show {tap_name}", timeout=60)
+                if rs.exit_code != 0:
+                    host_ssh.exec(f"sudo ip tuntap add {tap_name} mode tap")
+                time.sleep(3)
+                # Add to bridge
+                check = host_ssh.exec(f"sudo brctl show br0 | grep -w {tap_name}", timeout=60)
+                if check.exit_code != 0:
+                    host_ssh.exec(f"sudo brctl addif br0 {tap_name}")
+                time.sleep(3)
+                # Set up
+                check = host_ssh.exec(f"sudo ip link show {tap_name} | grep -w UP", timeout=60)
+                if check.exit_code != 0:
+                    host_ssh.exec(f"sudo ip link set {tap_name} up")
+                time.sleep(3)
 
-        qemu_cmd += " -nographic"
-        qemu_cmd += " -machine virt,pflash0=pflash0,pflash1=pflash1"
-        qemu_cmd += f" -smp {cpu} -m {memory}G"
-        qemu_cmd += " -rtc base=utc,clock=host"
+            # Build QEMU command
+            if env.os_version in ["openRuyi-RVA23"]:
+                qemu_cmd = "cd /opt && /usr/local/qemu/bin/qemu-system-riscv64"
+            else:
+                qemu_cmd = "cd /opt && qemu-system-riscv64"
 
-        # BIOS: uefi with pflash
-        qemu_cmd += f" -blockdev node-name=pflash0,driver=file,read-only=on,filename={virt_code_name}"
-        qemu_cmd += f" -blockdev node-name=pflash1,driver=file,filename={virt_vars_name}"
-        qemu_cmd += " -cpu rva23s64"
+            qemu_cmd += " -nographic"
+            qemu_cmd += " -machine virt,pflash0=pflash0,pflash1=pflash1"
+            qemu_cmd += f" -smp {cpu} -m {memory}G"
+            qemu_cmd += " -rtc base=utc,clock=host"
 
-        # System disk
-        qemu_cmd += f" -drive file={base_name},format=qcow2,id=hd0,if=none"
-        qemu_cmd += " -object rng-random,filename=/dev/urandom,id=rng0"
-        qemu_cmd += " -device virtio-vga"
-        qemu_cmd += " -device virtio-rng-device,rng=rng0"
-        qemu_cmd += " -device virtio-blk-device,drive=hd0"
-        qemu_cmd += " -device qemu-xhci -usb -device usb-kbd -device usb-tablet"
+            # BIOS: uefi with pflash
+            qemu_cmd += f" -blockdev node-name=pflash0,driver=file,read-only=on,filename={virt_code_name}"
+            qemu_cmd += f" -blockdev node-name=pflash1,driver=file,filename={virt_vars_name}"
+            qemu_cmd += " -cpu rva23s64"
 
-        # Extra data disks
-        for j, dname in enumerate(disk_names):
-            qemu_cmd += f" -drive file={dname},format=qcow2,id=hd{j + 1},if=none"
-            qemu_cmd += f" -device virtio-blk-pci,drive=hd{j + 1}"
+            # System disk
+            qemu_cmd += f" -drive file={base_name},format=qcow2,id=hd0,if=none"
+            qemu_cmd += " -object rng-random,filename=/dev/urandom,id=rng0"
+            qemu_cmd += " -device virtio-vga"
+            qemu_cmd += " -device virtio-rng-device,rng=rng0"
+            qemu_cmd += " -device virtio-blk-device,drive=hd0"
+            qemu_cmd += " -device qemu-xhci -usb -device usb-kbd -device usb-tablet"
 
-        # NICs through bridge
-        for j in range(env.riscv_qemu_net_num + 1):
-            tap_idx = i * total_nics + j
+            # Extra data disks
+            for j, dname in enumerate(disk_names):
+                qemu_cmd += f" -drive file={dname},format=qcow2,id=hd{j + 1},if=none"
+                qemu_cmd += f" -device virtio-blk-pci,drive=hd{j + 1}"
+
+            # NICs through bridge
+            for j in range(env.riscv_qemu_net_num + 1):
+                tap_idx = i * total_nics + j
+                mac = generate_random_mac()
+                qemu_cmd += f" -netdev tap,id=net{tap_idx},ifname=tap{tap_idx},script=no,downscript=no"
+                qemu_cmd += f" -device virtio-net-pci,netdev=net{tap_idx},mac={mac}"
+
+            # User-mode NIC with hostfwd for SSH
             mac = generate_random_mac()
-            qemu_cmd += f" -netdev tap,id=net{tap_idx},ifname=tap{tap_idx},script=no,downscript=no"
-            qemu_cmd += f" -device virtio-net-pci,netdev=net{tap_idx},mac={mac}"
+            qemu_cmd += f" -netdev user,id=usernet,hostfwd=tcp::{12055 + i}-:22"
+            qemu_cmd += f" -device virtio-net-pci,netdev=usernet,mac={mac}"
 
-        # User-mode NIC with hostfwd for SSH
-        mac = generate_random_mac()
-        qemu_cmd += f" -netdev user,id=usernet,hostfwd=tcp::{12055 + i}-:22"
-        qemu_cmd += f" -device virtio-net-pci,netdev=usernet,mac={mac}"
+            # Write QEMU command to a script and start via screen
+            script_path = f"/opt/start_qemu_{i}.sh"
+            host_ssh.exec(f"cat > {script_path} << 'QEMUEOF'\n{qemu_cmd}\nQEMUEOF")
 
-        # Write QEMU command to a script and start via screen
-        script_path = f"/opt/start_qemu_{i}.sh"
-        host_ssh.exec(f"cat > {script_path} << 'QEMUEOF'\n{qemu_cmd}\nQEMUEOF")
+            screen_name = f"qemu-{i}"
+            # Kill existing screen session if any
+            host_ssh.exec(f"sudo screen -S {screen_name} -X quit 2>/dev/null")
+            time.sleep(2)
+            host_ssh.exec(
+                f"cd /opt && sudo screen -S {screen_name} -d -m bash {script_path}",
+                timeout=60,
+            )
+            log.info(f"[Host {host_idx}] QEMU {i}: screen session '{screen_name}' started")
+            time.sleep(15)
 
-        screen_name = f"qemu-{i}"
-        # Kill existing screen session if any
-        host_ssh.exec(f"sudo screen -S {screen_name} -X quit 2>/dev/null")
-        time.sleep(2)
-        host_ssh.exec(
-            f"cd /opt && sudo screen -S {screen_name} -d -m bash {script_path}",
-            timeout=60,
-        )
-        log.info(f"QEMU {i}: screen session '{screen_name}' started")
-        time.sleep(15)
+        # ---- Step 13: Wait for QEMU SSH ----
+        log.info(f"[Host {host_idx}] Step 13: Waiting for {env.riscv_qemu_num} QEMU VM(s) to be SSHable...")
+        log.info(f"  Host: {host_ip}, Ports: {[12055 + i for i in range(env.riscv_qemu_num)]}")
+        log.info(f"  User: {env.riscv_default_username}, Password: {env.riscv_default_password}")
 
-    # ---- Step 14: Wait for QEMU SSH ----
-    log.info("=" * 60)
-    log.info(f"Step 14: Waiting for {env.riscv_qemu_num} QEMU VM(s) to be SSHable...")
-    log.info(f"  Host: {host_ip}, Ports: {[12055 + i for i in range(env.riscv_qemu_num)]}")
-    log.info(f"  User: {env.riscv_default_username}, Password: {env.riscv_default_password}")
-    log.info("=" * 60)
+        for i in range(env.riscv_qemu_num):
+            qemu_port = 12055 + i
+            if not wait_for_sshable(
+                ip=host_ip,
+                port=qemu_port,
+                username=env.riscv_default_username,
+                password=env.riscv_default_password,
+                timeout=env.testsuite_max_timeout,
+            ):
+                log.error(f"[Host {host_idx}] QEMU VM {i} (port {qemu_port}) SSH not reachable")
+                return False
+            log.info(f"[Host {host_idx}] QEMU VM {i}: SSH reachable at {host_ip}:{qemu_port} ✅")
 
-    for i in range(env.riscv_qemu_num):
-        qemu_port = 12055 + i
-        if not wait_for_sshable(
-            ip=host_ip,
-            port=qemu_port,
-            username=env.riscv_default_username,
-            password=env.riscv_default_password,
-            timeout=env.testsuite_max_timeout,
-        ):
-            log.error(f"QEMU VM {i} (port {qemu_port}) SSH not reachable")
-            return False
-        log.info(f"QEMU VM {i}: SSH reachable at {host_ip}:{qemu_port} ✅")
+        # ---- Step 14: Configure QEMU guest networking ----
+        log.info(f"[Host {host_idx}] Step 14: Configuring QEMU guest networking...")
+        host_qemu_ips: List[str] = []
 
-    # ---- Step 15: Configure QEMU guest networking ----
-    log.info("=" * 60)
-    log.info("Step 15: Configuring QEMU guest networking...")
-    log.info("=" * 60)
+        for i in range(env.riscv_qemu_num):
+            qemu_port = 12055 + i
+            vm_ssh = SSHClient(
+                ip=host_ip, port=qemu_port,
+                username=env.riscv_default_username,
+                password=env.riscv_default_password,
+            )
 
-    for i in range(env.riscv_qemu_num):
-        qemu_port = 12055 + i
-        vm_ssh = SSHClient(
-            ip=host_ip, port=qemu_port,
-            username=env.riscv_default_username,
-            password=env.riscv_default_password,
-        )
-
-        # Configure yum repos inside guest
-        if env.delete_default_yum_repos.lower() == "yes":
-            vm_ssh.exec("sudo sed -i 's/meta/#meta/g' /etc/yum.repos.d/openEuler.repo")
-        if env.add_yum_repos:
-            for idx, repo_url in enumerate(env.add_yum_repos.split(",")):
-                repo_content = f"""[local-{idx}]
+            # Configure yum repos inside guest
+            if env.delete_default_yum_repos.lower() == "yes":
+                vm_ssh.exec("sudo sed -i 's/meta/#meta/g' /etc/yum.repos.d/openEuler.repo")
+            if env.add_yum_repos:
+                for idx, repo_url in enumerate(env.add_yum_repos.split(",")):
+                    repo_content = f"""[local-{idx}]
 name=local-{idx}
 baseurl={repo_url}
 priority=10
 enabled=1
 gpgcheck=0
 skip_if_unavailable=1"""
-                vm_ssh.exec(f"sudo tee /etc/yum.repos.d/local-{idx}.repo <<'EOF'\n{repo_content}\nEOF")
-            vm_ssh.exec("sudo dnf clean all", timeout=3600)
-            vm_ssh.exec("sudo dnf makecache", timeout=3600)
+                    vm_ssh.exec(f"sudo tee /etc/yum.repos.d/local-{idx}.repo <<'EOF'\n{repo_content}\nEOF")
+                vm_ssh.exec("sudo dnf clean all", timeout=3600)
+                vm_ssh.exec("sudo dnf makecache", timeout=3600)
 
-        # Time sync
-        try_install_rpm(vm_ssh, "ntpdate")
-        vm_ssh.exec("sudo ntpdate cn.pool.ntp.org", timeout=3600)
-        vm_ssh.exec("sudo timedatectl set-timezone Asia/Shanghai")
+            # Time sync
+            try_install_rpm(vm_ssh, "ntpdate")
+            vm_ssh.exec("sudo ntpdate cn.pool.ntp.org", timeout=3600)
+            vm_ssh.exec("sudo timedatectl set-timezone Asia/Shanghai")
 
-        # Configure virtual NICs
-        try_install_rpm(vm_ssh, "lshw")
-        try_install_rpm(vm_ssh, "net-tools")
+            # Configure virtual NICs
+            try_install_rpm(vm_ssh, "lshw")
+            try_install_rpm(vm_ssh, "net-tools")
 
-        output = vm_ssh.exec(
-            "sudo lshw -class network | grep -A 5 'description: Ethernet interface' | "
-            "grep 'logical name:' | awk '{print $NF}' | grep -v 'lo'",
-            timeout=3600,
-        ).stdout
-        nic_names = [n.strip() for n in output.strip().split("\n") if n.strip()]
-        log.info(f"QEMU VM {i}: NIC names = {nic_names}")
+            output = vm_ssh.exec(
+                "sudo lshw -class network | grep -A 5 'description: Ethernet interface' | "
+                "grep 'logical name:' | awk '{print $NF}' | grep -v 'lo'",
+                timeout=3600,
+            ).stdout
+            nic_names = [n.strip() for n in output.strip().split("\n") if n.strip()]
+            log.info(f"[Host {host_idx}] QEMU VM {i}: NIC names = {nic_names}")
 
-        nmcli_check = vm_ssh.exec("sudo nmcli --version", timeout=60)
-        has_nmcli = "command not found" not in nmcli_check.stdout and "command not found" not in nmcli_check.stderr
+            nmcli_check = vm_ssh.exec("sudo nmcli --version", timeout=60)
+            has_nmcli = "command not found" not in nmcli_check.stdout and "command not found" not in nmcli_check.stderr
 
-        if has_nmcli:
-            for j in range(min(len(nic_names), env.riscv_qemu_net_num + 1)):
-                if not nic_names[j]:
-                    continue
-                vm_ssh.exec(f"sudo nmcli c a type Ethernet con-name {nic_names[j]} ifname {nic_names[j]}")
-                time.sleep(5)
-                vm_ssh.exec(f"sudo nmcli c m {nic_names[j]} ipv4.address 10.0.0.{i + 1}{j}/24")
-                time.sleep(5)
-                vm_ssh.exec(f"sudo nmcli c m {nic_names[j]} ipv4.method manual")
-                time.sleep(5)
-                vm_ssh.exec(f"sudo nmcli c up {nic_names[j]}")
-                time.sleep(10)
+            if has_nmcli:
+                for j in range(min(len(nic_names), env.riscv_qemu_net_num + 1)):
+                    if not nic_names[j]:
+                        continue
+                    vm_ssh.exec(f"sudo nmcli c a type Ethernet con-name {nic_names[j]} ifname {nic_names[j]}")
+                    time.sleep(5)
+                    vm_ssh.exec(f"sudo nmcli c m {nic_names[j]} ipv4.address 10.0.0.{i + 1}{j}/24")
+                    time.sleep(5)
+                    vm_ssh.exec(f"sudo nmcli c m {nic_names[j]} ipv4.method manual")
+                    time.sleep(5)
+                    vm_ssh.exec(f"sudo nmcli c up {nic_names[j]}")
+                    time.sleep(10)
 
-        vm_ssh.close()
+            # Collect bridge IP
+            nic_ip = vm_ssh.exec(
+                "sudo ip -4 a | grep '10\\.0\\.' | awk '{print $2}' | head -n 1 | awk -F '/' '{print $1}'",
+                timeout=60,
+            ).stdout.strip()
+            if nic_ip.startswith("10.0."):
+                host_qemu_ips.append(nic_ip)
+                log.info(f"[Host {host_idx}] QEMU VM {i}: bridge IP = {nic_ip}")
+            else:
+                log.warning(f"[Host {host_idx}] QEMU VM {i}: failed to get bridge IP, got: {nic_ip}")
+
+            vm_ssh.close()
+
+        all_qemu_ips[host_ip] = host_qemu_ips
+        log.info(f"[Host {host_idx}] Host setup complete. QEMU bridge IPs: {host_qemu_ips}")
 
     # ---- Done ----
     log.info("=" * 60)
     log.info("ALL DONE! ✅")
     log.info(f"CloudPods Server ID(s): {server_ids}")
-    log.info(f"Host IP: {host_ip}")
-    for i in range(env.riscv_qemu_num):
-        log.info(f"QEMU VM {i}: ssh -p {12055 + i} {env.riscv_default_username}@{host_ip}")
+    log.info(f"Total {len(server_ips)} host(s), {len(server_ips) * env.riscv_qemu_num} QEMU VM(s)")
+    for host_idx, host_ip in enumerate(server_ips):
+        log.info(f"--- Host {host_idx}: {host_ip} ---")
+        for i in range(env.riscv_qemu_num):
+            log.info(f"  QEMU VM {i}: ssh -p {12055 + i} {env.riscv_default_username}@{host_ip}")
+        bridge_ips = all_qemu_ips.get(host_ip, [])
+        if bridge_ips:
+            log.info(f"  Bridge IPs (for inter-QEMU SSH on this host): {', '.join(bridge_ips)}")
     log.info("=" * 60)
     return True
 
@@ -1009,7 +1026,7 @@ class Env:
 
     # ---- RISC-V QEMU 资源 ----
     riscv_bios: str = "uefi"
-    riscv_default_username: str = "root"
+    riscv_default_username: str = "openruyi"
     riscv_default_password: str = "openruyi"
     riscv_image_url: str = "https://s3.develop.oepkgs.net/demo/openruyi-virt_riscv64.qcow2.xz"
     riscv_virt_code_url: str = "https://s3.develop.oepkgs.net/demo/RISCV_VIRT_CODE.fd"
@@ -1017,7 +1034,7 @@ class Env:
 
     # ---- 新增变量 ----
     cloudpods_server_num: int = 1       # CloudPods 虚拟机的数量
-    riscv_qemu_num: int = 1             # QEMU 中 RISC-V 虚拟机的数量（默认 1）
+    riscv_qemu_num: int = 2             # QEMU 中 RISC-V 虚拟机的数量（默认 1）
     riscv_qemu_net_num: int = 1          # 每个 QEMU VM 需要的额外网卡数量（默认 1）
     riscv_qemu_disks: str = ""          # 额外磁盘列表，JSON 格式，如 '[20,20]'（默认空 = 不额外增加）
 
