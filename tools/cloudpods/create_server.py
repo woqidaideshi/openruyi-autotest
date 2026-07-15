@@ -52,7 +52,7 @@ class ExecResult:
         self.stdout = stdout
         self.stderr = stderr
         if exit_code != 0:
-            log.warning(f"{ip}:{port} | exit={exit_code} stdout={stdout[:200]} stderr={stderr[:200]}")
+            log.error(f"{ip}:{port} | exit={exit_code} stdout={stdout[:200]} stderr={stderr[:200]}")
         else:
             log.info(f"{ip}:{port} | exit={exit_code} stdout={stdout[:200]}")
 
@@ -137,7 +137,7 @@ class SSHClient:
         try:
             transport = self.__ssh.get_transport()
             if not transport or not transport.is_active():
-                log.warning(f"{self.ip}:{self.port} | SSH not active")
+                log.error(f"{self.ip}:{self.port} | SSH not active")
                 return ExecResult(self.ip, self.port, 255, "", "SSH not active")
 
             channel = transport.open_session()
@@ -154,7 +154,7 @@ class SSHClient:
             while True:
                 elapsed = time.time() - start
                 if elapsed > timeout:
-                    log.warning(f"{self.ip}:{self.port} | command timed out after {timeout}s, closing channel")
+                    log.error(f"{self.ip}:{self.port} | ⚠️ TIMEOUT after {timeout}s, closing channel ⚠️")
                     try:
                         channel.close()
                     except Exception:
@@ -172,7 +172,7 @@ class SSHClient:
                 except socket.timeout:
                     # socket 级别超时，检查是否已超过总超时
                     if not transport.is_active():
-                        log.warning(f"{self.ip}:{self.port} | SSH transport died during exec")
+                        log.error(f"{self.ip}:{self.port} | SSH transport died during exec")
                         return ExecResult(self.ip, self.port, 255,
                                           ''.join(stdout_parts),
                                           ''.join(stderr_parts) + "\n[ssh disconnected]")
