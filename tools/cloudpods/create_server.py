@@ -761,14 +761,29 @@ priority=1"""
         host_ssh.exec('sudo sh -c \'echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf\' && sudo sysctl -p')
         host_ssh.exec("sudo iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -j MASQUERADE")
 
-        # Parse SKU for CPU/memory
-        cpu, memory = 8, 8
+        # Determine per-QEMU CPU/Memory from env (no longer dividing SKU by qemu_num)
+        qemu_cpu = env.riscv_qemu_cpu
+        qemu_memory = env.riscv_qemu_memory
+        required_cpu = qemu_cpu * env.riscv_qemu_num
+        required_memory = qemu_memory * env.riscv_qemu_num
+
+        # Validate SKU can support the total resource requirement
         sku_match = re.search(r"ecs\.g1\.c(\d+)m(\d+)", env.server_sku)
         if sku_match:
-            cpu = int(sku_match.group(1)) // max(env.riscv_qemu_num, 1)
-            memory = int(sku_match.group(2)) // max(env.riscv_qemu_num, 1)
-        cpu = max(cpu, 1)
-        memory = max(memory, 2)
+            sku_cpu = int(sku_match.group(1))
+            sku_mem = int(sku_match.group(2))
+            if sku_cpu < required_cpu:
+                log.warning(
+                    f"[Host {host_idx}] SKU {env.server_sku} has {sku_cpu}C, "
+                    f"but {env.riscv_qemu_num} QEMU VMs need {required_cpu}C total. "
+                    f"Consider using a larger SKU."
+                )
+            if sku_mem < required_memory:
+                log.warning(
+                    f"[Host {host_idx}] SKU {env.server_sku} has {sku_mem}G, "
+                    f"but {env.riscv_qemu_num} QEMU VMs need {required_memory}G total. "
+                    f"Consider using a larger SKU."
+                )
 
         # Parse disks
         if env.riscv_qemu_disks:
@@ -782,7 +797,8 @@ priority=1"""
 
         # ---- Step 12: Launch QEMU VMs ----
         log.info(f"[Host {host_idx}] Step 12: Launching {env.riscv_qemu_num} QEMU VM(s)...")
-        log.info(f"  CPU={cpu}, Memory={memory}G, NICs={env.riscv_qemu_net_num}, Disks={disk_sizes}")
+        log.info(f"  Per-QEMU: CPU={qemu_cpu}, Memory={qemu_memory}G, NICs={env.riscv_qemu_net_num}, Disks={disk_sizes}")
+        log.info(f"  Total required: {qemu_cpu * env.riscv_qemu_num}C / {qemu_memory * env.riscv_qemu_num}G, SKU={env.server_sku}")
 
         for i in range(env.riscv_qemu_num):
             # Create base qcow2
@@ -834,7 +850,7 @@ priority=1"""
 
             qemu_cmd += " -nographic"
             qemu_cmd += " -machine virt,pflash0=pflash0,pflash1=pflash1"
-            qemu_cmd += f" -smp {cpu} -m {memory}G"
+            qemu_cmd += f" -smp {qemu_cpu} -m {qemu_memory}G"
             qemu_cmd += " -rtc base=utc,clock=host"
 
             # BIOS: uefi with pflash
@@ -1011,7 +1027,7 @@ class Env:
     disk_image_id: str = "40fb8262-0566-4877-8eb0-d991903e9be7"
     cloudpods_host_bios: str = "BIOS"
     server_name_prefix: str = "redrose2100"
-    server_sku: str = "ecs.g1.c4m12"
+    server_sku: str = "ecs.g1.c16m16"
     cloudpods_kvm_net_list: str = (
         "efdb73ac-d785-47a1-82bf-65c2229eacca,"
         "3e0ac273-6da8-4188-821b-d97a84cb7754,"
@@ -1038,8 +1054,10 @@ class Env:
 
     # ---- 新增变量 ----
     cloudpods_server_num: int = 1       # CloudPods 虚拟机的数量
-    riscv_qemu_num: int = 2             # QEMU 中 RISC-V 虚拟机的数量（默认 1）
-    riscv_qemu_net_num: int = 1          # 每个 QEMU VM 需要的额外网卡数量（默认 1）
+    riscv_qemu_num: int = 2             # QEMU 中 RISC-V 虚拟机的数量
+    riscv_qemu_cpu: int = 8             # 每个 QEMU VM 分配的 CPU 核数
+    riscv_qemu_memory: int = 8          # 每个 QEMU VM 分配的内存（GB）
+    riscv_qemu_net_num: int = 1         # 每个 QEMU VM 需要的额外网卡数量（默认 1）
     riscv_qemu_disks: str = ""          # 额外磁盘列表，JSON 格式，如 '[20,20]'（默认空 = 不额外增加）
 
     # ---- 超时 ----
