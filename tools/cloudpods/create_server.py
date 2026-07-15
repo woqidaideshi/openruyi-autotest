@@ -94,29 +94,6 @@ class SSHClient:
                 log.warning(f"{self.ip}:{self.port} | SSH connect failed: {e}")
             return False
 
-    @property
-    def is_sshable(self) -> bool:
-        test_ssh = None
-        try:
-            test_ssh = paramiko.SSHClient()
-            test_ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            test_ssh.connect(
-                self.ip, port=self.port,
-                username=self.__username, password=self.__password,
-                look_for_keys=False, allow_agent=False,
-                timeout=self.__connect_timeout,
-                banner_timeout=self.__connect_timeout,
-                auth_timeout=self.__connect_timeout,
-            )
-            return True
-        except Exception:
-            return False
-        finally:
-            try:
-                test_ssh.close()
-            except Exception:
-                pass
-
     def close(self):
         try:
             self.__ssh.close()
@@ -470,32 +447,37 @@ def is_ssh_connection_lost(exit_code: int) -> bool:
 
 def wait_for_sshable(ip: str, port: int, username: str, password: str,
                      timeout: int = 3600, interval: int = 10) -> bool:
-    """等待 SSH 可达"""
+    """等待 SSH 可达（直接尝试 exec，不依赖 is_sshable 独立连接）"""
     log.info(f"Waiting for {ip}:{port} SSH (timeout={timeout}s)...")
-    # 抑制 paramiko 内部的 banner/连接错误日志（ERROR 级别仍会打印 traceback，需用 CRITICAL）
+    # 抑制 paramiko 内部的 banner/连接错误日志
     paramiko_logger = logging.getLogger("paramiko")
     old_level = paramiko_logger.level
     paramiko_logger.setLevel(logging.CRITICAL)
     try:
         for i in range(0, timeout, interval):
+            ssh = None
             try:
                 ssh = SSHClient(ip=ip, port=port, username=username, password=password,
                                 connect_timeout=10, quiet=True)
-                if ssh.is_sshable:
-                    # root 用户直接 ls /，普通用户通过 sudo -S 注入密码
-                    if username == "root":
-                        rs = ssh.exec("ls /", timeout=60)
-                        success = rs.exit_code == 0
-                    else:
-                        rs = ssh.exec(f"echo '{password}' | sudo -S ls /", timeout=60)
-                        success = "root" in rs.stdout and rs.exit_code == 0
-                    if success:
-                        ssh.close()
-                        log.info(f"{ip}:{port} SSH OK after {i}s")
-                        return True
-                ssh.close()
+                # 直接 exec 测试；若 __connect() 失败，transport 为空，exec 返回 255
+                if username == "root":
+                    rs = ssh.exec("ls /", timeout=60)
+                    success = rs.exit_code == 0
+                else:
+                    rs = ssh.exec(f"echo '{password}' | sudo -S ls /", timeout=60)
+                    success = "root" in rs.stdout and rs.exit_code == 0
+                if success:
+                    ssh.close()
+                    log.info(f"{ip}:{port} SSH OK after {i}s")
+                    return True
             except Exception:
-                pass  # 静默重试，不打印任何日志
+                pass  # 静默重试
+            finally:
+                if ssh:
+                    try:
+                        ssh.close()
+                    except Exception:
+                        pass
             time.sleep(interval)
     finally:
         paramiko_logger.setLevel(old_level)
