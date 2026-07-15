@@ -487,8 +487,14 @@ def wait_for_sshable(ip: str, port: int, username: str, password: str,
                 ssh = SSHClient(ip=ip, port=port, username=username, password=password,
                                 connect_timeout=10, quiet=True)
                 if ssh.is_sshable:
-                    rs = ssh.exec(f"echo '{password}' | sudo -S ls /", timeout=60)
-                    if "root" in rs.stdout and rs.exit_code == 0:
+                    # root 用户直接 ls /，普通用户通过 sudo -S 注入密码
+                    if username == "root":
+                        rs = ssh.exec("ls /", timeout=60)
+                        success = rs.exit_code == 0
+                    else:
+                        rs = ssh.exec(f"echo '{password}' | sudo -S ls /", timeout=60)
+                        success = "root" in rs.stdout and rs.exit_code == 0
+                    if success:
                         ssh.close()
                         log.info(f"{ip}:{port} SSH OK after {i}s")
                         return True
