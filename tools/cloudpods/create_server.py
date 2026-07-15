@@ -634,12 +634,12 @@ def create_qemu_server(env: "Env") -> bool:
 
         # ---- Step 5: Wait for server SSH ----
         log.info(f"[Host {host_idx}] Step 5: Waiting for server SSH...")
-        if not wait_for_sshable(host_ip, 22, env.user, env.password):
+        if not wait_for_sshable(host_ip, 22, env.cloudpods_server_user, env.cloudpods_server_password):
             log.error(f"[Host {host_idx}] Server {host_ip} SSH not reachable")
             return False
 
         host_ssh = SSHClient(ip=host_ip, port=22,
-                             username=env.user, password=env.password)
+                             username=env.cloudpods_server_user, password=env.cloudpods_server_password)
 
         # ---- Step 6: Replace default yum repos with ISCAS mirror & install packages ----
         log.info(f"[Host {host_idx}] Step 6: Replacing default repo with ISCAS mirror & installing packages...")
@@ -1043,8 +1043,8 @@ class Env:
     )
 
     # ---- 虚拟机 SSH 凭据 ----
-    user: str = "root"
-    password: str = "ISRCpassword@123"
+    cloudpods_server_user: str = "root"
+    cloudpods_server_password: str = "ISRCpassword@123"
 
     # ---- YUM 源 ----
     delete_default_yum_repos: str = "yes"
