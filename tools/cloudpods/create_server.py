@@ -118,8 +118,8 @@ class SSHClient:
                 return ExecResult(self.ip, self.port, 255, "", "SSH not active")
 
             channel = transport.open_session()
-            channel.get_pty(width=160, height=80)
-            # 短 socket timeout（1s），每次 recv 超时后检查 exit_status，避免长时间阻塞
+            # 不用 PTY —— exit_status_ready() 在非 PTY channel 上可靠工作
+            # sudo -S 从 stdin 读密码，无需 PTY
             channel.settimeout(1.0)
             channel.exec_command(cmd)
 
@@ -146,14 +146,24 @@ class SSHClient:
                 except socket.timeout:
                     pass  # 1s 内无数据，正常
 
+                try:
+                    err_data = channel.recv_stderr(65536)
+                    if err_data:
+                        stderr_parts.append(err_data.decode('utf-8', 'ignore'))
+                except socket.timeout:
+                    pass
+
                 if channel.exit_status_ready():
                     # 命令已退出，排空剩余数据
                     try:
+                        channel.settimeout(0.2)
                         while True:
-                            channel.settimeout(0.2)
                             data = channel.recv(65536)
                             if data:
                                 stdout_parts.append(data.decode('utf-8', 'ignore'))
+                            err_data = channel.recv_stderr(65536)
+                            if err_data:
+                                stderr_parts.append(err_data.decode('utf-8', 'ignore'))
                     except socket.timeout:
                         pass
                     except Exception:
