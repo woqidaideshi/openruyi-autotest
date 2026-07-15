@@ -772,6 +772,9 @@ priority=1"""
         virt_code_name = env.riscv_virt_code_url.split("/")[-1]
         virt_vars_name = env.riscv_virt_vars_url.split("/")[-1]
 
+        # 保留原始 VARS 模板副本（每个 VM 需要独立的 VARS 文件，否则 UEFI 变量冲突导致无法启动）
+        host_ssh.exec(f"sudo cp /opt/{virt_vars_name} /opt/{virt_vars_name}.template")
+
         # ---- Step 11: Create bridge and TAP devices ----
         log.info(f"[Host {host_idx}] Step 11: Setting up bridge and TAP devices...")
 
@@ -831,6 +834,10 @@ priority=1"""
         log.info(f"  Total required: {qemu_cpu * env.riscv_qemu_num}C / {qemu_memory * env.riscv_qemu_num}G, SKU={env.server_sku}")
 
         for i in range(env.riscv_qemu_num):
+            # 每个 VM 需要独立的 UEFI VARS 文件（可读写），共享会导致 UEFI 变量损坏
+            per_vm_vars = f"RISCV_VIRT_VARS_{i}.fd"
+            host_ssh.exec(f"sudo cp /opt/{virt_vars_name}.template /opt/{per_vm_vars}")
+
             # Create base qcow2
             base_name = f"riscv-mugen-server-{i}.qcow2"
             cmd = f"cd /opt && sudo qemu-img create -f qcow2 -F qcow2 -b {image_name} {base_name}"
@@ -885,7 +892,7 @@ priority=1"""
 
             # BIOS: uefi with pflash
             qemu_cmd += f" -blockdev node-name=pflash0,driver=file,read-only=on,filename={virt_code_name}"
-            qemu_cmd += f" -blockdev node-name=pflash1,driver=file,filename={virt_vars_name}"
+            qemu_cmd += f" -blockdev node-name=pflash1,driver=file,filename={per_vm_vars}"
             qemu_cmd += " -cpu rva23s64"
 
             # System disk
