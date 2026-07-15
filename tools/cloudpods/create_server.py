@@ -136,7 +136,8 @@ class SSHClient:
 
             channel = transport.open_session()
             channel.get_pty(width=160, height=80)
-            channel.settimeout(timeout)
+            # 使用较短的 socket 超时（10s），配合总超时轮询，避免长时间阻塞
+            channel.settimeout(10.0)
             channel.exec_command(cmd)
 
             stdout_parts = []
@@ -145,19 +146,36 @@ class SSHClient:
             last_progress = start
 
             while True:
-                if time.time() - start > timeout:
-                    break
-                if channel.recv_ready():
-                    stdout_parts.append(channel.recv(4096).decode('utf-8', 'ignore'))
-                if channel.recv_stderr_ready():
-                    stderr_parts.append(channel.recv_stderr(4096).decode('utf-8', 'ignore'))
-                if channel.exit_status_ready() and not channel.recv_ready() and not channel.recv_stderr_ready():
-                    break
-                # 长时间任务输出进度信息，避免看起来"卡住了"
+                elapsed = time.time() - start
+                if elapsed > timeout:
+                    log.warning(f"{self.ip}:{self.port} | command timed out after {timeout}s, closing channel")
+                    try:
+                        channel.close()
+                    except Exception:
+                        pass
+                    return ExecResult(self.ip, self.port, 124, ''.join(stdout_parts),
+                                      ''.join(stderr_parts) + "\n[timeout]")
+
+                try:
+                    if channel.recv_ready():
+                        stdout_parts.append(channel.recv(4096).decode('utf-8', 'ignore'))
+                    if channel.recv_stderr_ready():
+                        stderr_parts.append(channel.recv_stderr(4096).decode('utf-8', 'ignore'))
+                    if channel.exit_status_ready() and not channel.recv_ready() and not channel.recv_stderr_ready():
+                        break
+                except socket.timeout:
+                    # socket 级别超时，检查是否已超过总超时
+                    if not transport.is_active():
+                        log.warning(f"{self.ip}:{self.port} | SSH transport died during exec")
+                        return ExecResult(self.ip, self.port, 255,
+                                          ''.join(stdout_parts),
+                                          ''.join(stderr_parts) + "\n[ssh disconnected]")
+                    continue
+
+                # 长时间任务输出进度信息
                 if time.time() - last_progress > 120:
                     last_progress = time.time()
-                    elapsed = int(time.time() - start)
-                    log.info(f"{self.ip}:{self.port} | still running... ({elapsed}s elapsed)")
+                    log.info(f"{self.ip}:{self.port} | still running... ({int(elapsed)}s elapsed)")
 
             exit_code = channel.recv_exit_status()
             return ExecResult(self.ip, self.port, exit_code,
