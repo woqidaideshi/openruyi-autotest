@@ -142,16 +142,14 @@ class SSHClient:
 
             channel = transport.open_session()
             channel.get_pty(width=160, height=80)
+            # 短 socket timeout（1s），每次 recv 超时后检查 exit_status，避免长时间阻塞
+            channel.settimeout(1.0)
             channel.exec_command(cmd)
 
             stdout_parts = []
             stderr_parts = []
             start = time.time()
             last_progress = start
-
-            # 使用 select 轮询，避免 channel.recv_ready() 假阳性和 recv() 阻塞
-            import select
-            channel.setblocking(0)  # 非阻塞模式
 
             while True:
                 elapsed = time.time() - start
@@ -164,28 +162,25 @@ class SSHClient:
                     return ExecResult(self.ip, self.port, 124, ''.join(stdout_parts),
                                       ''.join(stderr_parts) + "\n[timeout]")
 
-                rlist, _, _ = select.select([channel], [], [], 1.0)  # 1 秒轮询间隔
-                if channel in rlist:
-                    try:
-                        data = channel.recv(65536)
-                        if data:
-                            stdout_parts.append(data.decode('utf-8', 'ignore'))
-                    except Exception:
-                        pass
+                try:
+                    data = channel.recv(65536)
+                    if data:
+                        stdout_parts.append(data.decode('utf-8', 'ignore'))
+                except socket.timeout:
+                    pass  # 1s 内无数据，正常
 
                 if channel.exit_status_ready():
                     # 命令已退出，排空剩余数据
-                    while True:
-                        rlist, _, _ = select.select([channel], [], [], 0.1)
-                        if channel in rlist:
-                            try:
-                                data = channel.recv(65536)
-                                if data:
-                                    stdout_parts.append(data.decode('utf-8', 'ignore'))
-                            except Exception:
-                                break
-                        else:
-                            break
+                    try:
+                        while True:
+                            channel.settimeout(0.2)
+                            data = channel.recv(65536)
+                            if data:
+                                stdout_parts.append(data.decode('utf-8', 'ignore'))
+                    except socket.timeout:
+                        pass
+                    except Exception:
+                        pass
                     break
 
                 # 检查 transport 存活
