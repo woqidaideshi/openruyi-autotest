@@ -961,7 +961,10 @@ priority=1"""
 
             # Configure yum repos inside guest
             if env.delete_default_yum_repos.lower() == "yes":
-                vm_ssh.exec("sudo sed -i 's/meta/#meta/g' /etc/yum.repos.d/openEuler.repo")
+                # 注释掉 metalink，强制走 baseurl；使用通配符适配镜像的 repo 文件名
+                vm_ssh.exec("sudo sed -i 's/^metalink=/#metalink=/g' /etc/yum.repos.d/*.repo")
+                vm_ssh.exec("sudo sed -i 's/^#metalink=/metalink=/g' /etc/yum.repos.d/*.repo")  # 取消已注释的
+                vm_ssh.exec("sudo sed -i 's/metalink=/#metalink=/g' /etc/yum.repos.d/*.repo")
             if env.add_yum_repos:
                 for idx, repo_url in enumerate(env.add_yum_repos.split(",")):
                     repo_content = f"""[local-{idx}]
