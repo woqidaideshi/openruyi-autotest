@@ -62,12 +62,13 @@ class SSHClient:
 
     def __init__(self, ip: str = "127.0.0.1", port: int = 22,
                  username: str = "root", password: str = "",
-                 connect_timeout: int = 10):
+                 connect_timeout: int = 10, quiet: bool = False):
         self.ip = ip
         self.port = port
         self.__username = username
         self.__password = password
         self.__connect_timeout = connect_timeout
+        self.__quiet = quiet
         self.__ssh: Optional[paramiko.SSHClient] = None
         self.__connect()
 
@@ -83,10 +84,12 @@ class SSHClient:
                 banner_timeout=self.__connect_timeout,
                 auth_timeout=self.__connect_timeout,
             )
-            log.info(f"{self.ip}:{self.port} | SSH connected")
+            if not self.__quiet:
+                log.info(f"{self.ip}:{self.port} | SSH connected")
             return True
         except Exception as e:
-            log.warning(f"{self.ip}:{self.port} | SSH connect failed: {e}")
+            if not self.__quiet:
+                log.warning(f"{self.ip}:{self.port} | SSH connect failed: {e}")
             return False
 
     @property
@@ -427,14 +430,15 @@ def wait_for_sshable(ip: str, port: int, username: str, password: str,
                      timeout: int = 3600, interval: int = 10) -> bool:
     """等待 SSH 可达"""
     log.info(f"Waiting for {ip}:{port} SSH (timeout={timeout}s)...")
-    # 抑制 paramiko 内部的 banner/连接错误日志，避免刷屏
+    # 抑制 paramiko 内部的 banner/连接错误日志（ERROR 级别仍会打印 traceback，需用 CRITICAL）
     paramiko_logger = logging.getLogger("paramiko")
     old_level = paramiko_logger.level
-    paramiko_logger.setLevel(logging.ERROR)
+    paramiko_logger.setLevel(logging.CRITICAL)
     try:
         for i in range(0, timeout, interval):
             try:
-                ssh = SSHClient(ip=ip, port=port, username=username, password=password, connect_timeout=10)
+                ssh = SSHClient(ip=ip, port=port, username=username, password=password,
+                                connect_timeout=10, quiet=True)
                 if ssh.is_sshable:
                     rs = ssh.exec("sudo ls /")
                     if "root" in rs.stdout and rs.exit_code == 0:
@@ -442,8 +446,8 @@ def wait_for_sshable(ip: str, port: int, username: str, password: str,
                         log.info(f"{ip}:{port} SSH OK after {i}s")
                         return True
                 ssh.close()
-            except Exception as e:
-                log.warning(f"{ip}:{port} SSH attempt failed: {e}")
+            except Exception:
+                pass  # 静默重试，不打印任何日志
             time.sleep(interval)
     finally:
         paramiko_logger.setLevel(old_level)
