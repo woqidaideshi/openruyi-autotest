@@ -142,6 +142,7 @@ class SSHClient:
             stdout_parts = []
             stderr_parts = []
             start = time.time()
+            last_progress = start
 
             while True:
                 if time.time() - start > timeout:
@@ -152,6 +153,11 @@ class SSHClient:
                     stderr_parts.append(channel.recv_stderr(4096).decode('utf-8', 'ignore'))
                 if channel.exit_status_ready() and not channel.recv_ready() and not channel.recv_stderr_ready():
                     break
+                # 长时间任务输出进度信息，避免看起来"卡住了"
+                if time.time() - last_progress > 120:
+                    last_progress = time.time()
+                    elapsed = int(time.time() - start)
+                    log.info(f"{self.ip}:{self.port} | still running... ({elapsed}s elapsed)")
 
             exit_code = channel.recv_exit_status()
             return ExecResult(self.ip, self.port, exit_code,
@@ -647,7 +653,7 @@ def create_qemu_server(env: "Env") -> bool:
                 "/etc/yum.repos.d/*.repo"
             )
             host_ssh.exec("sudo dnf clean all", timeout=3600)
-            host_ssh.exec("sudo dnf makecache", timeout=3600)
+            host_ssh.exec("sudo dnf makecache", timeout=600)
         required_packages = [
             "wget", "xz", "zstd", "screen", "expect",
             "firewalld", "qemu-img", "bridge-utils",
@@ -942,7 +948,7 @@ gpgcheck=0
 skip_if_unavailable=1"""
                     vm_ssh.exec(f"sudo tee /etc/yum.repos.d/local-{idx}.repo <<'EOF'\n{repo_content}\nEOF")
                 vm_ssh.exec("sudo dnf clean all", timeout=3600)
-                vm_ssh.exec("sudo dnf makecache", timeout=3600)
+                vm_ssh.exec("sudo dnf makecache", timeout=600)
 
             # Time sync
             try_install_rpm(vm_ssh, "ntpdate")
