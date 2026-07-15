@@ -446,8 +446,14 @@ def wait_for_sshable(ip: str, port: int, username: str, password: str,
                 ssh = SSHClient(ip=ip, port=port, username=username, password=password,
                                 connect_timeout=10, quiet=True)
                 if ssh.is_sshable:
-                    rs = ssh.exec("sudo ls /")
-                    if "root" in rs.stdout and rs.exit_code == 0:
+                    # 只用 ls / 验证 SSH 可用（不用 sudo，避免用户无免密 sudo 时卡住）
+                    rs = ssh.exec("ls /", timeout=60)
+                    if "root" not in rs.stdout:
+                        log.warning(
+                            f"{ip}:{port} SSH connected but 'ls /' returned unexpected output: "
+                            f"stdout={rs.stdout.strip()[:200]} stderr={rs.stderr.strip()[:200]}"
+                        )
+                    if rs.exit_code == 0:
                         ssh.close()
                         log.info(f"{ip}:{port} SSH OK after {i}s")
                         return True
