@@ -62,11 +62,13 @@ class SSHClient:
 
     def __init__(self, ip: str = "127.0.0.1", port: int = 22,
                  username: str = "root", password: str = "",
+                 sudo_password: str = "",
                  connect_timeout: int = 10, quiet: bool = False):
         self.ip = ip
         self.port = port
         self.__username = username
         self.__password = password
+        self.__sudo_password = sudo_password
         self.__connect_timeout = connect_timeout
         self.__quiet = quiet
         self.__ssh: Optional[paramiko.SSHClient] = None
@@ -126,7 +128,11 @@ class SSHClient:
         return self.__connect()
 
     def exec(self, cmd: str, timeout: int = 60) -> ExecResult:
-        """执行命令，返回 ExecResult"""
+        """执行命令，返回 ExecResult（若设了 sudo_password 则自动通过管道注入密码）"""
+        # 自动将 sudo xxx 转为 echo 'pw' | sudo -S xxx，避免交互式密码提示
+        if self.__sudo_password and cmd.startswith("sudo "):
+            cmd = f"echo '{self.__sudo_password}' | sudo -S {cmd[5:]}"
+
         log.info(f"{self.ip}:{self.port} | exec: {cmd[:200]}")
         try:
             transport = self.__ssh.get_transport()
@@ -950,6 +956,7 @@ priority=1"""
                 ip=host_ip, port=qemu_port,
                 username=env.riscv_default_username,
                 password=env.riscv_default_password,
+                sudo_password=env.riscv_default_password,
             )
 
             # Configure yum repos inside guest
