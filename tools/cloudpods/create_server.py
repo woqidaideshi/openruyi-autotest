@@ -118,15 +118,16 @@ class SSHClient:
                 return ExecResult(self.ip, self.port, 255, "", "SSH not active")
 
             channel = transport.open_session()
-            # 不用 PTY —— exit_status_ready() 在非 PTY channel 上可靠工作
-            # sudo -S 从 stdin 读密码，无需 PTY
-            channel.settimeout(1.0)
             channel.exec_command(cmd)
 
             stdout_parts = []
             stderr_parts = []
             start = time.time()
             last_progress = start
+
+            # select.poll() on the underlying channel fd — only way to reliably avoid
+            # blocking on recv() across all paramiko versions (settimeout not reliable)
+            import select as _select
 
             while True:
                 elapsed = time.time() - start
@@ -139,35 +140,30 @@ class SSHClient:
                     return ExecResult(self.ip, self.port, 124, ''.join(stdout_parts),
                                       ''.join(stderr_parts) + "\n[timeout]")
 
-                try:
+                # poll for data with 0.5s timeout (non-CPU-burning short poll)
+                r, _, _ = _select.select([channel], [], [], 0.5)
+                if channel in r:
                     data = channel.recv(65536)
                     if data:
                         stdout_parts.append(data.decode('utf-8', 'ignore'))
-                except socket.timeout:
-                    pass  # 1s 内无数据，正常
-
-                try:
                     err_data = channel.recv_stderr(65536)
                     if err_data:
                         stderr_parts.append(err_data.decode('utf-8', 'ignore'))
-                except socket.timeout:
-                    pass
 
                 if channel.exit_status_ready():
                     # 命令已退出，排空剩余数据
-                    try:
-                        channel.settimeout(0.2)
-                        while True:
-                            data = channel.recv(65536)
-                            if data:
-                                stdout_parts.append(data.decode('utf-8', 'ignore'))
-                            err_data = channel.recv_stderr(65536)
-                            if err_data:
-                                stderr_parts.append(err_data.decode('utf-8', 'ignore'))
-                    except socket.timeout:
-                        pass
-                    except Exception:
-                        pass
+                    while True:
+                        r2, _, _ = _select.select([channel], [], [], 0.2)
+                        if channel not in r2:
+                            break
+                        data = channel.recv(65536)
+                        if data:
+                            stdout_parts.append(data.decode('utf-8', 'ignore'))
+                        else:
+                            break
+                        err_data = channel.recv_stderr(65536)
+                        if err_data:
+                            stderr_parts.append(err_data.decode('utf-8', 'ignore'))
                     break
 
                 # 检查 transport 存活
