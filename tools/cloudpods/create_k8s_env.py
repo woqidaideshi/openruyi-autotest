@@ -100,13 +100,15 @@ class SSHClient:
     def __init__(self, ip: str = "127.0.0.1", port: int = 22,
                  username: str = "root", password: str = "",
                  sudo_password: str = "",
-                 connect_timeout: int = 10, quiet: bool = False):
+                 connect_timeout: int = 10, quiet: bool = False,
+                 banner_timeout: int = 60):
         self.ip = ip
         self.port = port
         self.__username = username
         self.__password = password
         self.__sudo_password = sudo_password
         self.__connect_timeout = connect_timeout
+        self.__banner_timeout = banner_timeout
         self.__quiet = quiet
         self.__ssh: Optional[paramiko.SSHClient] = None
         self.__connect()
@@ -120,7 +122,7 @@ class SSHClient:
                 username=self.__username, password=self.__password,
                 look_for_keys=False, allow_agent=False,
                 timeout=self.__connect_timeout,
-                banner_timeout=self.__connect_timeout,
+                banner_timeout=self.__banner_timeout,
                 auth_timeout=self.__connect_timeout,
             )
             if not self.__quiet:
@@ -1351,22 +1353,25 @@ iptables -t nat -A POSTROUTING -s {cfg.bridge_subnet} -j MASQUERADE
             return False
         time.sleep(3)
 
-        # Build QEMU command
+        # Build QEMU command (mirrors create_server.py proven config)
         qemu_cmd = f"cd /opt && {qemu_path}"
         qemu_cmd += " -nographic"
-        qemu_cmd += " -machine virt,aia=aplic-imsic,aia-guests=7"
-        qemu_cmd += " -cpu rva23s64"
+        qemu_cmd += " -machine virt,pflash0=pflash0,pflash1=pflash1"
         qemu_cmd += f" -smp {qemu_cpu} -m {qemu_memory}G"
         qemu_cmd += " -rtc base=utc,clock=host"
-        # Use -drive if=pflash instead of -blockdev for proper firmware mapping
+
+        # BIOS: UEFI with pflash
         qemu_cmd += (
-            f" -drive if=pflash,format=raw,unit=0,readonly=on,"
-            f"file=/opt/{virt_code_name}"
+            f" -blockdev node-name=pflash0,driver=file,read-only=on,"
+            f"filename={virt_code_name}"
         )
         qemu_cmd += (
-            f" -drive if=pflash,format=raw,unit=1,"
-            f"file=/opt/{per_vm_vars}"
+            f" -blockdev node-name=pflash1,driver=file,"
+            f"filename={per_vm_vars}"
         )
+        qemu_cmd += " -cpu rva23s64"
+
+        # System disk
         qemu_cmd += f" -drive file={base_name},format=qcow2,id=hd0,if=none"
         qemu_cmd += " -object rng-random,filename=/dev/urandom,id=rng0"
         qemu_cmd += " -device virtio-vga"
@@ -1374,18 +1379,18 @@ iptables -t nat -A POSTROUTING -s {cfg.bridge_subnet} -j MASQUERADE
         qemu_cmd += " -device virtio-blk-device,drive=hd0"
         qemu_cmd += " -device qemu-xhci -usb -device usb-kbd -device usb-tablet"
 
-        # TAP NIC for inter-node communication
+        # TAP NIC for inter-node communication (netdev FIRST, then device)
         mac1 = generate_random_mac()
         qemu_cmd += (
-            f" -device virtio-net-pci,netdev=net0"
             f" -netdev tap,id=net0,ifname={node.tap_name},script=no,downscript=no"
+            f" -device virtio-net-pci,netdev=net0,mac={mac1}"
         )
 
-        # User-mode NIC with hostfwd for SSH
+        # User-mode NIC with hostfwd for SSH (netdev FIRST, then device)
         mac2 = generate_random_mac()
         qemu_cmd += (
-            f" -device virtio-net-pci,netdev=net1"
             f" -netdev user,id=net1,hostfwd=tcp::{node.ssh_port}-:22"
+            f" -device virtio-net-pci,netdev=net1,mac={mac2}"
         )
 
         script_path = f"/opt/start_qemu_{node.hostname}.sh"
@@ -1409,7 +1414,7 @@ iptables -t nat -A POSTROUTING -s {cfg.bridge_subnet} -j MASQUERADE
             port=node.ssh_port,
             username=env.riscv_default_username,
             password=env.riscv_default_password,
-            timeout=env.testsuite_max_timeout,
+            timeout=env.qemu_ssh_timeout,
         ):
             log.error(f"QEMU {node.hostname} SSH not reachable")
             return False
@@ -1588,7 +1593,7 @@ class Env:
     riscv_qemu_memory: int = 8
 
     # ---- 超时 ----
-    testsuite_max_timeout: int = 10800
+    qemu_ssh_timeout: int = 10800
 
 
 # ============================================================
