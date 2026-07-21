@@ -677,39 +677,39 @@ def create_qemu_server(env: "Env") -> bool:
             # 非破坏性方式：新增 ISCAS 镜像源 repo 文件，优先级高于原始仓库。
             # 如果 ISCAS 不可达，dnf 会自动使用原始 repo.openeuler.org 作为回退。
             # 不再使用 sed 破坏性替换原始 repo 文件。
-            host_ssh.exec_script(r"""cat > /etc/yum.repos.d/iscas-mirror.repo << 'ISCAEOF'
-[iscas-OS]
-name=ISCAS Mirror - OS
-baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/OS/$basearch/
-enabled=1
-gpgcheck=0
-priority=1
-skip_if_unavailable=1
-
-[iscas-everything]
-name=ISCAS Mirror - Everything
-baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/everything/$basearch/
-enabled=1
-gpgcheck=0
-priority=1
-skip_if_unavailable=1
-
-[iscas-EPOL]
-name=ISCAS Mirror - EPOL
-baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/EPOL/$basearch/
-enabled=1
-gpgcheck=0
-priority=1
-skip_if_unavailable=1
-
-[iscas-update]
-name=ISCAS Mirror - Update
-baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/update/$basearch/
-enabled=1
-gpgcheck=0
-priority=1
-skip_if_unavailable=1
-ISCAEOF""", timeout=60)
+            host_ssh.exec("sudo tee /etc/yum.repos.d/iscas-mirror.repo > /dev/null << 'ISCAEOF'\n"
+                "[iscas-OS]\n"
+                "name=ISCAS Mirror - OS\n"
+                "baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/OS/$basearch/\n"
+                "enabled=1\n"
+                "gpgcheck=0\n"
+                "priority=1\n"
+                "skip_if_unavailable=1\n"
+                "\n"
+                "[iscas-everything]\n"
+                "name=ISCAS Mirror - Everything\n"
+                "baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/everything/$basearch/\n"
+                "enabled=1\n"
+                "gpgcheck=0\n"
+                "priority=1\n"
+                "skip_if_unavailable=1\n"
+                "\n"
+                "[iscas-EPOL]\n"
+                "name=ISCAS Mirror - EPOL\n"
+                "baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/EPOL/$basearch/\n"
+                "enabled=1\n"
+                "gpgcheck=0\n"
+                "priority=1\n"
+                "skip_if_unavailable=1\n"
+                "\n"
+                "[iscas-update]\n"
+                "name=ISCAS Mirror - Update\n"
+                "baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/update/$basearch/\n"
+                "enabled=1\n"
+                "gpgcheck=0\n"
+                "priority=1\n"
+                "skip_if_unavailable=1\n"
+                "ISCAEOF", timeout=60)
             host_ssh.exec("sudo dnf clean all", timeout=3600)
             host_ssh.exec("sudo dnf makecache", timeout=600)
         required_packages = [
