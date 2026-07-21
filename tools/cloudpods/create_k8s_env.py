@@ -11,6 +11,7 @@ CloudPods RISC-V Kubernetes Environment Creator
 使用方式: 修改 Env 类中的 k8s_node_count 即可指定节点数。
 """
 
+import base64
 import json
 import logging
 import os
@@ -101,7 +102,7 @@ class SSHClient:
                  username: str = "root", password: str = "",
                  sudo_password: str = "",
                  connect_timeout: int = 10, quiet: bool = False,
-                 banner_timeout: int = 60):
+                 banner_timeout: int = 60, use_pty: bool = False):
         self.ip = ip
         self.port = port
         self.__username = username
@@ -110,6 +111,7 @@ class SSHClient:
         self.__connect_timeout = connect_timeout
         self.__banner_timeout = banner_timeout
         self.__quiet = quiet
+        self.__use_pty = use_pty
         self.__ssh: Optional[paramiko.SSHClient] = None
         self.__connect()
 
@@ -145,7 +147,9 @@ class SSHClient:
 
         log.info(f"{self.ip}:{self.port} | exec: {cmd[:300]}")
         try:
-            _in, _out, _err = self.__ssh.exec_command(cmd, timeout=timeout)
+            _in, _out, _err = self.__ssh.exec_command(
+                cmd, timeout=timeout, get_pty=self.__use_pty,
+            )
             exit_code = _out.channel.recv_exit_status()
             stdout = _out.read().decode('utf-8', 'ignore')
             stderr = _err.read().decode('utf-8', 'ignore')
@@ -161,13 +165,15 @@ class SSHClient:
 
     def exec_script(self, script: str, timeout: int = 120) -> ExecResult:
         """
-        安全执行 shell 脚本：写入临时文件 -> 执行 -> 清理。
-        避免 bash -c 中单引号/双引号嵌套问题。
+        安全执行 shell 脚本：base64 编码 -> 写入 -> 执行 -> 清理。
+
+        用 base64 传输脚本内容，彻底规避单双引号、heredoc、
+        特殊字符等所有 shell 转义问题。
         """
-        safe = script.replace("\\", "\\\\")
+        encoded = base64.b64encode(script.encode("utf-8")).decode("ascii")
         return self.exec(
-            f"sudo bash -c 'cat > /tmp/_k8s_script.sh << \"SCRIPTEOF\"\n{safe}\nSCRIPTEOF\n' && "
-            f"sudo bash /tmp/_k8s_script.sh && sudo rm -f /tmp/_k8s_script.sh",
+            f"sudo bash -c \"echo '{encoded}' | base64 -d > /tmp/_k8s_script.sh "
+            f"&& bash /tmp/_k8s_script.sh && rm -f /tmp/_k8s_script.sh\"",
             timeout=timeout,
         )
 
@@ -567,11 +573,41 @@ def init_k8s_node(ssh: SSHClient, node: NodeConfig, cfg: K8sClusterConfig) -> bo
     # Set hostname
     ssh.exec(f"sudo hostnamectl set-hostname {node.hostname}", timeout=60)
 
-    # Configure eth1 with static IP
+    # Configure eth0 (TAP bridge NIC) with static IP for inter-node communication.
+    # QEMU 中 netdev tap 先于 netdev user 添加，因此在 guest 内部 eth0=TAP bridge、
+    # eth1=user-mode NAT。节点间通信必须走 eth0。
+    # 先清理 eth1 上可能残留的静态 IP（旧版脚本 bug），再配置 eth0。
     ssh.exec(
-        f"sudo ip addr add {node.ip_addr}/24 dev eth1 2>/dev/null; sudo ip link set eth1 up",
+        f"sudo ip addr del {node.ip_addr}/24 dev eth1 2>/dev/null",
+        timeout=30,
+    )
+    ssh.exec(
+        f"sudo ip addr add {node.ip_addr}/24 dev eth0 2>/dev/null; sudo ip link set eth0 up",
         timeout=60,
     )
+
+    # 持久化 eth0 静态 IP 配置：写入 NetworkManager connection 或 ifcfg 文件
+    ssh.exec_script(rf"""
+if command -v nmcli &>/dev/null; then
+    # 使用 NetworkManager 持久化 eth0 静态 IP
+    nmcli con del eth0-static 2>/dev/null || true
+    nmcli con add type ethernet ifname eth0 con-name eth0-static \
+        ip4 {node.ip_addr}/24 \
+        ipv4.method manual \
+        ipv4.never-default yes \
+        connection.autoconnect yes 2>/dev/null || true
+    nmcli con up eth0-static 2>/dev/null || true
+else
+    # 回退：写入传统 network-scripts 格式
+    cat > /etc/sysconfig/network-scripts/ifcfg-eth0 << 'NETEOF'
+DEVICE=eth0
+BOOTPROTO=static
+IPADDR={node.ip_addr}
+PREFIX=24
+ONBOOT=yes
+NETEOF
+fi
+""", timeout=120)
 
     # Install base packages
     pkgs = ("runc iptables-nft nftables conntrack-tools socat jq tar gzip "
@@ -606,7 +642,10 @@ def init_k8s_node(ssh: SSHClient, node: NodeConfig, cfg: K8sClusterConfig) -> bo
         ("crictl-riscv64.tar.gz", "/usr/local/bin"),
         ("cni-plugins-riscv64.tar.gz", "/opt/cni/bin"),
     ]:
-        ssh.exec(f"sudo tar -C {target} -xf {cfg.assets_dir}/bin/{pkg}", timeout=120)
+        # CNI tarball 内文件路径包含 cni/bin/ 前缀（如 cni/bin/loopback），
+        # 使用 --strip-components=2 去除该前缀直接安装到 /opt/cni/bin/
+        strip = "--strip-components=2" if "cni" in pkg else ""
+        ssh.exec(f"sudo tar -C {target} {strip} -xf {cfg.assets_dir}/bin/{pkg}", timeout=120)
 
     for bin_name in ["kubectl", "kubelet", "kube-proxy", "etcd", "etcdctl"]:
         ssh.exec(
@@ -830,7 +869,8 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-Type=notify
+Type=simple
+Environment=ETCD_UNSUPPORTED_ARCH=riscv64
 ExecStart={cfg.k8s_bin_dir}/bin/etcd \
     --advertise-client-urls=http://127.0.0.1:2379 \
     --listen-client-urls=http://127.0.0.1:2379 \
@@ -915,14 +955,31 @@ EOF""", timeout=60)
 
     # ----- Start control plane -----
     master_ssh.exec("sudo systemctl daemon-reload", timeout=60)
+
+    # 先 enable 所有服务（不启动），再逐个 start，便于定位哪个服务启动失败
     rs = master_ssh.exec(
-        "sudo systemctl enable --now openruyi-etcd openruyi-kube-apiserver "
+        "sudo systemctl enable openruyi-etcd openruyi-kube-apiserver "
         "openruyi-kube-controller-manager openruyi-kube-scheduler",
         timeout=120,
     )
-    if rs.exit_code != 0:
-        log.error(f"Failed to start control plane: {rs.stderr[:500]}")
-        return False
+    log.info(f"enable result: exit={rs.exit_code} stderr={rs.stderr[:800]}")
+
+    svc_names = [
+        ("openruyi-etcd", 60),
+        ("openruyi-kube-apiserver", 120),
+        ("openruyi-kube-controller-manager", 60),
+        ("openruyi-kube-scheduler", 60),
+    ]
+    for svc, svc_timeout in svc_names:
+        rs = master_ssh.exec(f"sudo systemctl start {svc}", timeout=svc_timeout)
+        if rs.exit_code != 0:
+            log.error(f"systemctl start {svc} failed: "
+                      f"exit={rs.exit_code} stdout={rs.stdout[:500]} stderr={rs.stderr[:500]}")
+            # 抓取 journal 日志帮助诊断
+            j_rs = master_ssh.exec(f"sudo journalctl -u {svc} --no-pager -n 30", timeout=60)
+            log.error(f"{svc} journal:\n{j_rs.stdout[-2000:]}")
+            return False
+        log.info(f"{svc} started successfully")
 
     # Wait for control plane health
     log.info("Waiting for control plane to be ready...")
@@ -939,6 +996,25 @@ EOF""", timeout=60)
         time.sleep(10)
     else:
         log.warning("Control plane health check timed out, continuing...")
+
+    # ----- Fix controller-manager RBAC permissions -----
+    # K8s v1.35.5 默认 system:kube-controller-manager ClusterRole 缺少 patch nodes、
+    # create configmaps、create controllerrevisions 等重要权限，导致 PodCIDR 分配失败、
+    # DaemonSet 无法创建 revision、节点永远 NotReady。
+    # 修复：将 cluster-admin ClusterRole 绑定给 system:kube-controller-manager。
+    log.info("Fixing controller-manager RBAC permissions...")
+    master_ssh.exec_script(r"""kubectl create clusterrolebinding openruyi-cm-admin \
+    --clusterrole=cluster-admin \
+    --user=system:kube-controller-manager 2>/dev/null || \
+kubectl patch clusterrolebinding openruyi-cm-admin --type=json \
+    -p='[{"op":"replace","path":"/roleRef/name","value":"cluster-admin"}]' 2>/dev/null || true
+""", timeout=60)
+    log.info("Controller-manager RBAC permissions fixed")
+
+    # 重启 CM 使新权限生效
+    master_ssh.exec("sudo systemctl restart openruyi-kube-controller-manager", timeout=60)
+    time.sleep(10)  # 等待 CM 重启并分配 PodCIDR
+    log.info("Controller-manager restarted with new permissions")
 
     log.info("Kubernetes control plane bootstrap complete!")
     return True
@@ -1002,8 +1078,6 @@ Requires=containerd.service
 ExecStart=/usr/local/bin/kubelet \
     --config=/var/lib/kubelet/config.yaml \
     --kubeconfig=/etc/kubernetes/kubelet-{node.hostname}.conf \
-    --container-runtime-endpoint=unix:///run/containerd/containerd.sock \
-    --pod-infra-container-image=localhost/pause-riscv64:3.10 \
     --hostname-override={node.hostname} \
     --node-ip={node.ip_addr}
 Restart=always
@@ -1047,8 +1121,16 @@ systemctl enable --now kubelet openruyi-kube-proxy""", timeout=180)
 
 # ---------- SOP Section 8: Calico & Addons ----------
 
-def install_calico_and_addons(master_ssh: SSHClient, cfg: K8sClusterConfig) -> bool:
-    """安装 Calico、RuntimeClass 和 local-path 存储 —— SOP 文档第8节"""
+def install_calico_and_addons(master_ssh: SSHClient, cfg: K8sClusterConfig,
+                               all_node_ssh: dict = None) -> bool:
+    """安装 Calico、RuntimeClass 和 local-path 存储 —— SOP 文档第8节
+    
+    Args:
+        master_ssh: Master 节点 SSH 客户端
+        cfg: K8s 集群配置
+        all_node_ssh: {hostname: SSHClient} 所有节点的 SSH 客户端映射，
+                      用于在每个节点上手动写入 CNI 配置
+    """
     log.info("Installing Calico, RuntimeClass, and local-path storage...")
 
     master_ssh.exec(
@@ -1060,6 +1142,68 @@ def install_calico_and_addons(master_ssh: SSHClient, cfg: K8sClusterConfig) -> b
         f"sudo kubectl apply -f {cfg.assets_dir}/manifests/calico-v3.32.0-openruyi-riscv64.yaml",
         timeout=120,
     )
+
+    # Patch Calico DaemonSet: 将 IP 自动检测网卡从 eth1 改为 eth0
+    # （因为我们把静态 IP 分配到了 TAP bridge 网卡 eth0）
+    master_ssh.exec_script(r"""kubectl -n kube-system patch ds calico-node --type=json \
+    -p='[{"op":"replace","path":"/spec/template/spec/containers/0/env/6/value","value":"interface=eth0"}]' 2>/dev/null || true
+""", timeout=60)
+
+    # ---- Workaround: 手动为每个节点生成 CNI 配置 ----
+    # Calico init 容器在 RISC-V 上可能因 runc OCI runtime bug
+    # (lstat /proc/0/ns/ipc: no such file or directory) 而崩溃，
+    # 导致 /etc/cni/net.d/10-calico.conflist 无法自动生成。
+    # 折衷方案：直接从 Calico ConfigMap 读取模板，替换后写入所有节点。
+    log.info("Manually generating CNI config for all nodes (Calico init container workaround)...")
+    if all_node_ssh is None:
+        all_node_ssh = {}
+    
+    # 等待 ConfigMap 就绪
+    for _ in range(20):
+        rs = master_ssh.exec(
+            "sudo kubectl get configmap calico-config -n kube-system -o yaml 2>/dev/null",
+            timeout=60,
+        )
+        if rs.exit_code == 0 and "calico-config" in rs.stdout:
+            break
+        time.sleep(3)
+    
+    for node_name, node_ssh in all_node_ssh.items():
+        # 生成 CNI 配置文件，nodename 替换为实际主机名
+        log.info(f"Writing CNI config for {node_name}...")
+        node_ssh.exec_script(rf"""mkdir -p /etc/cni/net.d
+cat > /etc/cni/net.d/10-calico.conflist << 'CNIEOF'
+{{
+  "name": "k8s-pod-network",
+  "cniVersion": "0.3.1",
+  "plugins": [
+    {{
+      "type": "calico",
+      "log_level": "info",
+      "log_file_path": "/var/log/calico/cni/cni.log",
+      "datastore_type": "kubernetes",
+      "nodename": "{node_name}",
+      "mtu": 0,
+      "ipam": {{"type": "calico-ipam"}},
+      "policy": {{"type": "k8s"}},
+      "kubernetes": {{"kubeconfig": "/etc/kubernetes/kubelet-{node_name}.conf"}}
+    }},
+    {{
+      "type": "portmap",
+      "snat": true,
+      "capabilities": {{"portMappings": true}}
+    }}
+  ]
+}}
+CNIEOF
+chmod 644 /etc/cni/net.d/10-calico.conflist
+""", timeout=60)
+
+    # 写入 CNI 配置后重启所有节点的 kubelet，使新配置生效
+    log.info("Restarting kubelet on all nodes to pick up CNI config...")
+    for node_name, node_ssh in all_node_ssh.items():
+        node_ssh.exec("sudo systemctl restart kubelet 2>/dev/null || true", timeout=60)
+    log.info("CNI config manually generated for all nodes")
 
     # RuntimeClass (kata-clh)
     runtimeclass_file = f"{cfg.assets_dir}/demo/runtimeclass-kata-clh.yaml"
@@ -1428,7 +1572,34 @@ iptables -t nat -A POSTROUTING -s {cfg.bridge_subnet} -j MASQUERADE
             username=env.riscv_default_username,
             password=env.riscv_default_password,
             sudo_password=env.riscv_default_password,
+            use_pty=True,
         )
+
+    # ---- Configure NOPASSWD sudo in all QEMU guests ----
+    # QEMU 镜像默认启用 requiretty，必须分配 PTY 才能 sudo。
+    # 但 echo password | sudo -S 在 PTY 下行为不可靠，
+    # 所以第一步先用 PTY 配置 NOPASSWD，后续所有操作不再需要密码。
+    log.info("Configuring NOPASSWD sudo in all QEMU guests...")
+    for node in cfg.nodes:
+        vm_ssh = node_ssh_map[node.hostname]
+        rs = vm_ssh.exec(
+            f"echo '{env.riscv_default_password}' | sudo -S sh -c "
+            f"\"echo '{env.riscv_default_username} ALL=(ALL) NOPASSWD: ALL' "
+            f">> /etc/sudoers.d/99-openruyi-nopasswd\"",
+            timeout=60,
+        )
+        if rs.exit_code != 0:
+            log.warning(f"Failed to configure NOPASSWD sudo on {node.hostname}, "
+                        f"will use password for sudo")
+        else:
+            log.info(f"NOPASSWD sudo configured on {node.hostname}")
+            # 关闭该连接的 sudo_password，后续不再走 pipe 密码逻辑
+            vm_ssh._SSHClient__sudo_password = ""
+
+    # NOPASSWD 配置完成后关闭所有 VM SSH 连接的 PTY
+    # paramiko 的 recv_exit_status() 在 PTY 模式下不可靠，会阻塞卡死
+    for node in cfg.nodes:
+        node_ssh_map[node.hostname]._SSHClient__use_pty = False
 
     # ---- Step 13: Configure yum repos inside QEMU guests ----
     log.info("Step 13: Configuring yum repos in QEMU guests...")
@@ -1509,7 +1680,7 @@ iptables -t nat -A POSTROUTING -s {cfg.bridge_subnet} -j MASQUERADE
 
     # ---- Step 19: Install Calico & addons (SOP Section 8) ----
     log.info("Step 19: Installing Calico and addons (SOP Section 8)...")
-    install_calico_and_addons(master_ssh, cfg)
+    install_calico_and_addons(master_ssh, cfg, node_ssh_map)
 
     # ---- Step 20: Verify cluster ----
     log.info("Step 20: Verifying cluster health...")
