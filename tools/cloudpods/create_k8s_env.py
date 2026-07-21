@@ -1359,17 +1359,44 @@ def create_k8s_env(env: "Env") -> bool:
                          username=env.cloudpods_server_user,
                          password=env.cloudpods_server_password)
 
-    # ---- Step 6: Install QEMU & packages ----
-    log.info("Step 6: Installing QEMU and required packages on host...")
+    # ---- Step 6: Add ISCAS mirror repo (non-destructive) & install packages ----
+    log.info("Step 6: Adding ISCAS mirror repo & installing packages on host...")
     if env.delete_default_yum_repos.lower() == "yes":
-        host_ssh.exec(
-            "sudo sed -i 's|repo.openeuler.org|mirrors.iscas.ac.cn/openeuler|g' "
-            "/etc/yum.repos.d/*.repo"
-        )
-        host_ssh.exec(
-            "sudo sed -i 's|mirrors.openeuler.org|mirrors.iscas.ac.cn/openeuler|g' "
-            "/etc/yum.repos.d/*.repo"
-        )
+        # 非破坏性方式：新增 ISCAS 镜像源 repo 文件，优先级高于原始仓库。
+        # 如果 ISCAS 不可达，dnf 会自动使用原始 repo.openeuler.org 作为回退。
+        host_ssh.exec_script(r"""cat > /etc/yum.repos.d/iscas-mirror.repo << 'ISCAEOF'
+[iscas-OS]
+name=ISCAS Mirror - OS
+baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/OS/$basearch/
+enabled=1
+gpgcheck=0
+priority=1
+skip_if_unavailable=1
+
+[iscas-everything]
+name=ISCAS Mirror - Everything
+baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/everything/$basearch/
+enabled=1
+gpgcheck=0
+priority=1
+skip_if_unavailable=1
+
+[iscas-EPOL]
+name=ISCAS Mirror - EPOL
+baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/EPOL/$basearch/
+enabled=1
+gpgcheck=0
+priority=1
+skip_if_unavailable=1
+
+[iscas-update]
+name=ISCAS Mirror - Update
+baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/update/$basearch/
+enabled=1
+gpgcheck=0
+priority=1
+skip_if_unavailable=1
+ISCAEOF""", timeout=60)
         host_ssh.exec("sudo dnf clean all", timeout=3600)
         host_ssh.exec("sudo dnf makecache", timeout=600)
 
