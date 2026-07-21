@@ -1397,6 +1397,9 @@ gpgcheck=0
 priority=1
 skip_if_unavailable=1
 ISCAEOF""", timeout=60)
+        # 注释掉 openEuler.repo 中的 metalink= 行，因为 mirrors.openeuler.org
+        # 在某些网络环境下不可达，dnf 等待 metalink 超时会导致安装极慢（每个 repo ~60s）。
+        host_ssh.exec("sudo sed -i '/^metalink=/s/^/#/' /etc/yum.repos.d/openEuler.repo", timeout=30)
         host_ssh.exec("sudo dnf clean all", timeout=3600)
         host_ssh.exec("sudo dnf makecache", timeout=600)
 
