@@ -6,10 +6,11 @@ tag:
 duration: 30m
 tier: 1
 extra-hardware-require:
- server: 2
+ server: ">= 2"
  cpu: ">= 8"
  memory: ">= 8 GiB"
  net: ">= 1"
+ disk: ">= 1"
 
 /test_k8s_quick_health_check:
   summary: K8s quick smoke test - verify cluster health
