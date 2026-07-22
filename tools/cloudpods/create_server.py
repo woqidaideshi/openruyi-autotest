@@ -29,6 +29,29 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # ============================================================
+# Password decryption utility
+# ============================================================
+import base64
+import hashlib
+
+_MASTER_KEY = "openruyi-autotest-2024-secret-key"
+
+
+def _derive_key(master_key: str) -> bytes:
+    """Derive a 32-byte AES-like key from master key using SHA-256."""
+    return hashlib.sha256(master_key.encode()).digest()
+
+
+def _decrypt_password(encrypted: str, master_key: str = _MASTER_KEY) -> str:
+    """Decrypt an XOR+Base64 encrypted password back to plaintext."""
+    key = _derive_key(master_key)
+    encrypted_bytes = base64.b64decode(encrypted)
+    decrypted = bytes(
+        [encrypted_bytes[i] ^ key[i % len(key)] for i in range(len(encrypted_bytes))]
+    )
+    return decrypted.decode("utf-8")
+
+# ============================================================
 # Logging
 # ============================================================
 log = logging.getLogger("create_server")
@@ -593,7 +616,7 @@ def create_qemu_server(env: "Env") -> bool:
     cp = CloudPodsClient(
         keystone_url=env.cloudpods_keystone_url,
         username=env.cloudpods_user,
-        password=env.cloudpods_password,
+        password=_decrypt_password(env.cloudpods_password),
     )
     if cp._CloudPodsClient__session is None:
         log.error("Failed to authenticate with CloudPods")
@@ -1097,7 +1120,7 @@ class Env:
     # ---- CloudPods 连接 ----
     cloudpods_keystone_url: str = "https://10.20.40.101:30500/v3"
     cloudpods_user: str = "admin"
-    cloudpods_password: str = "jSj@2008"
+    cloudpods_password: str = "0Ub4/mK058E="
 
     # ---- CloudPods 虚拟机规格 ----
     os_version: str = "openRuyi-RVA23"
