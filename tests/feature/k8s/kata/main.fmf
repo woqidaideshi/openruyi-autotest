@@ -1,0 +1,9 @@
+summary: Feature test - K8s Kata Containers - verify kata-clh RuntimeClass
+test: ./test.sh
+tag:
+ - feature
+ - k8s
+ - kata
+duration: 15m
+tier: 1
+path: /tests/feature/k8s/kata

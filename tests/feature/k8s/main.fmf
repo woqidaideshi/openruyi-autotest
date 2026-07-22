@@ -1,0 +1,13 @@
+summary: Feature test - K8s cluster functionality verification on RISC-V
+tag:
+ - feature
+ - k8s
+ - riscv
+duration: 30m
+tier: 1
+extra-hardware-require:
+ server: 2
+ cpu: ">= 8"
+ memory: ">= 8 GiB"
+ net: ">= 1"
+path: /tests/feature/k8s
