@@ -29,6 +29,29 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # ============================================================
+# Password decryption utility
+# ============================================================
+import base64
+import hashlib
+
+_MASTER_KEY = "openruyi-autotest-2024-secret-key"
+
+
+def _derive_key(master_key: str) -> bytes:
+    """Derive a 32-byte AES-like key from master key using SHA-256."""
+    return hashlib.sha256(master_key.encode()).digest()
+
+
+def _decrypt_password(encrypted: str, master_key: str = _MASTER_KEY) -> str:
+    """Decrypt an XOR+Base64 encrypted password back to plaintext."""
+    key = _derive_key(master_key)
+    encrypted_bytes = base64.b64decode(encrypted)
+    decrypted = bytes(
+        [encrypted_bytes[i] ^ key[i % len(key)] for i in range(len(encrypted_bytes))]
+    )
+    return decrypted.decode("utf-8")
+
+# ============================================================
 # Logging
 # ============================================================
 log = logging.getLogger("create_server")
@@ -593,7 +616,7 @@ def create_qemu_server(env: "Env") -> bool:
     cp = CloudPodsClient(
         keystone_url=env.cloudpods_keystone_url,
         username=env.cloudpods_user,
-        password=env.cloudpods_password,
+        password=_decrypt_password(env.cloudpods_password),
     )
     if cp._CloudPodsClient__session is None:
         log.error("Failed to authenticate with CloudPods")
@@ -671,17 +694,49 @@ def create_qemu_server(env: "Env") -> bool:
         host_ssh = SSHClient(ip=host_ip, port=22,
                              username=env.cloudpods_server_user, password=env.cloudpods_server_password)
 
-        # ---- Step 6: Replace default yum repos with ISCAS mirror & install packages ----
-        log.info(f"[Host {host_idx}] Step 6: Replacing default repo with ISCAS mirror & installing packages...")
+        # ---- Step 6: Add ISCAS mirror repo (non-destructive) & install packages ----
+        log.info(f"[Host {host_idx}] Step 6: Adding ISCAS mirror repo & installing packages...")
         if env.delete_default_yum_repos.lower() == "yes":
-            host_ssh.exec(
-                "sudo sed -i 's|repo.openeuler.org|mirrors.iscas.ac.cn/openeuler|g' "
-                "/etc/yum.repos.d/*.repo"
-            )
-            host_ssh.exec(
-                "sudo sed -i 's|mirrors.openeuler.org|mirrors.iscas.ac.cn/openeuler|g' "
-                "/etc/yum.repos.d/*.repo"
-            )
+            # 非破坏性方式：新增 ISCAS 镜像源 repo 文件，优先级高于原始仓库。
+            # 如果 ISCAS 不可达，dnf 会自动使用原始 repo.openeuler.org 作为回退。
+            # 不再使用 sed 破坏性替换原始 repo 文件。
+            host_ssh.exec("sudo tee /etc/yum.repos.d/iscas-mirror.repo > /dev/null << 'ISCAEOF'\n"
+                "[iscas-OS]\n"
+                "name=ISCAS Mirror - OS\n"
+                "baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/OS/$basearch/\n"
+                "enabled=1\n"
+                "gpgcheck=0\n"
+                "priority=1\n"
+                "skip_if_unavailable=1\n"
+                "\n"
+                "[iscas-everything]\n"
+                "name=ISCAS Mirror - Everything\n"
+                "baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/everything/$basearch/\n"
+                "enabled=1\n"
+                "gpgcheck=0\n"
+                "priority=1\n"
+                "skip_if_unavailable=1\n"
+                "\n"
+                "[iscas-EPOL]\n"
+                "name=ISCAS Mirror - EPOL\n"
+                "baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/EPOL/$basearch/\n"
+                "enabled=1\n"
+                "gpgcheck=0\n"
+                "priority=1\n"
+                "skip_if_unavailable=1\n"
+                "\n"
+                "[iscas-update]\n"
+                "name=ISCAS Mirror - Update\n"
+                "baseurl=https://mirrors.iscas.ac.cn/openeuler/openEuler-24.03-LTS-SP2/update/$basearch/\n"
+                "enabled=1\n"
+                "gpgcheck=0\n"
+                "priority=1\n"
+                "skip_if_unavailable=1\n"
+                "ISCAEOF", timeout=60)
+            # 注释掉 openEuler.repo 中的 metalink= 行，因为 mirrors.openeuler.org
+            # 在某些网络环境下不可达，dnf 等待 metalink 超时会导致安装极慢（每个 repo ~60s）。
+            # baseurl (repo.openeuler.org) 和 ISCAS mirror 均可正常访问。
+            host_ssh.exec("sudo sed -i '/^metalink=/s/^/#/' /etc/yum.repos.d/openEuler.repo", timeout=30)
             host_ssh.exec("sudo dnf clean all", timeout=3600)
             host_ssh.exec("sudo dnf makecache", timeout=600)
         required_packages = [
@@ -1065,7 +1120,7 @@ class Env:
     # ---- CloudPods 连接 ----
     cloudpods_keystone_url: str = "https://10.20.40.101:30500/v3"
     cloudpods_user: str = "admin"
-    cloudpods_password: str = "jSj@2008"
+    cloudpods_password: str = "0Ub4/mK058E="
 
     # ---- CloudPods 虚拟机规格 ----
     os_version: str = "openRuyi-RVA23"

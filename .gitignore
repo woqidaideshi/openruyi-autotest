@@ -18,3 +18,6 @@ topology.env
 
 # Python 缓存
 __pycache__/
+
+# VS Code 工作区配置（IDE 相关，不提交）
+.vscode/
