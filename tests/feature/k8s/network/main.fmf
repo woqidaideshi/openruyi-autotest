@@ -1,9 +1,0 @@
-summary: Feature test - K8s network - cross-node pod communication verification
-test: ./test.sh
-tag:
- - feature
- - k8s
- - network
-duration: 10m
-tier: 1
-path: /tests/feature/k8s/network

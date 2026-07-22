@@ -1,9 +1,0 @@
-summary: Feature test - K8s storage - local-path-provisioner PVC verification
-test: ./test.sh
-tag:
- - feature
- - k8s
- - storage
-duration: 10m
-tier: 1
-path: /tests/feature/k8s/storage

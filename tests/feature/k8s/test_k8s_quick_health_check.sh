@@ -8,7 +8,7 @@
 # ============================================================
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
-. "$(dirname "$0")/../lib.sh"
+. "$(dirname "$0")/lib.sh"
 
 rlJournalStart
     rlPhaseStartSetup "Environment setup"

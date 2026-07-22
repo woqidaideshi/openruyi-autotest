@@ -524,14 +524,14 @@ K8s 测试套提供了 **6 个子分类**，建议先执行 `quick` 快速验证
 ```bash
 cd ~/openruyi-autotest
 
-# 方式一：使用 tmt 执行
+# 方式一：使用 tmt 执行（单个用例）
 tmt run --all --verbose plan --name /plans/feature \
-    test --name /tests/feature/k8s/quick \
+    test --name /tests/feature/k8s/test_k8s_quick_health_check \
     provision --feeling-safe
 
 # 方式二：直接 bash 执行（推荐，更快速）
 TMT_TEST_TOPOLOGY_FILE="$PWD/topology.env" \
-    bash tests/feature/k8s/quick/test.sh
+    bash tests/feature/k8s/test_k8s_quick_health_check.sh
 ```
 
 **预期输出：**
@@ -560,12 +560,12 @@ TMT_TEST_TOPOLOGY_FILE="$PWD/topology.env" \
 :: [ ... ] :: [   PASS   ] :: CoreDNS has N Running pod(s)
 ```
 
-### 10.5 执行全部 K8s 测试分类
+### 10.5 执行全部 K8s 测试
 
 ```bash
 cd ~/openruyi-autotest
 
-# 使用 tmt 一次性执行所有 k8s 子分类
+# 使用 tmt 一次性执行所有 k8s 测试
 tmt run --all --verbose plan --name /plans/feature \
     test --name /tests/feature/k8s \
     provision --feeling-safe
@@ -575,25 +575,26 @@ tmt run --all --verbose plan --name /plans/feature \
 
 ### 10.6 K8s 测试分类说明
 
-| 分类 | 路径 | 说明 | 预计耗时 |
-|------|------|------|----------|
-| `quick` | `tests/feature/k8s/quick/` | 快速冒烟测试，验证集群基本健康 | ~5 分钟 |
-| `conformance` | `tests/feature/k8s/conformance/` | Pod 生命周期管理（创建、删除、扩缩容） | ~8 分钟 |
-| `network` | `tests/feature/k8s/network/` | 跨节点网络通信（ClusterIP、NodePort、DNS） | ~5 分钟 |
-| `storage` | `tests/feature/k8s/storage/` | PVC 存储卷生命周期（挂载、写入、持久化） | ~5 分钟 |
-| `scheduling` | `tests/feature/k8s/scheduling/` | Pod 调度策略（亲和性、nodeSelector、配额） | ~5 分钟 |
-| `workload` | `tests/feature/k8s/workload/` | 工作负载配置（ConfigMap、Secret、ServiceAccount） | ~5 分钟 |
+| 分类 | 测试脚本 | 说明 | 预计耗时 |
+|------|----------|------|----------|
+| `quick` | `test_k8s_quick_health_check.sh` | 快速冒烟测试，验证集群基本健康 | ~5 分钟 |
+| `conformance` | `test_k8s_conformance_pod_lifecycle.sh` | Pod 生命周期管理（创建、删除、扩缩容） | ~8 分钟 |
+| `network` | `test_k8s_network_cross_node_communication.sh` | 跨节点网络通信（ClusterIP、NodePort、DNS） | ~5 分钟 |
+| `storage` | `test_k8s_storage_pvc_lifecycle.sh` | PVC 存储卷生命周期（挂载、写入、持久化） | ~5 分钟 |
+| `scheduling` | `test_k8s_scheduling_pod_affinity.sh` | Pod 调度策略（亲和性、nodeSelector、配额） | ~5 分钟 |
+| `workload` | `test_k8s_workload_config_primitives.sh` | 工作负载配置（ConfigMap、Secret、ServiceAccount） | ~5 分钟 |
+| `kata` | `test_k8s_kata_containers_runtime.sh` | Kata 安全容器运行时验证 | ~10 分钟 |
 
-每个子分类都可单独执行：
+每个测试脚本都可单独执行：
 
 ```bash
 # 例如只执行网络测试
 TMT_TEST_TOPOLOGY_FILE="$PWD/topology.env" \
-    bash tests/feature/k8s/network/test.sh
+    bash tests/feature/k8s/test_k8s_network_cross_node_communication.sh
 
 # 只执行存储测试
 TMT_TEST_TOPOLOGY_FILE="$PWD/topology.env" \
-    bash tests/feature/k8s/storage/test.sh
+    bash tests/feature/k8s/test_k8s_storage_pvc_lifecycle.sh
 ```
 
 ### 10.7 查看测试结果

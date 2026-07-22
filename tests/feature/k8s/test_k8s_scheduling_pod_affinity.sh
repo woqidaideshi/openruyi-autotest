@@ -7,7 +7,7 @@
 # ============================================================
 
 . /usr/share/beakerlib/beakerlib.sh || exit 1
-. "$(dirname "$0")/../lib.sh"
+. "$(dirname "$0")/lib.sh"
 
 TEST_NS="k8s-feature-test-scheduling"
 
