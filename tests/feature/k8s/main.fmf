@@ -3,7 +3,7 @@ tag:
  - feature
  - k8s
  - riscv
-duration: 30m
+duration: 35m
 tier: 1
 extra-hardware-require:
  server: ">= 2"
@@ -80,4 +80,14 @@ extra-hardware-require:
    - k8s
    - kata
   duration: 15m
+  tier: 1
+
+/test_k8s_sonobuoy_smoke:
+  summary: K8s Sonobuoy-equivalent smoke - arch, DNS, API Server from DaemonSet pods
+  test: ./test_k8s_sonobuoy_smoke.sh
+  tag:
+   - feature
+   - k8s
+   - smoke
+  duration: 5m
   tier: 1
