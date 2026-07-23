@@ -1,0 +1,93 @@
+summary: Feature test - K8s cluster functionality verification on RISC-V
+tag:
+ - feature
+ - k8s
+ - riscv
+duration: 35m
+tier: 1
+extra-hardware-require:
+ server: ">= 2"
+ cpu: ">= 8"
+ memory: ">= 8 GiB"
+ net: ">= 1"
+ disk: ">= 1"
+
+/test_k8s_quick_health_check:
+  summary: K8s quick smoke test - verify cluster health
+  test: ./test_k8s_quick_health_check.sh
+  tag:
+   - feature
+   - k8s
+   - quick
+  duration: 5m
+  tier: 1
+
+/test_k8s_conformance_pod_lifecycle:
+  summary: K8s conformance - pod lifecycle verification
+  test: ./test_k8s_conformance_pod_lifecycle.sh
+  tag:
+   - feature
+   - k8s
+   - conformance
+  duration: 15m
+  tier: 1
+
+/test_k8s_network_cross_node_communication:
+  summary: K8s network - cross-node pod communication verification
+  test: ./test_k8s_network_cross_node_communication.sh
+  tag:
+   - feature
+   - k8s
+   - network
+  duration: 10m
+  tier: 1
+
+/test_k8s_storage_pvc_lifecycle:
+  summary: K8s storage - local-path-provisioner PVC verification
+  test: ./test_k8s_storage_pvc_lifecycle.sh
+  tag:
+   - feature
+   - k8s
+   - storage
+  duration: 10m
+  tier: 1
+
+/test_k8s_scheduling_pod_affinity:
+  summary: K8s scheduling - pod anti-affinity and nodeSelector
+  test: ./test_k8s_scheduling_pod_affinity.sh
+  tag:
+   - feature
+   - k8s
+   - scheduling
+  duration: 10m
+  tier: 1
+
+/test_k8s_workload_config_primitives:
+  summary: K8s workload - ConfigMap, Secret, and ServiceAccount
+  test: ./test_k8s_workload_config_primitives.sh
+  tag:
+   - feature
+   - k8s
+   - workload
+  duration: 10m
+  tier: 1
+
+/test_k8s_kata_containers_runtime:
+  summary: K8s Kata Containers - verify kata-clh RuntimeClass
+  test: ./test_k8s_kata_containers_runtime.sh
+  tag:
+   - feature
+   - k8s
+   - kata
+  duration: 15m
+  tier: 1
+
+/test_k8s_sonobuoy_smoke:
+  summary: K8s Sonobuoy-equivalent smoke - arch, DNS, API Server from DaemonSet pods
+  test: ./test_k8s_sonobuoy_smoke.sh
+  tag:
+   - feature
+   - k8s
+   - smoke
+  duration: 5m
+  tier: 1
