@@ -1113,7 +1113,7 @@ apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
 bindAddress: 0.0.0.0
 clusterCIDR: {cfg.pod_cidr}
-mode: iptables
+mode: nftables
 clientConnection:
   kubeconfig: /etc/kubernetes/kube-proxy.conf
 EOF
@@ -1164,11 +1164,22 @@ def install_calico_and_addons(master_ssh: SSHClient, cfg: K8sClusterConfig,
         timeout=120,
     )
 
-    # Patch Calico DaemonSet: 将 IP 自动检测网卡从 eth1 改为 eth0
-    # （因为我们把静态 IP 分配到了 TAP bridge 网卡 eth0）
-    master_ssh.exec_script(r"""kubectl -n kube-system patch ds calico-node --type=json \
-    -p='[{"op":"replace","path":"/spec/template/spec/containers/0/env/6/value","value":"interface=eth0"}]' 2>/dev/null || true
-""", timeout=60)
+    # Patch Calico DaemonSet:
+    # 1) 修正 IP 自动检测方法：使用 interface=eth0 代替 interface=eth1，
+    #    因为 RISC-V QEMU 节点间通信走 TAP bridge (eth0)
+    # 2) 将 FELIX_IPTABLESBACKEND 设为 Auto，让 Calico 自动选择可用后端
+    #    (RISC-V 上 iptables-nft + nf_tables 可能不兼容，Auto 更安全)
+    # 注意：使用 kubectl set env 而非 JSON patch，避免 env 索引变化导致 patch 失败
+    master_ssh.exec(
+        "sudo kubectl -n kube-system set env ds/calico-node "
+        "IP_AUTODETECTION_METHOD=interface=eth0",
+        timeout=60,
+    )
+    master_ssh.exec(
+        "sudo kubectl -n kube-system set env ds/calico-node "
+        "FELIX_IPTABLESBACKEND=Auto",
+        timeout=60,
+    )
 
     # ---- Workaround: 手动为每个节点生成 CNI 配置 ----
     # Calico init 容器在 RISC-V 上可能因 runc OCI runtime bug
