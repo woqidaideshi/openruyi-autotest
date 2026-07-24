@@ -148,21 +148,47 @@ class SSHClient:
                 banner_timeout=self.__banner_timeout,
                 auth_timeout=self.__connect_timeout,
             )
+            # 验证 transport 确实处于 active 状态再返回 True
+            transport = self.__ssh.get_transport()
+            if transport is None or not transport.is_active():
+                if not self.__quiet:
+                    log.warning(
+                        f"{self.ip}:{self.port} | SSH transport inactive after connect"
+                    )
+                try:
+                    self.__ssh.close()
+                except Exception:
+                    pass
+                self.__ssh = None
+                return False
             if not self.__quiet:
                 log.info(f"{self.ip}:{self.port} | SSH connected")
             return True
         except Exception as e:
             if not self.__quiet:
                 log.warning(f"{self.ip}:{self.port} | SSH connect failed: {e}")
+            # 连接失败时清理残留的 transport，避免后续 exec() 在无效 session 上报错
+            try:
+                self.__ssh.close()
+            except Exception:
+                pass
+            self.__ssh = None
             return False
 
     def close(self):
         try:
-            self.__ssh.close()
+            if self.__ssh is not None:
+                self.__ssh.close()
         except Exception:
             pass
+        finally:
+            self.__ssh = None
 
     def exec(self, cmd: str, timeout: int = 60) -> ExecResult:
+        if self.__ssh is None:
+            log.error(f"{self.ip}:{self.port} | exec: no active SSH connection")
+            return ExecResult(255, "", "No active SSH connection")
+
         if self.__sudo_password and cmd.startswith("sudo "):
             cmd = f"echo '{self.__sudo_password}' | sudo -S {cmd[5:]}"
 
@@ -181,7 +207,17 @@ class SSHClient:
                 log.info(f"{self.ip}:{self.port} | exit=0 stdout={stdout[:200]}")
             return ExecResult(exit_code, stdout, stderr)
         except Exception as e:
-            log.error(f"{self.ip}:{self.port} | exec error: {e}")
+            log.warning(f"{self.ip}:{self.port} | exec error, attempting reconnect: {e}")
+            # Transport may have dropped; try reconnecting once
+            try:
+                self.__ssh.close()
+            except Exception:
+                pass
+            self.__ssh = None
+            if self.__connect():
+                log.info(f"{self.ip}:{self.port} | reconnected, retrying command")
+                return self.exec(cmd, timeout=timeout)
+            log.error(f"{self.ip}:{self.port} | exec error (reconnect failed): {e}")
             return ExecResult(255, "", str(e))
 
     def exec_script(self, script: str, timeout: int = 120) -> ExecResult:
@@ -1743,7 +1779,7 @@ iptables -t nat -A POSTROUTING -s {cfg.bridge_subnet} -j MASQUERADE
         # Build QEMU command (mirrors create_server.py proven config)
         qemu_cmd = f"cd /opt && {qemu_path}"
         qemu_cmd += " -nographic"
-        qemu_cmd += " -machine virt,pflash0=pflash0,pflash1=pflash1"
+        qemu_cmd += " -machine virt"
         qemu_cmd += f" -smp {qemu_cpu} -m {qemu_memory}G"
         qemu_cmd += " -rtc base=utc,clock=host"
 
@@ -1752,6 +1788,13 @@ iptables -t nat -A POSTROUTING -s {cfg.bridge_subnet} -j MASQUERADE
         # -blockdev node-name=pflash0; use classic -drive if=pflash instead.
         # Symptom of -blockdev: OpenSBI boots but Domain0 Next Address=0,
         # UEFI/GRUB never starts.
+        #
+        # IMPORTANT: When using "-drive if=pflash", do NOT set pflash0/pflash1
+        # in "-machine virt,..." — those machine properties expect -blockdev
+        # node-names, but -drive if=pflash creates its own internal block
+        # backends that the machine auto-discovers. Mixing the two causes
+        # the firmware files to NOT be loaded at all, leaving the VM in an
+        # unbootable state (SSH never becomes active).
         virt_code_path = f"/opt/{virt_code_name}"
         per_vm_vars_path = f"/opt/{per_vm_vars}"
         qemu_cmd += (
