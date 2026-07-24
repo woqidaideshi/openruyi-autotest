@@ -1,93 +1,70 @@
-summary: Feature test - K8s cluster functionality verification on RISC-V
+summary: K8s RISC-V feature verification — Sonobuoy-equivalent test suite
 tag:
- - feature
- - k8s
- - riscv
-duration: 35m
+  - feature
+  - k8s
+  - riscv
+  - sonobuoy-equivalent
+duration: 2h
 tier: 1
-extra-hardware-require:
- server: ">= 2"
- cpu: ">= 8"
- memory: ">= 8 GiB"
- net: ">= 1"
- disk: ">= 1"
 
-/test_k8s_quick_health_check:
-  summary: K8s quick smoke test - verify cluster health
-  test: ./test_k8s_quick_health_check.sh
-  tag:
-   - feature
-   - k8s
-   - quick
-  duration: 5m
-  tier: 1
+# ── Tier 1 (P0+P1): Smoke, Core API, Pod, Workload, Network, Storage ──
+/k8s-smoke:
+  summary: K8s smoke tests — arch check, DNS, API reachability, DaemonSet
+  discover:
+    how: fmf
+    path: smoke/
 
-/test_k8s_conformance_pod_lifecycle:
-  summary: K8s conformance - pod lifecycle verification
-  test: ./test_k8s_conformance_pod_lifecycle.sh
-  tag:
-   - feature
-   - k8s
-   - conformance
-  duration: 15m
-  tier: 1
+/k8s-api:
+  summary: K8s API tests — resource CRUD, namespace lifecycle
+  discover:
+    how: fmf
+    path: api/
 
-/test_k8s_network_cross_node_communication:
-  summary: K8s network - cross-node pod communication verification
-  test: ./test_k8s_network_cross_node_communication.sh
-  tag:
-   - feature
-   - k8s
-   - network
-  duration: 10m
-  tier: 1
+/k8s-pod:
+  summary: K8s Pod tests — basic lifecycle, multi-container
+  discover:
+    how: fmf
+    path: pod/
 
-/test_k8s_storage_pvc_lifecycle:
-  summary: K8s storage - local-path-provisioner PVC verification
-  test: ./test_k8s_storage_pvc_lifecycle.sh
-  tag:
-   - feature
-   - k8s
-   - storage
-  duration: 10m
-  tier: 1
+/k8s-workload:
+  summary: K8s workload tests — Deployment, ReplicaSet
+  discover:
+    how: fmf
+    path: workload/
 
-/test_k8s_scheduling_pod_affinity:
-  summary: K8s scheduling - pod anti-affinity and nodeSelector
-  test: ./test_k8s_scheduling_pod_affinity.sh
-  tag:
-   - feature
-   - k8s
-   - scheduling
-  duration: 10m
-  tier: 1
+/k8s-network:
+  summary: K8s network tests — ClusterIP, NodePort, DNS, cross-node
+  discover:
+    how: fmf
+    path: network/
 
-/test_k8s_workload_config_primitives:
-  summary: K8s workload - ConfigMap, Secret, and ServiceAccount
-  test: ./test_k8s_workload_config_primitives.sh
-  tag:
-   - feature
-   - k8s
-   - workload
-  duration: 10m
-  tier: 1
+/k8s-storage:
+  summary: K8s storage tests — PVC binding, volume mount, data persistence
+  discover:
+    how: fmf
+    path: storage/
 
-/test_k8s_kata_containers_runtime:
-  summary: K8s Kata Containers - verify kata-clh RuntimeClass
-  test: ./test_k8s_kata_containers_runtime.sh
-  tag:
-   - feature
-   - k8s
-   - kata
-  duration: 15m
-  tier: 1
+# ── Tier 2 (P2): Scheduling, Auth, Config, Kata ──
+/k8s-scheduling:
+  summary: K8s scheduling tests — nodeSelector, affinity, taints, ResourceQuota
+  discover:
+    how: fmf
+    path: scheduling/
 
-/test_k8s_sonobuoy_smoke:
-  summary: K8s Sonobuoy-equivalent smoke - arch, DNS, API Server from DaemonSet pods
-  test: ./test_k8s_sonobuoy_smoke.sh
-  tag:
-   - feature
-   - k8s
-   - smoke
-  duration: 5m
-  tier: 1
+/k8s-auth:
+  summary: K8s auth tests — ServiceAccount, token mount, API access
+  discover:
+    how: fmf
+    path: auth/
+
+/k8s-config:
+  summary: K8s config tests — Secret, ConfigMap, mount and env injection
+  discover:
+    how: fmf
+    path: config/
+
+/k8s-kata:
+  summary: K8s Kata Containers tests — RuntimeClass, pod scheduling (skips if unavailable)
+  discover:
+    how: fmf
+    path: kata/
