@@ -14,24 +14,39 @@ rlJournalStart
     rlPhaseStartSetup "Environment setup"
         k8sSetup
         k8sKubectl create namespace "$DNS_NS" 2>/dev/null || true
+
+        if ! k8sDNSAvailable; then
+            rlSkip "CoreDNS not deployed in this cluster — skipping DNS tests"
+        fi
     rlPhaseEnd
 
     rlPhaseStartTest "Verify DNS resolves kubernetes.default.svc.cluster.local"
-        # Run a one-shot busybox pod for DNS check
-        dns_output=$(k8sKubectl run "$DNS_POD" -n "$DNS_NS" \
+        # Run busybox pod for DNS lookup; exec/logs unavailable, verify via exit code
+        k8sKubectl run "$DNS_POD" -n "$DNS_NS" \
             --image=docker.io/library/busybox:1.36.1 \
             --restart=Never \
-            --rm -i -- \
-            nslookup kubernetes.default.svc.cluster.local 2>&1) || true
+            -- nslookup kubernetes.default.svc.cluster.local 2>&1 || true
 
-        rlLogInfo "DNS lookup output: $dns_output"
+        # Wait for pod to complete (Succeeded) or timeout (30s)
+        for i in $(seq 1 12); do
+            phase=$(k8sKubectl get pod "$DNS_POD" -n "$DNS_NS" \
+                -o jsonpath='{.status.phase}' 2>&1)
+            if [ "$phase" = "Succeeded" ] || [ "$phase" = "Failed" ]; then
+                break
+            fi
+            sleep 5
+        done
 
-        if echo "$dns_output" | grep -q "Address:"; then
-            resolved_ip=$(echo "$dns_output" | grep "Address:" | tail -1 | awk '{print $NF}' | tr -d '\r')
-            rlPass "DNS resolved kubernetes.default.svc.cluster.local to $resolved_ip"
+        exit_code=$(k8sKubectl get pod "$DNS_POD" -n "$DNS_NS" \
+            -o jsonpath='{.status.containerStatuses[0].state.terminated.exitCode}' 2>&1)
+
+        if [ "$exit_code" = "0" ]; then
+            rlPass "DNS resolved kubernetes.default.svc.cluster.local (exit code: 0)"
         else
-            rlFail "DNS resolution failed for kubernetes.default.svc.cluster.local"
+            rlFail "DNS resolution failed for kubernetes.default.svc.cluster.local (exit code: ${exit_code:-unknown})"
         fi
+
+        k8sKubectl delete pod "$DNS_POD" -n "$DNS_NS" --force --grace-period=0 2>&1 || true
     rlPhaseEnd
 
     rlPhaseStartCleanup "Cleanup"

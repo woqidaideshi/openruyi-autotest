@@ -927,7 +927,9 @@ ExecStart={cfg.k8s_bin_dir}/bin/kube-apiserver \
     --service-account-issuer=https://kubernetes.default.svc.cluster.local \
     --authorization-mode=Node,RBAC \
     --enable-admission-plugins=NodeRestriction \
-    --allow-privileged=true
+    --allow-privileged=true \
+    --kubelet-client-certificate=/etc/kubernetes/pki/admin.crt \
+    --kubelet-client-key=/etc/kubernetes/pki/admin.key
 Restart=always
 LimitNOFILE=65536
 
@@ -1100,7 +1102,10 @@ ExecStart=/usr/local/bin/kubelet \
     --config=/var/lib/kubelet/config.yaml \
     --kubeconfig=/etc/kubernetes/kubelet-{node.hostname}.conf \
     --hostname-override={node.hostname} \
-    --node-ip={node.ip_addr}
+    --node-ip={node.ip_addr} \
+    --client-ca-file=/etc/kubernetes/pki/ca.crt \
+    --anonymous-auth=true \
+    --authorization-mode=AlwaysAllow
 Restart=always
 
 [Install]
@@ -1254,6 +1259,182 @@ chmod 644 /etc/cni/net.d/10-calico.conflist
         "--timeout=180s",
         timeout=300,
     )
+
+    # ---- Deploy CoreDNS (required for cluster DNS resolution) ----
+    # CoreDNS is essential for Service discovery and DNS-based tests.
+    # It uses clusterDNS from kubelet config (cfg.cluster_dns).
+    log.info("Deploying CoreDNS...")
+    master_ssh.exec_script(rf"""cat > /tmp/coredns-deploy.yaml << 'COREEOF'
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: coredns
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    kubernetes.io/bootstrapping: rbac-defaults
+  name: system:coredns
+rules:
+- apiGroups: [""]
+  resources: ["endpoints", "services", "pods", "namespaces"]
+  verbs: ["list", "watch"]
+- apiGroups: ["discovery.k8s.io"]
+  resources: ["endpointslices"]
+  verbs: ["list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    kubernetes.io/bootstrapping: rbac-defaults
+  name: system:coredns
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:coredns
+subjects:
+- kind: ServiceAccount
+  name: coredns
+  namespace: kube-system
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coredns
+  namespace: kube-system
+data:
+  Corefile: |
+    .:53 {{
+        errors
+        health {{
+            lameduck 5s
+        }}
+        ready
+        kubernetes cluster.local in-addr.arpa ip6.arpa {{
+            pods insecure
+            fallthrough in-addr.arpa ip6.arpa
+            ttl 30
+        }}
+        prometheus :9153
+        forward . 114.114.114.114 223.5.5.5 {{
+            max_concurrent 1000
+        }}
+        cache 30
+        loop
+        reload
+        loadbalance
+    }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coredns
+  namespace: kube-system
+  labels:
+    k8s-app: coredns
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      k8s-app: coredns
+  template:
+    metadata:
+      labels:
+        k8s-app: coredns
+    spec:
+      priorityClassName: system-cluster-critical
+      serviceAccountName: coredns
+      tolerations:
+      - key: "CriticalAddonsOnly"
+        operator: "Exists"
+      - operator: "Exists"
+        effect: "NoSchedule"
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+      - name: coredns
+        image: registry.k8s.io/coredns/coredns:v1.13.0
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: 170Mi
+          requests:
+            cpu: 100m
+            memory: 70Mi
+        args: ["-conf", "/etc/coredns/Corefile"]
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/coredns
+          readOnly: true
+        ports:
+        - containerPort: 53
+          name: dns
+          protocol: UDP
+        - containerPort: 53
+          name: dns-tcp
+          protocol: TCP
+        - containerPort: 9153
+          name: metrics
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8181
+            scheme: HTTP
+      dnsPolicy: Default
+      volumes:
+      - name: config-volume
+        configMap:
+          name: coredns
+          items:
+          - key: Corefile
+            path: Corefile
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-dns
+  namespace: kube-system
+  labels:
+    k8s-app: coredns
+    kubernetes.io/cluster-service: "true"
+    kubernetes.io/name: "CoreDNS"
+spec:
+  selector:
+    k8s-app: coredns
+  clusterIP: {cfg.cluster_dns}
+  ports:
+  - name: dns
+    port: 53
+    protocol: UDP
+  - name: dns-tcp
+    port: 53
+    protocol: TCP
+  - name: metrics
+    port: 9153
+    protocol: TCP
+COREEOF""", timeout=120)
+
+    master_ssh.exec("sudo kubectl apply -f /tmp/coredns-deploy.yaml", timeout=120)
+    master_ssh.exec("sudo kubectl -n kube-system rollout status deploy/coredns --timeout=180s || true", timeout=300)
+    master_ssh.exec("sudo rm -f /tmp/coredns-deploy.yaml", timeout=30)
+    log.info("CoreDNS deployed")
 
     log.info("Calico and addons installed!")
     return True
@@ -1566,14 +1747,20 @@ iptables -t nat -A POSTROUTING -s {cfg.bridge_subnet} -j MASQUERADE
         qemu_cmd += f" -smp {qemu_cpu} -m {qemu_memory}G"
         qemu_cmd += " -rtc base=utc,clock=host"
 
-        # BIOS: UEFI with pflash
+        # BIOS: UEFI firmware via -drive if=pflash (NOT -blockdev).
+        # RISC-V virt machine does NOT properly map firmware through
+        # -blockdev node-name=pflash0; use classic -drive if=pflash instead.
+        # Symptom of -blockdev: OpenSBI boots but Domain0 Next Address=0,
+        # UEFI/GRUB never starts.
+        virt_code_path = f"/opt/{virt_code_name}"
+        per_vm_vars_path = f"/opt/{per_vm_vars}"
         qemu_cmd += (
-            f" -blockdev node-name=pflash0,driver=file,read-only=on,"
-            f"filename={virt_code_name}"
+            f" -drive if=pflash,format=raw,unit=0,readonly=on,"
+            f"file={virt_code_path}"
         )
         qemu_cmd += (
-            f" -blockdev node-name=pflash1,driver=file,"
-            f"filename={per_vm_vars}"
+            f" -drive if=pflash,format=raw,unit=1,"
+            f"file={per_vm_vars_path}"
         )
         qemu_cmd += " -cpu rva23s64"
 

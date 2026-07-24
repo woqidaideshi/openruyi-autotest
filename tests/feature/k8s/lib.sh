@@ -261,6 +261,77 @@ k8sGetNodeCount() {
 }
 
 # ============================================================
+# Helper: check if kubectl exec/logs works
+# Some RISC-V K8s clusters have apiserver configured without
+# --kubelet-client-certificate, causing exec/logs to fail with
+# "Unauthorized". Returns 0 if available.
+# ============================================================
+k8sExecAvailable() {
+    # Cache result
+    if [ -n "${K8S_EXEC_AVAILABLE:-}" ]; then
+        return $K8S_EXEC_AVAILABLE
+    fi
+
+    # Try a quick exec on a test pod
+    local ns="default"
+    local test_pod="k8s-exec-check-$$"
+    k8sKubectl run "$test_pod" -n "$ns" \
+        --image=docker.io/library/busybox:1.36.1 \
+        --restart=Never -- sleep 10 2>/dev/null
+
+    # Wait up to 15s for pod to be running
+    for i in $(seq 1 15); do
+        local status
+        status=$(k8sKubectl get pod "$test_pod" -n "$ns" -o jsonpath='{.status.phase}' 2>/dev/null)
+        if [ "$status" = "Running" ]; then
+            break
+        fi
+        sleep 1
+    done
+
+    if k8sKubectl exec "$test_pod" -n "$ns" -- echo ok 2>/dev/null | grep -q ok; then
+        rlLogInfo "kubectl exec: AVAILABLE"
+        K8S_EXEC_AVAILABLE=0
+    else
+        rlLogWarning "kubectl exec/logs NOT available — apiserver kubelet client cert missing"
+        K8S_EXEC_AVAILABLE=1
+    fi
+
+    k8sKubectl delete pod "$test_pod" -n "$ns" --force --grace-period=0 2>/dev/null || true
+    return $K8S_EXEC_AVAILABLE
+}
+
+# ============================================================
+# Helper: check if CoreDNS is deployed in the cluster
+# Returns 0 if available (DNS pod found).
+# ============================================================
+k8sDNSAvailable() {
+    if [ -n "${K8S_DNS_AVAILABLE:-}" ]; then
+        return $K8S_DNS_AVAILABLE
+    fi
+
+    local dns_pods
+    dns_pods=$(k8sKubectl get pods -A -l k8s-app=kube-dns --no-headers 2>/dev/null)
+    if [ -n "$dns_pods" ]; then
+        rlLogInfo "CoreDNS: AVAILABLE"
+        K8S_DNS_AVAILABLE=0
+        return 0
+    fi
+
+    # Also check coredns label variant
+    dns_pods=$(k8sKubectl get pods -A -l k8s-app=coredns --no-headers 2>/dev/null)
+    if [ -n "$dns_pods" ]; then
+        rlLogInfo "CoreDNS: AVAILABLE"
+        K8S_DNS_AVAILABLE=0
+        return 0
+    fi
+
+    rlLogWarning "CoreDNS NOT deployed in this cluster"
+    K8S_DNS_AVAILABLE=1
+    return 1
+}
+
+# ============================================================
 # Helper: check if kata-clh RuntimeClass exists
 # Usage: k8sKataRuntimeAvailable → returns 0 if available
 # ============================================================

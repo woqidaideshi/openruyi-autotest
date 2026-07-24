@@ -66,6 +66,8 @@ kind: Pod
 metadata:
   name: test-pod
   namespace: k8s-feature-test-api-crud
+  labels:
+    app: test-pod
 spec:
   containers:
   - name: pause

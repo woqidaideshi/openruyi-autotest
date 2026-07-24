@@ -35,9 +35,34 @@ spec:
     requests:
       storage: 1Gi
 YAML
+        # local-path-provisioner uses WaitForFirstConsumer; create a consumer Pod to trigger binding
+        k8sApplyYAML <<'YAML'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-consumer
+  namespace: k8s-feature-test-sto-pvc
+  labels:
+    app: pvc-consumer
+spec:
+  containers:
+  - name: writer
+    image: docker.io/library/busybox:1.36.1
+    command: ["sh", "-c", "echo data > /data/test.txt && sleep 3600"]
+    volumeMounts:
+    - name: data-vol
+      mountPath: /data
+  volumes:
+  - name: data-vol
+    persistentVolumeClaim:
+      claimName: test-pvc
+  restartPolicy: Never
+YAML
+        sleep 5
+
         # Wait for PVC to bind
         k8sKubectl wait --for=jsonpath='{.status.phase}'=Bound \
-            pvc/test-pvc -n "$PVC_NS" --timeout=60s 2>/dev/null || true
+            pvc/test-pvc -n "$PVC_NS" --timeout=30s 2>/dev/null || true
 
         pvc_phase=$(k8sKubectl get pvc test-pvc -n "$PVC_NS" \
             -o jsonpath='{.status.phase}' 2>&1)
@@ -50,6 +75,9 @@ YAML
         pv_name=$(k8sKubectl get pvc test-pvc -n "$PVC_NS" \
             -o jsonpath='{.spec.volumeName}' 2>&1)
         rlAssertNotEquals "PV is provisioned" "" "$pv_name"
+
+        # Clean up consumer pod
+        k8sKubectl delete pod pvc-consumer -n "$PVC_NS" --force --grace-period=0 2>&1 || true
     rlPhaseEnd
 
     rlPhaseStartTest "PVC: delete and verify cleanup"

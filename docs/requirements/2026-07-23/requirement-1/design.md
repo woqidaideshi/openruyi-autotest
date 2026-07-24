@@ -1,6 +1,7 @@
 # Design Document: K8s RISC-V 适配 Sonobuoy 等价测试用例开发
 
-> **状态**: Implemented | **创建时间**: 2026-07-23 | **作者**: AI (honghua) | **关联需求**: requirement-1
+> **状态**: Implemented ✅ | **创建时间**: 2026-07-23 | **作者**: AI (honghua) | **关联需求**: requirement-1
+> **自测报告**: [self-test-report.md](./self-test-report.md) — 25/25 100% 通过（2026-07-24）
 
 ---
 
@@ -373,7 +374,7 @@ flowchart LR
 ### 5.1 当前状态
 
 - **实现完成**: 25 个测试脚本 + 11 个 main.fmf + 1 个 lib.sh（2026-07-24）
-- **远程调试**: 待执行（环境 10.20.238.229:12055/12056）
+- **自测完成**: 25/25 100% 通过（2026-07-24），详见 [self-test-report.md](./self-test-report.md)
 
 ### 5.2 执行顺序
 
@@ -408,11 +409,13 @@ tmt run -a feature test --name /test_k8s
 
 ### 5.3 验收方式
 
-- [ ] 每个用例在 12055/12056 环境上单独运行通过
-- [ ] 4 个 Smoke 用例全部 PASS
-- [ ] Kata 用例：支持则 PASS，不支持则 SKIP（并记录原因）
-- [ ] 脚本问题已修复
-- [ ] 环境问题已反馈（修改 `create_k8s_env.py` 或提供修复建议）
+- [x] 每个用例在 12055/12056 环境上单独运行通过
+- [x] 4 个 Smoke 用例全部 PASS
+- [x] Kata 用例：支持则 PASS，不支持则 SKIP（实际 PASS）
+- [x] 脚本问题已修复（4 个脚本修复，详见自测报告）
+- [x] 环境问题已修复（CoreDNS loop）
+
+> 详细自测结果见 [self-test-report.md](./self-test-report.md)
 
 ---
 
@@ -428,7 +431,7 @@ tmt run -a feature test --name /test_k8s
 | 4 | 实现 API + Pod + Workload 组 (6 个) | P1 脚本 | ✅ 完成 |
 | 5 | 实现 Network + Storage 组 (7 个) | P1 脚本 | ✅ 完成 |
 | 6 | 实现 Scheduling + Auth/Config + Kata 组 (8 个) | P2 脚本 | ✅ 完成 |
-| 7 | 远程环境调试 | 所有脚本 PASS/SKIP | ⬜ 待执行 |
+| 7 | 远程环境调试 | 所有脚本 PASS/SKIP | ✅ 完成（25/25 100%） |
 
 ### 6.2 风险与缓解
 

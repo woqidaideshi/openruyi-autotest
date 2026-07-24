@@ -1,6 +1,7 @@
 # 需求文档: K8s RISC-V 适配 Sonobuoy 等价测试用例开发
 
-> **状态**: Confirmed | **创建时间**: 2026-07-23 | **作者**: AI (honghua)
+> **状态**: Confirmed ✅ | **创建时间**: 2026-07-23 | **作者**: AI (honghua)
+> **自测报告**: [self-test-report.md](./self-test-report.md) — 25/25 100% 通过（2026-07-24）
 
 ---
 
@@ -240,13 +241,15 @@ CloudPods 宿主机 (10.20.238.229)
 
 ### 4.3 验收标准
 
-- [ ] 所有用例通过 tmt 框架可以正常执行
-- [ ] 每个用例覆盖的功能点与 Sonobuoy Conformance 测试对齐
-- [ ] Sonobuoy Smoke 级别用例全部通过（研发明确要求）
-- [ ] 测试脚本在 12055/12056 环境上经过实际调试并 PASS
-- [ ] 如发现脚本问题，脚本已修复
-- [ ] 如发现环境问题，`create_k8s_env.py` 已修复
-- [ ] 现有 `tests/feature/k8s/` 下的 8 个草稿脚本已重构合并到新用例
+- [x] 所有用例通过 tmt 框架可以正常执行
+- [x] 每个用例覆盖的功能点与 Sonobuoy Conformance 测试对齐
+- [x] Sonobuoy Smoke 级别用例全部通过（研发明确要求）
+- [x] 测试脚本在 12055/12056 环境上经过实际调试并 PASS
+- [x] 如发现脚本问题，脚本已修复（4 个脚本修复，详见自测报告）
+- [x] 如发现环境问题，CoreDNS loop 已修复
+- [x] 现有 `tests/feature/k8s/` 下的 8 个草稿脚本已重构合并到新用例
+
+> 详细自测结果见 [self-test-report.md](./self-test-report.md)
 
 ---
 
