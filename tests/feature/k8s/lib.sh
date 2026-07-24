@@ -6,11 +6,21 @@
 # connectivity check runs only ONCE across all test cases.
 #
 # Usage in each test file:
-#   . "$(dirname "$0")/../lib.sh"    # from subdirectories
+#   . "$(dirname "$0")/../lib.sh"    # from subdirectories (smoke/, api/, pod/, ...)
 #   . "$(dirname "$0")/lib.sh"       # from k8s/ directory
 #
 # Then call: k8sSetup in rlPhaseStartSetup
 # Cleanup is auto-registered via rlCleanupAppend.
+#
+# New helper functions (v2):
+#   k8sApplyYAML       - apply YAML from string or heredoc
+#   k8sWaitForPodReady - wait until pods with label are Ready
+#   k8sGetPodName      - get first pod name by label
+#   k8sExecInPod       - execute command inside a pod
+#   k8sDeleteResource  - safe delete (ignore not found)
+#   k8sImageExists     - check if image is in containerd
+#   k8sGetNodeCount    - get total Ready node count
+#   k8sKataRuntimeAvailable - check if kata-clh RuntimeClass exists
 
 K8S_FLAG="/tmp/.beakerlib_k8s_feature_suite"
 
@@ -155,4 +165,184 @@ k8sClusterHealthCheck() {
     local running_count
     running_count=$(echo "$pods_output" | grep -c "Running" || true)
     rlLogInfo "Running pods in kube-system: $running_count"
+}
+
+# ============================================================
+# Helper: apply YAML from heredoc or file via kubectl
+# Usage: k8sApplyYAML <<< "$yaml_content"
+#        k8sApplyYAML < file.yaml
+# ============================================================
+k8sApplyYAML() {
+    local yaml_content
+    yaml_content=$(cat)
+    k8sKubectl apply -f - <<< "$yaml_content" 2>&1
+}
+
+# ============================================================
+# Helper: wait for pods matching label to become Ready
+# Usage: k8sWaitForPodReady <namespace> <label-selector> <timeout-seconds>
+# Returns: 0 on success, 1 on timeout
+# ============================================================
+k8sWaitForPodReady() {
+    local ns="$1"
+    local label="$2"
+    local timeout="${3:-120}"
+
+    rlLogInfo "Waiting for pods with label '$label' in ns '$ns' (timeout=${timeout}s)..."
+    k8sKubectl wait --for=condition=Ready pod \
+        -l "$label" \
+        -n "$ns" \
+        --timeout="${timeout}s" 2>&1
+}
+
+# ============================================================
+# Helper: get the first pod name matching a label
+# Usage: pod=$(k8sGetPodName <namespace> <label-selector>)
+# ============================================================
+k8sGetPodName() {
+    local ns="$1"
+    local label="$2"
+
+    k8sKubectl get pods -n "$ns" -l "$label" \
+        -o jsonpath='{.items[0].metadata.name}' 2>&1
+}
+
+# ============================================================
+# Helper: execute command inside a pod
+# Usage: k8sExecInPod <namespace> <pod-name> -- <command...>
+#        k8sExecInPod <namespace> <pod-name> "command string"
+# ============================================================
+k8sExecInPod() {
+    local ns="$1"
+    local pod="$2"
+    shift 2
+
+    k8sKubectl exec -n "$ns" "$pod" -- "$@" 2>&1
+}
+
+# ============================================================
+# Helper: safe delete (ignore if resource doesn't exist)
+# Usage: k8sDeleteResource <type> <name> [-n <namespace>]
+# ============================================================
+k8sDeleteResource() {
+    local type="$1"
+    local name="$2"
+    shift 2
+
+    k8sKubectl delete "$type" "$name" "$@" --ignore-not-found=true --timeout=60s 2>&1 || true
+}
+
+# ============================================================
+# Helper: check if an image exists in containerd
+# Usage: k8sImageExists "busybox:1.36.1" → returns 0 if exists
+# ============================================================
+k8sImageExists() {
+    local image="$1"
+    local result
+
+    result=$(_k8sMasterSSH "sudo ctr -n k8s.io images ls -q 2>/dev/null | grep -F '$image'" 2>/dev/null)
+    if [ -n "$result" ]; then
+        rlLogInfo "Image '$image' found in containerd"
+        return 0
+    else
+        rlLogWarning "Image '$image' NOT found in containerd"
+        return 1
+    fi
+}
+
+# ============================================================
+# Helper: get the number of Ready nodes in the cluster
+# Usage: count=$(k8sGetNodeCount)
+# ============================================================
+k8sGetNodeCount() {
+    local count
+    count=$(k8sKubectl get nodes --no-headers 2>/dev/null | grep -c "Ready" || echo "0")
+    echo "$count" | tr -d ' '
+}
+
+# ============================================================
+# Helper: check if kubectl exec/logs works
+# Some RISC-V K8s clusters have apiserver configured without
+# --kubelet-client-certificate, causing exec/logs to fail with
+# "Unauthorized". Returns 0 if available.
+# ============================================================
+k8sExecAvailable() {
+    # Cache result
+    if [ -n "${K8S_EXEC_AVAILABLE:-}" ]; then
+        return $K8S_EXEC_AVAILABLE
+    fi
+
+    # Try a quick exec on a test pod
+    local ns="default"
+    local test_pod="k8s-exec-check-$$"
+    k8sKubectl run "$test_pod" -n "$ns" \
+        --image=docker.io/library/busybox:1.36.1 \
+        --restart=Never -- sleep 10 2>/dev/null
+
+    # Wait up to 15s for pod to be running
+    for i in $(seq 1 15); do
+        local status
+        status=$(k8sKubectl get pod "$test_pod" -n "$ns" -o jsonpath='{.status.phase}' 2>/dev/null)
+        if [ "$status" = "Running" ]; then
+            break
+        fi
+        sleep 1
+    done
+
+    if k8sKubectl exec "$test_pod" -n "$ns" -- echo ok 2>/dev/null | grep -q ok; then
+        rlLogInfo "kubectl exec: AVAILABLE"
+        K8S_EXEC_AVAILABLE=0
+    else
+        rlLogWarning "kubectl exec/logs NOT available — apiserver kubelet client cert missing"
+        K8S_EXEC_AVAILABLE=1
+    fi
+
+    k8sKubectl delete pod "$test_pod" -n "$ns" --force --grace-period=0 2>/dev/null || true
+    return $K8S_EXEC_AVAILABLE
+}
+
+# ============================================================
+# Helper: check if CoreDNS is deployed in the cluster
+# Returns 0 if available (DNS pod found).
+# ============================================================
+k8sDNSAvailable() {
+    if [ -n "${K8S_DNS_AVAILABLE:-}" ]; then
+        return $K8S_DNS_AVAILABLE
+    fi
+
+    local dns_pods
+    dns_pods=$(k8sKubectl get pods -A -l k8s-app=kube-dns --no-headers 2>/dev/null)
+    if [ -n "$dns_pods" ]; then
+        rlLogInfo "CoreDNS: AVAILABLE"
+        K8S_DNS_AVAILABLE=0
+        return 0
+    fi
+
+    # Also check coredns label variant
+    dns_pods=$(k8sKubectl get pods -A -l k8s-app=coredns --no-headers 2>/dev/null)
+    if [ -n "$dns_pods" ]; then
+        rlLogInfo "CoreDNS: AVAILABLE"
+        K8S_DNS_AVAILABLE=0
+        return 0
+    fi
+
+    rlLogWarning "CoreDNS NOT deployed in this cluster"
+    K8S_DNS_AVAILABLE=1
+    return 1
+}
+
+# ============================================================
+# Helper: check if kata-clh RuntimeClass exists
+# Usage: k8sKataRuntimeAvailable → returns 0 if available
+# ============================================================
+k8sKataRuntimeAvailable() {
+    local result
+    result=$(k8sKubectl get runtimeclass kata-clh -o name 2>/dev/null)
+    if [ -n "$result" ]; then
+        rlLogInfo "RuntimeClass 'kata-clh' found"
+        return 0
+    else
+        rlLogWarning "RuntimeClass 'kata-clh' NOT found — Kata containers not available"
+        return 1
+    fi
 }
