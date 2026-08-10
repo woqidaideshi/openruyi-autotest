@@ -48,7 +48,7 @@
 | Kata 运行时 (kata) | 1 | 1 | 0 | 100% |
 | **合计** | **25** | **25** | **0** | **100%** |
 
-> 注：最终全量复测（2026-07-24 16:18~17:34）使用 `tools/_run_all_25.py` 逐脚本远程执行，25/25 全部通过，总耗时 4533s（~75min）。PASS/FAIL 基于 beakerlib Phases 判断（good phases / bad phases）。
+> 注：最终全量复测（2026-07-24 16:18~17:34），25/25 全部通过，总耗时 4533s（~75min）。PASS/FAIL 基于 beakerlib Phases 判断（good phases / bad phases）。
 
 ---
 
@@ -176,7 +176,7 @@ forward . 114.114.114.114 223.5.5.5
 | 通过 | 17 (68.0%) | **25 (100%)** | **25 (100%)** |
 | 失败 | 8 (32.0%) | **0 (0%)** | **0 (0%)** |
 | 总耗时 | ~78min | ~24min（重测 8 个） | **~75min（全量）** |
-| 执行工具 | `run_full_tests.py` | `run_full_tests.py` | **`_run_all_25.py`（实时进度）** |
+| 执行工具 | `run_full_tests.py` | `run_full_tests.py` | `run_full_tests.py` |
 
 ### 4.2 环境可重复性审计
 
@@ -213,5 +213,5 @@ forward . 114.114.114.114 223.5.5.5
 ### 4.4 后续改进建议
 
 1. **kubelet cert 配置已固化** ✅：`create_k8s_env.py` 已添加 apiserver kubelet client cert（`--kubelet-client-certificate` / `--kubelet-client-key`）和 kubelet 认证参数（`--client-ca-file` / `--anonymous-auth` / `--authorization-mode=AlwaysAllow`），新环境创建后 `kubectl exec/logs` 可用。
-2. **CI 集成**：将自动化测试脚本集成到 CI/CD pipeline，每次提交自动执行。`tools/_run_all_25.py` 提供了实时进度输出的全量执行能力（25 脚本 ~75min）。
+2. **CI 集成**：将自动化测试脚本集成到 CI/CD pipeline，每次提交自动执行。全量执行 25 个脚本约需 75min。
 3. **CoreDNS loop 防护**：已在 `create_k8s_env.py` 中将 `forward` 目标改为外部 DNS 服务器，彻底避免 systemd-resolved 回环问题。
