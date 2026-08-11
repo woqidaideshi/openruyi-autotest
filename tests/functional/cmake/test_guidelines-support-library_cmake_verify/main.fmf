@@ -1,0 +1,15 @@
+summary: Functional test - guidelines-support-library cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - guidelines-support-library
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_guidelines-support-library_cmake_verify
+require:
+  - guidelines-support-library
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

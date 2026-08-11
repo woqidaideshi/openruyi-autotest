@@ -1,0 +1,15 @@
+summary: Functional test - rinutils-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - rinutils
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rinutils-devel_cmake_verify
+require:
+  - rinutils-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

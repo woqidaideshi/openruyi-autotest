@@ -1,0 +1,15 @@
+summary: Functional test - rocm-device-libs cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - rocm-device-libs
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rocm-device-libs_cmake_verify
+require:
+  - rocm-device-libs
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

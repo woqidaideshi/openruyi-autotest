@@ -1,0 +1,15 @@
+summary: Functional test - kf6-kdeclarative-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - kf6-kdeclarative
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_kf6-kdeclarative-devel_cmake_verify
+require:
+  - kf6-kdeclarative-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

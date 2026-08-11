@@ -1,0 +1,23 @@
+summary: Functional test - qt6-qtbase-private-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - qt6-qtbase-private
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_qt6-qtbase-private-devel_cmake_verify
+require:
+  - qt6-qtbase-private-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++
+  - qt6-qtbase-static
+  - mtdev-devel
+  - wayland-devel
+  - xcb-util-cursor-devel
+  - xcb-util-wm-devel
+  - xcb-util-keysyms-devel
+  - xcb-util-image-devel
+  - xcb-util-renderutil-devel

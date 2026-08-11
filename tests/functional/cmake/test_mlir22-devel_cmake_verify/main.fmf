@@ -1,0 +1,15 @@
+summary: Functional test - mlir22-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - mlir22
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_mlir22-devel_cmake_verify
+require:
+  - mlir22-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

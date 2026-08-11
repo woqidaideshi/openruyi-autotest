@@ -1,0 +1,16 @@
+summary: Functional test - libjpeg-turbo-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - libjpeg-turbo
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_libjpeg-turbo-devel_cmake_verify
+require:
+  - libjpeg-turbo-devel
+  - turbojpeg
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

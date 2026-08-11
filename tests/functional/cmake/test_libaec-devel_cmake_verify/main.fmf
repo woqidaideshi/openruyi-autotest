@@ -1,0 +1,15 @@
+summary: Functional test - libaec-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - libaec
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_libaec-devel_cmake_verify
+require:
+  - libaec-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

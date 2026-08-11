@@ -1,0 +1,16 @@
+summary: Functional test - qt6-qtdeclarative-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - qt6-qtdeclarative
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_qt6-qtdeclarative-devel_cmake_verify
+require:
+  - qt6-qtdeclarative-devel
+  - qt6-qtdeclarative-static
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

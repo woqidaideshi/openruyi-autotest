@@ -1,0 +1,15 @@
+summary: Functional test - kf6-kparts-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - kf6-kparts
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_kf6-kparts-devel_cmake_verify
+require:
+  - kf6-kparts-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

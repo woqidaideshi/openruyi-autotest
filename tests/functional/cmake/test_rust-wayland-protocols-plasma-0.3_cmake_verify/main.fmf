@@ -1,0 +1,17 @@
+summary: Functional test - rust-wayland-protocols-plasma-0.3 cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - cargo
+  - rust-wayland-protocols-plasma-0.3
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rust-wayland-protocols-plasma-0.3_cmake_verify
+require:
+  - rust-wayland-protocols-plasma-0.3
+  - cmake
+  - gcc
+  - beakerlib
+  - rust
+  - cargo

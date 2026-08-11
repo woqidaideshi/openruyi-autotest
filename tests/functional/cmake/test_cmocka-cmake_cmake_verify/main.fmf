@@ -1,0 +1,15 @@
+summary: Functional test - cmocka-cmake cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - cmocka-cmake
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_cmocka-cmake_cmake_verify
+require:
+  - cmocka-cmake
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

@@ -1,0 +1,15 @@
+summary: Functional test - breeze-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - breeze
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_breeze-devel_cmake_verify
+require:
+  - breeze-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

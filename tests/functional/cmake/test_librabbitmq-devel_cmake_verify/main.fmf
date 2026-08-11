@@ -1,0 +1,15 @@
+summary: Functional test - librabbitmq-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - librabbitmq
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_librabbitmq-devel_cmake_verify
+require:
+  - librabbitmq-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

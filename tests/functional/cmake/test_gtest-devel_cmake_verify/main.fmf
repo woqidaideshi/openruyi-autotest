@@ -1,0 +1,15 @@
+summary: Functional test - gtest-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - gtest
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_gtest-devel_cmake_verify
+require:
+  - gtest-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

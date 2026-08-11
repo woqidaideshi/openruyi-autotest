@@ -1,0 +1,15 @@
+summary: Functional test - zlib-ng-compat-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - zlib-ng-compat
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_zlib-ng-compat-devel_cmake_verify
+require:
+  - zlib-ng-compat-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

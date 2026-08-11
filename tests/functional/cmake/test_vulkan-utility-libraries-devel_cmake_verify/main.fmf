@@ -1,0 +1,15 @@
+summary: Functional test - vulkan-utility-libraries-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - vulkan-utility-libraries
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_vulkan-utility-libraries-devel_cmake_verify
+require:
+  - vulkan-utility-libraries-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

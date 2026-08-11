@@ -1,0 +1,15 @@
+summary: Functional test - abseil-cpp-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - abseil-cpp
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_abseil-cpp-devel_cmake_verify
+require:
+  - abseil-cpp-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

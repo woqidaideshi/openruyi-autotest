@@ -1,0 +1,15 @@
+summary: Functional test - libsocket_wrapper_noop-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - libsocket_wrapper_noop
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_libsocket_wrapper_noop-devel_cmake_verify
+require:
+  - libsocket_wrapper_noop-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

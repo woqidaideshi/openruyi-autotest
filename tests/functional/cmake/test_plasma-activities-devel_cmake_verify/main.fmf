@@ -1,0 +1,15 @@
+summary: Functional test - plasma-activities-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - plasma-activities
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_plasma-activities-devel_cmake_verify
+require:
+  - plasma-activities-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

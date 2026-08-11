@@ -1,0 +1,17 @@
+summary: Functional test - rust-cbindgen-0.29 cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - cargo
+  - rust-cbindgen-0.29
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rust-cbindgen-0.29_cmake_verify
+require:
+  - rust-cbindgen-0.29
+  - cmake
+  - gcc
+  - beakerlib
+  - rust
+  - cargo

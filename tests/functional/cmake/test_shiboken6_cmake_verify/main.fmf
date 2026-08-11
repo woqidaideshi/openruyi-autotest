@@ -1,0 +1,15 @@
+summary: Functional test - shiboken6 cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - shiboken6
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_shiboken6_cmake_verify
+require:
+  - shiboken6
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

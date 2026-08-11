@@ -1,0 +1,15 @@
+summary: Functional test - polkit-qt-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - polkit-qt
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_polkit-qt-devel_cmake_verify
+require:
+  - polkit-qt-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

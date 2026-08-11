@@ -1,0 +1,15 @@
+summary: Functional test - harfbuzz-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - harfbuzz
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_harfbuzz-devel_cmake_verify
+require:
+  - harfbuzz-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

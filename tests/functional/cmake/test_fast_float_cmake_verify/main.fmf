@@ -1,0 +1,15 @@
+summary: Functional test - fast_float cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - fast_float
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_fast_float_cmake_verify
+require:
+  - fast_float
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

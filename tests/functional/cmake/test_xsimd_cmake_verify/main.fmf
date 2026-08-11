@@ -1,0 +1,15 @@
+summary: Functional test - xsimd cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - xsimd
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_xsimd_cmake_verify
+require:
+  - xsimd
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

@@ -1,0 +1,15 @@
+summary: Functional test - baloo-widgets-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - baloo-widgets
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_baloo-widgets-devel_cmake_verify
+require:
+  - baloo-widgets-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

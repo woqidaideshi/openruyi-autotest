@@ -1,0 +1,15 @@
+summary: Functional test - uid_wrapper cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - uid_wrapper
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_uid_wrapper_cmake_verify
+require:
+  - uid_wrapper
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

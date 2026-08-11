@@ -1,0 +1,16 @@
+summary: Functional test - SDL2-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - SDL2
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_sdl2-devel_cmake_verify
+require:
+  - SDL2-devel
+  - SDL2-static
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

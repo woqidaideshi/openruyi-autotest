@@ -1,0 +1,18 @@
+summary: Functional test - konqueror-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - konqueror
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_konqueror-devel_cmake_verify
+require:
+  - konqueror-devel
+  - kf6-kxmlgui-devel
+  - kf6-kio-devel
+  - kf6-kparts-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

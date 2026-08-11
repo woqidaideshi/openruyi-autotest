@@ -1,0 +1,15 @@
+summary: Functional test - rocprim-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - rocprim
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rocprim-devel_cmake_verify
+require:
+  - rocprim-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

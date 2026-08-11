@@ -1,0 +1,15 @@
+summary: Functional test - portaudio-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - portaudio
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_portaudio-devel_cmake_verify
+require:
+  - portaudio-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

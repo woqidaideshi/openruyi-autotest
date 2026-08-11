@@ -1,0 +1,15 @@
+summary: Functional test - doctest cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - doctest
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_doctest_cmake_verify
+require:
+  - doctest
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

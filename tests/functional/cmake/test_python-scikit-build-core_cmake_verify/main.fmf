@@ -1,0 +1,13 @@
+summary: Functional test - python-scikit-build-core cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - python-scikit-build-core
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_python-scikit-build-core_cmake_verify
+require:
+  - python-scikit-build-core
+  - cmake
+  - beakerlib

@@ -1,0 +1,15 @@
+summary: Functional test - kf6-solid-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - kf6-solid
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_kf6-solid-devel_cmake_verify
+require:
+  - kf6-solid-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

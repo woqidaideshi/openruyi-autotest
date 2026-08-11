@@ -1,0 +1,15 @@
+summary: Functional test - rocm-smi-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - rocm-smi
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rocm-smi-devel_cmake_verify
+require:
+  - rocm-smi-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

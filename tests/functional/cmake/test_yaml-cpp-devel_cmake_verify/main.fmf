@@ -1,0 +1,15 @@
+summary: Functional test - yaml-cpp-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - yaml-cpp
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_yaml-cpp-devel_cmake_verify
+require:
+  - yaml-cpp-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

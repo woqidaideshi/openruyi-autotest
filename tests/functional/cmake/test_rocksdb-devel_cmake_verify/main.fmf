@@ -1,0 +1,15 @@
+summary: Functional test - rocksdb-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - rocksdb
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rocksdb-devel_cmake_verify
+require:
+  - rocksdb-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

@@ -1,0 +1,15 @@
+summary: Functional test - eigen3 cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - eigen3
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_eigen3_cmake_verify
+require:
+  - eigen3
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

@@ -1,0 +1,15 @@
+summary: Functional test - lttng-ust-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - lttng-ust
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_lttng-ust-devel_cmake_verify
+require:
+  - lttng-ust-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

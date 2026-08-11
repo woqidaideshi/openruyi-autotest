@@ -1,0 +1,15 @@
+summary: Functional test - openjpeg-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - openjpeg
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_openjpeg-devel_cmake_verify
+require:
+  - openjpeg-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

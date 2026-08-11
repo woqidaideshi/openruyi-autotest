@@ -1,0 +1,15 @@
+summary: Functional test - date-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - date
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_date-devel_cmake_verify
+require:
+  - date-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

@@ -1,0 +1,16 @@
+summary: Functional test - rocm-hip-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - rocm-hip
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rocm-hip-devel_cmake_verify
+require:
+  - rocm-hip-devel
+  - compiler-rt
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

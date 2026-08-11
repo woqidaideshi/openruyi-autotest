@@ -1,0 +1,15 @@
+summary: Functional test - thrift-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - thrift
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_thrift-devel_cmake_verify
+require:
+  - thrift-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

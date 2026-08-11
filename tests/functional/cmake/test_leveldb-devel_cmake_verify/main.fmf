@@ -1,0 +1,15 @@
+summary: Functional test - leveldb-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - leveldb
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_leveldb-devel_cmake_verify
+require:
+  - leveldb-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

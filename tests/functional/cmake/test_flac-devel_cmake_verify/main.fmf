@@ -1,0 +1,15 @@
+summary: Functional test - flac-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - flac
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_flac-devel_cmake_verify
+require:
+  - flac-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

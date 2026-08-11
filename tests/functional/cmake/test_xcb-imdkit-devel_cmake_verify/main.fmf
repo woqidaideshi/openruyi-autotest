@@ -1,0 +1,15 @@
+summary: Functional test - xcb-imdkit-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - xcb-imdkit
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_xcb-imdkit-devel_cmake_verify
+require:
+  - xcb-imdkit-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

@@ -1,0 +1,15 @@
+summary: Functional test - kdsoap-ws-discovery-client-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - kdsoap-ws-discovery-client
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_kdsoap-ws-discovery-client-devel_cmake_verify
+require:
+  - kdsoap-ws-discovery-client-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

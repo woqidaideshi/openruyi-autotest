@@ -1,0 +1,15 @@
+summary: Functional test - c-ares-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - c-ares
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_c-ares-devel_cmake_verify
+require:
+  - c-ares-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

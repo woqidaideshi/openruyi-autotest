@@ -1,0 +1,16 @@
+summary: Functional test - draco-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - draco
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_draco-devel_cmake_verify
+require:
+  - draco-devel
+  - draco-static
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

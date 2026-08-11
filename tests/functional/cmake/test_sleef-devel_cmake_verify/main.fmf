@@ -1,0 +1,17 @@
+summary: Functional test - sleef-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - sleef
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_sleef-devel_cmake_verify
+require:
+  - sleef-devel
+  - sleef-gnuabi
+  - sleef-quad
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

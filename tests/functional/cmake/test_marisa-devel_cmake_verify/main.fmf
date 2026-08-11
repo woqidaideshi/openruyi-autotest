@@ -1,0 +1,15 @@
+summary: Functional test - marisa-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - marisa
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_marisa-devel_cmake_verify
+require:
+  - marisa-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

@@ -1,0 +1,15 @@
+summary: Functional test - pulseaudio-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - pulseaudio
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_pulseaudio-devel_cmake_verify
+require:
+  - pulseaudio-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

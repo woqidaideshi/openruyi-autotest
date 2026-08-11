@@ -1,0 +1,13 @@
+﻿summary: Functional test - cmake export integrity verification
+tag:
+  - functional
+  - cmake
+  - cmake_verify
+duration: 10m
+tier: 1
+path: /tests/functional/cmake
+require:
+  - cmake
+  - gcc
+  - gcc-c++
+  - beakerlib

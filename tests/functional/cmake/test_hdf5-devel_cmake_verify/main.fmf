@@ -1,0 +1,15 @@
+summary: Functional test - hdf5-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - hdf5
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_hdf5-devel_cmake_verify
+require:
+  - hdf5-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

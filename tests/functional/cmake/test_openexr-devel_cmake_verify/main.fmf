@@ -1,0 +1,15 @@
+summary: Functional test - openexr-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - openexr
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_openexr-devel_cmake_verify
+require:
+  - openexr-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

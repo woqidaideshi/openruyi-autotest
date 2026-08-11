@@ -1,0 +1,15 @@
+summary: Functional test - uchardet-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - uchardet
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_uchardet-devel_cmake_verify
+require:
+  - uchardet-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

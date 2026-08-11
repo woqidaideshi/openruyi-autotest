@@ -1,0 +1,18 @@
+summary: Functional test - rust-aws-lc-sys-0.41 cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - cargo
+  - rust-aws-lc-sys-0.41
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rust-aws-lc-sys-0.41_cmake_verify
+require:
+  - rust-aws-lc-sys-0.41
+  - cmake
+  - gcc
+  - beakerlib
+  - rust
+  - cargo
+  - bindgen

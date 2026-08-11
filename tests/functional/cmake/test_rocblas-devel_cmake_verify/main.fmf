@@ -1,0 +1,15 @@
+summary: Functional test - rocblas-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - rocblas
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rocblas-devel_cmake_verify
+require:
+  - rocblas-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

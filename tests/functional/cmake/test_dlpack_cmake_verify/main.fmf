@@ -1,0 +1,15 @@
+summary: Functional test - dlpack cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - dlpack
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_dlpack_cmake_verify
+require:
+  - dlpack
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

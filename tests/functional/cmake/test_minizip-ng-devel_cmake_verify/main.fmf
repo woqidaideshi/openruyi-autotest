@@ -1,0 +1,16 @@
+summary: Functional test - minizip-ng-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - minizip-ng
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_minizip-ng-devel_cmake_verify
+require:
+  - minizip-ng-devel
+  - zstd-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

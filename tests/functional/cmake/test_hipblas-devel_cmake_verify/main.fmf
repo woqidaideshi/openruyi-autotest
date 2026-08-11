@@ -1,0 +1,15 @@
+summary: Functional test - hipblas-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - hipblas
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_hipblas-devel_cmake_verify
+require:
+  - hipblas-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

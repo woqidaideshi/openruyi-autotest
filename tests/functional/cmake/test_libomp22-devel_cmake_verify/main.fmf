@@ -1,0 +1,15 @@
+summary: Functional test - libomp22-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - libomp22
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_libomp22-devel_cmake_verify
+require:
+  - libomp22-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

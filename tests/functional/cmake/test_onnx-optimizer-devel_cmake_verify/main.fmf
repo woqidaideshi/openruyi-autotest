@@ -1,0 +1,15 @@
+summary: Functional test - onnx-optimizer-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - onnx-optimizer
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_onnx-optimizer-devel_cmake_verify
+require:
+  - onnx-optimizer-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

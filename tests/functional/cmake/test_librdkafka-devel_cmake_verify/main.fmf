@@ -1,0 +1,16 @@
+summary: Functional test - librdkafka-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - librdkafka
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_librdkafka-devel_cmake_verify
+require:
+  - librdkafka-devel
+  - lz4-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

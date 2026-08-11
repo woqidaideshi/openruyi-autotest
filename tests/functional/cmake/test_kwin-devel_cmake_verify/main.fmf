@@ -1,0 +1,20 @@
+summary: Functional test - kwin-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - kwin
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_kwin-devel_cmake_verify
+require:
+  - kwin-devel
+  - kf6-kconfig-devel
+  - kf6-kcoreaddons-devel
+  - kf6-kwindowsystem-devel
+  - wayland-devel
+  - vulkan-loader-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

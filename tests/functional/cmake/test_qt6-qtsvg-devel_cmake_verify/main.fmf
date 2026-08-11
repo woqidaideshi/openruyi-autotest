@@ -1,0 +1,15 @@
+summary: Functional test - qt6-qtsvg-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - qt6-qtsvg
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_qt6-qtsvg-devel_cmake_verify
+require:
+  - qt6-qtsvg-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

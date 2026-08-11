@@ -1,0 +1,16 @@
+summary: Functional test - flang22 cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - flang22
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_flang22_cmake_verify
+require:
+  - flang22
+  - flang22-static
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

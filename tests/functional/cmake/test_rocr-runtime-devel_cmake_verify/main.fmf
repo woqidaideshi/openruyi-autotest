@@ -1,0 +1,15 @@
+summary: Functional test - rocr-runtime-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - rocr-runtime
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rocr-runtime-devel_cmake_verify
+require:
+  - rocr-runtime-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

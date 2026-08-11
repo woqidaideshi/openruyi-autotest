@@ -1,0 +1,15 @@
+summary: Functional test - utf8cpp cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - utf8cpp
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_utf8cpp_cmake_verify
+require:
+  - utf8cpp
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

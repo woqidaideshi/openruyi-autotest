@@ -1,0 +1,15 @@
+summary: Functional test - z3-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - z3
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_z3-devel_cmake_verify
+require:
+  - z3-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

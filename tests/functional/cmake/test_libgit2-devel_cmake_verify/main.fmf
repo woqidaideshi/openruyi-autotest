@@ -1,0 +1,15 @@
+summary: Functional test - libgit2-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - libgit2
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_libgit2-devel_cmake_verify
+require:
+  - libgit2-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

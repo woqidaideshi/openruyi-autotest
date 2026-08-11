@@ -1,0 +1,15 @@
+summary: Functional test - highway-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - highway
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_highway-devel_cmake_verify
+require:
+  - highway-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

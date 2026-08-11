@@ -1,0 +1,15 @@
+summary: Functional test - graphite2-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - note
+  - graphite2
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_graphite2-devel_cmake_verify
+require:
+  - graphite2-devel
+  - cmake
+  - gcc
+  - beakerlib

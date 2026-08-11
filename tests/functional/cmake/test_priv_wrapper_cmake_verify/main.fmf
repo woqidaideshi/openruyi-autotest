@@ -1,0 +1,15 @@
+summary: Functional test - priv_wrapper cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - priv_wrapper
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_priv_wrapper_cmake_verify
+require:
+  - priv_wrapper
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

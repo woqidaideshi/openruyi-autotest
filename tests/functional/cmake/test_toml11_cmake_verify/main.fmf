@@ -1,0 +1,15 @@
+summary: Functional test - toml11 cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - toml11
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_toml11_cmake_verify
+require:
+  - toml11
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

@@ -1,0 +1,15 @@
+summary: Functional test - qca-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - qca
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_qca-devel_cmake_verify
+require:
+  - qca-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

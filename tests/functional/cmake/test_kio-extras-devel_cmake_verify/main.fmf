@@ -1,0 +1,15 @@
+summary: Functional test - kio-extras-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - kio-extras
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_kio-extras-devel_cmake_verify
+require:
+  - kio-extras-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++
