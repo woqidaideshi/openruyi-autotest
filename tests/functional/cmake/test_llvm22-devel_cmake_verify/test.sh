@@ -19,7 +19,6 @@ PKG="llvm22-devel"
 
 rlJournalStart
     rlPhaseStartSetup "Environment Setup"
-        llvm22Setup
         TmpDir=$(mktemp -d)
         rlRun "cd $TmpDir" 0 "Enter temporary test directory"
 
