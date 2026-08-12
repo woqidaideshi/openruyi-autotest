@@ -160,7 +160,11 @@ project(cmake_verify
   VERSION "0.1"
   LANGUAGES C CXX)
 
-find_package(Qt6declarative_remoteobjects REQUIRED CONFIG)
+find_package(Qt6 REQUIRED CONFIG)
+find_package(Qt6declarative_remoteobjects CONFIG
+  PATHS /usr/lib64/cmake/Qt6Qml/QmlPlugins
+  NO_DEFAULT_PATH
+)
 
 message(STATUS "find_package(Qt6declarative_remoteobjects) succeeded")
 EOF
