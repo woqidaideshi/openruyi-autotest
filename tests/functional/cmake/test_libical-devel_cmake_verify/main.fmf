@@ -1,0 +1,16 @@
+summary: Functional test - libical-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - libical
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_libical-devel_cmake_verify
+require:
+  - libical-devel
+  - libical-glib
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

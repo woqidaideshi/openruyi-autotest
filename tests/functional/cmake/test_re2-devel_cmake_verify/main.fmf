@@ -1,0 +1,15 @@
+summary: Functional test - re2-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - re2
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_re2-devel_cmake_verify
+require:
+  - re2-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

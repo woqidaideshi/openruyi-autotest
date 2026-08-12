@@ -1,0 +1,15 @@
+summary: Functional test - plasma5support-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - plasma5support
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_plasma5support-devel_cmake_verify
+require:
+  - plasma5support-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

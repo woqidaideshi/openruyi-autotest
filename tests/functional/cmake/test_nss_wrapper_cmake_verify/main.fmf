@@ -1,0 +1,15 @@
+summary: Functional test - nss_wrapper cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - nss_wrapper
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_nss_wrapper_cmake_verify
+require:
+  - nss_wrapper
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

@@ -1,0 +1,15 @@
+summary: Functional test - kf6-kwallet-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - kf6-kwallet
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_kf6-kwallet-devel_cmake_verify
+require:
+  - kf6-kwallet-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

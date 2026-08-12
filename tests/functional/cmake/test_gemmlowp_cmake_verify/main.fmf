@@ -1,0 +1,15 @@
+summary: Functional test - gemmlowp cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - gemmlowp
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_gemmlowp_cmake_verify
+require:
+  - gemmlowp
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

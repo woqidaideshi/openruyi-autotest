@@ -1,0 +1,15 @@
+summary: Functional test - plasma-wayland-protocols cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - plasma-wayland-protocols
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_plasma-wayland-protocols_cmake_verify
+require:
+  - plasma-wayland-protocols
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

@@ -1,0 +1,15 @@
+summary: Functional test - ddcutil-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - ddcutil
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_ddcutil-devel_cmake_verify
+require:
+  - ddcutil-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

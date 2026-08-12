@@ -1,0 +1,16 @@
+summary: Functional test - calamares-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - calamares
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_calamares-devel_cmake_verify
+require:
+  - calamares-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++
+  - qt6-linguist

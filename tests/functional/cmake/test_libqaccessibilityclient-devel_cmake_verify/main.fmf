@@ -1,0 +1,15 @@
+summary: Functional test - libqaccessibilityclient-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - libqaccessibilityclient
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_libqaccessibilityclient-devel_cmake_verify
+require:
+  - libqaccessibilityclient-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

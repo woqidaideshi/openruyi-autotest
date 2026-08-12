@@ -1,0 +1,15 @@
+summary: Functional test - nghttp3-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - nghttp3
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_nghttp3-devel_cmake_verify
+require:
+  - nghttp3-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

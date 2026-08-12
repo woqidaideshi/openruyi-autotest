@@ -1,0 +1,15 @@
+summary: Functional test - msgpack-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - msgpack
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_msgpack-devel_cmake_verify
+require:
+  - msgpack-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

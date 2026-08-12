@@ -1,0 +1,15 @@
+summary: Functional test - onnx-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - onnx
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_onnx-devel_cmake_verify
+require:
+  - onnx-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

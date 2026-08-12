@@ -1,0 +1,15 @@
+summary: Functional test - plasma-workspace-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - plasma-workspace
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_plasma-workspace-devel_cmake_verify
+require:
+  - plasma-workspace-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

@@ -1,0 +1,15 @@
+summary: Functional test - sdbus-cpp-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - sdbus-cpp
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_sdbus-cpp-devel_cmake_verify
+require:
+  - sdbus-cpp-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

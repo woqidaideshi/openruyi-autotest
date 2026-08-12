@@ -1,0 +1,15 @@
+summary: Functional test - log4cxx-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - log4cxx
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_log4cxx-devel_cmake_verify
+require:
+  - log4cxx-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

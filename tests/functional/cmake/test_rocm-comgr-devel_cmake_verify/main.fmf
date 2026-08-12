@@ -1,0 +1,15 @@
+summary: Functional test - rocm-comgr-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - rocm-comgr
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rocm-comgr-devel_cmake_verify
+require:
+  - rocm-comgr-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

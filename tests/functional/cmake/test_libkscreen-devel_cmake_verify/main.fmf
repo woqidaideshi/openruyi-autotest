@@ -1,0 +1,15 @@
+summary: Functional test - libkscreen-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - libkscreen
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_libkscreen-devel_cmake_verify
+require:
+  - libkscreen-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

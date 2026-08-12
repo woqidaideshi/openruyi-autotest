@@ -1,0 +1,15 @@
+summary: Functional test - magic_enum cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - magic_enum
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_magic_enum_cmake_verify
+require:
+  - magic_enum
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

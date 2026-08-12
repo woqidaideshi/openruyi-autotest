@@ -1,0 +1,17 @@
+summary: Functional test - rust-cargo-xwin-0.22 cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - cargo
+  - rust-cargo-xwin-0.22
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rust-cargo-xwin-0.22_cmake_verify
+require:
+  - rust-cargo-xwin-0.22
+  - cmake
+  - gcc
+  - beakerlib
+  - rust
+  - cargo

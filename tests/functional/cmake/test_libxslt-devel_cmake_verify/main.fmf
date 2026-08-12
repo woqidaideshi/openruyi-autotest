@@ -1,0 +1,15 @@
+summary: Functional test - libxslt-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - libxslt
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_libxslt-devel_cmake_verify
+require:
+  - libxslt-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

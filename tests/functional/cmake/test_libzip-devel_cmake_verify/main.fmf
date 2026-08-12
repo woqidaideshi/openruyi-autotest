@@ -1,0 +1,15 @@
+summary: Functional test - libzip-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - libzip
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_libzip-devel_cmake_verify
+require:
+  - libzip-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

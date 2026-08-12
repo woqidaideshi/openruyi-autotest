@@ -1,0 +1,16 @@
+summary: Functional test - wabt-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - wabt
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_wabt-devel_cmake_verify
+require:
+  - wabt-devel
+  - wabt-static
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

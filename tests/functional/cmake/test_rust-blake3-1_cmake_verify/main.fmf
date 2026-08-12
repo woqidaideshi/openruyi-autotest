@@ -1,0 +1,17 @@
+summary: Functional test - rust-blake3-1 cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - cargo
+  - rust-blake3-1
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rust-blake3-1_cmake_verify
+require:
+  - rust-blake3-1
+  - cmake
+  - gcc
+  - beakerlib
+  - rust
+  - cargo

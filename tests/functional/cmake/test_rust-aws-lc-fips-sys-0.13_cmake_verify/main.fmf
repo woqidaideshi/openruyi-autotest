@@ -1,0 +1,17 @@
+summary: Functional test - rust-aws-lc-fips-sys-0.13 cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - cargo
+  - rust-aws-lc-fips-sys-0.13
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rust-aws-lc-fips-sys-0.13_cmake_verify
+require:
+  - rust-aws-lc-fips-sys-0.13
+  - cmake
+  - gcc
+  - beakerlib
+  - rust
+  - cargo

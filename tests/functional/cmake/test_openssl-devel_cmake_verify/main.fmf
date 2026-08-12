@@ -1,0 +1,15 @@
+summary: Functional test - openssl-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - openssl
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_openssl-devel_cmake_verify
+require:
+  - openssl-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

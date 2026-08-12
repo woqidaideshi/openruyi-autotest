@@ -1,0 +1,15 @@
+summary: Functional test - flatbuffers-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - flatbuffers
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_flatbuffers-devel_cmake_verify
+require:
+  - flatbuffers-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

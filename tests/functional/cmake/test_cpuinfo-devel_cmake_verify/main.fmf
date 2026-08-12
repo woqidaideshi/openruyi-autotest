@@ -1,0 +1,15 @@
+summary: Functional test - cpuinfo-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - cpuinfo
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_cpuinfo-devel_cmake_verify
+require:
+  - cpuinfo-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

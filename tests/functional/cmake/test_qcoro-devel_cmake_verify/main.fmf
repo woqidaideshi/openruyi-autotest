@@ -1,0 +1,15 @@
+summary: Functional test - qcoro-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - qcoro
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_qcoro-devel_cmake_verify
+require:
+  - qcoro-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

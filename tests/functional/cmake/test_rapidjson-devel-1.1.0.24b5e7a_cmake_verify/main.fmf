@@ -1,0 +1,15 @@
+summary: Functional test - rapidjson-devel-1.1.0.24b5e7a cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - rapidjson-devel-1.1.0.24b5e7a
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rapidjson-devel-1.1.0.24b5e7a_cmake_verify
+require:
+  - rapidjson-devel-1.1.0.24b5e7a
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

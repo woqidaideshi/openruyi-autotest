@@ -1,0 +1,15 @@
+summary: Functional test - gpgmepp-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - gpgmepp
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_gpgmepp-devel_cmake_verify
+require:
+  - gpgmepp-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

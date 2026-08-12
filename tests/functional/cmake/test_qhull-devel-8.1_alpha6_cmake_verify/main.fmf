@@ -1,0 +1,15 @@
+summary: Functional test - qhull-devel-8.1~alpha6 cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - qhull-devel-8.1~alpha6
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_qhull-devel-8.1_alpha6_cmake_verify
+require:
+  - qhull-devel-8.1~alpha6
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

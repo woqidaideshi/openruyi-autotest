@@ -1,0 +1,15 @@
+summary: Functional test - glfw-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - glfw
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_glfw-devel_cmake_verify
+require:
+  - glfw-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

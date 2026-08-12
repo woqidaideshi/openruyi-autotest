@@ -1,0 +1,15 @@
+summary: Functional test - fftw-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - fftw
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_fftw-devel_cmake_verify
+require:
+  - fftw-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

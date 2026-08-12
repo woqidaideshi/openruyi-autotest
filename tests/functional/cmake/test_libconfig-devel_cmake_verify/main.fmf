@@ -1,0 +1,15 @@
+summary: Functional test - libconfig-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - libconfig
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_libconfig-devel_cmake_verify
+require:
+  - libconfig-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

@@ -1,0 +1,15 @@
+summary: Functional test - gtk-doc cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - gtk-doc
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_gtk-doc_cmake_verify
+require:
+  - gtk-doc
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

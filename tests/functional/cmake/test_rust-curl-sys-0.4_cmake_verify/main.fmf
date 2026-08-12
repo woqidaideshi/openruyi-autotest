@@ -1,0 +1,17 @@
+summary: Functional test - rust-curl-sys-0.4 cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - cargo
+  - rust-curl-sys-0.4
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rust-curl-sys-0.4_cmake_verify
+require:
+  - rust-curl-sys-0.4
+  - cmake
+  - gcc
+  - beakerlib
+  - rust
+  - cargo

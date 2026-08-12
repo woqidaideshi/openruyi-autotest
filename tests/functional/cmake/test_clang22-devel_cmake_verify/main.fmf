@@ -1,0 +1,15 @@
+summary: Functional test - clang22-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - clang22
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_clang22-devel_cmake_verify
+require:
+  - clang22-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

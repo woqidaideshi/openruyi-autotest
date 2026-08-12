@@ -1,0 +1,16 @@
+summary: Functional test - SDL3-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - SDL3
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_sdl3-devel_cmake_verify
+require:
+  - SDL3-devel
+  - SDL3-test
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

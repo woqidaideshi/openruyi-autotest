@@ -1,0 +1,15 @@
+summary: Functional test - double-conversion-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - double-conversion
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_double-conversion-devel_cmake_verify
+require:
+  - double-conversion-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

@@ -1,0 +1,15 @@
+summary: Functional test - libkexiv2-qt6-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - libkexiv2-qt6
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_libkexiv2-qt6-devel_cmake_verify
+require:
+  - libkexiv2-qt6-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

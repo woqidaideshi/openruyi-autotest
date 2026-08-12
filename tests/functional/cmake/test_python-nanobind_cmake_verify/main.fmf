@@ -1,0 +1,15 @@
+summary: Functional test - python-nanobind cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - python-nanobind
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_python-nanobind_cmake_verify
+require:
+  - python-nanobind
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

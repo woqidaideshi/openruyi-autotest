@@ -1,0 +1,17 @@
+summary: Functional test - rust-libz-sys-1 cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - cargo
+  - rust-libz-sys-1
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_rust-libz-sys-1_cmake_verify
+require:
+  - rust-libz-sys-1
+  - cmake
+  - gcc
+  - beakerlib
+  - rust
+  - cargo

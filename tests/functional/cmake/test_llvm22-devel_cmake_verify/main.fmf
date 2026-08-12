@@ -1,0 +1,16 @@
+summary: Functional test - llvm22-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - llvm22
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_llvm22-devel_cmake_verify
+require:
+  - llvm22-devel
+  - llvm-devel
+  - cmake
+  - gcc
+  - gcc-c++
+  - beakerlib

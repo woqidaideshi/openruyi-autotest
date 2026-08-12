@@ -1,0 +1,15 @@
+summary: Functional test - kscreenlocker-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - kscreenlocker
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_kscreenlocker-devel_cmake_verify
+require:
+  - kscreenlocker-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

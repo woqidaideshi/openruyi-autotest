@@ -1,0 +1,15 @@
+summary: Functional test - fcitx5-lua-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - fcitx5-lua
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_fcitx5-lua-devel_cmake_verify
+require:
+  - fcitx5-lua-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

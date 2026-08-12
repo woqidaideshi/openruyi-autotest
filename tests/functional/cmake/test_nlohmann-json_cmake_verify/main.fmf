@@ -1,0 +1,15 @@
+summary: Functional test - nlohmann-json cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - nlohmann-json
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_nlohmann-json_cmake_verify
+require:
+  - nlohmann-json
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

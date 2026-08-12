@@ -1,0 +1,15 @@
+summary: Functional test - md4c-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - md4c
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_md4c-devel_cmake_verify
+require:
+  - md4c-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

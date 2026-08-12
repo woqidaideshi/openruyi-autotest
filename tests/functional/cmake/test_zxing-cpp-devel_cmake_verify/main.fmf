@@ -1,0 +1,15 @@
+summary: Functional test - zxing-cpp-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - zxing-cpp
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_zxing-cpp-devel_cmake_verify
+require:
+  - zxing-cpp-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

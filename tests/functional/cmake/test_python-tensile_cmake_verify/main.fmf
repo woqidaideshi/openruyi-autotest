@@ -1,0 +1,15 @@
+summary: Functional test - python-tensile cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - python-tensile
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_python-tensile_cmake_verify
+require:
+  - python-tensile
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

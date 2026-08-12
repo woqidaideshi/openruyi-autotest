@@ -1,0 +1,15 @@
+summary: Functional test - cmake-rpm-macros cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - note
+  - cmake-rpm-macros
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_cmake-rpm-macros_cmake_verify
+require:
+  - cmake-rpm-macros
+  - cmake
+  - gcc
+  - beakerlib

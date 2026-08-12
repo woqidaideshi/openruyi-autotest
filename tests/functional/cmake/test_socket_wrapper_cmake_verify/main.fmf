@@ -1,0 +1,15 @@
+summary: Functional test - socket_wrapper cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - socket_wrapper
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_socket_wrapper_cmake_verify
+require:
+  - socket_wrapper
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

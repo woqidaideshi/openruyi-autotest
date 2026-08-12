@@ -1,0 +1,15 @@
+summary: Functional test - libjwt-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - libjwt
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_libjwt-devel_cmake_verify
+require:
+  - libjwt-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

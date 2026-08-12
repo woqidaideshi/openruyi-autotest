@@ -1,0 +1,15 @@
+summary: Functional test - qt6-qtwayland-adwaita-decoration cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - qt6-qtwayland-adwaita-decoration
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_qt6-qtwayland-adwaita-decoration_cmake_verify
+require:
+  - qt6-qtwayland-adwaita-decoration
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

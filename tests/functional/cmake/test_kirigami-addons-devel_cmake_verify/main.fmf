@@ -1,0 +1,15 @@
+summary: Functional test - kirigami-addons-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - kirigami-addons
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_kirigami-addons-devel_cmake_verify
+require:
+  - kirigami-addons-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

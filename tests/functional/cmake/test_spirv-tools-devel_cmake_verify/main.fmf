@@ -1,0 +1,15 @@
+summary: Functional test - spirv-tools-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - spirv-tools
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_spirv-tools-devel_cmake_verify
+require:
+  - spirv-tools-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

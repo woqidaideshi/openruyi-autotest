@@ -1,0 +1,15 @@
+summary: Functional test - qt6-qtsensors-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - qt6-qtsensors
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_qt6-qtsensors-devel_cmake_verify
+require:
+  - qt6-qtsensors-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

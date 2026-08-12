@@ -1,0 +1,15 @@
+summary: Functional test - fmt-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - fmt
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_fmt-devel_cmake_verify
+require:
+  - fmt-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++

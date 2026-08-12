@@ -1,0 +1,15 @@
+summary: Functional test - freeglut-devel cmake verify
+test: ./test.sh
+tag:
+  - functional
+  - cmake
+  - freeglut
+duration: 10m
+tier: 2
+path: /tests/functional/cmake/test_freeglut-devel_cmake_verify
+require:
+  - freeglut-devel
+  - cmake
+  - gcc
+  - beakerlib
+  - gcc-c++
