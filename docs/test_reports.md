@@ -3,8 +3,6 @@
 > Test execution time: YYYY-MM-DD HH:MM
 > Test environment: openRuyi Creek, kernel xxx, riscv64
 
-> :cn: [中文版 (Chinese Version)](test_reports_zh.md)
-
 ---
 
 ## Overview
@@ -29,13 +27,13 @@ This test run covers seven categories — Smoke, Functional, Security, Performan
 | Test Type | Suites | Cases | Pass | Fail | Skip | Pass Rate |
 |-----------|:---:|:---:|:---:|:---:|:---:|:---:|
 | Smoke | 100 | 100 | - | - | - | - |
-| Functional | 202 | 566 | - | - | - | - |
+| Functional | 202 | 1103 | - | - | - | - |
 | Security | 106 | 106 | - | - | - | - |
 | Performance | 7 | 7 | - | - | - | - |
 | Compatibility | 188 | 188 | - | - | - | - |
 | Reliability | 1 | 1 | - | - | - | - |
 | Feature | 0 | 0 | - | - | - | - |
-| **Total** | **604** | **968** | - | - | - | - |
+M0505** | - | - | - | - |
 
 ---
 
@@ -69,7 +67,7 @@ This test run covers seven categories — Smoke, Functional, Security, Performan
 | Category | Packages | Cases | Pass | Fail | Skip | Status |
 |----------|:---:|:---:|:---:|:---:|:---:|:---:|
 | pkgs | 202 | 566 | - | - | - | - |
-| **Total** | **202** | **566** | - | - | - | - |
+M0505** | - | - | - | - |
 
 ---
 

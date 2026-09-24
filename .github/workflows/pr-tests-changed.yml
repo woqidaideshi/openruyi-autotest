@@ -1,19 +1,21 @@
 # ============================================================
-# PR 测试验证流水线
+# PR test verification pipeline
 #
-# 触发条件：
-#   1. 有 PR 提交（open / synchronize / reopened）
-#   2. PR 中 tests/ 目录下有文件改动
+# Trigger conditions:
+#   1. PR commits (open / synchronize / reopened)
+#   2. Files under tests/ are changed in the PR
 #
-# 流程：
-#   1. 检查 PR 中 tests/ 下改动的文件
-#   2. 根据改动脚本涉及的测试元数据计算 VM 规格
-#      （QEMU 数量、CPU、内存、网卡、磁盘）
-#   3. 在 CloudPods 云平台创建 KVM 虚拟机，并在其中启动
-#      openRuyi RISC-V QEMU 虚拟机（复用 create_server.py 逻辑）
-#   4. 在 QEMU 中模拟手工测试方式执行被修改的脚本
-#   5. 结果汇总并发布 PR 评论
-#   6. 清理云平台虚拟机（无论成败）
+# Workflow:
+#   1. Check changed files under tests/ in the PR
+#   2. Compute VM spec from test metadata of changed scripts
+#      (QEMU count, CPU, memory, NICs, disks, server_count)
+#   3. Request env from persistent CI pre-provisioned pool (pool A=1q×20 / pool B=2q×5)
+#   4. Execute changed scripts in QEMU simulating manual test flow
+#   5. Release env back to pool (no VM deletion, mark as idle for reuse)
+#
+# Note: No PR comment is posted. For fork PRs, GITHUB_TOKEN is read-only
+#   and custom secrets are not passed to fork PRs, causing 403 on comment API.
+#   Results are shown as workflow log / check run.
 #
 # Runner: self-hosted (10.20.238.253, openruyi-github-runner)
 # ============================================================
@@ -30,11 +32,10 @@ concurrency:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   verify-tests-changed:
-    # 仅在 PR 改动 tests/ 目录时运行
+    # Only run when PR changes tests/ directory
     if: ${{ github.event.pull_request }}
     runs-on: [self-hosted, Linux, X64, openEuler]
     timeout-minutes: 600
@@ -55,7 +56,7 @@ jobs:
           fetch-depth: 0
 
       # --------------------------------------------------------
-      # 步骤 0：确保 runner 上有 paramiko（幂等）
+      # Step 0: Ensure paramiko on runner (idempotent)
       # --------------------------------------------------------
       - name: Ensure paramiko on runner
         run: |
@@ -63,28 +64,30 @@ jobs:
             python3 -m pip install --user paramiko 2>&1 | tail -3
 
       # --------------------------------------------------------
-      # 步骤 1：收集 tests/ 下改动的文件
+      # Step 1: Collect only PR-changed test.sh files
       # --------------------------------------------------------
-      - name: Get changed files under tests/
+      - name: Get PR-changed test files
         id: changed
         run: |
-          BASE_SHA=${{ github.event.pull_request.base.sha }}
-          HEAD_SHA=${{ github.event.pull_request.head.sha }}
-          git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- tests/ > changed_files.txt || true
-          echo "Changed files under tests/:"
+          # Use git diff between PR base and head to find only changed files
+          git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" \
+            | grep '^tests/functional/pkgs/' \
+            | grep '/test\.sh$' \
+            | sort > changed_files.txt || true
+
+          echo "PR-changed test files:"
           cat changed_files.txt
           COUNT=$(wc -l < changed_files.txt)
           echo "count=$COUNT" >> "$GITHUB_OUTPUT"
-          # 无改动时输出空，供后续步骤短路
           if [ "$COUNT" -eq 0 ]; then
-            echo "No tests/ changes in this PR."
+            echo "No test files changed in PR."
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       # --------------------------------------------------------
-      # 步骤 2：计算 VM 资源规格
+      # Step 2: Compute VM resource spec
       # --------------------------------------------------------
       - name: Compute VM requirements
         id: compute
@@ -97,16 +100,17 @@ jobs:
           cat vm_requirements.json
 
       # --------------------------------------------------------
-      # 步骤 3：创建 CloudPods 虚拟机 + 启动 QEMU
+      # Step 3: Acquire env from CI pre-provisioned pool
       # --------------------------------------------------------
-      - name: Launch CloudPods hosts and QEMU VMs
-        id: launch
+      - name: Acquire environment from CI pool
+        id: pool-acquire
         if: steps.changed.outputs.changed == 'true'
         run: |
           set -o pipefail
-          python3 .github/scripts/cli.py launch-qemu-env \
+          python3 .github/scripts/cli.py pool-acquire \
             --requirements vm_requirements.json \
-            --output vm_info.json 2>&1 | tee launch.log
+            --timeout 600 \
+            --output vm_info.json 2>&1 | tee pool_acquire.log
           echo "vm_info:"
           cat vm_info.json
         env:
@@ -115,7 +119,7 @@ jobs:
           CLOUDPODS_PASSWORD: ${{ secrets.CLOUDPODS_PASSWORD }}
 
       # --------------------------------------------------------
-      # 步骤 4：在 QEMU 中执行被修改的测试脚本
+      # Step 4: Execute changed test scripts in QEMU
       # --------------------------------------------------------
       - name: Run tests in QEMU (simulate manual testing)
         id: run-tests
@@ -131,32 +135,15 @@ jobs:
           cat test_results.json || true
 
       # --------------------------------------------------------
-      # 步骤 5：发布 PR 评论（无论 Run tests 成败都执行）
+      # Step 5: Release env back to pool (no VM delete, always runs)
       # --------------------------------------------------------
-      - name: Post PR comment with results
-        if: steps.changed.outputs.changed == 'true' && always()
-        run: |
-          if [ -f test_results.json ]; then
-            python3 .github/scripts/cli.py post-pr-comment \
-              --results test_results.json || true
-          else
-            echo "No test_results.json, skip comment"
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-
-      # --------------------------------------------------------
-      # 步骤 6：清理云平台虚拟机（总是执行）
-      # --------------------------------------------------------
-      - name: Cleanup CloudPods resources
+      - name: Release environment back to pool
         if: always()
         run: |
           if [ -f vm_info.json ]; then
-            python3 .github/scripts/cli.py cleanup-cloudpods --vm-info vm_info.json || true
+            python3 .github/scripts/cli.py pool-release --pool-info vm_info.json || true
           else
-            echo "No vm_info.json, skip cleanup"
+            echo "No vm_info.json, skip release"
           fi
         env:
           CLOUDPODS_KEYSTONE_URL: ${{ secrets.CLOUDPODS_KEYSTONE_URL }}

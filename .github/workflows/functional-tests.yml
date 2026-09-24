@@ -1,0 +1,135 @@
+# ============================================================
+# Functional full test pipeline (manual trigger)
+#
+# Trigger: GitHub manual trigger (workflow_dispatch)
+#
+# Workflow:
+#   1. Checkout code
+#   2. Install dependencies (paramiko/requests)
+#   3. Run .github/scripts/cli.py run-functional:
+#        - Discover all test suites under tests/functional
+#        - Run concurrently (default 20, configurable)
+#        - Each suite requests an env from CloudPods pool (create if needed)
+#        - Release after completion (no delete)
+#        - Clean up all pool VMs after all suites finish
+#   4. Generate report to reports/functional/<YYYY-MM-DD>/
+#   5. Upload report as workflow artifact
+#
+# Manual trigger parameters (optional):
+#   suite      - Run only specified test suites (comma-separated, empty=all)
+#   no_cleanup - Keep pool VMs after completion (for debugging)
+#
+# Runner: self-hosted (10.20.238.253, openruyi-github-runner)
+# ============================================================
+name: Functional Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      suite:
+        description: 'Run only specified test suites (comma-separated, empty=all)'
+        required: false
+        default: ''
+        type: string
+      no_cleanup:
+        description: 'Keep pool VMs after completion (for debugging)'
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: functional-tests-${{ github.ref_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  functional-test:
+    runs-on: [self-hosted, Linux, X64, openEuler]
+    timeout-minutes: 4320
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
+      WORKSPACE: ${{ github.workspace }}
+      CLOUDPODS_KEYSTONE_URL: ${{ secrets.CLOUDPODS_KEYSTONE_URL }}
+      CLOUDPODS_USER: ${{ secrets.CLOUDPODS_USER }}
+      CLOUDPODS_PASSWORD: ${{ secrets.CLOUDPODS_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # --------------------------------------------------------
+      # Step 1: Ensure runner has dependencies (idempotent)
+      # --------------------------------------------------------
+      - name: Ensure Python deps
+        run: |
+          python3 -c "import paramiko, requests" 2>/dev/null || \
+            python3 -m pip install --user paramiko requests 2>&1 | tail -3
+
+      # --------------------------------------------------------
+      # Step 2: Run functional full test
+      # --------------------------------------------------------
+      - name: Run functional tests
+        id: run
+        run: |
+          set -o pipefail
+          EXTRA_ARGS=""
+          if [ -n "${{ inputs.suite }}" ]; then
+            EXTRA_ARGS="--suite ${{ inputs.suite }}"
+          fi
+          if [ "${{ inputs.no_cleanup }}" == "true" ]; then
+            EXTRA_ARGS="$EXTRA_ARGS --no-cleanup"
+          fi
+          # shellcheck disable=SC2086
+          python3 .github/scripts/cli.py run-functional $EXTRA_ARGS 2>&1 | tee run_functional.log
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+        env:
+          CLOUDPODS_KEYSTONE_URL: ${{ secrets.CLOUDPODS_KEYSTONE_URL }}
+          CLOUDPODS_USER: ${{ secrets.CLOUDPODS_USER }}
+          CLOUDPODS_PASSWORD: ${{ secrets.CLOUDPODS_PASSWORD }}
+
+      # --------------------------------------------------------
+      # Step 3: Show test report as Job Summary on GitHub Actions page
+      #   - Markdown in $GITHUB_STEP_SUMMARY renders directly on the run page,
+      #     no need to download artifact to view summary table and details.
+      # --------------------------------------------------------
+      - name: Publish test report as Job Summary
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Find the latest report (reports/functional/YYYY-MM-DD/report.md)
+          REPORT_MD=$(ls -1t reports/functional/*/report.md 2>/dev/null | head -1 || true)
+          if [ -z "$REPORT_MD" ]; then
+            echo "No report.md found, skip Job Summary" >> "$GITHUB_STEP_SUMMARY"
+            echo "## ⚠️ Functional test report not generated" >> "$GITHUB_STEP_SUMMARY"
+            echo "(No report.md was generated, check logs above for details)" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          {
+            echo "## 📊 Functional Test Report"
+            echo ""
+            echo "<details><summary>Click to view detailed results</summary>"
+            echo ""
+            cat "$REPORT_MD"
+            echo ""
+            echo "</details>"
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "Job Summary published: $REPORT_MD"
+
+      # --------------------------------------------------------
+      # Step 4: Upload report as artifact (full HTML version downloadable)
+      # --------------------------------------------------------
+      - name: Upload functional report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: functional-report-${{ github.run_id }}
+          path: |
+            reports/functional/**
+            run_functional.log
+          if-no-files-found: warn
