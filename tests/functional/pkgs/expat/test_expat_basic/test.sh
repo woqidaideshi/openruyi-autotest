@@ -28,11 +28,8 @@ rlJournalStart
 
 
 
-    rlPhaseStartTest "error handling"
-
-rlRun() { eval "$1" 2>&1; return $?; }
-
-    rlRun "xmlwf --help 2>&1 | head -10" 0 "XML well-formedness check"
+    rlPhaseStartTest "basic check"
+    rlRun "xmlwf --help 2>&1 | head -10" 0 "xmlwf: basic check"
 
     rlPhaseEnd
 

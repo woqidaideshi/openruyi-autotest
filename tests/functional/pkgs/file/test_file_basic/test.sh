@@ -28,11 +28,8 @@ rlJournalStart
 
 
 
-    rlPhaseStartTest "error handling"
-
-rlRun() { eval "$1" 2>&1; return $?; }
-
-    rlRun "file --help 2>&1 | head -10" 0 "File type detection"
+    rlPhaseStartTest "basic check"
+    rlRun "file --help 2>&1 | head -10" 0 "file: basic check"
 
     rlPhaseEnd
 

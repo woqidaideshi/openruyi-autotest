@@ -28,13 +28,11 @@ rlJournalStart
 
 
 
-    rlPhaseStartTest "error handling"
+    rlPhaseStartTest "basic check"
 
-rlRun() { eval "$1" 2>&1; return $?; }
+    rlRun "awk --help 2>&1 | head -10" 0 "awk: basic check"
 
-    rlRun "awk --help 2>&1 | head -10" 0 "AWK text processing"
-
-    rlRun "gawk --help 2>&1 | head -10" 0 "AWK text processing"
+    rlRun "gawk --help 2>&1 | head -10" 0 "gawk: basic check"
 
     rlPhaseEnd
 

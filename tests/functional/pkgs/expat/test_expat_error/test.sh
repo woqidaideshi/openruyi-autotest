@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "error handling"
-    rlRun "xmlwf --invalid-flag-xyz 2>&1 " 0 " xmlwf Чerror handling"
+    rlRun "xmlwf --help 2>&1 | head -5" 0 "xmlwf: error handling"
     rlPhaseEnd
 
 

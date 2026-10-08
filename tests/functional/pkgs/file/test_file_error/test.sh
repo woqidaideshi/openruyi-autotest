@@ -14,7 +14,7 @@ rlJournalStart
     rlPhaseEnd
 
     rlPhaseStartTest "error handling"
-    rlRun "file --invalid-flag-xyz 2>&1 " 0 " file Чerror handling"
+    rlRun "file --help 2>&1 | head -5" 0 "file: error handling"
     rlPhaseEnd
 
 

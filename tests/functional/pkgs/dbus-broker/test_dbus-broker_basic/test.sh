@@ -28,11 +28,8 @@ rlJournalStart
 
 
 
-    rlPhaseStartTest "broker - error handling"
-
-rlRun() { eval "$1" 2>&1; return $?; }
-
-    rlRun "dbus-broker --help 2>&1 | head -10" 0 "D-Bus operation"
+    rlPhaseStartTest "broker - basic"
+    rlRun "dbus-broker --help 2>&1 | head -10" 0 "dbus-broker: help check"
 
     rlPhaseEnd
 
